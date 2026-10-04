@@ -4,7 +4,7 @@ import { extractSubdomain } from '@/lib/domain';
 import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
 
 // Allowed root domains for redirection protection
-const ALLOWED_ROOT_HOSTS = ['alafiyah.sch.id', 'localhost', '127.0.0.1'];
+const ALLOWED_ROOT_HOSTS = ['alafiyah.sch.id', 'localhost', '127.0.0.1', 'vercel.app'];
 
 function isAllowedHost(host: string): boolean {
   const hostname = host.split(':')[0].toLowerCase();
@@ -52,10 +52,12 @@ export function proxy(request: NextRequest) {
       }
     }
   } else {
-    // On root domain (alafiyah.sch.id or localhost:3000), redirect /tk, /sd, /smp to subdomain
+    // On root domain with custom domain / localhost, redirect /tk, /sd, /smp to subdomain
+    // On vercel.app default domains (where sub-subdomains don't resolve), keep path-based routing /sd, /tk, /smp
     const hostname = host.split(':')[0].toLowerCase();
     const isIp = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
-    if (!isIp && (pathname === '/tk' || pathname === '/sd' || pathname === '/smp')) {
+    const isVercel = hostname.endsWith('.vercel.app');
+    if (!isIp && !isVercel && (pathname === '/tk' || pathname === '/sd' || pathname === '/smp')) {
       const targetSlug = pathname.slice(1);
       const url = request.nextUrl.clone();
       const [hostNameOnly, port] = host.split(':');

@@ -71,9 +71,11 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
     const [currentHostname, port] = currentHost.split(':');
     const portSuffix = port ? `:${port}` : '';
 
-    // If accessed via numerical IP (127.0.0.1, 192.168.x.x), subdomains don't resolve by default DNS
+    // If accessed via vercel.app or numerical IP, nested subdomains (e.g. sd.project.vercel.app) do not resolve
+    const isVercelDomain = currentHostname.endsWith('.vercel.app');
     const isIpAddress = /^(\d{1,3}\.){3}\d{1,3}$/.test(currentHostname);
-    if (isIpAddress) {
+
+    if (isVercelDomain || isIpAddress) {
       if (slug === 'foundation') {
         return `${protocol}//${currentHost}${normalizedPath || '/'}`;
       }
@@ -97,6 +99,13 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
   // Server-side / SSR resolution
   const envRoot = process.env.NEXT_PUBLIC_ROOT_DOMAIN || 'localhost:3000';
   const protocol = envRoot.includes('localhost') ? 'http:' : 'https:';
+
+  if (envRoot.endsWith('.vercel.app')) {
+    if (slug === 'foundation') {
+      return `${protocol}//${envRoot}${normalizedPath || '/'}`;
+    }
+    return `${protocol}//${envRoot}/${slug}${normalizedPath}`;
+  }
 
   if (slug === 'foundation') {
     return `${protocol}//${envRoot}${normalizedPath || '/'}`;
