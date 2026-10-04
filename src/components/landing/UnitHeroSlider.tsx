@@ -45,30 +45,18 @@ function renderHeroHeadline(
   // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
     return (
-      <span className="flex flex-col items-start text-left sm:gap-y-1.5">
-        {/* Line 1: Bukan Sekedar — script accent; mobile uses a fixed text-xl so it sits proportionally above the heading */}
-        <span className="font-tegak-sambung block text-xl sm:text-[1.28em] italic font-medium sm:font-bold text-left text-white/95 tracking-normal leading-normal sm:leading-[1.08] mb-1 sm:mb-0 pr-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+      <>
+        {/* Accent: refined serif italic, sits above the heading as its own line */}
+        <span className="font-hero-accent block mb-1 text-2xl sm:text-3xl lg:text-4xl italic font-normal sm:font-medium tracking-wide leading-snug text-neutral-200 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
           Bukan Sekedar
         </span>
-        {/* Line 2: Tempat Belajar, */}
-        <span className="sm:leading-[1.12] text-white">
-          Tempat Belajar,
-        </span>
-        {/* Line 3: Namun Juga Tempat */}
-        <span className="sm:leading-[1.12] text-white">
-          Namun Juga{' '}
-          <span className={`${highlightClass} inline`}>
-            Tempat
-          </span>
-        </span>
-        {/* Line 4: Bertumbuh Ananda */}
-        <span className="sm:leading-[1.12] text-white">
-          <span className={`${highlightClass} inline`}>
-            Bertumbuh
-          </span>
+        {/* Heading text flows naturally so it fills the available width instead of a forced 4-line stack */}
+        <span className="block text-white">
+          Tempat Belajar, Namun Juga{' '}
+          <span className={highlightClass}>Tempat Bertumbuh</span>
           {p2 ? (p2.startsWith(',') || p2.startsWith('.') ? p2 : ` ${p2}`) : ' Ananda'}
         </span>
-      </span>
+      </>
     );
   }
 
@@ -114,32 +102,28 @@ function HeroContent({
 
   return (
     <>
-      {/* Floating Badge Pill — outer layer floats, inner layer handles tactile press so transforms never fight */}
+      {/* Minimal Floating Badge — outer layer floats, inner layer handles tactile press so transforms never fight */}
       {slide.badge && (
         <div className="mb-4 sm:mb-5 animate-hero-float">
           <Link
             href={pLink}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] sm:text-xs font-bold tracking-wide backdrop-blur-md shadow-lg transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
+            className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
           >
-            <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 animate-ping motion-reduce:animate-none" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-current" />
-            </span>
-            <span>{slide.badge}</span>
+            {slide.badge}
           </Link>
         </div>
       )}
 
-      {/* Main Headline — reference scale: text-3xl mobile, extrabold, tight tracking */}
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] sm:leading-[1.12] text-left text-white drop-shadow-lg break-words max-w-3xl lg:max-w-4xl sm:[word-spacing:0.08em]">
+      {/* Main Headline — wide measure so lines fill toward the right instead of breaking choppily */}
+      <h1 className="w-full max-w-xl lg:max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.18] sm:leading-[1.12] tracking-tight text-left text-white drop-shadow-lg break-words">
         {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightClass)}
       </h1>
 
-      {/* Subtitle Description */}
+      {/* Subtitle Description — constrained measure to balance with the CTA below */}
       {slide.description && (
-        <p className="mt-3 sm:mt-5 text-sm sm:text-base lg:text-xl leading-relaxed text-left text-neutral-300 sm:text-slate-200 font-normal max-w-prose sm:max-w-2xl lg:max-w-3xl drop-shadow-sm sm:[word-spacing:0.06em]">
+        <p className="mt-3 sm:mt-5 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-sm lg:text-lg leading-relaxed text-left text-neutral-300 font-normal drop-shadow-sm">
           {slide.description}
         </p>
       )}
@@ -296,30 +280,24 @@ export default function UnitHeroSlider({
       case 'tk':
         return {
           glowColor: 'bg-emerald-500/20',
-          badgeBg: 'bg-emerald-500/20 border-emerald-400/40 text-emerald-300',
-          badgeIcon: 'text-emerald-300',
+          badgeText: 'text-emerald-300/90',
           highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-300 to-yellow-300',
-          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-500 hover:to-teal-700 shadow-emerald-900/40',
-          trustIconColor: 'text-emerald-400'
+          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-500 hover:to-teal-700 shadow-emerald-900/40'
         };
       case 'sd':
         return {
           glowColor: 'bg-teal-500/20',
-          badgeBg: 'bg-amber-500/20 border-amber-400/40 text-amber-300',
-          badgeIcon: 'text-amber-400',
+          badgeText: 'text-amber-300/90',
           highlight: 'text-emerald-400',
-          primaryBtn: 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-950/40',
-          trustIconColor: 'text-amber-400'
+          primaryBtn: 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-950/40'
         };
       case 'smp':
       default:
         return {
           glowColor: 'bg-emerald-700/25',
-          badgeBg: 'bg-teal-500/20 border-teal-400/40 text-teal-200',
-          badgeIcon: 'text-teal-300',
+          badgeText: 'text-teal-200/90',
           highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-300 to-emerald-300',
-          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 hover:from-emerald-500 hover:to-teal-600 shadow-teal-900/40',
-          trustIconColor: 'text-teal-300'
+          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 hover:from-emerald-500 hover:to-teal-600 shadow-teal-900/40'
         };
     }
   }, [slug]);
@@ -397,7 +375,7 @@ export default function UnitHeroSlider({
               fallbackPrimaryLink={ppdbUrl}
               highlightClass={themeConfig.highlight}
               primaryBtnClass={themeConfig.primaryBtn}
-              badgeClass={themeConfig.badgeBg}
+              badgeClass={themeConfig.badgeText}
             />
           </div>
         ) : (
@@ -419,7 +397,7 @@ export default function UnitHeroSlider({
                     fallbackPrimaryLink={ppdbUrl}
                     highlightClass={themeConfig.highlight}
                     primaryBtnClass={themeConfig.primaryBtn}
-                    badgeClass={themeConfig.badgeBg}
+                    badgeClass={themeConfig.badgeText}
                   />
                 </div>
               );
