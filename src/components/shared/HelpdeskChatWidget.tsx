@@ -170,7 +170,7 @@ export default function HelpdeskChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-18 sm:bottom-6 right-3 sm:right-6 z-40 print:hidden font-sans">
+    <div className="hidden sm:block fixed bottom-6 right-6 z-40 print:hidden font-sans">
       {/* 1. Floating Launcher Button - Al-Irsyad Style Pill */}
       {!isOpen ? (
         <button

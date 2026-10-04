@@ -117,17 +117,17 @@ export function sanitizeAdabText(text?: string | null): string {
 }
 
 export const renderStatIcon = (type: EnhancedStatItem['iconType']) => {
+  const cls = 'w-3.5 h-3.5 shrink-0';
   switch (type) {
     case 'users':
-      return <Users className="w-4 h-4" />;
+      return <Users className={cls} aria-hidden="true" />;
     case 'compass':
-      return <Compass className="w-4 h-4" />;
-    case 'award':
-      return <Award className="w-4 h-4" />;
+      return <Compass className={cls} aria-hidden="true" />;
     case 'quran':
-      return <BookOpen className="w-4 h-4" />;
+      return <BookOpen className={cls} aria-hidden="true" />;
+    case 'award':
     default:
-      return <Award className="w-4 h-4" />;
+      return <Award className={cls} aria-hidden="true" />;
   }
 };
 
@@ -461,46 +461,28 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         customSlides={school.heroSlides}
       />
 
-      {/* Stats 4-Grid Bar: Clean Minimalist Institutional Cards */}
-      <section className="relative z-10 bg-slate-50/70 border-b border-slate-200/80 py-6 sm:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {defaultStats.map((stat, idx) => (
-              <InteractiveBubbleCard
-                key={idx}
-                variant={stat.color}
-                className="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md hover:shadow-emerald-900/5 transition-all flex flex-col justify-between relative overflow-hidden group"
+      {/* Stats: compact 2×2 bento grid on mobile, 4-up on desktop */}
+      <section className="relative z-10 bg-neutral-50 border-b border-neutral-200/70 py-4 sm:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ul className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {defaultStats.map((stat) => (
+              <li
+                key={stat.label}
+                className="bg-white rounded-2xl border border-neutral-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-3.5 sm:p-5"
               >
-                {/* Clean Top Accent Line in SD IT Emerald */}
-                <div className="h-0.5 w-full bg-emerald-600" />
-
-                <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
-                  <div>
-                    {/* Clean Minimalist Header: Icon + Category Label */}
-                    <div className="flex items-center gap-2.5 mb-3.5">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200/60 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-200">
-                        {renderStatIcon(stat.iconType)}
-                      </div>
-                      <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                        {stat.label}
-                      </span>
-                    </div>
-
-                    {/* Prominent Value Heading */}
-                    <p className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug group-hover:text-emerald-950 transition-colors">
-                      {stat.value}
-                    </p>
-                  </div>
-
-                  {/* Clean Subtext Context Footer */}
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
-                    <span>{stat.subtext}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-emerald-600 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all shrink-0" />
-                  </div>
-                </div>
-              </InteractiveBubbleCard>
+                <p className="flex items-start gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-neutral-500 leading-tight">
+                  <span className="text-green-600 mt-px">{renderStatIcon(stat.iconType)}</span>
+                  <span>{stat.label}</span>
+                </p>
+                <p className="mt-1.5 text-sm sm:text-base font-bold text-neutral-900 leading-snug">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-[11px] text-neutral-400 line-clamp-1">
+                  {stat.subtext}
+                </p>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
