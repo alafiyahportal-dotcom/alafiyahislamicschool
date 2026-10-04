@@ -1,0 +1,45 @@
+{
+  "name": "SIAKAD Al-Afiyah",
+  "short_name": "SIAKAD",
+  "description": "Portal Sistem Informasi Akademik Mobile Al-Afiyah Majalengka — pantau presensi, tahfidz, rapor, dan SPP murid secara real-time.",
+  "start_url": "/portal/siakad",
+  "scope": "/portal/siakad",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#071D1A",
+  "theme_color": "#10B981",
+  "lang": "id",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/siakad-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/siakad-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/siakad-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard Murid",
+      "url": "/portal/siakad",
+      "description": "Lihat dashboard lengkap data murid"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+version: '3.8'
+
+# ==============================================================================
+# DOCKER COMPOSE - EKOSISTEM PENDIDIKAN TERPADU AL-AFIYAH
+# Yayasan Pendidikan Imam Bonjol Majalengka
+# ==============================================================================
+
+services:
+  # 1. Next.js 16 Web Application (App Router & API Endpoints)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alafiyah_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL:-postgresql://${POSTGRES_USER:-alafiyah_user}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-alafiyah_db}?schema=public}
+      - APP_SECRET=${APP_SECRET}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-${APP_SECRET}}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      - MIDTRANS_IS_PRODUCTION=${MIDTRANS_IS_PRODUCTION:-false}
+      - MIDTRANS_SERVER_KEY=${MIDTRANS_SERVER_KEY:-}
+      - NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=${NEXT_PUBLIC_MIDTRANS_CLIENT_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # Persistent storage for physical PPDB document uploads
+      - ppdb_uploads:/app/public/uploads/ppdb
+
+  # 2. Production PostgreSQL Database (Bound only to localhost loopback for security)
+  db:
+    image: postgres:16-alpine
+    container_name: alafiyah_db
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-alafiyah_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB:-alafiyah_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-alafiyah_user} -d ${POSTGRES_DB:-alafiyah_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+  ppdb_uploads:
+    driver: local

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Singkat Login & Pendaftaran Akun Afiliasi - SD IT Al-Afiyah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #064E3B;
+      --primary-light: #059669;
+      --accent: #D97706;
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+    }
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    /* Action Bar (Screen Only) */
+    .action-bar {
+      background: #064E3B;
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .action-bar .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #FBBF24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-gold {
+      background: #FBBF24;
+      color: #0F172A;
+    }
+    .btn-gold:hover {
+      background: #F59E0B;
+    }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    /* Kop Surat */
+    .header-kop {
+      padding: 32px 32px 20px;
+      border-bottom: 2px solid #064E3B;
+      text-align: center;
+      position: relative;
+    }
+    .header-kop h1 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #064E3B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .header-kop h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #059669;
+      margin-top: 2px;
+    }
+    .header-kop p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    /* Content Body */
+    .content {
+      padding: 32px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #064E3B;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .step-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #064E3B;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 4px;
+    }
+    .step-content p {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.5;
+    }
+    .step-content code {
+      background: #E2E8F0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #064E3B;
+      font-family: monospace;
+      font-weight: 700;
+    }
+    /* Demo Account Callout */
+    .demo-box {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .demo-box h4 {
+      font-size: 12px;
+      font-weight: 800;
+      color: #B45309;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .demo-credentials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .demo-item {
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #FCD34D;
+    }
+    .demo-item span {
+      display: block;
+      font-size: 10px;
+      color: #92400E;
+      font-weight: 700;
+    }
+    .demo-item strong {
+      color: #0F172A;
+      font-family: monospace;
+    }
+    /* Summary Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+    th, td {
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    th {
+      background: #F1F5F9;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    td {
+      background: #fff;
+      color: #334155;
+    }
+    /* Footer */
+    .footer {
+      padding: 16px 32px 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+    /* Print Styles: Menghilangkan Header & Footer Otomatis Browser (URL localhost, Tanggal, Judul Tab) */
+    @page {
+      size: A4 portrait;
+      margin: 0mm !important;
+    }
+    @media print {
+      html, body {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .action-bar {
+        display: none !important;
+      }
+      .container {
+        box-shadow: none !important;
+        border: none !important;
+        max-width: 100% !important;
+        padding: 10mm 14mm !important;
+        border-radius: 0 !important;
+      }
+      .content {
+        padding: 16px 0 !important;
+      }
+      .step-card {
+        page-break-inside: avoid;
+        border: 1px solid #CBD5E1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Top Action Bar (Hanya Tampil di Layar, Tersembunyi saat Dicetak) -->
+    <div class="action-bar">
+      <div>
+        <span class="status-badge">⚡ Status: In Progress (Tahap Pembangunan Aktif)</span>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-gold" onclick="window.print()">
+          🖨️ Cetak / Unduh Dokumen (PDF)
+        </button>
+        <a href="http://localhost:3000/login" class="btn btn-outline" target="_blank">
+          Buka Halaman Login ➜
+        </a>
+      </div>
+    </div>
+
+    <!-- Kop Surat Resmi -->
+    <div class="header-kop">
+      <h1>YAYASAN PENDIDIKAN IMAM BONJOL MAJALENGKA</h1>
+      <h2>SD IT AL-AFIYAH MAJALENGKA (SMART AKHLAQ FITRAH)</h2>
+      <p>Lingkungan Giri Asih - Jl. Gerakan Koperasi, Babakan Jawa, Majalengka Wetan • Hotline: 0895-3222-26104</p>
+    </div>
+
+    <div class="content">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <h2 style="font-size: 18px; color: #064E3B; font-weight: 800;">PANDUAN OPERASIONAL SINGKAT</h2>
+        <p style="font-size: 13px; color: #64748B; font-weight: 600;">Cara Daftar, Cara Login, &amp; Mekanisme Kerja Akun Mitra Afiliasi SD IT Al-Afiyah</p>
+      </div>
+
+      <!-- KOTAK PENTING STATUS PROYEK -->
+      <div style="background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 12px; padding: 14px 18px; margin-bottom: 24px;">
+        <p style="font-size: 12px; color: #065F46; line-height: 1.5;">
+          <strong>PEMBERITAHUAN RAPAT INTERNAL:</strong> Platform ekosistem digital Al-Afiyah saat ini berstatus <em>IN PROGRESS</em> (dalam proses pembangunan dan penyempurnaan aktif berkelanjutan). Seluruh mekanisme akun mitra afiliasi di bawah ini telah disiapkan untuk menghimpun masukan nyata dewan asatidzah dan pengurus yayasan siang ini.
+        </p>
+      </div>
+
+      <!-- BAGIAN 1: CARA DAFTAR -->
+      <h3 class="section-title">
+        <span>A. Cara Pendaftaran Akun Mitra Afiliasi Baru (Hanya 2 Menit)</span>
+      </h3>
+
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Buka Halaman Pendaftaran Afiliasi</h3>
+          <p>Kunjungi alamat web: <code>alafiyah.sch.id/affiliate</code> atau klik menu <strong>"Mitra Afiliasi"</strong> di bagian bawah (footer) website resmi sekolah.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Isi Data Diri Singkat Calon Mitra</h3>
+          <p>Lengkapi formulir pendaftaran: <strong>Nama Lengkap</strong>, <strong>Nomor WhatsApp Aktif</strong>, <strong>Alamat Email</strong>, dan buat <strong>Password Baru</strong> untuk akses akun Anda.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Masukkan Rekening Bank Penerimaan Ujrah / Komisi</h3>
+          <p>Pilih nama bank (contoh: <em>Bank Syariah Indonesia / BSI</em>) dan nomor rekening atas nama mitra. Rekening ini digunakan saat pencairan ujrah syiar rujukan.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Klik Tombol "Daftar Sebagai Mitra Afiliasi"</h3>
+          <p>Akun langsung aktif seketika! Sistem akan otomatis mengarahkan Anda ke <strong>Dasbor Mitra Afiliasi Pribadi</strong> tanpa perlu menunggu verifikasi berhari-hari.</p>
+        </div>
+      </div>
+
+      <!-- BAGIAN 2: CARA LOGIN -->
+      <h3 class="section-title" style="margin-top: 28px;">
+        <span>B. Cara Login Akun Mitra Afiliasi (Bagi yang Sudah Terdaftar)</span>
+      </h3>
+
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Buka Halaman Login Resmi</h3>
+          <p>Akses alamat: <code>alafiyah.sch.id/login</code> melalui peramban di HP atau laptop Anda.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Masukkan Email &amp; Password Terdaftar</h3>
+          <p>Ketikkan email dan password akun afiliasi yang telah dibuat sebelumnya. Klik tombol hijau <strong>"Masuk ke Portal"</strong>.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Masuk ke Dasbor Mitra (/affiliate/dashboard)</h3>
+          <p>Sistem otomatis mengenali peran Anda sebagai <em>AFFILIATE</em> dan langsung membuka dasbor pribadi Anda untuk melihat tautan referral dan rekapan komisi.</p>
+        </div>
+      </div>
+
+      <!-- BAGIAN 3: CARA KERJA & HASIL RUJUKAN -->
+      <h3 class="section-title" style="margin-top: 24px;">
+        <span>C. Cara Kerja Menyebarkan Link &amp; Pemantauan Komisi</span>
+      </h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Langkah</th>
+            <th style="width: 40%;">Aktivitas Mitra</th>
+            <th style="width: 35%;">Cara Kerja Sistem Digital</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Salin Tautan</strong></td>
+            <td>Mitra membuka dasbor di HP, klik tombol <strong>"Salin Tautan"</strong> (contoh: <code>alafiyah.sch.id/ppdb?ref=AHMAD</code>).</td>
+            <td>Sistem membuat kode unik referral permanen yang melekat pada akun mitra.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Sebarkan Info</strong></td>
+            <td>Mitra membagikan tautan bersama poster &amp; brosur resmi SD IT Al-Afiyah ke grup WhatsApp keluarga atau kenalan.</td>
+            <td>Jika link diklik calon wali murid, sistem mencatat riwayat kunjungan referral.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Calon Mendaftar</strong></td>
+            <td>Calon wali murid mengisi formulir PPDB online dan melunasi biaya pendaftaran.</td>
+            <td>Sistem secara otomatis mengunci data pendaftar atas nama mitra rujukan terkait.</td>
+          </tr>
+          <tr>
+            <td><strong>4. Pantau Hasil</strong></td>
+            <td>Mitra melihat langsung di dasbor: jumlah pendaftar, status kelulusan, dan saldo ujrah/komisi.</td>
+            <td>Pencatatan 100% transparan dan anti-sengketa tanpa manipulasi data.</td>
+          </tr>
+          <tr>
+            <td><strong>5. Realisasi Hak</strong></td>
+            <td>Ujrah dicairkan ke rekening bank mitra, atau dialihkan sebagai <strong>pemotong SPP bulanan</strong> ananda di SD IT Al-Afiyah.</td>
+            <td>Dapat dikonfirmasi dan dicatat resmi oleh Bendahara Yayasan.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- BAGIAN 4: BESARAN & ESTIMASI POTENSI KOMISI -->
+      <h3 class="section-title" style="margin-top: 28px;">
+        <span>D. Struktur Resmi &amp; Estimasi Potensi Komisi / Ujrah Mitra</span>
+      </h3>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;">
+        <div style="padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: #F8FAFC; text-align: center;">
+          <span style="font-size: 10px; font-weight: 700; color: #64748B; text-transform: uppercase;">TK IT Al-Afiyah</span>
+          <p style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 2px 0;">Rp 100.000</p>
+          <span style="font-size: 10px; color: #64748B;">per murid diterima</span>
+        </div>
+        <div style="padding: 12px; border-radius: 12px; border: 2px solid #059669; background: #ECFDF5; text-align: center; position: relative;">
+          <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #059669; color: #fff; font-size: 9px; font-weight: 800; padding: 1px 8px; border-radius: 9999px;">FOKUS SD IT</span>
+          <span style="font-size: 10px; font-weight: 700; color: #065F46; text-transform: uppercase;">SD IT Al-Afiyah</span>
+          <p style="font-size: 18px; font-weight: 900; color: #064E3B; margin: 2px 0;">Rp 150.000</p>
+          <span style="font-size: 10px; color: #059669; font-weight: 700;">total per murid rujukan</span>
+        </div>
+        <div style="padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: #F8FAFC; text-align: center;">
+          <span style="font-size: 10px; font-weight: 700; color: #64748B; text-transform: uppercase;">SMP IT Al-Afiyah</span>
+          <p style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 2px 0;">Rp 200.000</p>
+          <span style="font-size: 10px; color: #64748B;">per murid diterima</span>
+        </div>
+      </div>
+
+      <!-- Rincian Pembagian Komisi SD IT -->
+      <div style="padding: 14px; border-radius: 12px; background: #ECFDF5; border: 1px solid #A7F3D0; margin-bottom: 16px;">
+        <span style="font-size: 11px; font-weight: 800; color: #064E3B; display: block; text-transform: uppercase; margin-bottom: 8px;">
+          📌 Rincian Pembagian Komisi SD IT Al-Afiyah (Total Rp 150.000 / Murid):
+        </span>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div style="background: #fff; padding: 10px 12px; border-radius: 8px; border: 1px solid #A7F3D0;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 11px; font-weight: 700; color: #334155;">1. Tahap Pendaftaran</span>
+              <strong style="color: #059669; font-size: 12px;">Komisi Rp 50.000</strong>
+            </div>
+            <p style="font-size: 10px; color: #64748B; margin: 2px 0 0;">Uang pendaftaran formulir: Rp 250.000</p>
+          </div>
+          <div style="background: #fff; padding: 10px 12px; border-radius: 8px; border: 1px solid #A7F3D0;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 11px; font-weight: 700; color: #334155;">2. Tahap Daftar Ulang Awal</span>
+              <strong style="color: #059669; font-size: 12px;">Komisi Rp 100.000</strong>
+            </div>
+            <p style="font-size: 10px; color: #64748B; margin: 2px 0 0;">Pembayaran daftar ulang awal: Rp 1.000.000</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 16px;">
+        <div style="background: #064E3B; color: #fff; padding: 10px 14px; font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
+          <span>📊 Simulasi Estimasi Perolehan Komisi SD IT Al-Afiyah (Rp 150.000 / Murid)</span>
+          <span style="font-size: 10px; color: #A7F3D0;">Kuota Terbatas: 2 Rombel</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 25%;">Jumlah Rujukan Murid</th>
+              <th style="width: 25%;">Rincian Perhitungan</th>
+              <th style="width: 25%;">Total Komisi Diterima</th>
+              <th style="width: 25%;">Contoh Manfaat Nyata</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1 Murid Baru</strong></td>
+              <td style="font-family: monospace;">Rp 50.000 + Rp 100.000</td>
+              <td><strong style="color: #059669;">Rp 150.000</strong></td>
+              <td style="color: #475569;">Hak komisi langsung terkunci di sistem</td>
+            </tr>
+            <tr>
+              <td><strong>3 Murid Baru</strong></td>
+              <td style="font-family: monospace;">3 × Rp 150.000</td>
+              <td><strong style="color: #059669;">Rp 450.000</strong></td>
+              <td style="color: #475569;">Dapat membantu keperluan buku paket / seragam</td>
+            </tr>
+            <tr style="background: #F0FDF4;">
+              <td><strong>5 Murid Baru</strong></td>
+              <td style="font-family: monospace;">5 × Rp 150.000</td>
+              <td><strong style="color: #059669;">Rp 750.000</strong></td>
+              <td style="color: #475569;">Meringankan iuran SPP bulanan ananda</td>
+            </tr>
+            <tr>
+              <td><strong>10 Murid Baru</strong></td>
+              <td style="font-family: monospace;">10 × Rp 150.000</td>
+              <td><strong style="color: #059669;">Rp 1.500.000</strong></td>
+              <td style="color: #475569;">Bagi hasil syiar berkah cair ke rekening mitra</td>
+            </tr>
+            <tr style="background: #FFFBEB;">
+              <td><strong>20 Murid (1 Rombel)</strong></td>
+              <td style="font-family: monospace;">20 × Rp 150.000</td>
+              <td><strong style="color: #B45309;">Rp 3.000.000</strong></td>
+              <td style="color: #475569;">Insentif syiar dakwah yang sangat signifikan</td>
+            </tr>
+            <tr style="background: #ECFDF5;">
+              <td><strong>40 Murid (2 Rombel Penuh)</strong></td>
+              <td style="font-family: monospace;">40 × Rp 150.000</td>
+              <td><strong style="color: #064E3B; font-size: 13px;">Rp 6.000.000</strong></td>
+              <td style="color: #065F46; font-weight: 700;">Kuota maksimal SD IT Al-Afiyah terpenuhi 100%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+        <div style="padding: 12px; border-radius: 10px; background: #F8FAFC; border: 1px solid var(--border); font-size: 11px;">
+          <strong style="color: #064E3B; display: block; margin-bottom: 4px;">1. Transfer Rekening Bank Tunai</strong>
+          <p style="color: #64748B; margin: 0;">Ditransfer langsung ke rekening bank mitra (BSI, Mandiri, BRI, dll) setiap awal bulan oleh Bagian Keuangan Yayasan.</p>
+        </div>
+        <div style="padding: 12px; border-radius: 10px; background: #F8FAFC; border: 1px solid var(--border); font-size: 11px;">
+          <strong style="color: #064E3B; display: block; margin-bottom: 4px;">2. Pemotong SPP Bulanan Murid</strong>
+          <p style="color: #64748B; margin: 0;">Khusus wali murid aktif, komisi dapat langsung dialihkan memotong SPP ananda sehingga meringankan biaya sekolah.</p>
+        </div>
+      </div>
+
+      <!-- BAGIAN 5: SYARAT & ETIKA SYIAR DAKWAH -->
+      <div style="margin-top: 24px; padding: 16px; background: #F8FAFC; border-radius: 12px; border: 1px solid var(--border);">
+        <h4 style="font-size: 12px; font-weight: 800; color: #064E3B; margin-bottom: 6px;">PRINSIP SYAR'I SYIAR DAKWAH AL-AFIYAH:</h4>
+        <ul style="font-size: 11px; color: #475569; padding-left: 18px; line-height: 1.6;">
+          <li>Bukan sistem MLM atau skema piramida; murni akad <em>Ju'alah / Ujrah</em> atas jasa merekomendasikan kebaikan pendidikan Islam.</li>
+          <li>Tanpa biaya pendaftaran mitra (100% gratis pendaftaran akun).</li>
+          <li>Membantu mempercepat pemenuhan kuota eksklusif SD IT Al-Afiyah (<strong>Hanya 2 Rombel</strong>) dengan keluarga murid yang satu visi akhlak nabawiyah.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Footer Dokumen -->
+    <div class="footer">
+      <p style="font-weight: 700; color: #1E293B;">Sistem Informasi Ekosistem Terpadu Al-Afiyah • Yayasan Pendidikan Imam Bonjol Majalengka</p>
+      <p style="margin-top: 4px; color: #065F46; font-size: 11px;">
+        Arsitektur &amp; Pengembangan Sistem (Developer): <strong>Mulia / Kareem Al Biruny</strong>
+      </p>
+      <p style="margin-top: 4px; font-size: 10px; color: #94A3B8;">Diterbitkan khusus sebagai lampiran bahan rapat internal siang ini. Siap dicetak langsung ke printer atau format PDF.</p>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { extractSubdomain } from '@/lib/domain';
+import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
+
+// Allowed root domains for redirection protection
+const ALLOWED_ROOT_HOSTS = ['alafiyah.sch.id', 'localhost', '127.0.0.1'];
+
+function isAllowedHost(host: string): boolean {
+  const hostname = host.split(':')[0].toLowerCase();
+  return ALLOWED_ROOT_HOSTS.some(
+    (allowed) => hostname === allowed || hostname.endsWith(`.${allowed}`)
+  );
+}
+
+export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const rawHost = request.headers.get('host') || 'localhost:3000';
+  const host = isAllowedHost(rawHost) ? rawHost : 'alafiyah.sch.id';
+  const subdomain = extractSubdomain(host);
+
+  // ─── 1. Subdomain Multi-Tenant Routing ─────────────────────────────────────
+  if (subdomain) {
+    // When visiting root of school subdomain (e.g. tk.alafiyah.sch.id/), rewrite internally to /tk
+    if (pathname === '/') {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${subdomain}`;
+      const response = NextResponse.rewrite(url);
+      response.headers.set('x-school-subdomain', subdomain);
+      return response;
+    }
+
+    // If visitor lands on /tk while already on tk subdomain, clean up URL to /
+    if (pathname === `/${subdomain}`) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/';
+      return NextResponse.redirect(url);
+    }
+
+    // Cross-school navigation (e.g. on tk subdomain clicking /sd or /smp)
+    if (pathname === '/tk' || pathname === '/sd' || pathname === '/smp') {
+      const targetSlug = pathname.slice(1);
+      const url = request.nextUrl.clone();
+      const [hostname, port] = host.split(':');
+      const portSuffix = port ? `:${port}` : '';
+      const parts = hostname.split('.');
+      const rootDomain = parts.slice(1).join('.');
+      if (ALLOWED_ROOT_HOSTS.some((a) => rootDomain.endsWith(a))) {
+        url.host = `${targetSlug}.${rootDomain}${portSuffix}`;
+        url.pathname = '/';
+        return NextResponse.redirect(url);
+      }
+    }
+  } else {
+    // On root domain (alafiyah.sch.id or localhost:3000), redirect /tk, /sd, /smp to subdomain
+    const hostname = host.split(':')[0].toLowerCase();
+    const isIp = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
+    if (!isIp && (pathname === '/tk' || pathname === '/sd' || pathname === '/smp')) {
+      const targetSlug = pathname.slice(1);
+      const url = request.nextUrl.clone();
+      const [hostNameOnly, port] = host.split(':');
+      const portSuffix = port ? `:${port}` : '';
+      url.host = `${targetSlug}.${hostNameOnly}${portSuffix}`;
+      url.pathname = '/';
+      return NextResponse.redirect(url);
+    }
+  }
+
+  const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME);
+  const session = sessionCookie?.value ? verifyAndDecodeToken(sessionCookie.value) : null;
+
+  // ─── 2. API Admin Protection ───────────────────────────────────────────────
+  if (pathname.startsWith('/api/admin')) {
+    if (!session) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Unauthorized: Sesi autentikasi tidak valid atau telah berakhir.',
+        },
+        { status: 401 }
+      );
+    }
+  }
+
+  // ─── 3. Page Route Protection ──────────────────────────────────────────────
+  const isPublicPage =
+    pathname === '/' ||
+    pathname === '/satuan-pendidikan' ||
+    pathname === '/profil' ||
+    pathname === '/kontak' ||
+    pathname === '/berita' ||
+    pathname.startsWith('/berita/') ||
+    pathname === '/doa-dzikir' ||
+    pathname === '/tk' ||
+    pathname === '/sd' ||
+    pathname === '/smp' ||
+    pathname === '/agenda' ||
+    pathname.startsWith('/ppdb') ||
+    pathname.startsWith('/portal') ||
+    pathname === '/affiliate' ||
+    pathname.startsWith('/ref') ||
+    pathname.startsWith('/api/') ||
+    pathname === '/manifest.json' ||
+    pathname === '/siakad-manifest.json' ||
+    pathname === '/login';
+
+  if (!isPublicPage) {
+    if (!session) {
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    // Multi-tenant authorization boundary checks
+    if (session.role === 'FINANCE' && session.schoolSlug && session.schoolSlug !== 'foundation') {
+      if (pathname.startsWith('/admin/') && !pathname.startsWith(`/admin/${session.schoolSlug}`)) {
+        return NextResponse.redirect(new URL(`/admin/${session.schoolSlug}/finance`, request.url));
+      }
+    }
+
+    if (
+      pathname.startsWith('/admin/tk') &&
+      session.role !== 'SUPERADMIN' &&
+      session.role !== 'ADMIN_TK' &&
+      session.role !== 'FINANCE'
+    ) {
+      return NextResponse.redirect(new URL('/login?unauthorized=1', request.url));
+    }
+    if (
+      pathname.startsWith('/admin/sd') &&
+      session.role !== 'SUPERADMIN' &&
+      session.role !== 'ADMIN_SD' &&
+      session.role !== 'PPDB_OFFICER' &&
+      session.role !== 'FINANCE'
+    ) {
+      return NextResponse.redirect(new URL('/login?unauthorized=1', request.url));
+    }
+    if (
+      pathname.startsWith('/admin/smp') &&
+      session.role !== 'SUPERADMIN' &&
+      session.role !== 'ADMIN_SMP' &&
+      session.role !== 'FINANCE'
+    ) {
+      return NextResponse.redirect(new URL('/login?unauthorized=1', request.url));
+    }
+    if (
+      pathname.startsWith('/admin/foundation') &&
+      session.role !== 'SUPERADMIN' &&
+      (session.role !== 'FINANCE' || !!session.schoolSlug)
+    ) {
+      return NextResponse.redirect(new URL('/login?unauthorized=1', request.url));
+    }
+  }
+
+  // Add security headers to all responses
+  const response = NextResponse.next();
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  return response;
+}
+
+export default proxy;
+
+export const config = {
+  matcher: [
+    '/((?!_next/static|_next/image|images|icons|uploads|favicon\\.ico|manifest\\.json|siakad-manifest\\.json|.*\\.(?:png|jpg|jpeg|gif|svg|webp|avif|ico|woff2?|ttf|eot|mp4|pdf|json)).*)',
+  ],
+};

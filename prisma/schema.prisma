@@ -1,0 +1,412 @@
+// Prisma Schema for Ekosistem Pendidikan Terpadu Multi-Tenant Al-Afiyah
+// Yayasan Pendidikan Imam Bonjol Majalengka
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model School {
+  id              String   @id @default(uuid())
+  slug            String   @unique // "tk", "sd", "smp"
+  name            String   // "TK IT Al-Afiyah", "SD IT Al-Afiyah", "SMP IT Al-Afiyah"
+  unitLevel       String   // "TK", "SD", "SMP"
+  badgeText       String   // "PAUD / TK IT AL-AFIYAH", etc.
+  tagline         String   // Visionary tagline
+  primaryColor    String   // Hex e.g. #10B981, #059669, #064E3B
+  accentColor     String   // Hex e.g. #FBBF24, #D97706, #B45309
+  registrationFee   Int      // e.g. 150000, 200000, 250000
+  quota             Int      @default(60)
+  waveName          String   @default("Gelombang 1 (2026/2027)")
+  isPpdbOpen        Boolean  @default(true)
+  bankName          String   @default("Bank Syariah Indonesia (BSI)")
+  bankAccountNumber String   @default("7788991122")
+  bankAccountHolder String   @default("Yayasan Pendidikan Imam Bonjol Majalengka")
+  waCenterPhone     String   // WhatsApp number e.g. "6281234567890"
+  address           String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  users            User[]
+  ppdbRegistrations PPDBRegistration[]
+  invoices         Invoice[]
+  cmsSections      CMSSection[]
+  conversions      AffiliateConversion[]
+  notificationLogs NotificationLog[]
+  teachers         Teacher[]
+  newsPosts        NewsPost[]
+  students         Student[]
+  achievements     StudentAchievement[]
+  tuitionBills     TuitionBill[]
+  reportCards      ReportCard[]
+  tahfidzProgress  TahfidzProgress[]
+
+  @@map("schools")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  phone        String?
+  passwordHash String
+  fullName     String
+  role         String   // "SUPERADMIN", "ADMIN_TK", "ADMIN_SD", "ADMIN_SMP", "PPDB_OFFICER", "FINANCE", "AFFILIATE", "APPLICANT"
+  schoolId     String?  // Scoped to specific tenant or null for SUPERADMIN
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  school           School?           @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+  affiliateProfile AffiliateProfile?
+
+  @@map("users")
+}
+
+model PPDBRegistration {
+  id                 String   @id @default(uuid())
+  registrationNo     String   @unique // e.g. "REG-SD-2026-0001"
+  schoolId           String
+  studentName        String
+  nik                String
+  gender             String   // "L" | "P"
+  pob                String   // Tempat Lahir
+  dob                DateTime // Tanggal Lahir
+  address            String
+  schoolSpecificData String   // JSON string: Motorik/Toilet (TK), Iqro/Shalat (SD), Tahfidz/Asrama (SMP)
+  parentData         String   // JSON string: Father, Mother, Guardian biodata & phone
+  status             String   @default("DRAFT") // "DRAFT", "SUBMITTED", "PAYMENT_PENDING", "VERIFIED", "INTERVIEW_SCHEDULED", "ACCEPTED", "REJECTED"
+  registrationFee    Int
+  affiliateId        String?  // Attribution to affiliate partner
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  school         School               @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  documents      PPDBDocument[]
+  invoices       Invoice[]
+  conversions    AffiliateConversion[]
+  reRegistration ReRegistration?
+  student        Student?
+  assessment     PPDBAssessment?
+
+  @@map("ppdb_registrations")
+}
+
+model PPDBDocument {
+  id                 String   @id @default(uuid())
+  registrationId     String
+  docType            String   // "KK", "AKTA", "FOTO", "RAPOR", "SURAT_SEHAT"
+  fileName           String
+  fileUrl            String
+  verificationStatus String   @default("PENDING") // "PENDING", "VALID", "INVALID"
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  registration PPDBRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@map("ppdb_documents")
+}
+
+model Invoice {
+  id                String    @id @default(uuid())
+  orderId           String    @unique // e.g. "INV-2026-REG-SD-0001"
+  schoolId          String
+  registrationId    String
+  amount            Int
+  paymentMethod     String    @default("MIDTRANS_SNAP") // "MIDTRANS_VA", "MIDTRANS_QRIS", "CASH"
+  paymentStatus     String    @default("UNPAID") // "UNPAID", "PAID", "EXPIRED", "CANCELLED"
+  midtransSnapToken String?
+  paymentDetails    String?   // JSON string: Virtual Account number or QRIS code details
+  paidAt            DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  school       School           @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  registration PPDBRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@map("invoices")
+}
+
+model AffiliateProfile {
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  referralCode      String   @unique // e.g. "USTADZ-AHMAD", "ALUMNI-2025"
+  customSlug        String   @unique // e.g. "ustadz-ahmad"
+  bankName          String   // e.g. "BSI", "BRI", "BCA", "Mandiri"
+  bankAccountNumber String
+  bankAccountHolder String
+  totalEarned       Int      @default(0)
+  balance           Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user        User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversions AffiliateConversion[]
+
+  @@map("affiliate_profiles")
+}
+
+model AffiliateConversion {
+  id               String    @id @default(uuid())
+  affiliateId      String
+  schoolId         String
+  registrationId   String
+  commissionAmount Int
+  status           String    @default("PENDING") // "PENDING", "APPROVED", "PAID"
+  paidAt           DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  affiliate    AffiliateProfile @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  school       School           @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  registration PPDBRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@map("affiliate_conversions")
+}
+
+model CMSSection {
+  id         String   @id @default(uuid())
+  schoolId   String
+  sectionKey String   // "hero", "about", "values", "programs", "facilities", "testimonials", "contact"
+  payload    String   // JSON string containing all dynamic texts, images, and lists
+  updatedAt  DateTime @updatedAt
+
+  school School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@unique([schoolId, sectionKey])
+  @@map("cms_sections")
+}
+
+model NotificationLog {
+  id             String   @id @default(uuid())
+  schoolId       String?
+  recipientPhone String
+  recipientName  String?
+  eventType      String   // "PPDB_REGISTERED", "PAYMENT_CONFIRMED", "TEST_SCHEDULED", "COMMISSION_EARNED"
+  messageContent String
+  status         String   @default("SENT") // "SENT", "SIMULATED", "FAILED"
+  metadata       String?  // JSON string
+  createdAt      DateTime @default(now())
+
+  school School? @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+
+  @@map("notification_logs")
+}
+
+model Teacher {
+  id             String   @id @default(uuid())
+  schoolId       String
+  name           String   // e.g. "Ustadz H. Lukman Hakim, M.Pd."
+  role           String   // e.g. "Kepala Sekolah", "Musyrif Tahfidz 30 Juz", "Guru Sentra"
+  specialization String?  // e.g. "Sanad Al-Qur'an Qira'ah 'Ashim, Alumni Al-Azhar"
+  photoUrl       String?
+  bio            String?
+  order          Int      @default(0)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  school School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@map("teachers")
+}
+
+model NewsPost {
+  id          String   @id @default(uuid())
+  schoolId    String
+  title       String
+  slug        String
+  category    String   @default("Kegiatan") // "Kegiatan", "Prestasi", "Tahfidz", "Pengumuman"
+  excerpt     String
+  content     String
+  coverImage  String?
+  author      String   @default("Humas Al-Afiyah")
+  isPublished Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  school School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@unique([schoolId, slug])
+  @@map("news_posts")
+}
+
+model ReRegistration {
+  id                 String    @id @default(uuid())
+  registrationId     String    @unique
+  uniformSize        String    // "S", "M", "L", "XL", "XXL", "CUSTOM"
+  uniformType        String?   // e.g. "Gamis & Jilbab Syar'i" (Akhwat), "Kemeja & Celana Panjang" (Ikhwan)
+  heightCm           Int?      // Tinggi badan dalam cm
+  weightKg           Int?      // Berat badan dalam kg
+  shoeSize           Int?      // Ukuran sepatu santri 28-44
+  boardingPreference String?   // "REGULER", "TAHFIDZ_INTENSIF", "NON_BOARDING"
+  roommatePreference String?   // Catatan teman sekamar / daerah asal
+  paymentPlan        String    @default("FULL") // "FULL", "INSTALLMENT_2X", "INSTALLMENT_3X"
+  notes              String?   // Catatan penjahit atau kebutuhan khusus
+  isUniformTaken     Boolean   @default(false)
+  uniformTakenAt     DateTime?
+  status             String    @default("CONFIRMED") // "PENDING", "CONFIRMED", "COMPLETED"
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  registration PPDBRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@map("re_registrations")
+}
+
+model Student {
+  id             String            @id @default(uuid())
+  nis            String            @unique // Nomor Induk Santri lokal Al-Afiyah e.g. "2026-SD-0001"
+  nisn           String?           // NISN resmi Kemendikbud 10-digit
+  schoolId       String            @map("school_id")
+  registrationId String?           @unique @map("registration_id") // Optional link to PPDBRegistration
+  fullName       String            @map("full_name")
+  gender         String            // "L" | "P"
+  pob            String            // Tempat lahir
+  dob            DateTime          // Tanggal lahir
+  nik            String?           // NIK santri
+  religion       String            @default("Islam")
+  address        String
+  classGrade     String            @map("class_grade") // e.g. "TK A", "1 SD IT", "7 SMP IT"
+  academicYear   String            @default("2026/2027") @map("academic_year")
+  parentInfo     String?           @map("parent_info") // JSON: data ayah, ibu, wali
+  status         String            @default("ACTIVE") // "ACTIVE", "GRADUATED", "TRANSFERRED", "DROPPED"
+  notes          String?
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  school         School            @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  registration   PPDBRegistration? @relation(fields: [registrationId], references: [id], onDelete: SetNull)
+  tuitionBills   TuitionBill[]
+  reportCards    ReportCard[]
+  tahfidzProgress TahfidzProgress[]
+
+  @@map("students")
+}
+
+model PPDBAssessment {
+  id              String           @id @default(uuid())
+  registrationId  String           @unique @map("registration_id")
+  interviewerName String           @map("interviewer_name")
+  aspectScores    String           @map("aspect_scores") // JSON string: { [aspectKey]: score }
+  totalScore      Float            @map("total_score")
+  recommendation  String           // "RECOMMENDED", "CONSIDERED", "NOT_RECOMMENDED"
+  notes           String?
+  assessedAt      DateTime         @default(now()) @map("assessed_at")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  registration    PPDBRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@map("ppdb_assessments")
+}
+
+model StudentAchievement {
+  id          String   @id @default(uuid())
+  schoolId    String   @map("school_id")
+  title       String
+  studentName String   @map("student_name")
+  category    String   // "TAHFIDZ", "SAINS", "OLAHRAGA", "SENI_BAHASA", "AKADEMIK"
+  level       String   // "KABUPATEN", "PROVINSI", "NASIONAL", "INTERNASIONAL"
+  rank        String   // "JUARA_1", "JUARA_2", "JUARA_3", "HARAPAN_1", "FINALIS"
+  year        String   @default("2026")
+  description String?
+  imageUrl    String?  @map("image_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  school      School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@map("student_achievements")
+}
+
+// =========================================================
+// M35 — SPP & Kas Masuk Terpadu
+// =========================================================
+model TuitionBill {
+  id             String    @id @default(uuid())
+  schoolId       String    @map("school_id")
+  studentId      String    @map("student_id")
+  billCode       String    @unique @map("bill_code") // e.g. "SPP-SD-2026-09-001"
+  month          String    // e.g. "September"
+  year           String    // e.g. "2026"
+  academicYear   String    @default("2026/2027") @map("academic_year")
+  amount         Int       // Total tagihan SPP dalam rupiah
+  dueDate        DateTime  @map("due_date")
+  paymentStatus  String    @default("UNPAID") @map("payment_status") // "UNPAID", "PAID", "LATE", "WAIVED"
+  paymentMethod  String?   @map("payment_method") // "CASH", "TRANSFER", "MIDTRANS_VA", "MIDTRANS_QRIS"
+  paidAt         DateTime? @map("paid_at")
+  paidAmount     Int?      @map("paid_amount")
+  notes          String?
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  school         School    @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  student        Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("tuition_bills")
+}
+
+// =========================================================
+// M34 — Rapor Digital & Capaian Akademik
+// =========================================================
+model ReportCard {
+  id             String   @id @default(uuid())
+  schoolId       String   @map("school_id")
+  studentId      String   @map("student_id")
+  semester       String   // "Ganjil" | "Genap"
+  academicYear   String   @default("2026/2027") @map("academic_year")
+  classGrade     String   @map("class_grade") // e.g. "5 SD IT"
+  subjectScores  String   @map("subject_scores") // JSON: { "Qur'an": 95, "MTK": 88, ... }
+  tahfidzScore   String?  @map("tahfidz_score")  // JSON: { juz: "5", surah: "Al-Mulk", nilai: 92 }
+  mutabaahScore  String?  @map("mutabaah_score") // JSON: { shalat: 95, tilawah: 88, adab: 90 }
+  attendanceDays Int      @default(0) @map("attendance_days")
+  sickDays       Int      @default(0) @map("sick_days")
+  permittedDays  Int      @default(0) @map("permitted_days")
+  absentDays     Int      @default(0) @map("absent_days")
+  teacherNotes   String?  @map("teacher_notes")
+  principalNotes String?  @map("principal_notes")
+  isPublished    Boolean  @default(false) @map("is_published")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  school         School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  student        Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, semester, academicYear])
+  @@map("report_cards")
+}
+
+// =========================================================
+// M34 — Progres Tahfidz Al-Qur'an per Murid
+// =========================================================
+model TahfidzProgress {
+  id             String   @id @default(uuid())
+  schoolId       String   @map("school_id")
+  studentId      String   @map("student_id")
+  surahName      String   @map("surah_name")  // e.g. "Al-Baqarah"
+  surahNumber    Int      @map("surah_number") // 1 - 114
+  juzNumber      Int      @map("juz_number")   // 1 - 30
+  ayatFrom       Int      @map("ayat_from")
+  ayatTo         Int      @map("ayat_to")
+  type           String   // "ZIYADAH" (hafalan baru) | "MURAJA'AH" (setoran ulang)
+  grade          String?  // "A" (mutqin), "B" (tartil), "C" (perlu perbaikan)
+  teacherName    String   @map("teacher_name")
+  sessionDate    DateTime @map("session_date")
+  notes          String?
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  school         School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  student        Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("tahfidz_progress")
+}
+
+
