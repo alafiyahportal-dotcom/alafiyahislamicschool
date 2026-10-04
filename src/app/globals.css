@@ -407,6 +407,23 @@ h1, h2, h3, h4, h5, h6 {
   animation: floatBadge 3s ease-in-out infinite;
 }
 
+/* Hero badge: subtle vertical drift 4px → -4px */
+@keyframes heroFloat {
+  from { transform: translateY(4px); }
+  to { transform: translateY(-4px); }
+}
+
+.animate-hero-float {
+  animation: heroFloat 3.5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-float {
+    animation: none;
+  }
+}
+
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
@@ -484,8 +501,7 @@ h1, h2, h3, h4, h5, h6 {
    For Hero Headline Accent "Bukan Sekedar"
    =================================================== */
 .font-tegak-sambung {
+  /* Family only — style, weight & leading are set via Tailwind utilities on the element
+     (unlayered declarations here would override @layer utilities). */
   font-family: var(--font-dancing-script), var(--font-alex-brush), var(--font-playfair), 'Dancing Script', 'Alex Brush', cursive, serif !important;
-  font-style: italic !important;
-  font-weight: 700 !important;
-  line-height: 1.15;
 }

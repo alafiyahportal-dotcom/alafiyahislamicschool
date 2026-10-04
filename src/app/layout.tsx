@@ -14,7 +14,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 const dancingScript = Dancing_Script({
   variable: "--font-dancing-script",
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 

@@ -3,13 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  ChevronLeft,
-  ChevronRight,
-  ArrowRight,
-  BookOpen,
-  MessageCircle
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export interface UnitSlideData {
   id: number;
@@ -42,7 +36,7 @@ function renderHeroHeadline(
   titlePart1: string,
   titleHighlight: string,
   titlePart2: string,
-  highlightGradient: string
+  highlightClass: string
 ) {
   const p1 = (titlePart1 || '').trim();
   const ph = (titleHighlight || '').trim();
@@ -51,25 +45,25 @@ function renderHeroHeadline(
   // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
     return (
-      <span className="flex flex-col items-start gap-y-0.5 sm:gap-y-1.5">
-        {/* Line 1: Bukan Sekedar with Cursive Tegak Sambung (font set via .font-tegak-sambung) */}
-        <span className="font-tegak-sambung block text-[1.12em] sm:text-[1.28em] text-white/95 tracking-normal leading-[1.15] sm:leading-[1.08] pb-1 sm:pb-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] pr-2">
+      <span className="flex flex-col items-start text-left sm:gap-y-1.5">
+        {/* Line 1: Bukan Sekedar — script accent; mobile uses a fixed text-xl so it sits proportionally above the heading */}
+        <span className="font-tegak-sambung block text-xl sm:text-[1.28em] italic font-medium sm:font-bold text-left text-white/95 tracking-normal leading-normal sm:leading-[1.08] mb-1 sm:mb-0 pr-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
           Bukan Sekedar
         </span>
         {/* Line 2: Tempat Belajar, */}
-        <span className="leading-[1.08] sm:leading-[1.12] text-white">
+        <span className="sm:leading-[1.12] text-white">
           Tempat Belajar,
         </span>
         {/* Line 3: Namun Juga Tempat */}
-        <span className="leading-[1.08] sm:leading-[1.12] text-white">
+        <span className="sm:leading-[1.12] text-white">
           Namun Juga{' '}
-          <span className={`text-transparent bg-clip-text bg-gradient-to-r ${highlightGradient} inline`}>
+          <span className={`${highlightClass} inline`}>
             Tempat
           </span>
         </span>
         {/* Line 4: Bertumbuh Ananda */}
-        <span className="leading-[1.08] sm:leading-[1.12] text-white">
-          <span className={`text-transparent bg-clip-text bg-gradient-to-r ${highlightGradient} inline`}>
+        <span className="sm:leading-[1.12] text-white">
+          <span className={`${highlightClass} inline`}>
             Bertumbuh
           </span>
           {p2 ? (p2.startsWith(',') || p2.startsWith('.') ? p2 : ` ${p2}`) : ' Ananda'}
@@ -91,7 +85,7 @@ function renderHeroHeadline(
     <>
       {renderLines(p1)}{' '}
       {ph && (
-        <span className={`text-transparent bg-clip-text bg-gradient-to-r ${highlightGradient} inline`}>
+        <span className={`${highlightClass} inline`}>
           {renderLines(ph)}
         </span>
       )}
@@ -103,70 +97,71 @@ function renderHeroHeadline(
 interface HeroContentProps {
   slide: UnitSlideData;
   fallbackPrimaryLink: string;
-  fallbackSecondaryLink: string;
-  highlightGradient: string;
+  highlightClass: string;
   primaryBtnClass: string;
+  badgeClass: string;
 }
 
-/** Headline, description, CTAs and trust points — shared by static and sliding modes. */
+/** Badge, headline, description, CTA and trust points — shared by static and sliding modes. */
 function HeroContent({
   slide,
   fallbackPrimaryLink,
-  fallbackSecondaryLink,
-  highlightGradient,
-  primaryBtnClass
+  highlightClass,
+  primaryBtnClass,
+  badgeClass
 }: HeroContentProps) {
   const pLink = slide.primaryCtaLink || fallbackPrimaryLink;
-  const sLink = slide.secondaryCtaLink || fallbackSecondaryLink;
-  const ctaBase =
-    'w-full sm:w-auto px-5 sm:px-8 py-3.5 sm:py-4 rounded-full text-white text-sm sm:text-base transition-all flex items-center justify-start sm:justify-center gap-2.5 sm:gap-2 cursor-pointer';
 
   return (
     <>
-      {/* Main Headline - mobile: fluid 30→36px with tight leading */}
-      <h1 className="text-[clamp(1.875rem,9.2vw,2.25rem)] sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08] sm:leading-[1.12] drop-shadow-lg break-words max-w-3xl lg:max-w-4xl sm:[word-spacing:0.08em]">
-        {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightGradient)}
+      {/* Floating Badge Pill — outer layer floats, inner layer handles tactile press so transforms never fight */}
+      {slide.badge && (
+        <div className="mb-4 sm:mb-5 animate-hero-float">
+          <Link
+            href={pLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] sm:text-xs font-bold tracking-wide backdrop-blur-md shadow-lg transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
+          >
+            <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-current opacity-60 animate-ping motion-reduce:animate-none" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-current" />
+            </span>
+            <span>{slide.badge}</span>
+          </Link>
+        </div>
+      )}
+
+      {/* Main Headline — reference scale: text-3xl mobile, extrabold, tight tracking */}
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] sm:leading-[1.12] text-left text-white drop-shadow-lg break-words max-w-3xl lg:max-w-4xl sm:[word-spacing:0.08em]">
+        {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightClass)}
       </h1>
 
-      {/* Subtitle Description - Clear & Legible */}
+      {/* Subtitle Description */}
       {slide.description && (
-        <p className="text-sm sm:text-base lg:text-xl text-slate-200 leading-relaxed font-normal max-w-2xl lg:max-w-3xl drop-shadow-sm [word-spacing:0.06em]">
+        <p className="mt-3 sm:mt-5 text-sm sm:text-base lg:text-xl leading-relaxed text-left text-neutral-300 sm:text-slate-200 font-normal max-w-prose sm:max-w-2xl lg:max-w-3xl drop-shadow-sm sm:[word-spacing:0.06em]">
           {slide.description}
         </p>
       )}
 
-      {/* Dual Action Buttons - mobile: full width, content left-aligned with the text margin */}
-      <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4">
-        <Link
-          href={pLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${ctaBase} bg-gradient-to-r ${primaryBtnClass} font-extrabold shadow-xl hover:opacity-95 transform hover:-translate-y-0.5 group`}
-        >
-          <span>{slide.primaryCtaText || 'Daftar Sekarang'}</span>
-          <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform text-white" />
-        </Link>
+      {/* Single Primary CTA — slim, fit-content, left-aligned with the text margin */}
+      <Link
+        href={pLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
+      >
+        <span>{slide.primaryCtaText || 'Daftar Sekarang'}</span>
+        <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+      </Link>
 
-        <Link
-          href={sLink}
-          className={`${ctaBase} sm:px-7 bg-white/10 hover:bg-white/20 border border-white/30 font-bold backdrop-blur-md`}
-        >
-          {sLink.startsWith('http') ? (
-            <MessageCircle className="w-4 h-4 shrink-0 text-emerald-400" />
-          ) : (
-            <BookOpen className="w-4 h-4 shrink-0 text-amber-300" />
-          )}
-          <span>{slide.secondaryCtaText || 'Konsultasi WhatsApp'}</span>
-        </Link>
-      </div>
-
-      {/* Trust Points - mobile: 2-col grid with hairline dividers; sm+: plain inline row */}
+      {/* Trust Points - mobile: precise 2-col grid with hairline dividers; sm+: plain inline row */}
       {slide.trustItems && slide.trustItems.length > 0 && (
-        <ul className="pt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 text-xs sm:text-sm font-semibold text-slate-200/90 max-w-full">
+        <ul className="mt-6 sm:mt-8 w-full grid grid-cols-2 gap-x-4 gap-y-2.5 text-left text-xs font-medium text-neutral-400 sm:flex sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:text-sm sm:font-semibold sm:text-slate-200/90">
           {slide.trustItems.map((item, tIdx) => (
             <li
               key={tIdx}
-              className="border-l border-white/25 pl-2.5 leading-snug sm:border-0 sm:pl-0 sm:whitespace-nowrap tracking-wide"
+              className="border-l border-white/20 pl-2.5 leading-snug tracking-wide sm:border-0 sm:pl-0 sm:whitespace-nowrap"
             >
               {item.text}
             </li>
@@ -303,9 +298,8 @@ export default function UnitHeroSlider({
           glowColor: 'bg-emerald-500/20',
           badgeBg: 'bg-emerald-500/20 border-emerald-400/40 text-emerald-300',
           badgeIcon: 'text-emerald-300',
-          highlightGradient: 'from-emerald-300 via-amber-300 to-yellow-300',
-          primaryBtn: 'from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-500 hover:to-teal-700 shadow-emerald-900/40',
-          progressColor: 'bg-emerald-400',
+          highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-300 to-yellow-300',
+          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-500 hover:to-teal-700 shadow-emerald-900/40',
           trustIconColor: 'text-emerald-400'
         };
       case 'sd':
@@ -313,9 +307,8 @@ export default function UnitHeroSlider({
           glowColor: 'bg-teal-500/20',
           badgeBg: 'bg-amber-500/20 border-amber-400/40 text-amber-300',
           badgeIcon: 'text-amber-400',
-          highlightGradient: 'from-amber-300 via-amber-400 to-orange-400',
-          primaryBtn: 'from-amber-500 via-amber-600 to-orange-600 hover:from-amber-600 hover:to-orange-700 shadow-amber-600/30',
-          progressColor: 'bg-amber-400',
+          highlight: 'text-emerald-400',
+          primaryBtn: 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-950/40',
           trustIconColor: 'text-amber-400'
         };
       case 'smp':
@@ -324,9 +317,8 @@ export default function UnitHeroSlider({
           glowColor: 'bg-emerald-700/25',
           badgeBg: 'bg-teal-500/20 border-teal-400/40 text-teal-200',
           badgeIcon: 'text-teal-300',
-          highlightGradient: 'from-amber-300 via-yellow-300 to-emerald-300',
-          primaryBtn: 'from-emerald-600 via-teal-700 to-emerald-800 hover:from-emerald-500 hover:to-teal-600 shadow-teal-900/40',
-          progressColor: 'bg-teal-400',
+          highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-300 to-emerald-300',
+          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 hover:from-emerald-500 hover:to-teal-600 shadow-teal-900/40',
           trustIconColor: 'text-teal-300'
         };
     }
@@ -342,8 +334,7 @@ export default function UnitHeroSlider({
         (s.titleHighlight || '').trim() === (first.titleHighlight || '').trim() &&
         (s.titlePart2 || '').trim() === (first.titlePart2 || '').trim() &&
         (s.description || '').trim() === (first.description || '').trim() &&
-        (s.primaryCtaText || '').trim() === (first.primaryCtaText || '').trim() &&
-        (s.secondaryCtaText || '').trim() === (first.secondaryCtaText || '').trim()
+        (s.primaryCtaText || '').trim() === (first.primaryCtaText || '').trim()
     );
   }, [slides]);
 
@@ -355,14 +346,6 @@ export default function UnitHeroSlider({
     }, 4500);
     return () => clearInterval(interval);
   }, [currentSlide, slides.length]);
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
 
   return (
     <section
@@ -408,13 +391,13 @@ export default function UnitHeroSlider({
         style={{ paddingTop: 'clamp(108px, 14vh, 140px)' }}
       >
         {isAllSameContent ? (
-          <div className="relative max-w-3xl lg:max-w-5xl flex flex-col justify-start space-y-4 sm:space-y-5 text-left">
+          <div className="relative w-full max-w-3xl lg:max-w-5xl flex flex-col items-start justify-start text-left">
             <HeroContent
               slide={slides[0]}
               fallbackPrimaryLink={ppdbUrl}
-              fallbackSecondaryLink={waUrl}
-              highlightGradient={themeConfig.highlightGradient}
+              highlightClass={themeConfig.highlight}
               primaryBtnClass={themeConfig.primaryBtn}
+              badgeClass={themeConfig.badgeBg}
             />
           </div>
         ) : (
@@ -425,7 +408,7 @@ export default function UnitHeroSlider({
               return (
                 <div
                   key={s.id || idx}
-                  className={`absolute inset-x-0 top-0 flex flex-col justify-start space-y-4 sm:space-y-5 text-left transition-all duration-700 ease-in-out ${
+                  className={`absolute inset-x-0 top-0 flex flex-col items-start justify-start text-left transition-all duration-700 ease-in-out ${
                     isTextActive
                       ? 'opacity-100 translate-y-0 pointer-events-auto z-10'
                       : 'opacity-0 translate-y-2 pointer-events-none z-0'
@@ -434,9 +417,9 @@ export default function UnitHeroSlider({
                   <HeroContent
                     slide={s}
                     fallbackPrimaryLink={ppdbUrl}
-                    fallbackSecondaryLink={waUrl}
-                    highlightGradient={themeConfig.highlightGradient}
+                    highlightClass={themeConfig.highlight}
                     primaryBtnClass={themeConfig.primaryBtn}
+                    badgeClass={themeConfig.badgeBg}
                   />
                 </div>
               );
@@ -444,41 +427,6 @@ export default function UnitHeroSlider({
           </div>
         )}
       </div>
-
-      {/* Bottom Center Modern Indicator Dots & Mini Navigation Pill */}
-      {slides.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center space-x-2.5 bg-black/45 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 shadow-lg">
-          <button
-            onClick={prevSlide}
-            aria-label="Slide Sebelumnya"
-            className="p-1 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <div className="flex items-center space-x-1.5">
-            {slides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentSlide(idx)}
-                aria-label={`Pindah ke slide ${idx + 1}`}
-                className={`transition-all duration-300 rounded-full h-2 cursor-pointer ${
-                  idx === currentSlide
-                    ? `w-6 ${themeConfig.progressColor} shadow-md`
-                    : 'w-2 bg-white/40 hover:bg-white/70'
-                }`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={nextSlide}
-            aria-label="Slide Selanjutnya"
-            className="p-1 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      )}
-
     </section>
   );
 }
