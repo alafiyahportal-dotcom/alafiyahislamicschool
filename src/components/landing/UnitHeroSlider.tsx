@@ -288,7 +288,7 @@ export default function UnitHeroSlider({
         return {
           glowColor: 'bg-teal-500/20',
           badgeText: 'text-amber-300/90',
-          highlight: 'text-green-500',
+          highlight: 'text-green-600',
           primaryBtn: 'bg-green-600 hover:bg-green-700 shadow-green-950/40'
         };
       case 'smp':

@@ -440,7 +440,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
   }, [defaultFacilities, galleryCategory]);
 
   return (
-    <div className="min-h-screen flex flex-col soft-mesh-bg selection:bg-emerald-100 selection:text-emerald-900 overflow-x-clip w-full max-w-full">
+    <div className={`${school.slug === 'sd' ? 'theme-sd ' : ''}min-h-screen flex flex-col soft-mesh-bg selection:bg-emerald-100 selection:text-emerald-900 overflow-x-clip w-full max-w-full`}>
       {/* Top Unified Navbar */}
       <Navbar
         schoolName={school.name}
@@ -562,7 +562,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {/* Program Unggulan */}
       <section 
         id="programs" 
-        className="py-16 sm:py-20 bg-[#064E3B] scroll-mt-16 sm:scroll-mt-20 w-full text-white"
+        className="py-16 sm:py-20 bg-emerald-900 scroll-mt-16 sm:scroll-mt-20 w-full text-white"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
@@ -725,7 +725,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       onClick={() => setGalleryCategory(cat)}
                       className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                         isActive
-                          ? 'bg-[#184F48] text-white shadow-sm scale-105'
+                          ? 'bg-softwater-dark text-white shadow-sm scale-105'
                           : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
                       }`}
                     >
@@ -882,7 +882,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 {/* Right Column: Official Bank Account Card & Direct Actions */}
                 <div className="lg:col-span-6 space-y-6">
                   {/* Visual Bank Card */}
-                  <div className="rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#064E3B] via-[#0D5C46] to-[#043327] border border-emerald-600/40">
+                  <div className="rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 border border-emerald-600/40">
                     <div className="flex items-center justify-between pb-4 border-b border-white/15">
                       <div className="flex items-center gap-2">
                         <CreditCard className="w-5 h-5 text-amber-300" />
@@ -1252,7 +1252,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       )}
 
       {/* Testimoni Orang Tua */}
-      <section className="py-16 sm:py-20 bg-[#064E3B] text-white w-full">
+      <section className="py-16 sm:py-20 bg-emerald-900 text-white w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
@@ -1279,7 +1279,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   </p>
                 </div>
                 <div className="pt-4 border-t border-slate-100 flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-[#064E3B] text-white font-bold flex items-center justify-center text-sm shadow-xs">
+                  <div className="w-10 h-10 rounded-full bg-emerald-900 text-white font-bold flex items-center justify-center text-sm shadow-xs">
                     {testi.name[0]}
                   </div>
                   <div>
@@ -1542,7 +1542,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       <CampusLocationMapSection unitSlug={school.slug} />
 
       {/* High-Converting Bottom CTA Banner: Full-width Solid Green Above Footer */}
-      <section id="contact" className="py-16 sm:py-20 bg-[#064E3B] text-white w-full scroll-mt-16">
+      <section id="contact" className="py-16 sm:py-20 bg-emerald-900 text-white w-full scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center justify-center mb-3">
             <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">

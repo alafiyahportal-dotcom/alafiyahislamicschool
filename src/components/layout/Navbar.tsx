@@ -373,7 +373,7 @@ export default function Navbar({
                     className={`text-base sm:text-lg xl:text-xl font-bold tracking-normal font-serif transition-colors leading-tight ${
                       shouldBeTransparent
                         ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
-                        : 'text-[#184F48] group-hover:text-[#2D7A70]'
+                        : 'text-softwater-dark group-hover:text-softwater'
                     }`}
                   >
                     {brandConfig.arabic}
@@ -385,7 +385,7 @@ export default function Navbar({
                       className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-colors whitespace-nowrap ${
                         shouldBeTransparent
                           ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
-                          : 'text-slate-800 group-hover:text-[#184F48]'
+                          : 'text-slate-800 group-hover:text-softwater-dark'
                       }`}
                     >
                       {brandConfig.title}
@@ -406,8 +406,8 @@ export default function Navbar({
                         ? 'text-amber-300 font-bold'
                         : 'text-white/90 hover:text-white'
                       : isActive || isHovered
-                        ? 'text-[#184F48] font-bold'
-                        : 'text-slate-700 hover:text-[#184F48]'
+                        ? 'text-softwater-dark font-bold'
+                        : 'text-slate-700 hover:text-softwater-dark'
                   }`;
 
                   return (
@@ -430,7 +430,7 @@ export default function Navbar({
                               <ChevronDown
                                 className={`w-3 h-3 transition-transform duration-200 shrink-0 ${
                                   isHovered
-                                    ? `rotate-180 ${shouldBeTransparent ? 'text-amber-300' : 'text-[#184F48]'}`
+                                    ? `rotate-180 ${shouldBeTransparent ? 'text-amber-300' : 'text-softwater-dark'}`
                                     : shouldBeTransparent
                                       ? 'text-white/70 group-hover:text-white'
                                       : 'text-slate-400 group-hover:text-slate-700'
@@ -442,7 +442,7 @@ export default function Navbar({
                             {(isHovered || (isActive && !activeDropdown)) && (
                               <span
                                 className={`absolute -bottom-1 left-0 right-0 h-[2px] rounded-full transition-all duration-200 ${
-                                  shouldBeTransparent ? 'bg-amber-400' : 'bg-[#184F48]'
+                                  shouldBeTransparent ? 'bg-amber-400' : 'bg-softwater-dark'
                                 }`}
                               />
                             )}
@@ -464,7 +464,7 @@ export default function Navbar({
                               <ChevronDown
                                 className={`w-3 h-3 transition-transform duration-200 shrink-0 ${
                                   isHovered
-                                    ? `rotate-180 ${shouldBeTransparent ? 'text-amber-300' : 'text-[#184F48]'}`
+                                    ? `rotate-180 ${shouldBeTransparent ? 'text-amber-300' : 'text-softwater-dark'}`
                                     : shouldBeTransparent
                                       ? 'text-white/70 group-hover:text-white'
                                       : 'text-slate-400 group-hover:text-slate-700'
@@ -476,7 +476,7 @@ export default function Navbar({
                             {(isHovered || (isActive && !activeDropdown)) && (
                               <span
                                 className={`absolute -bottom-1 left-0 right-0 h-[2px] rounded-full transition-all duration-200 ${
-                                  shouldBeTransparent ? 'bg-amber-400' : 'bg-[#184F48]'
+                                  shouldBeTransparent ? 'bg-amber-400' : 'bg-softwater-dark'
                                 }`}
                               />
                             )}
@@ -565,7 +565,7 @@ export default function Navbar({
                   className={`p-2 rounded-full transition-colors cursor-pointer shrink-0 ${
                     shouldBeTransparent
                       ? 'text-white hover:text-amber-300 hover:bg-white/10'
-                      : 'text-slate-600 hover:text-[#184F48] hover:bg-slate-100'
+                      : 'text-slate-600 hover:text-softwater-dark hover:bg-slate-100'
                   }`}
                 >
                   <Search className="w-4 h-4 xl:w-5 xl:h-5" />
@@ -578,7 +578,7 @@ export default function Navbar({
                   className={`px-3 py-1.5 xl:py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 ${
                     shouldBeTransparent
                       ? 'text-white/90 hover:text-amber-300 hover:bg-white/10'
-                      : 'text-slate-700 hover:text-[#184F48] hover:bg-slate-100'
+                      : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100'
                   }`}
                 >
                   <span>Login</span>
@@ -595,7 +595,7 @@ export default function Navbar({
                   className={`p-2 rounded-full transition-colors cursor-pointer shrink-0 ${
                     shouldBeTransparent
                       ? 'text-white hover:bg-white/10'
-                      : 'text-slate-600 hover:text-[#184F48] hover:bg-slate-100'
+                      : 'text-slate-600 hover:text-softwater-dark hover:bg-slate-100'
                   }`}
                 >
                   <Search className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -608,7 +608,7 @@ export default function Navbar({
                   className={`p-2 rounded-xl transition-colors cursor-pointer ${
                     shouldBeTransparent
                       ? 'text-white hover:bg-white/10'
-                      : 'text-slate-700 hover:text-[#184F48] hover:bg-slate-100'
+                      : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100'
                   }`}
                 >
                   {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -671,12 +671,12 @@ export default function Navbar({
                       className="flex items-center justify-between p-3 rounded-xl hover:bg-emerald-50/70 transition-colors group cursor-pointer"
                     >
                       <div>
-                        <p className="text-xs font-bold text-slate-900 group-hover:text-[#184F48]">
+                        <p className="text-xs font-bold text-slate-900 group-hover:text-softwater-dark">
                           {item.title}
                         </p>
                         <p className="text-[10px] text-slate-400 font-mono mt-0.5">{item.url}</p>
                       </div>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 group-hover:bg-[#184F48] group-hover:text-white transition-colors">
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 group-hover:bg-softwater-dark group-hover:text-white transition-colors">
                         {item.cat}
                       </span>
                     </a>
@@ -688,12 +688,12 @@ export default function Navbar({
                       className="flex items-center justify-between p-3 rounded-xl hover:bg-emerald-50/70 transition-colors group cursor-pointer"
                     >
                       <div>
-                        <p className="text-xs font-bold text-slate-900 group-hover:text-[#184F48]">
+                        <p className="text-xs font-bold text-slate-900 group-hover:text-softwater-dark">
                           {item.title}
                         </p>
                         <p className="text-[10px] text-slate-400 font-mono mt-0.5">{item.url}</p>
                       </div>
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 group-hover:bg-[#184F48] group-hover:text-white transition-colors">
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 group-hover:bg-softwater-dark group-hover:text-white transition-colors">
                         {item.cat}
                       </span>
                     </Link>
@@ -724,7 +724,7 @@ export default function Navbar({
                     />
                   )}
                   <div>
-                    <div className="text-sm font-bold text-[#184F48]">
+                    <div className="text-sm font-bold text-softwater-dark">
                       {brandConfig.arabic}
                     </div>
                     <div className="text-[11px] font-semibold text-slate-700">
@@ -752,7 +752,7 @@ export default function Navbar({
                         key={nav.name}
                         href={nav.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="block px-3 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50 hover:text-[#184F48] transition-colors"
+                        className="block px-3 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50 hover:text-softwater-dark transition-colors"
                       >
                         {nav.name}
                       </Link>
@@ -769,7 +769,7 @@ export default function Navbar({
                         <span>{nav.name}</span>
                         <ChevronDown
                           className={`w-4 h-4 text-slate-400 transition-transform ${
-                            isExpanded ? 'rotate-180 text-[#184F48]' : ''
+                            isExpanded ? 'rotate-180 text-softwater-dark' : ''
                           }`}
                         />
                       </button>
@@ -795,7 +795,7 @@ export default function Navbar({
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-[#184F48] hover:bg-white rounded-lg transition-colors"
+                                  className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-softwater-dark hover:bg-white rounded-lg transition-colors"
                                 >
                                   {item.label}
                                 </a>
@@ -808,7 +808,7 @@ export default function Navbar({
                                   key={item.label}
                                   href={item.href}
                                   onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-[#184F48] hover:bg-white rounded-lg transition-colors"
+                                  className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-softwater-dark hover:bg-white rounded-lg transition-colors"
                                 >
                                   {item.label}
                                 </a>
@@ -820,7 +820,7 @@ export default function Navbar({
                                 key={item.label}
                                 href={item.href}
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-[#184F48] hover:bg-white rounded-lg transition-colors"
+                                className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-softwater-dark hover:bg-white rounded-lg transition-colors"
                               >
                                 {item.label}
                               </Link>
@@ -841,7 +841,7 @@ export default function Navbar({
                 target={activeSlug ? '_blank' : undefined}
                 rel={activeSlug ? 'noopener noreferrer' : undefined}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-3 px-4 rounded-full bg-[#184F48] text-white text-xs font-bold text-center block shadow-md hover:bg-[#133f3a] transition-all"
+                className="w-full py-3 px-4 rounded-full bg-softwater-dark text-white text-xs font-bold text-center block shadow-md hover:bg-softwater-deep transition-all"
               >
                 {brandConfig.ctaText}
               </Link>
@@ -857,7 +857,7 @@ export default function Navbar({
                 href="https://wa.me/6281223344552"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2 px-4 rounded-full text-slate-600 text-xs font-medium text-center flex items-center justify-center space-x-2 hover:text-[#184F48] transition-all"
+                className="w-full py-2 px-4 rounded-full text-slate-600 text-xs font-medium text-center flex items-center justify-center space-x-2 hover:text-softwater-dark transition-all"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Pusat Bantuan WhatsApp</span>

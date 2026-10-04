@@ -26,12 +26,12 @@ export default function StickyMobileBar({
         href={waHref}
         target="_blank"
         rel="noreferrer"
-        className="w-10 h-10 flex flex-col items-center justify-center rounded-xl bg-[#E8F3F1] text-[#2D7A70] border border-[#2D7A70]/30 hover:bg-[#D4EBE7] transition-colors flex-shrink-0"
+        className="w-10 h-10 flex flex-col items-center justify-center rounded-xl bg-softwater-light text-softwater border border-softwater/30 hover:bg-[#D4EBE7] transition-colors flex-shrink-0"
         aria-label="Konsultasi WhatsApp"
         title="WhatsApp CS"
       >
         <MessageCircle className="w-4 h-4" />
-        <span className="text-[9px] font-bold text-[#2D7A70] leading-none mt-0.5">Tanya</span>
+        <span className="text-[9px] font-bold text-softwater leading-none mt-0.5">Tanya</span>
       </a>
 
       <Link
@@ -40,12 +40,12 @@ export default function StickyMobileBar({
         aria-label="Cek Status Pendaftaran"
         title="Lacak Pendaftaran"
       >
-        <Search className="w-4 h-4 text-[#2D7A70]" />
-        <span className="text-[9px] font-bold text-[#184F48] leading-none mt-0.5">Lacak</span>
+        <Search className="w-4 h-4 text-softwater" />
+        <span className="text-[9px] font-bold text-softwater-dark leading-none mt-0.5">Lacak</span>
       </Link>
       <Link
         href={ppdbHref}
-        className="min-w-0 flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-[#184F48] to-[#2D7A70] text-white text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5"
+        className="min-w-0 flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-softwater-dark to-softwater text-white text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5"
       >
         <span className="truncate">Daftar PPDB Sekarang</span>
         <ArrowRight className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" />

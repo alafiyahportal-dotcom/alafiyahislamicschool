@@ -33,6 +33,7 @@
   --color-softwater-light: #E8F3F1;
   --color-softwater-subtle: #F2F8F7;
   --color-softwater-accent: #3C9388;
+  --color-softwater-deep: #133F3A;
 
   --font-sans: var(--font-sans), 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -42,6 +43,58 @@
   --foreground: #0F172A;
   --surface: #F8FAFC;
   --border: #E2E8F0;
+}
+
+/* ===================================================
+   SD IT IDENTITY SCOPE
+   Tailwind v4 utilities read colors from CSS variables, so remapping them here
+   recolors every emerald/teal/softwater utility inside SD pages to the SD IT
+   green (primary CTA = green-600) without touching TK, SMP or the foundation.
+   Values are Tailwind's green palette (oklch).
+   =================================================== */
+.theme-sd {
+  --sd-green-50: oklch(98.2% 0.018 155.826);
+  --sd-green-100: oklch(96.2% 0.044 156.743);
+  --sd-green-200: oklch(92.5% 0.084 155.995);
+  --sd-green-300: oklch(87.1% 0.15 154.449);
+  --sd-green-400: oklch(79.2% 0.209 151.711);
+  --sd-green-500: oklch(72.3% 0.219 149.579);
+  --sd-green-600: oklch(62.7% 0.194 149.214);
+  --sd-green-700: oklch(52.7% 0.154 150.069);
+  --sd-green-800: oklch(44.8% 0.119 151.328);
+  --sd-green-900: oklch(39.3% 0.095 152.535);
+  --sd-green-950: oklch(26.6% 0.065 152.934);
+
+  --color-emerald-50: var(--sd-green-50);
+  --color-emerald-100: var(--sd-green-100);
+  --color-emerald-200: var(--sd-green-200);
+  --color-emerald-300: var(--sd-green-300);
+  --color-emerald-400: var(--sd-green-400);
+  --color-emerald-500: var(--sd-green-500);
+  --color-emerald-600: var(--sd-green-600);
+  --color-emerald-700: var(--sd-green-700);
+  --color-emerald-800: var(--sd-green-800);
+  --color-emerald-900: var(--sd-green-900);
+  --color-emerald-950: var(--sd-green-950);
+
+  --color-teal-50: var(--sd-green-50);
+  --color-teal-100: var(--sd-green-100);
+  --color-teal-200: var(--sd-green-200);
+  --color-teal-300: var(--sd-green-300);
+  --color-teal-400: var(--sd-green-400);
+  --color-teal-500: var(--sd-green-500);
+  --color-teal-600: var(--sd-green-600);
+  --color-teal-700: var(--sd-green-700);
+  --color-teal-800: var(--sd-green-800);
+  --color-teal-900: var(--sd-green-900);
+  --color-teal-950: var(--sd-green-950);
+
+  --color-softwater: var(--sd-green-600);
+  --color-softwater-dark: var(--sd-green-700);
+  --color-softwater-deep: var(--sd-green-800);
+  --color-softwater-light: var(--sd-green-50);
+  --color-softwater-subtle: var(--sd-green-50);
+  --color-softwater-accent: var(--sd-green-500);
 }
 
 html {
