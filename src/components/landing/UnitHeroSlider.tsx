@@ -46,13 +46,14 @@ function renderHeroHeadline(
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
     return (
       <>
-        {/* Accent: refined serif italic, sits above the heading as its own line */}
-        <span className="font-hero-accent block mb-1 text-2xl sm:text-3xl lg:text-4xl italic font-normal sm:font-medium tracking-wide leading-snug text-neutral-200 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+        {/* Accent: refined serif italic, sized to hold its own against the large heading */}
+        <span className="font-hero-accent block mb-2 text-3xl sm:text-4xl md:text-[2.75rem] italic font-normal tracking-wide leading-snug text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
           Bukan Sekedar
         </span>
-        {/* Heading text flows naturally so it fills the available width instead of a forced 4-line stack */}
-        <span className="block text-white">
-          Tempat Belajar, Namun Juga{' '}
+        {/* Heading: fixed 3-line structure */}
+        <span className="block">Tempat Belajar,</span>
+        <span className="block">Namun Juga</span>
+        <span className="block">
           <span className={highlightClass}>Tempat Bertumbuh</span>
           {p2 ? (p2.startsWith(',') || p2.startsWith('.') ? p2 : ` ${p2}`) : ' Ananda'}
         </span>
@@ -116,8 +117,8 @@ function HeroContent({
         </div>
       )}
 
-      {/* Main Headline — wide measure so lines fill toward the right instead of breaking choppily */}
-      <h1 className="w-full max-w-xl lg:max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.18] sm:leading-[1.12] tracking-tight text-left text-white drop-shadow-lg break-words">
+      {/* Main Headline — large & dominant; sm step kept at 2.75rem so line 3 stays on one line */}
+      <h1 className="w-full text-4xl sm:text-[2.75rem] md:text-5xl lg:text-6xl font-extrabold leading-[1.12] tracking-tight text-left text-white drop-shadow-lg break-words">
         {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightClass)}
       </h1>
 
@@ -139,9 +140,9 @@ function HeroContent({
         <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
       </Link>
 
-      {/* Trust Points - mobile: precise 2-col grid with hairline dividers; sm+: plain inline row */}
+      {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
       {slide.trustItems && slide.trustItems.length > 0 && (
-        <ul className="mt-6 sm:mt-8 w-full grid grid-cols-2 gap-x-4 gap-y-2.5 text-left text-xs font-medium text-neutral-400 sm:flex sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:text-sm sm:font-semibold sm:text-slate-200/90">
+        <ul className="mt-6 sm:mt-8 w-full flex flex-col gap-2 text-left text-xs font-medium text-neutral-400 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:text-sm sm:font-semibold sm:text-slate-200/90">
           {slide.trustItems.map((item, tIdx) => (
             <li
               key={tIdx}
@@ -235,8 +236,7 @@ export default function UnitHeroSlider({
         trustItems: [
           { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
           { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
-          { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
-          { icon: 'calendar' as const, text: `T.A. 2026/2027` }
+          { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' }
         ]
       };
 
@@ -288,8 +288,8 @@ export default function UnitHeroSlider({
         return {
           glowColor: 'bg-teal-500/20',
           badgeText: 'text-amber-300/90',
-          highlight: 'text-emerald-400',
-          primaryBtn: 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-950/40'
+          highlight: 'text-green-500',
+          primaryBtn: 'bg-green-600 hover:bg-green-700 shadow-green-950/40'
         };
       case 'smp':
       default:
