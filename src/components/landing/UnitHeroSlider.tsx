@@ -51,31 +51,24 @@ function renderHeroHeadline(
   // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
     return (
-      <span className="flex flex-col items-start gap-y-1 sm:gap-y-1.5">
-        {/* Line 1: Bukan Sekedar with Cursive Tegak Sambung & Serif Calligraphic Elegance */}
-        <span
-          className="font-tegak-sambung block font-normal text-[1.22em] sm:text-[1.28em] text-white/95 tracking-normal leading-[1.08] drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] pr-2"
-          style={{
-            fontFamily: "var(--font-dancing-script), var(--font-alex-brush), var(--font-playfair), cursive, serif",
-            fontStyle: "italic",
-            fontWeight: 700,
-          }}
-        >
+      <span className="flex flex-col items-start gap-y-0.5 sm:gap-y-1.5">
+        {/* Line 1: Bukan Sekedar with Cursive Tegak Sambung (font set via .font-tegak-sambung) */}
+        <span className="font-tegak-sambung block text-[1.12em] sm:text-[1.28em] text-white/95 tracking-normal leading-[1.15] sm:leading-[1.08] pb-1 sm:pb-0 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] pr-2">
           Bukan Sekedar
         </span>
         {/* Line 2: Tempat Belajar, */}
-        <span className="leading-[1.12] text-white">
+        <span className="leading-[1.08] sm:leading-[1.12] text-white">
           Tempat Belajar,
         </span>
         {/* Line 3: Namun Juga Tempat */}
-        <span className="leading-[1.12] text-white">
+        <span className="leading-[1.08] sm:leading-[1.12] text-white">
           Namun Juga{' '}
           <span className={`text-transparent bg-clip-text bg-gradient-to-r ${highlightGradient} inline`}>
             Tempat
           </span>
         </span>
         {/* Line 4: Bertumbuh Ananda */}
-        <span className="leading-[1.12] text-white">
+        <span className="leading-[1.08] sm:leading-[1.12] text-white">
           <span className={`text-transparent bg-clip-text bg-gradient-to-r ${highlightGradient} inline`}>
             Bertumbuh
           </span>
@@ -103,6 +96,83 @@ function renderHeroHeadline(
         </span>
       )}
       {p2 && (p2.startsWith(',') || p2.startsWith('.') ? p2 : ` ${p2}`)}
+    </>
+  );
+}
+
+interface HeroContentProps {
+  slide: UnitSlideData;
+  fallbackPrimaryLink: string;
+  fallbackSecondaryLink: string;
+  highlightGradient: string;
+  primaryBtnClass: string;
+}
+
+/** Headline, description, CTAs and trust points — shared by static and sliding modes. */
+function HeroContent({
+  slide,
+  fallbackPrimaryLink,
+  fallbackSecondaryLink,
+  highlightGradient,
+  primaryBtnClass
+}: HeroContentProps) {
+  const pLink = slide.primaryCtaLink || fallbackPrimaryLink;
+  const sLink = slide.secondaryCtaLink || fallbackSecondaryLink;
+  const ctaBase =
+    'w-full sm:w-auto px-5 sm:px-8 py-3.5 sm:py-4 rounded-full text-white text-sm sm:text-base transition-all flex items-center justify-start sm:justify-center gap-2.5 sm:gap-2 cursor-pointer';
+
+  return (
+    <>
+      {/* Main Headline - mobile: fluid 30→36px with tight leading */}
+      <h1 className="text-[clamp(1.875rem,9.2vw,2.25rem)] sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08] sm:leading-[1.12] drop-shadow-lg break-words max-w-3xl lg:max-w-4xl sm:[word-spacing:0.08em]">
+        {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightGradient)}
+      </h1>
+
+      {/* Subtitle Description - Clear & Legible */}
+      {slide.description && (
+        <p className="text-sm sm:text-base lg:text-xl text-slate-200 leading-relaxed font-normal max-w-2xl lg:max-w-3xl drop-shadow-sm [word-spacing:0.06em]">
+          {slide.description}
+        </p>
+      )}
+
+      {/* Dual Action Buttons - mobile: full width, content left-aligned with the text margin */}
+      <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4">
+        <Link
+          href={pLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${ctaBase} bg-gradient-to-r ${primaryBtnClass} font-extrabold shadow-xl hover:opacity-95 transform hover:-translate-y-0.5 group`}
+        >
+          <span>{slide.primaryCtaText || 'Daftar Sekarang'}</span>
+          <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform text-white" />
+        </Link>
+
+        <Link
+          href={sLink}
+          className={`${ctaBase} sm:px-7 bg-white/10 hover:bg-white/20 border border-white/30 font-bold backdrop-blur-md`}
+        >
+          {sLink.startsWith('http') ? (
+            <MessageCircle className="w-4 h-4 shrink-0 text-emerald-400" />
+          ) : (
+            <BookOpen className="w-4 h-4 shrink-0 text-amber-300" />
+          )}
+          <span>{slide.secondaryCtaText || 'Konsultasi WhatsApp'}</span>
+        </Link>
+      </div>
+
+      {/* Trust Points - mobile: 2-col grid with hairline dividers; sm+: plain inline row */}
+      {slide.trustItems && slide.trustItems.length > 0 && (
+        <ul className="pt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 text-xs sm:text-sm font-semibold text-slate-200/90 max-w-full">
+          {slide.trustItems.map((item, tIdx) => (
+            <li
+              key={tIdx}
+              className="border-l border-white/25 pl-2.5 leading-snug sm:border-0 sm:pl-0 sm:whitespace-nowrap tracking-wide"
+            >
+              {item.text}
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }
@@ -339,73 +409,18 @@ export default function UnitHeroSlider({
       >
         {isAllSameContent ? (
           <div className="relative max-w-3xl lg:max-w-5xl flex flex-col justify-start space-y-4 sm:space-y-5 text-left">
-            {/* Main Headline - Bold, Prominent, Punchy Typography */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.14] sm:leading-[1.12] drop-shadow-lg break-words max-w-3xl lg:max-w-4xl [word-spacing:0.08em]">
-              {renderHeroHeadline(
-                slides[0].titlePart1,
-                slides[0].titleHighlight,
-                slides[0].titlePart2,
-                themeConfig.highlightGradient
-              )}
-            </h1>
-
-            {/* Subtitle Description - Clear & Legible */}
-            {slides[0].description && (
-              <p className="text-sm sm:text-base lg:text-xl text-slate-200 leading-relaxed font-normal max-w-2xl lg:max-w-3xl drop-shadow-sm [word-spacing:0.06em]">
-                {slides[0].description}
-              </p>
-            )}
-
-            {/* Dual Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-2.5 sm:space-y-0 sm:space-x-4">
-              {/* Primary Themed Button */}
-              <Link
-                href={slides[0].primaryCtaLink || ppdbUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r ${themeConfig.primaryBtn} text-white font-extrabold text-sm sm:text-base shadow-xl hover:opacity-95 transition-all flex items-center justify-center space-x-2 cursor-pointer transform hover:-translate-y-0.5 group`}
-              >
-                <span>{slides[0].primaryCtaText || 'Daftar Sekarang'}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-white" />
-              </Link>
-
-              {/* Secondary Clean White Outline Button */}
-              <Link
-                href={slides[0].secondaryCtaLink || waUrl}
-                className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm sm:text-base backdrop-blur-md transition-all flex items-center justify-center space-x-2 cursor-pointer"
-              >
-                {(slides[0].secondaryCtaLink || waUrl).startsWith('http') ? (
-                  <MessageCircle className="w-4 h-4 text-emerald-400" />
-                ) : (
-                  <BookOpen className="w-4 h-4 text-amber-300" />
-                )}
-                <span>{slides[0].secondaryCtaText || 'Konsultasi WhatsApp'}</span>
-              </Link>
-            </div>
-
-            {/* Clean Editorial Trust Row (Plain Text Spacing without Cards or Dots) */}
-            {slides[0].trustItems && slides[0].trustItems.length > 0 && (
-              <div className="pt-3 flex flex-wrap items-center gap-x-6 sm:gap-x-8 gap-y-2 text-xs sm:text-sm font-semibold text-slate-200/90 max-w-full">
-                {slides[0].trustItems.map((item, tIdx) => (
-                  <span key={tIdx} className="whitespace-nowrap tracking-wide">
-                    {item.text}
-                  </span>
-                ))}
-              </div>
-            )}
+            <HeroContent
+              slide={slides[0]}
+              fallbackPrimaryLink={ppdbUrl}
+              fallbackSecondaryLink={waUrl}
+              highlightGradient={themeConfig.highlightGradient}
+              primaryBtnClass={themeConfig.primaryBtn}
+            />
           </div>
         ) : (
           <div className="relative max-w-3xl lg:max-w-5xl min-h-[480px] sm:min-h-[500px] lg:min-h-[530px]">
             {slides.map((s, idx) => {
               const isTextActive = idx === currentSlide;
-              const p1 = (s.titlePart1 || '').trim();
-              const ph = (s.titleHighlight || '').trim();
-              const p2 = (s.titlePart2 || '').trim();
-              const desc = s.description || '';
-              const pLink = s.primaryCtaLink || ppdbUrl;
-              const pText = s.primaryCtaText || 'Daftar Sekarang';
-              const sLink = s.secondaryCtaLink || waUrl;
-              const sText = s.secondaryCtaText || 'Konsultasi WhatsApp';
 
               return (
                 <div
@@ -416,60 +431,13 @@ export default function UnitHeroSlider({
                       : 'opacity-0 translate-y-2 pointer-events-none z-0'
                   }`}
                 >
-                  {/* Main Headline - Bold, Prominent, Punchy Typography */}
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.14] sm:leading-[1.12] drop-shadow-lg break-words max-w-3xl lg:max-w-4xl [word-spacing:0.08em]">
-                    {renderHeroHeadline(
-                      p1,
-                      ph,
-                      p2,
-                      themeConfig.highlightGradient
-                    )}
-                  </h1>
-
-                  {/* Subtitle Description - Clear & Legible */}
-                  {desc && (
-                    <p className="text-sm sm:text-base lg:text-xl text-slate-200 leading-relaxed font-normal max-w-2xl lg:max-w-3xl drop-shadow-sm [word-spacing:0.06em]">
-                      {desc}
-                    </p>
-                  )}
-
-                  {/* Dual Action Buttons */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-2.5 sm:space-y-0 sm:space-x-4">
-                    {/* Primary Themed Button */}
-                    <Link
-                      href={pLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r ${themeConfig.primaryBtn} text-white font-extrabold text-sm sm:text-base shadow-xl hover:opacity-95 transition-all flex items-center justify-center space-x-2 cursor-pointer transform hover:-translate-y-0.5 group`}
-                    >
-                      <span>{pText}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-white" />
-                    </Link>
-
-                    {/* Secondary Clean White Outline Button */}
-                    <Link
-                      href={sLink}
-                      className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm sm:text-base backdrop-blur-md transition-all flex items-center justify-center space-x-2 cursor-pointer"
-                    >
-                      {sLink.startsWith('http') ? (
-                        <MessageCircle className="w-4 h-4 text-emerald-400" />
-                      ) : (
-                        <BookOpen className="w-4 h-4 text-amber-300" />
-                      )}
-                      <span>{sText}</span>
-                    </Link>
-                  </div>
-
-                  {/* Clean Editorial Trust Row (Plain Text Spacing without Cards or Dots) */}
-                  {s.trustItems && s.trustItems.length > 0 && (
-                    <div className="pt-3 flex flex-wrap items-center gap-x-6 sm:gap-x-8 gap-y-2 text-xs sm:text-sm font-semibold text-slate-200/90 max-w-full">
-                      {s.trustItems.map((item, tIdx) => (
-                        <span key={tIdx} className="whitespace-nowrap tracking-wide">
-                          {item.text}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <HeroContent
+                    slide={s}
+                    fallbackPrimaryLink={ppdbUrl}
+                    fallbackSecondaryLink={waUrl}
+                    highlightGradient={themeConfig.highlightGradient}
+                    primaryBtnClass={themeConfig.primaryBtn}
+                  />
                 </div>
               );
             })}
