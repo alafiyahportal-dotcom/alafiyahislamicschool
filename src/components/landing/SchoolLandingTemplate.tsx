@@ -565,27 +565,16 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         className="py-16 sm:py-20 bg-emerald-900 scroll-mt-16 sm:scroll-mt-20 w-full text-white"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
-                Kurikulum Terintegrasi
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
-                Program Unggulan <span className="text-amber-400">{school.name}</span>
-              </h2>
-              <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
-                Pilar keunggulan kurikulum berakar pada nilai karakter nabawiyah, adab islami, serta penguatan literasi dan agro-sains.
-              </p>
-            </div>
-            <Link
-              href={ppdbUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 md:mt-0 text-xs font-bold text-amber-300 hover:text-white flex items-center space-x-1.5 bg-black/20 hover:bg-black/30 border border-white/20 px-4 py-2.5 rounded-full transition-all shadow-2xs tactile-press self-start md:self-auto group"
-            >
-              <span>Daftar di Program Ini</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
+          <div className="mb-12 max-w-3xl">
+            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
+              Kurikulum Terintegrasi
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
+              Program Unggulan <span className="text-amber-400">{school.name}</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
+              Pilar keunggulan kurikulum berakar pada nilai karakter nabawiyah, adab islami, serta penguatan literasi dan agro-sains.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
