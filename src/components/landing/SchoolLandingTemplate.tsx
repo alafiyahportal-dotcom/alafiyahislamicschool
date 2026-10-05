@@ -861,7 +861,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                         setIsOpeningSpmb(true);
                         setTimeout(() => setIsOpeningSpmb(false), 2000);
                       }}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow-xs transition-colors active:scale-95"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-xs sm:text-sm shadow-xs transition-colors active:scale-95"
                     >
                       {isOpeningSpmb ? (
                         <>

@@ -51,59 +51,26 @@ interface SchoolOption {
 
 const SCHOOLS: SchoolOption[] = [
   {
-    slug: 'tk',
-    name: 'TK IT Al-Afiyah',
-    badge: 'PAUD / TK IT',
-    fee: 150000,
-    color: 'border-emerald-500 bg-emerald-50/40 text-emerald-900',
-    accent: '#10B981',
-    desc: 'Sentra bermain bermakna, kemandirian anak, dan adab sejak usia dini.',
-    waveName: 'Gelombang 1 (2027/2028)',
-  },
-  {
     slug: 'sd',
     name: 'SD IT Al-Afiyah',
     badge: 'SD IT UNGGULAN',
     fee: 250000,
-    color: 'border-emerald-600 bg-emerald-50/40 text-emerald-900',
-    accent: '#059669',
+    color: 'border-[#00A651] bg-[#00A651]/10 text-slate-900',
+    accent: '#00A651',
     desc: 'Kurikulum terpadu nasional & JSIT, tahfidz juz 30 mutqin, sains, dan pembinaan karakter.',
     waveName: 'Gelombang 1 (1 Okt - 30 Des 2026)',
-  },
-  {
-    slug: 'smp',
-    name: 'SMP IT Al-Afiyah',
-    badge: 'SMP ISLAM TERPADU',
-    fee: 200000,
-    color: 'border-emerald-800 bg-emerald-50/40 text-emerald-900',
-    accent: '#064E3B',
-    desc: 'Tahfidz 3-5 juz, wawasan global, bilingual, sains modern & fullday school.',
-    waveName: 'Gelombang 1 (1 Okt 2026 - 28 Feb 2027)',
-    bankName: 'Bank Muamalat',
-    bankAccountNumber: '1360012405',
-    bankAccountHolder: 'SMP IT Al Afiyah',
   },
 ];
 
 function PPDBFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const querySchool = searchParams.get('school') as 'tk' | 'sd' | 'smp' | null;
   const initialRef = searchParams.get('ref') || '';
-
-  // Detect subdomain if on sd.localhost:3000, tk.localhost:3000, etc.
-  const [subdomainSchool, setSubdomainSchool] = useState<'tk' | 'sd' | 'smp' | null>(null);
 
   const [autoDetectedRef, setAutoDetectedRef] = useState<string>('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const sub = extractSubdomain(window.location.host);
-      if (sub) {
-        setSubdomainSchool(sub);
-      }
-
-      // Check URL query param (?ref= or ?referral=), or persistent 30-day Cookie & localStorage
       const queryRef = searchParams.get('ref') || searchParams.get('referral') || initialRef;
       let foundRef = queryRef ? saveReferralCode(queryRef) : null;
 
@@ -122,9 +89,6 @@ function PPDBFormContent() {
     }
   }, [initialRef, searchParams]);
 
-  const lockedSchool = querySchool || subdomainSchool || null;
-  const isUnitLocked = Boolean(lockedSchool);
-
   // Form Step (1 to 6)
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -135,9 +99,9 @@ function PPDBFormContent() {
   // Detailed Form Accordion State (Bisa disusulkan atau diisi langsung)
   const [showDetailed28Poin, setShowDetailed28Poin] = useState(false);
 
-  // Form State
+  // Form State - Permanently Dedicated to SD IT Al-Afiyah
   const [formData, setFormData] = useState({
-    schoolSlug: querySchool || 'sd',
+    schoolSlug: 'sd' as 'sd',
     admissionTrack: 'REGULER',
     referralCode: initialRef,
 
@@ -281,38 +245,21 @@ function PPDBFormContent() {
     }
   };
 
-  // Synchronize schoolSlug when lockedSchool is detected
-  useEffect(() => {
-    if (lockedSchool) {
-      setFormData((prev) => ({ ...prev, schoolSlug: lockedSchool }));
-    }
-  }, [lockedSchool]);
-
-  // Dynamic browser tab title & favicon based on selected school
+  // Dynamic browser tab title & favicon for SD IT Al-Afiyah
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      const activeSchoolName =
-        formData.schoolSlug === 'sd'
-          ? 'SD IT Al-Afiyah'
-          : formData.schoolSlug === 'smp'
-          ? 'SMP IT Al-Afiyah'
-          : formData.schoolSlug === 'tk'
-          ? 'TK IT Al-Afiyah'
-          : 'Sekolah IT Al-Afiyah';
-      document.title = `Formulir Pendaftaran Murid Baru (${activeSchoolName}) | PPDB T.A. 2027/2028`;
+      document.title = `Formulir Pendaftaran Murid Baru (SD IT Al-Afiyah) | PPDB T.A. 2027/2028`;
 
-      if (formData.schoolSlug === 'sd') {
-        let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
-        if (!link) {
-          link = document.createElement('link');
-          link.rel = 'icon';
-          document.getElementsByTagName('head')[0].appendChild(link);
-        }
-        link.type = 'image/png';
-        link.href = '/images/sd-logo.png';
+      let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.getElementsByTagName('head')[0].appendChild(link);
       }
+      link.type = 'image/png';
+      link.href = '/images/sd-logo.png';
     }
-  }, [formData.schoolSlug]);
+  }, []);
 
   // Load from local storage draft
   useEffect(() => {
@@ -323,14 +270,14 @@ function PPDBFormContent() {
         setFormData((prev) => ({
           ...prev,
           ...parsed,
+          schoolSlug: 'sd',
           referralCode: prev.referralCode || parsed.referralCode || autoDetectedRef || initialRef || '',
-          ...(lockedSchool ? { schoolSlug: lockedSchool } : {}),
         }));
       } catch {
         // ignore
       }
     }
-  }, [lockedSchool, autoDetectedRef, initialRef]);
+  }, [autoDetectedRef, initialRef]);
 
   // Save to local storage on change
   useEffect(() => {
@@ -346,33 +293,20 @@ function PPDBFormContent() {
         const res = await fetch('/api/admin/settings');
         const data = await res.json();
         if (data.success && Array.isArray(data.schools)) {
-          setSchoolsList((prev) =>
-            prev.map((s) => {
-              const matched = data.schools.find(
-                (sch: {
-                  slug: string;
-                  name: string;
-                  registrationFee: number;
-                  badgeText?: string;
-                  isPpdbOpen: boolean;
-                  waveName: string;
-                  quota: number;
-                }) => sch.slug === s.slug
-              );
-              if (matched) {
-                return {
-                  ...s,
-                  name: matched.name,
-                  fee: matched.registrationFee,
-                  badge: matched.badgeText || s.badge,
-                  isPpdbOpen: matched.isPpdbOpen,
-                  waveName: matched.waveName,
-                  quota: matched.quota,
-                };
-              }
-              return s;
-            })
-          );
+          const sdSetting = data.schools.find((sch: { slug: string }) => sch.slug === 'sd');
+          if (sdSetting) {
+            setSchoolsList((prev) =>
+              prev.map((s) => ({
+                ...s,
+                name: sdSetting.name || s.name,
+                fee: sdSetting.registrationFee || s.fee,
+                badge: sdSetting.badgeText || s.badge,
+                isPpdbOpen: sdSetting.isPpdbOpen,
+                waveName: sdSetting.waveName || s.waveName,
+                quota: sdSetting.quota || s.quota,
+              }))
+            );
+          }
         }
       } catch {
         // use fallback static SCHOOLS
@@ -381,7 +315,20 @@ function PPDBFormContent() {
     loadDynamicSchoolSettings();
   }, []);
 
-  const activeSchool = schoolsList.find((s) => s.slug === formData.schoolSlug) || schoolsList[1];
+  const activeSchool = schoolsList[0] || SCHOOLS[0];
+
+  const isSd = true;
+  const isSmp = false;
+
+  // Dedicated Brand Theme Tokens for SD IT Al-Afiyah (#00A651)
+  const themeBannerBg = 'bg-[#00A651] border-[#008f45]';
+  const themeBorderTop = 'border-t-[#00A651]';
+  const themeBadgeBg = 'bg-[#00A651]';
+  const themeTextAccent = 'text-[#00A651]';
+  const themeIconBg = 'bg-[#00A651]';
+  const themeButtonPrimary = 'bg-[#00A651] hover:bg-[#008f45]';
+  const themeFocusBorder = 'focus:border-[#00A651]';
+  const themePoinBadgeBg = 'bg-[#00A651] text-white';
 
   const updateField = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -612,55 +559,30 @@ function PPDBFormContent() {
 
   return (
     <div className="min-h-screen soft-mesh-bg flex flex-col justify-between py-6 px-4 sm:px-6 lg:px-8">
-      {/* Top Header - Clean Navigation (No Duplication) */}
+      {/* Top Header - Dedicated SD IT Navigation */}
       <header className="max-w-4xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between pb-4 border-b border-slate-200/80 gap-3">
         <Link
-          href={
-            activeSchool.slug === 'sd'
-              ? getSchoolUrl('sd')
-              : activeSchool.slug === 'tk'
-              ? getSchoolUrl('tk')
-              : activeSchool.slug === 'smp'
-              ? getSchoolUrl('smp')
-              : getSchoolUrl('foundation')
-          }
+          href={getSchoolUrl('sd')}
           className="flex items-center space-x-3 group"
         >
-          {activeSchool.slug === 'sd' ? (
-            <img
-              src="/images/sd-logo.png"
-              alt="Logo SD IT Al-Afiyah"
-              className="w-10 h-10 object-contain shrink-0 group-hover:scale-105 transition-transform duration-200"
-            />
-          ) : (
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-extrabold text-base shadow-xs border border-white/20 group-hover:scale-105 transition-transform duration-200"
-              style={{ backgroundColor: activeSchool.accent || '#064E3B' }}
-            >
-              {activeSchool.slug.toUpperCase()}
-            </div>
-          )}
+          <img
+            src="/images/sd-logo.png"
+            alt="Logo SD IT Al-Afiyah"
+            className="w-10 h-10 object-contain shrink-0 group-hover:scale-105 transition-transform duration-200"
+          />
           <div>
-            <span className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-[#064E3B] transition-colors block">
-              {activeSchool.name} Majalengka
+            <span className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors block">
+              SD IT Al-Afiyah Majalengka
             </span>
             <p className="text-[11px] text-slate-500 font-medium">
-              Portal Pendaftaran Resmi (PPDB) T.A. 2027/2028
+              Portal Pendaftaran Resmi (SPMB) T.A. 2027/2028
             </p>
           </div>
         </Link>
         <div className="flex items-center gap-2">
           <Link
-            href={
-              activeSchool.slug === 'sd'
-                ? getSchoolUrl('sd')
-                : activeSchool.slug === 'tk'
-                ? getSchoolUrl('tk')
-                : activeSchool.slug === 'smp'
-                ? getSchoolUrl('smp')
-                : getSchoolUrl('foundation')
-            }
-            className="text-xs font-semibold text-slate-700 hover:text-[#064E3B] bg-white hover:bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl transition-all shadow-2xs flex items-center gap-1.5"
+            href={getSchoolUrl('sd')}
+            className="text-xs font-semibold text-slate-700 hover:text-[#00A651] bg-white hover:bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl transition-all shadow-2xs flex items-center gap-1.5"
           >
             <span>&larr; Beranda Sekolah</span>
           </Link>
@@ -669,33 +591,32 @@ function PPDBFormContent() {
 
       {/* Main Multi-Step Card */}
       <div className="max-w-4xl mx-auto w-full my-auto py-6">
-        {/* Official School Hero Banner Card (Solid Single Forest Emerald Color - No Gradient, No Duplication) */}
-        <div className="rounded-3xl bg-[#064E3B] text-white p-6 sm:p-7 shadow-md border border-emerald-900/60 mb-6">
+        {/* Official School Hero Banner Card (Solid Brand #00A651 Identity Color for SD IT) */}
+        <div
+          className="rounded-3xl text-white p-6 sm:p-7 shadow-md border mb-6"
+          style={{ backgroundColor: '#00A651', borderColor: '#008f45' }}
+        >
           {/* Top Row: Official Badges */}
           <div className="flex items-center gap-2 flex-wrap mb-3.5">
             <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/15 text-emerald-100 border border-white/20">
-              {activeSchool.slug === 'sd' ? 'Formulir 28 Butir Lengkap' : 'Formulir Resmi PPDB'}
+              Formulir 28 Butir Lengkap
             </span>
             <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-emerald-200 border border-white/15">
               {(activeSchool.waveName || 'Gelombang 1').replace(/\(Biaya.*?\)/i, '').trim()} • Biaya Rp {activeSchool.fee.toLocaleString('id-ID')}
             </span>
-            {activeSchool.slug === 'sd' && (
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/25 text-emerald-200 border border-white/10 hidden sm:inline-block">
-                NPSN: 69900910
-              </span>
-            )}
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/25 text-emerald-200 border border-white/10 hidden sm:inline-block">
+              NPSN: 69900910
+            </span>
           </div>
 
           {/* Middle Row: Title + Consultation CTA */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/15">
             <div className="flex items-center gap-3">
-              {activeSchool.slug === 'sd' && (
-                <img
-                  src="/images/sd-logo.png"
-                  alt="Logo SD IT Al-Afiyah"
-                  className="w-13 h-13 object-contain shrink-0 drop-shadow-sm hidden sm:block"
-                />
-              )}
+              <img
+                src="/images/sd-logo.png"
+                alt="Logo SD IT Al-Afiyah"
+                className="w-13 h-13 object-contain shrink-0 drop-shadow-sm hidden sm:block"
+              />
               <div>
                 <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">
                   Pendaftaran Murid Baru {activeSchool.name}
@@ -710,14 +631,14 @@ function PPDBFormContent() {
             <div className="flex items-center gap-2 shrink-0">
               <a
                 href={`https://wa.me/6281234567890?text=${encodeURIComponent(
-                  `Assalamu'alaikum Panitia PPDB ${activeSchool.name}, saya ingin konsultasi seputar pendaftaran murid baru.`
+                  `Assalamu'alaikum Panitia SPMB SD IT Al-Afiyah, saya ingin konsultasi seputar pendaftaran murid baru.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-bold transition-all tactile-press shadow-2xs cursor-pointer"
               >
                 <Phone className="w-3.5 h-3.5 text-emerald-200" />
-                <span>Bantuan Panitia PPDB</span>
+                <span>Bantuan Panitia SPMB</span>
               </a>
             </div>
           </div>
@@ -726,23 +647,23 @@ function PPDBFormContent() {
           <div className="pt-3.5 flex items-start gap-2 text-xs text-emerald-100/90 leading-relaxed">
             <ShieldCheck className="w-4 h-4 text-emerald-200 shrink-0 mt-0.5" />
             <p>
-              {activeSchool.slug === 'sd' ? (
-                <>
-                  Pendaftaran awal cukup melengkapi data pokok calon murid dan kontak WhatsApp orang tua. Seluruh <strong>28 butir rincian formulir fisik &amp; berkas administrasi</strong> (KK, Akta, Pas Foto 3x4) <strong>dapat disusulkan</strong> via Portal Murid setelah pengisian ini.
-                </>
-              ) : (
-                `Pendaftaran awal cukup melengkapi biodata pokok calon murid dan kontak WhatsApp orang tua. Berkas administrasi dapat disusulkan kemudian.`
-              )}
+              Pendaftaran awal cukup melengkapi data pokok calon murid dan kontak WhatsApp orang tua. Seluruh <strong>28 butir rincian formulir fisik &amp; berkas administrasi</strong> (KK, Akta, Pas Foto 3x4) <strong>dapat disusulkan</strong> via Portal Murid setelah pengisian ini.
             </p>
           </div>
         </div>
 
-        {/* Minimalist Progress Stepper (With Emerald Accent) */}
-        <div className="bg-white rounded-2xl p-3.5 sm:p-4 border border-emerald-950/10 border-t-2 border-t-[#064E3B] shadow-2xs mb-6">
+        {/* Minimalist Progress Stepper (With Scoped Theme Accent #00A651) */}
+        <div
+          className="bg-white rounded-2xl p-3.5 sm:p-4 border shadow-2xs mb-6"
+          style={{ borderColor: 'rgba(0, 166, 81, 0.25)', borderTopColor: '#00A651', borderTopWidth: '3px' }}
+        >
           {/* Top Row: Current Step Title & Percentage */}
           <div className="flex items-center justify-between gap-3 mb-2.5">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md bg-[#064E3B] text-white font-extrabold text-[11px] tracking-wide shadow-2xs">
+              <span
+                className="px-2 py-0.5 rounded-md text-white font-extrabold text-[11px] tracking-wide shadow-2xs"
+                style={{ backgroundColor: '#00A651' }}
+              >
                 Langkah {currentStep} dari 6
               </span>
               <span className="text-xs sm:text-sm font-bold text-slate-900">
@@ -754,7 +675,7 @@ function PPDBFormContent() {
                 {currentStep === 6 && 'Konfirmasi & Pembayaran'}
               </span>
             </div>
-            <span className="text-xs font-bold text-emerald-800 font-mono">
+            <span className="text-xs font-bold font-mono" style={{ color: '#00A651' }}>
               {Math.round((currentStep / 6) * 100)}%
             </span>
           </div>
@@ -790,30 +711,26 @@ function PPDBFormContent() {
                 >
                   {/* Segment Bar Line */}
                   <div
-                    className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 w-full ${
-                      isCompleted
-                        ? 'bg-emerald-600 group-hover:bg-emerald-700'
-                        : isActive
-                        ? 'bg-[#064E3B] ring-2 ring-emerald-200/80'
-                        : 'bg-slate-100'
-                    }`}
+                    className="h-1.5 sm:h-2 rounded-full transition-all duration-300 w-full"
+                    style={{
+                      backgroundColor: isCompleted || isActive ? '#00A651' : '#F1F5F9',
+                      boxShadow: isActive ? '0 0 0 2px rgba(0, 166, 81, 0.3)' : undefined,
+                    }}
                   />
                   {/* Step Label */}
                   <div className="flex items-center justify-between pt-0.5">
                     <span
-                      className={`text-[10px] truncate transition-colors ${
-                        isActive
-                          ? 'text-[#064E3B] font-extrabold'
-                          : isCompleted
-                          ? 'text-slate-600 font-semibold group-hover:text-emerald-800'
-                          : 'text-slate-400 font-normal'
-                      }`}
+                      className="text-[10px] truncate transition-colors"
+                      style={{
+                        color: isActive ? '#00A651' : isCompleted ? '#334155' : '#94A3B8',
+                        fontWeight: isActive ? 800 : isCompleted ? 600 : 400,
+                      }}
                     >
                       <span className="sm:hidden">{step.short}</span>
                       <span className="hidden sm:inline">{step.label}</span>
                     </span>
                     {isCompleted && (
-                      <Check className="w-2.5 h-2.5 text-emerald-600 hidden sm:block shrink-0" />
+                      <Check className="w-2.5 h-2.5 hidden sm:block shrink-0" style={{ color: '#00A651' }} />
                     )}
                   </div>
                 </button>
@@ -835,7 +752,7 @@ function PPDBFormContent() {
           {currentStep === 1 && (
             <div className="space-y-6">
               <div>
-                <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Langkah 1 dari 6</span>
+                <span className={`text-xs font-bold uppercase tracking-wider ${themeTextAccent}`}>Langkah 1 dari 6</span>
                 <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
                   Pilihan Jalur Pendaftaran
                 </h2>
@@ -851,58 +768,21 @@ function PPDBFormContent() {
                   <div>
                     <p className="font-bold">Pendaftaran {activeSchool.name} Sedang Ditutup</p>
                     <p className="mt-0.5 text-amber-800 leading-relaxed">
-                      Kuota penerimaan murid baru saat ini sedang ditutup atau telah mencapai kapasitas maksimal ({activeSchool.quota || 60} murid). Hubungi panitia PPDB melalui WhatsApp resmi sekolah untuk informasi pembukaan gelombang berikutnya.
+                      Kuota penerimaan murid baru saat ini sedang ditutup atau telah mencapai kapasitas maksimal ({activeSchool.quota || 60} murid). Hubungi panitia SPMB melalui WhatsApp resmi sekolah untuk informasi pembukaan gelombang berikutnya.
                     </p>
                   </div>
                 </div>
               )}
 
-              {/* Notice for SMP IT Gelombang 1 Discounts */}
-              {activeSchool.slug === 'smp' && (
-                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-300 text-xs space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-extrabold text-emerald-950 flex items-center gap-1.5">
-                      <Sparkles className="w-4 h-4 text-amber-600" />
-                      <span>SPMB SMP IT Gelombang 1 Sedang Dibuka</span>
-                    </span>
-                    <span className="text-[10px] bg-emerald-700 text-white font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
-                      1 Okt 2026 &ndash; 28 Feb 2027
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-[11px]">
-                    <div className="p-2.5 rounded-xl bg-white/90 border border-emerald-200">
-                      <strong className="text-emerald-950 block font-bold">Diskon 70% Uang Bangunan</strong>
-                      <span className="text-emerald-800">Khusus untuk siswa lulusan SDIT AL Afiyah</span>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-white/90 border border-amber-200">
-                      <strong className="text-amber-950 block font-bold">Diskon 50% Uang Bangunan</strong>
-                      <span className="text-amber-800">Untuk siswa pendaftar dari luar SDIT</span>
-                    </div>
-                  </div>
-                  <p className="text-[10px] text-slate-500 italic pt-1 border-t border-emerald-200/60">
-                    *Keringanan uang bangunan berlaku pada masa penerimaan Gelombang 1. Gelombang 2 (1 Mar &ndash; 30 Jun 2027) berlaku biaya normal.
-                  </p>
-                </div>
-              )}
 
-              {/* Admission Track */}
+              {/* Admission Track - Dedicated JALUR REGULER for SD IT */}
               <div className="pt-2">
-                <label className="block text-xs font-bold text-slate-700 mb-2">Pilihan Jalur Pendaftaran</label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {['REGULER', 'TAHFIDZ PRESTASI', 'BEASISWA DHUAFA'].map((track) => (
-                    <button
-                      key={track}
-                      type="button"
-                      onClick={() => updateField('admissionTrack', track)}
-                      className={`py-3 px-4 rounded-xl text-xs font-bold border transition-all text-center ${
-                        formData.admissionTrack === track
-                          ? 'border-emerald-600 bg-emerald-50 text-emerald-800'
-                          : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                      }`}
-                    >
-                      {track}
-                    </button>
-                  ))}
+                <label className="block text-xs font-bold text-slate-700 mb-2">Jalur Pendaftaran Resmi</label>
+                <div className="max-w-sm">
+                  <div className="py-3 px-4 rounded-xl text-xs font-extrabold border border-[#00A651] bg-[#00A651]/10 text-[#00A651] ring-2 ring-[#00A651]/20 flex items-center justify-between shadow-2xs">
+                    <span className="tracking-wide">JALUR REGULER SD IT</span>
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#00A651] text-white font-bold shadow-2xs">Gelombang 1</span>
+                  </div>
                 </div>
               </div>
 
@@ -924,7 +804,7 @@ function PPDBFormContent() {
                     className={`w-full pl-10 pr-9 py-3 text-xs sm:text-sm uppercase font-mono border rounded-xl transition-all shadow-2xs font-semibold ${
                       autoDetectedRef
                         ? 'bg-emerald-50/90 border-emerald-300 text-emerald-950 cursor-not-allowed select-none'
-                        : 'bg-slate-50 border-slate-200 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white'
+                        : `bg-slate-50 border-slate-200 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white`
                     }`}
                   />
                   {autoDetectedRef && (
@@ -953,7 +833,7 @@ function PPDBFormContent() {
             <div className="space-y-6">
               <div className="border-b border-slate-100 pb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black tracking-widest text-emerald-800 uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
+                  <span className={`text-[10px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 ${themeTextAccent}`}>
                     Langkah 2 dari 6
                   </span>
                   <span className="text-xs text-slate-400 font-medium">• Identitas Calon Siswa</span>
@@ -968,7 +848,7 @@ function PPDBFormContent() {
 
               {/* Section Header Card: IDENTITAS CALON MURID */}
               <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-xl bg-[#064E3B] text-white flex items-center justify-center shadow-xs shrink-0">
+                <div className={`w-8 h-8 rounded-xl text-white flex items-center justify-center shadow-xs shrink-0 ${themeIconBg}`}>
                   <User className="w-4 h-4 text-emerald-200" />
                 </div>
                 <div>
@@ -984,7 +864,7 @@ function PPDBFormContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-12 gap-y-7 pt-2" style={{ columnGap: '2.5rem', rowGap: '1.75rem' }}>
                 <div className={`min-w-0 ${formData.schoolSlug === 'sd' ? 'md:col-span-1' : 'md:col-span-2'}`}>
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                    <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                       Poin 01
                     </span>
                     <span className="truncate">Nama Lengkap Calon Murid</span>
@@ -996,7 +876,7 @@ function PPDBFormContent() {
                     value={formData.studentName}
                     onChange={(e) => updateField('studentName', e.target.value)}
                     placeholder="Contoh: Muhammad Rayyan Al-Ghifari"
-                    className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                    className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold`}
                   />
                   <span className="text-[11px] text-slate-400 mt-1.5 block">Sesuai Akta Kelahiran</span>
                 </div>
@@ -1004,7 +884,7 @@ function PPDBFormContent() {
                 {formData.schoolSlug === 'sd' && (
                   <div className="min-w-0">
                     <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                      <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                      <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                         Poin 02
                       </span>
                       <span className="truncate">Nama Panggilan Akrab (Opsional)</span>
@@ -1014,7 +894,7 @@ function PPDBFormContent() {
                       value={formData.nickname}
                       onChange={(e) => updateField('nickname', e.target.value)}
                       placeholder="Contoh: Rayyan"
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900"
+                      className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900`}
                     />
                     <span className="text-[11px] text-slate-400 mt-1.5 block">Nama panggilan di rumah atau sekolah</span>
                   </div>
@@ -1022,7 +902,7 @@ function PPDBFormContent() {
 
                 <div className="min-w-0">
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                    <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                       NIK
                     </span>
                     <span className="truncate">NIK Calon Murid (16 Digit)</span>
@@ -1035,7 +915,7 @@ function PPDBFormContent() {
                     value={formData.nik}
                     onChange={(e) => updateField('nik', e.target.value)}
                     placeholder="3210xxxxxxxxxxxx"
-                    className="w-full px-4 py-3 text-xs sm:text-sm font-mono bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                    className={`w-full px-4 py-3 text-xs sm:text-sm font-mono bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold`}
                   />
                   <div className="flex items-center gap-2 mt-2 flex-wrap">
                     <span className="text-[11px] text-slate-400">
@@ -1053,7 +933,7 @@ function PPDBFormContent() {
 
                 <div className="min-w-0">
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                    <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                       Poin 03
                     </span>
                     <span className="truncate">Jenis Kelamin</span>
@@ -1065,7 +945,9 @@ function PPDBFormContent() {
                       onClick={() => updateField('gender', 'L')}
                       className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs ${
                         formData.gender === 'L'
-                          ? 'border-[#064E3B] bg-emerald-50 text-[#064E3B] ring-2 ring-[#064E3B]/20 font-extrabold'
+                          ? isSd
+                            ? 'border-[#00A651] bg-[#00A651]/10 text-[#00A651] ring-2 ring-[#00A651]/20 font-extrabold'
+                            : 'border-[#064E3B] bg-emerald-50 text-[#064E3B] ring-2 ring-[#064E3B]/20 font-extrabold'
                           : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-white'
                       }`}
                     >
@@ -1077,7 +959,9 @@ function PPDBFormContent() {
                       onClick={() => updateField('gender', 'P')}
                       className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs ${
                         formData.gender === 'P'
-                          ? 'border-[#064E3B] bg-emerald-50 text-[#064E3B] ring-2 ring-[#064E3B]/20 font-extrabold'
+                          ? isSd
+                            ? 'border-[#00A651] bg-[#00A651]/10 text-[#00A651] ring-2 ring-[#00A651]/20 font-extrabold'
+                            : 'border-[#064E3B] bg-emerald-50 text-[#064E3B] ring-2 ring-[#064E3B]/20 font-extrabold'
                           : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-white'
                       }`}
                     >
@@ -1092,7 +976,7 @@ function PPDBFormContent() {
 
                 <div className="min-w-0">
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                    <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                       Poin 04
                     </span>
                     <span className="truncate">Tempat Lahir</span>
@@ -1103,14 +987,14 @@ function PPDBFormContent() {
                     value={formData.pob}
                     onChange={(e) => updateField('pob', e.target.value)}
                     placeholder="Contoh: Majalengka"
-                    className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                    className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold`}
                   />
                   <span className="text-[11px] text-slate-400 mt-1.5 block">Kota / Kabupaten kelahiran</span>
                 </div>
 
                 <div className="min-w-0">
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                    <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                       Poin 05
                     </span>
                     <span className="truncate">Tanggal Lahir</span>
@@ -1120,7 +1004,7 @@ function PPDBFormContent() {
                     type="date"
                     value={formData.dob}
                     onChange={(e) => updateField('dob', e.target.value)}
-                    className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                    className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold`}
                   />
                   <span className="text-[11px] text-slate-400 mt-1.5 block">Sesuai Akta Kelahiran</span>
                 </div>
@@ -1130,7 +1014,7 @@ function PPDBFormContent() {
                   return (
                     <div className="md:col-span-2 p-5 sm:p-6 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div className="flex items-center gap-3.5">
-                        <div className="w-10 h-10 rounded-xl bg-[#064E3B] text-white flex items-center justify-center shrink-0 shadow-xs">
+                        <div className={`w-10 h-10 rounded-xl text-white flex items-center justify-center shrink-0 shadow-xs ${themeIconBg}`}>
                           <Calendar className="w-5 h-5 text-emerald-200" />
                         </div>
                         <div>
@@ -1146,7 +1030,7 @@ function PPDBFormContent() {
                         <span
                           className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold shadow-2xs ${
                             age.isEligible
-                              ? 'bg-[#064E3B] text-white'
+                              ? `${themeBadgeBg} text-white`
                               : 'bg-amber-600 text-white'
                           }`}
                         >
@@ -1171,7 +1055,7 @@ function PPDBFormContent() {
                   <>
                     <div className="min-w-0">
                       <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                        <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                        <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                           Poin 07
                         </span>
                         <span className="truncate">Anak ke-</span>
@@ -1183,13 +1067,13 @@ function PPDBFormContent() {
                         max={15}
                         value={formData.childOrder}
                         onChange={(e) => updateField('childOrder', e.target.value)}
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold`}
                       />
                       <span className="text-[11px] text-slate-400 mt-1.5 block">Urutan kelahiran ananda</span>
                     </div>
                     <div className="min-w-0">
                       <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                        <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                        <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                           Poin 08
                         </span>
                         <span className="truncate">Jumlah Saudara Kandung</span>
@@ -1200,7 +1084,7 @@ function PPDBFormContent() {
                         max={15}
                         value={formData.siblingsCount}
                         onChange={(e) => updateField('siblingsCount', e.target.value)}
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold`}
                       />
                       <span className="text-[11px] text-slate-400 mt-1.5 block">Jumlah saudara kandung ananda</span>
                     </div>
@@ -1209,7 +1093,7 @@ function PPDBFormContent() {
 
                 <div className="md:col-span-2 min-w-0">
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                    <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                       Poin 17
                     </span>
                     <span className="truncate">Alamat Domisili Lengkap Tempat Tinggal</span>
@@ -1220,7 +1104,7 @@ function PPDBFormContent() {
                     value={formData.address}
                     onChange={(e) => updateField('address', e.target.value)}
                     placeholder="Contoh: Perumahan Sindangkasih Asri Blok C-12, RT 02 / RW 05, Kel. Majalengka Kulon, Kec. Majalengka"
-                    className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 leading-relaxed"
+                    className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 leading-relaxed`}
                   />
                   <span className="text-[11px] text-slate-400 mt-1.5 block">
                     Cantumkan nama jalan/perumahan, RT/RW, Kelurahan/Desa, dan Kecamatan tempat tinggal saat ini
@@ -1235,7 +1119,7 @@ function PPDBFormContent() {
             <div className="space-y-6">
               <div className="border-b border-slate-100 pb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black tracking-widest text-emerald-800 uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
+                  <span className={`text-[10px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 ${themeTextAccent}`}>
                     Langkah 3 dari 6
                   </span>
                   <span className="text-xs text-slate-400 font-medium">• Kesiapan Tumbuh Kembang</span>
@@ -1253,7 +1137,7 @@ function PPDBFormContent() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 lg:gap-x-12 gap-y-7 pt-1" style={{ columnGap: '2.5rem', rowGap: '1.75rem' }}>
                     <div className="min-w-0">
                       <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                        <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                        <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                           Poin 22
                         </span>
                         <span className="truncate">Kategori Pendaftaran Masuk</span>
@@ -1262,7 +1146,7 @@ function PPDBFormContent() {
                       <select
                         value={formData.admissionAs}
                         onChange={(e) => updateField('admissionAs', e.target.value)}
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer`}
                       >
                         <option value="Murid kelas 1">Murid Kelas 1 (Baru)</option>
                         <option value="Pindahan kelas 2">Pindahan (Kelas 2)</option>
@@ -1275,7 +1159,7 @@ function PPDBFormContent() {
 
                     <div className="min-w-0">
                       <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                        <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                        <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                           Poin 21
                         </span>
                         <span className="truncate">Moda Transportasi ke Sekolah</span>
@@ -1284,7 +1168,7 @@ function PPDBFormContent() {
                       <select
                         value={formData.transportation}
                         onChange={(e) => updateField('transportation', e.target.value)}
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer`}
                       >
                         <option value="diantar">Diantar Orang Tua / Keluarga</option>
                         <option value="sendiri">Berangkat Sendiri / Jalan Kaki</option>
@@ -1295,7 +1179,7 @@ function PPDBFormContent() {
 
                     <div className="sm:col-span-2 min-w-0">
                       <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                        <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                        <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                           Poin 23
                         </span>
                         <span className="truncate">Asal Sekolah Sebelumnya (TK / PAUD / RA / dsb)</span>
@@ -1305,14 +1189,14 @@ function PPDBFormContent() {
                         value={formData.originSchoolName}
                         onChange={(e) => updateField('originSchoolName', e.target.value)}
                         placeholder="Contoh: TK IT Al-Afiyah Majalengka / RA Al-Hidayah"
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold`}
                       />
                       <span className="text-[11px] text-slate-400 mt-1.5 block">Lembaga pendidikan pra-sekolah atau sekolah sebelumnya</span>
                     </div>
 
                     <div className="min-w-0">
                       <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                        <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                        <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                           Qur&apos;an
                         </span>
                         <span className="truncate">Penguasaan Membaca Al-Qur&apos;an / Iqro</span>
@@ -1321,7 +1205,7 @@ function PPDBFormContent() {
                       <select
                         value={formData.sdIqroLevel}
                         onChange={(e) => updateField('sdIqroLevel', e.target.value)}
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer`}
                       >
                         <option value="Al-Qur'an Lancar">Sudah Masuk Al-Qur&apos;an &amp; Lancar</option>
                         <option value="Jilid 5 - 6">Iqro Jilid 5 - 6</option>
@@ -1333,7 +1217,7 @@ function PPDBFormContent() {
 
                     <div className="min-w-0">
                       <label className="flex items-center gap-2 text-xs font-bold text-slate-800 mb-2">
-                        <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                        <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                           Kesiapan
                         </span>
                         <span className="truncate">Kesiapan Membaca Huruf Latin (Calistung)</span>
@@ -1342,7 +1226,7 @@ function PPDBFormContent() {
                       <select
                         value={formData.sdReadingReady}
                         onChange={(e) => updateField('sdReadingReady', e.target.value)}
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 ${themeFocusBorder} focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold cursor-pointer`}
                       >
                         <option value="Sudah Lancar Kata">Sudah Lancar Membaca Kalimat &amp; Berhitung</option>
                         <option value="Mengeja Suku Kata">Masih Mengeja Suku Kata Sederhana</option>
@@ -1364,10 +1248,7 @@ function PPDBFormContent() {
                       }`}
                     >
                       <div className="flex items-center space-x-4">
-                        <div
-                          className="w-11 h-11 rounded-xl flex items-center justify-center text-white shrink-0 shadow-xs"
-                          style={{ backgroundColor: '#064E3B' }}
-                        >
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-white shrink-0 shadow-xs ${themeIconBg}`}>
                           <FileText className="w-5 h-5 text-emerald-200" />
                         </div>
                         <div>
@@ -1386,7 +1267,7 @@ function PPDBFormContent() {
                       </div>
                       <div className="pl-3">
                         <span className={`p-2 rounded-xl border flex items-center justify-center transition-all ${
-                          showDetailed28Poin ? 'bg-[#064E3B] text-white border-[#064E3B]' : 'bg-slate-50 text-slate-600 border-slate-200'
+                          showDetailed28Poin ? `${themeBadgeBg} text-white` : 'bg-slate-50 text-slate-600 border-slate-200'
                         }`}>
                           {showDetailed28Poin ? (
                             <ChevronUp className="w-4 h-4 shrink-0" />
@@ -1400,7 +1281,7 @@ function PPDBFormContent() {
                     {showDetailed28Poin && (
                       <div className="mt-4 p-6 sm:p-7 bg-slate-50 border border-slate-200 rounded-2xl space-y-6 animate-in fade-in duration-300 shadow-xs">
                         <div className="p-4 rounded-xl bg-white border border-slate-200 text-xs text-slate-700 font-medium flex items-center gap-3">
-                          <FileCheck className="w-5 h-5 text-[#064E3B] shrink-0" />
+                          <FileCheck className={`w-5 h-5 shrink-0 ${themeTextAccent}`} />
                           <span>
                             Data di bawah ini diselaraskan 100% dengan lembar formulir fisik resmi SDIT Al-Afiyah. Boleh Anda lengkapi sekarang atau disusulkan via Portal Murid kapan saja.
                           </span>
@@ -1414,7 +1295,7 @@ function PPDBFormContent() {
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-5">
                             <div>
                               <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                                <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                                <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                                   Poin 11
                                 </span>
                                 <span className="truncate">Tinggi Badan</span>
@@ -1425,14 +1306,14 @@ function PPDBFormContent() {
                                   placeholder="Contoh: 115"
                                   value={formData.heightCm}
                                   onChange={(e) => updateField('heightCm', e.target.value)}
-                                  className="w-full px-4 py-3 pr-10 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs"
+                                  className={`w-full px-4 py-3 pr-10 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs`}
                                 />
                                 <span className="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold">cm</span>
                               </div>
                             </div>
                             <div>
                               <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                                <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                                <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                                   Poin 12
                                 </span>
                                 <span className="truncate">Berat Badan</span>
@@ -1443,14 +1324,14 @@ function PPDBFormContent() {
                                   placeholder="Contoh: 20"
                                   value={formData.weightKg}
                                   onChange={(e) => updateField('weightKg', e.target.value)}
-                                  className="w-full px-4 py-3 pr-10 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs"
+                                  className={`w-full px-4 py-3 pr-10 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs`}
                                 />
                                 <span className="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold">kg</span>
                               </div>
                             </div>
                             <div>
                               <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                                <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                                <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                                   Poin 14
                                 </span>
                                 <span className="truncate">Golongan Darah</span>
@@ -1463,7 +1344,7 @@ function PPDBFormContent() {
                                     onClick={() => updateField('bloodType', type)}
                                     className={`h-full text-[10px] font-extrabold rounded-xl border transition-all cursor-pointer flex items-center justify-center ${
                                       formData.bloodType === type
-                                        ? 'bg-[#064E3B] text-white border-[#064E3B] shadow-2xs ring-2 ring-[#064E3B]/20'
+                                        ? `${themeBadgeBg} text-white shadow-2xs ring-2 ring-emerald-600/20`
                                         : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                                     }`}
                                   >
@@ -1479,7 +1360,7 @@ function PPDBFormContent() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
                           <div>
                             <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                              <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                              <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                                 Poin 15
                               </span>
                               <span className="truncate">Jarak Rumah ke Sekolah (km)</span>
@@ -1490,14 +1371,14 @@ function PPDBFormContent() {
                                 step="0.5"
                                 value={formData.distanceToSchoolKm}
                                 onChange={(e) => updateField('distanceToSchoolKm', e.target.value)}
-                                className="w-full px-4 py-3 pr-10 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs"
+                                className={`w-full px-4 py-3 pr-10 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs`}
                               />
                               <span className="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold">km</span>
                             </div>
                           </div>
                           <div>
                             <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                              <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                              <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                                 Poin 16
                               </span>
                               <span className="truncate">Bertempat Tinggal Bersama</span>
@@ -1505,7 +1386,7 @@ function PPDBFormContent() {
                             <select
                               value={formData.livingWith}
                               onChange={(e) => updateField('livingWith', e.target.value)}
-                              className="w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs cursor-pointer"
+                              className={`w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden font-semibold shadow-2xs cursor-pointer`}
                             >
                               <option value="Keduanya">Kedua Orang Tua (Ayah &amp; Ibu)</option>
                               <option value="Ayah">Ayah</option>
@@ -1518,7 +1399,7 @@ function PPDBFormContent() {
 
                         <div>
                           <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                            <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                               Poin 13
                             </span>
                             <span className="truncate">Riwayat Penyakit yang Pernah Diderita / Alergi</span>
@@ -1528,14 +1409,14 @@ function PPDBFormContent() {
                             value={formData.diseaseHistory}
                             onChange={(e) => updateField('diseaseHistory', e.target.value)}
                             placeholder="Contoh: Asma ringan, alergi dingin (atau isi 'Tidak ada riwayat penyakit')"
-                            className="w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden shadow-2xs"
+                            className={`w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden shadow-2xs`}
                           />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
                           <div>
                             <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                              <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                              <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                                 Poin 27
                               </span>
                               <span className="truncate">Pertama Kali Mengetahui Informasi Sekolah Dari</span>
@@ -1545,12 +1426,12 @@ function PPDBFormContent() {
                               value={formData.firstKnownSource}
                               onChange={(e) => updateField('firstKnownSource', e.target.value)}
                               placeholder="Media sosial / Rekomendasi tetangga / Brosur"
-                              className="w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden shadow-2xs"
+                              className={`w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden shadow-2xs`}
                             />
                           </div>
                           <div>
                             <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2">
-                              <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                              <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                                 Poin 28
                               </span>
                               <span className="truncate">Alasan Utama Memilih Sekolah Ini</span>
@@ -1560,7 +1441,7 @@ function PPDBFormContent() {
                               value={formData.mainReason}
                               onChange={(e) => updateField('mainReason', e.target.value)}
                               placeholder="Pembinaan karakter islami & hafalan tahfidz juz 30 mutqin"
-                              className="w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden shadow-2xs"
+                              className={`w-full px-4 py-3 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden shadow-2xs`}
                             />
                           </div>
                         </div>
@@ -1570,49 +1451,7 @@ function PPDBFormContent() {
                 </div>
               )}
 
-              {formData.schoolSlug === 'smp' && (
-                <div className="space-y-6 pt-1">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-800 mb-2">Target Hafalan Al-Qur&apos;an di SMP</label>
-                    <select
-                      value={formData.smpTahfidzTarget}
-                      onChange={(e) => updateField('smpTahfidzTarget', e.target.value)}
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
-                    >
-                      <option value="5 Juz Mutqin">Program 5 Juz Mutqin (Intensif)</option>
-                      <option value="3 Juz Mutqin">Program 3 Juz Mutqin (Standar)</option>
-                      <option value="30 Juz Takhossus">Program Takhossus Tahfidz (Murid Khusus)</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-800 mb-2">Pilihan Program Kelas Belajar</label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <button
-                        type="button"
-                        onClick={() => updateField('smpProgramChoice', 'REGULER')}
-                        className={`py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer ${
-                          formData.smpProgramChoice === 'REGULER'
-                            ? 'border-[#064E3B] bg-emerald-50 text-[#064E3B] ring-2 ring-[#064E3B]/20 font-extrabold shadow-2xs'
-                            : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-white'
-                        }`}
-                      >
-                        Fullday Reguler (Kurikulum SIT)
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => updateField('smpProgramChoice', 'TAHFIDZ_SAINS')}
-                        className={`py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer ${
-                          formData.smpProgramChoice === 'TAHFIDZ_SAINS'
-                            ? 'border-[#064E3B] bg-emerald-50 text-[#064E3B] ring-2 ring-[#064E3B]/20 font-extrabold shadow-2xs'
-                            : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-white'
-                        }`}
-                      >
-                        Fullday Peminatan Tahfidz & Sains
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
+
             </div>
           )}
 
@@ -1621,7 +1460,7 @@ function PPDBFormContent() {
             <div className="space-y-6">
               <div className="border-b border-slate-100 pb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black tracking-widest text-emerald-800 uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
+                  <span className={`text-[10px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 ${themeTextAccent}`}>
                     Langkah 4 dari 6
                   </span>
                   <span className="text-xs text-slate-400 font-medium">• Identitas Orang Tua &amp; Kontak</span>
@@ -1636,7 +1475,7 @@ function PPDBFormContent() {
 
               {/* Section Header */}
               <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-xl bg-[#064E3B] text-white flex items-center justify-center shadow-xs shrink-0">
+                <div className={`w-8 h-8 rounded-xl text-white flex items-center justify-center shadow-xs shrink-0 ${themeIconBg}`}>
                   <Users className="w-4 h-4 text-emerald-200" />
                 </div>
                 <div>
@@ -1654,7 +1493,7 @@ function PPDBFormContent() {
                 <div className="min-w-0 p-6 rounded-2xl bg-white border border-slate-200 space-y-4 shadow-2xs">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                     <span className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                      <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                      <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                         Poin 18
                       </span>
                       <User className="w-4 h-4 text-emerald-800" />
@@ -1674,7 +1513,7 @@ function PPDBFormContent() {
                       value={formData.fatherName}
                       onChange={(e) => updateField('fatherName', e.target.value)}
                       placeholder="Contoh: Hendra Gunawan S.T."
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs"
+                      className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs`}
                     />
                   </div>
 
@@ -1686,7 +1525,7 @@ function PPDBFormContent() {
                         value={formData.fatherJob}
                         onChange={(e) => updateField('fatherJob', e.target.value)}
                         placeholder="PNS / Wiraswasta"
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:bg-white focus:outline-hidden text-slate-900"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl ${themeFocusBorder} focus:bg-white focus:outline-hidden text-slate-900`}
                       />
                     </div>
                     <div>
@@ -1696,7 +1535,7 @@ function PPDBFormContent() {
                         value={formData.fatherPhone}
                         onChange={(e) => updateField('fatherPhone', e.target.value)}
                         placeholder="0812xxxxxxxx"
-                        className="w-full px-4 py-3 text-xs sm:text-sm font-mono bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:bg-white focus:outline-hidden text-slate-900 font-semibold"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm font-mono bg-slate-50 border border-slate-200 rounded-xl ${themeFocusBorder} focus:bg-white focus:outline-hidden text-slate-900 font-semibold`}
                       />
                     </div>
                   </div>
@@ -1706,7 +1545,7 @@ function PPDBFormContent() {
                 <div className="min-w-0 p-6 rounded-2xl bg-white border border-slate-200 space-y-4 shadow-2xs">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                     <span className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                      <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                      <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                         Poin 19
                       </span>
                       <Heart className="w-4 h-4 text-rose-600" />
@@ -1726,7 +1565,7 @@ function PPDBFormContent() {
                       value={formData.motherName}
                       onChange={(e) => updateField('motherName', e.target.value)}
                       placeholder="Contoh: Nur Hasanah S.Pd."
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs"
+                      className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl ${themeFocusBorder} focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs`}
                     />
                   </div>
 
@@ -1738,7 +1577,7 @@ function PPDBFormContent() {
                         value={formData.motherJob}
                         onChange={(e) => updateField('motherJob', e.target.value)}
                         placeholder="Guru / Ibu Rumah Tangga"
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:bg-white focus:outline-hidden text-slate-900"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl ${themeFocusBorder} focus:bg-white focus:outline-hidden text-slate-900`}
                       />
                     </div>
                     <div>
@@ -1751,7 +1590,7 @@ function PPDBFormContent() {
                         value={formData.motherPhone}
                         onChange={(e) => updateField('motherPhone', e.target.value)}
                         placeholder="0812xxxxxxxx"
-                        className="w-full px-4 py-3 text-xs sm:text-sm font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:bg-white focus:outline-hidden text-slate-900"
+                        className={`w-full px-4 py-3 text-xs sm:text-sm font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl ${themeFocusBorder} focus:bg-white focus:outline-hidden text-slate-900`}
                       />
                     </div>
                   </div>
@@ -1760,7 +1599,7 @@ function PPDBFormContent() {
                 {/* Penghasilan Orang Tua */}
                 <div className="lg:col-span-2 min-w-0 p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-900 mb-3">
-                    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-[#064E3B] text-emerald-100 font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs">
+                    <span className={`inline-flex items-center justify-center px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wide shrink-0 shadow-2xs ${themePoinBadgeBg}`}>
                       Poin 20
                     </span>
                     <span>Rentang Penghasilan Gabungan Orang Tua Bulanan</span>
@@ -1778,7 +1617,7 @@ function PPDBFormContent() {
                         onClick={() => updateField('incomeRange', inc)}
                         className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer text-center ${
                           formData.incomeRange === inc
-                            ? 'bg-[#064E3B] text-white border-[#064E3B] shadow-2xs ring-2 ring-[#064E3B]/20'
+                            ? `${themeBadgeBg} text-white shadow-2xs ring-2 ring-emerald-600/20`
                             : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                         }`}
                       >
@@ -1796,7 +1635,7 @@ function PPDBFormContent() {
             <div className="space-y-6">
               <div className="border-b border-slate-100 pb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black tracking-widest text-emerald-800 uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
+                  <span className={`text-[10px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 ${themeTextAccent}`}>
                     Langkah 5 dari 6
                   </span>
                   <span className="text-xs text-slate-400 font-medium">• Berkas Administrasi</span>
@@ -1811,7 +1650,7 @@ function PPDBFormContent() {
 
               {/* Section Header Card */}
               <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-xl bg-[#064E3B] text-white flex items-center justify-center shadow-xs shrink-0">
+                <div className={`w-8 h-8 rounded-xl text-white flex items-center justify-center shadow-xs shrink-0 ${themeIconBg}`}>
                   <FileText className="w-4 h-4 text-emerald-200" />
                 </div>
                 <div>
@@ -1834,7 +1673,7 @@ function PPDBFormContent() {
               {/* Card Opsi Susulkan Berkas Nanti (Resmi & Tertib) */}
               <div className="p-5 sm:p-6 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
                 <div className="flex items-start space-x-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-[#064E3B] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                  <div className={`w-10 h-10 rounded-xl text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs ${themeIconBg}`}>
                     <FileCheck className="w-5 h-5 text-emerald-200" />
                   </div>
                   <div>
@@ -1850,7 +1689,7 @@ function PPDBFormContent() {
                   type="button"
                   onClick={handleSkipDocumentsAndSubmit}
                   disabled={isLoading}
-                  className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs sm:text-sm font-bold shrink-0 transition-colors flex items-center justify-center space-x-2 shadow-xs cursor-pointer tactile-press"
+                  className={`w-full sm:w-auto px-5 py-3 rounded-xl text-white text-xs sm:text-sm font-bold shrink-0 transition-colors flex items-center justify-center space-x-2 shadow-xs cursor-pointer tactile-press ${themeButtonPrimary}`}
                 >
                   {isLoading ? (
                     <>
@@ -2000,7 +1839,7 @@ function PPDBFormContent() {
               {formData.schoolSlug === 'sd' && (
                 <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-3.5">
                   <div className="flex items-center space-x-2.5">
-                    <FileCheck className="w-4 h-4 text-[#064E3B] shrink-0" />
+                    <FileCheck className={`w-4 h-4 shrink-0 ${themeTextAccent}`} />
                     <h4 className="font-bold text-slate-900">
                       Rincian Berkas Fisik Lembar Stopmap (Sesuai Formulir Resmi):
                     </h4>
@@ -2032,7 +1871,7 @@ function PPDBFormContent() {
                     </div>
                   </div>
                   <p className="text-[11px] text-slate-500 italic pt-2 border-t border-slate-200/80 leading-relaxed">
-                    *Semua berkas fisik dimasukkan ke dalam <strong>1 stopmap</strong> dan diserahkan saat pengembalian formulir ke sekolah, paling lambat <strong>3 hari sebelum pelaksanaan Tes PPDB 2027/2028</strong>.
+                    *Semua berkas fisik dimasukkan ke dalam <strong>1 stopmap</strong> dan diserahkan saat pengembalian formulir ke sekolah, paling lambat <strong>3 hari sebelum pelaksanaan Tes SPMB 2027/2028</strong>.
                   </p>
                 </div>
               )}
@@ -2064,7 +1903,7 @@ function PPDBFormContent() {
               <div className="bg-emerald-50/70 rounded-2xl p-6 border border-emerald-200/90 space-y-3.5 shadow-2xs">
                 <div className="flex items-center justify-between text-xs text-emerald-900">
                   <span className="font-medium">Unit Sekolah:</span>
-                  <span className="font-extrabold text-[#064E3B]">{createdResult.schoolName}</span>
+                  <span className={`font-extrabold ${isSd ? 'text-emerald-700' : 'text-[#064E3B]'}`}>{createdResult.schoolName}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs text-emerald-900">
                   <span className="font-medium">Nama Calon Murid:</span>
@@ -2080,7 +1919,7 @@ function PPDBFormContent() {
                 )}
                 <div className="pt-3 border-t border-emerald-200/80 flex items-center justify-between text-sm font-bold text-slate-900">
                   <span>Total Biaya Formulir:</span>
-                  <span className="text-[#064E3B] text-lg font-black font-mono">
+                  <span className={`text-lg font-black font-mono ${isSd ? 'text-emerald-700' : 'text-[#064E3B]'}`}>
                     Rp {createdResult.amount.toLocaleString('id-ID')}
                   </span>
                 </div>
@@ -2254,8 +2093,13 @@ function PPDBFormContent() {
                 className={`py-3 px-6 sm:px-8 rounded-xl text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-2 cursor-pointer tactile-press ${
                   currentStep === 1 && activeSchool.isPpdbOpen === false
                     ? 'bg-slate-400 cursor-not-allowed opacity-60'
-                    : 'bg-[#064E3B] hover:bg-emerald-800 disabled:opacity-70'
+                    : 'hover:opacity-90 disabled:opacity-70'
                 }`}
+                style={
+                  currentStep === 1 && activeSchool.isPpdbOpen === false
+                    ? undefined
+                    : { backgroundColor: '#00A651' }
+                }
               >
                 {isLoading ? (
                   <>
@@ -2282,7 +2126,7 @@ function PPDBFormContent() {
 
       {/* Footer copyright */}
       <div className="max-w-4xl mx-auto w-full text-center text-xs text-slate-400 pt-6">
-        © 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Pendaftaran Resmi PPDB Online.
+        © 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Pendaftaran Resmi SPMB Online.
       </div>
     </div>
   );

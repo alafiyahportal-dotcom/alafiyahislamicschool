@@ -123,7 +123,7 @@ export default function PPDBHubPage() {
       quotaFilled: 44,
       hours: '07.00 - 14.30 WIB',
       status: 'SPMB 2027/2028 Dibuka',
-      accent: '#059669',
+      accent: '#00A651',
       desc: 'Bukan sekadar tempat belajar namun juga tempat bertumbuh. Mendidik dengan sunnah, metode karakter nabawiyah, iman sebelum Qur’an, dan outdoor learning.',
       highlights: [
         'Mendidik dengan Sunnah & Karakter Nabawiyah',

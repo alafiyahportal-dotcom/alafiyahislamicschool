@@ -161,7 +161,7 @@ export default async function SdLandingPage() {
     name: identityData.name || dbSchool?.name || 'SD IT Al-Afiyah',
     badgeText: identityData.badgeText || dbSchool?.badgeText || 'SPMB 2027/2028 • KUOTA HANYA 2 ROMBEL',
     tagline: identityData.tagline || dbSchool?.tagline || 'Smart Akhlaq Fitrah • Mencetak Generasi Sholeh Cerdas Mandiri Berwawasan dan Berakhlakul Islami',
-    primaryColor: dbSchool?.primaryColor || '#059669',
+    primaryColor: dbSchool?.primaryColor || '#00A651',
     accentColor: dbSchool?.accentColor || '#D97706',
     registrationFee: dbSchool?.registrationFee || 250000,
     waCenterPhone: identityData.whatsappNumber || dbSchool?.waCenterPhone || '6281310139001',

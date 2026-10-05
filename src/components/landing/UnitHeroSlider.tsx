@@ -330,10 +330,10 @@ export default function UnitHeroSlider({
         };
       case 'sd':
         return {
-          glowColor: 'bg-teal-500/20',
-          badgeText: 'text-amber-300/90',
-          highlight: 'text-green-600',
-          primaryBtn: 'bg-green-600 hover:bg-green-700 shadow-green-950/40'
+          glowColor: 'bg-[#00A651]/20',
+          badgeText: 'text-[#00A651]',
+          highlight: 'text-[#00A651]',
+          primaryBtn: 'bg-[#00A651] hover:bg-[#008f45] shadow-[#00A651]/40 text-white font-bold'
         };
       case 'smp':
       default:

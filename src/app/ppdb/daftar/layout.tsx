@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Formulir Pendaftaran Murid Baru (PPDB 2027/2028) | SD IT & SMP IT Al-Afiyah',
+  title: 'Formulir Pendaftaran Murid Baru (SPMB 2027/2028) | SD IT Al-Afiyah Majalengka',
   description:
-    'Formulir Pendaftaran Online Penerimaan Peserta Didik Baru (PPDB) T.A. 2027/2028 Sekolah IT Al-Afiyah Majalengka.',
+    'Formulir Pendaftaran Online Sistem Penerimaan Murid Baru (SPMB) T.A. 2027/2028 SD IT Al-Afiyah Majalengka.',
 };
 
 export default function PPDBDaftarLayout({
