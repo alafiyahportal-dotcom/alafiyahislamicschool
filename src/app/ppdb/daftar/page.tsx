@@ -596,21 +596,21 @@ function PPDBFormContent() {
           className="rounded-3xl text-white p-6 sm:p-7 shadow-md border mb-6"
           style={{ backgroundColor: '#00A651', borderColor: '#008f45' }}
         >
-          {/* Top Row: Official Badges */}
+          {/* Top Row: Official Badges with High Contrast pill backgrounds */}
           <div className="flex items-center gap-2 flex-wrap mb-3.5">
-            <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/15 text-emerald-100 border border-white/20">
+            <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/15 text-white border border-white/25 shadow-2xs">
               Formulir 28 Butir Lengkap
             </span>
-            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-emerald-200 border border-white/15">
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-black/15 text-white border border-white/25 shadow-2xs">
               {(activeSchool.waveName || 'Gelombang 1').replace(/\(Biaya.*?\)/i, '').trim()} • Biaya Rp {activeSchool.fee.toLocaleString('id-ID')}
             </span>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/25 text-emerald-200 border border-white/10 hidden sm:inline-block">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/25 text-white border border-white/20 hidden sm:inline-block shadow-2xs">
               NPSN: 69900910
             </span>
           </div>
 
           {/* Middle Row: Title + Consultation CTA */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/15">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/20">
             <div className="flex items-center gap-3">
               <img
                 src="/images/sd-logo.png"
@@ -621,13 +621,13 @@ function PPDBFormContent() {
                 <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">
                   Pendaftaran Murid Baru {activeSchool.name}
                 </h1>
-                <p className="text-xs text-emerald-100/90 font-medium mt-1">
+                <p className="text-xs text-white/95 font-medium mt-1">
                   Jalur {formData.admissionTrack} • Tahun Pelajaran 2027/2028
                 </p>
               </div>
             </div>
 
-            {/* Right side WhatsApp Consultation link */}
+            {/* Right side WhatsApp Consultation link - High Contrast White with Brand Green text */}
             <div className="flex items-center gap-2 shrink-0">
               <a
                 href={`https://wa.me/6281234567890?text=${encodeURIComponent(
@@ -635,19 +635,19 @@ function PPDBFormContent() {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-bold transition-all tactile-press shadow-2xs cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-neutral-100 text-[#00A651] text-xs font-bold transition-all tactile-press shadow-sm cursor-pointer"
               >
-                <Phone className="w-3.5 h-3.5 text-emerald-200" />
+                <Phone className="w-3.5 h-3.5 text-[#00A651]" />
                 <span>Bantuan Panitia SPMB</span>
               </a>
             </div>
           </div>
 
           {/* Bottom Guidance Note */}
-          <div className="pt-3.5 flex items-start gap-2 text-xs text-emerald-100/90 leading-relaxed">
-            <ShieldCheck className="w-4 h-4 text-emerald-200 shrink-0 mt-0.5" />
+          <div className="pt-3.5 flex items-start gap-2 text-xs text-white leading-relaxed font-medium">
+            <ShieldCheck className="w-4 h-4 text-white shrink-0 mt-0.5" />
             <p>
-              Pendaftaran awal cukup melengkapi data pokok calon murid dan kontak WhatsApp orang tua. Seluruh <strong>28 butir rincian formulir fisik &amp; berkas administrasi</strong> (KK, Akta, Pas Foto 3x4) <strong>dapat disusulkan</strong> via Portal Murid setelah pengisian ini.
+              Pendaftaran awal cukup melengkapi data pokok calon murid dan kontak WhatsApp orang tua. Seluruh <strong className="font-bold underline decoration-white/40">28 butir rincian formulir fisik &amp; berkas administrasi</strong> (KK, Akta, Pas Foto 3x4) <strong className="font-bold">dapat disusulkan</strong> via Portal Murid setelah pengisian ini.
             </p>
           </div>
         </div>

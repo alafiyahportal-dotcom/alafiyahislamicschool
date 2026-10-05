@@ -4,6 +4,7 @@ import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
 import AchievementManagerClient from '@/components/admin/AchievementManagerClient';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 
 export default async function FoundationAchievementsPage() {
