@@ -26,10 +26,12 @@ import {
   Calendar,
   Users,
   Sparkles,
-  Copy
+  Copy,
+  Lock
 } from 'lucide-react';
 import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { extractSubdomain, getSchoolUrl } from '@/lib/domain';
+import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
 
 interface SchoolOption {
   slug: 'tk' | 'sd' | 'smp';
@@ -101,28 +103,12 @@ function PPDBFormContent() {
         setSubdomainSchool(sub);
       }
 
-      // Check URL query param, Cookie, or localStorage for referral code
-      let foundRef = initialRef || searchParams.get('referral') || '';
+      // Check URL query param (?ref= or ?referral=), or persistent 30-day Cookie & localStorage
+      const queryRef = searchParams.get('ref') || searchParams.get('referral') || initialRef;
+      let foundRef = queryRef ? saveReferralCode(queryRef) : null;
 
       if (!foundRef) {
-        const match = document.cookie.match(/alafiyah_ref=([^;]+)/);
-        if (match) {
-          try {
-            const parsed = JSON.parse(decodeURIComponent(match[1]));
-            if (parsed.referralCode) {
-              foundRef = parsed.referralCode;
-            }
-          } catch {}
-        }
-      }
-
-      if (!foundRef) {
-        try {
-          const stored = localStorage.getItem('alafiyah_ref_code');
-          if (stored) {
-            foundRef = stored;
-          }
-        } catch {}
+        foundRef = getStoredReferralCode();
       }
 
       if (foundRef) {
@@ -130,7 +116,7 @@ function PPDBFormContent() {
         setAutoDetectedRef(cleanCode);
         setFormData((prev) => ({
           ...prev,
-          referralCode: prev.referralCode || cleanCode,
+          referralCode: cleanCode,
         }));
       }
     }
@@ -920,7 +906,7 @@ function PPDBFormContent() {
                 </div>
               </div>
 
-              {/* Optional Referral Code */}
+              {/* Persistent Referral Code */}
               <div className="pt-2">
                 <label className="block text-xs font-bold text-slate-700 mb-2">
                   Kode Rujukan / Referral Mitra Afiliasi (Opsional)
@@ -932,17 +918,27 @@ function PPDBFormContent() {
                   <input
                     type="text"
                     value={formData.referralCode}
-                    onChange={(e) => updateField('referralCode', e.target.value.toUpperCase())}
+                    readOnly={Boolean(autoDetectedRef)}
+                    onChange={(e) => !autoDetectedRef && updateField('referralCode', e.target.value.toUpperCase())}
                     placeholder="Contoh: MITRA-AHMAD"
-                    className="w-full pl-10 pr-4 py-3 text-xs sm:text-sm uppercase font-mono bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white transition-all shadow-2xs text-slate-900 font-semibold"
+                    className={`w-full pl-10 pr-9 py-3 text-xs sm:text-sm uppercase font-mono border rounded-xl transition-all shadow-2xs font-semibold ${
+                      autoDetectedRef
+                        ? 'bg-emerald-50/90 border-emerald-300 text-emerald-950 cursor-not-allowed select-none'
+                        : 'bg-slate-50 border-slate-200 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-emerald-600/20 focus:border-[#064E3B] focus:bg-white'
+                    }`}
                   />
+                  {autoDetectedRef && (
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none" title="Terkunci dari cookie/link referral mitra">
+                      <Lock className="w-4 h-4 text-emerald-600" />
+                    </div>
+                  )}
                 </div>
                 {formData.referralCode && (
                   <p className="mt-2.5 text-[11px] text-emerald-900 font-bold flex items-center gap-1.5 bg-emerald-50 border border-emerald-300 px-3.5 py-2 rounded-xl max-w-sm shadow-2xs">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>
                       {autoDetectedRef && formData.referralCode === autoDetectedRef
-                        ? '✨ Terpasang Otomatis dari Link Mitra Afiliasi: '
+                        ? '🔒 Terkunci Otomatis dari Link / Cookie Mitra Afiliasi: '
                         : 'Rujukan Terverifikasi: '}
                       <strong className="font-mono text-emerald-950 underline decoration-emerald-400">{formData.referralCode}</strong>
                     </span>

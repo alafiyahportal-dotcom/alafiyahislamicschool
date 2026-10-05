@@ -159,6 +159,24 @@ export function proxy(request: NextRequest) {
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+  // ─── 4. Referral Code Persistence (30 Hari) ─────────────────────────────
+  const refQuery = request.nextUrl.searchParams.get('ref') || request.nextUrl.searchParams.get('referral');
+  if (refQuery && refQuery.trim()) {
+    const cleanRef = refQuery.trim().toUpperCase();
+    const maxAge = 60 * 60 * 24 * 30; // 30 hari
+    response.cookies.set('alafiyah_ref', JSON.stringify({ referralCode: cleanRef }), {
+      maxAge,
+      path: '/',
+      sameSite: 'lax',
+    });
+    response.cookies.set('alafiyah_ref_code', cleanRef, {
+      maxAge,
+      path: '/',
+      sameSite: 'lax',
+    });
+  }
+
   return response;
 }
 

@@ -1065,6 +1065,12 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - Urutan tata letak halaman utama kini menjadi: Hero Section → Bento Stats Bar → **Poster & Brosur SPMB** → 3 Pilar Karakter → Program Unggulan → Dewan Guru → Galeri Aktivitas.
 - Seluruh fungsionalitas preview poster, tab switcher, dan tombol unduh tetap bekerja responsif dan reaktif.
 
+### 23.9 Revisi — Sistem Tracking Referral Afiliasi Persisten 30 Hari (5 Okt 2026)
+- **Modul Utility (`src/lib/referral.ts`):** Menyediakan fungsi `saveReferralCode()` dan `getStoredReferralCode()` yang mengelola Cookie persisten (`alafiyah_ref` & `alafiyah_ref_code`, 30 hari) dan `localStorage` (`alafiyah_ref_code`).
+- **Penangkapan Server & Client:** Middleware Next.js (`src/proxy.ts`) dan Root Layout Tracker (`ReferralTracker.tsx`) menangkap parameter `?ref=` / `?referral=`. Jika pengunjung berpindah halaman atau me-refresh peramban tanpa query param, rujukan lama **tidak terhapus**.
+- **Pre-fill & Auto-Lock Form (`src/app/ppdb/daftar/page.tsx`):** Input referral pada formulir pendaftaran terisi otomatis dari cookie/storage dan dikunci (`readOnly`) dengan status `"🔒 Terkunci Otomatis dari Link / Cookie Mitra Afiliasi"`.
+- **Atribusi Database (`src/app/api/ppdb/register/route.ts`):** Payload pendaftaran membawa `referralCode` yang dikorelasikan dengan `AffiliateProfile` dan disimpan ke `PPDBRegistration.affiliateId`.
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
