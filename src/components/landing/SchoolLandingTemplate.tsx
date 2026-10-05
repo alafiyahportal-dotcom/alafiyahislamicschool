@@ -495,294 +495,6 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </div>
       </section>
 
-      {/* 3 Core Values (Pilar Karakter Islami SD IT Al-Afiyah): Modern Minimalist */}
-      <section id="values" className="relative py-20 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs mb-3">
-              Nilai Utama &amp; Character Building
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              {school.slug === 'sd' ? 'Tiga Pilar Karakter SD IT Al-Afiyah' : `Tiga Pilar Karakter ${school.name}`}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed">
-              {school.slug === 'sd'
-                ? 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.'
-                : 'Mendidik anak tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah.'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {defaultValues.map((val, idx) => (
-              <InteractiveBubbleCard
-                key={idx}
-                variant={idx === 0 ? 'emerald' : idx === 1 ? 'amber' : 'teal'}
-                className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between h-full"
-              >
-                <div className="flex-1 pb-6">
-                  {/* Modern Minimalist Icon Badge with Spring Tilt on Hover/Click */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div className={`transition-transform duration-300 group-hover:scale-110 ${
-                      idx === 0 
-                        ? 'text-emerald-700' 
-                        : idx === 1 
-                        ? 'text-amber-700' 
-                        : 'text-teal-700'
-                    }`}>
-                      {idx === 0 ? <HeartHandshake className="w-8 h-8" /> : idx === 1 ? <BookOpen className="w-8 h-8" /> : <GraduationCap className="w-8 h-8" />}
-                    </div>
-
-                    <span className={`text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs ${
-                      idx === 0 
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
-                        : idx === 1 
-                        ? 'bg-amber-50 text-amber-800 border-amber-200' 
-                        : 'bg-teal-50 text-teal-800 border-teal-200'
-                    }`}>
-                      Pilar 0{idx + 1}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-emerald-800 transition-colors">
-                    {sanitizeAdabText(val.title)}
-                  </h3>
-                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
-                    {sanitizeAdabText(val.description)}
-                  </p>
-                </div>
-
-                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span>Prinsip Smart Akhlaq Fitrah</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-emerald-700 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex items-center gap-1">
-                    <span>Selengkapnya</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </InteractiveBubbleCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Program Unggulan */}
-      <section 
-        id="programs" 
-        className="py-16 sm:py-20 bg-emerald-900 scroll-mt-16 sm:scroll-mt-20 w-full text-white"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 max-w-3xl">
-            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
-              Kurikulum Terintegrasi
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
-              Program Unggulan <span className="text-amber-400">{school.name}</span>
-            </h2>
-            <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
-              Pilar keunggulan kurikulum berakar pada nilai karakter nabawiyah, adab islami, serta penguatan literasi dan agro-sains.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {defaultPrograms.map((prog, idx) => (
-              <InteractiveBubbleCard
-                key={idx}
-                variant={idx % 2 === 0 ? 'emerald' : 'teal'}
-                className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
-              >
-                <div className="flex-1 pb-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
-                      {prog.badge}
-                    </span>
-                    <span className="text-xs font-black text-emerald-600 font-mono">0{idx + 1}</span>
-                  </div>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors leading-snug">
-                    {sanitizeAdabText(prog.title)}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                    {sanitizeAdabText(prog.desc)}
-                  </p>
-                </div>
-                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-medium text-emerald-600">
-                  <span>Terintegrasi Kurikulum</span>
-                  <span className="text-[10px] text-emerald-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all">✦</span>
-                </div>
-              </InteractiveBubbleCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Dewan Guru & Tenaga Pendidik (Sprint 3 - M11) */}
-      {school.teachers && school.teachers.length > 0 && (
-        <section id="teachers" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-              <div>
-                <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Kompetensi &amp; Dedikasi</span>
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
-                  Dewan Guru &amp; Tenaga Pendidik
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                  Mendidik dengan keteladanan akhlak, hafalan mutqin, dan dedikasi penuh kasih sayang.
-                </p>
-              </div>
-
-              <div className="mt-4 md:mt-0 flex items-center gap-2">
-                <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
-                  {school.teachers.length} Tenaga Pendidik Aktif
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {school.teachers.map((teacher) => (
-                <div
-                  key={teacher.id}
-                  className="bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-emerald-500/50 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between group"
-                >
-                  <div className="space-y-4">
-                    {/* Teacher Avatar */}
-                    <div className="relative w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-emerald-600/30 p-0.5 shadow-sm group-hover:scale-105 transition-transform duration-300">
-                      <img
-                        src={
-                          teacher.photoUrl ||
-                          '/images/arc-ustadz.jpg'
-                        }
-                        alt={teacher.name}
-                        className="w-full h-full object-cover rounded-full"
-                      />
-                    </div>
-
-                    {/* Teacher Bio Info */}
-                    <div className="text-center space-y-1.5">
-                      <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
-                        {teacher.name}
-                      </h3>
-                      <span className="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100/70 text-emerald-800 text-[11px] font-semibold border border-emerald-200/60">
-                        {teacher.role}
-                      </span>
-                      {teacher.specialization && (
-                        <p className="text-[11px] text-slate-600 font-medium leading-relaxed pt-1">
-                          {teacher.specialization}
-                        </p>
-                      )}
-                      {teacher.bio && (
-                        <p className="text-[10px] text-slate-400 italic leading-relaxed pt-1 line-clamp-2">
-                          &ldquo;{teacher.bio}&rdquo;
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-200/60 text-center">
-                    <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
-                      Tenaga Pendidik {school.name}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Galeri Fasilitas & Dokumentasi Kegiatan */}
-      <section id="facilities" className="py-16 sm:py-20 bg-slate-50/50 border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-            <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-2xs">
-              <Camera className="w-3.5 h-3.5 text-emerald-600" />
-              <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Dokumentasi SD IT' : 'Sarana Prasarana'}</span>
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
-              {school.slug === 'sd' ? 'Dokumentasi Kegiatan & Aktivitas Belajar SD IT' : 'Fasilitas Pembelajaran Modern & Representatif'}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed">
-              {school.slug === 'sd'
-                ? 'Potret nyata keseharian murid: pembiasaan ibadah shalat berjamaah, muhadharah da\'i cilik, suasana belajar interaktif di kelas, agro-literasi, dan prestasi santri.'
-                : 'Dukungan infrastruktur lengkap demi kenyamanan dan keamanan aktivitas ibadah dan belajar murid.'}
-            </p>
-
-            {/* Filter Tabs for SD IT */}
-            {school.slug === 'sd' && availableCategories.length > 0 && (
-              <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-6">
-                {availableCategories.map((cat) => {
-                  const isActive = galleryCategory === cat || (galleryCategory === 'all' && cat === 'Semua');
-                  return (
-                    <button
-                      key={cat}
-                      type="button"
-                      onClick={() => setGalleryCategory(cat)}
-                      className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-softwater-dark text-white shadow-sm scale-105'
-                          : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredFacilities.map((fac, idx) => (
-              <div
-                key={idx}
-                onClick={() => setSelectedGalleryItem(fac)}
-                className="group rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-emerald-400/50 transition-all duration-300 cursor-pointer flex flex-col justify-between"
-              >
-                <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={fac.image}
-                    alt={fac.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  {fac.category && (
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
-                        {fac.category}
-                      </span>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
-                    <span className="px-3.5 py-1.5 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
-                      <ZoomIn className="w-3.5 h-3.5 text-emerald-700" />
-                      <span>Perbesar Foto</span>
-                    </span>
-                  </div>
-                </div>
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 mb-1.5 group-hover:text-emerald-800 transition-colors leading-snug">
-                      {sanitizeAdabText(fac.name)}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
-                      {sanitizeAdabText(fac.desc)}
-                    </p>
-                  </div>
-                  <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
-                    <span>Lihat Dokumentasi</span>
-                    <span className="text-xs group-hover:translate-x-1 transition-transform">➔</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Pengumuman & Brosur Resmi SPMB (Khusus & Dapat Diunduh) */}
       <section id="pengumuman" className="py-16 sm:py-20 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1137,6 +849,294 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               </div>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* 3 Core Values (Pilar Karakter Islami SD IT Al-Afiyah): Modern Minimalist */}
+      <section id="values" className="relative py-20 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs mb-3">
+              Nilai Utama &amp; Character Building
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              {school.slug === 'sd' ? 'Tiga Pilar Karakter SD IT Al-Afiyah' : `Tiga Pilar Karakter ${school.name}`}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed">
+              {school.slug === 'sd'
+                ? 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.'
+                : 'Mendidik anak tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {defaultValues.map((val, idx) => (
+              <InteractiveBubbleCard
+                key={idx}
+                variant={idx === 0 ? 'emerald' : idx === 1 ? 'amber' : 'teal'}
+                className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between h-full"
+              >
+                <div className="flex-1 pb-6">
+                  {/* Modern Minimalist Icon Badge with Spring Tilt on Hover/Click */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className={`transition-transform duration-300 group-hover:scale-110 ${
+                      idx === 0 
+                        ? 'text-emerald-700' 
+                        : idx === 1 
+                        ? 'text-amber-700' 
+                        : 'text-teal-700'
+                    }`}>
+                      {idx === 0 ? <HeartHandshake className="w-8 h-8" /> : idx === 1 ? <BookOpen className="w-8 h-8" /> : <GraduationCap className="w-8 h-8" />}
+                    </div>
+
+                    <span className={`text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs ${
+                      idx === 0 
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                        : idx === 1 
+                        ? 'bg-amber-50 text-amber-800 border-amber-200' 
+                        : 'bg-teal-50 text-teal-800 border-teal-200'
+                    }`}>
+                      Pilar 0{idx + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-emerald-800 transition-colors">
+                    {sanitizeAdabText(val.title)}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                    {sanitizeAdabText(val.description)}
+                  </p>
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span>Prinsip Smart Akhlaq Fitrah</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-emerald-700 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex items-center gap-1">
+                    <span>Selengkapnya</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+              </InteractiveBubbleCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Program Unggulan */}
+      <section 
+        id="programs" 
+        className="py-16 sm:py-20 bg-emerald-900 scroll-mt-16 sm:scroll-mt-20 w-full text-white"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 max-w-3xl">
+            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
+              Kurikulum Terintegrasi
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
+              Program Unggulan <span className="text-amber-400">{school.name}</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
+              Pilar keunggulan kurikulum berakar pada nilai karakter nabawiyah, adab islami, serta penguatan literasi dan agro-sains.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {defaultPrograms.map((prog, idx) => (
+              <InteractiveBubbleCard
+                key={idx}
+                variant={idx % 2 === 0 ? 'emerald' : 'teal'}
+                className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
+              >
+                <div className="flex-1 pb-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
+                      {prog.badge}
+                    </span>
+                    <span className="text-xs font-black text-emerald-600 font-mono">0{idx + 1}</span>
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors leading-snug">
+                    {sanitizeAdabText(prog.title)}
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    {sanitizeAdabText(prog.desc)}
+                  </p>
+                </div>
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-medium text-emerald-600">
+                  <span>Terintegrasi Kurikulum</span>
+                  <span className="text-[10px] text-emerald-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all">✦</span>
+                </div>
+              </InteractiveBubbleCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Dewan Guru & Tenaga Pendidik (Sprint 3 - M11) */}
+      {school.teachers && school.teachers.length > 0 && (
+        <section id="teachers" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+              <div>
+                <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Kompetensi &amp; Dedikasi</span>
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
+                  Dewan Guru &amp; Tenaga Pendidik
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                  Mendidik dengan keteladanan akhlak, hafalan mutqin, dan dedikasi penuh kasih sayang.
+                </p>
+              </div>
+
+              <div className="mt-4 md:mt-0 flex items-center gap-2">
+                <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+                  {school.teachers.length} Tenaga Pendidik Aktif
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {school.teachers.map((teacher) => (
+                <div
+                  key={teacher.id}
+                  className="bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-emerald-500/50 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between group"
+                >
+                  <div className="space-y-4">
+                    {/* Teacher Avatar */}
+                    <div className="relative w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-emerald-600/30 p-0.5 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                      <img
+                        src={
+                          teacher.photoUrl ||
+                          '/images/arc-ustadz.jpg'
+                        }
+                        alt={teacher.name}
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+
+                    {/* Teacher Bio Info */}
+                    <div className="text-center space-y-1.5">
+                      <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
+                        {teacher.name}
+                      </h3>
+                      <span className="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100/70 text-emerald-800 text-[11px] font-semibold border border-emerald-200/60">
+                        {teacher.role}
+                      </span>
+                      {teacher.specialization && (
+                        <p className="text-[11px] text-slate-600 font-medium leading-relaxed pt-1">
+                          {teacher.specialization}
+                        </p>
+                      )}
+                      {teacher.bio && (
+                        <p className="text-[10px] text-slate-400 italic leading-relaxed pt-1 line-clamp-2">
+                          &ldquo;{teacher.bio}&rdquo;
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-slate-200/60 text-center">
+                    <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
+                      Tenaga Pendidik {school.name}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Galeri Fasilitas & Dokumentasi Kegiatan */}
+      <section id="facilities" className="py-16 sm:py-20 bg-slate-50/50 border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+            <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-2xs">
+              <Camera className="w-3.5 h-3.5 text-emerald-600" />
+              <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Dokumentasi SD IT' : 'Sarana Prasarana'}</span>
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
+              {school.slug === 'sd' ? 'Dokumentasi Kegiatan & Aktivitas Belajar SD IT' : 'Fasilitas Pembelajaran Modern & Representatif'}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed">
+              {school.slug === 'sd'
+                ? 'Potret nyata keseharian murid: pembiasaan ibadah shalat berjamaah, muhadharah da\'i cilik, suasana belajar interaktif di kelas, agro-literasi, dan prestasi santri.'
+                : 'Dukungan infrastruktur lengkap demi kenyamanan dan keamanan aktivitas ibadah dan belajar murid.'}
+            </p>
+
+            {/* Filter Tabs for SD IT */}
+            {school.slug === 'sd' && availableCategories.length > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-6">
+                {availableCategories.map((cat) => {
+                  const isActive = galleryCategory === cat || (galleryCategory === 'all' && cat === 'Semua');
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setGalleryCategory(cat)}
+                      className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-softwater-dark text-white shadow-sm scale-105'
+                          : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredFacilities.map((fac, idx) => (
+              <div
+                key={idx}
+                onClick={() => setSelectedGalleryItem(fac)}
+                className="group rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-emerald-400/50 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+              >
+                <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={fac.image}
+                    alt={fac.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  {fac.category && (
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
+                        {fac.category}
+                      </span>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
+                    <span className="px-3.5 py-1.5 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
+                      <ZoomIn className="w-3.5 h-3.5 text-emerald-700" />
+                      <span>Perbesar Foto</span>
+                    </span>
+                  </div>
+                </div>
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 mb-1.5 group-hover:text-emerald-800 transition-colors leading-snug">
+                      {sanitizeAdabText(fac.name)}
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
+                      {sanitizeAdabText(fac.desc)}
+                    </p>
+                  </div>
+                  <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
+                    <span>Lihat Dokumentasi</span>
+                    <span className="text-xs group-hover:translate-x-1 transition-transform">➔</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

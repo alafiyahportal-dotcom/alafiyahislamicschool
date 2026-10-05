@@ -1060,6 +1060,11 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - Bingkai preview tidak lagi berasio tetap `aspect-[5/7]` + `object-contain` (menyisakan pita kosong pada Story 9:16).
 - Gambar kini `block w-full h-auto` dengan `width/height` intrinsik per item di `SPMB_POSTERS`; bingkai mengikuti rasio asli setiap poster, penuh kiri-kanan, tanpa crop. `object-cover` sengaja tidak dipakai agar teks poster (judul & footer sosial media) tidak terpotong.
 
+### 23.8 Revisi — Relokasi Section Poster & Brosur SPMB ke Atas (5 Okt 2026)
+- Komponen `<section id="pengumuman">` (Poster & Brosur SPMB) di `SchoolLandingTemplate.tsx` dipindahkan ke bagian atas halaman utama, tepat berada di bawah Hero Section & Bento Stats Bar.
+- Urutan tata letak halaman utama kini menjadi: Hero Section → Bento Stats Bar → **Poster & Brosur SPMB** → 3 Pilar Karakter → Program Unggulan → Dewan Guru → Galeri Aktivitas.
+- Seluruh fungsionalitas preview poster, tab switcher, dan tombol unduh tetap bekerja responsif dan reaktif.
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
