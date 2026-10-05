@@ -509,9 +509,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               <InteractiveBubbleCard
                 key={idx}
                 variant={idx === 0 ? 'emerald' : idx === 1 ? 'amber' : 'teal'}
-                className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between"
+                className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between h-full"
               >
-                <div>
+                <div className="flex-1 pb-6">
                   {/* Modern Minimalist Icon Badge with Spring Tilt on Hover/Click */}
                   <div className="flex items-center justify-between mb-5">
                     <div className={`transition-transform duration-300 group-hover:scale-110 ${
@@ -543,7 +543,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800">
                   <span className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                     <span>Prinsip Smart Akhlaq Fitrah</span>
@@ -593,9 +593,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               <InteractiveBubbleCard
                 key={idx}
                 variant={idx % 2 === 0 ? 'emerald' : 'teal'}
-                className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
               >
-                <div>
+                <div className="flex-1 pb-4">
                   <div className="flex items-center justify-between mb-3">
                     <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
                       {prog.badge}
@@ -609,7 +609,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                     {sanitizeAdabText(prog.desc)}
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-medium text-emerald-600">
                   <span>Terintegrasi Kurikulum</span>
                   <span className="text-[10px] text-emerald-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all">✦</span>
                 </div>

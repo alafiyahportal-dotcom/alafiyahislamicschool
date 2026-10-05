@@ -149,8 +149,8 @@ export default function InteractiveBubbleCard({
       {/* Inner subtle specular top edge line for modern glass depth */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none z-10" />
 
-      {/* Card Children Content */}
-      <div className="relative z-10 h-full">{children}</div>
+      {/* Card Children Content — flex column so a footer child can pin to the bottom with mt-auto */}
+      <div className="relative z-10 flex flex-col h-full">{children}</div>
     </div>
   );
 }
