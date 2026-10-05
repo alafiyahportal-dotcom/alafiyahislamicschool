@@ -278,7 +278,7 @@ export default function Navbar({
       hasDropdown: true,
       openInNewTab: Boolean(activeSlug),
       items: [
-        { label: `Informasi & Alur PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2026/2027'}`, href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Syarat berkas, tes observasi & kuota', openInNewTab: Boolean(activeSlug) },
+        { label: `Informasi & Alur PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Syarat berkas, tes observasi & kuota', openInNewTab: Boolean(activeSlug) },
         { label: 'Formulir Pendaftaran Online', href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Isi formulir biodata calon murid', openInNewTab: Boolean(activeSlug) },
         { label: 'Cek Status Pendaftaran', href: '/ppdb/cek-status', desc: 'Pantau verifikasi berkas & nomor registrasi', openInNewTab: Boolean(activeSlug) },
         { label: 'Pengumuman Kelulusan Resmi', href: '/ppdb/pengumuman', desc: 'SK kelulusan murid gelombang 1 & 2', openInNewTab: Boolean(activeSlug) },
@@ -303,7 +303,7 @@ export default function Navbar({
   // Quick search items for modal
   const searchablePages = [
     { title: 'SIAKAD Mobile Murid & Presensi QR', url: '/portal/siakad', cat: 'Akademik' },
-    { title: `Pendaftaran PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2026/2027'}`, url: brandConfig.ppdbLink, cat: 'PPDB' },
+    { title: `Pendaftaran PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, url: brandConfig.ppdbLink, cat: 'PPDB' },
     { title: 'Cek Status Berkas Pendaftar', url: '/ppdb/cek-status', cat: 'PPDB' },
     { title: 'Pengumuman Kelulusan Murid', url: '/ppdb/pengumuman', cat: 'PPDB' },
     { title: 'Profil Yayasan Pendidikan Imam Bonjol', url: '/profil', cat: 'Profil' },

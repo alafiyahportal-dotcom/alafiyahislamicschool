@@ -89,7 +89,7 @@ export default function EdukaDonutChart({
         </div>
 
         <span className="px-2.5 py-1 rounded-lg bg-slate-100 text-[11px] font-semibold text-slate-600 border border-slate-200">
-          TP 2026/2027
+          TP 2027/2028
         </span>
       </div>
 

@@ -45,11 +45,11 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
   const mapZoom = isFoundation || isSd ? 18 : 16;
 
   const phone = isFoundation
-    ? '+62 895-3222-26104 / +62 812-2334-4552'
+    ? '+62 813-1013-9001 / +62 812-2334-4552'
     : isSd
-    ? '+62 895-3222-26104'
+    ? '+62 813-1013-9001'
     : '+62 812-2334-4552';
-  const phoneRaw = isFoundation || isSd ? '62895322226104' : '6281223344552';
+  const phoneRaw = isFoundation || isSd ? '6281310139001' : '6281223344552';
 
   const hours = isFoundation
     ? 'Senin – Jum\'at: 07.00 – 15.00 WIB'

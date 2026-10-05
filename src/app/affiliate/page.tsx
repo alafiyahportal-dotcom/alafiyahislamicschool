@@ -197,7 +197,7 @@ export default function AffiliatePublicPage() {
       icon: Sparkles,
       why: 'Bagi Anda yang aktif di majelis taklim, komunitas kebaikan, atau media sosial dakwah, program kemitraan ini adalah sarana menyebarkan alternatif pendidikan bernilai Islam tanpa biaya modal sepeser pun.',
       earningExample: 'Sebar tautan di komunitas dan jaring 10 santri baru = Rp 3.800.000 komisi transparan.',
-      template: 'Alhamdulillah, pendaftaran santri baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SD IT, SMP IT) tahun ajaran 2026/2027 telah dibuka. Mari siapkan generasi berakhlak mulia. Informasi lengkap & pendaftaran: https://alafiyah.sch.id/ref/KODE-MITRA',
+      template: 'Alhamdulillah, pendaftaran santri baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SD IT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Mari siapkan generasi berakhlak mulia. Informasi lengkap & pendaftaran: https://alafiyah.sch.id/ref/KODE-MITRA',
     },
   };
 
@@ -244,7 +244,7 @@ export default function AffiliatePublicPage() {
               {/* Honest Badge */}
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Program Kemitraan Dakwah &amp; Kebaikan TP 2026/2027</span>
+                <span>Program Kemitraan Dakwah &amp; Kebaikan TP 2027/2028</span>
               </div>
 
               {/* Headline */}

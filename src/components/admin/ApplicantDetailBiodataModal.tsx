@@ -25,7 +25,7 @@ import {
   Layers,
   FileCheck
 } from 'lucide-react';
-import { calculateAgePerJuly2026, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
+import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { ApplicantItem } from './PPDBVerificationClient';
 import OfficialRegistrationFormModal from '@/components/portal/OfficialRegistrationFormModal';
 import EditBiodataModal from '@/components/portal/EditBiodataModal';
@@ -51,7 +51,7 @@ export default function ApplicantDetailBiodataModal({
 
   const parent = applicant.parentDataRaw || {};
   const specific = applicant.schoolSpecificDataRaw || applicant.schoolSpecificDetails || {};
-  const agePerJuly2026 = calculateAgePerJuly2026(applicant.dob || '2020-05-14');
+  const AgePerJuly2027 = calculateAgePerJuly2027(applicant.dob || '2021-05-14');
 
   const formattedDob = applicant.dob
     ? new Date(applicant.dob).toLocaleDateString('id-ID', {
@@ -213,23 +213,23 @@ export default function ApplicantDetailBiodataModal({
                 <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between gap-4">
                   <div className="flex items-center space-x-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                      agePerJuly2026.isEligible ? 'bg-[#064E3B] text-white' : 'bg-amber-700 text-white'
+                      AgePerJuly2027.isEligible ? 'bg-[#064E3B] text-white' : 'bg-amber-700 text-white'
                     }`}>
                       <Calendar className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-slate-500">Kalkulasi Usia per 1 Juli 2026 (Tahun Ajaran Baru):</p>
+                      <p className="text-xs font-semibold text-slate-500">Kalkulasi Usia per 1 Juli 2027 (Tahun Ajaran Baru):</p>
                       <p className="text-base font-extrabold text-slate-900 tracking-tight mt-0.5">
-                        {agePerJuly2026.text}
+                        {AgePerJuly2027.text}
                       </p>
                     </div>
                   </div>
                   <span className={`px-3.5 py-1.5 rounded-full text-xs font-bold text-white shadow-2xs ${
-                    agePerJuly2026.isEligible
+                    AgePerJuly2027.isEligible
                       ? 'bg-[#064E3B]'
                       : 'bg-amber-700'
                   }`}>
-                    {agePerJuly2026.isEligible ? '✓ Memenuhi Syarat (Min. 6 Th)' : 'Perlu Observasi Khusus (<6 Th)'}
+                    {AgePerJuly2027.isEligible ? '✓ Memenuhi Syarat (Min. 6 Th)' : 'Perlu Observasi Khusus (<6 Th)'}
                   </span>
                 </div>
 
@@ -617,7 +617,7 @@ export default function ApplicantDetailBiodataModal({
                     <div>
                       <p className="text-xs text-slate-500 font-medium">Biaya Formulir Registrasi Gelombang 1:</p>
                       <p className="text-base font-extrabold text-slate-900">
-                        Rp {applicant.registrationFee ? applicant.registrationFee.toLocaleString('id-ID') : '175.000'}
+                        Rp {applicant.registrationFee ? applicant.registrationFee.toLocaleString('id-ID') : '250.000'}
                       </p>
                     </div>
                   </div>
@@ -682,7 +682,7 @@ export default function ApplicantDetailBiodataModal({
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                     {[
-                      'Kuitansi Asli Pendaftaran Rp 175.000',
+                      'Kuitansi Asli Pendaftaran Rp 250.000',
                       'Fotokopi Akta Kelahiran Murid (2 Lembar)',
                       'Fotokopi Kartu Keluarga (KK) (2 Lembar)',
                       'Fotokopi KTP Kedua Orang Tua / Wali',
@@ -738,7 +738,7 @@ export default function ApplicantDetailBiodataModal({
           nik={applicant.nik}
           gender={applicant.gender}
           pob={applicant.pob || specific.pob || 'Majalengka'}
-          dob={applicant.dob || '2020-05-14'}
+          dob={applicant.dob || '2021-05-14'}
           address={applicant.address || specific.address || 'Majalengka'}
           schoolName={applicant.schoolName}
           schoolSlug={applicant.schoolSlug}
@@ -759,7 +759,7 @@ export default function ApplicantDetailBiodataModal({
           initialNik={applicant.nik}
           initialGender={applicant.gender}
           initialPob={applicant.pob || specific.pob || 'Majalengka'}
-          initialDob={applicant.dob || '2020-05-14'}
+          initialDob={applicant.dob || '2021-05-14'}
           initialAddress={applicant.address || specific.address || 'Majalengka'}
           schoolSlug={applicant.schoolSlug}
           schoolSpecificData={specific}

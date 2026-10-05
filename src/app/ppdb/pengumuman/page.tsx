@@ -7,8 +7,8 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import AnnouncementBoardClient, { AcceptedStudent, SchoolInfo } from '@/components/ppdb/AnnouncementBoardClient';
 
 export const metadata: Metadata = {
-  title: 'Papan Pengumuman Hasil Seleksi PPDB 2026/2027 | Ekosistem Al-Afiyah',
-  description: 'Pengumuman resmi kelulusan calon murid baru TK IT, SD IT, dan SMP IT Al-Afiyah Majalengka Gelombang 1 Tahun Ajaran 2026/2027.',
+  title: 'Papan Pengumuman Hasil Seleksi PPDB 2027/2028 | Ekosistem Al-Afiyah',
+  description: 'Pengumuman resmi kelulusan calon murid baru TK IT, SD IT, dan SMP IT Al-Afiyah Majalengka Gelombang 1 Tahun Ajaran 2027/2028.',
 };
 
 export const dynamic = 'force-dynamic';

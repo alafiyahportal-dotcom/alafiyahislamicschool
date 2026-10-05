@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export interface AcademicEvent {
   id: string;
@@ -18,7 +18,7 @@ export interface AcademicEvent {
 export const ACADEMIC_EVENTS: AcademicEvent[] = [
   {
     id: 'evt-ppdb-w1-open',
-    title: 'Pembukaan PPDB Online 2026/2027 Gelombang 1',
+    title: 'Pembukaan PPDB Online 2027/2028 Gelombang 1',
     category: 'ppdb',
     schoolSlug: 'all',
     schoolName: 'Semua Unit (TK, SD, SMP)',

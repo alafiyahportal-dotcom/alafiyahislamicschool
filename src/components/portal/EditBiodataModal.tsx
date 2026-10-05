@@ -16,7 +16,7 @@ import {
   Calendar,
   Loader2
 } from 'lucide-react';
-import { calculateAgePerJuly2026, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
+import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 
 interface EditBiodataModalProps {
   isOpen: boolean;
@@ -138,7 +138,7 @@ export default function EditBiodataModal({
 
   if (!isOpen) return null;
 
-  const ageCalculation = calculateAgePerJuly2026(dob);
+  const ageCalculation = calculateAgePerJuly2027(dob);
 
   const updateSd = (key: string, value: any) => {
     setSdData((prev) => ({ ...prev, [key]: value }));
@@ -418,7 +418,7 @@ export default function EditBiodataModal({
                   />
                   {dob && (
                     <div className="mt-1 text-[11px] flex items-center space-x-1.5">
-                      <span className="text-slate-500">Usia per 1 Juli 2026:</span>
+                      <span className="text-slate-500">Usia per 1 Juli 2027:</span>
                       <span className={`font-bold ${ageCalculation.isEligible ? 'text-emerald-700' : 'text-amber-700'}`}>
                         {ageCalculation.text}
                       </span>
@@ -1019,7 +1019,7 @@ export default function EditBiodataModal({
           {activeTab === 'BERKAS' && (
             <div className="space-y-4">
               <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 leading-relaxed">
-                <strong>Catatan Panitia:</strong> Berkas fisik dapat dimasukkan ke dalam <strong>1 stopmap</strong> dan dikumpulkan saat verifikasi formulir, paling lambat <strong>3 hari sebelum pelaksanaan Tes Observasi PPDB 2026/2027</strong>.
+                <strong>Catatan Panitia:</strong> Berkas fisik dapat dimasukkan ke dalam <strong>1 stopmap</strong> dan dikumpulkan saat verifikasi formulir, paling lambat <strong>3 hari sebelum pelaksanaan Tes Observasi PPDB 2027/2028</strong>.
               </div>
 
               <div className="space-y-2.5">

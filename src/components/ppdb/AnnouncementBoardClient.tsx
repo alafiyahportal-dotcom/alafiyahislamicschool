@@ -113,7 +113,7 @@ export default function AnnouncementBoardClient({
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-amber-300 mb-4">
-            <span>Pengumuman Kelulusan Resmi TA 2026/2027</span>
+            <span>Pengumuman Kelulusan Resmi TA 2027/2028</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">

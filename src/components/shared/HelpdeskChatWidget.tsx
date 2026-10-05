@@ -34,9 +34,9 @@ const HELPDESK_UNITS: UnitHelpdesk[] = [
     slug: 'sd',
     name: 'SDIT Al-Afiyah',
     badge: 'Smart Akhlaq Fitrah • Hanya 2 Rombel',
-    phone: '62895322226104',
+    phone: '6281310139001',
     officerName: 'Ibu Guru Panitia SPMB SD IT',
-    greetingTemplate: 'Assalamu\'alaikum Panitia SPMB SDIT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran murid baru SD IT (SPMB 2026/2027).',
+    greetingTemplate: 'Assalamu\'alaikum Panitia SPMB SDIT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran murid baru SD IT (SPMB 2027/2028).',
     primaryColor: '#059669',
   },
   {
@@ -45,7 +45,7 @@ const HELPDESK_UNITS: UnitHelpdesk[] = [
     badge: 'Pondasi Karakter Usia Dini',
     phone: '6281223344551',
     officerName: 'Ibu Guru Panitia PPDB TK IT',
-    greetingTemplate: 'Assalamu\'alaikum Panitia PPDB TK IT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran calon murid baru TK IT untuk Tahun Ajaran 2026/2027.',
+    greetingTemplate: 'Assalamu\'alaikum Panitia PPDB TK IT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran calon murid baru TK IT untuk Tahun Ajaran 2027/2028.',
     primaryColor: '#0d9488',
   },
   {
@@ -54,7 +54,7 @@ const HELPDESK_UNITS: UnitHelpdesk[] = [
     badge: 'Sekolah Menengah Terpadu',
     phone: '6281223344553',
     officerName: 'Panitia PPDB SMP IT',
-    greetingTemplate: 'Assalamu\'alaikum Panitia PPDB SMP IT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran murid baru SMP IT untuk Tahun Ajaran 2026/2027.',
+    greetingTemplate: 'Assalamu\'alaikum Panitia PPDB SMP IT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran murid baru SMP IT untuk Tahun Ajaran 2027/2028.',
     primaryColor: '#1e40af',
   },
   {
@@ -80,7 +80,7 @@ const FAQ_DATA: FAQItem[] = [
     id: 'faq-1',
     category: 'SYARAT',
     question: 'Kapan batas akhir pendaftaran murid baru dibuka?',
-    answer: 'Pendaftaran Gelombang 1 dibuka sampai kuota kelas terpenuhi (estimasi akhir Maret 2026). Jika kuota telah penuh, pendaftaran unit akan otomatis ditutup oleh sistem.',
+    answer: 'SD IT Al-Afiyah T.A. 2027/2028 dibuka dalam 3 gelombang: Gelombang 1 (1 Okt – 30 Des 2026, biaya Rp 250.000), Gelombang 2 (1 Jan – 3 Apr 2027, Rp 275.000), dan Gelombang 3 (6 Apr – 26 Jun 2027, Rp 300.000). Jika kuota telah penuh, pendaftaran unit akan otomatis ditutup oleh sistem.',
   },
   {
     id: 'faq-2',
@@ -216,7 +216,7 @@ export default function HelpdeskChatWidget() {
           <div className="px-4 py-2.5 bg-[#E8F3F1] border-b border-[#2D7A70]/20 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[11px] font-bold text-[#184F48]">PPDB T.A. 2026/2027 Dibuka</span>
+              <span className="text-[11px] font-bold text-[#184F48]">PPDB T.A. 2027/2028 Dibuka</span>
             </div>
             <Link
               href="/ppdb/daftar"

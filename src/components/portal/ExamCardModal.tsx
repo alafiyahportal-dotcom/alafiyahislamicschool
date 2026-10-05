@@ -95,7 +95,7 @@ export default function ExamCardModal({
                   <h2 className="text-sm font-bold text-slate-900">
                     KARTU TANDA PESERTA OBSERVASI / SELEKSI PPDB
                   </h2>
-                  <p className="text-[10px] text-slate-500">Tahun Ajaran 2026/2027 • {schoolName}</p>
+                  <p className="text-[10px] text-slate-500">Tahun Ajaran 2027/2028 • {schoolName}</p>
                 </div>
               </div>
 

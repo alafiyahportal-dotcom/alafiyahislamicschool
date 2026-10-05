@@ -455,7 +455,7 @@ export default function FoundationSettingsClient({
                         onChange={(e) =>
                           handleSchoolChange(school.id, 'waveName', e.target.value)
                         }
-                        placeholder="Contoh: Gelombang 1 (2026/2027)"
+                        placeholder="Contoh: Gelombang 1 (2027/2028)"
                         className="w-full text-xs font-medium text-slate-900 bg-white border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 focus:ring-[#2D7A70]"
                       />
                     </div>

@@ -175,11 +175,11 @@ export default function AffiliateDashboardPage() {
   const cannedMessages = [
     {
       id: 'general',
-      title: 'Pendaftaran PPDB 2026/2027 Dibuka (Semua Unit)',
+      title: 'Pendaftaran PPDB 2027/2028 Dibuka (Semua Unit)',
       summary: 'Cocok untuk disebarkan di grup keluarga, alumni, dan majelis taklim.',
       text: `*Assalamu'alaikum Warahmatullahi Wabarakatuh,*
 
-Bapak/Ibu yang dirahmati Allah, kabar gembira pendaftaran murid baru (*PPDB 2026/2027*) di *Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka* (TK IT, SD IT, SMP IT) resmi dibuka!
+Bapak/Ibu yang dirahmati Allah, kabar gembira pendaftaran murid baru (*PPDB 2027/2028*) di *Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka* (TK IT, SD IT, SMP IT) resmi dibuka!
 
 Keunggulan Al-Afiyah:
  Pembinaan Karakter & Adab Islami
@@ -198,7 +198,7 @@ Informasi kuota dan konsultasi pendaftaran online dapat langsung diakses pada ta
       summary: 'Khusus calon wali murid yang mencari sekolah dasar Islam unggulan.',
       text: `*Mencari SD Islam Terbaik di Majalengka?*
 
-Alhamdulillah *SD IT Al-Afiyah Majalengka* kini membuka pendaftaran murid baru T.A. 2026/2027.
+Alhamdulillah *SD IT Al-Afiyah Majalengka* kini membuka pendaftaran murid baru T.A. 2027/2028.
 
 Fasilitas & Program Unggulan:
  Target 5 - 10 Juz Hafalan Al-Qur'an Bersanad
@@ -294,7 +294,7 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
             <div className="lg:col-span-8 space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-bold border border-white/15">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Status Kemitraan Aktif • TP 2026/2027</span>
+                <span>Status Kemitraan Aktif • TP 2027/2028</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black tracking-tight leading-tight">
                 Ahlan wa Sahlan, {profile?.fullName || 'Bapak Ahmad'}!

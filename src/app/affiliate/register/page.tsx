@@ -149,7 +149,7 @@ export default function AffiliateRegisterPage() {
               <div className="relative z-10 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 text-xs font-bold">
                   <Award className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Program Mitra Afiliasi 2026/2027</span>
+                  <span>Program Mitra Afiliasi 2027/2028</span>
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug">

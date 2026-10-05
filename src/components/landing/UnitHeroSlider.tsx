@@ -161,7 +161,7 @@ export default function UnitHeroSlider({
   slug,
   schoolName,
   badgeText,
-  registrationFee = 175000,
+  registrationFee = 250000,
   waCenterPhone,
   customSlides
 }: UnitHeroSliderProps) {
@@ -169,7 +169,7 @@ export default function UnitHeroSlider({
 
   const ppdbUrl = `/ppdb/daftar?school=${slug}`;
   const waUrl = `https://wa.me/${waCenterPhone}?text=${encodeURIComponent(
-    `Assalamu'alaikum Panitia PPDB ${schoolName}, saya ingin bertanya perihal informasi pendaftaran murid baru TP 2026/2027.`
+    `Assalamu'alaikum Panitia PPDB ${schoolName}, saya ingin bertanya perihal informasi pendaftaran murid baru TP 2027/2028.`
   )}`;
 
   // Default unit-tailored slides if no custom slides provided
@@ -209,7 +209,7 @@ export default function UnitHeroSlider({
         trustItems: [
           { icon: 'shield' as const, text: 'Terakreditasi Resmi' },
           { icon: 'users' as const, text: 'Rasio Kelas Ramah 1:8' },
-          { icon: 'calendar' as const, text: 'T.A. 2026/2027' },
+          { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
           { icon: 'check' as const, text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
         ]
       };
@@ -223,7 +223,7 @@ export default function UnitHeroSlider({
 
     if (slug === 'sd') {
       const baseSdSlide = {
-        badge: 'SPMB T.A. 2026/2027 • TELAH DIBUKA',
+        badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
         titlePart1: 'Bukan Sekedar\nTempat Belajar,\nNamun Juga ',
         titleHighlight: 'Tempat\nBertumbuh',
         titlePart2: ' Ananda',
@@ -231,8 +231,8 @@ export default function UnitHeroSlider({
           'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
         primaryCtaText: 'Daftar SPMB SD IT',
         primaryCtaLink: ppdbUrl,
-        secondaryCtaText: 'WhatsApp (0895-3222-26104)',
-        secondaryCtaLink: 'https://wa.me/62895322226104?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20ananda',
+        secondaryCtaText: 'WhatsApp (0813-1013-9001)',
+        secondaryCtaLink: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20ananda',
         trustItems: [
           { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
           { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
@@ -262,7 +262,7 @@ export default function UnitHeroSlider({
       trustItems: [
         { icon: 'shield' as const, text: 'Terakreditasi A Resmi' },
         { icon: 'award' as const, text: 'Target Tahfidz 3-5 Juz Mutqin' },
-        { icon: 'calendar' as const, text: 'T.A. 2026/2027' },
+        { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
         { icon: 'check' as const, text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
       ]
     };

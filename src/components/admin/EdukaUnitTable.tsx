@@ -461,19 +461,19 @@ export default function EdukaUnitTable({
 
   if (schoolSlug === 'sd') {
     title = 'Rombel & Program Belajar SD IT Al-Afiyah';
-    subtitle = 'Status keterisian kuota per kelas & rombongan belajar TP 2026/2027';
+    subtitle = 'Status keterisian kuota per kelas & rombongan belajar TP 2027/2028';
     footerLabel = 'Pusat Penerimaan SD IT';
     footerLink = '/admin/sd/ppdb';
     footerLinkText = 'Buka Manajemen PPDB SD';
   } else if (schoolSlug === 'tk') {
     title = 'Kelompok & Sentra Belajar TK IT Al-Afiyah';
-    subtitle = 'Status keterisian kuota per kelompok usia anak TP 2026/2027';
+    subtitle = 'Status keterisian kuota per kelompok usia anak TP 2027/2028';
     footerLabel = 'Pusat Penerimaan TK IT';
     footerLink = '/admin/tk/ppdb';
     footerLinkText = 'Buka Manajemen PPDB TK';
   } else if (schoolSlug === 'smp') {
     title = 'Rombel & Program Belajar SMP IT Al-Afiyah';
-    subtitle = 'Status keterisian kuota kelas fullday & peminatan TP 2026/2027';
+    subtitle = 'Status keterisian kuota kelas fullday & peminatan TP 2027/2028';
     footerLabel = 'Pusat Penerimaan SMP IT';
     footerLink = '/admin/smp/ppdb';
     footerLinkText = 'Buka Manajemen PPDB SMP';

@@ -50,7 +50,7 @@ export default function PPDBHubPage() {
   const [hasSiblingDiscount, setHasSiblingDiscount] = useState(false);
   const [hasTahfidzDiscount, setHasTahfidzDiscount] = useState(false);
   const [smpDiscountChoice, setSmpDiscountChoice] = useState<'sdit_internal' | 'external' | 'wave2'>('sdit_internal');
-  const [smpGender, setSmpGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
+  const [studentGender, setStudentGender] = useState<'male' | 'female'>('male');
   const [copiedMuamalat, setCopiedMuamalat] = useState(false);
 
   const handleCopyMuamalat = () => {
@@ -118,11 +118,11 @@ export default function PPDBHubPage() {
       level: 'Sekolah Dasar Islam Terpadu',
       badge: 'Smart Akhlaq Fitrah • Hanya 2 Rombel',
       target: 'Tahfidz Juz 30 Mutqin & Karakter Nabawiyah',
-      fee: 'Rp 175.000',
+      fee: 'Rp 250.000',
       quotaTotal: 56,
       quotaFilled: 44,
       hours: '07.00 - 14.30 WIB',
-      status: 'SPMB 2026/2027 Dibuka',
+      status: 'SPMB 2027/2028 Dibuka',
       accent: '#059669',
       desc: 'Bukan sekadar tempat belajar namun juga tempat bertumbuh. Mendidik dengan sunnah, metode karakter nabawiyah, iman sebelum Qur’an, dan outdoor learning.',
       highlights: [
@@ -160,7 +160,7 @@ export default function PPDBHubPage() {
       id: 'reguler',
       title: 'Jalur Reguler Umum',
       tag: 'Semua Calon Murid',
-      desc: 'Terbuka untuk seluruh putra-putri yang memenuhi kriteria usia per Juli 2026 dan siap mengikuti observasi kesiapan belajar.',
+      desc: 'Terbuka untuk seluruh putra-putri yang memenuhi kriteria usia per Juli 2027 dan siap mengikuti observasi kesiapan belajar.',
       benefit: 'Uji observasi berkesempatan memilih jadwal lebih awal.',
       color: 'border-slate-200 bg-white',
     },
@@ -182,64 +182,51 @@ export default function PPDBHubPage() {
     },
   ];
 
-  // Tuition Details Data
-  const tuitionData = {
-    tk: {
-      name: 'TK IT Al-Afiyah',
-      formFee: 150000,
-      saranaFee: 3500000,
-      learningFee: 0,
-      uniformFee: 850000,
-      booksFee: 600000,
-      activityFee: 0,
-      monthlyFee: 350000,
-    },
-    sd: {
-      name: 'SD IT Al-Afiyah',
-      formFee: 175000,
-      saranaFee: 5500000,
-      learningFee: 0,
-      uniformFee: 1150000,
-      booksFee: 950000,
-      activityFee: 0,
-      monthlyFee: 450000,
-    },
-    smp: {
-      name: 'SMP IT Al-Afiyah',
-      formFee: 200000,
-      saranaFee: 2500000, // Uang Bangunan
-      learningFee: 500000, // Fasilitas Pembelajaran
-      uniformIkhwan: 1100000,
-      uniformAkhwat: 1400000,
-      booksFee: 1000000, // Paket Buku
-      activityFee: 1700000, // Kegiatan Siswa
-      monthlyFee: 300000, // SPP Bulanan
-    },
-  };
+  // Tuition rows per unit (SD follows the official SPMB 2027/2028 poster)
+  type FeeRow = { label: string; hint?: string; amount: number; original?: number };
+  const isMale = studentGender === 'male';
+  // Sibling / tahfidz relief on facility fee (TK & SD)
+  const applyRelief = (amount: number) =>
+    hasTahfidzDiscount ? amount * 0.5 : hasSiblingDiscount ? amount * 0.9 : amount;
 
-  const currentCalc = tuitionData[calcUnit];
-  let calculatedSarana = currentCalc.saranaFee;
-  let currentUniform = calcUnit === 'smp' ? (smpGender === 'ikhwan' ? 1100000 : 1400000) : ('uniformFee' in currentCalc ? (currentCalc as any).uniformFee : 0);
-  let extraLearning = calcUnit === 'smp' ? 500000 : 0;
-  let extraActivity = calcUnit === 'smp' ? 1700000 : 0;
-
+  let feeRows: FeeRow[];
   if (calcUnit === 'smp') {
-    if (smpDiscountChoice === 'sdit_internal') {
-      calculatedSarana = currentCalc.saranaFee * 0.3; // Diskon 70% Uang Bangunan (Khusus Siswa SDIT Al-Afiyah)
-    } else if (smpDiscountChoice === 'external') {
-      calculatedSarana = currentCalc.saranaFee * 0.5; // Diskon 50% Uang Bangunan (Untuk Siswa Luar SDIT)
-    } else {
-      calculatedSarana = currentCalc.saranaFee; // Gelombang 2: No Diskon
-    }
+    const buildingFee = 2500000;
+    const buildingAfterPromo =
+      smpDiscountChoice === 'sdit_internal' ? buildingFee * 0.3 // Diskon 70% (Siswa SDIT Al-Afiyah)
+      : smpDiscountChoice === 'external' ? buildingFee * 0.5 // Diskon 50% (Luar SDIT)
+      : buildingFee; // Gelombang 2: No Diskon
+    feeRows = [
+      { label: 'Biaya Pendaftaran', amount: 200000 },
+      { label: 'Uang Bangunan', hint: 'Sekali selama masa jenjang pendidikan', amount: buildingAfterPromo, original: buildingFee },
+      { label: 'Fasilitas Pembelajaran', hint: 'Pengembangan sarana kelas, lab & IT', amount: 500000 },
+      { label: `Seragam (${isMale ? 'Ikhwan' : 'Akhwat'})`, hint: 'Paket seragam lengkap siap pakai', amount: isMale ? 1100000 : 1400000 },
+      { label: 'Paket Buku', hint: 'Buku teks kurikulum & modul tahfidz', amount: 1000000 },
+      { label: 'Kegiatan Siswa', hint: "SCD, mutaba'ah digital, ekskul & futsal program", amount: 1700000 },
+      { label: 'SPP Bulanan', hint: 'Iuran rutin bulanan operasional', amount: 300000 },
+    ];
+  } else if (calcUnit === 'sd') {
+    const facilityFee = 1580000;
+    feeRows = [
+      { label: 'Biaya Pendaftaran (Gelombang 1)', hint: 'Gelombang 2 Rp 275.000 • Gelombang 3 Rp 300.000', amount: 250000 },
+      { label: 'Biaya Pengembangan Pendidikan', amount: 2500000 },
+      { label: `Perlengkapan Siswa (${isMale ? 'Putra' : 'Putri'})`, amount: isMale ? 2350000 : 2600000 },
+      { label: 'Kegiatan Pembelajaran', amount: 1450000 },
+      { label: 'SPP Bulan Juli 2027', hint: 'Iuran rutin bulanan operasional', amount: 300000 },
+      { label: 'Sarana dan Prasarana', amount: applyRelief(facilityFee), original: facilityFee },
+    ];
   } else {
-    if (hasTahfidzDiscount) {
-      calculatedSarana = calculatedSarana * 0.5; // 50% tahfidz scholarship
-    } else if (hasSiblingDiscount) {
-      calculatedSarana = calculatedSarana * 0.9; // 10% sibling discount
-    }
+    const facilityFee = 3500000;
+    feeRows = [
+      { label: 'Biaya Pendaftaran', amount: 150000 },
+      { label: 'Uang Bangunan', hint: 'Sekali selama masa jenjang pendidikan', amount: applyRelief(facilityFee), original: facilityFee },
+      { label: 'Seragam Sekolah', hint: 'Paket seragam lengkap siap pakai', amount: 850000 },
+      { label: 'Paket Buku & Modul', hint: 'Buku teks kurikulum & modul tahfidz', amount: 600000 },
+      { label: 'SPP Bulan Pertama', hint: 'Iuran rutin bulanan operasional', amount: 350000 },
+    ];
   }
 
-  const calculatedTotal = currentCalc.formFee + calculatedSarana + extraLearning + currentUniform + currentCalc.booksFee + extraActivity + currentCalc.monthlyFee;
+  const calculatedTotal = feeRows.reduce((sum, row) => sum + row.amount, 0);
   const initialDp = Math.round(calculatedTotal * 0.4);
   const remainingInstallment = Math.round((calculatedTotal - initialDp) / 2);
 
@@ -270,7 +257,7 @@ export default function PPDBHubPage() {
   const faqs = [
     {
       q: 'Berapa usia minimal untuk mendaftar di SD IT Al-Afiyah?',
-      a: 'Sesuai ketentuan Permendikbud dan pedoman PPDB 2026/2027, calon murid kelas 1 SD IT berusia minimal 6 tahun pada 1 Juli 2026 (kelahiran sebelum 1 Juli 2020). Anak berusia 5 tahun 6 bulan dapat dipertimbangkan jika memiliki rekomendasi kesiapan psikologis dari psikolog profesional atau dewan guru.',
+      a: 'Sesuai ketentuan Permendikbud dan pedoman PPDB 2027/2028, calon murid kelas 1 SD IT berusia minimal 6 tahun pada 1 Juli 2027 (kelahiran sebelum 1 Juli 2021). Anak berusia 5 tahun 6 bulan dapat dipertimbangkan jika memiliki rekomendasi kesiapan psikologis dari psikolog profesional atau dewan guru.',
     },
     {
       q: 'Apakah ada tes baca-tulis-hitung (Calistung) yang menggugurkan di SD IT?',
@@ -470,7 +457,7 @@ export default function PPDBHubPage() {
               <span>Transparansi Biaya Pendidikan</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Kalkulator Estimasi Biaya Pendidikan TP 2026/2027
+              Kalkulator Estimasi Biaya Pendidikan TP 2027/2028
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-slate-600">
               Pilih jenjang sekolah dan sesuaikan opsi keringanan (diskon saudara kandung atau beasiswa tahfidz) untuk melihat rincian biaya resmi dan opsi cicilan syariah.
@@ -502,111 +489,54 @@ export default function PPDBHubPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Itemized Breakdown & Toggles */}
               <div className="lg:col-span-7 space-y-5">
-                {/* Gender Toggle for SMP IT */}
-                {calcUnit === 'smp' && (
+                {/* Gender Toggle (SD: Putra/Putri, SMP: Ikhwan/Akhwat) */}
+                {calcUnit !== 'tk' && (
                   <div className="flex items-center justify-between p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs mb-3">
                     <span className="font-bold text-emerald-950">Pilih Kategori Murid:</span>
                     <div className="flex items-center gap-1.5 p-1 bg-white rounded-xl border border-emerald-200">
-                      <button
-                        type="button"
-                        onClick={() => setSmpGender('ikhwan')}
-                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                          smpGender === 'ikhwan'
-                            ? 'bg-emerald-800 text-white shadow-2xs'
-                            : 'text-slate-600 hover:text-slate-900'
-                        }`}
-                      >
-                        👦 Ikhwan (Rp 7,3 Juta)
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setSmpGender('akhwat')}
-                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                          smpGender === 'akhwat'
-                            ? 'bg-emerald-800 text-white shadow-2xs'
-                            : 'text-slate-600 hover:text-slate-900'
-                        }`}
-                      >
-                        👧 Akhwat (Rp 7,6 Juta)
-                      </button>
+                      {([
+                        { id: 'male', label: calcUnit === 'sd' ? '👦 Putra (Rp 8,18 Juta)' : '👦 Ikhwan (Rp 7,3 Juta)' },
+                        { id: 'female', label: calcUnit === 'sd' ? '👧 Putri (Rp 8,43 Juta)' : '👧 Akhwat (Rp 7,6 Juta)' },
+                      ] as const).map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setStudentGender(opt.id)}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                            studentGender === opt.id
+                              ? 'bg-emerald-800 text-white shadow-2xs'
+                              : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
                     </div>
                   </div>
                 )}
 
                 <div className="rounded-2xl border border-slate-200 divide-y divide-slate-100 bg-[#F8FAFC]">
-                  <div className="p-4 flex items-center justify-between text-xs sm:text-sm">
-                    <span className="text-slate-600 font-medium">1. Biaya Pendaftaran:</span>
-                    <strong className="text-slate-900 font-mono">Rp {currentCalc.formFee.toLocaleString('id-ID')}</strong>
-                  </div>
-
-                  <div className="p-4 flex items-center justify-between text-xs sm:text-sm">
-                    <div>
-                      <span className="text-slate-600 font-medium block">2. Uang Bangunan:</span>
-                      <span className="text-[11px] text-slate-400">Sekali selama masa jenjang pendidikan</span>
-                    </div>
-                    <div className="text-right">
-                      {calculatedSarana < currentCalc.saranaFee && (
-                        <span className="text-[11px] line-through text-slate-400 block">
-                          Rp {currentCalc.saranaFee.toLocaleString('id-ID')}
-                        </span>
-                      )}
-                      <strong className={`font-mono ${calculatedSarana < currentCalc.saranaFee ? 'text-emerald-700 font-bold' : 'text-slate-900'}`}>
-                        Rp {Math.round(calculatedSarana).toLocaleString('id-ID')}
-                      </strong>
-                    </div>
-                  </div>
-
-                  {calcUnit === 'smp' && (
-                    <div className="p-4 flex items-center justify-between text-xs sm:text-sm">
-                      <div>
-                        <span className="text-slate-600 font-medium block">3. Fasilitas Pembelajaran:</span>
-                        <span className="text-[11px] text-slate-400">Pengembangan sarana kelas, lab &amp; IT</span>
+                  {feeRows.map((row, idx) => {
+                    const isReduced = row.original !== undefined && row.amount < row.original;
+                    return (
+                      <div key={row.label} className="p-4 flex items-center justify-between gap-3 text-xs sm:text-sm">
+                        <div>
+                          <span className="text-slate-600 font-medium block">{idx + 1}. {row.label}:</span>
+                          {row.hint && <span className="text-[11px] text-slate-400">{row.hint}</span>}
+                        </div>
+                        <div className="text-right shrink-0">
+                          {isReduced && (
+                            <span className="text-[11px] line-through text-slate-400 block">
+                              Rp {row.original!.toLocaleString('id-ID')}
+                            </span>
+                          )}
+                          <strong className={`font-mono ${isReduced ? 'text-emerald-700 font-bold' : 'text-slate-900'}`}>
+                            Rp {Math.round(row.amount).toLocaleString('id-ID')}
+                          </strong>
+                        </div>
                       </div>
-                      <strong className="text-slate-900 font-mono">Rp {(500000).toLocaleString('id-ID')}</strong>
-                    </div>
-                  )}
-
-                  <div className="p-4 flex items-center justify-between text-xs sm:text-sm">
-                    <div>
-                      <span className="text-slate-600 font-medium block">
-                        {calcUnit === 'smp' ? `4. Seragam (${smpGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat'}):` : '3. Seragam Sekolah:'}
-                      </span>
-                      <span className="text-[11px] text-slate-400">Paket seragam lengkap siap pakai</span>
-                    </div>
-                    <strong className="text-slate-900 font-mono">
-                      Rp {currentUniform.toLocaleString('id-ID')}
-                    </strong>
-                  </div>
-
-                  <div className="p-4 flex items-center justify-between text-xs sm:text-sm">
-                    <div>
-                      <span className="text-slate-600 font-medium block">
-                        {calcUnit === 'smp' ? '5. Paket Buku:' : '4. Paket Buku & Modul:'}
-                      </span>
-                      <span className="text-[11px] text-slate-400">Buku teks kurikulum &amp; modul tahfidz</span>
-                    </div>
-                    <strong className="text-slate-900 font-mono">Rp {currentCalc.booksFee.toLocaleString('id-ID')}</strong>
-                  </div>
-
-                  {calcUnit === 'smp' && (
-                    <div className="p-4 flex items-center justify-between text-xs sm:text-sm">
-                      <div>
-                        <span className="text-slate-600 font-medium block">6. Kegiatan Siswa:</span>
-                        <span className="text-[11px] text-slate-400">SCD, mutaba&apos;ah digital, ekskul &amp; futsal program</span>
-                      </div>
-                      <strong className="text-slate-900 font-mono">Rp {(1700000).toLocaleString('id-ID')}</strong>
-                    </div>
-                  )}
-
-                  <div className="p-4 flex items-center justify-between text-xs sm:text-sm">
-                    <div>
-                      <span className="text-slate-600 font-medium block">
-                        {calcUnit === 'smp' ? '7. SPP Bulanan:' : '5. SPP Bulan Pertama:'}
-                      </span>
-                      <span className="text-[11px] text-slate-400">Iuran rutin bulanan operasional</span>
-                    </div>
-                    <strong className="text-slate-900 font-mono">Rp {currentCalc.monthlyFee.toLocaleString('id-ID')}</strong>
-                  </div>
+                    );
+                  })}
                 </div>
 
                 {/* Discount Toggles */}
@@ -741,7 +671,7 @@ export default function PPDBHubPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-emerald-200 font-medium">Estimasi Total Masuk:</span>
                   <span className="text-[10px] font-bold bg-amber-400 text-slate-950 px-2 py-0.5 rounded-md">
-                    TP 2026/2027
+                    TP 2027/2028
                   </span>
                 </div>
 
@@ -779,7 +709,7 @@ export default function PPDBHubPage() {
                     href={`/ppdb/daftar?school=${calcUnit}`}
                     className="w-full py-3.5 px-4 rounded-2xl bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs sm:text-sm font-bold transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer tactile-press"
                   >
-                    <span>Daftar {currentCalc.name} Sekarang</span>
+                    <span>Daftar {({ tk: 'TK IT Al-Afiyah', sd: 'SD IT Al-Afiyah', smp: 'SMP IT Al-Afiyah' } as const)[calcUnit]} Sekarang</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -1052,7 +982,7 @@ export default function PPDBHubPage() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold text-slate-900">
-                    Brosur &amp; Rincian Resmi PPDB 2026/2027
+                    Brosur &amp; Rincian Resmi PPDB 2027/2028
                   </h3>
                   <p className="text-xs text-slate-500">
                     Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka
@@ -1100,12 +1030,12 @@ export default function PPDBHubPage() {
                 </div>
               </div>
 
-              {/* Highlight SPMB SMP IT 2026/2027 Resmi */}
+              {/* Highlight SPMB SMP IT 2027/2028 Resmi */}
               <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-300 text-xs space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 font-bold text-emerald-950 text-sm">
                     <Sparkles className="w-4 h-4 text-amber-600" />
-                    <span>SPMB SMP IT Al-Afiyah 2026/2027</span>
+                    <span>SPMB SMP IT Al-Afiyah 2027/2028</span>
                   </div>
                   <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-emerald-700 text-white shadow-2xs">
                     Gelombang 1 Dibuka
@@ -1153,12 +1083,12 @@ export default function PPDBHubPage() {
                 </div>
               </div>
 
-              {/* Highlight Poster Resmi SPMB SDIT 2026/2027 */}
+              {/* Highlight Poster Resmi SPMB SDIT 2027/2028 */}
               <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-300 text-xs space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 font-bold text-amber-950 text-sm">
                     <BadgeCheck className="w-4 h-4 text-amber-600" />
-                    <span>Poster Resmi SPMB SDIT 2026/2027</span>
+                    <span>Poster Resmi SPMB SDIT 2027/2028</span>
                   </div>
                   <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-200 text-amber-900">
                     Hanya 2 Rombel
@@ -1178,13 +1108,13 @@ export default function PPDBHubPage() {
                     <span>Lihat / Unduh Poster JPG</span>
                   </a>
                   <a
-                    href="https://wa.me/62895322226104?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran"
+                    href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] transition-colors"
                   >
                     <Phone className="w-3.5 h-3.5" />
-                    <span>Hotline SDIT (0895-3222-26104)</span>
+                    <span>Hotline SDIT (0813-1013-9001)</span>
                   </a>
                 </div>
               </div>

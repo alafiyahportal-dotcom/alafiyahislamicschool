@@ -227,7 +227,7 @@ export default function AnalyticsDashboardClient({
           YAYASAN PENDIDIKAN IMAM BONJOL MAJALENGKA
         </h2>
         <p className="text-xs text-slate-700 font-medium">
-          LAPORAN EKSEKUTIF ANALITIK & INTELIGENSI PENERIMAAN MURID BARU (PPDB) TAHUN AJARAN 2026/2027
+          LAPORAN EKSEKUTIF ANALITIK & INTELIGENSI PENERIMAAN MURID BARU (PPDB) TAHUN AJARAN 2027/2028
         </p>
         <p className="text-[10px] text-slate-500 mt-1">
           Unit Penyelenggara: TK IT, SD IT, & SMP IT Al-Afiyah | Dicetak pada: {new Date().toLocaleDateString('id-ID', { dateStyle: 'full' })}

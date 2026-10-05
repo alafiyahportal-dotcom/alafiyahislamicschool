@@ -195,7 +195,7 @@ export default function EdukaHeroSlider({ customSlides }: EdukaHeroSliderProps =
               Kurikulum Terpadu
             </span>
             <span className="whitespace-nowrap tracking-wide">
-              T.A. 2026/2027
+              T.A. 2027/2028
             </span>
           </div>
         </div>

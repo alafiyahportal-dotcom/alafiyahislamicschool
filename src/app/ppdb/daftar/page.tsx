@@ -28,7 +28,7 @@ import {
   Sparkles,
   Copy
 } from 'lucide-react';
-import { calculateAgePerJuly2026, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
+import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { extractSubdomain, getSchoolUrl } from '@/lib/domain';
 
 interface SchoolOption {
@@ -56,17 +56,17 @@ const SCHOOLS: SchoolOption[] = [
     color: 'border-emerald-500 bg-emerald-50/40 text-emerald-900',
     accent: '#10B981',
     desc: 'Sentra bermain bermakna, kemandirian anak, dan adab sejak usia dini.',
-    waveName: 'Gelombang 1 (2026/2027)',
+    waveName: 'Gelombang 1 (2027/2028)',
   },
   {
     slug: 'sd',
     name: 'SD IT Al-Afiyah',
     badge: 'SD IT UNGGULAN',
-    fee: 175000,
+    fee: 250000,
     color: 'border-emerald-600 bg-emerald-50/40 text-emerald-900',
     accent: '#059669',
     desc: 'Kurikulum terpadu nasional & JSIT, tahfidz juz 30 mutqin, sains, dan pembinaan karakter.',
-    waveName: 'Gelombang 1 (2026/2027)',
+    waveName: 'Gelombang 1 (1 Okt - 30 Des 2026)',
   },
   {
     slug: 'smp',
@@ -161,7 +161,7 @@ function PPDBFormContent() {
     nickname: '', // 2. Nama panggilan
     gender: 'L', // 3. Jenis kelamin
     pob: 'Majalengka', // 4. Tempat lahir
-    dob: '2020-05-14', // 4. Tanggal lahir (Default min. 6 th per 1 Juli 2026)
+    dob: '2021-05-14', // 4. Tanggal lahir (Default min. 6 th per 1 Juli 2027)
     religion: 'Islam', // 5. Agama
     citizenship: 'WNI', // 6. Kewarganegaraan
     childOrder: '1', // 7. Anak ke
@@ -313,7 +313,7 @@ function PPDBFormContent() {
           : formData.schoolSlug === 'tk'
           ? 'TK IT Al-Afiyah'
           : 'Sekolah IT Al-Afiyah';
-      document.title = `Formulir Pendaftaran Murid Baru (${activeSchoolName}) | PPDB T.A. 2026/2027`;
+      document.title = `Formulir Pendaftaran Murid Baru (${activeSchoolName}) | PPDB T.A. 2027/2028`;
 
       if (formData.schoolSlug === 'sd') {
         let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
@@ -659,7 +659,7 @@ function PPDBFormContent() {
               {activeSchool.name} Majalengka
             </span>
             <p className="text-[11px] text-slate-500 font-medium">
-              Portal Pendaftaran Resmi (PPDB) T.A. 2026/2027
+              Portal Pendaftaran Resmi (PPDB) T.A. 2027/2028
             </p>
           </div>
         </Link>
@@ -715,7 +715,7 @@ function PPDBFormContent() {
                   Pendaftaran Murid Baru {activeSchool.name}
                 </h1>
                 <p className="text-xs text-emerald-100/90 font-medium mt-1">
-                  Jalur {formData.admissionTrack} • Tahun Pelajaran 2026/2027
+                  Jalur {formData.admissionTrack} • Tahun Pelajaran 2027/2028
                 </p>
               </div>
             </div>
@@ -1130,7 +1130,7 @@ function PPDBFormContent() {
                 </div>
 
                 {formData.schoolSlug === 'sd' && (() => {
-                  const age = calculateAgePerJuly2026(formData.dob);
+                  const age = calculateAgePerJuly2027(formData.dob);
                   return (
                     <div className="md:col-span-2 p-5 sm:p-6 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div className="flex items-center gap-3.5">
@@ -1139,7 +1139,7 @@ function PPDBFormContent() {
                         </div>
                         <div>
                           <p className="text-[11px] font-bold text-emerald-800 uppercase tracking-wide">
-                            Kalkulasi Usia per 1 Juli 2026 (Tahun Ajaran Baru):
+                            Kalkulasi Usia per 1 Juli 2027 (Tahun Ajaran Baru):
                           </p>
                           <p className="text-base sm:text-lg font-black text-slate-900 mt-0.5">
                             {age.text}
@@ -2012,7 +2012,7 @@ function PPDBFormContent() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-600">
                     <div className="flex items-start space-x-2">
                       <span className="text-emerald-700 font-bold">•</span>
-                      <span>Usia minimal 6 tahun per 1 Juli 2026</span>
+                      <span>Usia minimal 6 tahun per 1 Juli 2027</span>
                     </div>
                     <div className="flex items-start space-x-2">
                       <span className="text-emerald-700 font-bold">•</span>
@@ -2036,7 +2036,7 @@ function PPDBFormContent() {
                     </div>
                   </div>
                   <p className="text-[11px] text-slate-500 italic pt-2 border-t border-slate-200/80 leading-relaxed">
-                    *Semua berkas fisik dimasukkan ke dalam <strong>1 stopmap</strong> dan diserahkan saat pengembalian formulir ke sekolah, paling lambat <strong>3 hari sebelum pelaksanaan Tes PPDB 2026/2027</strong>.
+                    *Semua berkas fisik dimasukkan ke dalam <strong>1 stopmap</strong> dan diserahkan saat pengembalian formulir ke sekolah, paling lambat <strong>3 hari sebelum pelaksanaan Tes PPDB 2027/2028</strong>.
                   </p>
                 </div>
               )}

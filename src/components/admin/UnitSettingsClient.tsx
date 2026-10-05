@@ -461,7 +461,7 @@ export default function UnitSettingsClient({ initialSchool }: UnitSettingsClient
                 type="text"
                 value={school.waCenterPhone}
                 onChange={(e) => handleChange('waCenterPhone', e.target.value)}
-                placeholder="Contoh: 62895322226104"
+                placeholder="Contoh: 6281310139001"
                 className="w-full px-3.5 py-2.5 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#10B981]"
               />
               <p className="text-[10px] text-slate-400 mt-1">Gunakan format 628xxx (tanpa tanda plus atau spasi)</p>

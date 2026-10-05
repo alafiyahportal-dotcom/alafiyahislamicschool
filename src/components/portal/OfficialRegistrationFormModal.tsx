@@ -135,7 +135,7 @@ export default function OfficialRegistrationFormModal({
 
                 <div className="text-right flex-shrink-0">
                   <span className="inline-block px-2.5 py-1 rounded border border-slate-900 text-[11px] font-mono font-extrabold uppercase">
-                    F-PPDB 2026/2027
+                    F-PPDB 2027/2028
                   </span>
                   <div className="text-[10px] text-slate-500 mt-1 font-mono">
                     No: {regNo}
@@ -181,7 +181,7 @@ export default function OfficialRegistrationFormModal({
                   : 'Lembar Formulir Pendaftaran Peserta Didik Baru'}
               </h2>
               <p className="text-xs text-slate-600 font-medium">
-                TAHUN PELAJARAN 2026/2027 &bull; GELOMBANG 1
+                TAHUN PELAJARAN 2027/2028 &bull; GELOMBANG 1
               </p>
             </div>
 
@@ -193,7 +193,7 @@ export default function OfficialRegistrationFormModal({
               </div>
               <div>
                 <span className="text-slate-500 text-[10px] block">Gelombang Pendaftaran:</span>
-                <span className="font-bold text-slate-900">Gelombang 1 (Rp 175.000)</span>
+                <span className="font-bold text-slate-900">Gelombang 1 (Rp 250.000)</span>
               </div>
               <div>
                 <span className="text-slate-500 text-[10px] block">Jalur Masuk:</span>
@@ -437,7 +437,7 @@ export default function OfficialRegistrationFormModal({
             {/* Header Mini Halaman 2 */}
             <div className="border-b border-slate-300 pb-2 flex justify-between items-center text-xs">
               <span className="font-bold text-slate-700">
-                PERSYARATAN &amp; KELENGKAPAN PENDAFTARAN SISWA BARU SDIT AL AFIYAH 2026/2027
+                PERSYARATAN &amp; KELENGKAPAN PENDAFTARAN SISWA BARU SDIT AL AFIYAH 2027/2028
               </span>
               <span className="font-mono text-slate-400 text-[10px]">
                 Hal. 2 dari 2
@@ -477,12 +477,12 @@ export default function OfficialRegistrationFormModal({
                 <tbody>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">1</td>
-                    <td className="border border-slate-300 p-1.5">Usia minimal SD kelas 1 per 1 Juli 2026 adalah enam tahun</td>
+                    <td className="border border-slate-300 p-1.5">Usia minimal SD kelas 1 per 1 Juli 2027 adalah enam tahun</td>
                     <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">[ &check; ]</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">2</td>
-                    <td className="border border-slate-300 p-1.5">Membayar biaya pendaftaran sebesar Rp175.000,00 (gelombang 1), Rp200.000,00 (gelombang 2), atau Rp225.000,00 (gelombang 3)</td>
+                    <td className="border border-slate-300 p-1.5">Membayar biaya pendaftaran sebesar Rp250.000,00 (gelombang 1), Rp275.000,00 (gelombang 2), atau Rp300.000,00 (gelombang 3)</td>
                     <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">[ &check; ] LUNAS</td>
                   </tr>
                   <tr>
@@ -541,7 +541,7 @@ export default function OfficialRegistrationFormModal({
 
             {/* Stopmap Notice */}
             <div className="p-3 bg-amber-50/70 border border-amber-200 rounded text-[11px] text-amber-950 font-medium leading-relaxed">
-              Semua persyaratan tersebut dimasukkan ke dalam <strong>1 stopmap</strong> dan dikumpulkan pada waktu mengembalikan formulir, paling lambat diserahkan pada saat <strong>tiga hari sebelum pelaksanaan Tes PPDB 2026/2027</strong>.
+              Semua persyaratan tersebut dimasukkan ke dalam <strong>1 stopmap</strong> dan dikumpulkan pada waktu mengembalikan formulir, paling lambat diserahkan pada saat <strong>tiga hari sebelum pelaksanaan Tes PPDB 2027/2028</strong>.
             </div>
 
             {/* Area Tanda Tangan */}
@@ -579,7 +579,7 @@ export default function OfficialRegistrationFormModal({
             {/* Footer Nota */}
             <div className="pt-6 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-500 font-mono">
               <span>Dicetak melalui Portal Murid Al-Afiyah: {regNo}</span>
-              <span>Dokumen Sah Panitia PPDB TA 2026/2027</span>
+              <span>Dokumen Sah Panitia PPDB TA 2027/2028</span>
             </div>
 
           </div>

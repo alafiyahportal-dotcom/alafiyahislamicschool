@@ -1,7 +1,7 @@
 /**
  * Tipe Data Resmi Formulir Pendaftaran Calon Peserta Didik Baru
  * SDIT AL AFIYAH - Yayasan Pendidikan Imam Bonjol Majalengka
- * Tahun Pelajaran 2026/2027
+ * Tahun Pelajaran 2027/2028
  */
 
 export interface SDITRegistrationFormData {
@@ -77,8 +77,8 @@ export interface SDITRegistrationFormData {
   mainReason?: string; // 28. Alasan paling utama Memasukkan anak ke SDIT AL AFIYAH
 
   // PERSYARATAN & KELENGKAPAN CHECKLIST (12 Butir)
-  checkAge6Years?: boolean; // 1. Usia min 6 tahun per 1 Juli 2026
-  checkFeePaid?: boolean; // 2. Membayar biaya pendaftaran (Gel 1: Rp 175.000)
+  checkAge6Years?: boolean; // 1. Usia min 6 tahun per 1 Juli 2027
+  checkFeePaid?: boolean; // 2. Membayar biaya pendaftaran (Gel 1: Rp 250.000)
   checkFormFilled?: boolean; // 3. Mengisi formulir pendaftaran
   checkIjazahTk?: boolean; // 4. Foto copy ijazah/surat tamat TK/RA/BA (1 lembar)
   checkKK?: boolean; // 5. Foto copy Kartu Keluarga (2 lembar)
@@ -92,9 +92,9 @@ export interface SDITRegistrationFormData {
 }
 
 /**
- * Menghitung usia anak per 1 Juli 2026 berdasarkan tanggal lahir
+ * Menghitung usia anak per 1 Juli 2027 berdasarkan tanggal lahir
  */
-export function calculateAgePerJuly2026(dobString: string): {
+export function calculateAgePerJuly2027(dobString: string): {
   years: number;
   months: number;
   isEligible: boolean;
@@ -105,7 +105,7 @@ export function calculateAgePerJuly2026(dobString: string): {
   }
 
   const birthDate = new Date(dobString);
-  const targetDate = new Date('2026-07-01');
+  const targetDate = new Date('2027-07-01');
 
   if (isNaN(birthDate.getTime())) {
     return { years: 0, months: 0, isEligible: false, text: '-' };
@@ -133,11 +133,11 @@ export const SDIT_OFFICIAL_METADATA = {
   nss: '102021601070',
   npsn: '69900910',
   address: 'LINGKUNGAN GIRI ASIH - JL. GERAKAN KOPERASI MAJALENGKA WETAN 45411',
-  phone: '0812-2334-4552',
-  academicYear: '2026/2027',
+  phone: '0813-1013-9001',
+  academicYear: '2027/2028',
   waveFees: {
-    wave1: { name: 'Gelombang 1', fee: 175000, label: 'Rp 175.000,00' },
-    wave2: { name: 'Gelombang 2', fee: 200000, label: 'Rp 200.000,00' },
-    wave3: { name: 'Gelombang 3', fee: 225000, label: 'Rp 225.000,00' },
+    wave1: { name: 'Gelombang 1', fee: 250000, label: 'Rp 250.000,00', period: '1 Oktober 2026 – 30 Desember 2026' },
+    wave2: { name: 'Gelombang 2', fee: 275000, label: 'Rp 275.000,00', period: '1 Januari 2027 – 3 April 2027' },
+    wave3: { name: 'Gelombang 3', fee: 300000, label: 'Rp 300.000,00', period: '6 April 2027 – 26 Juni 2027' },
   },
 };

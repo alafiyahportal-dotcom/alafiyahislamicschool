@@ -111,7 +111,7 @@ export default function AdmissionLetterModal({
               Nomor: 045/SK-PPDB/YPIB/{schoolSlug.toUpperCase()}/V/2026
             </p>
             <p className="text-xs font-sans font-semibold text-slate-800 mt-1">
-              TENTANG: KELULUSAN SELEKSI DAN PENERIMAAN MURID BARU TAHUN AJARAN 2026/2027
+              TENTANG: KELULUSAN SELEKSI DAN PENERIMAAN MURID BARU TAHUN AJARAN 2027/2028
             </p>
           </div>
 
@@ -165,7 +165,7 @@ export default function AdmissionLetterModal({
                 HASIL KEPUTUSAN PANITIA SELEKSI:
               </span>
               <span className="text-base font-extrabold text-emerald-900 tracking-widest mt-0.5 block">
-                DITERIMA SEBAGAI MURID BARU T.A. 2026/2027
+                DITERIMA SEBAGAI MURID BARU T.A. 2027/2028
               </span>
             </div>
 

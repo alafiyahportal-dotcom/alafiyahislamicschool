@@ -88,7 +88,7 @@ export const AssessmentSheetPrintModal: React.FC<AssessmentSheetPrintModalProps>
                   Yayasan Pendidikan Imam Bonjol Majalengka
                 </h3>
                 <h1 className="text-lg font-bold uppercase text-[#184F48] tracking-tight mt-0.5">
-                  PANITIA PENERIMAAN MURID BARU (PPDB) 2026/2027
+                  PANITIA PENERIMAAN MURID BARU (PPDB) 2027/2028
                 </h1>
                 <p className="text-[10px] text-slate-500 mt-0.5 font-serif">
                   {unitName} • Lingkungan Sekolah Terpadu Cigasong, Kabupaten Majalengka, Jawa Barat
@@ -309,7 +309,7 @@ export const AssessmentSheetPrintModal: React.FC<AssessmentSheetPrintModalProps>
                 <p className="font-semibold text-slate-900 underline underline-offset-2">
                   Ketua Panitia PPDB
                 </p>
-                <p className="text-[9px] text-slate-500 font-mono">Ketua Panitia PPDB 2026/2027</p>
+                <p className="text-[9px] text-slate-500 font-mono">Ketua Panitia PPDB 2027/2028</p>
               </div>
             </div>
           </div>

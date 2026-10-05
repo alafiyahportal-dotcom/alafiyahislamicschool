@@ -88,7 +88,9 @@ interface PresetImage {
 const PRESET_IMAGES_DEFAULT: PresetImage[] = [
   // Foto Asli Kegiatan Murid & Guru SD IT (Dari Dewan Guru)
   { label: 'Halaqah Tahfidz & Adab SD IT (Foto Asli)', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Poster Resmi SPMB SDIT 2026/2027', url: '/images/sd-spmb-poster.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Poster Resmi SPMB SDIT 2027/2028', url: '/images/sd-spmb-poster.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Brosur Biaya & Syarat SPMB SDIT 2027/2028', url: '/images/sd-spmb-brosur.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Story "Telah Dibuka" SPMB SDIT 2027/2028', url: '/images/sd-spmb-story.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Praktik Sains Greenhouse SD IT', url: '/images/sd-hero-greenhouse.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Observasi Kebun Sayur SD IT', url: '/images/sd-hero-garden.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Santri Ceria & Karakter SD IT', url: '/images/sd-hero-activity.jpg', forUnits: ['sd', 'foundation'] },
@@ -229,7 +231,7 @@ export default function CMSEditorClient({
           trustItems: [
             { icon: 'shield' as const, text: 'Terakreditasi A Resmi' },
             { icon: 'award' as const, text: 'Tahfidz Tartil & Mutqin' },
-            { icon: 'calendar' as const, text: 'T.A. 2026/2027' },
+            { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
             { icon: 'check' as const, text: 'Kurikulum Islam Terpadu' }
           ]
         }
@@ -271,7 +273,7 @@ export default function CMSEditorClient({
       trustItems: [
         { icon: 'shield', text: 'Terakreditasi A' },
         { icon: 'award', text: 'Target Prestasi' },
-        { icon: 'calendar', text: 'T.A. 2026/2027' },
+        { icon: 'calendar', text: 'T.A. 2027/2028' },
         { icon: 'check', text: 'Bebas Biaya Tes' }
       ]
     };
@@ -766,7 +768,7 @@ export default function CMSEditorClient({
             <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px] flex items-center justify-center">
               <div className="w-full max-w-sm bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                 <div className="bg-[#184F48] text-white p-4 text-center">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-300">{formData.tuition.waveName || 'Gelombang 1 (2026/2027)'}</p>
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-300">{formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}</p>
                   <p className="text-lg font-black mt-0.5">Rincian Biaya PPDB</p>
                   <p className="text-xs text-emerald-200">{schoolName}</p>
                 </div>
@@ -1113,7 +1115,7 @@ export default function CMSEditorClient({
                     {(currentSlide.trustItems || [
                       { icon: 'shield', text: 'Terakreditasi A' },
                       { icon: 'award', text: 'Target Prestasi' },
-                      { icon: 'calendar', text: 'T.A. 2026/2027' },
+                      { icon: 'calendar', text: 'T.A. 2027/2028' },
                       { icon: 'check', text: 'Formulir Resmi' }
                     ]).map((tItem, tIdx) => (
                       <div key={tIdx} className="p-2.5 rounded-xl bg-white border border-slate-200 flex items-center space-x-2">
@@ -1808,7 +1810,7 @@ export default function CMSEditorClient({
                   </label>
                   <input
                     type="text"
-                    value={formData.tuition.waveName || 'Gelombang 1 (2026/2027)'}
+                    value={formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}
                     onChange={(e) =>
                       setFormData({
                         ...formData,

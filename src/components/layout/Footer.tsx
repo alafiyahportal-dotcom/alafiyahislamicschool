@@ -46,8 +46,8 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       permit: 'Izin Kemenag & Kemdikbud',
       address:
         'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Babakan Jawa, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
-      hotline: '+62 895-3222-26104',
-      hotlineWa: 'https://wa.me/62895322226104',
+      hotline: '+62 813-1013-9001',
+      hotlineWa: 'https://wa.me/6281310139001',
       email: 'sdit@alafiyah.sch.id',
       navTitle: 'Navigasi SD IT',
       navLinks: [

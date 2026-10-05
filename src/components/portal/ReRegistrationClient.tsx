@@ -486,7 +486,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
               <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-700">
                 <div className="font-bold text-slate-900 text-sm">Ketentuan Masa Orientasi Murid ({registration.school.badgeText}):</div>
                 <p>
-                  1. Murid baru TK IT &amp; SD IT wajib mengikuti Masa Pengenalan Lingkungan Sekolah (MPLS) ceria yang dijadwalkan pada awal Juli 2026.
+                  1. Murid baru TK IT &amp; SD IT wajib mengikuti Masa Pengenalan Lingkungan Sekolah (MPLS) ceria yang dijadwalkan pada awal Juli 2027.
                 </p>
                 <p>
                   2. Paket seragam yang telah dipesan akan dibagikan saat sesi pengukuran ulang dan pengambilan di ruang Tata Usaha pada tanggal 20-25 Juni 2026.
@@ -561,7 +561,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
                 </div>
                 <div className="flex justify-between p-2">
                   <div>
-                    <div className="font-semibold text-slate-800">Iuran Syahriyah / SPP Bulan Pertama (Juli 2026)</div>
+                    <div className="font-semibold text-slate-800">Iuran Syahriyah / SPP Bulan Pertama (Juli 2027)</div>
                     <div className="text-[10px] text-slate-500">Operasional pendidikan bulan pertama</div>
                   </div>
                   <span className="font-bold text-slate-800">Rp 400.000</span>
@@ -896,7 +896,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
                   TANDA TERIMA KONFIRMASI DAFTAR ULANG &amp; LOGISTIK SERAGAM
                 </h3>
                 <span className="text-[11px] text-slate-500">
-                  Tahun Ajaran 2026/2027 • Nomor Berkas: TT-DU/{registration.registrationNo}
+                  Tahun Ajaran 2027/2028 • Nomor Berkas: TT-DU/{registration.registrationNo}
                 </span>
               </div>
 

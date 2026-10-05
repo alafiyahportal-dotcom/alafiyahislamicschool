@@ -213,10 +213,10 @@ export async function POST(req: NextRequest) {
           religion: 'Islam',
           address: reg.address,
           classGrade: defaultClass,
-          academicYear: body.academicYear || '2026/2027',
+          academicYear: body.academicYear || '2027/2028',
           parentInfo: reg.parentData,
           status: 'ACTIVE',
-          notes: body.notes || 'Dikonversi dari kelulusan PPDB 2026/2027.',
+          notes: body.notes || 'Dikonversi dari kelulusan PPDB 2027/2028.',
         },
         include: {
           school: true,

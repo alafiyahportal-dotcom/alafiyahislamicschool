@@ -131,9 +131,17 @@ export const renderStatIcon = (type: EnhancedStatItem['iconType']) => {
   }
 };
 
+/** Official SPMB SD IT T.A. 2027/2028 materials */
+const SPMB_POSTERS = [
+  { src: '/images/sd-spmb-poster.jpg', label: 'Poster Utama', file: 'Poster-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
+  { src: '/images/sd-spmb-brosur.jpg', label: 'Brosur Biaya & Syarat', file: 'Brosur-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
+  { src: '/images/sd-spmb-story.jpg', label: 'Story Telah Dibuka', file: 'Story-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
+];
+
 export default function SchoolLandingTemplate({ school }: { school: SchoolData }) {
   const [selectedNews, setSelectedNews] = useState<NewsData | null>(null);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
+  const [activePoster, setActivePoster] = useState(SPMB_POSTERS[0]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FacilityItem | null>(null);
   const [galleryCategory, setGalleryCategory] = useState<string>('all');
   const [newsFilter, setNewsFilter] = useState<'all' | 'Pengumuman' | 'Kegiatan'>('all');
@@ -149,7 +157,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
   const ppdbUrl = `/ppdb/daftar?school=${school.slug}`;
   const waUrl = `https://wa.me/${school.waCenterPhone}?text=${encodeURIComponent(
-    `Assalamu'alaikum Panitia PPDB ${school.name}, saya ingin bertanya perihal informasi pendaftaran murid baru 2026/2027.`
+    `Assalamu'alaikum Panitia PPDB ${school.name}, saya ingin bertanya perihal informasi pendaftaran murid baru 2027/2028.`
   )}`;
 
   // ESC key handler to close any active modal
@@ -169,7 +177,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     { 
       label: 'Kuota Penerimaan', 
       value: 'Hanya 2 Rombel', 
-      subtext: 'T.A. 2026/2027 Terbatas',
+      subtext: 'T.A. 2027/2028 Terbatas',
       iconType: 'users',
       badge: 'SPMB SD IT',
       color: 'emerald',
@@ -787,7 +795,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               Poster &amp; Brosur SPMB {school.name}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-2">
-              Informasi resmi Sistem Penerimaan Murid Baru Tahun Ajaran 2026/2027. Tersedia dalam resolusi tinggi yang dapat Anda unduh atau simpan langsung.
+              Informasi resmi Sistem Penerimaan Murid Baru Tahun Ajaran 2027/2028. Tersedia dalam resolusi tinggi yang dapat Anda unduh atau simpan langsung.
             </p>
           </div>
 
@@ -799,7 +807,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   <div>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100/80 text-emerald-900 border border-emerald-200 mb-3">
                       <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                      <span>SPMB TP 2026/2027 • Gelombang 1 &amp; 2</span>
+                      <span>SPMB TP 2027/2028 • Gelombang 1 &amp; 2</span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
                       Jadwal Gelombang &amp; Program Diskon Uang Bangunan
@@ -977,12 +985,12 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 <div className="lg:col-span-5 flex flex-col items-center">
                   <div 
                     onClick={() => setIsPosterModalOpen(true)}
-                    className="relative group rounded-2xl overflow-hidden border-2 border-slate-200/80 shadow-md bg-white cursor-pointer max-w-sm w-full aspect-[4/5] flex items-center justify-center"
+                    className="relative group rounded-2xl overflow-hidden border-2 border-slate-200/80 shadow-md bg-white cursor-pointer max-w-sm w-full aspect-[5/7] flex items-center justify-center"
                   >
                     <img
-                      src="/images/sd-spmb-poster.jpg"
-                      alt={`Poster Resmi SPMB ${school.name} 2026/2027`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      src={activePoster.src}
+                      alt={`${activePoster.label} SPMB ${school.name} 2027/2028`}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-2xs">
                       <span className="px-4 py-2 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-lg flex items-center gap-2">
@@ -992,22 +1000,46 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                     </div>
                     <div className="absolute top-3 left-3">
                       <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-white/90 text-emerald-900 shadow-xs border border-emerald-100">
-                        T.A. 2026/2027
+                        T.A. 2027/2028
                       </span>
                     </div>
                   </div>
 
+                  {/* Poster switcher */}
+                  <div className="mt-3 w-full max-w-sm grid grid-cols-3 gap-2" role="tablist" aria-label="Pilih materi SPMB">
+                    {SPMB_POSTERS.map((poster) => {
+                      const isActive = poster.src === activePoster.src;
+                      return (
+                        <button
+                          key={poster.src}
+                          type="button"
+                          role="tab"
+                          aria-selected={isActive}
+                          onClick={() => setActivePoster(poster)}
+                          className={`group/thumb flex flex-col items-center gap-1 rounded-xl p-1.5 border transition-all cursor-pointer active:scale-95 ${
+                            isActive ? 'border-emerald-600 bg-emerald-50' : 'border-slate-200 bg-white hover:border-emerald-300'
+                          }`}
+                        >
+                          <img src={poster.src} alt="" className="h-16 w-full object-cover object-top rounded-lg" />
+                          <span className={`text-[10px] font-bold leading-tight text-center ${isActive ? 'text-emerald-800' : 'text-slate-500'}`}>
+                            {poster.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
                   <div className="mt-4 w-full max-w-sm flex flex-col gap-2">
                     <a
-                      href="/images/sd-spmb-poster.jpg"
-                      download="Poster-Resmi-SPMB-SDIT-Al-Afiyah-2026-2027.jpg"
+                      href={activePoster.src}
+                      download={activePoster.file}
                       className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm shadow-sm transition-all"
                     >
                       <Download className="w-4 h-4 text-emerald-300" />
-                      <span>Unduh Poster Resmi (JPG)</span>
+                      <span>Unduh {activePoster.label} (JPG)</span>
                     </a>
                     <p className="text-[11px] text-slate-400 text-center">
-                      Format JPG High Resolution • Siap Cetak &amp; Dibagikan
+                      Format JPG • Siap Dibagikan
                     </p>
                   </div>
                 </div>
@@ -1021,7 +1053,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       <span>Hanya 2 Rombel</span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
-                      Penerimaan Murid Baru SD IT Al-Afiyah T.A. 2026/2027
+                      Penerimaan Murid Baru SD IT Al-Afiyah T.A. 2027/2028
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
                       &ldquo;Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh.&rdquo; Menanamkan nilai iman sebelum Al-Qur&apos;an, adab nabawiyah sebelum ilmu, dan pembiasaan sunnah Rasulullah ﷺ dalam suasana sekolah yang asri dan membahagiakan murid.
@@ -1071,7 +1103,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                         Investasi Pendaftaran
                       </span>
                       <p className="text-xs font-bold text-slate-900">
-                        Biaya Formulir Rp 175.000
+                        Biaya Formulir Rp {school.registrationFee.toLocaleString('id-ID')}
                       </p>
                       <p className="text-[11px] text-slate-500 mt-0.5">
                         Termasuk panduan berkas &amp; tes observasi kesiapan anak.
@@ -1223,7 +1255,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       {post.coverImage && (post.coverImage.includes('spmb') || post.coverImage.includes('poster')) && (
                         <a
                           href={post.coverImage}
-                          download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2026-2027.jpg`}
+                          download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2027-2028.jpg`}
                           className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors"
                           title="Unduh Poster"
                         >
@@ -1407,7 +1439,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-600" />
                 <h3 className="font-extrabold text-xs sm:text-sm text-slate-900 truncate">
-                  Poster Resmi SPMB {school.name} T.A. 2026/2027
+                  Poster Resmi SPMB {school.name} T.A. 2027/2028
                 </h3>
               </div>
               <button
@@ -1423,7 +1455,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             {/* Poster Image: Comfortably fits on any screen */}
             <div className="overflow-y-auto p-3 sm:p-4 bg-slate-100/90 flex items-center justify-center flex-1">
               <img
-                src={school.slug === 'smp' ? (school.heroImage || '/images/smp-hero-fullday.jpg') : '/images/sd-spmb-poster.jpg'}
+                src={school.slug === 'smp' ? (school.heroImage || '/images/smp-hero-fullday.jpg') : activePoster.src}
                 alt={`Poster SPMB ${school.name}`}
                 className="max-h-[50vh] sm:max-h-[55vh] w-auto max-w-full object-contain rounded-xl shadow-md border border-slate-200/80"
               />
@@ -1436,8 +1468,8 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               </span>
               <div className="flex items-center gap-2">
                 <a
-                  href={school.slug === 'smp' ? (school.heroImage || '/images/smp-hero-fullday.jpg') : '/images/sd-spmb-poster.jpg'}
-                  download={`Poster-Resmi-SPMB-${school.slug.toUpperCase()}-Al-Afiyah-2026-2027.jpg`}
+                  href={school.slug === 'smp' ? (school.heroImage || '/images/smp-hero-fullday.jpg') : activePoster.src}
+                  download={school.slug === 'smp' ? `Poster-Resmi-SPMB-SMP-Al-Afiyah-2027-2028.jpg` : activePoster.file}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs shadow-xs transition-colors"
                 >
                   <Download className="w-3.5 h-3.5 text-emerald-300" />
@@ -1535,7 +1567,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center justify-center mb-3">
             <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
-              Penerimaan Murid Baru (SPMB) 2026/2027
+              Penerimaan Murid Baru (SPMB) 2027/2028
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight max-w-3xl mx-auto">

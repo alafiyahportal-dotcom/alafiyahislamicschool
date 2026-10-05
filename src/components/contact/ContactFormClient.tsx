@@ -21,7 +21,7 @@ export default function ContactFormClient() {
     // Direct routing based on unit selection
     let targetPhone = '6281223344552';
     if (formData.unit.includes('SD IT') || formData.unit.includes('SDIT')) {
-      targetPhone = '62895322226104';
+      targetPhone = '6281310139001';
     }
 
     // Open WhatsApp with formatted inquiry text

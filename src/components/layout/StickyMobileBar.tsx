@@ -17,7 +17,7 @@ export default function StickyMobileBar({
 }: StickyMobileBarProps) {
   const ppdbHref = schoolSlug ? `/ppdb/daftar?school=${schoolSlug}` : '/ppdb/daftar';
   const waHref = `https://wa.me/${waPhone}?text=${encodeURIComponent(
-    `Assalamu'alaikum Admin ${schoolName}, saya ingin konsultasi mengenai pendaftaran murid baru PPDB 2026/2027.`
+    `Assalamu'alaikum Admin ${schoolName}, saya ingin konsultasi mengenai pendaftaran murid baru PPDB 2027/2028.`
   )}`;
 
   return (

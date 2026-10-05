@@ -59,7 +59,7 @@ export default async function SchoolCMSEditorPage({
           trustItems: [
             { icon: 'shield' as const, text: 'Terakreditasi Resmi' },
             { icon: 'users' as const, text: 'Rasio Kelas Ramah 1:8' },
-            { icon: 'calendar' as const, text: 'T.A. 2026/2027' },
+            { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
             { icon: 'check' as const, text: `Formulir: Rp ${school.registrationFee.toLocaleString('id-ID')}` }
           ]
         },
@@ -87,14 +87,14 @@ export default async function SchoolCMSEditorPage({
     ? [
         {
           id: 1,
-          badge: 'SPMB T.A. 2026/2027 • TELAH DIBUKA',
+          badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
           titlePart1: 'Bukan Sekedar\nTempat Belajar,\nNamun Juga ',
           titleHighlight: 'Tempat\nBertumbuh',
           titlePart2: ' Ananda',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
           primaryCtaText: 'Daftar SPMB SD IT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
-          secondaryCtaText: 'WhatsApp (0895-3222-26104)',
+          secondaryCtaText: 'WhatsApp (0813-1013-9001)',
           secondaryCtaLink: `https://wa.me/${school.waCenterPhone}`,
           image: '/images/sd-hero-greenhouse.jpg',
           trustItems: [
@@ -139,7 +139,7 @@ export default async function SchoolCMSEditorPage({
             { icon: 'users' as const, text: 'Pelatihan Aqil-Baligh' },
             { icon: 'award' as const, text: 'Pemetaan Potensi Bakat & Skill' },
             { icon: 'shield' as const, text: 'Tahfidz Al-Qur’an Mutqin' },
-            { icon: 'calendar' as const, text: 'T.A. 2026/2027' }
+            { icon: 'calendar' as const, text: 'T.A. 2027/2028' }
           ]
         }
       ]
@@ -160,7 +160,7 @@ export default async function SchoolCMSEditorPage({
           trustItems: [
             { icon: 'shield' as const, text: 'Terakreditasi A Resmi' },
             { icon: 'award' as const, text: 'Target Tahfidz 3-5 Juz Mutqin' },
-            { icon: 'calendar' as const, text: 'T.A. 2026/2027' },
+            { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
             { icon: 'check' as const, text: `Formulir: Rp ${school.registrationFee.toLocaleString('id-ID')}` }
           ]
         },
@@ -219,7 +219,7 @@ export default async function SchoolCMSEditorPage({
           trustItems: [
             { icon: 'shield' as const, text: 'Menaungi TK, SD, SMP' },
             { icon: 'award' as const, text: 'Akreditasi A Unggul' },
-            { icon: 'calendar' as const, text: 'T.A. 2026/2027' },
+            { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
             { icon: 'check' as const, text: 'Pusat Tahfidz & Sains' }
           ]
         },
@@ -244,7 +244,7 @@ export default async function SchoolCMSEditorPage({
         },
         {
           id: 3,
-          badge: 'PPDB ONLINE TP 2026/2027 GELOMBANG 1 DIBUKA',
+          badge: 'PPDB ONLINE TP 2027/2028 GELOMBANG 1 DIBUKA',
           titlePart1: 'Raih Beasiswa & ',
           titleHighlight: 'Diskon Biaya',
           titlePart2: ' Masuk Gelombang Dini',
@@ -377,14 +377,14 @@ export default async function SchoolCMSEditorPage({
     monthlyTuition: schoolSlug === 'tk' ? 250000 : schoolSlug === 'sd' ? 400000 : 650000,
     developmentFee: schoolSlug === 'tk' ? 2500000 : schoolSlug === 'sd' ? 4500000 : 7000000,
     quota: school.quota || 60,
-    waveName: school.waveName || 'Gelombang 1 (2026/2027)'
+    waveName: school.waveName || 'Gelombang 1 (2027/2028)'
   };
 
   const initialData: CMSInitialData = {
     hero: {
       headline: heroPayload.headline || `Penerimaan Peserta Didik Baru (PPDB) ${school.name}`,
       subheadline: heroPayload.subheadline || school.tagline,
-      academicYear: heroPayload.academicYear || '2026/2027',
+      academicYear: heroPayload.academicYear || '2027/2028',
       quotaRemaining: heroPayload.quotaRemaining || school.quota || 25,
       slides: heroPayload.slides || defaultSlides
     },

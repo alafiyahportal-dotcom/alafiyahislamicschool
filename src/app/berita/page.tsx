@@ -192,7 +192,7 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
     readingTime: '2 menit baca',
     imageUrl: '/images/sd-activity-classroom-6b.jpg',
     paragraphs: [
-      'Panitia Penerimaan Peserta Didik Baru (PPDB) Terpadu Yayasan Pendidikan Imam Bonjol mengumumkan jadwal resmi pelaksanaan Seleksi Observasi dan Wawancara Kesiapan Belajar untuk Gelombang 1 Tahun Ajaran 2026/2027.',
+      'Panitia Penerimaan Peserta Didik Baru (PPDB) Terpadu Yayasan Pendidikan Imam Bonjol mengumumkan jadwal resmi pelaksanaan Seleksi Observasi dan Wawancara Kesiapan Belajar untuk Gelombang 1 Tahun Ajaran 2027/2028.',
       'Rangkaian seleksi meliputi pemetaan baca Al-Qur’an/tahsin awal, tes potensi psikologi ramah anak, serta wawancara keselarasan visi tarbiyah bersama kedua orang tua/wali calon murid.',
       'Calon wali murid diharapkan hadir tepat waktu sesuai nomor antrean yang telah diunduh pada portal pendaftaran mandiri serta membawa berkas verifikasi fisik.',
       'Seluruh proses observasi mengedepankan suasana yang nyaman dan edukatif bagi ananda sehingga tidak menimbulkan rasa cemas atau ketegangan.'

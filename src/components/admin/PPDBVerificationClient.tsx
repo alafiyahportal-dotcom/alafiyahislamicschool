@@ -29,7 +29,7 @@ import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
 import DocumentViewerModal from './DocumentViewerModal';
 import { AssessmentRubricModal } from './AssessmentRubricModal';
 import ApplicantDetailBiodataModal from './ApplicantDetailBiodataModal';
-import { calculateAgePerJuly2026 } from '@/types/sdit-form';
+import { calculateAgePerJuly2027 } from '@/types/sdit-form';
 
 export interface ApplicantItem {
   id: string;
@@ -162,7 +162,7 @@ export default function PPDBVerificationClient({
       { header: 'NIK Murid', key: 'nik', width: 20, align: 'center' },
       { header: 'Tempat Lahir', key: 'pob', width: 18, align: 'left' },
       { header: 'Tanggal Lahir', key: 'dob', width: 16, align: 'center' },
-      { header: 'Usia per 1 Juli 2026', key: 'ageJuly2026', width: 20, align: 'center' },
+      { header: 'Usia per 1 Juli 2027', key: 'ageJuly2027', width: 20, align: 'center' },
       { header: 'Unit Sekolah', key: 'schoolName', width: 18, align: 'center' },
       { header: 'Jalur Masuk', key: 'registrationPath', width: 18, align: 'center' },
       { header: 'Anak Ke-', key: 'childOrder', width: 10, align: 'center' },
@@ -200,7 +200,7 @@ export default function PPDBVerificationClient({
     const exportRows = filteredApplicants.map((a, idx) => {
       const p = a.parentDataRaw || {};
       const s = a.schoolSpecificDataRaw || a.schoolSpecificDetails || {};
-      const ageCalc = calculateAgePerJuly2026(a.dob || '2020-05-14');
+      const ageCalc = calculateAgePerJuly2027(a.dob || '2021-05-14');
 
       return {
         no: idx + 1,
@@ -211,7 +211,7 @@ export default function PPDBVerificationClient({
         nik: a.nik || '-',
         pob: a.pob || s.pob || 'Majalengka',
         dob: a.dob || '-',
-        ageJuly2026: ageCalc.text,
+        ageJuly2027: ageCalc.text,
         schoolName: a.schoolName,
         registrationPath: a.registrationPath,
         childOrder: s.childOrder || '1',
@@ -260,7 +260,7 @@ export default function PPDBVerificationClient({
       fileName: `PPDB_${schoolSlug.toUpperCase()}_LENGKAP_28_BUTIR_${new Date().toISOString().slice(0, 10)}`,
       sheetName: `PPDB ${schoolSlug.toUpperCase()} 28 Butir`,
       title: `REKAPITULASI DETAIL LENGKAP FORMULIR 28 BUTIR PPDB ${schoolSlug.toUpperCase()} AL-AFIYAH`,
-      subtitle: `Yayasan Pendidikan Imam Bonjol Majalengka • Tahun Ajaran 2026/2027 • Arsip Panitia`,
+      subtitle: `Yayasan Pendidikan Imam Bonjol Majalengka • Tahun Ajaran 2027/2028 • Arsip Panitia`,
       columns,
       data: exportRows,
     });
@@ -452,7 +452,7 @@ export default function PPDBVerificationClient({
                           <>
                             <span className="text-slate-300">•</span>
                             <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
-                              Usia: {calculateAgePerJuly2026(item.dob).text}
+                              Usia: {calculateAgePerJuly2027(item.dob).text}
                             </span>
                           </>
                         )}

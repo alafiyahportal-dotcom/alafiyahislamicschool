@@ -111,7 +111,7 @@ export default function AffiliateGuidePage() {
             </div>
           </div>
           <p className="text-[11px] text-slate-500 max-w-xl mx-auto">
-            Lingkungan Giri Asih - Jl. Gerakan Koperasi, Babakan Jawa, Majalengka Wetan 45411 • Hotline: 0895-3222-26104
+            Lingkungan Giri Asih - Jl. Gerakan Koperasi, Babakan Jawa, Majalengka Wetan 45411 • Hotline: 0813-1013-9001
           </p>
         </div>
 

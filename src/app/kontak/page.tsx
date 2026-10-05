@@ -43,9 +43,9 @@ export default function KontakPage() {
     },
     {
       title: 'Layanan SPMB SD IT',
-      number: '+62 895-3222-26104',
+      number: '+62 813-1013-9001',
       desc: 'Konsultasi kurikulum dasar, Smart Akhlaq Fitrah, dan pendaftaran murid baru (SPMB).',
-      link: 'https://wa.me/62895322226104?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
+      link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
       cta: 'Hubungi SD IT',
       badge: 'Sekolah Dasar',
     },

@@ -57,7 +57,7 @@ Alhamdulillah! Panitia PPDB *{nama_sekolah}* mengumumkan bahwa calon murid atas 
 👤 *Nama:* {nama_murid}
 📋 *No. Registrasi:* {no_registrasi}
 
-Dinyatakan *LOLOS SELEKSI & RESMI DITERIMA* Tahun Ajaran 2026/2027.
+Dinyatakan *LOLOS SELEKSI & RESMI DITERIMA* Tahun Ajaran 2027/2028.
 
 Silakan unduh Surat Keputusan (SK) Kelulusan dan Kartu Tanda Murid (KTM) Digital melalui tautan resmi:
 🔗 {link_portal}
@@ -134,7 +134,7 @@ export default function BroadcastManagerClient({
     CANNED_TEMPLATES.KELULUSAN.text
   );
   const [broadcastTitle, setBroadcastTitle] = useState<string>(
-    'Pengumuman Kelulusan PPDB 2026/2027'
+    'Pengumuman Kelulusan PPDB 2027/2028'
   );
 
   // Send state

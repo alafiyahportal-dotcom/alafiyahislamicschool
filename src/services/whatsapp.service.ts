@@ -213,7 +213,7 @@ _Panitia Seleksi PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`;
       : '📋 *BELUM MEMENUHI KUOTA / CADANGAN*';
 
     const infoText = params.isAccepted
-      ? `Selamat kepada Ananda *${params.studentName}* yang telah dinyatakan lolos observasi dan diterima sebagai murid baru di *${params.schoolName}* Tahun Ajaran 2026/2027.\n\nSilakan unduh Surat Keputusan Kelulusan dan petunjuk daftar ulang melalui portal murid:\n🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}`
+      ? `Selamat kepada Ananda *${params.studentName}* yang telah dinyatakan lolos observasi dan diterima sebagai murid baru di *${params.schoolName}* Tahun Ajaran 2027/2028.\n\nSilakan unduh Surat Keputusan Kelulusan dan petunjuk daftar ulang melalui portal murid:\n🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}`
       : `Terima kasih atas partisipasi Ananda *${params.studentName}* dalam rangkaian seleksi *${params.schoolName}*. Saat ini kuota utama telah terisi penuh. Ananda kami masukkan ke dalam daftar murid cadangan gelombang berikutnya.\n\nInformasi lebih lanjut dapat dicek di portal:\n🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}`;
 
     const content = 

@@ -132,7 +132,7 @@ export default async function ApplicantPortalPage({
                     Selamat! Ananda Dinyatakan Lolos & Diterima
                   </h3>
                   <p className="text-xs text-emerald-800 mt-1 leading-relaxed">
-                    Berdasarkan hasil observasi dan wawancara, Ananda memenuhi kualifikasi murid baru di {reg.school.name} Tahun Ajaran 2026/2027.
+                    Berdasarkan hasil observasi dan wawancara, Ananda memenuhi kualifikasi murid baru di {reg.school.name} Tahun Ajaran 2027/2028.
                   </p>
                 </div>
               </div>

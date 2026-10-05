@@ -44,6 +44,7 @@ export default async function SdLandingPage() {
   const heroData = sectionsMap.hero || {};
   const identityData = sectionsMap.identity || sectionsMap.contact || {};
 
+  // Program Unggulan — sesuai poster resmi SPMB T.A. 2027/2028
   const defaultPrograms = [
     {
       title: 'Mendidik dengan Sunnah',
@@ -56,26 +57,6 @@ export default async function SdLandingPage() {
       badge: 'Iman & Adab',
     },
     {
-      title: 'Outdoor Learning & Agro-Sains',
-      desc: 'Pembelajaran aktif di alam terbuka, sains tanaman di greenhouse bambu, dan observasi kebun sekolah.',
-      badge: 'Outdoor Learning',
-    },
-    {
-      title: 'Pelatihan Aqil-Baligh',
-      desc: 'Pembinaan kemandirian, keterampilan hidup, dan kesiapan adab menyambut fase aqil-baligh.',
-      badge: 'Kemandirian',
-    },
-    {
-      title: 'Pemetaan Potensi Bakat & Skill',
-      desc: 'Identifikasi dan pengembangan minat, bakat, potensi unik, dan keterampilan tiap murid.',
-      badge: 'Talent Mapping',
-    },
-    {
-      title: 'Tahfidz Al-Qur\'an',
-      desc: 'Bimbingan tahsin tartil dan hafalan Al-Qur\'an intensif juz 30 mutqin ramah anak.',
-      badge: 'Tahfidz Mutqin',
-    },
-    {
       title: 'Lingkungan Nyaman & Asri',
       desc: 'Suasana sekolah yang bersih, sejuk, rindang, dan membahagiakan anak dalam belajar.',
       badge: 'Ramah Anak',
@@ -85,18 +66,48 @@ export default async function SdLandingPage() {
       desc: 'Penguatan fondasi calistung kontekstual, nalar sains, dan logika matematika sejak dini.',
       badge: 'Literasi Numerasi',
     },
+    {
+      title: 'Outdoor Learning',
+      desc: 'Pembelajaran aktif di alam terbuka, sains tanaman di greenhouse bambu, dan observasi kebun sekolah.',
+      badge: 'Outdoor Learning',
+    },
+    {
+      title: 'Pelatihan Aqil-Baligh',
+      desc: 'Pembinaan agar murid mandiri, terampil, dan beradab dalam menyambut fase aqil-baligh.',
+      badge: 'Kemandirian',
+    },
+    {
+      title: 'Pemetaan Potensi Bakat & Skill',
+      desc: 'Identifikasi dan pengembangan potensi bakat, skill, dan kemandirian tiap murid.',
+      badge: 'Talent Mapping',
+    },
+    {
+      title: 'Tahfidz Qur\'an',
+      desc: 'Bimbingan tahsin tartil dan hafalan Al-Qur\'an intensif juz 30 mutqin ramah anak.',
+      badge: 'Tahfidz Mutqin',
+    },
+    {
+      title: 'Penumbuhan Karakter Bakat',
+      desc: 'Menumbuhkan karakter positif melalui penyaluran minat dan bakat murid secara terarah.',
+      badge: 'Karakter Bakat',
+    },
+    {
+      title: 'Pembelajaran Berfokus pada Proses',
+      desc: 'Menghargai proses belajar tiap anak, bukan sekadar hasil akhir.',
+      badge: 'Proses Belajar',
+    },
   ];
 
   const defaultSdNewsPosts = [
     {
       id: 'sd-news-spmb',
-      title: 'Pengumuman Resmi SPMB SD IT Al-Afiyah T.A. 2026/2027: Kuota Terbatas Hanya 2 Rombel',
+      title: 'Pengumuman Resmi SPMB SD IT Al-Afiyah T.A. 2027/2028: Kuota Terbatas Hanya 2 Rombel',
       slug: 'pengumuman-resmi-spmb-sdit-al-afiyah-2026-2027',
       category: 'Pengumuman',
-      excerpt: 'Sistem Penerimaan Murid Baru (SPMB) SD IT Al-Afiyah T.A. 2026/2027 resmi dibuka. Kuota terbatas hanya 2 rombel dengan 8 program unggulan terpadu. Unduh poster dan brosur resmi di sini.',
-      content: 'Bismillah, Yayasan Pendidikan Imam Bonjol Majalengka bersama dewan asatidzah SD IT Al-Afiyah mengumumkan pembukaan Sistem Penerimaan Murid Baru (SPMB) Tahun Ajaran 2026/2027.\n\nBukan sekadar tempat belajar, SD IT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah Rasulullah ﷺ, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu. Demi menjaga rasio pendampingan yang intensif dan berkualitas, kuota penerimaan murid baru dibatasi HANYA 2 Rombongan Belajar (Rombel).\n\nAyah dan Bunda dapat mengunduh poster/brosur resmi sekolah untuk informasi lengkap, serta melakukan registrasi online melalui portal resmi SPMB Al-Afiyah.',
+      excerpt: 'Sistem Penerimaan Murid Baru (SPMB) SD IT Al-Afiyah T.A. 2027/2028 resmi dibuka. Kuota terbatas hanya 2 rombel dengan 10 program unggulan terpadu. Unduh poster dan brosur resmi di sini.',
+      content: 'Bismillah, Yayasan Pendidikan Imam Bonjol Majalengka bersama dewan asatidzah SD IT Al-Afiyah mengumumkan pembukaan Sistem Penerimaan Murid Baru (SPMB) Tahun Ajaran 2027/2028.\n\nBukan sekadar tempat belajar, SD IT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah Rasulullah ﷺ, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu. Demi menjaga rasio pendampingan yang intensif dan berkualitas, kuota penerimaan murid baru dibatasi HANYA 2 Rombongan Belajar (Rombel).\n\nAyah dan Bunda dapat mengunduh poster/brosur resmi sekolah untuk informasi lengkap, serta melakukan registrasi online melalui portal resmi SPMB Al-Afiyah.',
       coverImage: '/images/sd-spmb-poster.jpg',
-      author: 'Panitia SPMB 2026/2027',
+      author: 'Panitia SPMB 2027/2028',
       publishedAt: '2026-09-26T09:00:00.000Z',
     },
     {
@@ -148,12 +159,12 @@ export default async function SdLandingPage() {
   const schoolData: SchoolData = {
     slug: 'sd',
     name: identityData.name || dbSchool?.name || 'SD IT Al-Afiyah',
-    badgeText: identityData.badgeText || dbSchool?.badgeText || 'SPMB 2026/2027 • KUOTA HANYA 2 ROMBEL',
+    badgeText: identityData.badgeText || dbSchool?.badgeText || 'SPMB 2027/2028 • KUOTA HANYA 2 ROMBEL',
     tagline: identityData.tagline || dbSchool?.tagline || 'Smart Akhlaq Fitrah • Mencetak Generasi Sholeh Cerdas Mandiri Berwawasan dan Berakhlakul Islami',
     primaryColor: dbSchool?.primaryColor || '#059669',
     accentColor: dbSchool?.accentColor || '#D97706',
-    registrationFee: dbSchool?.registrationFee || 175000,
-    waCenterPhone: identityData.whatsappNumber || dbSchool?.waCenterPhone || '62895322226104',
+    registrationFee: dbSchool?.registrationFee || 250000,
+    waCenterPhone: identityData.whatsappNumber || dbSchool?.waCenterPhone || '6281310139001',
     address: identityData.schoolAddress || identityData.address || dbSchool?.address || 'Lingkungan Giri Asih - Jl. Gerakan Koperasi Majalengka Wetan 45411',
     heroHeadline: heroData.headline || 'Bukan Sekadar Tempat Belajar Namun Juga Tempat Bertumbuh',
     heroSubheadline: heroData.subheadline || 'Mencetak Generasi Sholeh Cerdas Mandiri Berwawasan dan Berakhlakul Islami dengan Metode Pendidikan Karakter Nabawiyah.',
