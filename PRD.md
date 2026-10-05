@@ -1052,6 +1052,10 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - Deploy Vercel `1531b37` & `1869a9d`: *Deployment has completed*.
 - `/sd` live memuat poster berversi, judul pengumuman T.A. 2027/2028, WA 6281310139001 & alamat Giri Asih.
 
+### 23.6 Revisi — Urutan Galeri Poster SPMB (5 Okt 2026)
+- Urutan `SPMB_POSTERS` di `SchoolLandingTemplate.tsx`: **1) Story "Telah Dibuka"** (foto santriwati, default aktif), **2) Brosur Biaya & Syarat**, **3) Poster Kuota Terbatas** (sebelumnya berlabel "Poster Utama").
+- Preview, thumbnail, modal, dan tombol "Unduh … (JPG)" mengikuti item terpilih secara reaktif (`activePoster`).
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*

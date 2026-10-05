@@ -131,11 +131,11 @@ export const renderStatIcon = (type: EnhancedStatItem['iconType']) => {
   }
 };
 
-/** Official SPMB SD IT T.A. 2027/2028 materials */
+/** Official SPMB SD IT T.A. 2027/2028 materials (index 0 = default active) */
 const SPMB_POSTERS = [
-  { src: '/images/sd-spmb-poster-2027.jpg', label: 'Poster Utama', file: 'Poster-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
-  { src: '/images/sd-spmb-brosur.jpg', label: 'Brosur Biaya & Syarat', file: 'Brosur-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
   { src: '/images/sd-spmb-story.jpg', label: 'Story Telah Dibuka', file: 'Story-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
+  { src: '/images/sd-spmb-brosur.jpg', label: 'Brosur Biaya & Syarat', file: 'Brosur-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
+  { src: '/images/sd-spmb-poster-2027.jpg', label: 'Poster Kuota Terbatas', file: 'Poster-Kuota-SPMB-SDIT-Al-Afiyah-2027-2028.jpg' },
 ];
 
 export default function SchoolLandingTemplate({ school }: { school: SchoolData }) {
