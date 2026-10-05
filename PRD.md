@@ -1071,6 +1071,11 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - **Pre-fill & Auto-Lock Form (`src/app/ppdb/daftar/page.tsx`):** Input referral pada formulir pendaftaran terisi otomatis dari cookie/storage dan dikunci (`readOnly`) dengan status `"🔒 Terkunci Otomatis dari Link / Cookie Mitra Afiliasi"`.
 - **Atribusi Database (`src/app/api/ppdb/register/route.ts`):** Payload pendaftaran membawa `referralCode` yang dikorelasikan dengan `AffiliateProfile` dan disimpan ke `PPDBRegistration.affiliateId`.
 
+### 23.10 Revisi — Standardisasi Navigasi Same-Tab (Anti-Penumpukan Tab Peramban/HP) (5 Okt 2026)
+- **Standardisasi Target Navigasi:** Menghapus atribut `target="_blank"` dan properti `openInNewTab` pada seluruh link internal ekosistem (Satuan Pendidikan TK/SD/SMP, Navbar PPDB Online, Kartu Unit Pendidikan, tombol "Daftar Sekarang" di Hero & Footer).
+- **Pengalaman Pengguna (Mobile/Desktop Ergonomics):** Seluruh perpindahan halaman di dalam website berjalan di **Tab yang Sama** (`target="_self"`), sehingga pengunjung ponsel/desktop dapat menavigasi dengan mudah memakai tombol Back/Kembali peramban tanpa membanjiri browser dengan puluhan tab terbuka.
+- **Pengecualian Link Eksternal:** HANYA link ke platform pihak ketiga (seperti WhatsApp `wa.me`, Google Maps, dan file dokumen unduhan) yang dipertahankan membuka tab baru (`target="_blank"`).
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*

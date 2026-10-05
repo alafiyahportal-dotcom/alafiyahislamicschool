@@ -184,8 +184,6 @@ export default function SatuanPendidikanPage() {
                 <h3 className="text-2xl font-extrabold text-slate-900 mb-1">
                   <a 
                     href={unit.link} 
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="hover:text-[#184F48] transition-colors"
                   >
                     {unit.name}
@@ -225,8 +223,6 @@ export default function SatuanPendidikanPage() {
               <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
                 <a
                   href={unit.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="w-full text-center py-2.5 px-4 rounded-xl bg-[#184F48] hover:bg-[#123E38] text-white text-xs font-bold transition-colors flex items-center justify-center space-x-1.5"
                 >
                   <span>{unit.ctaText}</span>

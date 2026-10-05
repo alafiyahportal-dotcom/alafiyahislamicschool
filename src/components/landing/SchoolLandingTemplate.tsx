@@ -36,6 +36,7 @@ import {
   CreditCard
 } from 'lucide-react';
 
+import { getStoredReferralCode } from '@/lib/referral';
 import UnitHeroSlider, { UnitSlideData } from './UnitHeroSlider';
 import InteractiveBubbleCard from './InteractiveBubbleCard';
 import CampusLocationMapSection from './CampusLocationMapSection';
@@ -146,6 +147,17 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
   const [galleryCategory, setGalleryCategory] = useState<string>('all');
   const [newsFilter, setNewsFilter] = useState<'all' | 'Pengumuman' | 'Kegiatan'>('all');
   const [copiedBankAcc, setCopiedBankAcc] = useState(false);
+  const [refCode, setRefCode] = useState<string | null>(null);
+  const [isOpeningSpmb, setIsOpeningSpmb] = useState(false);
+
+  useEffect(() => {
+    setRefCode(getStoredReferralCode());
+  }, []);
+
+  let ppdbUrl = `/ppdb/daftar?school=${school.slug}`;
+  if (refCode) {
+    ppdbUrl += `&ref=${encodeURIComponent(refCode)}`;
+  }
 
   const handleCopyAccount = (accountNo: string) => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
@@ -155,9 +167,8 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     }
   };
 
-  const ppdbUrl = `/ppdb/daftar?school=${school.slug}`;
   const waUrl = `https://wa.me/${school.waCenterPhone}?text=${encodeURIComponent(
-    `Assalamu'alaikum Panitia PPDB ${school.name}, saya ingin bertanya perihal informasi pendaftaran murid baru 2027/2028.`
+    `Assalamu'alaikum Panitia SPMB ${school.name}, saya ingin bertanya perihal informasi pendaftaran murid baru 2027/2028.`
   )}`;
 
   // ESC key handler to close any active modal
@@ -669,13 +680,28 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
                   {/* Direct Action Buttons */}
                   <div className="pt-2 flex flex-wrap items-center gap-3">
-                    <Link
-                      href={`/ppdb/daftar?school=smp`}
-                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm shadow-md transition-all"
+                    <a
+                      href={`/ppdb/daftar?school=smp${refCode ? `&ref=${encodeURIComponent(refCode)}` : ''}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        setIsOpeningSpmb(true);
+                        setTimeout(() => setIsOpeningSpmb(false), 2000);
+                      }}
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
                     >
-                      <span>Daftar SMP IT Online</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
+                      {isOpeningSpmb ? (
+                        <>
+                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Membuka SPMB...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Daftar SPMB SMP IT Online</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </a>
 
                     <a
                       href={`https://wa.me/${school.waCenterPhone}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20Gelombang%201.`}
@@ -827,13 +853,28 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
                   {/* Direct Action Buttons */}
                   <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center gap-3">
-                    <Link
-                      href={`/ppdb/daftar?school=${school.slug}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow-xs transition-colors"
+                    <a
+                      href={ppdbUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        setIsOpeningSpmb(true);
+                        setTimeout(() => setIsOpeningSpmb(false), 2000);
+                      }}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow-xs transition-colors active:scale-95"
                     >
-                      <span>Daftar Murid Baru Online</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
+                      {isOpeningSpmb ? (
+                        <>
+                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Membuka SPMB...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>{school.slug === 'sd' ? 'Daftar SPMB SD IT Online' : 'Daftar SPMB Online'}</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </a>
 
                     <a
                       href={`https://wa.me/${school.waCenterPhone}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SD%20IT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20murid%20baru.`}
@@ -1582,8 +1623,6 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           <div className="pt-6 flex justify-center">
             <Link
               href={ppdbUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer"
             >
               <span>Daftar Sekarang</span>

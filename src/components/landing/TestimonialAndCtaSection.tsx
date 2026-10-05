@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   ShieldCheck
 } from 'lucide-react';
+import { getStoredReferralCode } from '@/lib/referral';
 
 interface TestimonialItem {
   name: string;
@@ -49,6 +50,18 @@ const testimonials: TestimonialItem[] = [
 ];
 
 export default function TestimonialAndCtaSection() {
+  const [refCode, setRefCode] = useState<string | null>(null);
+  const [isOpeningSpmb, setIsOpeningSpmb] = useState(false);
+
+  useEffect(() => {
+    setRefCode(getStoredReferralCode());
+  }, []);
+
+  let targetUrl = '/ppdb/daftar';
+  if (refCode) {
+    targetUrl += `?ref=${encodeURIComponent(refCode)}`;
+  }
+
   return (
     <section className="py-20 lg:py-28 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,7 +137,7 @@ export default function TestimonialAndCtaSection() {
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
                 <Calendar className="w-4 h-4 text-amber-300" />
                 <span className="text-xs font-bold uppercase tracking-wider text-amber-200">
-                  PPDB TAHUN PELAJARAN 2026 / 2027
+                  SPMB TAHUN PELAJARAN 2027 / 2028
                 </span>
               </div>
 
@@ -156,13 +169,28 @@ export default function TestimonialAndCtaSection() {
 
             {/* Right Buttons */}
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
-              <Link
-                href="/ppdb/daftar"
-                className="px-8 py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-sm sm:text-base shadow-xl shadow-amber-950/30 transition-all flex items-center justify-center space-x-2 cursor-pointer transform hover:-translate-y-0.5 group text-center"
+              <a
+                href={targetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setIsOpeningSpmb(true);
+                  setTimeout(() => setIsOpeningSpmb(false), 2000);
+                }}
+                className="px-8 py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-sm sm:text-base shadow-xl shadow-amber-950/30 transition-all flex items-center justify-center space-x-2 cursor-pointer transform hover:-translate-y-0.5 active:scale-95 group text-center"
               >
-                <span>Daftar Sekarang (PPDB)</span>
-                <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
-              </Link>
+                {isOpeningSpmb ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin shrink-0" />
+                    <span>Membuka SPMB...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Daftar SPMB Online</span>
+                    <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
+              </a>
 
               <a
                 href="https://wa.me/6282123456789?text=Assalamu%27alaikum,%20saya%20ingin%20bertanya%20mengenai%20pendaftaran%20murid%20baru%20Al-Afiyah."
@@ -171,7 +199,7 @@ export default function TestimonialAndCtaSection() {
                 className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-xs sm:text-sm backdrop-blur-md transition-all flex items-center justify-center space-x-2 cursor-pointer text-center"
               >
                 <PhoneCall className="w-4 h-4 text-amber-300" />
-                <span>Konsultasi Panitia PPDB</span>
+                <span>Konsultasi Panitia SPMB</span>
               </a>
             </div>
 

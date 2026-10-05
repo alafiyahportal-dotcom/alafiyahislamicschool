@@ -143,7 +143,7 @@ export default function Navbar({
           subtitle: 'Pendidikan Anak Usia Dini • Majalengka',
           homeUrl: getSchoolUrl('tk'),
           ppdbLink: '/ppdb/daftar?school=tk',
-          ctaText: 'Info Pendaftaran TK',
+          ctaText: 'Info SPMB TK IT',
           logoUrl: undefined,
         };
       case 'sd':
@@ -165,7 +165,7 @@ export default function Navbar({
           subtitle: 'Sekolah Menengah Pertama Islam Terpadu',
           homeUrl: getSchoolUrl('smp'),
           ppdbLink: '/ppdb/daftar?school=smp',
-          ctaText: 'Info Pendaftaran SMP',
+          ctaText: 'Info SPMB SMP IT',
           logoUrl: undefined,
         };
       default:
@@ -176,7 +176,7 @@ export default function Navbar({
           subtitle: 'Ekosistem Pendidikan Terpadu Al-Afiyah Majalengka',
           homeUrl: getSchoolUrl('foundation'),
           ppdbLink: '/ppdb/daftar',
-          ctaText: 'Info Pendaftaran',
+          ctaText: 'Info SPMB Online',
           logoUrl: undefined,
         };
     }
@@ -273,16 +273,15 @@ export default function Navbar({
       ],
     },
     {
-      name: 'PPDB Online',
+      name: 'SPMB Online',
       href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar',
       hasDropdown: true,
-      openInNewTab: Boolean(activeSlug),
       items: [
-        { label: `Informasi & Alur PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Syarat berkas, tes observasi & kuota', openInNewTab: Boolean(activeSlug) },
-        { label: 'Formulir Pendaftaran Online', href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Isi formulir biodata calon murid', openInNewTab: Boolean(activeSlug) },
-        { label: 'Cek Status Pendaftaran', href: '/ppdb/cek-status', desc: 'Pantau verifikasi berkas & nomor registrasi', openInNewTab: Boolean(activeSlug) },
-        { label: 'Pengumuman Kelulusan Resmi', href: '/ppdb/pengumuman', desc: 'SK kelulusan murid gelombang 1 & 2', openInNewTab: Boolean(activeSlug) },
-        { label: 'Daftar Ulang & Seragam', href: '/portal/ppdb/REG-SD-2026-0001/daftar-ulang', desc: 'Fitting seragam & pelunasan biaya', openInNewTab: Boolean(activeSlug) },
+        { label: `Informasi & Alur SPMB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Syarat berkas, tes observasi & kuota' },
+        { label: 'Formulir SPMB Online', href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Isi formulir biodata calon murid' },
+        { label: 'Cek Status SPMB', href: '/ppdb/cek-status', desc: 'Pantau verifikasi berkas & nomor registrasi' },
+        { label: 'Pengumuman SPMB', href: '/ppdb/pengumuman', desc: 'SK kelulusan murid gelombang 1 & 2' },
+        { label: 'Daftar Ulang & Seragam', href: '/portal/ppdb/REG-SD-2026-0001/daftar-ulang', desc: 'Fitting seragam & pelunasan biaya' },
       ],
     },
     {
@@ -838,8 +837,6 @@ export default function Navbar({
             <div className="p-4 border-t border-slate-100 bg-slate-50 space-y-2">
               <Link
                 href={brandConfig.ppdbLink}
-                target={activeSlug ? '_blank' : undefined}
-                rel={activeSlug ? 'noopener noreferrer' : undefined}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full py-3 px-4 rounded-full bg-softwater-dark text-white text-xs font-bold text-center block shadow-md hover:bg-softwater-deep transition-all"
               >

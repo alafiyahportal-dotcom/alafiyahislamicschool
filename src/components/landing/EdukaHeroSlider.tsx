@@ -156,8 +156,6 @@ export default function EdukaHeroSlider({ customSlides }: EdukaHeroSliderProps =
             {slides[0].primaryCtaLink.startsWith('http') ? (
               <a
                 href={slides[0].primaryCtaLink}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-amber-600/30 hover:shadow-amber-600/50 transition-all flex items-center justify-center space-x-2 cursor-pointer transform hover:-translate-y-0.5 group"
               >
                 <span>{slides[0].primaryCtaText}</span>

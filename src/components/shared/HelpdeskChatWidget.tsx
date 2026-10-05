@@ -19,6 +19,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 
+import { getStoredReferralCode } from '@/lib/referral';
+
 interface UnitHelpdesk {
   slug: 'tk' | 'sd' | 'smp' | 'foundation';
   name: string;
@@ -121,6 +123,19 @@ export default function HelpdeskChatWidget() {
   const [selectedUnitSlug, setSelectedUnitSlug] = useState<'tk' | 'sd' | 'smp' | 'foundation'>('sd');
   const [faqSearch, setFaqSearch] = useState('');
   const [expandedFaq, setExpandedFaq] = useState<string | null>('faq-1');
+  const [refCode, setRefCode] = useState<string | null>(null);
+  const [isOpeningSpmb, setIsOpeningSpmb] = useState(false);
+
+  useEffect(() => {
+    setRefCode(getStoredReferralCode());
+  }, []);
+
+  let spmbUrl = selectedUnitSlug && selectedUnitSlug !== 'foundation'
+    ? `/ppdb/daftar?school=${selectedUnitSlug}`
+    : '/ppdb/daftar';
+  if (refCode) {
+    spmbUrl += `${spmbUrl.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
+  }
 
   const selectedUnit = useMemo(() => {
     return HELPDESK_UNITS.find((u) => u.slug === selectedUnitSlug) || HELPDESK_UNITS[0];
@@ -196,7 +211,7 @@ export default function HelpdeskChatWidget() {
                 A
               </div>
               <div>
-                <h3 className="text-sm font-bold leading-tight">Informasi Pendaftaran (PPDB)</h3>
+                <h3 className="text-sm font-bold leading-tight">Informasi Pendaftaran (SPMB)</h3>
                 <p className="text-[11px] text-emerald-200 mt-0.5 font-medium">
                   Sekolah Islam Terpadu Al-Afiyah
                 </p>
@@ -212,20 +227,37 @@ export default function HelpdeskChatWidget() {
             </button>
           </div>
 
-          {/* Direct PPDB Registration Banner */}
+          {/* Direct SPMB Registration Banner */}
           <div className="px-4 py-2.5 bg-[#E8F3F1] border-b border-[#2D7A70]/20 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[11px] font-bold text-[#184F48]">PPDB T.A. 2027/2028 Dibuka</span>
+              <span className="text-[11px] font-bold text-[#184F48]">SPMB T.A. 2027/2028 Dibuka</span>
             </div>
-            <Link
-              href="/ppdb/daftar"
-              onClick={() => setIsOpen(false)}
-              className="text-[11px] font-bold text-[#2D7A70] hover:text-[#0D5C54] flex items-center space-x-1 underline decoration-1 hover:decoration-2 transition-colors"
+            <a
+              href={spmbUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                setIsOpeningSpmb(true);
+                setTimeout(() => {
+                  setIsOpeningSpmb(false);
+                  setIsOpen(false);
+                }, 1500);
+              }}
+              className="text-[11px] font-bold text-[#2D7A70] hover:text-[#0D5C54] flex items-center space-x-1 underline decoration-1 hover:decoration-2 transition-colors cursor-pointer"
             >
-              <span>Daftar Online</span>
-              <ArrowRight className="w-3 h-3" />
-            </Link>
+              {isOpeningSpmb ? (
+                <span className="flex items-center space-x-1 text-emerald-700">
+                  <span className="w-3 h-3 border-2 border-[#2D7A70] border-t-transparent rounded-full animate-spin" />
+                  <span>Membuka Tab...</span>
+                </span>
+              ) : (
+                <>
+                  <span>Daftar SPMB Online</span>
+                  <ArrowRight className="w-3 h-3" />
+                </>
+              )}
+            </a>
           </div>
 
           {/* Tab Switcher */}

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
+import { getStoredReferralCode } from '@/lib/referral';
 
 export interface UnitSlideData {
   id: number;
@@ -96,21 +97,41 @@ function HeroContent({
   primaryBtnClass,
   badgeClass
 }: HeroContentProps) {
-  const pLink = slide.primaryCtaLink || fallbackPrimaryLink;
+  const [refCode, setRefCode] = useState<string | null>(null);
+  const [isOpening, setIsOpening] = useState(false);
+
+  useEffect(() => {
+    setRefCode(getStoredReferralCode());
+  }, []);
+
+  let rawLink = slide.primaryCtaLink || fallbackPrimaryLink;
+  if (refCode && rawLink.includes('/ppdb/daftar')) {
+    rawLink += `${rawLink.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
+  }
+  const isSpmbLink = rawLink.includes('/ppdb/daftar');
 
   return (
     <>
       {/* Minimal Floating Badge — outer layer floats, inner layer handles tactile press so transforms never fight */}
       {slide.badge && (
         <div className="mb-4 sm:mb-5 animate-hero-float">
-          <Link
-            href={pLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
-          >
-            {slide.badge}
-          </Link>
+          {isSpmbLink ? (
+            <a
+              href={rawLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
+            >
+              {slide.badge}
+            </a>
+          ) : (
+            <Link
+              href={rawLink}
+              className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
+            >
+              {slide.badge}
+            </Link>
+          )}
         </div>
       )}
 
@@ -130,15 +151,38 @@ function HeroContent({
       </div>
 
       {/* Single Primary CTA — slim, fit-content, left-aligned with the text margin */}
-      <Link
-        href={pLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
-      >
-        <span>{slide.primaryCtaText || 'Daftar Sekarang'}</span>
-        <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
-      </Link>
+      {isSpmbLink ? (
+        <a
+          href={rawLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => {
+            setIsOpening(true);
+            setTimeout(() => setIsOpening(false), 2000);
+          }}
+          className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
+        >
+          {isOpening ? (
+            <>
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
+              <span>Membuka SPMB...</span>
+            </>
+          ) : (
+            <>
+              <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
+              <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+            </>
+          )}
+        </a>
+      ) : (
+        <Link
+          href={rawLink}
+          className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
+        >
+          <span>{slide.primaryCtaText || 'Daftar Sekarang'}</span>
+          <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      )}
 
       {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
       {slide.trustItems && slide.trustItems.length > 0 && (
@@ -169,7 +213,7 @@ export default function UnitHeroSlider({
 
   const ppdbUrl = `/ppdb/daftar?school=${slug}`;
   const waUrl = `https://wa.me/${waCenterPhone}?text=${encodeURIComponent(
-    `Assalamu'alaikum Panitia PPDB ${schoolName}, saya ingin bertanya perihal informasi pendaftaran murid baru TP 2027/2028.`
+    `Assalamu'alaikum Panitia SPMB ${schoolName}, saya ingin bertanya perihal informasi pendaftaran murid baru TP 2027/2028.`
   )}`;
 
   // Default unit-tailored slides if no custom slides provided
@@ -255,9 +299,9 @@ export default function UnitHeroSlider({
       titlePart2: ' & Berwawasan Global',
       description:
         'Sekolah Menengah Pertama Islam Terpadu dengan sistem fullday school unggulan. Target hafalan 3-5 juz mutqin & tartil, adab islami, SCD, Mutaba\'ah Digital, serta Futsal Development Program.',
-      primaryCtaText: 'Daftar PPDB SMP IT',
+      primaryCtaText: 'Daftar SPMB SMP IT',
       primaryCtaLink: ppdbUrl,
-      secondaryCtaText: 'Konsultasi Panitia PPDB',
+      secondaryCtaText: 'Konsultasi Panitia SPMB',
       secondaryCtaLink: waUrl,
       trustItems: [
         { icon: 'shield' as const, text: 'Terakreditasi A Resmi' },
