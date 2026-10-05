@@ -40,6 +40,7 @@
 | **v2.19.0** | 18 Sep 2026 | User Directive / Lead | Standardisasi menyeluruh istilah Guru & Murid, Pemasangan Havenly Arch Carousel di Beranda Pusat (/), serta Peluncuran Galeri Prestasi & Karya Murid Dinamis (/api/admin/achievements & AchievementShowcaseModal - M31). |
 | **v2.20.0** | 18 Sep 2026 | User Directive / Lead | Perluasan Spesifikasi Modul Eksekutif & Teknis: M32 (Konsol Tata Kelola Prestasi Murid & Generator Piagam A4), M33 (Sistem Presensi QR Code KTS Murid), M34 (Buku Rapor Digital & Laporan Capaian Mutabaah Tahfidz), M35 (Tata Kelola SPP Bulanan, Virtual Account Midtrans & Kuitansi Digital). |
 | **v2.21.0** | 25 Sep 2026 | User Directive / Lead | **Refinement Super Premium Formulir PPDB Online (/ppdb/daftar):**<br>1. Penyeragaman warna banner & kartu header menjadi **Solid Deep Forest Emerald (#064E3B)**, eliminasi gradasi multi-warna mencolok.<br>2. Pembersihan redundansi deskripsi dan nama unit berulang.<br>3. Penerapan **Strict Multi-Tenant Isolation** pada formulir: peniadaan dropdown/select ganti unit di dalam form pendaftaran aktif.<br>4. Layout grid **Anti-Mepet** dengan pelebaran horizontal gap 40px (`columnGap: 2.5rem`, `rowGap: 1.75rem`) dan penataan ulang flex NIK.<br>5. Standardisasi **Badge Nomor Poin Resmi 28 Butir Berkas Fisik** (`[Poin 01]` s.d. `[Poin 28]`) berdesain monospaced eksekutif berbayang lembut.<br>6. Penyiapan aset standar PWA (`icon-192.png` & `icon-512.png`) dan eliminasi warning console 404. |
+| **v3.16.0** | 5 Okt 2026 | User Directive / Lead | **Produksi & SPMB SD IT 2027/2028:** migrasi Supabase PostgreSQL + deploy Vercel dengan routing hybrid path/subdomain; refinement tipografi hero SD (3 baris + aksen serif "Bukan Sekedar"), kartu statistik bento, identitas hijau `theme-sd`, footer kartu program rata bawah; pembaruan data poster SPMB SD IT T.A. 2027/2028 (3 poster, WA 0813-1013-9001, usia per Juli 2027, biaya gelombang 250/275/300 rb, kalkulator Putra/Putri, 10 program unggulan, sinkronisasi DB). Detail: Bagian 23. |
 
 ---
 
@@ -998,9 +999,64 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 
 ---
 
+## 23. UPDATE v3.16 — Rilis Produksi, Refinement Hero SD IT & Data SPMB SD IT T.A. 2027/2028
+*(Ditambahkan 5 Okt 2026 — tidak mengganti, melanjutkan dokumen di atas)*
+
+### 23.1 Rilis Produksi (Supabase + Vercel)
+- **Database:** produksi berjalan di Supabase PostgreSQL via Prisma.
+- **Build:** `prisma generate` di skrip `build` & `postinstall` (`package.json`).
+- **Routing hybrid:** `src/lib/domain.ts` + `src/proxy.ts` — path (`/sd`, `/tk`, `/smp`) di `*.vercel.app`, subdomain di domain kustom. `matcher` proxy mengecualikan `_next/static`, `_next/image`, favicon & aset berekstensi.
+- **Deploy:** setiap push ke `main` otomatis di-deploy Vercel.
+- **Catatan operasional:** error *"MIME type text/plain"* pada CSS saat deploy beruntun adalah *version skew* (hash CSS baru belum tersedia → 404). Solusi: hard refresh; pencegahan: Vercel Skew Protection. Temuan terbuka: `X-Frame-Options` didefinisikan ganda (`DENY` di proxy, `SAMEORIGIN` di `next.config.ts`).
+
+### 23.2 Refinement UI Landing SD IT
+- **Judul hero final (SD):** baris aksen *"Bukan Sekedar"* (Playfair italic, `text-2xl sm:text-3xl lg:text-4xl`), lalu *"Tempat Belajar, / Namun Juga / Tempat Bertumbuh"* (`text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15] tracking-tight`, baris terakhir hijau SD). Kata *"Ananda"* dihapus. Kontainer teks `max-w-xl lg:max-w-2xl text-left`.
+- **Hero umum:** satu CTA hijau, badge mengambang minimal, tanpa kontrol slider, deskripsi lebih sempit, font script tak terpakai dihapus.
+- **Kartu statistik:** bento 2x2 ringkas dengan umpan balik taktil `:active`; peluncur Helpdesk disembunyikan di mobile.
+- **Identitas SD:** scope `theme-sd` (green-600) diterapkan ke Navbar, StickyMobileBar, Footer & landing.
+- **Kartu Program & Nilai:** struktur `flex flex-col h-full`, footer *"Terintegrasi Kurikulum"* dikunci di dasar kartu (`mt-auto pt-4`).
+- **Program Unggulan:** tombol *"Daftar di Program Ini →"* dihapus.
+
+### 23.3 Data SPMB SD IT Al-Afiyah T.A. 2027/2028 (Poster Resmi)
+| Item | Nilai |
+| :--- | :--- |
+| Kuota | Hanya 2 Rombel |
+| Hotline/WA SD | 0813-1013-9001 (`6281310139001`) |
+| Alamat | Lingkungan Giri Asih – Jl. Gerakan Koperasi, Majalengka Wetan |
+| Syarat usia | 6 tahun per 1 Juli 2027 (`calculateAgePerJuly2027`) |
+| Gelombang 1 | 1 Okt – 30 Des 2026 · formulir Rp 250.000 |
+| Gelombang 2 | 1 Jan – 3 Apr 2027 · formulir Rp 275.000 |
+| Gelombang 3 | 6 Apr – 26 Jun 2027 · formulir Rp 300.000 |
+
+**Investasi Pendidikan (Putra / Putri):** Pengembangan 2.500.000 / 2.500.000 · Perlengkapan 2.350.000 / 2.600.000 · Kegiatan 1.450.000 / 1.450.000 · SPP Juli 300.000 / 300.000 · Sarpras 1.580.000 / 1.580.000 · **Total 8.180.000 / 8.430.000**. Diimplementasikan sebagai `feeRows` per unit + toggle Putra/Putri di kalkulator `/ppdb`.
+
+**10 Program Unggulan:** Mendidik dengan Sunnah · Akhlaq dan Ilmu · Lingkungan Nyaman & Asri · Basic Literasi & Numerasi · Outdoor Learning · Pelatihan Aqil-Baligh · Pemetaan Potensi Bakat & Skill · Tahfidz Qur'an · Penumbuhan Karakter Bakat · Pembelajaran Berfokus pada Proses (dua terakhir: deskripsi ditulis tim, menunggu konfirmasi sekolah).
+
+**Implementasi:**
+- 3 poster (`sd-spmb-poster-2027.jpg`, `sd-spmb-brosur.jpg`, `sd-spmb-story.jpg`) dengan switcher thumbnail di `SchoolLandingTemplate.tsx`; preset di `CMSEditorClient.tsx`.
+- T.A. 2027/2028 site-wide. **Tetap 2026/2027** (tahun berjalan): SIAKAD, Buku Induk, kalender agenda, berita STS, slug berita SPMB lama.
+- Sinkronisasi DB produksi: `scripts/update_sd_fee.ts` (biaya, gelombang, WA, alamat, 10 program CMS) & `scripts/update_sd_spmb_content.ts` (artikel pengumuman SPMB → 2027/2028). **Rekening bank tidak diubah.**
+- **Kebijakan aset:** `/images/*` di-cache browser 7 hari (`max-age=604800`). Pembaruan gambar WAJIB memakai nama file baru (berversi), bukan menimpa file lama.
+
+### 23.4 Item Terbuka (Menunggu Data/Keputusan)
+- Tanggal tes/observasi SPMB 2027/2028 (masih "Sabtu, 28 Maret 2026").
+- Gelombang & biaya SMP; "Maret 2026" di kartu murid.
+- Potongan saudara/tahfidz SD di kalkulator (tidak tercantum di poster).
+- Ekskul, fasilitas & syarat pendaftaran belum tampil sebagai teks (hanya di brosur).
+- Fallback biaya SD di `admin/[schoolSlug]/cms/page.tsx`.
+- Nomor yayasan lama 0812-2334-4552 di navbar, footer, kontak TK/SMP, StickyMobileBar & form kontak.
+- Resolusi poster ~723px (menunggu file asli).
+
+### 23.5 Hasil Verifikasi Kualitas
+- `npm run build` lolos tanpa error.
+- Deploy Vercel `1531b37` & `1869a9d`: *Deployment has completed*.
+- `/sd` live memuat poster berversi, judul pengumuman T.A. 2027/2028, WA 6281310139001 & alamat Giri Asih.
+
+---
+
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
 *tidak pernah mengganti atau menghapus bagian yang sudah ada di atas.*
-*Versi terakhir: 3.15.0 — 26 Sep 2026*
+*Versi terakhir: 3.16.0 — 5 Okt 2026*
 
 
 
