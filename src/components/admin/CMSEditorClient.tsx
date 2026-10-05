@@ -1734,6 +1734,38 @@ export default function CMSEditorClient({
                   </div>
                 ))}
               </div>
+
+              {/* Bottom Action & Sync Bar specifically for Testimonials */}
+              <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/80 p-4 rounded-2xl border">
+                <div>
+                  <h4 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#00A651]" />
+                    <span>Lokasi Tayang: Halaman Profil &amp; Beranda ({publicUrl}#testimonials)</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Klik tombol di samping untuk menyimpan dan menerbitkan testimoni terbaru ini secara instan.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Link
+                    href={`${publicUrl}#testimonials`}
+                    target="_blank"
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition-all flex items-center gap-1.5 shadow-2xs"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Lihat di Halaman</span>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="px-5 py-2.5 rounded-xl text-xs font-extrabold text-white bg-[#00A651] hover:bg-[#008f45] disabled:opacity-50 transition-all flex items-center gap-2 shadow-sm cursor-pointer"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>{isSaving ? 'Menyimpan...' : 'Simpan Testimoni'}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 

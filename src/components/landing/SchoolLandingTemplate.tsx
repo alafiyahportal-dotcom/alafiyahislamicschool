@@ -1316,16 +1316,21 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       )}
 
       {/* Testimoni Orang Tua */}
-      <section className="py-16 sm:py-20 bg-emerald-900 text-white w-full">
+      <section
+        id="testimonials"
+        className={`py-16 sm:py-20 text-white w-full transition-colors ${
+          school.slug === 'sd' ? 'bg-[#00A651]' : 'bg-emerald-900'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
+            <span className="text-xs font-bold text-white uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/20 inline-block shadow-2xs">
               Kata Mereka
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
-              Testimoni <span className="text-amber-400">Orang Tua Murid</span>
+              Testimoni <span className="text-amber-300">Orang Tua Murid</span>
             </h2>
-            <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm text-emerald-50 mt-2 max-w-xl mx-auto leading-relaxed font-medium">
               Kepercayaan tulus Ayah dan Bunda mendampingi proses tumbuh kembang ananda di {school.name}.
             </p>
           </div>
@@ -1337,17 +1342,20 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 className="bg-white rounded-2xl p-6 sm:p-7 border border-white/90 shadow-xl relative flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
               >
                 <div className="relative">
-                  <span className="text-3xl text-emerald-700 font-serif leading-none block mb-1 select-none">“</span>
+                  <span className="text-3xl text-[#00A651] font-serif leading-none block mb-1 select-none">“</span>
                   <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-6 font-normal">
                     &ldquo;{testi.quote}&rdquo;
                   </p>
                 </div>
                 <div className="pt-4 border-t border-slate-100 flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-900 text-white font-bold flex items-center justify-center text-sm shadow-xs">
+                  <div
+                    className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shadow-xs shrink-0"
+                    style={{ backgroundColor: school.slug === 'sd' ? '#00A651' : '#064E3B' }}
+                  >
                     {testi.name[0]}
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">{testi.name}</h4>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">{testi.name}</h4>
                     <p className="text-[11px] text-slate-400 font-medium">{testi.role}</p>
                   </div>
                 </div>

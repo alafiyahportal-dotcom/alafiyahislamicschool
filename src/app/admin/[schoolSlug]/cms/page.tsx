@@ -367,10 +367,25 @@ export default async function SchoolCMSEditorPage({
     ]
   );
 
-  const testimonialsPayload = sectionsMap.testimonials || [
+  const defaultTestimonialsForSchool = schoolSlug === 'sd' ? [
+    {
+      name: 'Ibu Nani Mulyani, S.Pd.',
+      role: 'Wali Murid Kelas 5 SD IT',
+      quote: 'Menumbuhkan kesadaran beribadah, adab, serta empati anak secara alami tanpa paksaan. Pembelajarannya yang menyenangkan dan selaras dengan tumbuh kembang anak didukung sinergi yang kuat antara sekolah dan orang tua benar-benar membentuk karakter anak yang berakhlak mulia dan mencintai ajaran Islam.'
+    },
+    {
+      name: 'Orang Tua Murid Al-Afiyah',
+      role: 'Wali Murid Kelas 2 SD IT',
+      quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.'
+    }
+  ] : [
     { name: 'dr. H. Asep Irawan Sp.A', role: `Wali Murid ${school.name}`, quote: 'Alhamdulillah, semenjak sekolah di Al-Afiyah, ananda menjadi sangat mandiri, disiplin shalat, dan bacaan Qur\'annya sangat tartil.' },
     { name: 'Ibu Hj. Rina Nurhasanah S.Pd', role: `Wali Murid ${school.name}`, quote: 'Lingkungan belajar islami yang hangat dan para dewan guru yang mendidik dengan sepenuh hati. Pilihan terbaik di Majalengka.' }
   ];
+
+  const testimonialsPayload = (sectionsMap.testimonials && sectionsMap.testimonials.length > 0)
+    ? sectionsMap.testimonials
+    : defaultTestimonialsForSchool;
 
   const tuitionPayload = sectionsMap.tuition || {
     registrationFee: school.registrationFee || (schoolSlug === 'tk' ? 150000 : schoolSlug === 'sd' ? 200000 : 250000),

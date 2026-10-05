@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
 
@@ -188,6 +189,19 @@ export async function POST(request: Request) {
         where: { id: school.id },
         data: schoolUpdateData,
       });
+    }
+
+    // Revalidate public landing and admin pages to prevent stale cache
+    try {
+      revalidatePath(`/${schoolSlug}`);
+      revalidatePath(`/admin/${schoolSlug}/cms`);
+      revalidatePath('/ppdb/daftar');
+      if (schoolSlug === 'foundation') {
+        revalidatePath('/');
+        revalidatePath('/profil');
+      }
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
     }
 
     return NextResponse.json({

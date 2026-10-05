@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function SdLandingPage() {
   const dbSchool = await prisma.school.findUnique({
     where: { slug: 'sd' },
@@ -174,7 +177,20 @@ export default async function SdLandingPage() {
     values: sectionsMap.values,
     programs: sectionsMap.programs || defaultPrograms,
     facilities: sectionsMap.facilities,
-    testimonials: sectionsMap.testimonials,
+    testimonials: (sectionsMap.testimonials && sectionsMap.testimonials.length > 0)
+      ? sectionsMap.testimonials
+      : [
+          {
+            name: 'Ibu Nani Mulyani, S.Pd.',
+            role: 'Wali Murid Kelas 5 SD IT',
+            quote: 'Menumbuhkan kesadaran beribadah, adab, serta empati anak secara alami tanpa paksaan. Pembelajarannya yang menyenangkan dan selaras dengan tumbuh kembang anak didukung sinergi yang kuat antara sekolah dan orang tua benar-benar membentuk karakter anak yang berakhlak mulia dan mencintai ajaran Islam.'
+          },
+          {
+            name: 'Orang Tua Murid Al-Afiyah',
+            role: 'Wali Murid Kelas 2 SD IT',
+            quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.'
+          }
+        ],
     teachers: dbSchool?.teachers || [],
     newsPosts: (dbSchool?.newsPosts && dbSchool.newsPosts.length > 0) ? dbSchool.newsPosts : defaultSdNewsPosts,
   };
