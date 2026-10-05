@@ -88,7 +88,7 @@ interface PresetImage {
 const PRESET_IMAGES_DEFAULT: PresetImage[] = [
   // Foto Asli Kegiatan Murid & Guru SD IT (Dari Dewan Guru)
   { label: 'Halaqah Tahfidz & Adab SD IT (Foto Asli)', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Poster Resmi SPMB SDIT 2027/2028', url: '/images/sd-spmb-poster.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Poster Resmi SPMB SDIT 2027/2028', url: '/images/sd-spmb-poster-2027.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Brosur Biaya & Syarat SPMB SDIT 2027/2028', url: '/images/sd-spmb-brosur.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Story "Telah Dibuka" SPMB SDIT 2027/2028', url: '/images/sd-spmb-story.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Praktik Sains Greenhouse SD IT', url: '/images/sd-hero-greenhouse.jpg', forUnits: ['sd', 'foundation'] },

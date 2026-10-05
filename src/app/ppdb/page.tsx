@@ -1099,7 +1099,7 @@ export default function PPDBHubPage() {
                 </p>
                 <div className="flex flex-wrap items-center gap-2 pt-1">
                   <a
-                    href="/images/sd-spmb-poster.jpg"
+                    href="/images/sd-spmb-poster-2027.jpg"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-[11px] transition-colors"

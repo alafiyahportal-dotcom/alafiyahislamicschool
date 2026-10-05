@@ -133,7 +133,7 @@ export default async function SchoolCMSEditorPage({
           primaryCtaText: 'Daftar Calon Murid SD',
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'Unduh Brosur Resmi SPMB',
-          secondaryCtaLink: '/images/sd-spmb-poster.jpg',
+          secondaryCtaLink: '/images/sd-spmb-poster-2027.jpg',
           image: '/images/sd-hero-activity.jpg',
           trustItems: [
             { icon: 'users' as const, text: 'Pelatihan Aqil-Baligh' },

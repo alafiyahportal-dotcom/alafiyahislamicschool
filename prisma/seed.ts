@@ -515,7 +515,7 @@ Kegiatan rihlah ini semakin mempererat ikatan kekeluargaan antara guru dan santr
 Bukan sekadar tempat belajar, SD IT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah Rasulullah ﷺ, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu. Demi menjaga rasio pendampingan yang intensif dan berkualitas, kuota penerimaan murid baru dibatasi HANYA 2 Rombongan Belajar (Rombel).
 
 Ayah dan Bunda dapat mengunduh poster/brosur resmi sekolah untuk informasi lengkap, serta melakukan registrasi online melalui portal resmi SPMB Al-Afiyah.`,
-        coverImage: '/images/sd-spmb-poster.jpg',
+        coverImage: '/images/sd-spmb-poster-2027.jpg',
         author: 'Panitia SPMB 2026/2027',
         isPublished: true,
         publishedAt: new Date('2026-09-26T09:00:00Z'),

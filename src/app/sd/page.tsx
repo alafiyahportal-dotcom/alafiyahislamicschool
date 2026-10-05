@@ -106,7 +106,7 @@ export default async function SdLandingPage() {
       category: 'Pengumuman',
       excerpt: 'Sistem Penerimaan Murid Baru (SPMB) SD IT Al-Afiyah T.A. 2027/2028 resmi dibuka. Kuota terbatas hanya 2 rombel dengan 10 program unggulan terpadu. Unduh poster dan brosur resmi di sini.',
       content: 'Bismillah, Yayasan Pendidikan Imam Bonjol Majalengka bersama dewan asatidzah SD IT Al-Afiyah mengumumkan pembukaan Sistem Penerimaan Murid Baru (SPMB) Tahun Ajaran 2027/2028.\n\nBukan sekadar tempat belajar, SD IT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah Rasulullah ﷺ, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu. Demi menjaga rasio pendampingan yang intensif dan berkualitas, kuota penerimaan murid baru dibatasi HANYA 2 Rombongan Belajar (Rombel).\n\nAyah dan Bunda dapat mengunduh poster/brosur resmi sekolah untuk informasi lengkap, serta melakukan registrasi online melalui portal resmi SPMB Al-Afiyah.',
-      coverImage: '/images/sd-spmb-poster.jpg',
+      coverImage: '/images/sd-spmb-poster-2027.jpg',
       author: 'Panitia SPMB 2027/2028',
       publishedAt: '2026-09-26T09:00:00.000Z',
     },

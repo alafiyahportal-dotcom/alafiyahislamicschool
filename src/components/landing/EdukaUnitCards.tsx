@@ -55,7 +55,7 @@ const units: SchoolUnitItem[] = [
     subdomainLabel: 'sd.alafiyah.sch.id',
     levelBadge: 'Smart Akhlaq Fitrah • SDIT',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
-    image: '/images/sd-spmb-poster.jpg',
+    image: '/images/sd-spmb-poster-2027.jpg',
     ageGroup: 'Usia 6 - 12 Tahun (Kelas 1 s/d 6)',
     tahfidzTarget: 'Tahfidz Juz 30 Mutqin & Karakter Nabawiyah',
     curriculum: 'Kurikulum Merdeka + Pendidikan Karakter Nabawiyah',
