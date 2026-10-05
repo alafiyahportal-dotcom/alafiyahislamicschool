@@ -44,12 +44,12 @@ function renderHeroHeadline(
 
   // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
-    // Shared serif-italic accent; sized one step above the heading to offset the serif's smaller x-height
+    // Shared serif-italic accent; one step below the heading so the bold lines stay dominant
     const accentClass =
-      'font-hero-accent block italic font-normal tracking-wide text-5xl sm:text-6xl lg:text-7xl leading-[1.05] drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]';
+      'font-hero-accent block italic font-normal tracking-wide text-2xl sm:text-3xl lg:text-4xl leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]';
     return (
       <>
-        <span className={`${accentClass} mb-2 text-white/90`}>Bukan Sekedar</span>
+        <span className={`${accentClass} mb-1 text-white/90`}>Bukan Sekedar</span>
         {/* Heading: 3 bold lines, closing word drops to its own accent line */}
         <span className="block">Tempat Belajar,</span>
         <span className="block">Namun Juga</span>
@@ -118,7 +118,7 @@ function HeroContent({
       {/* Text block capped so copy never runs into the subject of the background photo */}
       <div className="w-full max-w-xl lg:max-w-2xl text-left">
         {/* Main Headline — large & dominant */}
-        <h1 className="w-full text-4xl sm:text-[2.75rem] md:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight text-left text-white drop-shadow-lg break-words">
+        <h1 className="w-full text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15] tracking-tight text-left text-white drop-shadow-lg break-words">
           {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightClass)}
         </h1>
 
