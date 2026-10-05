@@ -44,19 +44,17 @@ function renderHeroHeadline(
 
   // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
+    // Shared serif-italic accent so the opening and closing words mirror each other
+    const accentClass =
+      'font-hero-accent block italic font-normal tracking-wide leading-snug text-3xl sm:text-4xl md:text-[2.75rem] drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]';
     return (
       <>
-        {/* Accent: refined serif italic, sized to hold its own against the large heading */}
-        <span className="font-hero-accent block mb-2 text-3xl sm:text-4xl md:text-[2.75rem] italic font-normal tracking-wide leading-snug text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
-          Bukan Sekedar
-        </span>
-        {/* Heading: fixed 3-line structure */}
+        <span className={`${accentClass} mb-2 text-white/90`}>Bukan Sekedar</span>
+        {/* Heading: 3 bold lines, closing word drops to its own accent line */}
         <span className="block">Tempat Belajar,</span>
         <span className="block">Namun Juga</span>
-        <span className="block">
-          <span className={highlightClass}>Tempat Bertumbuh</span>
-          {p2 ? (p2.startsWith(',') || p2.startsWith('.') ? p2 : ` ${p2}`) : ' Ananda'}
-        </span>
+        <span className={`block ${highlightClass}`}>Tempat Bertumbuh</span>
+        <span className={`${accentClass} mt-1 text-amber-100/90`}>{p2 || 'Ananda'}</span>
       </>
     );
   }
@@ -117,17 +115,20 @@ function HeroContent({
         </div>
       )}
 
-      {/* Main Headline — large & dominant; sm step kept at 2.75rem so line 3 stays on one line */}
-      <h1 className="w-full text-4xl sm:text-[2.75rem] md:text-5xl lg:text-6xl font-extrabold leading-[1.12] tracking-tight text-left text-white drop-shadow-lg break-words">
-        {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightClass)}
-      </h1>
+      {/* Text block capped so copy never runs into the subject of the background photo */}
+      <div className="w-full max-w-xl lg:max-w-2xl text-left">
+        {/* Main Headline — large & dominant */}
+        <h1 className="w-full text-4xl sm:text-[2.75rem] md:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight text-left text-white drop-shadow-lg break-words">
+          {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightClass)}
+        </h1>
 
-      {/* Subtitle Description — constrained measure to balance with the CTA below */}
-      {slide.description && (
-        <p className="mt-3 sm:mt-5 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-sm lg:text-lg leading-relaxed text-left text-neutral-300 font-normal drop-shadow-sm">
-          {slide.description}
-        </p>
-      )}
+        {/* Subtitle Description — constrained measure to balance with the CTA below */}
+        {slide.description && (
+          <p className="mt-3 sm:mt-5 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-sm lg:text-lg leading-relaxed text-left text-neutral-300 font-normal drop-shadow-sm">
+            {slide.description}
+          </p>
+        )}
+      </div>
 
       {/* Single Primary CTA — slim, fit-content, left-aligned with the text margin */}
       <Link
