@@ -367,13 +367,21 @@ export default function CMSEditorClient({
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs flex flex-wrap items-center justify-between gap-4">
         {/* Unit Selector / Tenant Badge */}
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-[#184F48] text-white flex items-center justify-center font-bold text-sm shadow-xs">
-            {schoolSlug === 'foundation' ? 'YP' : schoolSlug.toUpperCase()}
-          </div>
+          {schoolSlug === 'sd' ? (
+            <img
+              src="/images/sd-logo.png"
+              alt="Logo SD IT Al-Afiyah"
+              className="w-10 h-10 object-contain shrink-0"
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-xl bg-[#184F48] text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0">
+              {schoolSlug === 'foundation' ? 'YP' : schoolSlug.toUpperCase()}
+            </div>
+          )}
           <div>
-            <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">
-              {canSwitchUnit ? 'Pilih Unit Sekolah:' : 'Unit Sekolah Aktif:'}
-            </label>
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">
+              {canSwitchUnit ? 'Pilih Unit Sekolah' : 'Unit Pengelolaan'}
+            </span>
             {canSwitchUnit ? (
               <select
                 value={schoolSlug}
@@ -386,7 +394,7 @@ export default function CMSEditorClient({
                   }
                 }}
                 aria-label="Pilih Unit Sekolah"
-                className="text-sm font-bold text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 cursor-pointer"
+                className="text-xs sm:text-sm font-bold text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 cursor-pointer"
               >
                 <option value="foundation">Yayasan Pendidikan Imam Bonjol (Beranda Pusat)</option>
                 <option value="tk">TK IT Al-Afiyah Majalengka</option>
@@ -394,20 +402,23 @@ export default function CMSEditorClient({
                 <option value="smp">SMP IT Al-Afiyah Majalengka</option>
               </select>
             ) : (
-              <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs sm:text-sm font-bold text-slate-800 shadow-2xs">
-                <span>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-xs sm:text-sm font-bold text-slate-800">
                   {schoolSlug === 'tk'
-                    ? 'TK IT Al-Afiyah Majalengka'
+                    ? 'TK IT Al-Afiyah'
                     : schoolSlug === 'sd'
-                    ? 'SD IT Al-Afiyah Majalengka'
+                    ? 'SD IT Al-Afiyah'
                     : schoolSlug === 'smp'
-                    ? 'SMP IT Al-Afiyah Majalengka'
+                    ? 'SMP IT Al-Afiyah'
                     : schoolName}
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold inline-block">
+                  Aktif
                 </span>
                 {isSuperAdmin && (
                   <Link
                     href="/admin/foundation/cms"
-                    className="ml-2 text-[11px] font-semibold text-[#2D7A70] hover:text-[#184F48] hover:underline"
+                    className="text-[11px] font-semibold text-[#2D7A70] hover:text-[#184F48] hover:underline"
                   >
                     ← Kembali ke Yayasan
                   </Link>
@@ -636,9 +647,17 @@ export default function CMSEditorClient({
             <div className="p-6 sm:p-10 bg-slate-50 min-h-[400px] space-y-6">
               <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs max-w-2xl mx-auto space-y-4">
                 <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-                  <div className="w-12 h-12 rounded-xl bg-[#184F48] text-white flex items-center justify-center font-black text-lg">
-                    {schoolSlug === 'foundation' ? 'YP' : schoolSlug.toUpperCase()}
-                  </div>
+                  {schoolSlug === 'sd' ? (
+                    <img
+                      src="/images/sd-logo.png"
+                      alt="Logo SD IT Al-Afiyah"
+                      className="w-12 h-12 object-contain shrink-0"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-xl bg-[#184F48] text-white flex items-center justify-center font-black text-lg shrink-0">
+                      {schoolSlug === 'foundation' ? 'YP' : schoolSlug.toUpperCase()}
+                    </div>
+                  )}
                   <div>
                     <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#2D7A70]">{formData.identity.badgeText}</p>
                     <h2 className="text-base font-black text-slate-900">{formData.identity.name}</h2>

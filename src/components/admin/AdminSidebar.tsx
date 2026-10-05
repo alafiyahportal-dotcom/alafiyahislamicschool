@@ -99,7 +99,7 @@ export default function AdminSidebar({
       active: pathname === '/admin/foundation' || pathname === `/admin/${schoolSlug}/dashboard`
     },
     {
-      name: 'Pendaftar PPDB',
+      name: 'Pendaftar SPMB',
       href: schoolSlug === 'foundation' ? '/admin/foundation#pendaftar' : `/admin/${schoolSlug}/ppdb`,
       icon: ClipboardCheck,
       active: pathname.includes('/ppdb') || (schoolSlug === 'foundation' && pathname === '/admin/foundation'),
@@ -208,19 +208,25 @@ export default function AdminSidebar({
         {/* Clean Unified Unit Header - No redundant alafiyah YPIB or repeated words */}
         <div className="h-16 sm:h-20 flex-shrink-0 flex items-center justify-between px-5 border-b border-slate-100 bg-white gap-3">
           <div className="flex items-center space-x-3 min-w-0">
-            <div
-              className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-2xs ${
-                schoolSlug === 'tk'
-                  ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                  : schoolSlug === 'sd'
-                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                  : schoolSlug === 'smp'
-                  ? 'bg-[#064E3B]/10 text-[#064E3B] border border-[#064E3B]/20'
-                  : 'bg-slate-100 text-slate-800 border border-slate-200'
-              }`}
-            >
-              {schoolSlug === 'tk' ? 'TK' : schoolSlug === 'sd' ? 'SD' : schoolSlug === 'smp' ? 'SMP' : 'YP'}
-            </div>
+            {schoolSlug === 'sd' ? (
+              <img
+                src="/images/sd-logo.png"
+                alt="Logo SD IT Al-Afiyah"
+                className="w-10 h-10 object-contain shrink-0"
+              />
+            ) : (
+              <div
+                className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-2xs ${
+                  schoolSlug === 'tk'
+                    ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                    : schoolSlug === 'smp'
+                    ? 'bg-[#064E3B]/10 text-[#064E3B] border border-[#064E3B]/20'
+                    : 'bg-slate-100 text-slate-800 border border-slate-200'
+                }`}
+              >
+                {schoolSlug === 'tk' ? 'TK' : schoolSlug === 'smp' ? 'SMP' : 'YP'}
+              </div>
+            )}
 
             <div className="min-w-0">
               <h2 className="text-sm font-bold text-slate-900 tracking-tight truncate leading-tight">
@@ -236,7 +242,7 @@ export default function AdminSidebar({
                 {currentRole === 'FINANCE'
                   ? 'Portal Keuangan'
                   : currentRole === 'PPDB_OFFICER'
-                  ? 'Panitia PPDB'
+                  ? 'Panitia SPMB'
                   : 'Portal Administrasi'}
               </p>
             </div>

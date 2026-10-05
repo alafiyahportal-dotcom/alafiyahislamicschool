@@ -423,8 +423,8 @@ export default async function SchoolCMSEditorPage({
 
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
-          title={`Editor Konten CMS - ${school.name}`}
-          subtitle="Kelola Slide Banner, Alamat, Teks Publik, Kuota & Tampilan Website"
+          title="Editor Konten CMS"
+          subtitle={`Kelola slide banner, teks publik, alamat, dan pengaturan website ${school.name}`}
           userName={currentUserName}
           userRole={isSuperAdmin ? 'Superadmin Yayasan' : `Admin Unit ${school.name}`}
           currentSchoolSlug={schoolSlug as 'tk' | 'sd' | 'smp'}
