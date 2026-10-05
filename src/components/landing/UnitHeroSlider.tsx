@@ -44,9 +44,9 @@ function renderHeroHeadline(
 
   // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
-    // Shared serif-italic accent so the opening and closing words mirror each other
+    // Shared serif-italic accent; no size classes so it inherits the h1 size exactly
     const accentClass =
-      'font-hero-accent block italic font-normal tracking-wide leading-snug text-3xl sm:text-4xl md:text-[2.75rem] drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]';
+      'font-hero-accent block italic font-normal tracking-wide leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]';
     return (
       <>
         <span className={`${accentClass} mb-2 text-white/90`}>Bukan Sekedar</span>
