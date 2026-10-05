@@ -1076,11 +1076,24 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - **Pengalaman Pengguna (Mobile/Desktop Ergonomics):** Seluruh perpindahan halaman di dalam website berjalan di **Tab yang Sama** (`target="_self"`), sehingga pengunjung ponsel/desktop dapat menavigasi dengan mudah memakai tombol Back/Kembali peramban tanpa membanjiri browser dengan puluhan tab terbuka.
 - **Pengecualian Link Eksternal:** HANYA link ke platform pihak ketiga (seperti WhatsApp `wa.me`, Google Maps, dan file dokumen unduhan) yang dipertahankan membuka tab baru (`target="_blank"`).
 
+### 23.11 Revisi — Penyelarasan Istilah SPMB, Link New Tab, Referral, & Loading State (5 Okt 2026)
+- **Penyelarasan Istilah:** Menyeragamkan seluruh sebutan pendaftaran dari "PPDB" menjadi "SPMB" ("Daftar SPMB SD IT", "Daftar SPMB Online", "Informasi & Alur SPMB", "Formulir SPMB Online", dsb.) pada Navbar, Sticky Mobile Bar, Helpdesk Chat Widget, Hero Slider, dan section landing.
+- **Link Pendaftaran & New Tab (`target="_blank"`):** Seluruh tombol CTA pendaftaran SPMB membuka tab baru secara konsisten (`target="_blank"` & `rel="noopener noreferrer"`).
+- **Pengekalan Referral:** Menggabungkan `getStoredReferralCode()` ke seluruh pautan pendaftaran SPMB sehingga URL yang dibuka menyertakan `?ref=KODE_MITRA`.
+- **Visual Loading State:** Menambahkan state `isOpeningSpmb` / spinner dan teks "Membuka SPMB..." pada saat tombol CTA pendaftaran diklik agar antarmuka memberikan responsivitas visual instan tanpa membeku.
+
+### 23.12 Revisi — Skala Ukuran Font & Tipografi Hero Section Mobile (5 Okt 2026)
+- **Subheadline Italic ("Bukan Sekedar"):** Dinaikkan ukurannya ke `text-2xl sm:text-3xl lg:text-4xl italic font-normal tracking-wide` di `UnitHeroSlider.tsx`.
+- **Headline Utama ("Tempat Belajar, Namun Juga Tempat Bertumbuh"):** Ditegaskan dengan `text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15]`.
+- **Paragraf Deskripsi:** Dinaikkan dari `text-sm text-neutral-300` menjadi `text-sm sm:text-base lg:text-lg leading-relaxed text-neutral-200` agar terbaca dengan jelas di layar HP.
+- **Daftar Poin Informasi (Trust Items):** Dinaikkan ke `text-xs sm:text-sm font-medium text-neutral-200` dengan pembatas aksen hijau `border-l-2 border-emerald-500/60` yang tegas dan rapi.
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
 *tidak pernah mengganti atau menghapus bagian yang sudah ada di atas.*
-*Versi terakhir: 3.16.0 — 5 Okt 2026*
+*Versi terakhir: 3.17.0 — 5 Okt 2026*
+
 
 
 
