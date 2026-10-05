@@ -66,6 +66,48 @@ export default function AdminSidebar({
     setIsMobileOpen(false);
   }, [pathname]);
 
+  // Dynamically synchronize browser tab title & favicon based on active unit
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const unitTitle =
+        schoolSlug === 'sd'
+          ? 'Admin SD IT Al-Afiyah'
+          : schoolSlug === 'tk'
+          ? 'Admin TK IT Al-Afiyah'
+          : schoolSlug === 'smp'
+          ? 'Admin SMP IT Al-Afiyah'
+          : 'Super Admin | Yayasan Pendidikan Imam Bonjol';
+
+      let pageContext = '';
+      if (pathname.includes('/cms')) pageContext = 'Editor Konten CMS';
+      else if (pathname.includes('/ppdb')) pageContext = 'Pendaftar SPMB';
+      else if (pathname.includes('/students')) pageContext = 'Buku Induk Murid';
+      else if (pathname.includes('/achievements')) pageContext = 'Prestasi Murid';
+      else if (pathname.includes('/re-registration')) pageContext = 'Daftar Ulang & Seragam';
+      else if (pathname.includes('/analytics')) pageContext = 'Analitik & Corong';
+      else if (pathname.includes('/finance')) pageContext = 'Kas & Tagihan';
+      else if (pathname.includes('/teachers')) pageContext = 'Dewan Guru';
+      else if (pathname.includes('/news')) pageContext = 'Berita & Kegiatan';
+      else if (pathname.includes('/broadcast')) pageContext = 'WhatsApp Broadcast';
+      else if (pathname.includes('/attendance')) pageContext = 'Presensi Murid';
+      else if (pathname.includes('/grades')) pageContext = 'Nilai & Rapor';
+      else if (pathname.includes('/tahfidz')) pageContext = "Mutaba'ah Tahfidz";
+      else if (pathname.includes('/settings')) pageContext = 'Pengaturan Unit';
+      else if (pathname.includes('/dashboard')) pageContext = 'Dashboard';
+
+      document.title = pageContext ? `${pageContext} | ${unitTitle}` : `${unitTitle} Majalengka`;
+
+      let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
+      link.type = 'image/png';
+      link.href = '/images/sd-logo.png';
+    }
+  }, [schoolSlug, pathname]);
+
   // Lock body scroll on mobile when drawer is open
   useEffect(() => {
     if (isMobileOpen) {
