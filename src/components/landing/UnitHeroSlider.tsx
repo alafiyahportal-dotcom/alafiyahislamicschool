@@ -44,17 +44,18 @@ function renderHeroHeadline(
 
   // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
-    // Shared serif-italic accent; one step below the heading so the bold lines stay dominant
+    // Shared serif-italic accent (family, weight, shadow); sizes are set directly on each line below
     const accentClass =
-      'font-hero-accent block italic font-normal tracking-wide text-2xl sm:text-3xl lg:text-4xl leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]';
+      'font-hero-accent block italic font-normal tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]';
+    const boldLine = 'block text-[34px] sm:text-[44px] lg:text-[52px] font-extrabold leading-[1.12]';
     return (
       <>
-        <span className={`${accentClass} mb-1 text-white/90`}>Bukan Sekedar</span>
+        <span className={`${accentClass} text-[32px] sm:text-[40px] lg:text-[48px] leading-[1.1] mb-1 text-white/90`}>Bukan Sekedar</span>
         {/* Heading: 3 bold lines, closing word drops to its own accent line */}
-        <span className="block">Tempat Belajar,</span>
-        <span className="block">Namun Juga</span>
-        <span className={`block ${highlightClass}`}>Tempat Bertumbuh</span>
-        <span className={`${accentClass} mt-1 text-amber-100/90`}>{p2 || 'Ananda'}</span>
+        <span className={boldLine}>Tempat Belajar,</span>
+        <span className={boldLine}>Namun Juga</span>
+        <span className={`${boldLine} ${highlightClass}`}>Tempat Bertumbuh</span>
+        <span className={`${accentClass} text-[32px] sm:text-[40px] lg:text-[48px] leading-[1.1] mt-1 text-amber-100/90`}>{p2 || 'Ananda'}</span>
       </>
     );
   }
