@@ -48,7 +48,7 @@ function renderHeroHeadline(
     const boldLine = 'block text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15] tracking-tight';
     return (
       <>
-        <span className="font-hero-accent block text-2xl sm:text-3xl lg:text-4xl italic font-normal tracking-wide leading-tight text-neutral-100 mb-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+        <span className="font-hero-accent block text-2xl sm:text-3xl lg:text-4xl italic font-normal tracking-wide leading-tight text-neutral-100 mb-1.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
           Bukan Sekedar
         </span>
         {/* Heading: 3 bold lines */}
@@ -144,7 +144,7 @@ function HeroContent({
 
         {/* Subtitle Description — constrained measure to balance with the CTA below */}
         {slide.description && (
-          <p className="mt-3 sm:mt-5 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg text-sm lg:text-lg leading-relaxed text-left text-neutral-300 font-normal drop-shadow-sm">
+          <p className="mt-3.5 sm:mt-5 max-w-sm sm:max-w-md lg:max-w-xl text-sm sm:text-base lg:text-lg leading-relaxed text-left text-neutral-200 font-normal drop-shadow-sm">
             {slide.description}
           </p>
         )}
@@ -186,11 +186,11 @@ function HeroContent({
 
       {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
       {slide.trustItems && slide.trustItems.length > 0 && (
-        <ul className="mt-6 sm:mt-8 w-full flex flex-col gap-2 text-left text-xs font-medium text-neutral-400 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:text-sm sm:font-semibold sm:text-slate-200/90">
+        <ul className="mt-6 sm:mt-8 w-full flex flex-col gap-2.5 text-left text-xs sm:text-sm font-medium text-neutral-200 space-y-1 sm:space-y-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:font-semibold">
           {slide.trustItems.map((item, tIdx) => (
             <li
               key={tIdx}
-              className="border-l border-white/20 pl-2.5 leading-snug tracking-wide sm:border-0 sm:pl-0 sm:whitespace-nowrap"
+              className="border-l-2 border-emerald-500/60 pl-2.5 leading-snug tracking-wide sm:border-l sm:border-white/20 sm:pl-0 sm:whitespace-nowrap font-medium text-neutral-200"
             >
               {item.text}
             </li>
