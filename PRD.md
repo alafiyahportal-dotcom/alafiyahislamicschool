@@ -1056,6 +1056,10 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - Urutan `SPMB_POSTERS` di `SchoolLandingTemplate.tsx`: **1) Story "Telah Dibuka"** (foto santriwati, default aktif), **2) Brosur Biaya & Syarat**, **3) Poster Kuota Terbatas** (sebelumnya berlabel "Poster Utama").
 - Preview, thumbnail, modal, dan tombol "Unduh … (JPG)" mengikuti item terpilih secara reaktif (`activePoster`).
 
+### 23.7 Revisi — Bingkai Poster Penuh (5 Okt 2026)
+- Bingkai preview tidak lagi berasio tetap `aspect-[5/7]` + `object-contain` (menyisakan pita kosong pada Story 9:16).
+- Gambar kini `block w-full h-auto` dengan `width/height` intrinsik per item di `SPMB_POSTERS`; bingkai mengikuti rasio asli setiap poster, penuh kiri-kanan, tanpa crop. `object-cover` sengaja tidak dipakai agar teks poster (judul & footer sosial media) tidak terpotong.
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
