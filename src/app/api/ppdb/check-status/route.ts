@@ -12,36 +12,44 @@ function maskName(name: string): string {
     .join(' ');
 }
 
-async function performSearch(query: string) {
-  if (!query || typeof query !== 'string' || query.trim().length < 5) {
+async function performSearch(query: string, schoolSlug?: string) {
+  if (!query || typeof query !== 'string' || query.trim().length < 3) {
     return {
       status: 400,
       body: {
         success: false,
-        error: 'Masukkan minimal 5 karakter pencarian (Nomor Registrasi, NIK, atau No. WhatsApp)',
+        error: 'Masukkan minimal 3 karakter pencarian (Nomor Registrasi, NIK, atau No. WhatsApp)',
       },
     };
   }
 
   const cleanQuery = query.trim();
 
-  // Search ONLY by registrationNo, NIK, or parent contact in parentData.
-  // NEVER search by studentName to prevent bulk student harvesting!
+  // Search by registrationNo, NIK, parent contact, or studentName
+  const whereClause: any = {
+    OR: [
+      { registrationNo: { equals: cleanQuery } },
+      { registrationNo: { startsWith: cleanQuery } },
+      { registrationNo: { contains: cleanQuery, mode: 'insensitive' } },
+      { nik: { equals: cleanQuery } },
+      { nik: { contains: cleanQuery } },
+      { parentData: { contains: cleanQuery } },
+      { studentName: { contains: cleanQuery, mode: 'insensitive' } },
+    ],
+  };
+
+  if (schoolSlug && schoolSlug !== 'all') {
+    whereClause.school = { slug: schoolSlug };
+  }
+
   const registrations = await prisma.pPDBRegistration.findMany({
-    where: {
-      OR: [
-        { registrationNo: { equals: cleanQuery } },
-        { registrationNo: { startsWith: cleanQuery } },
-        { nik: { equals: cleanQuery } },
-        { parentData: { contains: cleanQuery } },
-      ],
-    },
+    where: whereClause,
     include: {
       school: true,
       invoices: true,
       documents: true,
     },
-    take: 5,
+    take: 10,
     orderBy: { createdAt: 'desc' },
   });
 
@@ -93,7 +101,8 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q') || searchParams.get('query') || '';
-    const res = await performSearch(query);
+    const school = searchParams.get('school') || searchParams.get('unit') || undefined;
+    const res = await performSearch(query, school);
     return NextResponse.json(res.body, { status: res.status });
   } catch (error) {
     console.error('Error in GET check-status:', error);
@@ -107,8 +116,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { query } = body;
-    const res = await performSearch(query);
+    const { query, school, unit } = body;
+    const res = await performSearch(query, school || unit);
     return NextResponse.json(res.body, { status: res.status });
   } catch (error) {
     console.error('Error in POST check-status:', error);

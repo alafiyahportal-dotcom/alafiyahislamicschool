@@ -278,7 +278,7 @@ export default function Navbar({
       items: [
         { label: `Informasi & Alur SPMB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Syarat berkas, tes observasi & kuota' },
         { label: 'Formulir SPMB Online', href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Isi formulir biodata calon murid' },
-        { label: 'Cek Status SPMB', href: '/ppdb/cek-status', desc: 'Pantau verifikasi berkas & nomor registrasi' },
+        { label: 'Cek Status SPMB', href: activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status', desc: 'Pantau verifikasi berkas & nomor registrasi' },
         { label: 'Pengumuman SPMB', href: '/ppdb/pengumuman', desc: 'SK kelulusan murid gelombang 1 & 2' },
         { label: 'Daftar Ulang & Seragam', href: '/portal/ppdb/REG-SD-2026-0001/daftar-ulang', desc: 'Fitting seragam & pelunasan biaya' },
       ],
@@ -302,7 +302,7 @@ export default function Navbar({
   const searchablePages = [
     { title: 'SIAKAD Mobile Murid & Presensi QR', url: '/portal/siakad', cat: 'Akademik' },
     { title: `Pendaftaran PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, url: brandConfig.ppdbLink, cat: 'PPDB' },
-    { title: 'Cek Status Berkas Pendaftar', url: '/ppdb/cek-status', cat: 'PPDB' },
+    { title: 'Cek Status Berkas Pendaftar', url: activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status', cat: 'PPDB' },
     { title: 'Pengumuman Kelulusan Murid', url: '/ppdb/pengumuman', cat: 'PPDB' },
     { title: 'Profil Yayasan Pendidikan Imam Bonjol', url: '/profil', cat: 'Profil' },
     ...(!activeSlug
