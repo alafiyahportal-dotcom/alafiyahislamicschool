@@ -376,38 +376,47 @@ export default function AffiliatePublicPage() {
                 Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SD IT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.
               </p>
 
-              {/* CTAs matching reference: Dark Green Pill Button + Text link */}
-              <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              {/* CTAs: Harmonious Dual-Pill Architecture (Primary Emerald + Secondary White Outline) */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                 <button
                   type="button"
                   onClick={() => openRegisterWithPersona()}
-                  className="px-7 py-3.5 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-sm sm:text-base transition-all shadow-md flex items-center space-x-2 group cursor-pointer active:scale-98"
+                  className="px-7 py-3.5 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-sm sm:text-base transition-all duration-200 shadow-md shadow-emerald-950/20 hover:shadow-lg hover:shadow-emerald-950/30 flex items-center justify-center gap-2.5 group cursor-pointer active:scale-[0.98] border border-emerald-900/60"
                 >
                   <span>Daftar Jadi Mitra</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </button>
 
                 <a
                   href="#kalkulator"
-                  className="text-xs sm:text-sm font-bold text-slate-800 hover:text-[#153424] underline underline-offset-4 decoration-slate-400 hover:decoration-[#153424] transition-colors py-2 px-1"
+                  className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 hover:text-slate-950 font-bold text-sm sm:text-base transition-all duration-200 border border-slate-300/90 hover:border-slate-400 shadow-xs hover:shadow-sm flex items-center justify-center gap-2 group active:scale-[0.98]"
                 >
-                  Pelajari Skema &amp; Simulasi &rarr;
+                  <span>Pelajari Skema &amp; Simulasi</span>
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 group-hover:translate-x-1" />
                 </a>
               </div>
 
-              {/* Micro Trust Indicators */}
-              <div className="pt-4 flex flex-wrap items-center gap-4 text-xs text-slate-500">
-                <div className="flex items-center space-x-1.5">
-                  <CheckCheck className="w-4 h-4 text-emerald-700" />
+              {/* Micro Trust Indicators: Tactile Capsule Badges */}
+              <div className="pt-3 flex flex-wrap items-center gap-2 sm:gap-2.5">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs text-xs font-semibold text-slate-700">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
+                  </span>
                   <span>100% Akad Syariah</span>
                 </div>
-                <div className="flex items-center space-x-1.5">
-                  <CheckCheck className="w-4 h-4 text-emerald-700" />
-                  <span>Tanpa Biaya Daftar</span>
+
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs text-xs font-semibold text-slate-700">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
+                  </span>
+                  <span>Tanpa Biaya Pendaftaran</span>
                 </div>
-                <div className="flex items-center space-x-1.5">
-                  <CheckCheck className="w-4 h-4 text-emerald-700" />
-                  <span>Pencairan Cepat</span>
+
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs text-xs font-semibold text-slate-700">
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
+                  </span>
+                  <span>Pencairan Cepat Rekening</span>
                 </div>
               </div>
             </div>
