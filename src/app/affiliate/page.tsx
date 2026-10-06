@@ -169,23 +169,36 @@ export default function AffiliatePublicPage() {
 
   // State: Syirkah Calculator
   const [calcStudents, setCalcStudents] = useState<number>(5);
-  const [calcUnit, setCalcUnit] = useState<'all' | 'tk' | 'sd' | 'smp'>('all');
+  const [calcUnit, setCalcUnit] = useState<'all' | 'tk' | 'sd' | 'smp'>('sd');
 
-  const FORM_FEE = cmsContent.commissionFormFee ?? 50000;
-  const REG_FEES = {
+  const FORM_FEES = {
+    sd: cmsContent.commissionFormSd ?? (cmsContent.commissionFormFee ?? 50000),
+    tk: cmsContent.commissionFormTk ?? 25000,
+    smp: cmsContent.commissionFormSmp ?? 35000,
     all: Math.round(
-      ((cmsContent.commissionReRegTk ?? 250000) +
-        (cmsContent.commissionReRegSd ?? 100000) +
-        (cmsContent.commissionReRegSmp ?? 500000)) /
+      ((cmsContent.commissionFormSd ?? (cmsContent.commissionFormFee ?? 50000)) +
+        (cmsContent.commissionFormTk ?? 25000) +
+        (cmsContent.commissionFormSmp ?? 35000)) /
         3
     ),
-    tk: cmsContent.commissionReRegTk ?? 250000,
-    sd: cmsContent.commissionReRegSd ?? 100000,
-    smp: cmsContent.commissionReRegSmp ?? 500000,
   };
 
-  const formUjrahTotal = calcStudents * FORM_FEE;
-  const regUjrahTotal = calcStudents * REG_FEES[calcUnit];
+  const REG_FEES = {
+    sd: cmsContent.commissionReRegSd ?? 100000,
+    tk: cmsContent.commissionReRegTk ?? 50000,
+    smp: cmsContent.commissionReRegSmp ?? 65000,
+    all: Math.round(
+      ((cmsContent.commissionReRegSd ?? 100000) +
+        (cmsContent.commissionReRegTk ?? 50000) +
+        (cmsContent.commissionReRegSmp ?? 65000)) /
+        3
+    ),
+  };
+
+  const currentFormFee = FORM_FEES[calcUnit];
+  const currentRegFee = REG_FEES[calcUnit];
+  const formUjrahTotal = calcStudents * currentFormFee;
+  const regUjrahTotal = calcStudents * currentRegFee;
   const totalCalcCommission = formUjrahTotal + regUjrahTotal;
 
   // State: Registration Form
@@ -572,25 +585,39 @@ export default function AffiliatePublicPage() {
             {/* Left Column: 2 Stacked Rounded Photos with Circular Emblem */}
             <div className="lg:col-span-5 relative">
               <div className="relative space-y-4">
-                <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100">
-                  <Image
-                    src={cmsContent.aboutPhotoTop || '/images/sd-hero-greenhouse.jpg'}
-                    alt="Praktik Sains Peserta Didik Al-Afiyah"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    unoptimized={cmsContent.aboutPhotoTop?.startsWith('data:')}
-                  />
+                <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100 bg-[#153424]">
+                  {(cmsContent.aboutPhotoTop || '/images/sd-planting-guidance.jpg') ? (
+                    <Image
+                      src={cmsContent.aboutPhotoTop || '/images/sd-planting-guidance.jpg'}
+                      alt="Praktik Sains Peserta Didik Al-Afiyah"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      unoptimized={cmsContent.aboutPhotoTop?.startsWith('data:')}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
+                      <p className="text-[11px] text-emerald-200/80 mt-1">Kegiatan Belajar Peserta Didik</p>
+                    </div>
+                  )}
                 </div>
-                <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100">
-                  <Image
-                    src={cmsContent.aboutPhotoBottom || '/images/smp-hero-bilingual.jpg'}
-                    alt="Suasana Peserta Didik Bilingual Al-Afiyah"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    unoptimized={cmsContent.aboutPhotoBottom?.startsWith('data:')}
-                  />
+                <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100 bg-[#153424]">
+                  {(cmsContent.aboutPhotoBottom || '/images/sd-field-fish-feeding.jpg') ? (
+                    <Image
+                      src={cmsContent.aboutPhotoBottom || '/images/sd-field-fish-feeding.jpg'}
+                      alt="Kegiatan Peserta Didik Al-Afiyah"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      unoptimized={cmsContent.aboutPhotoBottom?.startsWith('data:')}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#1c432f] to-[#153424]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
+                      <p className="text-[11px] text-emerald-200/80 mt-1">Edukasi Luar Ruangan</p>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Circular Stamp Overlay at Left Middle */}
@@ -647,7 +674,10 @@ export default function AffiliatePublicPage() {
             {[
               { val: 'Rp 0', label: 'Modal Awal Pendaftaran' },
               { val: '100%', label: 'Akad Syariah Wakalah' },
-              { val: 'Rp 550rb', label: 'Ujrah Tertinggi / Peserta Didik' },
+              {
+                val: `Rp ${Math.round(Math.max(FORM_FEES.sd + REG_FEES.sd, FORM_FEES.tk + REG_FEES.tk, FORM_FEES.smp + REG_FEES.smp) / 1000)}rb`,
+                label: 'Ujrah Tertinggi / Peserta Didik',
+              },
               { val: '3 Unit', label: 'TK IT, SD IT, & SMP IT' },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center">
@@ -707,15 +737,22 @@ export default function AffiliatePublicPage() {
             {/* Card 1: Dark Green Card (Tahap 1 - Formulir) */}
             <div className="bg-[#1c432f] rounded-3xl p-6 border border-white/10 flex flex-col justify-between text-left space-y-5">
               <div className="space-y-4">
-                <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10">
-                  <Image
-                    src={cmsContent.formCardImage || '/images/sd-activity-multimedia-learning.jpg'}
-                    alt="Pendaftaran Formulir Al-Afiyah"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    unoptimized={cmsContent.formCardImage?.startsWith('data:')}
-                  />
+                <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10 bg-[#153424]">
+                  {(cmsContent.formCardImage || '/images/sd-activity-multimedia-learning.jpg') ? (
+                    <Image
+                      src={cmsContent.formCardImage || '/images/sd-activity-multimedia-learning.jpg'}
+                      alt="Pendaftaran Formulir Al-Afiyah"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      unoptimized={cmsContent.formCardImage?.startsWith('data:')}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Tahap 1</span>
+                      <p className="text-[11px] text-emerald-200/80 mt-1">Formulir Pendaftaran</p>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <span className="text-[10px] font-mono tracking-widest text-[#a3e635] uppercase font-bold">
@@ -723,12 +760,29 @@ export default function AffiliatePublicPage() {
                   </span>
                   <h3 className="text-xl font-bold text-white mt-0.5">Komisi Formulir</h3>
                   <p className="text-2xl font-extrabold text-white mt-1">
-                    Rp {(cmsContent.commissionFormFee ?? 50000).toLocaleString('id-ID')}{' '}
+                    s.d. Rp {Math.max(FORM_FEES.sd, FORM_FEES.smp, FORM_FEES.tk).toLocaleString('id-ID')}{' '}
                     <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span>
                   </p>
-                  <p className="text-xs text-emerald-100/70 mt-2 leading-relaxed">
-                    Dicairkan seketika saat calon wali murid menyelesaikan pengisian dan pembayaran formulir pendaftaran PPDB online resmi.
-                  </p>
+                  <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
+                    <p className="flex justify-between border-b border-white/5 pb-1">
+                      <span>SD IT Al-Afiyah:</span>
+                      <strong className="text-white font-mono">
+                        Rp {FORM_FEES.sd.toLocaleString('id-ID')}
+                      </strong>
+                    </p>
+                    <p className="flex justify-between border-b border-white/5 pb-1">
+                      <span>SMP IT Al-Afiyah:</span>
+                      <strong className="text-white font-mono">
+                        Rp {FORM_FEES.smp.toLocaleString('id-ID')}
+                      </strong>
+                    </p>
+                    <p className="flex justify-between pt-0.5">
+                      <span>TK IT Al-Afiyah:</span>
+                      <strong className="text-white font-mono">
+                        Rp {FORM_FEES.tk.toLocaleString('id-ID')}
+                      </strong>
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -765,9 +819,9 @@ export default function AffiliatePublicPage() {
                 <div className="grid grid-cols-2 gap-1.5 pt-1">
                   {[
                     { id: 'all', label: 'Semua Jenjang' },
-                    { id: 'tk', label: `TK IT (${Math.round((FORM_FEE + (cmsContent.commissionReRegTk ?? 250000)) / 1000)}rb)` },
-                    { id: 'sd', label: `SD IT (${Math.round((FORM_FEE + (cmsContent.commissionReRegSd ?? 100000)) / 1000)}rb)` },
-                    { id: 'smp', label: `SMP IT (${Math.round((FORM_FEE + (cmsContent.commissionReRegSmp ?? 500000)) / 1000)}rb)` },
+                    { id: 'sd', label: `SD IT (${Math.round((FORM_FEES.sd + REG_FEES.sd) / 1000)}rb)` },
+                    { id: 'smp', label: `SMP IT (${Math.round((FORM_FEES.smp + REG_FEES.smp) / 1000)}rb)` },
+                    { id: 'tk', label: `TK IT (${Math.round((FORM_FEES.tk + REG_FEES.tk) / 1000)}rb)` },
                   ].map((u) => (
                     <button
                       key={u.id}
@@ -836,15 +890,22 @@ export default function AffiliatePublicPage() {
             {/* Card 3: Dark Green Card (Tahap 2 - Kelulusan & Registrasi) */}
             <div className="bg-[#1c432f] rounded-3xl p-6 border border-white/10 flex flex-col justify-between text-left space-y-5">
               <div className="space-y-4">
-                <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10">
-                  <Image
-                    src={cmsContent.reRegCardImage || '/images/tk-hero-kids.jpg'}
-                    alt="Peserta Didik Ceria Al-Afiyah"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    unoptimized={cmsContent.reRegCardImage?.startsWith('data:')}
-                  />
+                <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10 bg-[#153424]">
+                  {(cmsContent.reRegCardImage || '/images/smp-outing-2.jpg') ? (
+                    <Image
+                      src={cmsContent.reRegCardImage || '/images/smp-outing-2.jpg'}
+                      alt="Peserta Didik Ceria Al-Afiyah"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      unoptimized={cmsContent.reRegCardImage?.startsWith('data:')}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Tahap 2</span>
+                      <p className="text-[11px] text-emerald-200/80 mt-1">Daftar Ulang</p>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <span className="text-[10px] font-mono tracking-widest text-[#a3e635] uppercase font-bold">
@@ -852,26 +913,26 @@ export default function AffiliatePublicPage() {
                   </span>
                   <h3 className="text-xl font-bold text-white mt-0.5">Komisi Daftar Ulang</h3>
                   <p className="text-2xl font-extrabold text-white mt-1">
-                    s.d. Rp {Math.max(cmsContent.commissionReRegTk ?? 250000, cmsContent.commissionReRegSd ?? 100000, cmsContent.commissionReRegSmp ?? 500000).toLocaleString('id-ID')}{' '}
+                    s.d. Rp {Math.max(REG_FEES.sd, REG_FEES.smp, REG_FEES.tk).toLocaleString('id-ID')}{' '}
                     <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span>
                   </p>
                   <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
                     <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>TK IT Al-Afiyah:</span>
+                      <span>SD IT Al-Afiyah:</span>
                       <strong className="text-white font-mono">
-                        Rp {(cmsContent.commissionReRegTk ?? 250000).toLocaleString('id-ID')}
+                        Rp {REG_FEES.sd.toLocaleString('id-ID')}
                       </strong>
                     </p>
                     <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>SD IT Al-Afiyah:</span>
+                      <span>SMP IT Al-Afiyah:</span>
                       <strong className="text-white font-mono">
-                        Rp {(cmsContent.commissionReRegSd ?? 100000).toLocaleString('id-ID')}
+                        Rp {REG_FEES.smp.toLocaleString('id-ID')}
                       </strong>
                     </p>
                     <p className="flex justify-between pt-0.5">
-                      <span>SMP IT Al-Afiyah:</span>
+                      <span>TK IT Al-Afiyah:</span>
                       <strong className="text-white font-mono">
-                        Rp {(cmsContent.commissionReRegSmp ?? 500000).toLocaleString('id-ID')}
+                        Rp {REG_FEES.tk.toLocaleString('id-ID')}
                       </strong>
                     </p>
                   </div>

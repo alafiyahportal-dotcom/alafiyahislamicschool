@@ -91,19 +91,17 @@ interface PresetImage {
 }
 
 const PRESET_IMAGES_DEFAULT: PresetImage[] = [
-  // Foto Asli Kegiatan Murid & Guru SD IT (Dari Dokumentasi Asli Sekolah)
-  { label: 'Halaqah Tahfidz & Adab SD IT (Foto Asli)', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Poster Resmi SPMB SDIT 2027/2028', url: '/images/sd-spmb-poster-2027.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Brosur Biaya & Syarat SPMB SDIT 2027/2028', url: '/images/sd-spmb-brosur.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Story "Telah Dibuka" SPMB SDIT 2027/2028', url: '/images/sd-spmb-story.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Praktik Sains Greenhouse SD IT', url: '/images/sd-hero-greenhouse.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Observasi Kebun Sayur SD IT', url: '/images/sd-hero-garden.jpg', forUnits: ['sd', 'foundation'] },
-  // Foto Asli TK
-  { label: 'Murid TK Ceria & Bermain', url: '/images/tk-hero-kids.jpg', forUnits: ['tk', 'foundation'] },
-  { label: 'Taman Tumbuh Kembang TK', url: '/images/tk-hero-garden.jpg', forUnits: ['tk', 'foundation'] },
-  // Foto Asli SMP
-  { label: 'Murid SMP IT Fullday School', url: '/images/smp-hero-fullday.jpg', forUnits: ['smp', 'foundation'] },
-  { label: 'Bilingual & Laboratorium SMP IT', url: '/images/smp-hero-bilingual.jpg', forUnits: ['smp', 'foundation'] },
+  // Foto Asli Kegiatan Murid & Guru Al-Afiyah (Dokumentasi Lapangan Nyata)
+  { label: 'Halaqah Tahfidz SD IT', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Belajar Kelas 6B SD IT', url: '/images/sd-activity-classroom-6b.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Outing Rafting SMP IT Majalengka', url: '/images/smp-outing-1.jpg', forUnits: ['smp', 'foundation'] },
+  { label: 'Outing Bersama SMP IT', url: '/images/smp-outing-2.jpg', forUnits: ['smp', 'foundation'] },
+  { label: 'Praktik Menanam Bibit SD IT', url: '/images/sd-planting-guidance.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Edukasi Kolam Ikan SD IT', url: '/images/sd-field-fish-feeding.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Juara Turnamen Futsal SD IT', url: '/images/sd-futsal-champion.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Shalat Berjamaah Murid SD IT', url: '/images/sd-activity-shalat-berjamaah.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Praktik Multimedia SD IT', url: '/images/sd-activity-multimedia-learning.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Brosur Resmi SPMB SDIT', url: '/images/sd-spmb-brosur.jpg', forUnits: ['sd', 'foundation'] },
 ];
 
 
@@ -137,6 +135,15 @@ export default function CMSEditorClient({
     deletedSet.add('/images/sd-hero-activity.jpg');
     deletedSet.add('/images/arc-tahfidz.jpg');
     deletedSet.add('/images/arc-ustadz.jpg');
+    deletedSet.add('/images/smp-hero-bilingual.jpg');
+    deletedSet.add('/images/tk-hero-kids.jpg');
+    deletedSet.add('/images/tk-hero-garden.jpg');
+    deletedSet.add('/images/smp-hero-fullday.jpg');
+    deletedSet.add('/images/smp-hero-pesantren.jpg');
+    deletedSet.add('/images/eduka-hero-campus.jpg');
+    deletedSet.add('/images/affiliate-hero-youth.jpg');
+    deletedSet.add('/images/hero-student.jpg');
+    deletedSet.add('/images/student-girl.jpg');
 
     // 1. If backend database has saved preset images, use as source of truth
     if (initialData.presetImages && Array.isArray(initialData.presetImages)) {
@@ -573,65 +580,84 @@ export default function CMSEditorClient({
     onUpdate: (url: string) => void
   ) => {
     return (
-      <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/90 space-y-3">
-        <div>
-          <h4 className="text-xs font-bold text-slate-800">{label}</h4>
-          <p className="text-[11px] text-slate-500">{subtext}</p>
+      <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/90 space-y-3 min-w-0 w-full overflow-hidden">
+        <div className="min-w-0">
+          <h4 className="text-xs font-bold text-slate-800 truncate">{label}</h4>
+          <p className="text-[11px] text-slate-500 line-clamp-1">{subtext}</p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-          <div className="relative w-28 h-20 rounded-xl overflow-hidden border border-slate-200 bg-white shrink-0 shadow-2xs">
-            {currentUrl ? (
-              <Image
-                src={currentUrl}
-                alt={label}
-                fill
-                sizes="120px"
-                className="object-cover"
-                unoptimized={currentUrl.startsWith('data:')}
+        <div className="space-y-2.5 min-w-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="relative w-24 h-16 rounded-xl overflow-hidden border border-slate-200 bg-white shrink-0 shadow-2xs">
+              {currentUrl ? (
+                <Image
+                  src={currentUrl}
+                  alt={label}
+                  fill
+                  sizes="100px"
+                  className="object-cover"
+                  unoptimized={currentUrl.startsWith('data:')}
+                />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center text-[10px] text-slate-400 bg-slate-100 p-1 text-center font-medium">
+                  <span>(Kosong)</span>
+                  <span className="text-[9px] text-slate-400">Tanpa Foto</span>
+                </div>
+              )}
+            </div>
+
+            <div className="flex-1 min-w-0 space-y-1.5">
+              <input
+                type="text"
+                value={currentUrl}
+                onChange={(e) => onUpdate(e.target.value)}
+                placeholder="/images/... atau https://..."
+                className="w-full min-w-0 text-xs font-mono text-slate-800 border border-slate-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 truncate"
               />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-[10px] text-slate-400">
-                Tanpa Foto
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <label className="px-2.5 py-1.5 rounded-lg bg-[#184F48] hover:bg-[#123e38] text-white font-bold text-[11px] shadow-2xs flex items-center gap-1.5 cursor-pointer shrink-0">
+                  <Upload className="w-3 h-3" />
+                  <span>{isUploading ? 'Unggah...' : 'Unggah Foto'}</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    disabled={isUploading}
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const url = await handleUploadImage(file);
+                        if (url) onUpdate(url);
+                      }
+                    }}
+                  />
+                </label>
+
+                {currentUrl && (
+                  <button
+                    type="button"
+                    onClick={() => onUpdate('')}
+                    className="px-2 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-bold border border-rose-200 shrink-0 cursor-pointer"
+                    title="Kosongkan foto ini agar tidak ada foto AI"
+                  >
+                    Kosongkan
+                  </button>
+                )}
               </div>
-            )}
+            </div>
           </div>
 
-          <div className="flex-1 w-full space-y-2">
-            <input
-              type="text"
-              value={currentUrl}
-              onChange={(e) => onUpdate(e.target.value)}
-              placeholder="/images/... atau https://..."
-              className="w-full text-xs font-mono text-slate-800 border border-slate-300 rounded-lg p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-            />
-            <div className="flex flex-wrap items-center gap-2">
-              <label className="px-3 py-1.5 rounded-lg bg-[#184F48] hover:bg-[#123e38] text-white font-bold text-[11px] shadow-2xs flex items-center gap-1.5 cursor-pointer">
-                <Upload className="w-3 h-3" />
-                <span>{isUploading ? 'Mengunggah...' : 'Unggah Foto Baru'}</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  disabled={isUploading}
-                  className="hidden"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const url = await handleUploadImage(file);
-                      if (url) onUpdate(url);
-                    }
-                  }}
-                />
-              </label>
-
-              <div className="flex items-center gap-1 overflow-x-auto max-w-full py-1">
-                <span className="text-[10px] text-slate-400 font-semibold mr-1">Galeri:</span>
-                {availablePresetImages.slice(0, 5).map((preset) => (
+          {/* Preset list as compact horizontal row */}
+          {availablePresetImages.length > 0 && (
+            <div className="pt-2 border-t border-slate-200/70 min-w-0">
+              <div className="flex items-center gap-1 overflow-x-auto py-1 no-scrollbar">
+                <span className="text-[10px] text-slate-400 font-semibold shrink-0">Preset:</span>
+                {availablePresetImages.map((preset) => (
                   <button
                     key={preset.url}
                     type="button"
                     onClick={() => onUpdate(preset.url)}
-                    className="text-[10px] font-medium px-2 py-0.5 rounded border border-slate-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-slate-600 truncate max-w-[100px] cursor-pointer"
+                    className="text-[10px] font-medium px-2 py-0.5 rounded border border-slate-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-slate-600 shrink-0 whitespace-nowrap cursor-pointer"
                     title={preset.label}
                   >
                     {preset.label}
@@ -639,7 +665,7 @@ export default function CMSEditorClient({
                 ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     );
@@ -2456,15 +2482,15 @@ export default function CMSEditorClient({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                     {renderAffiliateImagePicker(
                       'Foto Atas (About)',
-                      'Foto kegiatan sains / greenhouse murid',
-                      formData.affiliate?.aboutPhotoTop || '/images/sd-hero-greenhouse.jpg',
+                      'Foto kegiatan sains / kebun murid Al-Afiyah',
+                      formData.affiliate?.aboutPhotoTop || '/images/sd-planting-guidance.jpg',
                       (url) => updateAffiliate('aboutPhotoTop', url)
                     )}
 
                     {renderAffiliateImagePicker(
                       'Foto Bawah (About)',
-                      'Foto suasana santri belajar bilingual',
-                      formData.affiliate?.aboutPhotoBottom || '/images/smp-hero-bilingual.jpg',
+                      'Foto kegiatan edukasi lapangan peserta didik',
+                      formData.affiliate?.aboutPhotoBottom || '/images/sd-field-fish-feeding.jpg',
                       (url) => updateAffiliate('aboutPhotoBottom', url)
                     )}
                   </div>
@@ -2476,71 +2502,148 @@ export default function CMSEditorClient({
                 <div className="border-b border-slate-100 pb-4">
                   <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
                     <Sliders className="w-4 h-4 text-[#184F48]" />
-                    <span>4. Nominal Komisi Bagi Hasil &amp; Kartu Simulasi</span>
+                    <span>4. Nominal Komisi Ujrah per Unit Sekolah (TK, SD, SMP)</span>
                   </h4>
                   <p className="text-xs text-slate-500 mt-1">
-                    Atur besaran hak ujrah per peserta didik untuk masing-masing tahap dan unit sekolah (TK, SD, SMP).
+                    Atur besaran komisi pendaftaran (formulir) dan komisi daftar ulang untuk masing-masing unit sekolah secara terpisah.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                      Komisi Formulir (Tahap 1)
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
-                      <input
-                        type="number"
-                        value={formData.affiliate?.commissionFormFee ?? 50000}
-                        onChange={(e) => updateAffiliate('commissionFormFee', parseInt(e.target.value) || 0)}
-                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                      />
+                {/* 3 Unit Commission Cards */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                  {/* Unit 1: SD IT Al-Afiyah */}
+                  <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-emerald-950 uppercase tracking-wide">
+                        1. Unit SD IT Al-Afiyah
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 font-bold">
+                        Total Rp {((formData.affiliate?.commissionFormSd ?? 50000) + (formData.affiliate?.commissionReRegSd ?? 100000)).toLocaleString('id-ID')}
+                      </span>
+                    </div>
+
+                    <div className="space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Komisi Formulir (Pendaftaran)
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                          <input
+                            type="number"
+                            value={formData.affiliate?.commissionFormSd ?? 50000}
+                            onChange={(e) => {
+                              const val = parseInt(e.target.value) || 0;
+                              updateAffiliate('commissionFormSd', val);
+                              updateAffiliate('commissionFormFee', val);
+                            }}
+                            className="w-full text-xs font-bold text-slate-900 border border-emerald-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Komisi Daftar Ulang
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                          <input
+                            type="number"
+                            value={formData.affiliate?.commissionReRegSd ?? 100000}
+                            onChange={(e) => updateAffiliate('commissionReRegSd', parseInt(e.target.value) || 0)}
+                            className="w-full text-xs font-bold text-slate-900 border border-emerald-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                      Komisi Daftar Ulang SD IT
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
-                      <input
-                        type="number"
-                        value={formData.affiliate?.commissionReRegSd ?? 100000}
-                        onChange={(e) => updateAffiliate('commissionReRegSd', parseInt(e.target.value) || 0)}
-                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                      />
+                  {/* Unit 2: TK IT Al-Afiyah */}
+                  <div className="p-4 rounded-2xl bg-teal-50/60 border border-teal-200 space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-teal-950 uppercase tracking-wide">
+                        2. Unit TK IT Al-Afiyah
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-200 text-teal-900 font-bold">
+                        Total Rp {((formData.affiliate?.commissionFormTk ?? 25000) + (formData.affiliate?.commissionReRegTk ?? 50000)).toLocaleString('id-ID')}
+                      </span>
+                    </div>
+
+                    <div className="space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Komisi Formulir (Pendaftaran)
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                          <input
+                            type="number"
+                            value={formData.affiliate?.commissionFormTk ?? 25000}
+                            onChange={(e) => updateAffiliate('commissionFormTk', parseInt(e.target.value) || 0)}
+                            className="w-full text-xs font-bold text-slate-900 border border-teal-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Komisi Daftar Ulang
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                          <input
+                            type="number"
+                            value={formData.affiliate?.commissionReRegTk ?? 50000}
+                            onChange={(e) => updateAffiliate('commissionReRegTk', parseInt(e.target.value) || 0)}
+                            className="w-full text-xs font-bold text-slate-900 border border-teal-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                      Komisi Daftar Ulang TK IT
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
-                      <input
-                        type="number"
-                        value={formData.affiliate?.commissionReRegTk ?? 250000}
-                        onChange={(e) => updateAffiliate('commissionReRegTk', parseInt(e.target.value) || 0)}
-                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                      />
+                  {/* Unit 3: SMP IT Al-Afiyah */}
+                  <div className="p-4 rounded-2xl bg-cyan-50/60 border border-cyan-200 space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-cyan-950 uppercase tracking-wide">
+                        3. Unit SMP IT Al-Afiyah
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-200 text-cyan-900 font-bold">
+                        Total Rp {((formData.affiliate?.commissionFormSmp ?? 35000) + (formData.affiliate?.commissionReRegSmp ?? 65000)).toLocaleString('id-ID')}
+                      </span>
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                      Komisi Daftar Ulang SMP IT
-                    </label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
-                      <input
-                        type="number"
-                        value={formData.affiliate?.commissionReRegSmp ?? 500000}
-                        onChange={(e) => updateAffiliate('commissionReRegSmp', parseInt(e.target.value) || 0)}
-                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                      />
+                    <div className="space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Komisi Formulir (Pendaftaran)
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                          <input
+                            type="number"
+                            value={formData.affiliate?.commissionFormSmp ?? 35000}
+                            onChange={(e) => updateAffiliate('commissionFormSmp', parseInt(e.target.value) || 0)}
+                            className="w-full text-xs font-bold text-slate-900 border border-cyan-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Komisi Daftar Ulang
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                          <input
+                            type="number"
+                            value={formData.affiliate?.commissionReRegSmp ?? 65000}
+                            onChange={(e) => updateAffiliate('commissionReRegSmp', parseInt(e.target.value) || 0)}
+                            className="w-full text-xs font-bold text-slate-900 border border-cyan-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
