@@ -249,12 +249,35 @@ function PPDBFormContent() {
     }
   };
 
-  // Dynamic browser tab title for PPDB
+  // Dynamic browser tab title & favicon matching active unit (SD IT Al-Afiyah)
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      document.title = `Formulir Pendaftaran Murid Baru | PPDB Al-Afiyah T.A. 2027/2028`;
+      const schoolParam = searchParams.get('school');
+      const isSd = !schoolParam || schoolParam.toLowerCase() === 'sd';
+
+      document.title = isSd
+        ? 'Formulir Pendaftaran Murid Baru (SD IT Al-Afiyah) | PPDB T.A. 2027/2028'
+        : `Formulir Pendaftaran Murid Baru (${schoolParam.toUpperCase()} IT Al-Afiyah) | PPDB T.A. 2027/2028`;
+
+      const iconHref = isSd ? '/images/sd-logo.png' : '/favicon.ico';
+      const existingIcons = document.querySelectorAll<HTMLLinkElement>(
+        "link[rel*='icon'], link[rel='shortcut icon'], link[rel='apple-touch-icon']"
+      );
+
+      if (existingIcons.length === 0) {
+        const link = document.createElement('link');
+        link.rel = 'icon';
+        link.type = isSd ? 'image/png' : 'image/x-icon';
+        link.href = iconHref;
+        document.getElementsByTagName('head')[0].appendChild(link);
+      } else {
+        existingIcons.forEach((el) => {
+          el.type = isSd ? 'image/png' : 'image/x-icon';
+          el.href = iconHref;
+        });
+      }
     }
-  }, []);
+  }, [searchParams]);
 
   // Load from local storage draft
   useEffect(() => {
