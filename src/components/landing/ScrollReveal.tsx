@@ -9,6 +9,7 @@ interface ScrollRevealProps {
   duration?: number; // Duration in ms (default 500ms)
   yOffset?: number; // Initial translateY distance in px (default 24)
   as?: 'div' | 'section' | 'ul' | 'li' | 'header';
+  once?: boolean; // Set to true to freeze animation after first reveal (default: false for continuous replay)
 }
 
 export default function ScrollReveal({
@@ -18,6 +19,7 @@ export default function ScrollReveal({
   duration = 500,
   yOffset = 24,
   as: Component = 'div',
+  once = false,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -41,11 +43,11 @@ export default function ScrollReveal({
       return;
     }
 
-    // Check if already in viewport on mount (accounting for bottom offset)
+    // Check if currently visible in viewport
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 20 && rect.bottom > 0) {
+    if (rect.top < window.innerHeight - 20 && rect.bottom > 20) {
       setIsVisible(true);
-      return;
+      if (once) return;
     }
 
     const observer = new IntersectionObserver(
@@ -53,8 +55,14 @@ export default function ScrollReveal({
         const entry = entries[0];
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(el);
-          observer.disconnect();
+          if (once) {
+            observer.unobserve(el);
+            observer.disconnect();
+          }
+        } else {
+          if (!once) {
+            setIsVisible(false);
+          }
         }
       },
       {
@@ -68,7 +76,7 @@ export default function ScrollReveal({
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [once]);
 
   return (
     <Component
@@ -76,7 +84,9 @@ export default function ScrollReveal({
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : `translateY(${yOffset}px)`,
-        transition: `opacity ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}s, transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}s`,
+        transition: isVisible
+          ? `opacity ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}s, transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}s`
+          : 'none',
         willChange: isVisible ? 'auto' : 'opacity, transform',
       }}
       className={className}
