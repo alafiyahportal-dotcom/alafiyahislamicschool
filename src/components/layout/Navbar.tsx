@@ -86,7 +86,6 @@ export default function Navbar({
     pathname.startsWith('/smp') ||
     pathname.startsWith('/ppdb') ||
     pathname.startsWith('/profil') ||
-    pathname.startsWith('/affiliate') ||
     Boolean(schoolSlug);
 
   const hasDarkHero = transparentAtTop !== undefined ? transparentAtTop : isDarkHeroPage;

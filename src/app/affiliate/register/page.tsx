@@ -120,7 +120,7 @@ export default function AffiliateRegisterPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-between font-sans selection:bg-amber-100 selection:text-amber-900">
-      <Navbar />
+      <Navbar transparentAtTop={false} />
 
       <main className="flex-1 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         {/* Breadcrumb & Navigation */}

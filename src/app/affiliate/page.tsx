@@ -351,13 +351,13 @@ export default function AffiliatePublicPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between selection:bg-emerald-100 selection:text-emerald-900 font-sans antialiased text-slate-800">
-      <Navbar />
+      <Navbar transparentAtTop={false} />
 
       {/* =========================================================================
           1. HERO SECTION: Clean Crisp White Background with Bento Photo Grid
              (Adopting Layout & Editorial Typo from Reference Image Top)
          ========================================================================= */}
-      <section className="pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 bg-[#FAFAFA] border-b border-slate-200/80 relative">
+      <section className="pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 bg-[#FAFAFA] border-b border-slate-200/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
