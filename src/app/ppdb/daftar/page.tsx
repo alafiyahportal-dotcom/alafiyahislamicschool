@@ -60,6 +60,9 @@ const SCHOOLS: SchoolOption[] = [
     accent: '#00A651',
     desc: 'Kurikulum terpadu nasional & JSIT, tahfidz juz 30 mutqin, sains, dan pembinaan karakter.',
     waveName: 'Gelombang 1 (1 Okt - 30 Des 2026)',
+    bankName: 'Bank Muamalat',
+    bankAccountNumber: '1360012405',
+    bankAccountHolder: 'SD IT Al-Afiyah',
   },
 ];
 
@@ -305,6 +308,9 @@ function PPDBFormContent() {
                 isPpdbOpen: sdSetting.isPpdbOpen,
                 waveName: sdSetting.waveName || s.waveName,
                 quota: sdSetting.quota || s.quota,
+                bankName: sdSetting.bankName || s.bankName || 'Bank Muamalat',
+                bankAccountNumber: sdSetting.bankAccountNumber || s.bankAccountNumber || '1360012405',
+                bankAccountHolder: sdSetting.bankAccountHolder || s.bankAccountHolder || 'SD IT Al-Afiyah',
               }))
             );
           }
@@ -1902,10 +1908,10 @@ function PPDBFormContent() {
                   <div className="flex items-center justify-between">
                     <span className="font-extrabold text-emerald-950 flex items-center gap-1.5 text-xs sm:text-sm">
                       <CreditCard className="w-4 h-4 text-emerald-700" />
-                      <span>Metode 1: Transfer Bank Resmi Sekolah</span>
+                      <span>Metode 1: Transfer Bank Resmi {activeSchool.name}</span>
                     </span>
                     <span className="text-[10px] bg-emerald-700 text-white px-2.5 py-0.5 rounded-full font-bold shadow-2xs">
-                      Bank Muamalat
+                      {activeSchool.bankName || 'Bank Muamalat'}
                     </span>
                   </div>
 
@@ -1913,17 +1919,18 @@ function PPDBFormContent() {
                     <div>
                       <span className="text-[10px] text-slate-500 uppercase font-medium block">Nomor Rekening:</span>
                       <strong className="text-base sm:text-lg font-mono font-bold text-slate-900 tracking-wider">
-                        1360012405
+                        {activeSchool.bankAccountNumber || '1360012405'}
                       </strong>
                       <span className="text-xs text-slate-600 block mt-0.5">
-                        a.n <strong>SMP IT Al Afiyah / Yayasan Al-Afiyah</strong>
+                        a.n <strong>{activeSchool.bankAccountHolder || `${activeSchool.name} / Yayasan Al-Afiyah`}</strong>
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={() => {
+                        const accNumber = activeSchool.bankAccountNumber || '1360012405';
                         if (typeof navigator !== 'undefined' && navigator.clipboard) {
-                          navigator.clipboard.writeText('1360012405');
+                          navigator.clipboard.writeText(accNumber);
                           setCopiedBankAcc(true);
                           setTimeout(() => setCopiedBankAcc(false), 2200);
                         }
