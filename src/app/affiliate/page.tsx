@@ -520,14 +520,14 @@ export default function AffiliatePublicPage() {
                     )}
                   </div>
 
-                  {/* Bottom Wide Photo with Referral Overlay Card */}
-                  <div className="col-span-12 relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-xl border-2 border-white bg-[#153424]">
+                  {/* Bottom Wide Photo (Clean & Completely Unobstructed) */}
+                  <div className="col-span-12 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white bg-[#153424]">
                     {(cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg') ? (
                       <Image
                         src={cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg'}
                         alt="Kegiatan Outing Peserta Didik Al-Afiyah"
                         fill
-                        className="object-cover"
+                        className="object-cover object-center"
                         sizes="(max-width: 1024px) 100vw, 50vw"
                         unoptimized={cmsContent.heroPhoto3?.startsWith('data:')}
                       />
@@ -537,32 +537,32 @@ export default function AffiliatePublicPage() {
                         <p className="text-[11px] text-emerald-200/80 mt-1">Kegiatan Lapangan</p>
                       </div>
                     )}
-                    
-                    {/* Floating Referral Box Overlay: Clear Sample Illustration & CTA to Register */}
-                    <div className="absolute inset-x-3 bottom-3 sm:inset-x-4 sm:bottom-4 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl shadow-lg border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-900">
-                            Contoh Format Tautan Personal Anda
-                          </span>
-                        </div>
-                        <p className="font-mono text-xs sm:text-sm font-bold text-slate-900 truncate">
-                          alafiyah.sch.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80">KODE-ANDA</span>
-                        </p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">
-                          Otomatis aktif dengan nama/kode Anda setelah mendaftar
-                        </p>
+                  </div>
+
+                  {/* Dedicated Referral Link Card: Positioned Cleanly Below the Photo (Zero Image Overlap) */}
+                  <div className="col-span-12 bg-white rounded-2xl p-4 shadow-sm border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-900">
+                          Contoh Format Tautan Personal Anda
+                        </span>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => openRegisterWithPersona()}
-                        className="px-4 py-2.5 rounded-xl bg-[#153424] hover:bg-[#0f271b] text-white text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer shrink-0 flex items-center justify-center space-x-1.5 active:scale-95 border border-emerald-900/60"
-                      >
-                        <span>Dapatkan Link Anda</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-[#a3e635]" />
-                      </button>
+                      <p className="font-mono text-xs sm:text-sm font-bold text-slate-900 truncate">
+                        alafiyah.sch.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80 font-bold">KODE-ANDA</span>
+                      </p>
+                      <p className="text-[10px] text-slate-500 mt-0.5">
+                        Otomatis aktif dengan nama/kode Anda setelah mendaftar
+                      </p>
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => openRegisterWithPersona()}
+                      className="px-4 py-2.5 rounded-xl bg-[#153424] hover:bg-[#0f271b] text-white text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer shrink-0 flex items-center justify-center space-x-1.5 active:scale-95 border border-emerald-900/60"
+                    >
+                      <span>Dapatkan Link Anda</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#a3e635]" />
+                    </button>
                   </div>
 
                 </div>
