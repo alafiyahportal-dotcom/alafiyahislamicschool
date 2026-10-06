@@ -47,22 +47,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save to public/images/uploads/
-    const uploadsDir = path.join(process.cwd(), 'public', 'images', 'uploads');
-    await mkdir(uploadsDir, { recursive: true });
-
     // Generate safe UUID filename
     const filename = generateSafeFileName(safeSlug, verified.ext);
-    const filePath = path.join(uploadsDir, filename);
-    await writeFile(filePath, buffer);
+    let publicUrl = `/images/uploads/${filename}`;
 
-    const publicUrl = `/images/uploads/${filename}`;
+    try {
+      // Save to public/images/uploads/ (Works on local dev and environments with persistent disk)
+      const uploadsDir = path.join(process.cwd(), 'public', 'images', 'uploads');
+      await mkdir(uploadsDir, { recursive: true });
+      const filePath = path.join(uploadsDir, filename);
+      await writeFile(filePath, buffer);
+    } catch (fsError) {
+      // On Vercel Serverless, local disk is read-only.
+      // Fallback seamlessly to compact Base64 Data URL so upload never fails.
+      console.warn('Server filesystem read-only or ephemeral, using Base64 data URL fallback:', fsError);
+      publicUrl = `data:${verified.mime};base64,${buffer.toString('base64')}`;
+    }
 
     return NextResponse.json({
       success: true,
       url: publicUrl,
       filename,
-      label: filename,
+      label: file.name.replace(/\.[^/.]+$/, ''),
       size: file.size,
     });
   } catch (error) {

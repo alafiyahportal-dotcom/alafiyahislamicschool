@@ -36,6 +36,7 @@ import {
   X
 } from 'lucide-react';
 import { UnitSlideData } from '@/components/landing/UnitHeroSlider';
+import { compressImageClient } from '@/lib/image-compress';
 
 export interface CMSInitialData {
   hero: {
@@ -87,23 +88,19 @@ interface PresetImage {
 }
 
 const PRESET_IMAGES_DEFAULT: PresetImage[] = [
-  // Foto Asli Kegiatan Murid & Guru SD IT (Dari Dewan Guru)
+  // Foto Asli Kegiatan Murid & Guru SD IT (Dari Dokumentasi Asli Sekolah)
   { label: 'Halaqah Tahfidz & Adab SD IT (Foto Asli)', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Poster Resmi SPMB SDIT 2027/2028', url: '/images/sd-spmb-poster-2027.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Brosur Biaya & Syarat SPMB SDIT 2027/2028', url: '/images/sd-spmb-brosur.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Story "Telah Dibuka" SPMB SDIT 2027/2028', url: '/images/sd-spmb-story.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Praktik Sains Greenhouse SD IT', url: '/images/sd-hero-greenhouse.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Observasi Kebun Sayur SD IT', url: '/images/sd-hero-garden.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Santri Ceria & Karakter SD IT', url: '/images/sd-hero-activity.jpg', forUnits: ['sd', 'foundation'] },
-  // Foto asli TK
+  // Foto Asli TK
   { label: 'Murid TK Ceria & Bermain', url: '/images/tk-hero-kids.jpg', forUnits: ['tk', 'foundation'] },
   { label: 'Taman Tumbuh Kembang TK', url: '/images/tk-hero-garden.jpg', forUnits: ['tk', 'foundation'] },
-  // Foto asli SMP
+  // Foto Asli SMP
   { label: 'Murid SMP IT Fullday School', url: '/images/smp-hero-fullday.jpg', forUnits: ['smp', 'foundation'] },
   { label: 'Bilingual & Laboratorium SMP IT', url: '/images/smp-hero-bilingual.jpg', forUnits: ['smp', 'foundation'] },
-  // Foto asli Tahfidz & Keislaman
-  { label: 'Halaqah Tahfidz Al-Qur\'an', url: '/images/arc-tahfidz.jpg', forUnits: ['tk', 'sd', 'smp', 'foundation'] },
-  { label: 'Dewan Guru Pembina & Pengajar', url: '/images/arc-ustadz.jpg', forUnits: ['tk', 'sd', 'smp', 'foundation'] },
 ];
 
 
@@ -126,25 +123,35 @@ export default function CMSEditorClient({
   const DELETED_KEY = `cms_deleted_presets_${schoolSlug}`;
 
   const getInitialPresets = (): PresetImage[] => {
+    let deletedUrls: string[] = [];
+    if (typeof window !== 'undefined') {
+      try {
+        deletedUrls = JSON.parse(localStorage.getItem(DELETED_KEY) || '[]');
+      } catch {}
+    }
+    const deletedSet = new Set<string>(deletedUrls);
+    // Explicit blacklist of AI images so they NEVER reappear
+    deletedSet.add('/images/sd-hero-activity.jpg');
+    deletedSet.add('/images/arc-tahfidz.jpg');
+    deletedSet.add('/images/arc-ustadz.jpg');
+
     // 1. If backend database has saved preset images, use as source of truth
-    if (initialData.presetImages && Array.isArray(initialData.presetImages) && initialData.presetImages.length > 0) {
-      return initialData.presetImages;
+    if (initialData.presetImages && Array.isArray(initialData.presetImages)) {
+      const filteredDb = initialData.presetImages.filter((p) => !deletedSet.has(p.url));
+      if (filteredDb.length > 0) return filteredDb;
     }
 
     const defaults = PRESET_IMAGES_DEFAULT.filter(
-      (img) => !img.forUnits || img.forUnits.includes(schoolSlug)
+      (img) => (!img.forUnits || img.forUnits.includes(schoolSlug)) && !deletedSet.has(img.url)
     );
     if (typeof window === 'undefined') return defaults;
     try {
-      const deletedUrls: string[] = JSON.parse(localStorage.getItem(DELETED_KEY) || '[]');
-      const deletedSet = new Set(deletedUrls);
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed: PresetImage[] = JSON.parse(stored);
-        // Return stored list directly, respecting explicit user deletions
         return parsed.filter((p) => !deletedSet.has(p.url));
       }
-      return defaults.filter((d) => !deletedSet.has(d.url));
+      return defaults;
     } catch {}
     return defaults;
   };
@@ -195,22 +202,44 @@ export default function CMSEditorClient({
     setIsUploading(true);
     setUploadError(null);
     try {
+      // 1. Compress image client-side to prevent HTTP 413 "Request Entity Too Large"
+      const compressed = await compressImageClient(file, 1600, 1200, 0.82);
+
       const fd = new FormData();
-      fd.append('file', file);
+      fd.append('file', compressed.file);
       fd.append('schoolSlug', schoolSlug);
 
-      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
-      const data = await res.json();
+      let finalUrl = compressed.dataUrl; // Ultra-safe fallback: instant base64 data URL
+      let finalLabel = file.name.replace(/\.[^/.]+$/, '');
 
-      if (!res.ok) throw new Error(data.error || 'Upload gagal');
+      try {
+        const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+        const text = await res.text();
+        let data: any = {};
+        try {
+          data = JSON.parse(text);
+        } catch {
+          if (res.status === 413 || text.includes('Request Entity Too Large')) {
+            console.warn('Vercel 413 encountered, using client-compressed Data URL fallback.');
+          }
+        }
+
+        if (res.ok && data.success && data.url) {
+          finalUrl = data.url;
+          if (data.label) finalLabel = data.label;
+        }
+      } catch (uploadErr) {
+        console.warn('API upload fallback to client data URL:', uploadErr);
+        // Seamless fallback to finalUrl = compressed.dataUrl
+      }
 
       // Add uploaded image to preset list (appears first)
       const newPreset: PresetImage = {
-        label: data.label || file.name,
-        url: data.url,
+        label: finalLabel,
+        url: finalUrl,
         forUnits: [schoolSlug],
       };
-      const updated = [newPreset, ...presetImages];
+      const updated = [newPreset, ...presetImages.filter(p => p.url !== finalUrl)];
       setPresetImages(updated);
       if (typeof window !== 'undefined') {
         try {
@@ -231,9 +260,9 @@ export default function CMSEditorClient({
         });
       } catch {}
 
-      return data.url as string;
+      return finalUrl;
     } catch (err: unknown) {
-      setUploadError(err instanceof Error ? err.message : 'Upload gagal');
+      setUploadError(err instanceof Error ? err.message : 'Gagal memproses unggahan foto.');
       return null;
     } finally {
       setIsUploading(false);
@@ -475,6 +504,19 @@ export default function CMSEditorClient({
 
       const data = await res.json();
       if (res.ok && data.success) {
+        // Also persist current gallery preset images state
+        try {
+          await fetch('/api/admin/cms', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              schoolSlug,
+              sectionKey: 'preset_images',
+              contentJson: presetImages,
+            }),
+          });
+        } catch {}
+
         setSaveSuccess(true);
         setTimeout(() => setSaveSuccess(false), 3500);
       } else {
@@ -1160,6 +1202,7 @@ export default function CMSEditorClient({
                                 fill
                                 sizes="120px"
                                 className="w-full h-full object-cover"
+                                unoptimized={preset.url.startsWith('data:')}
                               />
                             </div>
                             <span className="text-[10px] font-semibold text-slate-700 line-clamp-1 block">

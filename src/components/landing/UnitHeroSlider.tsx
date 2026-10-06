@@ -395,6 +395,7 @@ export default function UnitHeroSlider({
                 priority={idx === 0}
                 className="object-cover object-center"
                 sizes="100vw"
+                unoptimized={s.image?.startsWith('data:')}
               />
             </div>
             {/* Multi-Layer Cinematic Contrast Gradient */}
