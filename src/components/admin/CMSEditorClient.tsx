@@ -68,6 +68,7 @@ export interface CMSInitialData {
     quota?: number;
     waveName?: string;
   };
+  presetImages?: PresetImage[];
 }
 
 interface CMSEditorClientProps {
@@ -120,24 +121,30 @@ export default function CMSEditorClient({
   // Only Superadmin on Foundation CMS can switch scopes; unit accounts are strictly locked to their own school
   const canSwitchUnit = isSuperAdmin && isFoundation;
 
-  // Preset images — persisted in localStorage per schoolSlug
-  // Key format: cms_preset_images_{schoolSlug}
+  // Preset images — persisted in database backend & localStorage per schoolSlug
   const STORAGE_KEY = `cms_preset_images_${schoolSlug}`;
+  const DELETED_KEY = `cms_deleted_presets_${schoolSlug}`;
 
   const getInitialPresets = (): PresetImage[] => {
+    // 1. If backend database has saved preset images, use as source of truth
+    if (initialData.presetImages && Array.isArray(initialData.presetImages) && initialData.presetImages.length > 0) {
+      return initialData.presetImages;
+    }
+
     const defaults = PRESET_IMAGES_DEFAULT.filter(
       (img) => !img.forUnits || img.forUnits.includes(schoolSlug)
     );
     if (typeof window === 'undefined') return defaults;
     try {
+      const deletedUrls: string[] = JSON.parse(localStorage.getItem(DELETED_KEY) || '[]');
+      const deletedSet = new Set(deletedUrls);
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed: PresetImage[] = JSON.parse(stored);
-        // Merge: start from stored list, then append any new defaults not already in list
-        const storedUrls = new Set(parsed.map((p) => p.url));
-        const newDefaults = defaults.filter((d) => !storedUrls.has(d.url));
-        return [...parsed, ...newDefaults];
+        // Return stored list directly, respecting explicit user deletions
+        return parsed.filter((p) => !deletedSet.has(p.url));
       }
+      return defaults.filter((d) => !deletedSet.has(d.url));
     } catch {}
     return defaults;
   };
@@ -154,8 +161,34 @@ export default function CMSEditorClient({
     } catch {}
   }, [presetImages, STORAGE_KEY]);
 
-  const handleRemovePresetImage = (urlToRemove: string) => {
-    setPresetImages((prev) => prev.filter((img) => img.url !== urlToRemove));
+  const handleRemovePresetImage = async (urlToRemove: string) => {
+    const updated = presetImages.filter((img) => img.url !== urlToRemove);
+    setPresetImages(updated);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        const deletedArr: string[] = JSON.parse(localStorage.getItem(DELETED_KEY) || '[]');
+        if (!deletedArr.includes(urlToRemove)) {
+          deletedArr.push(urlToRemove);
+          localStorage.setItem(DELETED_KEY, JSON.stringify(deletedArr));
+        }
+      } catch {}
+    }
+
+    // Persist mutation directly to database backend so re-render/fetch never resurrects it
+    try {
+      await fetch('/api/admin/cms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          schoolSlug,
+          sectionKey: 'preset_images',
+          contentJson: updated,
+        }),
+      });
+    } catch (err) {
+      console.warn('Gagal menyimpan perubahan galeri ke server:', err);
+    }
   };
 
   const handleUploadImage = useCallback(async (file: File): Promise<string | null> => {
@@ -177,7 +210,27 @@ export default function CMSEditorClient({
         url: data.url,
         forUnits: [schoolSlug],
       };
-      setPresetImages((prev) => [newPreset, ...prev]);
+      const updated = [newPreset, ...presetImages];
+      setPresetImages(updated);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        } catch {}
+      }
+
+      // Persist to database backend
+      try {
+        await fetch('/api/admin/cms', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            schoolSlug,
+            sectionKey: 'preset_images',
+            contentJson: updated,
+          }),
+        });
+      } catch {}
+
       return data.url as string;
     } catch (err: unknown) {
       setUploadError(err instanceof Error ? err.message : 'Upload gagal');
@@ -185,7 +238,7 @@ export default function CMSEditorClient({
     } finally {
       setIsUploading(false);
     }
-  }, [schoolSlug]);
+  }, [schoolSlug, presetImages, STORAGE_KEY]);
 
   const availablePresetImages = presetImages;
 
@@ -213,8 +266,70 @@ export default function CMSEditorClient({
   const [errorMessage, setErrorMessage] = useState('');
 
   // Fallback slides if empty
+  const defaultSdSlides: UnitSlideData[] = [
+    {
+      id: 1,
+      badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
+      titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+      titleHighlight: 'Tempat Bertumbuh',
+      titlePart2: '',
+      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      primaryCtaText: 'Daftar SPMB SD IT',
+      primaryCtaLink: '/ppdb/daftar?school=sd',
+      secondaryCtaText: 'WhatsApp (0813-1013-9001)',
+      secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
+      image: '/images/sd-hero-greenhouse.jpg',
+      trustItems: [
+        { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
+        { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+        { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
+        { icon: 'calendar' as const, text: 'Formulir: Rp 250.000' }
+      ]
+    },
+    {
+      id: 2,
+      badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
+      titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+      titleHighlight: 'Tempat Bertumbuh',
+      titlePart2: '',
+      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      primaryCtaText: 'Daftar SPMB SD IT',
+      primaryCtaLink: '/ppdb/daftar?school=sd',
+      secondaryCtaText: 'WhatsApp (0813-1013-9001)',
+      secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
+      image: '/images/sd-hero-garden.jpg',
+      trustItems: [
+        { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
+        { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+        { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
+        { icon: 'calendar' as const, text: 'Formulir: Rp 250.000' }
+      ]
+    },
+    {
+      id: 3,
+      badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
+      titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+      titleHighlight: 'Tempat Bertumbuh',
+      titlePart2: '',
+      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      primaryCtaText: 'Daftar SPMB SD IT',
+      primaryCtaLink: '/ppdb/daftar?school=sd',
+      secondaryCtaText: 'WhatsApp (0813-1013-9001)',
+      secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
+      image: '/images/sd-hero-activity.jpg',
+      trustItems: [
+        { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
+        { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+        { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
+        { icon: 'calendar' as const, text: 'Formulir: Rp 250.000' }
+      ]
+    }
+  ];
+
   const slides = formData.hero.slides && formData.hero.slides.length > 0
     ? formData.hero.slides
+    : schoolSlug === 'sd'
+    ? defaultSdSlides
     : [
         {
           id: 1,
@@ -241,11 +356,25 @@ export default function CMSEditorClient({
 
   // Helper to update current slide
   const updateCurrentSlide = (field: keyof UnitSlideData, value: any) => {
+    let cleanVal = value;
+    if (field === 'titlePart2' && typeof cleanVal === 'string') {
+      cleanVal = cleanVal.replace(/ananda/gi, '').trim();
+    }
     const newSlides = [...slides];
-    newSlides[selectedSlideIndex] = {
-      ...newSlides[selectedSlideIndex],
-      [field]: value
-    };
+    if (schoolSlug === 'sd' && field !== 'image' && field !== 'id') {
+      // For SD IT, headline, badge, subtitle, and CTA are universal across all carousel slides
+      newSlides.forEach((s, idx) => {
+        newSlides[idx] = {
+          ...newSlides[idx],
+          [field]: cleanVal
+        };
+      });
+    } else {
+      newSlides[selectedSlideIndex] = {
+        ...newSlides[selectedSlideIndex],
+        [field]: cleanVal
+      };
+    }
     setFormData({
       ...formData,
       hero: {
@@ -611,11 +740,29 @@ export default function CMSEditorClient({
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 text-xs font-bold uppercase tracking-wider">
                   {currentSlide.badge}
                 </div>
-                <h1 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
-                  {currentSlide.titlePart1}
-                  <span className="text-amber-400 underline decoration-amber-400/40 underline-offset-4">{currentSlide.titleHighlight}</span>
-                  {currentSlide.titlePart2}
-                </h1>
+                {schoolSlug === 'sd' ? (
+                  <div className="space-y-1">
+                    <span className="font-hero-accent italic text-xl sm:text-2xl text-neutral-200 block drop-shadow">
+                      Bukan Sekedar
+                    </span>
+                    <span className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                      Tempat Belajar,
+                    </span>
+                    <span className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                      Namun Juga
+                    </span>
+                    <span className="block text-2xl sm:text-4xl font-extrabold text-[#00A651] leading-tight drop-shadow">
+                      {currentSlide.titleHighlight || 'Tempat Bertumbuh'}
+                    </span>
+                  </div>
+                ) : (
+                  <h1 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                    {currentSlide.titlePart1}
+                    {currentSlide.titlePart1 && !currentSlide.titlePart1.endsWith(' ') ? ' ' : ''}
+                    <span className="text-amber-400 underline decoration-amber-400/40 underline-offset-4">{currentSlide.titleHighlight}</span>
+                    {currentSlide.titlePart2 ? (currentSlide.titlePart2.startsWith(' ') ? currentSlide.titlePart2 : ` ${currentSlide.titlePart2}`) : ''}
+                  </h1>
+                )}
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">{currentSlide.description}</p>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <span className="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs shadow-lg inline-flex items-center space-x-1.5">
@@ -893,6 +1040,16 @@ export default function CMSEditorClient({
                 </div>
 
                 {/* 3-Part Title Editor */}
+                {schoolSlug === 'sd' && (
+                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 flex items-start gap-2.5">
+                    <span className="text-base flex-shrink-0">💡</span>
+                    <div className="leading-relaxed">
+                      <strong className="font-bold text-emerald-900 block mb-0.5">Konsep Carousel Hero SD IT:</strong>
+                      Teks headline, subjudul, badge, dan tombol bersifat <strong>universal</strong> untuk seluruh carousel. Mengubah teks di sini akan diterapkan seragam ke seluruh slide, dan carousel di halaman publik hanya akan memutar 3 foto latar belakang (Slide 1, Slide 2, Slide 3) secara halus.
+                    </div>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
@@ -902,21 +1059,27 @@ export default function CMSEditorClient({
                       type="text"
                       value={currentSlide.titlePart1}
                       onChange={(e) => updateCurrentSlide('titlePart1', e.target.value)}
-                      placeholder="Mencetak Pemimpin "
+                      placeholder={schoolSlug === 'sd' ? 'Bukan Sekedar Tempat Belajar, Namun Juga ' : 'Mencetak Pemimpin '}
                       className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                     />
+                    <span className="text-[10px] text-slate-400 mt-1 block">
+                      {schoolSlug === 'sd' ? 'Contoh: Bukan Sekedar Tempat Belajar, Namun Juga ' : 'Beri spasi di akhir agar tidak dempet dengan teks highlight.'}
+                    </span>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-amber-800 uppercase tracking-wide mb-1.5">
-                      Teks Highlight (Warna Kuning)
+                      Teks Highlight (Warna Kuning/Aksen)
                     </label>
                     <input
                       type="text"
                       value={currentSlide.titleHighlight}
                       onChange={(e) => updateCurrentSlide('titleHighlight', e.target.value)}
-                      placeholder="Qur’ani Berakhlak"
+                      placeholder={schoolSlug === 'sd' ? 'Tempat Bertumbuh' : 'Qur’ani Berakhlak'}
                       className="w-full text-xs font-bold text-amber-900 border-2 border-amber-400 rounded-xl p-3 bg-amber-50/50 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
                     />
+                    <span className="text-[10px] text-amber-700/80 mt-1 block">
+                      Kata kunci utama yang ingin ditonjolkan.
+                    </span>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
@@ -926,9 +1089,12 @@ export default function CMSEditorClient({
                       type="text"
                       value={currentSlide.titlePart2}
                       onChange={(e) => updateCurrentSlide('titlePart2', e.target.value)}
-                      placeholder=" & Berwawasan Global"
+                      placeholder={schoolSlug === 'sd' ? '(Kosongkan untuk SD IT)' : ' & Berwawasan Global'}
                       className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                     />
+                    <span className="text-[10px] text-slate-400 mt-1 block">
+                      {schoolSlug === 'sd' ? 'Untuk SD IT dikosongkan (tanpa kata Ananda).' : 'Teks penutup setelah highlight (opsional).'}
+                    </span>
                   </div>
                 </div>
 

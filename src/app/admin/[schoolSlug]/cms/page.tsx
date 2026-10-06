@@ -88,9 +88,9 @@ export default async function SchoolCMSEditorPage({
         {
           id: 1,
           badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-          titlePart1: 'Bukan Sekedar\nTempat Belajar,\nNamun Juga ',
-          titleHighlight: 'Tempat\nBertumbuh',
-          titlePart2: ' Ananda',
+          titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+          titleHighlight: 'Tempat Bertumbuh',
+          titlePart2: '',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
           primaryCtaText: 'Daftar SPMB SD IT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
@@ -106,40 +106,40 @@ export default async function SchoolCMSEditorPage({
         },
         {
           id: 2,
-          badge: 'OUTDOOR LEARNING & GREENHOUSE RAMAH ANAK',
-          titlePart1: 'Edukasi Nyata di ',
-          titleHighlight: 'Alam Terbuka',
-          titlePart2: ' & Kebun Sekolah',
-          description: 'Lingkungan yang nyaman, asri, dan membahagiakan anak. Murid belajar langsung dari alam, agro-literasi, sains nabawi, dan budidaya tanaman pangan di greenhouse bambu sekolah.',
-          primaryCtaText: 'Lihat 8 Program Unggulan',
-          primaryCtaLink: '/sd#programs',
-          secondaryCtaText: 'Konsultasi Guru via WA',
+          badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
+          titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+          titleHighlight: 'Tempat Bertumbuh',
+          titlePart2: '',
+          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+          primaryCtaText: 'Daftar SPMB SD IT',
+          primaryCtaLink: '/ppdb/daftar?school=sd',
+          secondaryCtaText: 'WhatsApp (0813-1013-9001)',
           secondaryCtaLink: `https://wa.me/${school.waCenterPhone}`,
           image: '/images/sd-hero-garden.jpg',
           trustItems: [
-            { icon: 'grad' as const, text: 'Greenhouse & Kebun Edukasi' },
-            { icon: 'check' as const, text: 'Mendidik dengan Sunnah' },
-            { icon: 'award' as const, text: 'Basic Literasi & Numerasi' },
-            { icon: 'calendar' as const, text: 'Kuota Hanya 2 Rombel' }
+            { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
+            { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+            { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
+            { icon: 'calendar' as const, text: `Formulir: Rp ${school.registrationFee.toLocaleString('id-ID')}` }
           ]
         },
         {
           id: 3,
-          badge: 'PELATIHAN AQIL-BALIGH & PEMETAAN BAKAT',
-          titlePart1: 'Membentuk Pribadi ',
-          titleHighlight: 'Mandiri & Beradab',
-          titlePart2: ' Sejak Dini',
-          description: 'Pelatihan aqil-baligh terarah, pemetaan potensi bakat, skill, kemandirian anak, kepemimpinan pramuka SIT, serta bimbingan tahfidz Al-Qur\'an mutqin.',
-          primaryCtaText: 'Daftar Calon Murid SD',
+          badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
+          titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+          titleHighlight: 'Tempat Bertumbuh',
+          titlePart2: '',
+          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+          primaryCtaText: 'Daftar SPMB SD IT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
-          secondaryCtaText: 'Unduh Brosur Resmi SPMB',
-          secondaryCtaLink: '/images/sd-spmb-poster-2027.jpg',
+          secondaryCtaText: 'WhatsApp (0813-1013-9001)',
+          secondaryCtaLink: `https://wa.me/${school.waCenterPhone}`,
           image: '/images/sd-hero-activity.jpg',
           trustItems: [
-            { icon: 'users' as const, text: 'Pelatihan Aqil-Baligh' },
-            { icon: 'award' as const, text: 'Pemetaan Potensi Bakat & Skill' },
-            { icon: 'shield' as const, text: 'Tahfidz Al-Qur’an Mutqin' },
-            { icon: 'calendar' as const, text: 'T.A. 2027/2028' }
+            { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
+            { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+            { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
+            { icon: 'calendar' as const, text: `Formulir: Rp ${school.registrationFee.toLocaleString('id-ID')}` }
           ]
         }
       ]
@@ -395,13 +395,36 @@ export default async function SchoolCMSEditorPage({
     waveName: school.waveName || 'Gelombang 1 (2027/2028)'
   };
 
+  // Ensure SD IT slides adhere strictly to the universal headline (no 'Ananda' and identical text across slides)
+  let initialSlides = heroPayload.slides || defaultSlides;
+  if (schoolSlug === 'sd' && Array.isArray(initialSlides)) {
+    const first = initialSlides[0] || defaultSlides[0];
+    const baseHeadline1 = 'Bukan Sekedar Tempat Belajar, Namun Juga ';
+    const baseHighlight = 'Tempat Bertumbuh';
+    initialSlides = initialSlides.slice(0, 3).map((s: any, idx: number) => ({
+      ...s,
+      id: s.id ?? idx + 1,
+      badge: first.badge || 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
+      titlePart1: baseHeadline1,
+      titleHighlight: baseHighlight,
+      titlePart2: '',
+      description: first.description || 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      primaryCtaText: first.primaryCtaText || 'Daftar SPMB SD IT',
+      primaryCtaLink: first.primaryCtaLink || '/ppdb/daftar?school=sd',
+      secondaryCtaText: first.secondaryCtaText || 'WhatsApp (0813-1013-9001)',
+      secondaryCtaLink: first.secondaryCtaLink || `https://wa.me/${school.waCenterPhone}`,
+      trustItems: first.trustItems || defaultSlides[0].trustItems,
+      image: s.image || defaultSlides[idx]?.image || '/images/sd-hero-greenhouse.jpg'
+    }));
+  }
+
   const initialData: CMSInitialData = {
     hero: {
       headline: heroPayload.headline || `Penerimaan Peserta Didik Baru (PPDB) ${school.name}`,
       subheadline: heroPayload.subheadline || school.tagline,
       academicYear: heroPayload.academicYear || '2027/2028',
       quotaRemaining: heroPayload.quotaRemaining || school.quota || 25,
-      slides: heroPayload.slides || defaultSlides
+      slides: initialSlides
     },
     identity: {
       name: identityPayload.name || school.name,
@@ -419,7 +442,8 @@ export default async function SchoolCMSEditorPage({
     programs: programsPayload,
     facilities: facilitiesPayload,
     testimonials: testimonialsPayload,
-    tuition: tuitionPayload
+    tuition: tuitionPayload,
+    presetImages: (sectionsMap.preset_images as any) || undefined
   };
 
   const session = await getSession();

@@ -26,6 +26,7 @@ export async function generateMetadata({
     icons: {
       icon: [
         { url: '/images/sd-logo.png', type: 'image/png' },
+        { url: '/favicon.ico', sizes: 'any' },
       ],
       shortcut: '/images/sd-logo.png',
       apple: '/images/sd-logo.png',

@@ -40,6 +40,7 @@ import { getStoredReferralCode } from '@/lib/referral';
 import UnitHeroSlider, { UnitSlideData } from './UnitHeroSlider';
 import InteractiveBubbleCard from './InteractiveBubbleCard';
 import CampusLocationMapSection from './CampusLocationMapSection';
+import ScrollReveal from './ScrollReveal';
 
 export interface TeacherData {
   id: string;
@@ -484,10 +485,17 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       <section className="relative z-10 bg-neutral-50 border-b border-neutral-200/70 py-4 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* No-op touchstart (delegated to all cards) makes iOS Safari apply :active immediately on tap */}
-          <ul className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" onTouchStart={() => {}}>
-            {defaultStats.map((stat) => (
-              <li
+          <ul
+            className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+            onTouchStart={() => {}}
+          >
+            {defaultStats.map((stat, idx) => (
+              <ScrollReveal
                 key={stat.label}
+                as="li"
+                delay={idx * 0.1}
+                yOffset={20}
+                duration={500}
                 className="bg-white rounded-2xl border border-neutral-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-3.5 sm:p-5 cursor-pointer select-none [-webkit-tap-highlight-color:transparent] transition-all duration-200 ease-out hover:border-neutral-300 active:scale-[0.97] active:bg-neutral-50 active:border-emerald-500/40 active:shadow-sm motion-reduce:transition-none motion-reduce:active:scale-100"
               >
                 <p className="flex items-start gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-neutral-500 leading-tight">
@@ -500,7 +508,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 <p className="mt-1 text-[11px] text-neutral-400 line-clamp-1">
                   {stat.subtext}
                 </p>
-              </li>
+              </ScrollReveal>
             ))}
           </ul>
         </div>
@@ -509,7 +517,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {/* Pengumuman & Brosur Resmi SPMB (Khusus & Dapat Diunduh) */}
       <section id="pengumuman" className="py-16 sm:py-20 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
               <Download className="w-3.5 h-3.5 text-emerald-600" />
               <span>Pengumuman &amp; Unduh Dokumen Resmi</span>
@@ -520,8 +528,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             <p className="text-xs sm:text-sm text-slate-500 mt-2">
               Informasi resmi Sistem Penerimaan Murid Baru Tahun Ajaran 2027/2028. Tersedia dalam resolusi tinggi yang dapat Anda unduh atau simpan langsung.
             </p>
-          </div>
+          </ScrollReveal>
 
+          <ScrollReveal delay={0.15} yOffset={24} duration={500}>
           {school.slug === 'smp' ? (
             <div className="bg-slate-50/90 rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:border-slate-300 transition-all p-6 sm:p-8 lg:p-10">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -890,13 +899,14 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               </div>
             </div>
           )}
+          </ScrollReveal>
         </div>
       </section>
 
       {/* 3 Core Values (Pilar Karakter Islami SD IT Al-Afiyah): Modern Minimalist */}
       <section id="values" className="relative py-20 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs mb-3">
               Nilai Utama &amp; Character Building
             </span>
@@ -908,58 +918,65 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 ? 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.'
                 : 'Mendidik anak tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah.'}
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {defaultValues.map((val, idx) => (
-              <InteractiveBubbleCard
+              <ScrollReveal
                 key={idx}
-                variant={idx === 0 ? 'emerald' : idx === 1 ? 'amber' : 'teal'}
-                className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between h-full"
+                delay={idx * 0.18}
+                yOffset={20}
+                duration={500}
+                className="h-full flex flex-col"
               >
-                <div className="flex-1 pb-6">
-                  {/* Modern Minimalist Icon Badge with Spring Tilt on Hover/Click */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div className={`transition-transform duration-300 group-hover:scale-110 ${
-                      idx === 0 
-                        ? 'text-emerald-700' 
-                        : idx === 1 
-                        ? 'text-amber-700' 
-                        : 'text-teal-700'
-                    }`}>
-                      {idx === 0 ? <HeartHandshake className="w-8 h-8" /> : idx === 1 ? <BookOpen className="w-8 h-8" /> : <GraduationCap className="w-8 h-8" />}
+                <InteractiveBubbleCard
+                  variant={idx === 0 ? 'emerald' : idx === 1 ? 'amber' : 'teal'}
+                  className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between h-full"
+                >
+                  <div className="flex-1 pb-6">
+                    {/* Modern Minimalist Icon Badge with Spring Tilt on Hover/Click */}
+                    <div className="flex items-center justify-between mb-5">
+                      <div className={`transition-transform duration-300 group-hover:scale-110 ${
+                        idx === 0 
+                          ? 'text-emerald-700' 
+                          : idx === 1 
+                          ? 'text-amber-700' 
+                          : 'text-teal-700'
+                      }`}>
+                        {idx === 0 ? <HeartHandshake className="w-8 h-8" /> : idx === 1 ? <BookOpen className="w-8 h-8" /> : <GraduationCap className="w-8 h-8" />}
+                      </div>
+
+                      <span className={`text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs ${
+                        idx === 0 
+                          ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                          : idx === 1 
+                          ? 'bg-amber-50 text-amber-800 border-amber-200' 
+                          : 'bg-teal-50 text-teal-800 border-teal-200'
+                      }`}>
+                        Pilar 0{idx + 1}
+                      </span>
                     </div>
 
-                    <span className={`text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs ${
-                      idx === 0 
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
-                        : idx === 1 
-                        ? 'bg-amber-50 text-amber-800 border-amber-200' 
-                        : 'bg-teal-50 text-teal-800 border-teal-200'
-                    }`}>
-                      Pilar 0{idx + 1}
-                    </span>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-emerald-800 transition-colors">
+                      {sanitizeAdabText(val.title)}
+                    </h3>
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                      {sanitizeAdabText(val.description)}
+                    </p>
                   </div>
 
-                  <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-emerald-800 transition-colors">
-                    {sanitizeAdabText(val.title)}
-                  </h3>
-                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
-                    {sanitizeAdabText(val.description)}
-                  </p>
-                </div>
-
-                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span>Prinsip Smart Akhlaq Fitrah</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-emerald-700 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex items-center gap-1">
-                    <span>Selengkapnya</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </InteractiveBubbleCard>
+                  <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      <span>Prinsip Smart Akhlaq Fitrah</span>
+                    </span>
+                    <span className="text-[11px] font-bold text-emerald-700 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex items-center gap-1">
+                      <span>Selengkapnya</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </InteractiveBubbleCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -968,11 +985,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {/* Program Unggulan */}
       <section 
         id="programs" 
-        className="py-16 sm:py-20 bg-emerald-900 scroll-mt-16 sm:scroll-mt-20 w-full text-white"
+        className="py-16 sm:py-20 bg-emerald-950 scroll-mt-16 sm:scroll-mt-20 w-full text-white relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 max-w-3xl">
-            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
+            <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
               Kurikulum Terintegrasi
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
@@ -981,34 +998,41 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
               Pilar keunggulan kurikulum berakar pada nilai karakter nabawiyah, adab islami, serta penguatan literasi dan agro-sains.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {defaultPrograms.map((prog, idx) => (
-              <InteractiveBubbleCard
+              <ScrollReveal
                 key={idx}
-                variant={idx % 2 === 0 ? 'emerald' : 'teal'}
-                className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
+                delay={(idx % 4) * 0.12}
+                yOffset={24}
+                duration={500}
+                className="h-full flex flex-col"
               >
-                <div className="flex-1 pb-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/60">
-                      {prog.badge}
-                    </span>
-                    <span className="text-xs font-black text-emerald-600 font-mono">0{idx + 1}</span>
+                <InteractiveBubbleCard
+                  variant={idx % 2 === 0 ? 'emerald' : 'teal'}
+                  className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
+                >
+                  <div className="flex-1 pb-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
+                        {prog.badge}
+                      </span>
+                      <span className="text-xs font-black text-[#00A651] font-mono">0{idx + 1}</span>
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-[#00A651] transition-colors leading-snug">
+                      {sanitizeAdabText(prog.title)}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {sanitizeAdabText(prog.desc)}
+                    </p>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors leading-snug">
-                    {sanitizeAdabText(prog.title)}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                    {sanitizeAdabText(prog.desc)}
-                  </p>
-                </div>
-                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-medium text-emerald-600">
-                  <span>Terintegrasi Kurikulum</span>
-                  <span className="text-[10px] text-emerald-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all">✦</span>
-                </div>
-              </InteractiveBubbleCard>
+                  <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#00A651]">
+                    <span>Terintegrasi Kurikulum</span>
+                    <span className="text-[11px] text-[#00A651] group-hover:translate-x-0.5 transition-all">✦</span>
+                  </div>
+                </InteractiveBubbleCard>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -1018,7 +1042,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {school.teachers && school.teachers.length > 0 && (
         <section id="teachers" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
                 <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
                   <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
@@ -1037,54 +1061,61 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   {school.teachers.length} Tenaga Pendidik Aktif
                 </span>
               </div>
-            </div>
+            </ScrollReveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {school.teachers.map((teacher) => (
-                <div
+              {school.teachers.map((teacher, idx) => (
+                <ScrollReveal
                   key={teacher.id}
-                  className="bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-emerald-500/50 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between group"
+                  delay={(idx % 4) * 0.1}
+                  yOffset={24}
+                  duration={500}
+                  className="h-full flex flex-col"
                 >
-                  <div className="space-y-4">
-                    {/* Teacher Avatar */}
-                    <div className="relative w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-emerald-600/30 p-0.5 shadow-sm group-hover:scale-105 transition-transform duration-300">
-                      <img
-                        src={
-                          teacher.photoUrl ||
-                          '/images/arc-ustadz.jpg'
-                        }
-                        alt={teacher.name}
-                        className="w-full h-full object-cover rounded-full"
-                      />
+                  <div
+                    className="bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-emerald-500/50 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between group h-full"
+                  >
+                    <div className="space-y-4">
+                      {/* Teacher Avatar */}
+                      <div className="relative w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-emerald-600/30 p-0.5 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                        <img
+                          src={
+                            teacher.photoUrl ||
+                            '/images/arc-ustadz.jpg'
+                          }
+                          alt={teacher.name}
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      </div>
+
+                      {/* Teacher Bio Info */}
+                      <div className="text-center space-y-1.5">
+                        <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
+                          {teacher.name}
+                        </h3>
+                        <span className="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100/70 text-emerald-800 text-[11px] font-semibold border border-emerald-200/60">
+                          {teacher.role}
+                        </span>
+                        {teacher.specialization && (
+                          <p className="text-[11px] text-slate-600 font-medium leading-relaxed pt-1">
+                            {teacher.specialization}
+                          </p>
+                        )}
+                        {teacher.bio && (
+                          <p className="text-[10px] text-slate-400 italic leading-relaxed pt-1 line-clamp-2">
+                            &ldquo;{teacher.bio}&rdquo;
+                          </p>
+                        )}
+                      </div>
                     </div>
 
-                    {/* Teacher Bio Info */}
-                    <div className="text-center space-y-1.5">
-                      <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
-                        {teacher.name}
-                      </h3>
-                      <span className="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100/70 text-emerald-800 text-[11px] font-semibold border border-emerald-200/60">
-                        {teacher.role}
+                    <div className="mt-4 pt-3 border-t border-slate-200/60 text-center">
+                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
+                        Tenaga Pendidik {school.name}
                       </span>
-                      {teacher.specialization && (
-                        <p className="text-[11px] text-slate-600 font-medium leading-relaxed pt-1">
-                          {teacher.specialization}
-                        </p>
-                      )}
-                      {teacher.bio && (
-                        <p className="text-[10px] text-slate-400 italic leading-relaxed pt-1 line-clamp-2">
-                          &ldquo;{teacher.bio}&rdquo;
-                        </p>
-                      )}
                     </div>
                   </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-200/60 text-center">
-                    <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
-                      Tenaga Pendidik {school.name}
-                    </span>
-                  </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -1094,7 +1125,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {/* Galeri Fasilitas & Dokumentasi Kegiatan */}
       <section id="facilities" className="py-16 sm:py-20 bg-slate-50/50 border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
             <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-2xs">
               <Camera className="w-3.5 h-3.5 text-emerald-600" />
               <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Dokumentasi SD IT' : 'Sarana Prasarana'}</span>
@@ -1130,52 +1161,59 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 })}
               </div>
             )}
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredFacilities.map((fac, idx) => (
-              <div
+              <ScrollReveal
                 key={idx}
-                onClick={() => setSelectedGalleryItem(fac)}
-                className="group rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-emerald-400/50 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                delay={(idx % 3) * 0.12}
+                yOffset={24}
+                duration={500}
+                className="h-full flex flex-col"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={fac.image}
-                    alt={fac.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  {fac.category && (
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
-                        {fac.category}
+                <div
+                  onClick={() => setSelectedGalleryItem(fac)}
+                  className="group rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-emerald-400/50 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full"
+                >
+                  <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={fac.image}
+                      alt={fac.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    {fac.category && (
+                      <div className="absolute top-3 left-3">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
+                          {fac.category}
+                        </span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
+                      <span className="px-3.5 py-1.5 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
+                        <ZoomIn className="w-3.5 h-3.5 text-emerald-700" />
+                        <span>Perbesar Foto</span>
                       </span>
                     </div>
-                  )}
-                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
-                    <span className="px-3.5 py-1.5 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
-                      <ZoomIn className="w-3.5 h-3.5 text-emerald-700" />
-                      <span>Perbesar Foto</span>
-                    </span>
+                  </div>
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-slate-900 mb-1.5 group-hover:text-emerald-800 transition-colors leading-snug">
+                        {sanitizeAdabText(fac.name)}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
+                        {sanitizeAdabText(fac.desc)}
+                      </p>
+                    </div>
+                    <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
+                      <span>Lihat Dokumentasi</span>
+                      <span className="text-xs group-hover:translate-x-1 transition-transform">➔</span>
+                    </div>
                   </div>
                 </div>
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 mb-1.5 group-hover:text-emerald-800 transition-colors leading-snug">
-                      {sanitizeAdabText(fac.name)}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
-                      {sanitizeAdabText(fac.desc)}
-                    </p>
-                  </div>
-                  <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
-                    <span>Lihat Dokumentasi</span>
-                    <span className="text-xs group-hover:translate-x-1 transition-transform">➔</span>
-                  </div>
-                </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -1185,7 +1223,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {school.newsPosts && school.newsPosts.length > 0 && (
         <section id="news" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
                 <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
                   <Newspaper className="w-3.5 h-3.5 text-emerald-600" />
@@ -1235,7 +1273,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   Kegiatan &amp; Prestasi
                 </button>
               </div>
-            </div>
+            </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {school.newsPosts
@@ -1244,71 +1282,78 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   if (newsFilter === 'Pengumuman') return post.category.toLowerCase().includes('pengumuman');
                   return !post.category.toLowerCase().includes('pengumuman');
                 })
-                .map((post) => (
-                <div
+                .map((post, idx) => (
+                <ScrollReveal
                   key={post.id}
-                  className="bg-slate-50/70 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-500/50 transition-all flex flex-col overflow-hidden group"
+                  delay={(idx % 3) * 0.15}
+                  yOffset={24}
+                  duration={500}
+                  className="h-full flex flex-col"
                 >
-                  <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
-                    <img
-                      src={
-                        post.coverImage ||
-                        '/images/sd-activity-classroom-6b.jpg'
-                      }
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/90 text-slate-800 shadow-xs backdrop-blur-xs">
-                        {post.category}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>
-                          {new Date(post.publishedAt).toLocaleDateString('id-ID', {
-                            dateStyle: 'medium',
-                          })}
+                  <div
+                    className="bg-slate-50/70 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-500/50 transition-all flex flex-col overflow-hidden group h-full"
+                  >
+                    <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
+                      <img
+                        src={
+                          post.coverImage ||
+                          '/images/sd-activity-classroom-6b.jpg'
+                        }
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-3 left-3">
+                        <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/90 text-slate-800 shadow-xs backdrop-blur-xs">
+                          {post.category}
                         </span>
-                        <span>•</span>
-                        <span>{post.author}</span>
+                      </div>
+                    </div>
+
+                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
+                          <Calendar className="w-3.5 h-3.5" />
+                          <span>
+                            {new Date(post.publishedAt).toLocaleDateString('id-ID', {
+                              dateStyle: 'medium',
+                            })}
+                          </span>
+                          <span>•</span>
+                          <span>{post.author}</span>
+                        </div>
+
+                        <h3 className="font-bold text-slate-900 line-clamp-2 text-base leading-snug group-hover:text-emerald-700 transition-colors">
+                          {sanitizeAdabText(post.title)}
+                        </h3>
+
+                        <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                          {sanitizeAdabText(post.excerpt)}
+                        </p>
                       </div>
 
-                      <h3 className="font-bold text-slate-900 line-clamp-2 text-base leading-snug group-hover:text-emerald-700 transition-colors">
-                        {sanitizeAdabText(post.title)}
-                      </h3>
-
-                      <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
-                        {sanitizeAdabText(post.excerpt)}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-200/70 flex items-center justify-between">
-                      <button
-                        onClick={() => setSelectedNews(post)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
-                      >
-                        <span>Baca Selengkapnya</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                      {post.coverImage && (post.coverImage.includes('spmb') || post.coverImage.includes('poster')) && (
-                        <a
-                          href={post.coverImage}
-                          download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2027-2028.jpg`}
-                          className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors"
-                          title="Unduh Poster"
+                      <div className="pt-4 border-t border-slate-200/70 flex items-center justify-between">
+                        <button
+                          onClick={() => setSelectedNews(post)}
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
                         >
-                          <Download className="w-3 h-3 text-emerald-600" />
-                          <span>Unduh</span>
-                        </a>
-                      )}
+                          <span>Baca Selengkapnya</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                        {post.coverImage && (post.coverImage.includes('spmb') || post.coverImage.includes('poster')) && (
+                          <a
+                            href={post.coverImage}
+                            download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2027-2028.jpg`}
+                            className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors"
+                            title="Unduh Poster"
+                          >
+                            <Download className="w-3 h-3 text-emerald-600" />
+                            <span>Unduh</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -1318,48 +1363,52 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {/* Testimoni Orang Tua */}
       <section
         id="testimonials"
-        className={`py-16 sm:py-20 text-white w-full transition-colors ${
-          school.slug === 'sd' ? 'bg-[#00A651]' : 'bg-emerald-900'
-        }`}
+        className="py-16 sm:py-20 bg-emerald-950 text-white w-full scroll-mt-16 sm:scroll-mt-20 relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold text-white uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/20 inline-block shadow-2xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
               Kata Mereka
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
               Testimoni <span className="text-amber-300">Orang Tua Murid</span>
             </h2>
-            <p className="text-xs sm:text-sm text-emerald-50 mt-2 max-w-xl mx-auto leading-relaxed font-medium">
-              Kepercayaan tulus Ayah dan Bunda mendampingi proses tumbuh kembang ananda di {school.name}.
+            <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-xl mx-auto leading-relaxed font-normal">
+              Kepercayaan tulus Ayah dan Bunda mendampingi proses tumbuh kembang santri di {school.name}.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {defaultTestimonials.map((testi, idx) => (
-              <div
+              <ScrollReveal
                 key={idx}
-                className="bg-white rounded-2xl p-6 sm:p-7 border border-white/90 shadow-xl relative flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
+                delay={idx * 0.18}
+                yOffset={24}
+                duration={500}
+                className="h-full flex flex-col"
               >
-                <div className="relative">
-                  <span className="text-3xl text-[#00A651] font-serif leading-none block mb-1 select-none">“</span>
-                  <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-6 font-normal">
-                    &ldquo;{testi.quote}&rdquo;
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-slate-100 flex items-center space-x-3">
-                  <div
-                    className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shadow-xs shrink-0"
-                    style={{ backgroundColor: school.slug === 'sd' ? '#00A651' : '#064E3B' }}
-                  >
-                    {testi.name[0]}
+                <div
+                  className="bg-white rounded-2xl p-6 sm:p-7 border border-white/90 shadow-xl relative flex flex-col justify-between hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group h-full"
+                >
+                  <div className="relative">
+                    <span className="text-3xl text-[#00A651] font-serif leading-none block mb-1 select-none">“</span>
+                    <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-6 font-normal">
+                      &ldquo;{testi.quote}&rdquo;
+                    </p>
                   </div>
-                  <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">{testi.name}</h4>
-                    <p className="text-[11px] text-slate-400 font-medium">{testi.role}</p>
+                  <div className="pt-4 border-t border-slate-100 flex items-center space-x-3">
+                    <div
+                      className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shadow-xs shrink-0 bg-[#00A651]"
+                    >
+                      {testi.name[0]}
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">{testi.name}</h4>
+                      <p className="text-[11px] text-slate-400 font-medium">{testi.role}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -1614,29 +1663,33 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       <CampusLocationMapSection unitSlug={school.slug} />
 
       {/* High-Converting Bottom CTA Banner: Full-width Solid Green Above Footer */}
-      <section id="contact" className="py-16 sm:py-20 bg-emerald-900 text-white w-full scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section id="contact" className="py-16 sm:py-20 bg-emerald-950 text-white w-full scroll-mt-16 relative overflow-hidden">
+        <ScrollReveal
+          yOffset={24}
+          duration={500}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+        >
           <div className="inline-flex items-center justify-center mb-3">
-            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-black/20 px-3.5 py-1.5 rounded-full border border-white/15 inline-block shadow-2xs">
+            <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
               Penerimaan Murid Baru (SPMB) 2027/2028
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight max-w-3xl mx-auto">
-            Kuota Terbatas! Amankan Kursi Belajar <span className="text-amber-400">Ananda Sekarang</span>
+            Kuota Terbatas! Amankan Kursi Belajar <span className="text-amber-400">Sekarang</span>
           </h2>
-          <p className="text-xs sm:text-sm text-emerald-100/90 mt-3 max-w-xl mx-auto leading-relaxed font-normal">
-            Daftarkan ananda sekarang sebelum kuota 2 rombel terpenuhi. Bergabunglah bersama keluarga besar {school.name} untuk bimbingan karakter nabawiyah dan tahfidz mutqin.
+          <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-xl mx-auto leading-relaxed font-normal">
+            Daftarkan putra-putri sekarang sebelum kuota 2 rombel terpenuhi. Bergabunglah bersama keluarga besar {school.name} untuk bimbingan karakter nabawiyah dan tahfidz mutqin.
           </p>
 
           <div className="pt-6 flex justify-center">
             <Link
               href={ppdbUrl}
-              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer"
+              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl bg-[#00A651] hover:bg-[#008f45] text-white font-black text-sm sm:text-base shadow-xl hover:shadow-2xl hover:shadow-[#00A651]/40 border border-emerald-400/30 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer"
             >
               <span>Daftar Sekarang</span>
             </Link>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Unified Footer */}

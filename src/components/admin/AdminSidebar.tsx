@@ -97,14 +97,19 @@ export default function AdminSidebar({
 
       document.title = pageContext ? `${pageContext} | ${unitTitle}` : `${unitTitle} Majalengka`;
 
-      let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon';
-        document.getElementsByTagName('head')[0].appendChild(link);
+      const iconLinks = document.querySelectorAll<HTMLLinkElement>("link[rel*='icon']");
+      if (iconLinks.length === 0) {
+        const newLink = document.createElement('link');
+        newLink.rel = 'icon';
+        newLink.type = 'image/png';
+        newLink.href = '/images/sd-logo.png?v=2';
+        document.getElementsByTagName('head')[0].appendChild(newLink);
+      } else {
+        iconLinks.forEach((l) => {
+          l.type = 'image/png';
+          l.href = '/images/sd-logo.png?v=2';
+        });
       }
-      link.type = 'image/png';
-      link.href = '/images/sd-logo.png';
     }
   }, [schoolSlug, pathname]);
 

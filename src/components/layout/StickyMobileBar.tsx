@@ -72,7 +72,11 @@ export default function StickyMobileBar({
           setIsOpening(true);
           setTimeout(() => setIsOpening(false), 2000);
         }}
-        className={`min-w-0 flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-softwater-dark to-softwater text-white text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5 transition-all active:scale-95 ${
+        className={`min-w-0 flex-1 py-2.5 px-3 rounded-full ${
+          schoolSlug === 'sd'
+            ? 'bg-[#00A651] hover:bg-[#008f45] shadow-[#00A651]/30'
+            : 'bg-gradient-to-r from-softwater-dark to-softwater'
+        } text-white text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5 transition-all active:scale-95 ${
           isOpening ? 'opacity-85 cursor-wait' : 'hover:opacity-95'
         }`}
       >

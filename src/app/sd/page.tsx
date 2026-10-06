@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
     shortcut: '/images/sd-logo.png',
     apple: '/images/sd-logo.png',
@@ -19,21 +20,26 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function SdLandingPage() {
-  const dbSchool = await prisma.school.findUnique({
-    where: { slug: 'sd' },
-    include: {
-      cmsSections: true,
-      teachers: {
-        where: { isActive: true },
-        orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+  let dbSchool = null;
+  try {
+    dbSchool = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      include: {
+        cmsSections: true,
+        teachers: {
+          where: { isActive: true },
+          orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+        },
+        newsPosts: {
+          where: { isPublished: true },
+          orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+          take: 6,
+        },
       },
-      newsPosts: {
-        where: { isPublished: true },
-        orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-        take: 6,
-      },
-    },
-  });
+    });
+  } catch (err) {
+    console.error('Error fetching SD school data, falling back to static content:', err);
+  }
 
   const sectionsMap: Record<string, any> = {};
   for (const sec of dbSchool?.cmsSections || []) {

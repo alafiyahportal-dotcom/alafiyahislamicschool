@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Portal Penerimaan Murid Baru (PPDB 2027/2028) | Sekolah IT Al-Afiyah Majalengka',
-  description:
-    'Informasi Jalur Masuk, Syarat Pendaftaran, Biaya Pendidikan & Formulir Online PPDB TK IT, SD IT, dan SMP IT Al-Afiyah Majalengka.',
+  title: {
+    template: '%s | SD IT Al-Afiyah Majalengka',
+    default: 'SD IT Al-Afiyah Majalengka | Sekolah Dasar Islam Terpadu Unggulan',
+  },
+  description: 'PPDB SD IT Al-Afiyah Majalengka. Kurikulum terpadu nasional, hafalan tahfidz juz 30 mutqin, pembentukan karakter islami, dan sains modern.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PPDBLayout({
+export default function SdLayout({
   children,
 }: {
   children: React.ReactNode;

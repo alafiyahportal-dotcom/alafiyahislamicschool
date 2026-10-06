@@ -12,21 +12,26 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function SmpLandingPage() {
-  const dbSchool = await prisma.school.findUnique({
-    where: { slug: 'smp' },
-    include: {
-      cmsSections: true,
-      teachers: {
-        where: { isActive: true },
-        orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+  let dbSchool = null;
+  try {
+    dbSchool = await prisma.school.findUnique({
+      where: { slug: 'smp' },
+      include: {
+        cmsSections: true,
+        teachers: {
+          where: { isActive: true },
+          orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+        },
+        newsPosts: {
+          where: { isPublished: true },
+          orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+          take: 3,
+        },
       },
-      newsPosts: {
-        where: { isPublished: true },
-        orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-        take: 3,
-      },
-    },
-  });
+    });
+  } catch (err) {
+    console.error('Error fetching SMP school data, falling back to static content:', err);
+  }
 
   const sectionsMap: Record<string, any> = {};
   for (const sec of dbSchool?.cmsSections || []) {

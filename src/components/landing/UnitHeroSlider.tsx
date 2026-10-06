@@ -227,7 +227,7 @@ export default function UnitHeroSlider({
         badge: first.badge,
         titlePart1: first.titlePart1,
         titleHighlight: first.titleHighlight,
-        titlePart2: first.titlePart2,
+        titlePart2: (first.titlePart2 || '').replace(/ananda/gi, '').trim(),
         description: first.description,
         primaryCtaText: first.primaryCtaText,
         primaryCtaLink: first.primaryCtaLink,
@@ -268,15 +268,15 @@ export default function UnitHeroSlider({
     if (slug === 'sd') {
       const baseSdSlide = {
         badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-        titlePart1: 'Bukan Sekedar\nTempat Belajar,\nNamun Juga ',
-        titleHighlight: 'Tempat\nBertumbuh',
-        titlePart2: ' Ananda',
+        titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+        titleHighlight: 'Tempat Bertumbuh',
+        titlePart2: '',
         description:
           'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
         primaryCtaText: 'Daftar SPMB SD IT',
         primaryCtaLink: ppdbUrl,
         secondaryCtaText: 'WhatsApp (0813-1013-9001)',
-        secondaryCtaLink: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20ananda',
+        secondaryCtaLink: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran',
         trustItems: [
           { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
           { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
@@ -286,8 +286,8 @@ export default function UnitHeroSlider({
 
       return [
         { id: 1, ...baseSdSlide, image: '/images/sd-hero-greenhouse.jpg' },
-        { id: 2, ...baseSdSlide, image: '/images/sd-activity-shalat-berjamaah.jpg' },
-        { id: 3, ...baseSdSlide, image: '/images/sd-activity-multimedia-learning.jpg' },
+        { id: 2, ...baseSdSlide, image: '/images/sd-hero-garden.jpg' },
+        { id: 3, ...baseSdSlide, image: '/images/sd-hero-activity.jpg' },
       ];
     }
 
@@ -348,6 +348,7 @@ export default function UnitHeroSlider({
 
   // Check if all slides have identical text content (e.g. user wants static text overlay with changing background photos)
   const isAllSameContent = useMemo(() => {
+    if (slug === 'sd') return true;
     if (slides.length <= 1) return true;
     const first = slides[0];
     return slides.every(
@@ -358,7 +359,7 @@ export default function UnitHeroSlider({
         (s.description || '').trim() === (first.description || '').trim() &&
         (s.primaryCtaText || '').trim() === (first.primaryCtaText || '').trim()
     );
-  }, [slides]);
+  }, [slides, slug]);
 
   // Auto advance slides every 4.5s continuously
   useEffect(() => {

@@ -57,7 +57,8 @@ export function proxy(request: NextRequest) {
     const hostname = host.split(':')[0].toLowerCase();
     const isIp = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
     const isVercel = hostname.endsWith('.vercel.app');
-    if (!isIp && !isVercel && (pathname === '/tk' || pathname === '/sd' || pathname === '/smp')) {
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+    if (!isIp && !isVercel && !isLocalhost && (pathname === '/tk' || pathname === '/sd' || pathname === '/smp')) {
       const targetSlug = pathname.slice(1);
       const url = request.nextUrl.clone();
       const [hostNameOnly, port] = host.split(':');

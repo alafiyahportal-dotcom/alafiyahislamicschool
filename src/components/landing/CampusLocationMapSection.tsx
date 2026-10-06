@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Navigation, MessageCircle, Copy, Check } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 interface CampusLocationMapSectionProps {
   unitSlug?: 'all' | 'foundation' | 'sd' | 'tk' | 'smp';
@@ -78,17 +79,17 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
     <section id="lokasi-sekolah" className="py-16 sm:py-20 bg-white border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Clean Header: Solid text, no text gradient, no floating badge */}
-        <div className="mb-8 sm:mb-10">
+        <ScrollReveal yOffset={24} duration={500} className="mb-8 sm:mb-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             {sectionTitle}
           </h2>
           <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-3xl">
             {sectionSubtitle}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Clean 2-Column Grid: Left Info, Right Map (Completely Unobstructed) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <ScrollReveal delay={0.12} yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Info Card: Simple, spacious, professional */}
           <div className="lg:col-span-5 bg-slate-50 rounded-2xl p-6 sm:p-7 border border-slate-200 flex flex-col justify-between">
             <div className="space-y-6">
@@ -196,7 +197,7 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
               className="w-full h-full block"
             />
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
