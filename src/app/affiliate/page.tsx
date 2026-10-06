@@ -8,7 +8,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import confetti from 'canvas-confetti';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   ArrowRight,
   Users,
@@ -81,6 +81,21 @@ function CircularBadgeStamp({ text = "MITRA RESMI • AL-AFIYAH • SYARIAH • 
     </div>
   );
 }
+
+/**
+ * Scroll fade animation variant (triggers both when scrolling down and up)
+ */
+const scrollFadeVariant: Variants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  },
+};
 
 /**
  * Natural number counter for currency
@@ -389,7 +404,13 @@ export default function AffiliatePublicPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Left Column: Headline, Badge, Copy & Pill Buttons */}
-            <div className="lg:col-span-6 space-y-6 text-left">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={scrollFadeVariant}
+              className="lg:col-span-6 space-y-6 text-left"
+            >
               <DoublePillBadge label={cmsContent.heroBadge || "Program Kemitraan Dakwah & Kebaikan"} />
 
               <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-slate-950 leading-[1.12]">
@@ -446,80 +467,100 @@ export default function AffiliatePublicPage() {
                   <span>Pencairan Cepat Rekening</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Column: Bento Photo Collage with Rotating Seal Stamp (Reference Match) */}
-            <div className="lg:col-span-6 relative">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={scrollFadeVariant}
+              className="lg:col-span-6 relative"
+            >
               <div className="relative mx-auto max-w-lg lg:max-w-none">
                 
                 {/* Collage Grid */}
                 <div className="grid grid-cols-12 gap-3 sm:gap-4 items-center">
                   
                   {/* Top Large Photo */}
-                  <div className="col-span-7 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white">
-                    <Image
-                      src={cmsContent.heroPhoto1 || '/images/sd-activity-halaqah-tahfidz.jpg'}
-                      alt="Peserta Didik Tahfidz Al-Afiyah"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 60vw, 30vw"
-                      unoptimized={cmsContent.heroPhoto1?.startsWith('data:')}
-                    />
+                  <div className="col-span-7 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white bg-[#153424]">
+                    {(cmsContent.heroPhoto1 || '/images/sd-activity-halaqah-tahfidz.jpg') ? (
+                      <Image
+                        src={cmsContent.heroPhoto1 || '/images/sd-activity-halaqah-tahfidz.jpg'}
+                        alt="Peserta Didik Tahfidz Al-Afiyah"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 60vw, 30vw"
+                        unoptimized={cmsContent.heroPhoto1?.startsWith('data:')}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
+                        <p className="text-[11px] text-emerald-200/80 mt-1">Halaqah Tahfidz &amp; Adab</p>
+                      </div>
+                    )}
                   </div>
 
                   {/* Top Right Photo */}
-                  <div className="col-span-5 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white">
-                    <Image
-                      src={cmsContent.heroPhoto2 || '/images/sd-activity-classroom-6b.jpg'}
-                      alt="Suasana Belajar Al-Afiyah"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 40vw, 20vw"
-                      unoptimized={cmsContent.heroPhoto2?.startsWith('data:')}
-                    />
+                  <div className="col-span-5 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white bg-[#153424]">
+                    {(cmsContent.heroPhoto2 || '/images/sd-activity-classroom-6b.jpg') ? (
+                      <Image
+                        src={cmsContent.heroPhoto2 || '/images/sd-activity-classroom-6b.jpg'}
+                        alt="Suasana Belajar Al-Afiyah"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 40vw, 20vw"
+                        unoptimized={cmsContent.heroPhoto2?.startsWith('data:')}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-white bg-gradient-to-br from-[#1c432f] to-[#153424]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
+                        <p className="text-[11px] text-emerald-200/80 mt-1">Interaksi Kelas</p>
+                      </div>
+                    )}
                   </div>
 
                   {/* Bottom Wide Photo with Referral Overlay Card */}
-                  <div className="col-span-12 relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-xl border-2 border-white">
-                    <Image
-                      src={cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg'}
-                      alt="Kegiatan Outing Peserta Didik Al-Afiyah"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      unoptimized={cmsContent.heroPhoto3?.startsWith('data:')}
-                    />
+                  <div className="col-span-12 relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-xl border-2 border-white bg-[#153424]">
+                    {(cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg') ? (
+                      <Image
+                        src={cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg'}
+                        alt="Kegiatan Outing Peserta Didik Al-Afiyah"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        unoptimized={cmsContent.heroPhoto3?.startsWith('data:')}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
+                        <p className="text-[11px] text-emerald-200/80 mt-1">Kegiatan Lapangan</p>
+                      </div>
+                    )}
                     
-                    {/* Floating Referral Box Overlay */}
+                    {/* Floating Referral Box Overlay: Clear Sample Illustration & CTA to Register */}
                     <div className="absolute inset-x-3 bottom-3 sm:inset-x-4 sm:bottom-4 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl shadow-lg border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
                       <div className="min-w-0">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 block">
-                          Tautan Unik Rujukan Anda
-                        </span>
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-900">
+                            Contoh Format Tautan Personal Anda
+                          </span>
+                        </div>
                         <p className="font-mono text-xs sm:text-sm font-bold text-slate-900 truncate">
-                          alafiyah.sch.id/ref/<span className="text-emerald-700">MITRA-BERKAH</span>
+                          alafiyah.sch.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80">KODE-ANDA</span>
+                        </p>
+                        <p className="text-[10px] text-slate-500 mt-0.5">
+                          Otomatis aktif dengan nama/kode Anda setelah mendaftar
                         </p>
                       </div>
                       <button
                         type="button"
-                        onClick={handleHeroCopy}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer shrink-0 flex items-center justify-center space-x-1.5 ${
-                          heroCopied
-                            ? 'bg-emerald-700 text-white'
-                            : 'bg-[#153424] hover:bg-[#0f271b] text-white'
-                        }`}
+                        onClick={() => openRegisterWithPersona()}
+                        className="px-4 py-2.5 rounded-xl bg-[#153424] hover:bg-[#0f271b] text-white text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer shrink-0 flex items-center justify-center space-x-1.5 active:scale-95 border border-emerald-900/60"
                       >
-                        {heroCopied ? (
-                          <>
-                            <Check className="w-3.5 h-3.5" />
-                            <span>Tersalin!</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3.5 h-3.5" />
-                            <span>Salin Link</span>
-                          </>
-                        )}
+                        <span>Dapatkan Link Anda</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#a3e635]" />
                       </button>
                     </div>
                   </div>
@@ -531,9 +572,8 @@ export default function AffiliatePublicPage() {
                   <CircularBadgeStamp />
                 </div>
 
-
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -572,15 +612,27 @@ export default function AffiliatePublicPage() {
       <section className="py-20 sm:py-24 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
+          {/* Section Header with Scroll Fade */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="text-center max-w-3xl mx-auto mb-14"
+          >
             <DoublePillBadge label="Mengenal Program Kemitraan" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
               {cmsContent.aboutTitle || 'Membangun Generasi Qurani Melalui Sinergi & Amanah'}
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16"
+          >
             
             {/* Left Column: 2 Stacked Rounded Photos with Circular Emblem */}
             <div className="lg:col-span-5 relative">
@@ -667,10 +719,16 @@ export default function AffiliatePublicPage() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
-          {/* Bottom Stats Counter Row with Double Pill Dividers (Exact Reference Match) */}
-          <div className="pt-10 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {/* Bottom Stats Counter Row with Scroll Fade */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="pt-10 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+          >
             {[
               { val: 'Rp 0', label: 'Modal Awal Pendaftaran' },
               { val: '100%', label: 'Akad Syariah Wakalah' },
@@ -695,8 +753,7 @@ export default function AffiliatePublicPage() {
                 <p className="text-xs text-slate-500 font-medium">{stat.label}</p>
               </div>
             ))}
-          </div>
-
+          </motion.div>
         </div>
       </section>
 
@@ -709,7 +766,13 @@ export default function AffiliatePublicPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Top Bar: Header on Left + White Pill Button on Right */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 text-left">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 text-left"
+          >
             <div>
               <DoublePillBadge label="Skema & Simulasi Komisi" isLight={true} />
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -728,11 +791,17 @@ export default function AffiliatePublicPage() {
               <span>Daftar Jadi Mitra</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
-          </div>
+          </motion.div>
 
           {/* 3-Column Grid Matching Reference:
               Left: Dark Green Card | Middle: Vibrant Lime Card | Right: Dark Green Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch"
+          >
             
             {/* Card 1: Dark Green Card (Tahap 1 - Formulir) */}
             <div className="bg-[#1c432f] rounded-3xl p-6 border border-white/10 flex flex-col justify-between text-left space-y-5">
@@ -947,7 +1016,7 @@ export default function AffiliatePublicPage() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -958,7 +1027,13 @@ export default function AffiliatePublicPage() {
       <section id="persona" className="py-20 sm:py-24 bg-white border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
             <DoublePillBadge label="Persona Kemitraan" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
               Siapa Saja yang Bisa Bergabung Menjadi Mitra?
@@ -966,10 +1041,16 @@ export default function AffiliatePublicPage() {
             <p className="text-sm sm:text-base text-slate-500 mt-2">
               Pilih peran Anda dan lihat bagaimana program kemitraan dakwah ini memberikan nilai nyata.
             </p>
-          </div>
+          </motion.div>
 
           {/* Tab Selector Buttons */}
-          <div className="flex justify-center mb-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="flex justify-center mb-8"
+          >
             <div className="inline-flex p-1.5 bg-slate-100 rounded-full border border-slate-200/80 gap-1 overflow-x-auto max-w-full">
               {[
                 { id: 'wali', label: 'Wali Murid', icon: Users },
@@ -995,10 +1076,16 @@ export default function AffiliatePublicPage() {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
           {/* Active Persona Bento Card with Framer Motion */}
-          <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="max-w-4xl mx-auto"
+          >
             <AnimatePresence mode="wait">
               {Object.entries(personaData).map(([key, item]) => {
                 if (key !== activePersonaTab) return null;
@@ -1112,7 +1199,7 @@ export default function AffiliatePublicPage() {
                 );
               })}
             </AnimatePresence>
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -1122,7 +1209,13 @@ export default function AffiliatePublicPage() {
          ========================================================================= */}
       <section className="py-20 sm:py-24 bg-[#FAFAFA] border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
             <DoublePillBadge label="Alur Kerja Sederhana" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
               5 Langkah Mudah Menjadi Mitra Afiliasi
@@ -1130,9 +1223,15 @@ export default function AffiliatePublicPage() {
             <p className="text-sm sm:text-base text-slate-500 mt-2">
               Proses registrasi dan pembagian tautan berlangsung singkat, tanpa instalasi aplikasi tambahan.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5"
+          >
             {[
               { step: '01', title: 'Daftar Akun', desc: 'Isi formulir pendaftaran gratis dalam 1 menit tanpa modal.' },
               { step: '02', title: 'Dapat Link Unik', desc: 'Masuk ke dasbor dan salin tautan rujukan resmi bertanda nama Anda.' },
@@ -1151,7 +1250,7 @@ export default function AffiliatePublicPage() {
                 <p className="text-xs text-slate-500 leading-relaxed">{s.desc}</p>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1162,7 +1261,13 @@ export default function AffiliatePublicPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-6 space-y-6 text-left">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={scrollFadeVariant}
+              className="lg:col-span-6 space-y-6 text-left"
+            >
               <DoublePillBadge label="Pendaftaran Terbuka" isLight={true} />
 
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight whitespace-pre-line">
@@ -1190,9 +1295,15 @@ export default function AffiliatePublicPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="lg:col-span-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={scrollFadeVariant}
+              className="lg:col-span-6"
+            >
               <div className="bg-white rounded-3xl p-6 sm:p-9 shadow-2xl text-slate-900 border border-slate-100 max-w-md mx-auto lg:max-w-none text-left">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-extrabold text-slate-950">Formulir Pendaftaran Mitra</h3>
@@ -1408,7 +1519,7 @@ export default function AffiliatePublicPage() {
                   </div>
                 </form>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -1419,7 +1530,13 @@ export default function AffiliatePublicPage() {
          ========================================================================= */}
       <section className="py-20 sm:py-24 bg-white border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="text-center mb-12"
+          >
             <DoublePillBadge label="Pertanyaan Umum" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
               Pertanyaan yang Sering Diajukan
@@ -1427,9 +1544,15 @@ export default function AffiliatePublicPage() {
             <p className="text-sm text-slate-500 mt-2">
               Segala hal yang perlu Anda ketahui tentang kemitraan syariah Ma&apos;had Al-Afiyah.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="space-y-3 text-left">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="space-y-3 text-left"
+          >
             {faqs.map((faq, index) => {
               const isOpen = openFaq === index;
               return (
@@ -1456,7 +1579,7 @@ export default function AffiliatePublicPage() {
                 </div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
