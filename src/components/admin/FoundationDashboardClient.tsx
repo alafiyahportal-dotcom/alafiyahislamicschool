@@ -15,8 +15,11 @@ import {
   Calendar,
   AlertCircle,
   FileSpreadsheet,
-  Layers
+  Layers,
+  Trash2,
+  Loader2
 } from 'lucide-react';
+import StudentEduAvatar from '@/components/common/StudentEduAvatar';
 import EdukaStatCards from './EdukaStatCards';
 import EdukaSplineChart from './EdukaSplineChart';
 import EdukaDonutChart from './EdukaDonutChart';
@@ -39,6 +42,7 @@ interface ApplicantRecord {
   id: string;
   registrationNo: string;
   studentName: string;
+  gender?: string;
   schoolName: string;
   schoolSlug: string;
   parentName: string;
@@ -78,6 +82,7 @@ export default function FoundationDashboardClient({
   const [selectedStatus, setSelectedStatus] = useState('ALL');
   const [applicants, setApplicants] = useState<ApplicantRecord[]>(initialApplicants);
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
   const filteredApplicants = applicants.filter((item) => {
     const matchesSearch =
@@ -108,6 +113,31 @@ export default function FoundationDashboardClient({
       console.error('Failed to update status', e);
     } finally {
       setIsUpdating(null);
+    }
+  };
+
+  const handleDeleteApplicant = async (id: string, studentName: string, regNo: string) => {
+    const isConfirmed = window.confirm(
+      `Apakah Anda yakin ingin menghapus data pendaftaran ananda ${studentName} (${regNo})?\n\nData ini akan dibersihkan secara permanen dari sistem.`
+    );
+    if (!isConfirmed) return;
+
+    setIsDeleting(id);
+    try {
+      const res = await fetch(`/api/admin/registrations/${id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setApplicants((prev) => prev.filter((item) => item.id !== id));
+      } else {
+        alert(data.error || 'Gagal menghapus data pendaftaran');
+      }
+    } catch (e) {
+      console.error('Failed to delete registration', e);
+      alert('Terjadi gangguan jaringan saat menghapus data.');
+    } finally {
+      setIsDeleting(null);
     }
   };
 
@@ -366,7 +396,19 @@ export default function FoundationDashboardClient({
                       </Link>
                     </td>
                     <td className="py-3.5 px-4 font-semibold text-slate-900">
-                      {applicant.studentName}
+                      <div className="flex items-center gap-2.5">
+                        <StudentEduAvatar
+                          gender={applicant.gender}
+                          name={applicant.studentName}
+                          size="xs"
+                        />
+                        <div>
+                          <span className="font-semibold block text-slate-900">{applicant.studentName}</span>
+                          <span className="text-[10px] text-slate-400 font-medium">
+                            {applicant.gender === 'P' ? 'Perempuan (Akhwat)' : 'Laki-laki (Ikhwan)'}
+                          </span>
+                        </div>
+                      </div>
                     </td>
                     {isFoundation && (
                       <td className="py-3.5 px-4">
@@ -401,18 +443,33 @@ export default function FoundationDashboardClient({
                       {getStatusBadge(applicant.status)}
                     </td>
                     <td className="py-3.5 px-4 text-right">
-                      <select
-                        disabled={isUpdating === applicant.id}
-                        value={applicant.status}
-                        onChange={(e) => handleStatusChange(applicant.id, e.target.value)}
-                        className="text-[11px] bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 font-bold focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-emerald-500 cursor-pointer disabled:opacity-50 shadow-2xs"
-                      >
-                        <option value="SUBMITTED">Menunggu</option>
-                        <option value="VERIFIED">Verifikasi Berkas</option>
-                        <option value="INTERVIEW_SCHEDULED">Jadwal Wawancara</option>
-                        <option value="ACCEPTED">Luluskan Murid</option>
-                        <option value="REJECTED">Tolak</option>
-                      </select>
+                      <div className="inline-flex items-center justify-end gap-1.5">
+                        <select
+                          disabled={isUpdating === applicant.id || isDeleting === applicant.id}
+                          value={applicant.status}
+                          onChange={(e) => handleStatusChange(applicant.id, e.target.value)}
+                          className="text-[11px] bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 font-bold focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-emerald-500 cursor-pointer disabled:opacity-50 shadow-2xs"
+                        >
+                          <option value="SUBMITTED">Menunggu</option>
+                          <option value="VERIFIED">Verifikasi Berkas</option>
+                          <option value="INTERVIEW_SCHEDULED">Jadwal Wawancara</option>
+                          <option value="ACCEPTED">Luluskan Murid</option>
+                          <option value="REJECTED">Tolak</option>
+                        </select>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteApplicant(applicant.id, applicant.studentName, applicant.registrationNo)}
+                          disabled={isDeleting === applicant.id || isUpdating === applicant.id}
+                          title={`Hapus pendaftaran ${applicant.studentName} (${applicant.registrationNo})`}
+                          className="p-1.5 rounded-lg border border-transparent text-slate-400 hover:text-red-600 hover:bg-red-50 hover:border-red-200 transition-all cursor-pointer disabled:opacity-50"
+                        >
+                          {isDeleting === applicant.id ? (
+                            <Loader2 className="w-4 h-4 animate-spin text-red-500" />
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

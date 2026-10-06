@@ -91,6 +91,7 @@ export default async function SchoolUnitAdminPage({
       id: r.id,
       registrationNo: r.registrationNo,
       studentName: r.studentName,
+      gender: r.gender,
       schoolName: school.name,
       schoolSlug: school.slug,
       parentName,

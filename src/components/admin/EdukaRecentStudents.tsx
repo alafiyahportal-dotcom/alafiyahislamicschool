@@ -3,11 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { UserCheck, ArrowRight, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
+import StudentEduAvatar from '@/components/common/StudentEduAvatar';
 
 interface RecentApplicant {
   id: string;
   registrationNo: string;
   studentName: string;
+  gender?: string;
   schoolName: string;
   schoolSlug: string;
   parentName: string;
@@ -87,9 +89,11 @@ export default function EdukaRecentStudents({ applicants, schoolSlug = 'foundati
             >
               {/* 1. Avatar + Name (Flex-1 absorbs variation in name lengths) */}
               <div className="flex items-center space-x-3 min-w-0 flex-1">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#10B981] to-[#0EA5E9] text-white font-semibold text-xs flex items-center justify-center flex-shrink-0 shadow-2xs">
-                  {getInitials(app.studentName)}
-                </div>
+                <StudentEduAvatar
+                  gender={app.gender}
+                  name={app.studentName}
+                  size="md"
+                />
                 <div className="min-w-0 flex-1">
                   <h4 className="font-semibold text-xs sm:text-sm text-slate-900 truncate">
                     {app.studentName}

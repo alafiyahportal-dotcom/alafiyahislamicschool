@@ -96,6 +96,7 @@ export default async function FoundationAdminPage() {
       id: r.id,
       registrationNo: r.registrationNo,
       studentName: r.studentName,
+      gender: r.gender,
       schoolName: r.school.name,
       schoolSlug: r.school.slug,
       parentName,

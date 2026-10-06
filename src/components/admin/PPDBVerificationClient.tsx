@@ -23,8 +23,10 @@ import {
   X,
   Send,
   Loader2,
-  Download
+  Download,
+  Trash2
 } from 'lucide-react';
+import StudentEduAvatar from '@/components/common/StudentEduAvatar';
 import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
 import DocumentViewerModal from './DocumentViewerModal';
 import { AssessmentRubricModal } from './AssessmentRubricModal';
@@ -98,6 +100,32 @@ export default function PPDBVerificationClient({
   // Schedule Form State
   const [scheduleDate, setScheduleDate] = useState('Sabtu, 28 Maret 2026 Pukul 08.30 WIB');
   const [testLocation, setTestLocation] = useState(`Gedung Utama ${schoolName} Majalengka`);
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
+
+  const handleDeleteApplicant = async (id: string, studentName: string, regNo: string) => {
+    const isConfirmed = window.confirm(
+      `Apakah Anda yakin ingin menghapus data pendaftaran ananda ${studentName} (${regNo})?\n\nSemua dokumen digital dan tagihan pendaftar ini akan dibersihkan secara permanen.`
+    );
+    if (!isConfirmed) return;
+
+    setIsDeleting(id);
+    try {
+      const res = await fetch(`/api/admin/registrations/${id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setApplicants((prev) => prev.filter((item) => item.id !== id));
+      } else {
+        alert(data.error || 'Gagal menghapus data pendaftaran');
+      }
+    } catch (e) {
+      console.error('Failed to delete registration', e);
+      alert('Terjadi kesalahan jaringan saat menghapus data.');
+    } finally {
+      setIsDeleting(null);
+    }
+  };
 
   const handleDocStatusUpdated = (docId: string, newStatus: string, notes?: string) => {
     setApplicants((prev) =>
@@ -432,14 +460,21 @@ export default function PPDBVerificationClient({
                   <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
                     {/* Calon Murid */}
                     <td className="py-3.5 px-4">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900 text-sm">{item.studentName}</span>
-                        {item.schoolSpecificDetails?.nickname && (
-                          <span className="text-[10px] text-slate-500 font-medium italic">
-                            ({item.schoolSpecificDetails.nickname})
-                          </span>
-                        )}
-                      </div>
+                      <div className="flex items-start gap-2.5">
+                        <StudentEduAvatar
+                          gender={item.gender}
+                          name={item.studentName}
+                          size="sm"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-slate-900 text-sm">{item.studentName}</span>
+                            {item.schoolSpecificDetails?.nickname && (
+                              <span className="text-[10px] text-slate-500 font-medium italic">
+                                ({item.schoolSpecificDetails.nickname})
+                              </span>
+                            )}
+                          </div>
                       <div className="flex items-center space-x-2 mt-0.5 flex-wrap gap-y-1">
                         <span className="font-mono text-[11px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded font-semibold">
                           {item.registrationNo}
@@ -472,6 +507,8 @@ export default function PPDBVerificationClient({
                           <span className="truncate max-w-[240px]">TK/Asal: {item.schoolSpecificDetails.originSchoolName}</span>
                         </div>
                       )}
+                        </div>
+                      </div>
                     </td>
 
                     {/* Wali & Kontak */}
@@ -608,6 +645,19 @@ export default function PPDBVerificationClient({
                         >
                           <Eye className="w-4 h-4" />
                         </Link>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteApplicant(item.id, item.studentName, item.registrationNo)}
+                          disabled={isDeleting === item.id || isUpdating === item.id}
+                          className="p-1.5 text-slate-400 hover:text-red-600 rounded-md hover:bg-red-50 transition-colors cursor-pointer"
+                          title="Hapus Data Pendaftaran"
+                        >
+                          {isDeleting === item.id ? (
+                            <Loader2 className="w-4 h-4 animate-spin text-red-500" />
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
+                        </button>
                       </div>
                     </td>
                   </tr>
