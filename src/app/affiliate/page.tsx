@@ -38,6 +38,7 @@ import {
   Star,
   CheckCheck,
 } from 'lucide-react';
+import { DEFAULT_AFFILIATE_CONTENT, AffiliateCMSData } from '@/types/affiliate-cms';
 
 /**
  * Double capsule pill badge component matching reference design
@@ -124,6 +125,20 @@ function AnimatedRupiah({ value }: { value: number }) {
 export default function AffiliatePublicPage() {
   const router = useRouter();
 
+  // Dynamic CMS content state initialized with high-quality defaults
+  const [cmsContent, setCmsContent] = useState<Required<AffiliateCMSData>>(DEFAULT_AFFILIATE_CONTENT);
+
+  useEffect(() => {
+    fetch('/api/affiliate/content')
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.success && res.content) {
+          setCmsContent((prev) => ({ ...prev, ...res.content }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   // Set browser tab title
   useEffect(() => {
     document.title = 'Affiliate Al-Afiyah | Program Kemitraan Dakwah & Kebaikan';
@@ -156,12 +171,17 @@ export default function AffiliatePublicPage() {
   const [calcStudents, setCalcStudents] = useState<number>(5);
   const [calcUnit, setCalcUnit] = useState<'all' | 'tk' | 'sd' | 'smp'>('all');
 
-  const FORM_FEE = 50000;
+  const FORM_FEE = cmsContent.commissionFormFee ?? 50000;
   const REG_FEES = {
-    all: 285000,
-    tk: 250000,
-    sd: 100000,
-    smp: 500000,
+    all: Math.round(
+      ((cmsContent.commissionReRegTk ?? 250000) +
+        (cmsContent.commissionReRegSd ?? 100000) +
+        (cmsContent.commissionReRegSmp ?? 500000)) /
+        3
+    ),
+    tk: cmsContent.commissionReRegTk ?? 250000,
+    sd: cmsContent.commissionReRegSd ?? 100000,
+    smp: cmsContent.commissionReRegSmp ?? 500000,
   };
 
   const formUjrahTotal = calcStudents * FORM_FEE;
@@ -338,16 +358,10 @@ export default function AffiliatePublicPage() {
     },
   ];
 
-  const marqueeKeywords = [
-    'AKAD SYARIAH WAKALAH BIL UJRAH',
-    'KOMISI HINGGA RP 550.000 / PESERTA DIDIK',
-    'TANPA BIAYA PENDAFTARAN',
-    'PENCAIRAN CEPAT BANK BSI',
-    'DASHBOARD REAL-TIME 24/7',
-    'MULTI-UNIT TK, SD, SMP IT',
-    'MATERI PROMOSI RESMI DISEDIAKAN',
-    'TRANSPARAN TANPA POTONGAN',
-  ];
+  const marqueeKeywords =
+    cmsContent.marqueeKeywords && cmsContent.marqueeKeywords.length > 0
+      ? cmsContent.marqueeKeywords
+      : DEFAULT_AFFILIATE_CONTENT.marqueeKeywords;
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between selection:bg-emerald-100 selection:text-emerald-900 font-sans antialiased text-slate-800">
@@ -363,17 +377,17 @@ export default function AffiliatePublicPage() {
             
             {/* Left Column: Headline, Badge, Copy & Pill Buttons */}
             <div className="lg:col-span-6 space-y-6 text-left">
-              <DoublePillBadge label="Program Kemitraan Dakwah & Kebaikan" />
+              <DoublePillBadge label={cmsContent.heroBadge || "Program Kemitraan Dakwah & Kebaikan"} />
 
               <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-slate-950 leading-[1.12]">
-                Sebar Kebaikan Pendidikan,{' '}
+                {cmsContent.heroHeadline || 'Sebar Kebaikan Pendidikan,'}{' '}
                 <span className="text-[#153424] block sm:inline">
-                  Raih Apresiasi Berkah Nyata
+                  {cmsContent.heroHighlight || 'Raih Apresiasi Berkah Nyata'}
                 </span>
               </h1>
 
               <p className="text-slate-600 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed">
-                Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SD IT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.
+                {cmsContent.heroDescription || 'Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SD IT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.'}
               </p>
 
               {/* CTAs: Harmonious Dual-Pill Architecture (Primary Emerald + Secondary White Outline) */}
@@ -431,33 +445,36 @@ export default function AffiliatePublicPage() {
                   {/* Top Large Photo */}
                   <div className="col-span-7 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white">
                     <Image
-                      src="/images/sd-activity-halaqah-tahfidz.jpg"
+                      src={cmsContent.heroPhoto1 || '/images/sd-activity-halaqah-tahfidz.jpg'}
                       alt="Peserta Didik Tahfidz Al-Afiyah"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 60vw, 30vw"
+                      unoptimized={cmsContent.heroPhoto1?.startsWith('data:')}
                     />
                   </div>
 
                   {/* Top Right Photo */}
                   <div className="col-span-5 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white">
                     <Image
-                      src="/images/sd-activity-classroom-6b.jpg"
+                      src={cmsContent.heroPhoto2 || '/images/sd-activity-classroom-6b.jpg'}
                       alt="Suasana Belajar Al-Afiyah"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 40vw, 20vw"
+                      unoptimized={cmsContent.heroPhoto2?.startsWith('data:')}
                     />
                   </div>
 
                   {/* Bottom Wide Photo with Referral Overlay Card */}
                   <div className="col-span-12 relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-xl border-2 border-white">
                     <Image
-                      src="/images/smp-outing-1.jpg"
+                      src={cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg'}
                       alt="Kegiatan Outing Peserta Didik Al-Afiyah"
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 50vw"
+                      unoptimized={cmsContent.heroPhoto3?.startsWith('data:')}
                     />
                     
                     {/* Floating Referral Box Overlay */}
@@ -546,7 +563,7 @@ export default function AffiliatePublicPage() {
           <div className="text-center max-w-3xl mx-auto mb-14">
             <DoublePillBadge label="Mengenal Program Kemitraan" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
-              Membangun Generasi Qurani Melalui Sinergi &amp; Amanah
+              {cmsContent.aboutTitle || 'Membangun Generasi Qurani Melalui Sinergi & Amanah'}
             </h2>
           </div>
 
@@ -557,20 +574,22 @@ export default function AffiliatePublicPage() {
               <div className="relative space-y-4">
                 <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100">
                   <Image
-                    src="/images/sd-hero-greenhouse.jpg"
+                    src={cmsContent.aboutPhotoTop || '/images/sd-hero-greenhouse.jpg'}
                     alt="Praktik Sains Peserta Didik Al-Afiyah"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 40vw"
+                    unoptimized={cmsContent.aboutPhotoTop?.startsWith('data:')}
                   />
                 </div>
                 <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100">
                   <Image
-                    src="/images/smp-hero-bilingual.jpg"
+                    src={cmsContent.aboutPhotoBottom || '/images/smp-hero-bilingual.jpg'}
                     alt="Suasana Peserta Didik Bilingual Al-Afiyah"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 40vw"
+                    unoptimized={cmsContent.aboutPhotoBottom?.startsWith('data:')}
                   />
                 </div>
                 
@@ -583,8 +602,8 @@ export default function AffiliatePublicPage() {
 
             {/* Right Column: Narrative Copy & Metric Progress Bars (Exact Reference Match) */}
             <div className="lg:col-span-7 space-y-6 text-left lg:pl-6">
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program kemitraan dakwah resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga penggiat majelis taklim—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                {cmsContent.aboutDescription || 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program kemitraan dakwah resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga penggiat majelis taklim—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.'}
               </p>
 
               {/* Progress Metric Bars with Lime Dots (From Reference Image) */}
@@ -690,11 +709,12 @@ export default function AffiliatePublicPage() {
               <div className="space-y-4">
                 <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10">
                   <Image
-                    src="/images/sd-activity-multimedia-learning.jpg"
+                    src={cmsContent.formCardImage || '/images/sd-activity-multimedia-learning.jpg'}
                     alt="Pendaftaran Formulir Al-Afiyah"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 33vw"
+                    unoptimized={cmsContent.formCardImage?.startsWith('data:')}
                   />
                 </div>
                 <div>
@@ -702,7 +722,10 @@ export default function AffiliatePublicPage() {
                     Tahap 1
                   </span>
                   <h3 className="text-xl font-bold text-white mt-0.5">Komisi Formulir</h3>
-                  <p className="text-2xl font-extrabold text-white mt-1">Rp 50.000 <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span></p>
+                  <p className="text-2xl font-extrabold text-white mt-1">
+                    Rp {(cmsContent.commissionFormFee ?? 50000).toLocaleString('id-ID')}{' '}
+                    <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span>
+                  </p>
                   <p className="text-xs text-emerald-100/70 mt-2 leading-relaxed">
                     Dicairkan seketika saat calon wali murid menyelesaikan pengisian dan pembayaran formulir pendaftaran PPDB online resmi.
                   </p>
@@ -742,9 +765,9 @@ export default function AffiliatePublicPage() {
                 <div className="grid grid-cols-2 gap-1.5 pt-1">
                   {[
                     { id: 'all', label: 'Semua Jenjang' },
-                    { id: 'tk', label: 'TK IT (300rb)' },
-                    { id: 'sd', label: 'SD IT (150rb)' },
-                    { id: 'smp', label: 'SMP IT (550rb)' },
+                    { id: 'tk', label: `TK IT (${Math.round((FORM_FEE + (cmsContent.commissionReRegTk ?? 250000)) / 1000)}rb)` },
+                    { id: 'sd', label: `SD IT (${Math.round((FORM_FEE + (cmsContent.commissionReRegSd ?? 100000)) / 1000)}rb)` },
+                    { id: 'smp', label: `SMP IT (${Math.round((FORM_FEE + (cmsContent.commissionReRegSmp ?? 500000)) / 1000)}rb)` },
                   ].map((u) => (
                     <button
                       key={u.id}
@@ -815,11 +838,12 @@ export default function AffiliatePublicPage() {
               <div className="space-y-4">
                 <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10">
                   <Image
-                    src="/images/tk-hero-kids.jpg"
+                    src={cmsContent.reRegCardImage || '/images/tk-hero-kids.jpg'}
                     alt="Peserta Didik Ceria Al-Afiyah"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 33vw"
+                    unoptimized={cmsContent.reRegCardImage?.startsWith('data:')}
                   />
                 </div>
                 <div>
@@ -827,19 +851,28 @@ export default function AffiliatePublicPage() {
                     Tahap 2
                   </span>
                   <h3 className="text-xl font-bold text-white mt-0.5">Komisi Daftar Ulang</h3>
-                  <p className="text-2xl font-extrabold text-white mt-1">s.d. Rp 500.000 <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span></p>
+                  <p className="text-2xl font-extrabold text-white mt-1">
+                    s.d. Rp {Math.max(cmsContent.commissionReRegTk ?? 250000, cmsContent.commissionReRegSd ?? 100000, cmsContent.commissionReRegSmp ?? 500000).toLocaleString('id-ID')}{' '}
+                    <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span>
+                  </p>
                   <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
                     <p className="flex justify-between border-b border-white/5 pb-1">
                       <span>TK IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">Rp 250.000</strong>
+                      <strong className="text-white font-mono">
+                        Rp {(cmsContent.commissionReRegTk ?? 250000).toLocaleString('id-ID')}
+                      </strong>
                     </p>
                     <p className="flex justify-between border-b border-white/5 pb-1">
                       <span>SD IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">Rp 100.000</strong>
+                      <strong className="text-white font-mono">
+                        Rp {(cmsContent.commissionReRegSd ?? 100000).toLocaleString('id-ID')}
+                      </strong>
                     </p>
                     <p className="flex justify-between pt-0.5">
                       <span>SMP IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">Rp 500.000</strong>
+                      <strong className="text-white font-mono">
+                        Rp {(cmsContent.commissionReRegSmp ?? 500000).toLocaleString('id-ID')}
+                      </strong>
                     </p>
                   </div>
                 </div>
@@ -1071,13 +1104,12 @@ export default function AffiliatePublicPage() {
             <div className="lg:col-span-6 space-y-6 text-left">
               <DoublePillBadge label="Pendaftaran Terbuka" isLight={true} />
 
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Mulai Sebarkan Kebaikan,<br />
-                Raih Manfaat Berkah.
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight whitespace-pre-line">
+                {cmsContent.ctaHeadline || 'Mulai Sebarkan Kebaikan,\nRaih Manfaat Berkah.'}
               </h2>
 
-              <p className="text-emerald-100/80 text-sm sm:text-base leading-relaxed max-w-lg">
-                Daftarkan diri Anda hari ini. Akun Anda langsung aktif seketika dan tautan rujukan personal siap digunakan untuk membantu generasi muslim masa depan.
+              <p className="text-emerald-100/80 text-sm sm:text-base leading-relaxed max-w-lg whitespace-pre-line">
+                {cmsContent.ctaSubheadline || 'Daftarkan diri Anda hari ini. Akun Anda langsung aktif seketika dan tautan rujukan personal siap digunakan untuk membantu generasi muslim masa depan.'}
               </p>
 
               <div className="space-y-3.5 pt-2">

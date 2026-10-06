@@ -199,6 +199,7 @@ export async function POST(request: Request) {
       if (schoolSlug === 'foundation') {
         revalidatePath('/');
         revalidatePath('/profil');
+        revalidatePath('/affiliate');
       }
     } catch (e) {
       console.warn('Revalidation warning:', e);

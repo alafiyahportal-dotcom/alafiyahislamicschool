@@ -33,10 +33,12 @@ import {
   Sliders,
   Upload,
   Newspaper,
-  X
+  X,
+  Share2
 } from 'lucide-react';
 import { UnitSlideData } from '@/components/landing/UnitHeroSlider';
 import { compressImageClient } from '@/lib/image-compress';
+import { AffiliateCMSData, DEFAULT_AFFILIATE_CONTENT } from '@/types/affiliate-cms';
 
 export interface CMSInitialData {
   hero: {
@@ -69,6 +71,7 @@ export interface CMSInitialData {
     quota?: number;
     waveName?: string;
   };
+  affiliate?: AffiliateCMSData;
   presetImages?: PresetImage[];
 }
 
@@ -280,11 +283,15 @@ export default function CMSEditorClient({
     | 'programs'
     | 'facilities'
     | 'testimonials'
-    | 'tuition';
+    | 'tuition'
+    | 'affiliate';
 
   const [activeTab, setActiveTab] = useState<TabType>('hero');
   const [viewMode, setViewMode] = useState<'editor' | 'preview'>('editor');
-  const [formData, setFormData] = useState<CMSInitialData>(initialData);
+  const [formData, setFormData] = useState<CMSInitialData>({
+    ...initialData,
+    affiliate: initialData.affiliate || DEFAULT_AFFILIATE_CONTENT,
+  });
 
   // Active slide index for hero slider manager
   const [selectedSlideIndex, setSelectedSlideIndex] = useState<number>(0);
@@ -490,6 +497,8 @@ export default function CMSEditorClient({
         payloadToSave = formData.testimonials;
       } else if (activeTab === 'tuition') {
         payloadToSave = formData.tuition;
+      } else if (activeTab === 'affiliate') {
+        payloadToSave = formData.affiliate || DEFAULT_AFFILIATE_CONTENT;
       }
 
       const res = await fetch('/api/admin/cms', {
@@ -531,6 +540,110 @@ export default function CMSEditorClient({
   };
 
   const publicUrl = schoolSlug === 'foundation' ? '/' : `/${schoolSlug}`;
+  const activePublicUrl = activeTab === 'affiliate' ? '/affiliate' : publicUrl;
+
+  const [newKeywordInput, setNewKeywordInput] = useState('');
+
+  const updateAffiliate = (key: keyof AffiliateCMSData, value: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      affiliate: {
+        ...(prev.affiliate || DEFAULT_AFFILIATE_CONTENT),
+        [key]: value,
+      },
+    }));
+  };
+
+  const handleAddKeyword = () => {
+    if (!newKeywordInput.trim()) return;
+    const current = formData.affiliate?.marqueeKeywords || DEFAULT_AFFILIATE_CONTENT.marqueeKeywords;
+    updateAffiliate('marqueeKeywords', [...current, newKeywordInput.trim()]);
+    setNewKeywordInput('');
+  };
+
+  const handleRemoveKeyword = (index: number) => {
+    const current = formData.affiliate?.marqueeKeywords || DEFAULT_AFFILIATE_CONTENT.marqueeKeywords;
+    updateAffiliate('marqueeKeywords', current.filter((_, i) => i !== index));
+  };
+
+  const renderAffiliateImagePicker = (
+    label: string,
+    subtext: string,
+    currentUrl: string,
+    onUpdate: (url: string) => void
+  ) => {
+    return (
+      <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/90 space-y-3">
+        <div>
+          <h4 className="text-xs font-bold text-slate-800">{label}</h4>
+          <p className="text-[11px] text-slate-500">{subtext}</p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="relative w-28 h-20 rounded-xl overflow-hidden border border-slate-200 bg-white shrink-0 shadow-2xs">
+            {currentUrl ? (
+              <Image
+                src={currentUrl}
+                alt={label}
+                fill
+                sizes="120px"
+                className="object-cover"
+                unoptimized={currentUrl.startsWith('data:')}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-[10px] text-slate-400">
+                Tanpa Foto
+              </div>
+            )}
+          </div>
+
+          <div className="flex-1 w-full space-y-2">
+            <input
+              type="text"
+              value={currentUrl}
+              onChange={(e) => onUpdate(e.target.value)}
+              placeholder="/images/... atau https://..."
+              className="w-full text-xs font-mono text-slate-800 border border-slate-300 rounded-lg p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+            />
+            <div className="flex flex-wrap items-center gap-2">
+              <label className="px-3 py-1.5 rounded-lg bg-[#184F48] hover:bg-[#123e38] text-white font-bold text-[11px] shadow-2xs flex items-center gap-1.5 cursor-pointer">
+                <Upload className="w-3 h-3" />
+                <span>{isUploading ? 'Mengunggah...' : 'Unggah Foto Baru'}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  disabled={isUploading}
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const url = await handleUploadImage(file);
+                      if (url) onUpdate(url);
+                    }
+                  }}
+                />
+              </label>
+
+              <div className="flex items-center gap-1 overflow-x-auto max-w-full py-1">
+                <span className="text-[10px] text-slate-400 font-semibold mr-1">Galeri:</span>
+                {availablePresetImages.slice(0, 5).map((preset) => (
+                  <button
+                    key={preset.url}
+                    type="button"
+                    onClick={() => onUpdate(preset.url)}
+                    className="text-[10px] font-medium px-2 py-0.5 rounded border border-slate-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-slate-600 truncate max-w-[100px] cursor-pointer"
+                    title={preset.label}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -630,12 +743,12 @@ export default function CMSEditorClient({
           </div>
 
           <Link
-            href={publicUrl}
+            href={activePublicUrl}
             target="_blank"
             className="inline-flex items-center space-x-1.5 px-3 py-2 text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors border border-slate-200"
           >
             <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
-            <span>Buka Halaman Publik</span>
+            <span>{activeTab === 'affiliate' ? 'Buka Halaman /affiliate' : 'Buka Halaman Publik'}</span>
           </Link>
 
           <button
@@ -676,6 +789,9 @@ export default function CMSEditorClient({
           { id: 'facilities', label: '6. Galeri & Fasilitas', icon: Layers },
           { id: 'testimonials', label: '7. Testimoni Wali Murid', icon: MessageSquare },
           { id: 'tuition', label: '8. Biaya PPDB & Kuota', icon: Sliders },
+          ...(schoolSlug === 'foundation'
+            ? [{ id: 'affiliate', label: '9. Landing Page Afiliasi', icon: Share2 }]
+            : []),
         ].map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -700,7 +816,7 @@ export default function CMSEditorClient({
           className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-300 shadow-2xs cursor-pointer ml-auto"
         >
           <Newspaper className="w-3.5 h-3.5 text-amber-700" />
-          <span>9. Kelola Berita &amp; Artikel ↗</span>
+          <span>{schoolSlug === 'foundation' ? '10. Kelola Berita & Artikel ↗' : '9. Kelola Berita & Artikel ↗'}</span>
         </Link>
       </div>
 
@@ -749,6 +865,11 @@ export default function CMSEditorClient({
           {activeTab === 'tuition' && (
             <span>
               <strong>Rincian Biaya PPDB &amp; Kuota Penerimaan:</strong> Tampil pada halaman pendaftaran PPDB online, kalkulator simulasi kuitansi pendaftaran, dan status sisa kuota penerimaan murid baru.
+            </span>
+          )}
+          {activeTab === 'affiliate' && (
+            <span>
+              <strong>Landing Page Kemitraan Afiliasi:</strong> Tampil pada halaman publik <strong>/affiliate</strong>. Anda dapat mengedit headline, 3 kolase foto hero, running text pita, narasi program, dan nominal tarif bagi hasil komisi.
             </span>
           )}
         </div>
@@ -998,6 +1119,28 @@ export default function CMSEditorClient({
                     <span className="text-xl font-black text-[#184F48]">{formData.tuition.quota ?? 60} murid</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* === TAB 9: AFFILIATE PREVIEW === */}
+          {activeTab === 'affiliate' && (
+            <div className="p-8 text-center space-y-4">
+              <div className="max-w-md mx-auto p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
+                <Share2 className="w-10 h-10 text-emerald-800 mx-auto" />
+                <h4 className="font-extrabold text-slate-900 text-base">Halaman Publik Kemitraan Afiliasi</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Pratinjau lengkap dengan seluruh simulator interaktif, kalkulator komisi, dan formulir kemitraan dapat dilihat langsung pada rute publik.
+                </p>
+                <a
+                  href="/affiliate"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#184F48] hover:bg-[#123e38] text-white font-bold text-xs shadow-sm transition-all"
+                >
+                  <span>Buka Halaman /affiliate di Tab Baru</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           )}
@@ -2082,6 +2225,380 @@ export default function CMSEditorClient({
                     }
                     className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                   />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 9: AFFILIATE LANDING PAGE EDITOR (FOUNDATION ONLY) */}
+          {activeTab === 'affiliate' && schoolSlug === 'foundation' && (
+            <div className="space-y-8 animate-fadeIn">
+              {/* Header Banner */}
+              <div className="p-5 rounded-2xl bg-[#E8F3F1] border border-[#2D7A70]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#184F48] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Share2 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-extrabold text-slate-900">
+                      Editor Landing Page Kemitraan Afiliasi (/affiliate)
+                    </h3>
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      Kelola 3 foto bento hero, teks berjalan (marquee ticker), foto seksi pengenalan, dan tarif bagi hasil komisi syirkah.
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href="/affiliate"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs border border-slate-200 shadow-2xs transition-all shrink-0"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+                  <span>Lihat Halaman /affiliate</span>
+                </a>
+              </div>
+
+              {/* CARD 1: HERO COPYWRITING & BENTO PHOTO COLLAGE */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+                <div className="border-b border-slate-100 pb-4">
+                  <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                    <ImageIcon className="w-4 h-4 text-[#184F48]" />
+                    <span>1. Kolase Foto &amp; Teks Hero (/affiliate)</span>
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Atur copywriting headline utama dan 3 foto kolase bento yang tampil di bagian atas landing page afiliasi.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Badge Kapsul Atas
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.affiliate?.heroBadge || ''}
+                      onChange={(e) => updateAffiliate('heroBadge', e.target.value)}
+                      placeholder="Program Kemitraan Dakwah & Kebaikan"
+                      className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Aksen Teks Berwarna Hijau
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.affiliate?.heroHighlight || ''}
+                      onChange={(e) => updateAffiliate('heroHighlight', e.target.value)}
+                      placeholder="Raih Apresiasi Berkah Nyata"
+                      className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Judul Utama Headline
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.affiliate?.heroHeadline || ''}
+                      onChange={(e) => updateAffiliate('heroHeadline', e.target.value)}
+                      placeholder="Sebar Kebaikan Pendidikan,"
+                      className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Deskripsi Pengantar Subheadline
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.affiliate?.heroDescription || ''}
+                      onChange={(e) => updateAffiliate('heroDescription', e.target.value)}
+                      className="w-full text-xs text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
+                    />
+                  </div>
+                </div>
+
+                {/* 3 Bento Photos */}
+                <div className="pt-4 border-t border-slate-100 space-y-4">
+                  <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                    3 Foto Kolase Bento Hero (Ganti / Unggah Foto)
+                  </h5>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    {renderAffiliateImagePicker(
+                      'Foto 1 (Kiri Atas - Tahfidz)',
+                      'Foto vertikal/kotak kegiatan halaqah atau keagamaan',
+                      formData.affiliate?.heroPhoto1 || '/images/sd-activity-halaqah-tahfidz.jpg',
+                      (url) => updateAffiliate('heroPhoto1', url)
+                    )}
+
+                    {renderAffiliateImagePicker(
+                      'Foto 2 (Kanan Atas - Kelas)',
+                      'Foto suasana interaksi belajar mengajar di ruang kelas',
+                      formData.affiliate?.heroPhoto2 || '/images/sd-activity-classroom-6b.jpg',
+                      (url) => updateAffiliate('heroPhoto2', url)
+                    )}
+
+                    {renderAffiliateImagePicker(
+                      'Foto 3 (Bawah Lebar - Outing)',
+                      'Foto lanskap kegiatan outing / santri lapangan',
+                      formData.affiliate?.heroPhoto3 || '/images/smp-outing-1.jpg',
+                      (url) => updateAffiliate('heroPhoto3', url)
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD 2: RUNNING MARQUEE TICKER BANNER */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+                <div className="border-b border-slate-100 pb-4">
+                  <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                    <Sliders className="w-4 h-4 text-[#184F48]" />
+                    <span>2. Pita Teks Berjalan (Running Marquee Ticker)</span>
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Kelola kata-kata dan poin kunci yang bergeser ke samping secara horizontal pada pita hijau tua.
+                  </p>
+                </div>
+
+                {/* Chips of current keywords */}
+                <div className="flex flex-wrap gap-2 items-center p-3 bg-slate-50 rounded-xl border border-slate-200 min-h-[50px]">
+                  {(formData.affiliate?.marqueeKeywords || DEFAULT_AFFILIATE_CONTENT.marqueeKeywords).map(
+                    (kw, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#153424] text-white text-xs font-bold shadow-2xs group"
+                      >
+                        <span>{kw}</span>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveKeyword(idx)}
+                          className="w-4 h-4 rounded-full bg-white/20 hover:bg-rose-500 text-white flex items-center justify-center text-[10px] cursor-pointer transition-colors"
+                          title="Hapus kata ini"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    )
+                  )}
+                </div>
+
+                {/* Add new keyword */}
+                <div className="flex items-center gap-2 max-w-lg">
+                  <input
+                    type="text"
+                    value={newKeywordInput}
+                    onChange={(e) => setNewKeywordInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleAddKeyword();
+                      }
+                    }}
+                    placeholder="Ketik kata baru lalu klik Tambah..."
+                    className="flex-1 text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 bg-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleAddKeyword}
+                    className="px-4 py-2.5 rounded-xl bg-[#184F48] hover:bg-[#123e38] text-white font-bold text-xs shadow-2xs cursor-pointer shrink-0"
+                  >
+                    Tambah Poin
+                  </button>
+                </div>
+              </div>
+
+              {/* CARD 3: ABOUT SECTION ("MENGENAL PROGRAM KEMITRAAN") */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+                <div className="border-b border-slate-100 pb-4">
+                  <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-[#184F48]" />
+                    <span>3. Seksi "Mengenal Kemitraan" (About &amp; Narasi)</span>
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Atur narasi sinergi dakwah dan 2 foto bertumpuk di sebelah kiri seksi kedua.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Judul Seksi
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.affiliate?.aboutTitle || ''}
+                      onChange={(e) => updateAffiliate('aboutTitle', e.target.value)}
+                      placeholder="Membangun Generasi Qurani Melalui Sinergi & Amanah"
+                      className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Paragraf Narasi Pengantar
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.affiliate?.aboutDescription || ''}
+                      onChange={(e) => updateAffiliate('aboutDescription', e.target.value)}
+                      className="w-full text-xs text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    {renderAffiliateImagePicker(
+                      'Foto Atas (About)',
+                      'Foto kegiatan sains / greenhouse murid',
+                      formData.affiliate?.aboutPhotoTop || '/images/sd-hero-greenhouse.jpg',
+                      (url) => updateAffiliate('aboutPhotoTop', url)
+                    )}
+
+                    {renderAffiliateImagePicker(
+                      'Foto Bawah (About)',
+                      'Foto suasana santri belajar bilingual',
+                      formData.affiliate?.aboutPhotoBottom || '/images/smp-hero-bilingual.jpg',
+                      (url) => updateAffiliate('aboutPhotoBottom', url)
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* CARD 4: SKEMA KOMISI & KARTU TAHAP */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+                <div className="border-b border-slate-100 pb-4">
+                  <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                    <Sliders className="w-4 h-4 text-[#184F48]" />
+                    <span>4. Nominal Komisi Bagi Hasil &amp; Kartu Simulasi</span>
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Atur besaran hak ujrah per peserta didik untuk masing-masing tahap dan unit sekolah (TK, SD, SMP).
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Komisi Formulir (Tahap 1)
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                      <input
+                        type="number"
+                        value={formData.affiliate?.commissionFormFee ?? 50000}
+                        onChange={(e) => updateAffiliate('commissionFormFee', parseInt(e.target.value) || 0)}
+                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Komisi Daftar Ulang SD IT
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                      <input
+                        type="number"
+                        value={formData.affiliate?.commissionReRegSd ?? 100000}
+                        onChange={(e) => updateAffiliate('commissionReRegSd', parseInt(e.target.value) || 0)}
+                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Komisi Daftar Ulang TK IT
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                      <input
+                        type="number"
+                        value={formData.affiliate?.commissionReRegTk ?? 250000}
+                        onChange={(e) => updateAffiliate('commissionReRegTk', parseInt(e.target.value) || 0)}
+                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Komisi Daftar Ulang SMP IT
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                      <input
+                        type="number"
+                        value={formData.affiliate?.commissionReRegSmp ?? 500000}
+                        onChange={(e) => updateAffiliate('commissionReRegSmp', parseInt(e.target.value) || 0)}
+                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 pl-9 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                  {renderAffiliateImagePicker(
+                    'Foto Kartu Komisi Formulir (Kiri)',
+                    'Foto kartu tahap 1 di seksi kalkulator hijau',
+                    formData.affiliate?.formCardImage || '/images/sd-activity-multimedia-learning.jpg',
+                    (url) => updateAffiliate('formCardImage', url)
+                  )}
+
+                  {renderAffiliateImagePicker(
+                    'Foto Kartu Komisi Daftar Ulang (Kanan)',
+                    'Foto kartu tahap 2 di seksi kalkulator hijau',
+                    formData.affiliate?.reRegCardImage || '/images/tk-activity-blocks-play.jpg',
+                    (url) => updateAffiliate('reRegCardImage', url)
+                  )}
+                </div>
+              </div>
+
+              {/* CARD 5: CTA PENDAFTARAN BAWAH */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+                <div className="border-b border-slate-100 pb-4">
+                  <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                    <Share2 className="w-4 h-4 text-[#184F48]" />
+                    <span>5. Banner Ajakan Pendaftaran (CTA Bawah)</span>
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Teks judul dan subjudul pada form registrasi cepat di bagian bawah halaman.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Judul CTA
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.affiliate?.ctaHeadline || ''}
+                      onChange={(e) => updateAffiliate('ctaHeadline', e.target.value)}
+                      placeholder="Mulai Sebarkan Kebaikan, Raih Manfaat Berkah."
+                      className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Subjudul CTA
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={formData.affiliate?.ctaSubheadline || ''}
+                      onChange={(e) => updateAffiliate('ctaSubheadline', e.target.value)}
+                      className="w-full text-xs text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

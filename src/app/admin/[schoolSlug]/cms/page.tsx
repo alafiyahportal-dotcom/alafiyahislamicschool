@@ -443,6 +443,7 @@ export default async function SchoolCMSEditorPage({
     facilities: facilitiesPayload,
     testimonials: testimonialsPayload,
     tuition: tuitionPayload,
+    affiliate: (sectionsMap.affiliate as any) || undefined,
     presetImages: (sectionsMap.preset_images as any) || undefined
   };
 
