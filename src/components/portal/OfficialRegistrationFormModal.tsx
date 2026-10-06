@@ -156,7 +156,7 @@ export default function OfficialRegistrationFormModal({
                       {schoolName}
                     </h1>
                     <p className="text-[10px] sm:text-[11px] text-slate-600 leading-snug">
-                      Jl. KH Abdul Halim, Babakan Jawa, Majalengka, Jawa Barat 45411<br />
+                      Jl. Gerakan Koperasi, Majalengka, Jawa Barat 45411<br />
                       Izin Kemenag/Kemdikbud RI • Telp/WA: (0233) 8281-9900 • Web: https://alafiyah.sch.id
                     </p>
                   </div>

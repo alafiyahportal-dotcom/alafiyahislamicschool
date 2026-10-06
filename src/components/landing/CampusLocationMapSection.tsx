@@ -32,15 +32,15 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
 
   const schoolAddress =
     isFoundation || isSd
-      ? 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Babakan Jawa, Kel. Majalengka Wetan, Kec. Majalengka, Jawa Barat 45411'
+      ? 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Wetan, Kec. Majalengka, Jawa Barat 45411'
       : isTk
-      ? 'Kompleks Pendidikan Islam Imam Bonjol, Babakan Jawa, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419'
+      ? 'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419'
       : 'Jl. Gerakan Koperasi No. 110, Kel. Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411';
 
   const mapQuery = isFoundation || isSd
     ? '-6.8367783,108.237785'
     : isTk
-    ? 'Babakan Jawa Majalengka Jawa Barat'
+    ? 'Majalengka Wetan Majalengka Jawa Barat'
     : 'Jl Gerakan Koperasi No 110 Majalengka Wetan Jawa Barat';
 
   const mapZoom = isFoundation || isSd ? 18 : 16;

@@ -20,7 +20,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Kontak & Sekretariat Lingkungan Sekolah Al-Afiyah | Yayasan Pendidikan Imam Bonjol',
-  description: 'Alamat lengkap, nomor telepon, WhatsApp konsultasi PPDB, jam operasional kantor, dan peta lokasi sekolah terpadu Al-Afiyah di Babakan Jawa, Majalengka.',
+  description: 'Alamat lengkap, nomor telepon, WhatsApp konsultasi PPDB, jam operasional kantor, dan peta lokasi sekolah terpadu Al-Afiyah di Majalengka.',
 };
 
 export default function KontakPage() {
@@ -143,7 +143,7 @@ export default function KontakPage() {
                   Sekretariat Pusat Yayasan
                 </h3>
                 <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                  Kompleks Pendidikan Islam Imam Bonjol, Babakan Jawa, Kec. Majalengka, Kabupaten Majalengka, Jawa Barat 45419.
+                  Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kabupaten Majalengka, Jawa Barat 45419.
                 </p>
               </div>
 

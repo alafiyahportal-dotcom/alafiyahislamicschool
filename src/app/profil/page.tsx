@@ -39,7 +39,7 @@ export default function ProfilPage() {
     {
       year: '2018',
       title: 'Pembangunan Kampus & SD IT Al-Afiyah',
-      desc: 'Ekspansi pendidikan ke jenjang dasar (SD IT) di lahan terpadu Babakan Jawa Majalengka dengan integrasi kurikulum nasional dan kurikulum keislaman komprehensif.',
+      desc: 'Ekspansi pendidikan ke jenjang dasar (SD IT) di lahan terpadu Majalengka dengan integrasi kurikulum nasional dan kurikulum keislaman komprehensif.',
     },
     {
       year: '2021',

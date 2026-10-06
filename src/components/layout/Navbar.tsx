@@ -334,21 +334,21 @@ export default function Navbar({
       {/* MAIN NAVIGATION (Transparent at Top, Solid White on Scroll) */}
       {/* ========================================================= */}
       <div
-        className={`w-full z-40 transition-all duration-300 ${
+        className={`w-full max-w-full overflow-x-clip z-40 transition-all duration-300 ${
           hasDarkHero ? 'fixed top-0 left-0 right-0' : 'sticky top-0'
         }`}
       >
         <header
-          className={`w-full select-none transition-all duration-300 border-b ${
+          className={`w-full max-w-full select-none transition-all duration-300 border-b overflow-x-clip ${
             shouldBeTransparent
               ? 'bg-gradient-to-b from-black/75 via-black/40 to-transparent border-white/10 shadow-none'
               : 'bg-white/95 backdrop-blur-md shadow-md border-slate-200/90'
           }`}
         >
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 xl:px-12">
-            <div className="flex items-center justify-between h-[72px]">
+          <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-10 xl:px-12 w-full">
+            <div className="flex items-center justify-between h-[64px] sm:h-[72px] w-full min-w-0">
               
-              {/* Brand Logo & Typography (Al-Irsyad Inspired) */}
+              {/* Brand Logo & Typography (Al-Irsyad Inspired, Responsive & Truncated on Mobile) */}
               <Link
                 href={brandConfig.homeUrl}
                 onClick={() => {
@@ -356,23 +356,24 @@ export default function Navbar({
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
-                className="flex items-center gap-3 flex-shrink-0 group cursor-pointer mr-6 xl:mr-10 py-1"
+                className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 mr-2 sm:mr-6 xl:mr-10 py-1 group cursor-pointer"
               >
                 {brandConfig.logoUrl && (
                   <img
                     src={brandConfig.logoUrl}
                     alt={brandConfig.title}
-                    className="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-xs"
+                    className="w-9 h-9 sm:w-11 sm:h-11 object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-xs"
                   />
                 )}
-                <div className="flex flex-col justify-center">
+                <div className="min-w-0 flex flex-col justify-center">
                   {/* Arabic Calligraphy Style Title */}
                   <div
-                    className={`text-base sm:text-lg xl:text-xl font-bold tracking-normal font-serif transition-colors leading-tight ${
+                    className={`text-xs xs:text-sm sm:text-lg xl:text-xl font-bold tracking-normal font-serif transition-colors leading-tight truncate ${
                       shouldBeTransparent
                         ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                         : 'text-softwater-dark group-hover:text-softwater'
                     }`}
+                    title={brandConfig.arabic}
                   >
                     {brandConfig.arabic}
                   </div>
@@ -380,7 +381,7 @@ export default function Navbar({
                   {/* Latin Name (Pure White on Transparent, Slate-800 on Scrolled) */}
                   <div className="mt-0.5">
                     <span
-                      className={`text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-colors whitespace-nowrap ${
+                      className={`text-[11px] sm:text-sm font-extrabold uppercase tracking-wider transition-colors truncate block ${
                         shouldBeTransparent
                           ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                           : 'text-slate-800 group-hover:text-softwater-dark'
@@ -584,13 +585,13 @@ export default function Navbar({
               </div>
 
               {/* Mobile & Tablet Right Actions (Search + Hamburger Drawer Trigger) */}
-              <div className="flex lg:hidden items-center gap-1.5 sm:gap-2 flex-shrink-0">
+              <div className="flex lg:hidden items-center gap-1 sm:gap-2 shrink-0 ml-auto">
                 <button
                   type="button"
                   onClick={() => setIsSearchOpen(true)}
                   title="Pencarian Cepat"
                   aria-label="Buka pencarian"
-                  className={`p-2 rounded-full transition-colors cursor-pointer shrink-0 ${
+                  className={`p-1.5 sm:p-2 rounded-full transition-colors cursor-pointer shrink-0 ${
                     shouldBeTransparent
                       ? 'text-white hover:bg-white/10'
                       : 'text-slate-600 hover:text-softwater-dark hover:bg-slate-100'
@@ -603,7 +604,7 @@ export default function Navbar({
                   type="button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   aria-label="Buka menu navigasi"
-                  className={`p-2 rounded-xl transition-colors cursor-pointer ${
+                  className={`p-1.5 sm:p-2 rounded-xl transition-colors cursor-pointer shrink-0 ${
                     shouldBeTransparent
                       ? 'text-white hover:bg-white/10'
                       : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100'

@@ -881,7 +881,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
                   <div className="font-bold text-[11px] tracking-wider uppercase text-slate-600">Yayasan Pendidikan Imam Bonjol Majalengka</div>
                   <div className="font-extrabold text-base tracking-tight uppercase text-slate-900">{registration.school.name}</div>
                   <div className="text-[10px] text-slate-500 mt-0.5">
-                    Jl. Babakan Jawa No. 45, Kecamatan Majalengka, Kabupaten Majalengka, Jawa Barat 45411 • Hotline: 0812-3456-7890
+                    Jl. Gerakan Koperasi No. 110, Kecamatan Majalengka, Kabupaten Majalengka, Jawa Barat 45411 • Hotline: 0813-1013-9001
                   </div>
                 </div>
                 <div className="w-14 flex-shrink-0 text-center">

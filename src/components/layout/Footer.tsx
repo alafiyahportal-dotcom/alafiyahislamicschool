@@ -45,7 +45,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       accreditation: 'Terakreditasi Resmi',
       permit: 'Izin Kemenag & Kemdikbud',
       address:
-        'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Babakan Jawa, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
+        'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
       hotline: '+62 813-1013-9001',
       hotlineWa: 'https://wa.me/6281310139001',
       email: 'sdit@alafiyah.sch.id',
@@ -70,7 +70,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       accreditation: 'Terakreditasi Resmi',
       permit: 'Izin Kemenag & Kemdikbud',
       address:
-        'Kompleks Pendidikan Islam Imam Bonjol, Babakan Jawa, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
+        'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
       hotline: '+62 812-2334-4552',
       hotlineWa: 'https://wa.me/6281223344552',
       email: 'tkit@alafiyah.sch.id',
@@ -100,7 +100,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       accreditation: 'Terakreditasi Resmi',
       permit: 'Izin Kemenag & Kemdikbud',
       address:
-        'Kompleks Pendidikan Islam Imam Bonjol, Babakan Jawa, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
+        'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
       hotline: '+62 812-2334-4552',
       hotlineWa: 'https://wa.me/6281223344552',
       email: 'smpit@alafiyah.sch.id',
@@ -130,7 +130,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       accreditation: 'Terakreditasi Resmi',
       permit: 'Izin Kemenag & Kemdikbud',
       address:
-        'Kompleks Pendidikan Islam Imam Bonjol, Babakan Jawa, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
+        'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
       hotline: '+62 812-2334-4552',
       hotlineWa: 'https://wa.me/6281223344552',
       email: 'info@alafiyah.sch.id',
