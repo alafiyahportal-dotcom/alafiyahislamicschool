@@ -24,12 +24,13 @@ import {
   ChevronDown,
   ChevronUp,
   Check,
-  Sparkles,
+  HeartHandshake,
+  Target,
+  UserPlus,
   Copy,
   MessageCircle,
   X,
   CreditCard,
-  Zap,
   ArrowUpRight,
   Scale,
   BadgeCheck,
@@ -73,8 +74,8 @@ function CircularBadgeStamp({ text = "MITRA RESMI • AL-AFIYAH • SYARIAH • 
           </textPath>
         </text>
       </svg>
-      <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-[#a3e635] text-[#153424] flex items-center justify-center shadow-inner">
-        <Star className="w-5 h-5 fill-current" />
+      <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-[#0a1d13] text-emerald-200 flex items-center justify-center shadow-inner border border-emerald-500/30">
+        <ShieldCheck className="w-5 h-5" />
       </div>
     </div>
   );
@@ -303,7 +304,7 @@ export default function AffiliatePublicPage() {
       badge: 'Penggiat Dakwah',
       title: 'Penggiat Dakwah, Majelis & Relawan Sosial',
       subtitle: 'Syiarkan nilai pendidikan qurani sembari membangun sumber rezeki yang barakah.',
-      icon: Sparkles,
+      icon: HeartHandshake,
       advantageTitle: 'Dana Operasional Dakwah & Syiar Pendidikan Islam',
       advantageText:
         'Jadikan program kemitraan ini sebagai sumber pendanaan mandiri untuk kas majelis taklim, logistik dakwah, atau kegiatan sosial tanpa membebani jamaah.',
@@ -491,10 +492,6 @@ export default function AffiliatePublicPage() {
                   <CircularBadgeStamp />
                 </div>
 
-                {/* Micro Sparkle Icon Accent */}
-                <div className="absolute -bottom-3 -left-3 w-8 h-8 rounded-full bg-[#a3e635] text-[#153424] flex items-center justify-center shadow-md">
-                  <Sparkles className="w-4 h-4" />
-                </div>
 
               </div>
             </div>
@@ -863,7 +860,7 @@ export default function AffiliatePublicPage() {
                 { id: 'wali', label: 'Wali Murid', icon: Users },
                 { id: 'guru', label: 'Guru & Asatidz', icon: School },
                 { id: 'alumni', label: 'Alumni Peserta Didik', icon: GraduationCap },
-                { id: 'relawan', label: 'Penggiat Dakwah', icon: Sparkles },
+                { id: 'relawan', label: 'Penggiat Dakwah', icon: HeartHandshake },
               ].map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activePersonaTab === tab.id;
@@ -946,7 +943,7 @@ export default function AffiliatePublicPage() {
 
                       <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
                         <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-                          <Zap className="w-3.5 h-3.5 text-amber-500" />
+                          <Target className="w-3.5 h-3.5 text-emerald-700" />
                           <span>Mengapa Ini Tepat?</span>
                         </h4>
                         <p className="text-xs text-slate-600 leading-relaxed">{item.why}</p>
@@ -1357,8 +1354,8 @@ export default function AffiliatePublicPage() {
           <div className="bg-white rounded-3xl shadow-xl border border-slate-200 max-w-lg w-full p-6 sm:p-8 space-y-4 max-h-[90vh] overflow-y-auto text-left relative">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#153424] text-[#a3e635] flex items-center justify-center">
-                  <Sparkles className="w-4 h-4" />
+                <div className="w-9 h-9 rounded-xl bg-[#153424] text-emerald-300 flex items-center justify-center">
+                  <UserPlus className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-slate-900">
