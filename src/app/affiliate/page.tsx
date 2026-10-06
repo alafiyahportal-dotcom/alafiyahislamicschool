@@ -36,7 +36,7 @@ import {
 } from 'lucide-react';
 
 /**
- * High-performance smooth counter for currency values
+ * Smooth natural counter for currency values
  */
 function AnimatedRupiah({ value }: { value: number }) {
   const [current, setCurrent] = useState(value);
@@ -47,7 +47,7 @@ function AnimatedRupiah({ value }: { value: number }) {
     const diff = value - startVal;
     if (diff === 0) return;
 
-    const duration = 320;
+    const duration = 280;
 
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -196,8 +196,8 @@ export default function AffiliatePublicPage() {
       // Trigger celebration confetti
       try {
         confetti({
-          particleCount: 80,
-          spread: 70,
+          particleCount: 70,
+          spread: 60,
           origin: { y: 0.6 },
         });
       } catch {
@@ -302,125 +302,108 @@ export default function AffiliatePublicPage() {
       <Navbar />
 
       {/* =========================================================================
-          1. HERO SECTION: Dark Craft Aesthetic with Precision Mockup
+          1. HERO SECTION: Dignified Midnight Navy (Clean, Academic, Zero Neon)
          ========================================================================= */}
-      <section className="relative bg-[#060c13] text-white pt-28 pb-20 sm:pt-36 lg:pt-40 lg:pb-28 overflow-hidden border-b border-white/10">
-        {/* Subtle Ambient Radial Glows & Grid Background */}
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 right-0 w-[30rem] h-[30rem] bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="relative bg-[#0B1528] text-white pt-28 pb-20 sm:pt-36 lg:pt-40 lg:pb-28 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Column: Authentic Copy & Tactile CTAs */}
+            
+            {/* Left Column: Authentic Copy & Calm Dignified CTAs */}
             <div className="lg:col-span-7 space-y-6 text-left">
-              {/* Tactical Badge */}
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-semibold tracking-wide">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              {/* Restrained Badge */}
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-800/90 border border-slate-700 text-slate-200 text-xs font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
                 <span>Program Kemitraan Dakwah &amp; Kebaikan TP 2027/2028</span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
                 Sebar Kebaikan,{' '}
-                <span className="bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-200 bg-clip-text text-transparent block sm:inline">
+                <span className="text-amber-400 block sm:inline">
                   Apresiasi Berkah Masuk Rekening.
                 </span>
               </h1>
 
               {/* Subtitle */}
               <p className="text-slate-300 text-sm sm:text-base lg:text-lg max-w-2xl leading-relaxed">
-                Program kemitraan resmi Yayasan Pendidikan Imam Bonjol Al-Afiyah (TK IT, SD IT, SMP IT) yang berlandaskan amanah, transparansi, dan akad syariah Wakalah bil Ujrah. Cukup bagikan tautan rujukan personal Anda, pantau calon santri secara real-time, dan nikmati apresiasi komisi nyata setiap bulan.
+                Program kemitraan resmi Yayasan Pendidikan Imam Bonjol Al-Afiyah (TK IT, SD IT, SMP IT) yang berlandaskan amanah, transparansi, dan akad syariah Wakalah bil Ujrah. Rekomendasikan calon santri, pantau pendaftaran real-time, dan nikmati apresiasi komisi nyata setiap bulan.
               </p>
 
-              {/* Dignified Emerald CTA Buttons */}
+              {/* Solid Dignified CTAs */}
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <button
                   onClick={() => openRegisterWithPersona()}
-                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm sm:text-base transition-all duration-200 shadow-xl shadow-emerald-950/60 border border-emerald-400/30 ring-1 ring-emerald-400/20 flex items-center justify-center space-x-2 group cursor-pointer active:scale-[0.98]"
+                  className="px-7 py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-sm sm:text-base transition-colors shadow-sm flex items-center justify-center space-x-2 cursor-pointer active:scale-98"
                 >
                   <span>Daftar Mitra Afiliasi (Gratis)</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-emerald-200" />
+                  <ArrowRight className="w-4 h-4 text-emerald-200" />
                 </button>
 
                 <a
                   href="#kalkulator"
-                  className="px-7 py-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-semibold text-sm sm:text-base transition-all flex items-center justify-center space-x-2 cursor-pointer backdrop-blur-sm shadow-xs"
+                  className="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-semibold text-sm sm:text-base transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <TrendingUp className="w-4 h-4 text-emerald-400" />
                   <span>Simulasi Komisi Syirkah</span>
                 </a>
               </div>
 
-              {/* Clean Monochromatic SVG Trust Badges with Soft Emerald Accents */}
-              <div className="pt-6 flex flex-wrap items-center gap-3 text-xs text-slate-300 border-t border-white/10">
-                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-sm">
+              {/* Clean Monochromatic SVG Trust Badges */}
+              <div className="pt-6 flex flex-wrap items-center gap-3 text-xs text-slate-300 border-t border-slate-800">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/80">
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="font-medium text-slate-200">Akad Syariah Wakalah</span>
+                  <span className="font-medium text-slate-300">Akad Syariah Wakalah</span>
                 </div>
-                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-sm">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/80">
                   <Wallet className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="font-medium text-slate-200">Pencairan Cepat ke Bank</span>
+                  <span className="font-medium text-slate-300">Pencairan Cepat ke Bank</span>
                 </div>
-                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-sm">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/80">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="font-medium text-slate-200">Pantau Calon Santri Real-Time</span>
+                  <span className="font-medium text-slate-300">Pantau Calon Santri Real-Time</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Hero Mockup Dashboard Card (Dark Craft Aesthetic) */}
+            {/* Right Column: Hero Mockup Dashboard Card (Refined SaaS Executive Look) */}
             <div className="lg:col-span-5 relative">
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Subtle Outer Glow Layer */}
-                <div className="absolute -inset-1 bg-gradient-to-tr from-emerald-500/20 via-teal-500/10 to-amber-500/15 rounded-3xl blur-2xl opacity-70" />
-
-                {/* Main Craft Card */}
-                <div className="relative bg-[#0d131a]/80 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-7 shadow-2xl space-y-5 text-left overflow-hidden">
-                  {/* Subtle Radial Inner Glow */}
-                  <div className="absolute -top-24 -right-24 w-72 h-72 bg-radial from-emerald-500/15 via-transparent to-transparent pointer-events-none rounded-full" />
-                  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-radial from-amber-500/10 via-transparent to-transparent pointer-events-none rounded-full" />
-
-                  {/* Card Header with Verified Badge */}
-                  <div className="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
+                {/* Main Card */}
+                <div className="relative bg-[#131F37] border border-slate-700/90 rounded-2xl p-6 sm:p-7 shadow-xl space-y-4 text-left">
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between pb-3.5 border-b border-slate-700/80">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 flex items-center justify-center font-bold text-sm shadow-inner">
+                      <div className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 text-white flex items-center justify-center font-bold text-xs">
                         MA
                       </div>
                       <div>
-                        <div className="flex items-center space-x-2">
-                          <h4 className="text-sm font-bold text-white tracking-wide">Mitra Al-Afiyah</h4>
-                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        </div>
+                        <h4 className="text-sm font-bold text-white tracking-wide">Mitra Al-Afiyah</h4>
                         <p className="text-[11px] text-slate-400">ID: AFY-2027-089 • Ma&apos;had Al-Afiyah</p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 flex items-center gap-1">
-                      <BadgeCheck className="w-3 h-3 text-emerald-400" />
+                    <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1">
+                      <BadgeCheck className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Terverifikasi</span>
                     </span>
                   </div>
 
-                  {/* Tactical Monospace Referral Link Row with Micro-Feedback */}
-                  <div className="space-y-1.5 relative z-10">
+                  {/* Monospace Referral Link Row with Clear Feedback */}
+                  <div className="space-y-1.5">
                     <div className="flex items-center justify-between text-[11px]">
                       <span className="font-medium text-slate-300">Tautan Unik Rujukan:</span>
-                      <span className="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        Siap Dibagikan
-                      </span>
+                      <span className="text-[10px] text-slate-400">Siap Dibagikan</span>
                     </div>
-                    <div className="flex items-center space-x-2 p-2 rounded-xl bg-[#080d12]/90 border border-white/10 shadow-inner">
-                      <div className="flex-1 min-w-0 px-2.5 py-1.5 font-mono text-xs tracking-wider text-emerald-300 truncate bg-white/[0.03] rounded-lg border border-white/5">
+                    <div className="flex items-center space-x-2 p-1.5 rounded-xl bg-[#0B1426] border border-slate-700">
+                      <div className="flex-1 min-w-0 px-2.5 py-1 font-mono text-xs text-slate-200 truncate">
                         alafiyah.sch.id/ref/<span className="font-bold text-white">MITRA-BERKAH</span>
                       </div>
                       <button
                         type="button"
                         onClick={handleHeroCopy}
-                        className={`px-3.5 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all cursor-pointer flex items-center space-x-1.5 active:scale-95 ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer flex items-center space-x-1.5 ${
                           heroCopied
-                            ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30 ring-1 ring-emerald-300'
-                            : 'bg-emerald-600/90 hover:bg-emerald-600 text-white border border-emerald-400/30 shadow-xs'
+                            ? 'bg-emerald-700 text-white'
+                            : 'bg-slate-200 hover:bg-white text-slate-900'
                         }`}
                       >
                         {heroCopied ? (
@@ -430,7 +413,7 @@ export default function AffiliatePublicPage() {
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3.5 h-3.5 text-emerald-200" />
+                            <Copy className="w-3.5 h-3.5 text-slate-700" />
                             <span>Salin</span>
                           </>
                         )}
@@ -439,82 +422,78 @@ export default function AffiliatePublicPage() {
                   </div>
 
                   {/* Live Mini Metrics Grid */}
-                  <div className="grid grid-cols-2 gap-3 pt-1 relative z-10">
-                    <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xs">
+                  <div className="grid grid-cols-2 gap-3 pt-0.5">
+                    <div className="p-3.5 rounded-xl bg-[#0B1426] border border-slate-800">
                       <span className="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">Santri Terdaftar</span>
                       <p className="text-xl font-bold text-white mt-0.5">3 <span className="text-xs text-slate-400 font-normal">Murid</span></p>
-                      <p className="text-[10px] text-emerald-400 mt-1 flex items-center space-x-1 font-medium">
+                      <p className="text-[11px] text-slate-400 mt-1 flex items-center space-x-1">
                         <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
                         <span>Berkas Terverifikasi</span>
                       </p>
                     </div>
 
-                    <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xs">
+                    <div className="p-3.5 rounded-xl bg-[#0B1426] border border-slate-800">
                       <span className="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">Potensi Ujrah</span>
-                      <p className="text-xl font-bold text-emerald-400 mt-0.5">Rp 1.150.000</p>
-                      <p className="text-[10px] text-slate-400 mt-1">Pencairan Bank Syariah</p>
+                      <p className="text-xl font-bold text-white mt-0.5">Rp 1.150.000</p>
+                      <p className="text-[11px] text-slate-400 mt-1">Pencairan Bank Syariah</p>
                     </div>
                   </div>
 
-                  {/* Micro Activity Ticker */}
-                  <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-[11px] text-slate-400 relative z-10">
+                  {/* Clean Activity Ticker */}
+                  <div className="p-2.5 rounded-lg bg-[#0B1426] border border-slate-800 flex items-center justify-between text-xs text-slate-400">
                     <div className="flex items-center space-x-2 truncate">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
                       <span className="truncate">Rujukan baru: <span className="text-slate-200 font-medium">Farhan (SD IT)</span></span>
                     </div>
-                    <span className="text-emerald-400 font-semibold font-mono text-[10px] shrink-0 ml-2">+Rp 400.000</span>
+                    <span className="text-slate-300 font-mono text-xs shrink-0 ml-2 font-semibold">+Rp 400.000</span>
                   </div>
 
                   {/* Action Link to Portal */}
-                  <div className="pt-2 flex items-center justify-between text-xs border-t border-white/10 relative z-10">
+                  <div className="pt-2 flex items-center justify-between text-xs border-t border-slate-700/80">
                     <span className="text-slate-400">Sudah terdaftar sebagai mitra?</span>
                     <Link
                       href="/affiliate/dashboard"
-                      className="text-emerald-400 hover:text-emerald-300 font-bold inline-flex items-center space-x-1 group"
+                      className="text-slate-200 hover:text-white font-bold inline-flex items-center space-x-1"
                     >
                       <span>Masuk Dasbor</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          2. INTERACTIVE SYIRKAH / COMMISSION CALCULATOR (Tactile & Transparent)
+          2. INTERACTIVE SYIRKAH / COMMISSION CALCULATOR (Clean Light Executive Style)
          ========================================================================= */}
-      <section id="kalkulator" className="py-20 sm:py-24 bg-slate-900 text-white border-b border-slate-800 relative overflow-hidden">
-        {/* Glow ambient */}
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-10 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section id="kalkulator" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200 text-slate-900">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 mb-3">
-              <Scale className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-emerald-100 text-emerald-900 border border-emerald-200 mb-3">
+              <Scale className="w-3.5 h-3.5 text-emerald-700" />
               <span>KALKULATOR APRESIASI SYIRKAH</span>
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Hitung Estimasi Komisi &amp; Hak Ujrah Anda
             </h2>
-            <p className="text-sm sm:text-base text-slate-300 mt-2">
+            <p className="text-sm sm:text-base text-slate-600 mt-2">
               Kalkulasi riil dan transparan berbasis akad Wakalah bil Ujrah. Tanpa modal awal, tanpa biaya pendaftaran, dan tanpa potongan sepihak.
             </p>
           </div>
 
           {/* Calculator Card Container */}
-          <div className="bg-[#0d131a]/90 border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md space-y-8 relative overflow-hidden text-left">
-            {/* Inner Glow */}
-            <div className="absolute -top-32 -right-32 w-80 h-80 bg-radial from-emerald-500/10 via-transparent to-transparent pointer-events-none rounded-full" />
-
-            {/* 1. Unit Selector Pills */}
-            <div className="space-y-2.5">
-              <label className="text-xs font-semibold text-slate-300 flex items-center space-x-1.5">
-                <Sliders className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-9 shadow-sm space-y-6 text-left">
+            
+            {/* 1. Unit Selector */}
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-slate-700 flex items-center space-x-1.5">
+                <Sliders className="w-3.5 h-3.5 text-slate-500" />
                 <span>Pilih Jenjang Sekolah Target:</span>
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -530,34 +509,36 @@ export default function AffiliatePublicPage() {
                       key={unit.id}
                       type="button"
                       onClick={() => setCalcUnit(unit.id as any)}
-                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                      className={`p-3 rounded-xl border text-left transition-colors cursor-pointer ${
                         isActive
-                          ? 'bg-emerald-500/15 border-emerald-400/40 text-white ring-1 ring-emerald-500/30 shadow-sm'
-                          : 'bg-white/[0.02] border-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                          ? 'bg-slate-900 border-slate-900 text-white shadow-xs'
+                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
-                      <p className={`text-xs font-bold ${isActive ? 'text-emerald-300' : 'text-slate-300'}`}>
+                      <p className={`text-xs font-bold ${isActive ? 'text-white' : 'text-slate-900'}`}>
                         {unit.label}
                       </p>
-                      <p className="text-[10px] text-slate-400 mt-0.5">{unit.rate}</p>
+                      <p className={`text-[11px] mt-0.5 ${isActive ? 'text-slate-300' : 'text-slate-500'}`}>
+                        {unit.rate}
+                      </p>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* 2. Tactile Slider with Quick-Select Chips */}
-            <div className="space-y-4 pt-2 border-t border-white/5">
+            {/* 2. Slider with Clean Quantity Badge & Chips */}
+            <div className="space-y-4 pt-3 border-t border-slate-100">
               <div className="flex items-center justify-between">
                 <div>
-                  <label htmlFor="studentSlider" className="text-xs font-semibold text-slate-200">
+                  <label htmlFor="studentSlider" className="text-xs font-semibold text-slate-700">
                     Jumlah Santri yang Anda Referensikan:
                   </label>
-                  <p className="text-[11px] text-slate-400">Geser slider atau pilih kuota di bawah</p>
+                  <p className="text-[11px] text-slate-500">Geser slider atau pilih kuota di bawah</p>
                 </div>
-                <div className="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 flex items-center space-x-1.5 font-mono">
-                  <span className="text-xl font-bold">{calcStudents}</span>
-                  <span className="text-xs">Santri</span>
+                <div className="px-3 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-900 flex items-center space-x-1 font-mono">
+                  <span className="text-lg font-bold">{calcStudents}</span>
+                  <span className="text-xs text-slate-600">Santri</span>
                 </div>
               </div>
 
@@ -571,21 +552,21 @@ export default function AffiliatePublicPage() {
                 step="1"
                 value={calcStudents}
                 onChange={(e) => setCalcStudents(Number(e.target.value))}
-                className="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 focus:outline-hidden"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-700 focus:outline-hidden"
               />
 
               {/* Quick Select Chips */}
-              <div className="flex flex-wrap items-center gap-2 pt-1">
-                <span className="text-[11px] text-slate-400 mr-1">Rekomendasi Target:</span>
+              <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                <span className="text-[11px] text-slate-500 mr-1">Rekomendasi Target:</span>
                 {[3, 5, 8, 10, 15, 20].map((num) => (
                   <button
                     key={num}
                     type="button"
                     onClick={() => setCalcStudents(num)}
-                    className={`px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer ${
                       calcStudents === num
-                        ? 'bg-emerald-500 text-white font-bold shadow-xs'
-                        : 'bg-white/[0.04] text-slate-300 hover:bg-white/[0.08] border border-white/5'
+                        ? 'bg-slate-900 text-white font-bold shadow-xs'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
                     }`}
                   >
                     {num} Murid
@@ -597,75 +578,76 @@ export default function AffiliatePublicPage() {
             {/* 3. Transparent Breakdown Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
               {/* Box 1: Formulir */}
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">
                   Tahap 1: Formulir
                 </span>
-                <p className="text-xl font-bold text-white tracking-tight font-mono">
+                <p className="text-xl font-bold text-slate-900 tracking-tight font-mono">
                   <AnimatedRupiah value={formUjrahTotal} />
                 </p>
-                <p className="text-[10px] text-slate-400">
+                <p className="text-[11px] text-slate-500">
                   Rp 50.000 × {calcStudents} murid • Cair saat formulir lunas
                 </p>
               </div>
 
               {/* Box 2: Registrasi / Daftar Ulang */}
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <span className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">
                   Tahap 2: Daftar Ulang
                 </span>
-                <p className="text-xl font-bold text-teal-300 tracking-tight font-mono">
+                <p className="text-xl font-bold text-slate-900 tracking-tight font-mono">
                   <AnimatedRupiah value={regUjrahTotal} />
                 </p>
-                <p className="text-[10px] text-slate-400">
+                <p className="text-[11px] text-slate-500">
                   Rata-rata registrasi resmi per santri
                 </p>
               </div>
 
               {/* Box 3: Total Take-Home Commission */}
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-950/60 to-[#071510] border border-emerald-500/40 space-y-1 shadow-lg shadow-emerald-950/40">
-                <span className="text-[11px] text-emerald-400 uppercase tracking-wider font-bold">
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1">
+                <span className="text-[11px] text-emerald-900 uppercase tracking-wider font-bold">
                   Total Estimasi Komisi
                 </span>
-                <p className="text-2xl sm:text-3xl font-extrabold text-emerald-300 tracking-tight font-mono">
+                <p className="text-2xl sm:text-3xl font-extrabold text-emerald-800 tracking-tight font-mono">
                   <AnimatedRupiah value={totalCalcCommission} />
                 </p>
-                <p className="text-[10px] text-emerald-200/80">
+                <p className="text-[11px] text-emerald-700">
                   Hak ujrah bersih langsung ke rekening Anda
                 </p>
               </div>
             </div>
 
             {/* 4. Akad Syariah Wakalah bil Ujrah Note */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/25 flex items-start space-x-3.5 text-xs text-slate-300">
-              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start space-x-3.5 text-xs text-slate-700">
+              <ShieldCheck className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h5 className="font-bold text-emerald-300">
+                <h5 className="font-bold text-slate-900">
                   Prinsip Syariah: Akad Wakalah bil Ujrah (Bebas Riba &amp; Gharar)
                 </h5>
-                <p className="text-slate-300 leading-relaxed text-[11px] sm:text-xs">
+                <p className="text-slate-600 leading-relaxed text-[11px] sm:text-xs">
                   Sistem apresiasi kemitraan Al-Afiyah berpegang pada fatwa akad perwakilan atas jasa (Wakalah bil Ujrah). Upah bersifat pasti (*ma&apos;lum*), transparan, tanpa unsur manipulatif atau piramida MLM, dan ditujukan semata untuk menyiarkan pendidikan Islam yang barakah.
                 </p>
               </div>
             </div>
 
             {/* 5. Direct Action CTA */}
-            <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-white/10">
+            <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-100">
               <div>
-                <p className="text-xs text-slate-300 font-medium">
+                <p className="text-xs text-slate-800 font-semibold">
                   Siap menjadi jembatan kebaikan untuk {calcStudents} santri baru?
                 </p>
-                <p className="text-[11px] text-slate-400">Pendaftaran akun mitra gratis dan langsung aktif dalam 1 menit.</p>
+                <p className="text-[11px] text-slate-500">Pendaftaran akun mitra gratis dan langsung aktif dalam 1 menit.</p>
               </div>
               <button
                 type="button"
                 onClick={() => openRegisterWithPersona()}
-                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-950/40 border border-emerald-400/30 flex items-center justify-center space-x-2 transition-all cursor-pointer active:scale-98"
+                className="px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow-xs flex items-center justify-center space-x-2 transition-colors cursor-pointer"
               >
                 <span>Kunci Estimasi &amp; Daftar Sekarang</span>
                 <ArrowRight className="w-4 h-4 text-emerald-200" />
               </button>
             </div>
+
           </div>
         </div>
       </section>
@@ -673,7 +655,7 @@ export default function AffiliatePublicPage() {
       {/* =========================================================================
           3. PERSONA SECTION WITH SMOOTH FRAMER MOTION TRANSITIONS
          ========================================================================= */}
-      <section id="persona" className="py-20 sm:py-24 bg-slate-50 border-b border-slate-200">
+      <section id="persona" className="py-20 sm:py-24 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-12">
@@ -688,9 +670,9 @@ export default function AffiliatePublicPage() {
             </p>
           </div>
 
-          {/* Animated Tab Switcher */}
+          {/* Tab Switcher */}
           <div className="flex justify-center mb-8">
-            <div className="inline-flex p-1.5 bg-white rounded-2xl border border-slate-200 shadow-2xs gap-1 sm:gap-2 overflow-x-auto max-w-full">
+            <div className="inline-flex p-1.5 bg-slate-100 rounded-2xl border border-slate-200 shadow-2xs gap-1 sm:gap-2 overflow-x-auto max-w-full">
               {[
                 { id: 'wali', label: 'Wali Murid', icon: Users },
                 { id: 'guru', label: 'Guru & Asatidz', icon: School },
@@ -705,11 +687,11 @@ export default function AffiliatePublicPage() {
                     onClick={() => setActivePersonaTab(tab.id as any)}
                     className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                       isActive
-                        ? 'bg-slate-900 text-white shadow-xs scale-100'
-                        : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
+                        ? 'bg-slate-900 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-400' : 'text-slate-400'}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-amber-400' : 'text-slate-400'}`} />
                     <span>{tab.label}</span>
                   </button>
                 );
@@ -726,25 +708,25 @@ export default function AffiliatePublicPage() {
                 return (
                   <motion.div
                     key={key}
-                    initial={{ opacity: 0, y: 14, scale: 0.99 }}
+                    initial={{ opacity: 0, y: 12, scale: 0.99 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -14, scale: 0.99 }}
-                    transition={{ duration: 0.22, ease: 'easeOut' }}
-                    className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6 text-left"
+                    exit={{ opacity: 0, y: -12, scale: 0.99 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                    className="bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-sm space-y-6 text-left"
                   >
-                    {/* Card Top: Title, Verified Badge & Locked Role Action */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+                    {/* Card Top */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
                       <div className="flex items-center space-x-3.5">
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100 shadow-2xs">
+                        <div className="w-12 h-12 rounded-2xl bg-white text-emerald-800 flex items-center justify-center border border-slate-200 shadow-2xs">
                           <Icon className="w-6 h-6" />
                         </div>
                         <div>
                           <div className="flex items-center space-x-2">
-                            <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wider">
+                            <span className="text-xs font-semibold text-emerald-800 uppercase tracking-wider">
                               {item.badge}
                             </span>
-                            <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-50 text-[10px] font-semibold text-emerald-800 border border-emerald-200/60">
-                              <BadgeCheck className="w-3 h-3 text-emerald-600" />
+                            <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-100 text-[10px] font-semibold text-emerald-900 border border-emerald-200">
+                              <BadgeCheck className="w-3 h-3 text-emerald-700" />
                               <span>Lencana Resmi Mitra</span>
                             </span>
                           </div>
@@ -756,10 +738,10 @@ export default function AffiliatePublicPage() {
 
                       <button
                         onClick={() => openRegisterWithPersona(key as any)}
-                        className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-900/20 transition-all cursor-pointer flex items-center space-x-1.5 group self-start sm:self-auto active:scale-95"
+                        className="px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs transition-colors cursor-pointer flex items-center space-x-1.5 self-start sm:self-auto"
                       >
                         <span>Daftar Sebagai {tabTitleMap(key)}</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 text-emerald-200" />
+                        <ArrowRight className="w-3.5 h-3.5 text-emerald-200" />
                       </button>
                     </div>
 
@@ -767,7 +749,7 @@ export default function AffiliatePublicPage() {
                       {item.subtitle}
                     </p>
 
-                    {/* Dual Highlight Grid: Specific Persona Advantage + Real Scenarios */}
+                    {/* Dual Highlight Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Persona Specific Advantage */}
                       <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 space-y-1.5">
@@ -781,7 +763,7 @@ export default function AffiliatePublicPage() {
                       </div>
 
                       {/* Why it works */}
-                      <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5">
+                      <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
                         <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-1.5">
                           <Zap className="w-3.5 h-3.5 text-amber-500" />
                           <span>Mengapa Ini Sangat Tepat?</span>
@@ -795,14 +777,14 @@ export default function AffiliatePublicPage() {
                     {/* Earning Scenario Display */}
                     <div className="p-4 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-0.5">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-0.5">
                           Simulasi Manfaat Nyata:
                         </span>
                         <p className="text-xs sm:text-sm font-medium text-slate-200">
                           {item.earningExample}
                         </p>
                       </div>
-                      <span className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white/10 text-emerald-300 shrink-0 self-start sm:self-auto border border-white/10">
+                      <span className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white/10 text-slate-300 shrink-0 self-start sm:self-auto border border-white/10">
                         Cair Otomatis Tiap Bulan
                       </span>
                     </div>
@@ -846,7 +828,7 @@ export default function AffiliatePublicPage() {
       {/* =========================================================================
           4. 5-STEP HOW IT WORKS (Tactile Stepper)
          ========================================================================= */}
-      <section className="py-20 sm:py-24 bg-white border-b border-slate-200">
+      <section className="py-20 sm:py-24 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-emerald-100 text-emerald-800 border border-emerald-200 mb-3">
@@ -890,9 +872,9 @@ export default function AffiliatePublicPage() {
             ].map((s) => (
               <div
                 key={s.step}
-                className="bg-slate-50 p-6 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-emerald-300 transition-all text-center flex flex-col items-center group"
+                className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all text-center flex flex-col items-center group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#060c13] text-emerald-400 font-extrabold text-sm flex items-center justify-center mb-4 shadow-xs group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-slate-900 text-amber-400 font-extrabold text-sm flex items-center justify-center mb-4 shadow-xs">
                   {s.step}
                 </div>
                 <h3 className="text-sm font-bold text-slate-900 mb-1.5">{s.title}</h3>
@@ -904,18 +886,14 @@ export default function AffiliatePublicPage() {
       </section>
 
       {/* =========================================================================
-          5. EMBEDDED REGISTRATION FORM SECTION
+          5. EMBEDDED REGISTRATION FORM SECTION (Midnight Navy, Zero Neon)
          ========================================================================= */}
-      <section id="daftar" className="py-20 sm:py-24 bg-[#060c13] text-white relative overflow-hidden">
-        {/* Glow ambient */}
-        <div className="absolute top-1/2 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-10 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-
+      <section id="daftar" className="py-20 sm:py-24 bg-[#0B1528] text-white relative border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Column: Direct Invitation */}
             <div className="lg:col-span-6 space-y-6 text-left">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-emerald-500/10 border border-emerald-500/25 text-emerald-300">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-slate-800 text-slate-300 border border-slate-700">
                 Pendaftaran Terbuka
               </span>
 
@@ -936,7 +914,7 @@ export default function AffiliatePublicPage() {
                   'Didukung materi promosi digital resmi dari Ma\'had Al-Afiyah',
                 ].map((point, idx) => (
                   <div key={idx} className="flex items-center space-x-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-400/20 text-emerald-400 flex items-center justify-center shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
                     <span className="text-xs sm:text-sm font-medium text-slate-200">
@@ -949,7 +927,7 @@ export default function AffiliatePublicPage() {
 
             {/* Right Column: Registration Form */}
             <div className="lg:col-span-6">
-              <div className="bg-white rounded-3xl p-6 sm:p-9 shadow-2xl text-slate-900 border border-slate-100 max-w-md mx-auto lg:max-w-none text-left">
+              <div className="bg-white rounded-3xl p-6 sm:p-9 shadow-xl text-slate-900 border border-slate-100 max-w-md mx-auto lg:max-w-none text-left">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-slate-900">Formulir Pendaftaran Mitra</h3>
                   <p className="text-xs text-slate-500 mt-1">
@@ -961,7 +939,7 @@ export default function AffiliatePublicPage() {
                 {selectedPersonaRole && (
                   <div className="mb-4 p-3 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs">
                     <div className="flex items-center space-x-2">
-                      <BadgeCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <BadgeCheck className="w-4 h-4 text-emerald-700 shrink-0" />
                       <span className="text-slate-700">
                         Jalur Terpilih:{' '}
                         <strong className="text-emerald-900">{tabTitleMap(selectedPersonaRole)}</strong>
@@ -1002,7 +980,7 @@ export default function AffiliatePublicPage() {
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder="Contoh: Ustadz Ahmad Fauzi"
-                      className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-hidden transition-all"
+                      className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 outline-hidden transition-all"
                     />
                   </div>
 
@@ -1018,7 +996,7 @@ export default function AffiliatePublicPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="nama@email.com"
-                        className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-hidden transition-all"
+                        className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 outline-hidden transition-all"
                       />
                     </div>
 
@@ -1032,7 +1010,7 @@ export default function AffiliatePublicPage() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="081234567890"
-                        className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-hidden transition-all"
+                        className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 outline-hidden transition-all"
                       />
                     </div>
                   </div>
@@ -1050,7 +1028,7 @@ export default function AffiliatePublicPage() {
                           value={formData.password}
                           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                           placeholder="Min. 6 karakter"
-                          className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-hidden pr-9"
+                          className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden pr-9"
                         />
                         <button
                           type="button"
@@ -1073,7 +1051,7 @@ export default function AffiliatePublicPage() {
                           value={formData.confirmPassword}
                           onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                           placeholder="Konfirmasi sandi"
-                          className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-hidden pr-9"
+                          className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden pr-9"
                         />
                         <button
                           type="button"
@@ -1091,7 +1069,7 @@ export default function AffiliatePublicPage() {
                     <button
                       type="button"
                       onClick={() => setShowBankDetails(!showBankDetails)}
-                      className="text-xs text-emerald-700 hover:text-emerald-800 font-bold inline-flex items-center space-x-1 cursor-pointer"
+                      className="text-xs text-emerald-800 hover:text-emerald-900 font-bold inline-flex items-center space-x-1 cursor-pointer"
                     >
                       <CreditCard className="w-3.5 h-3.5" />
                       <span>{showBankDetails ? 'Tutup Pengaturan Rekening' : '+ Atur Rekening Bank & Kode Kustom'}</span>
@@ -1148,7 +1126,7 @@ export default function AffiliatePublicPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full mt-4 py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-sm shadow-md shadow-emerald-900/30 transition-all flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer active:scale-98"
+                    className="w-full mt-4 py-3.5 px-6 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-sm shadow-xs transition-colors flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
                   >
                     {isLoading ? (
                       <>
@@ -1163,7 +1141,7 @@ export default function AffiliatePublicPage() {
                   <div className="text-center pt-2">
                     <p className="text-xs text-slate-500">
                       Sudah pernah mendaftar?{' '}
-                      <Link href="/affiliate/dashboard" className="text-emerald-700 font-bold hover:underline">
+                      <Link href="/affiliate/dashboard" className="text-emerald-800 font-bold hover:underline">
                         Masuk ke Dasbor Mitra &rarr;
                       </Link>
                     </p>
@@ -1227,18 +1205,18 @@ export default function AffiliatePublicPage() {
           QUICK REGISTRATION POPUP MODAL (Role-Aware)
          ========================================================================= */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4">
-          <div className="bg-white rounded-3xl shadow-2xl border border-slate-100 max-w-lg w-full p-6 sm:p-8 space-y-4 max-h-[90vh] overflow-y-auto text-left relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-3xl shadow-xl border border-slate-200 max-w-lg w-full p-6 sm:p-8 space-y-4 max-h-[90vh] overflow-y-auto text-left relative">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100">
-                  <Sparkles className="w-5 h-5 text-emerald-600" />
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center border border-emerald-100">
+                  <Sparkles className="w-5 h-5 text-emerald-700" />
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-slate-900">
                     Daftar Mitra Afiliasi
                   </h3>
-                  <p className="text-[11px] text-slate-400">Gratis • Langsung Aktif • Akad Syariah</p>
+                  <p className="text-[11px] text-slate-500">Gratis • Langsung Aktif • Akad Syariah</p>
                 </div>
               </div>
               <button
@@ -1254,7 +1232,7 @@ export default function AffiliatePublicPage() {
             {selectedPersonaRole && (
               <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs">
                 <div className="flex items-center space-x-2">
-                  <BadgeCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <BadgeCheck className="w-4 h-4 text-emerald-700 shrink-0" />
                   <span className="text-slate-700">
                     Jalur Kemitraan:{' '}
                     <strong className="text-emerald-900">{tabTitleMap(selectedPersonaRole)}</strong>
@@ -1278,7 +1256,7 @@ export default function AffiliatePublicPage() {
 
             {successMessage && (
               <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700 flex items-center space-x-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                 <span>{successMessage}</span>
               </div>
             )}
@@ -1294,7 +1272,7 @@ export default function AffiliatePublicPage() {
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   placeholder="Contoh: Ustadz Ahmad Fauzi"
-                  className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-hidden"
+                  className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden"
                 />
               </div>
 
@@ -1309,7 +1287,7 @@ export default function AffiliatePublicPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="nama@email.com"
-                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-hidden"
+                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden"
                   />
                 </div>
 
@@ -1323,7 +1301,7 @@ export default function AffiliatePublicPage() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="081234567890"
-                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-hidden"
+                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden"
                   />
                 </div>
               </div>
@@ -1339,7 +1317,7 @@ export default function AffiliatePublicPage() {
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     placeholder="Min. 6 karakter"
-                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-hidden"
+                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden"
                   />
                 </div>
 
@@ -1353,7 +1331,7 @@ export default function AffiliatePublicPage() {
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                     placeholder="Konfirmasi sandi"
-                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 outline-hidden"
+                    className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden"
                   />
                 </div>
               </div>
@@ -1384,7 +1362,7 @@ export default function AffiliatePublicPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-emerald-950/30 transition-all flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer active:scale-98"
+                  className="w-full py-3 px-6 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow-xs transition-colors flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
                 >
                   {isLoading ? (
                     <>
