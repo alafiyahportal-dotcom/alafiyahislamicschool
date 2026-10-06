@@ -559,38 +559,8 @@ function PPDBFormContent() {
 
   return (
     <div className="min-h-screen soft-mesh-bg flex flex-col justify-between py-6 px-4 sm:px-6 lg:px-8">
-      {/* Top Header - Dedicated SD IT Navigation */}
-      <header className="max-w-4xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between pb-4 border-b border-slate-200/80 gap-3">
-        <Link
-          href={getSchoolUrl('sd')}
-          className="flex items-center space-x-3 group"
-        >
-          <img
-            src="/images/sd-logo.png"
-            alt="Logo SD IT Al-Afiyah"
-            className="w-10 h-10 object-contain shrink-0 group-hover:scale-105 transition-transform duration-200"
-          />
-          <div>
-            <span className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors block">
-              SD IT Al-Afiyah Majalengka
-            </span>
-            <p className="text-[11px] text-slate-500 font-medium">
-              Portal Pendaftaran Resmi (SPMB) T.A. 2027/2028
-            </p>
-          </div>
-        </Link>
-        <div className="flex items-center gap-2">
-          <Link
-            href={getSchoolUrl('sd')}
-            className="text-xs font-semibold text-slate-700 hover:text-[#00A651] bg-white hover:bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl transition-all shadow-2xs flex items-center gap-1.5"
-          >
-            <span>&larr; Beranda Sekolah</span>
-          </Link>
-        </div>
-      </header>
-
       {/* Main Multi-Step Card */}
-      <div className="max-w-4xl mx-auto w-full my-auto py-6">
+      <div className="max-w-4xl mx-auto w-full my-auto py-2 sm:py-6">
         {/* Official School Hero Banner Card (Solid Brand #00A651 Identity Color for SD IT) */}
         <div
           className="rounded-3xl text-white p-6 sm:p-7 shadow-md border mb-6"
@@ -615,7 +585,7 @@ function PPDBFormContent() {
               <img
                 src="/images/sd-logo.png"
                 alt="Logo SD IT Al-Afiyah"
-                className="w-13 h-13 object-contain shrink-0 drop-shadow-sm hidden sm:block"
+                className="w-11 h-11 sm:w-13 sm:h-13 object-contain shrink-0 drop-shadow-sm block"
               />
               <div>
                 <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">
