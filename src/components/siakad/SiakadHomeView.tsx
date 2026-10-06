@@ -174,7 +174,7 @@ export const SIAKAD_NEWS_ARTICLES: SiakadNewsItem[] = [
     author: 'Tim Bina Karakter Al-Afiyah',
     authorRole: 'Biro Kesiswaan & Pembiasaan Adab',
     coverImage: '/images/sd-activity-classroom-6b.jpg',
-    excerpt: 'Memasuki pekan evaluasi berkala, seluruh santri dan murid dibimbing membiasakan adab jujur, tertib, dan menghargai waktu dalam menuntaskan target belajar.',
+    excerpt: 'Memasuki pekan evaluasi berkala, seluruh peserta didik dibimbing membiasakan adab jujur, tertib, dan menghargai waktu dalam menuntaskan target belajar.',
     readTime: '2 mnt baca',
     paragraphs: [
       'Bismillah, dalam rangka mengawal capaian belajar yang seimbang antara kompetensi materi dan keteguhan akhlaq, sekolah menyelenggarakan Pekan Penilaian Harian Berbasis Adab.',

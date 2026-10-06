@@ -67,7 +67,7 @@ export default async function SchoolAffiliatesPage({
   const formattedConversions: UnitAffiliateConversion[] = conversions.map((c) => ({
     id: c.id,
     registrationNo: c.registration?.registrationNo || '-',
-    studentName: c.registration?.studentName || 'Pendaftar Santri',
+    studentName: c.registration?.studentName || 'Pendaftar Peserta Didik',
     affiliateName: c.affiliate?.user?.fullName || 'Mitra Afiliasi',
     referralCode: c.affiliate?.referralCode || '-',
     commissionAmount: c.commissionAmount,

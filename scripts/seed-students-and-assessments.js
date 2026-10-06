@@ -72,7 +72,7 @@ async function main() {
     }
   }
 
-  // 2. Seed Students for Buku Induk Santri (from existing accepted registrations)
+  // 2. Seed Students for Buku Induk Peserta Didik (from existing accepted registrations)
   const acceptedRegs = await prisma.pPDBRegistration.findMany({
     where: { status: 'ACCEPTED' },
     include: { school: true, student: true }
@@ -108,7 +108,7 @@ async function main() {
           academicYear: '2026/2027',
           parentInfo: reg.parentData,
           status: 'ACTIVE',
-          notes: 'Santri Baru Hasil PPDB 2026/2027 Gelombang 1.'
+          notes: 'Peserta Didik Baru Hasil PPDB 2026/2027 Gelombang 1.'
         }
       });
       console.log(`Created Student Buku Induk: ${reg.studentName} -> NIS: ${nis}`);
@@ -160,7 +160,7 @@ async function main() {
         motherJob: 'Dokter Umum'
       }),
       status: 'ACTIVE',
-      notes: 'Telah mutqin Juz 30 dan Juz 29. Santri berprestasi teladan.'
+      notes: 'Telah mutqin Juz 30 dan Juz 29. Peserta Didik berprestasi teladan.'
     },
     {
       schoolSlug: 'smp',

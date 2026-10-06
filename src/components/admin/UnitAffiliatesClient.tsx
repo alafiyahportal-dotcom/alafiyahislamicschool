@@ -118,7 +118,7 @@ export default function UnitAffiliatesClient({
             <span className="text-2xl font-bold text-slate-900 tabular-nums">
               {totalReferredStudents}
             </span>
-            <span className="text-xs text-slate-400 font-semibold">Calon Santri</span>
+            <span className="text-xs text-slate-400 font-semibold">Calon Peserta Didik</span>
           </div>
           <p className="text-[10px] text-slate-400 mt-1">
             {approvedOrPaid.length} pendaftar telah terkonfirmasi
@@ -185,7 +185,7 @@ export default function UnitAffiliatesClient({
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Cari nama santri, no registrasi, atau nama mitra..."
+              placeholder="Cari nama peserta didik, no registrasi, atau nama mitra..."
               className="w-full pl-9 pr-4 py-2 text-xs font-medium text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#10B981] focus:bg-white"
             />
           </div>
@@ -223,7 +223,7 @@ export default function UnitAffiliatesClient({
               Belum Ada Pendaftar via Jalur Afiliasi
             </h3>
             <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
-              Saat calon wali murid mendaftar menggunakan kode referral dari mitra resmi, data komisi dan santri akan otomatis muncul di sini.
+              Saat calon wali murid mendaftar menggunakan kode referral dari mitra resmi, data komisi dan peserta didik akan otomatis muncul di sini.
             </p>
           </div>
         ) : (
@@ -231,7 +231,7 @@ export default function UnitAffiliatesClient({
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/70 border-b border-slate-100 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  <th className="py-3 px-4">Calon Santri</th>
+                  <th className="py-3 px-4">Calon Peserta Didik</th>
                   <th className="py-3 px-4">Mitra Perujuk</th>
                   <th className="py-3 px-4">Kode Referral</th>
                   <th className="py-3 px-4">Komisi</th>

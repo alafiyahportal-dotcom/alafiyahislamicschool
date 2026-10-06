@@ -244,7 +244,7 @@ model ReRegistration {
   uniformType        String?   // e.g. "Gamis & Jilbab Syar'i" (Akhwat), "Kemeja & Celana Panjang" (Ikhwan)
   heightCm           Int?      // Tinggi badan dalam cm
   weightKg           Int?      // Berat badan dalam kg
-  shoeSize           Int?      // Ukuran sepatu santri 28-44
+  shoeSize           Int?      // Ukuran sepatu peserta didik 28-44
   boardingPreference String?   // "REGULER", "TAHFIDZ_INTENSIF", "NON_BOARDING"
   roommatePreference String?   // Catatan teman sekamar / daerah asal
   paymentPlan        String    @default("FULL") // "FULL", "INSTALLMENT_2X", "INSTALLMENT_3X"
@@ -262,7 +262,7 @@ model ReRegistration {
 
 model Student {
   id             String            @id @default(uuid())
-  nis            String            @unique // Nomor Induk Santri lokal Al-Afiyah e.g. "2026-SD-0001"
+  nis            String            @unique // Nomor Induk Siswa/Peserta Didik lokal Al-Afiyah e.g. "2026-SD-0001"
   nisn           String?           // NISN resmi Kemendikbud 10-digit
   schoolId       String            @map("school_id")
   registrationId String?           @unique @map("registration_id") // Optional link to PPDBRegistration
@@ -270,7 +270,7 @@ model Student {
   gender         String            // "L" | "P"
   pob            String            // Tempat lahir
   dob            DateTime          // Tanggal lahir
-  nik            String?           // NIK santri
+  nik            String?           // NIK peserta didik
   religion       String            @default("Islam")
   address        String
   classGrade     String            @map("class_grade") // e.g. "TK A", "1 SD IT", "7 SMP IT"

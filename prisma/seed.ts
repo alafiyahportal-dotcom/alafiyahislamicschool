@@ -388,11 +388,11 @@ async function main() {
         slides: [
           {
             id: 1,
-            badge: 'RIHLAH & OUTING CLASS SANTRI SMP IT AL-AFIYAH',
+            badge: 'RIHLAH & OUTING CLASS PESERTA DIDIK SMP IT AL-AFIYAH',
             titlePart1: 'Petualangan Seru ',
             titleHighlight: 'River Tubing',
             titlePart2: ' Cikadongdong Majalengka',
-            description: 'Menumbuhkan keberanian, jiwa kepemimpinan, kemandirian, dan ukhuwah islamiyah santri menyusuri aliran sungai Cikadongdong.',
+            description: 'Menumbuhkan keberanian, jiwa kepemimpinan, kemandirian, dan ukhuwah islamiyah peserta didik menyusuri aliran sungai Cikadongdong.',
             primaryCtaText: 'Daftar SPMB SMP IT',
             primaryCtaLink: '/ppdb/daftar',
             secondaryCtaText: 'Lihat Galeri Kegiatan',
@@ -415,10 +415,10 @@ async function main() {
           {
             id: 3,
             badge: 'PEMBINAAN KARAKTER & KELESTARIAN ALAM',
-            titlePart1: 'Kekompakan Santri & ',
+            titlePart1: 'Kekompakan Peserta Didik & ',
             titleHighlight: 'Dewan Asatidz',
             titlePart2: ' Al-Afiyah',
-            description: 'Kegiatan luar kelas yang menyenangkan untuk membentuk santri yang tangguh, peduli lingkungan, dan berakhlakul karimah.',
+            description: 'Kegiatan luar kelas yang menyenangkan untuk membentuk peserta didik yang tangguh, peduli lingkungan, dan berakhlakul karimah.',
             primaryCtaText: 'Info SPMB Gelombang 1',
             primaryCtaLink: '/ppdb/daftar',
             secondaryCtaText: 'Program Unggulan',
@@ -437,7 +437,7 @@ async function main() {
       sectionKey: 'gallery',
       payload: JSON.stringify([
         { title: 'Keseruan River Tubing Cikadongdong', image: '/images/smp-tubing-1.jpg', category: 'Outing Class' },
-        { title: 'Kekompakan Tim Santri Mengarungi Arus', image: '/images/smp-tubing-2.jpg', category: 'Rihlah' },
+        { title: 'Kekompakan Tim Peserta Didik Mengarungi Arus', image: '/images/smp-tubing-2.jpg', category: 'Rihlah' },
         { title: 'Foto Bersama Usai Pengarungan', image: '/images/smp-outing-3.jpg', category: 'Dokumentasi' },
         { title: 'Persiapan Outing Class River Tubing', image: '/images/smp-outing-1.jpg', category: 'Persiapan' },
         { title: 'Pengarahan Keselamatan Dewan Asatidz', image: '/images/smp-outing-2.jpg', category: 'Pembekalan' },
@@ -451,19 +451,19 @@ async function main() {
     data: [
       {
         schoolId: smp.id,
-        title: 'Keseruan Outing Class & Rihlah Santri SMP IT Al-Afiyah: Arungi River Tubing Cikadongdong Majalengka',
+        title: 'Keseruan Outing Class & Rihlah Peserta Didik SMP IT Al-Afiyah: Arungi River Tubing Cikadongdong Majalengka',
         slug: 'keseruan-outing-class-river-tubing-cikadongdong-smp-it',
         category: 'Kegiatan',
-        excerpt: 'Santri SMP IT Al-Afiyah Majalengka bersama dewan asatidz menggelar Rihlah & Outing Class menyusuri wawasan alam River Tubing Cikadongdong Majalengka dengan penuh keceriaan.',
-        content: `MAJALENGKA — Para santri Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka mengikuti kegiatan Rihlah & Outing Class yang penuh petualangan di wahana wisata alam River Tubing Cikadongdong, Kabupaten Majalengka.
+        excerpt: 'Peserta didik SMP IT Al-Afiyah Majalengka bersama dewan asatidz menggelar Rihlah & Outing Class menyusuri wawasan alam River Tubing Cikadongdong Majalengka dengan penuh keceriaan.',
+        content: `MAJALENGKA — Para peserta didik Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka mengikuti kegiatan Rihlah & Outing Class yang penuh petualangan di wahana wisata alam River Tubing Cikadongdong, Kabupaten Majalengka.
 
-Kegiatan ini merupakan bagian integral dari program Student Character Development (SCD) untuk mengasah keberanian, kepemimpinan, kedisiplinan, serta semangat gotong royong dan ukhuwah islamiyah para santri di luar ruang kelas.
+Kegiatan ini merupakan bagian integral dari program Student Character Development (SCD) untuk mengasah keberanian, kepemimpinan, kedisiplinan, serta semangat gotong royong dan ukhuwah islamiyah para peserta didik di luar ruang kelas.
 
-Dengan didampingi dewan asatidz pembimbing dan instruktur profesional, para santri mengenakan perlengkapan keselamatan standar internasional berupa helm pelindung dan jaket pelampung keselamatan sebelum meluncur menyusuri arus jernih sungai Cikadongdong.
+Dengan didampingi dewan asatidz pembimbing dan instruktur profesional, para peserta didik mengenakan perlengkapan keselamatan standar internasional berupa helm pelindung dan jaket pelampung keselamatan sebelum meluncur menyusuri arus jernih sungai Cikadongdong.
 
-"Alhamdulillah seluruh santri tampak sangat ceria, disiplin mengikuti instruksi keselamatan, dan kompak saling membantu sepanjang pengarungan. Kegiatan outdoor ini menjadi ajang menyegarkan semangat hafalan Al-Qur'an dan studi akademik santri," ungkap salah satu Ustadz pembimbing.
+"Alhamdulillah seluruh peserta didik tampak sangat ceria, disiplin mengikuti instruksi keselamatan, dan kompak saling membantu sepanjang pengarungan. Kegiatan outdoor ini menjadi ajang menyegarkan semangat hafalan Al-Qur'an dan studi akademik peserta didik," ungkap salah satu Ustadz pembimbing.
 
-Seluruh rangkaian kegiatan ditutup dengan sesi foto kebersamaan dan ramah tamah antarsantri dan dewan guru.`,
+Seluruh rangkaian kegiatan ditutup dengan sesi foto kebersamaan dan ramah tamah antar-peserta didik dan dewan guru.`,
         coverImage: '/images/smp-tubing-1.jpg',
         author: 'Humas SMP IT Al-Afiyah',
         isPublished: true,
@@ -474,8 +474,8 @@ Seluruh rangkaian kegiatan ditutup dengan sesi foto kebersamaan dan ramah tamah 
         title: 'Pengarahan Adab & Keselamatan Rihlah Alam Bersama Dewan Asatidz SMP IT Al-Afiyah',
         slug: 'pengarahan-adab-keselamatan-rihlah-smp-it-al-afiyah',
         category: 'Kegiatan',
-        excerpt: 'Sebelum memulai pengarungan sungai Cikadongdong, santri mendapatkan pembekalan adab tadabbur alam dan prosedur keselamatan dari dewan asatidz.',
-        content: `MAJALENGKA — Pembentukan karakter santri SMP IT Al-Afiyah senantiasa mengedepankan penanaman adab dalam setiap aktivitas. Sebelum memulai wahana tantangan air di Cikadongdong, seluruh santri berkumpul mendapatkan pengarahan keselamatan dan doa bersama.
+        excerpt: 'Sebelum memulai pengarungan sungai Cikadongdong, peserta didik mendapatkan pembekalan adab tadabbur alam dan prosedur keselamatan dari dewan asatidz.',
+        content: `MAJALENGKA — Pembentukan karakter peserta didik SMP IT Al-Afiyah senantiasa mengedepankan penanaman adab dalam setiap aktivitas. Sebelum memulai wahana tantangan air di Cikadongdong, seluruh peserta didik berkumpul mendapatkan pengarahan keselamatan dan doa bersama.
 
 Asatidz mengingatkan pentingnya menjaga adab bersikap di alam bebas, menjaga kebersihan lingkungan, serta senantiasa mengingat kebesaran Allah SWT dalam keindahan ciptaan-Nya.`,
         coverImage: '/images/smp-outing-2.jpg',
@@ -485,13 +485,13 @@ Asatidz mengingatkan pentingnya menjaga adab bersikap di alam bebas, menjaga keb
       },
       {
         schoolId: smp.id,
-        title: 'Penguat Ukhuwah Islamiyah: Potret Kebersamaan Rihlah Santri & Asatidz SMP IT Al-Afiyah',
-        slug: 'potret-kebersamaan-rihlah-santri-smp-it-al-afiyah',
+        title: 'Penguat Ukhuwah Islamiyah: Potret Kebersamaan Rihlah Peserta Didik & Asatidz SMP IT Al-Afiyah',
+        slug: 'potret-kebersamaan-rihlah-peserta-didik-smp-it-al-afiyah',
         category: 'Kegiatan',
         excerpt: 'Kegembiraan dan rasa syukur terpancar dari seluruh peserta Rihlah SMP IT Al-Afiyah setelah sukses menaklukkan trek River Tubing Cikadongdong.',
-        content: `MAJALENGKA — Rasa syukur dan kebahagiaan memenuhi wajah para santri dan dewan asatidz SMP IT Al-Afiyah setelah menyelesaikan pengarungan arum jeram tubing dengan selamat dan penuh kebersamaan.
+        content: `MAJALENGKA — Rasa syukur dan kebahagiaan memenuhi wajah para peserta didik dan dewan asatidz SMP IT Al-Afiyah setelah menyelesaikan pengarungan arum jeram tubing dengan selamat dan penuh kebersamaan.
 
-Kegiatan rihlah ini semakin mempererat ikatan kekeluargaan antara guru dan santri, menciptakan kenangan berharga yang memotivasi semangat belajar santri di sekolah.`,
+Kegiatan rihlah ini semakin mempererat ikatan kekeluargaan antara guru dan peserta didik, menciptakan kenangan berharga yang memotivasi semangat belajar peserta didik di sekolah.`,
         coverImage: '/images/smp-outing-3.jpg',
         author: 'Tim Media Al-Afiyah',
         isPublished: true,

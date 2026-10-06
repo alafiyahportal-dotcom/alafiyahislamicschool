@@ -1135,7 +1135,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed">
               {school.slug === 'sd'
-                ? 'Potret nyata keseharian murid: pembiasaan ibadah shalat berjamaah, muhadharah da\'i cilik, suasana belajar interaktif di kelas, agro-literasi, dan prestasi santri.'
+                ? 'Potret nyata keseharian murid: pembiasaan ibadah shalat berjamaah, muhadharah da\'i cilik, suasana belajar interaktif di kelas, agro-literasi, dan prestasi peserta didik.'
                 : 'Dukungan infrastruktur lengkap demi kenyamanan dan keamanan aktivitas ibadah dan belajar murid.'}
             </p>
 
@@ -1374,7 +1374,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               Testimoni <span className="text-amber-300">Orang Tua Murid</span>
             </h2>
             <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-xl mx-auto leading-relaxed font-normal">
-              Kepercayaan tulus Ayah dan Bunda mendampingi proses tumbuh kembang santri di {school.name}.
+              Kepercayaan tulus Ayah dan Bunda mendampingi proses tumbuh kembang peserta didik di {school.name}.
             </p>
           </ScrollReveal>
 

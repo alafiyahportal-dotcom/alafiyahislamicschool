@@ -41,7 +41,7 @@ export default function EdukaDonutChart({
 
     return [
       {
-        name: 'Santri (Jalur Reguler)',
+        name: 'Peserta Didik (Jalur Reguler)',
         count: totalStudents,
         percentage: calcPercent(totalStudents),
         color: '#10B981',
@@ -84,7 +84,7 @@ export default function EdukaDonutChart({
             Distribusi Akun &amp; Pendaftar {unitName}
           </h3>
           <p className="text-xs text-slate-500 font-medium">
-            Komposisi santri (Jalur Reguler), wali, guru, &amp; mitra
+            Komposisi peserta didik (Jalur Reguler), wali, guru, &amp; mitra
           </p>
         </div>
 
@@ -156,7 +156,7 @@ export default function EdukaDonutChart({
                 {activeSegment ? `${activeSegment.count}` : totalSum > 0 ? `${totalStudents}` : '0'}
               </span>
               <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider mt-1 truncate max-w-[95px]">
-                {activeSegment ? activeSegment.name : totalSum > 0 ? 'Santri Reguler' : 'Belum Ada Data'}
+                {activeSegment ? activeSegment.name : totalSum > 0 ? 'Peserta Didik Reguler' : 'Belum Ada Data'}
               </span>
             </div>
           </div>
@@ -193,7 +193,7 @@ export default function EdukaDonutChart({
 
       {/* Footer Sub-Metric - Honest Real Target */}
       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-        <span>Target Kuota: {targetQuota} Santri Baru</span>
+        <span>Target Kuota: {targetQuota} Peserta Didik Baru</span>
         <span className={`font-semibold ${totalStudents > 0 ? 'text-emerald-600' : 'text-slate-400'}`}>
           {totalStudents > 0 ? `Terisi ${quotaPercent}% Target (${totalStudents} Murid)` : 'Terisi 0% (Belum Ada Pendaftar)'}
         </span>

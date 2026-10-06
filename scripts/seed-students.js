@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Menyiapkan Data Santri Tambahan (ACCEPTED, VERIFIED, PAYMENT_PENDING)...');
+  console.log('🌱 Menyiapkan Data Peserta Didik Tambahan (ACCEPTED, VERIFIED, PAYMENT_PENDING)...');
 
   const tk = await prisma.school.findUnique({ where: { slug: 'tk' } });
   const sd = await prisma.school.findUnique({ where: { slug: 'sd' } });
@@ -13,7 +13,7 @@ async function main() {
     return;
   }
 
-  // Update existing SD santri to ACCEPTED so there's an immediate accepted student
+  // Update existing SD peserta didik to ACCEPTED so there's an immediate accepted student
   await prisma.pPDBRegistration.updateMany({
     where: { registrationNo: 'REG-SD-2026-0001' },
     data: { status: 'ACCEPTED' },
@@ -221,7 +221,7 @@ async function main() {
     }
   }
 
-  console.log('🎉 Selesai menambahkan data santri.');
+  console.log('🎉 Selesai menambahkan data peserta didik.');
 }
 
 main().finally(() => prisma.$disconnect());

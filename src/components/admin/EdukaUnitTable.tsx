@@ -826,7 +826,7 @@ export default function EdukaUnitTable({
                     <option value="tahfidz">Buku Terbuka (Tahfidz)</option>
                     <option value="science">Bintang (Sains / Khusus)</option>
                     <option value="school">Gedung Sekolah (Unit)</option>
-                    <option value="users">Grup Santri (Umum)</option>
+                    <option value="users">Grup Peserta Didik (Umum)</option>
                   </select>
                 </div>
               </div>

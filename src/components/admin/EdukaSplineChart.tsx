@@ -172,7 +172,7 @@ export default function EdukaSplineChart({
             </div>
             <p className="text-xs font-bold text-slate-700">Belum Ada Aktivitas Pendaftaran</p>
             <p className="text-[11px] text-slate-400 max-w-xs mt-0.5">
-              Grafik tren mingguan akan otomatis terbentuk seiring masuknya pendaftaran santri baru.
+              Grafik tren mingguan akan otomatis terbentuk seiring masuknya pendaftaran peserta didik baru.
             </p>
           </div>
         )}

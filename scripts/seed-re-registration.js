@@ -2,14 +2,14 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Menyiapkan Data Konfirmasi Daftar Ulang & Seragam Santri...');
+  console.log('🌱 Menyiapkan Data Konfirmasi Daftar Ulang & Seragam Peserta Didik...');
 
   const acceptedStudents = await prisma.pPDBRegistration.findMany({
     where: { status: 'ACCEPTED' },
     include: { school: true, reRegistration: true },
   });
 
-  console.log(`Ditemukan ${acceptedStudents.length} santri berstatus ACCEPTED.`);
+  console.log(`Ditemukan ${acceptedStudents.length} peserta didik berstatus ACCEPTED.`);
 
   // Sample Re-registrations to seed
   const sampleReRegs = [
@@ -73,7 +73,7 @@ async function main() {
       weightKg: 46,
       shoeSize: 39,
       boardingPreference: 'REGULER',
-      roommatePreference: 'Satu kamar dengan sesama santriwati asal Majalengka/Kuningan',
+      roommatePreference: 'Satu kamar dengan sesama peserta didik putri asal Majalengka/Kuningan',
       paymentPlan: 'INSTALLMENT_3X',
       notes: 'Rok gamis mohon panjang menutupi mata kaki',
       isUniformTaken: false,

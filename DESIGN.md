@@ -17,7 +17,7 @@ Setiap pengembang dan asisten AI **wajib** mengikuti aturan dalam dokumen ini ag
 3. **Multi-Tenant Identity with Unified Harmony**:
    - Setiap jenjang unit (TK IT, SD IT, SMP IT, Yayasan) memiliki aksen warna dan nuansa khas, tetapi tetap berada di bawah satu bahasa visual (*design language*) yang harmonis.
 4. **Mobile-First & Performance-Driven**:
-   - Akses pendaftaran wali murid dan pemantauan santri mayoritas dilakukan via smartphone. Semua elemen harus ramah sentuhan (*touch-friendly*), memiliki *Sticky Mobile Action Bar*, dan waktu muat instan (*Core Web Vitals* optimal).
+   - Akses pendaftaran wali murid dan pemantauan peserta didik mayoritas dilakukan via smartphone. Semua elemen harus ramah sentuhan (*touch-friendly*), memiliki *Sticky Mobile Action Bar*, dan waktu muat instan (*Core Web Vitals* optimal).
 
 ---
 
@@ -56,9 +56,9 @@ Setiap jenjang unit memiliki identitas visual yang terisolasi dan spesifik:
 │  SMP IT AL-AFIYAH (Karakter Pemimpin Qur'ani & Berwawasan Global)      │
 │  - Warna Utama  : #064E3B (Deep Forest Emerald)                        │
 │  - Warna Aksen  : #B45309 (Deep Gold)                                  │
-│  - Karakter     : Tipografi formal, layout berwibawa, prestasi santri  │
+│  - Karakter     : Tipografi formal, layout berwibawa, prestasi peserta didik  │
 ├────────────────────────────────────────────────────────────────────────┤
-│  SIAKAD MOBILE (Portal Mutaba'ah & Wali Santri PWA)                    │
+│  SIAKAD MOBILE (Portal Mutaba'ah & Wali Peserta Didik PWA)                    │
 │  - Warna Utama  : #10B981 (Teal Hijau Aplikasi)                        │
 │  - Karakter     : Bottom Navigation Bar, Card List, Fast Touch UI       │
 └────────────────────────────────────────────────────────────────────────┘

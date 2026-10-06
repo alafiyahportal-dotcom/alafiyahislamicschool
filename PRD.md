@@ -24,19 +24,19 @@
 | **v2.3.0** | 17 Sep 2026 | User Directive | Integrasi Gaya Desain Visual EduLearn (Warm Ivory Canvas, Bento Chalk Doodles, Brush Highlights, Student Portraits) & Token Fleksibel. |
 | **v2.4.0** | 17 Sep 2026 | User Directive | Implementasi Havenly Luxury Aesthetic (Warm Espresso/Amber Hero Glow, Interactive Mood/Goals Card, & Smooth Animated Radial Arch Carousel dengan Framer Motion). |
 | **v2.5.0** | 17 Sep 2026 | User Directive | Spesifikasi Wajib Navigasi Navbar Terhubung Utuh (Semua menu aktif dan berpindah ke rute masing-masing) & Pengujian Warna Hijau Mowilex 1C-5D4 Soft Water. |
-| **v2.6.0** | 17 Sep 2026 | User Directive / Lead | Implementasi Penuh Konsol Seleksi PPDB (/admin/:slug/ppdb) & Manajemen Keuangan (/admin/:slug/finance & /admin/foundation/finance), Penyempurnaan Cetak Kartu Ujian & Kelulusan Portal Santri, serta Verifikasi Build 100% Bebas Error. |
+| **v2.6.0** | 17 Sep 2026 | User Directive / Lead | Implementasi Penuh Konsol Seleksi PPDB (/admin/:slug/ppdb) & Manajemen Keuangan (/admin/:slug/finance & /admin/foundation/finance), Penyempurnaan Cetak Kartu Ujian & Kelulusan Portal Peserta Didik, serta Verifikasi Build 100% Bebas Error. |
 | **v2.7.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Fitur Ekspor CSV Pendaftar PPDB, Rekonsiliasi Tagihan & Komisi Afiliasi (UTF-8 BOM), serta Konsol Audit Notifikasi WhatsApp Real-Time (/admin/foundation/notifications). |
 | **v2.8.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Modul Dewan Asatidz (/admin/:slug/teachers & TeacherManagerClient), Kanal Berita Kegiatan (/admin/:slug/news & NewsManagerClient), API Route relasional Prisma, dan Showcase Dinamis Super Premium pada Landing Page Unit TK, SD, SMP. |
-| **v2.9.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Panel Sentral Superadmin Yayasan (/admin/foundation/settings & FoundationSettingsClient), Pengaturan Target Kuota & Buka/Tutup Gelombang PPDB, Tarif Formulir Terintegrasi Midtrans, Rekening Kas Yayasan Terpusat, serta Validasi Kapasitas Pendaftaran Santri. |
-| **v2.10.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Modul Dokumen Resmi Santri (Milestone 14): Surat Keputusan (SK) Kelulusan Kop Surat Yayasan dengan Stempel Basah Digital, Kartu Tanda Peserta Ujian/Observasi dengan QR Code Verifikasi, Kuitansi Pembayaran Digital Kas Masuk (Lunas), serta Integrasi Cetak Kasir Tata Usaha. |
+| **v2.9.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Panel Sentral Superadmin Yayasan (/admin/foundation/settings & FoundationSettingsClient), Pengaturan Target Kuota & Buka/Tutup Gelombang PPDB, Tarif Formulir Terintegrasi Midtrans, Rekening Kas Yayasan Terpusat, serta Validasi Kapasitas Pendaftaran Peserta Didik. |
+| **v2.10.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Modul Dokumen Resmi Peserta Didik (Milestone 14): Surat Keputusan (SK) Kelulusan Kop Surat Yayasan dengan Stempel Basah Digital, Kartu Tanda Peserta Ujian/Observasi dengan QR Code Verifikasi, Kuitansi Pembayaran Digital Kas Masuk (Lunas), serta Integrasi Cetak Kasir Tata Usaha. |
 | **v2.11.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Dasbor Analitik & Corong Konversi PPDB Terpadu (/admin/foundation/analytics - M15) dan Konsol Manajemen Hak Akses Pengguna Staf RBAC (/admin/foundation/users - M16) dengan cetak laporan eksekutif yayasan A4 serta 40 rute Next.js terkompilasi bersih. |
 | **v2.12.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Sistem Unggah Berkas Fisik Persisten & Viewer Dokumen Panitia PPDB Resolusi Tinggi (/api/upload, /public/uploads/ppdb/, DocumentViewerModal - M17) dan Pusat Konsultasi Cerdas & Helpdesk WhatsApp Multi-Unit Interaktif (/layout.tsx, HelpdeskChatWidget - M18) dengan 42 rute Next.js 16 terkompilasi bersih. |
-| **v2.13.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Portal Perbaikan Berkas Mandiri Wali Santri (/portal/ppdb/[regNo], PortalDocumentStatusList, /api/portal/documents/[id] - M19) serta Arsitektur Migrasi Cloud PostgreSQL, Docker Compose, .env.example & SOP Rilis Produksi (DEPLOYMENT.md - M20). |
-| **v2.14.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Pelacak Cepat Status PPDB (/ppdb/cek-status, /api/ppdb/check-status - M21), Reduksi Hambatan Formulir Pendaftaran Santri Anti-Ribet, dan Kartu Tanda Santri (KTS) Digital Standar ISO/IEC 7810 ID-1 (StudentIdCardModal - M22). |
+| **v2.13.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Portal Perbaikan Berkas Mandiri Wali Peserta Didik (/portal/ppdb/[regNo], PortalDocumentStatusList, /api/portal/documents/[id] - M19) serta Arsitektur Migrasi Cloud PostgreSQL, Docker Compose, .env.example & SOP Rilis Produksi (DEPLOYMENT.md - M20). |
+| **v2.14.0** | 17 Sep 2026 | User Directive / Lead | Peluncuran Pelacak Cepat Status PPDB (/ppdb/cek-status, /api/ppdb/check-status - M21), Reduksi Hambatan Formulir Pendaftaran Peserta Didik Anti-Ribet, dan Kartu Tanda Peserta Didik (KTS) Digital Standar ISO/IEC 7810 ID-1 (StudentIdCardModal - M22). |
 | **v2.15.0** | 18 Sep 2026 | User Directive / Lead | Peluncuran Papan Pengumuman Hasil Seleksi PPDB Publik (/ppdb/pengumuman, /api/ppdb/announcements - M23) dan Pusat Siaran Notifikasi Massal WhatsApp Broadcast Center (/admin/foundation/broadcast, /api/admin/broadcast - M24). |
 | **v2.16.0** | 18 Sep 2026 | User Directive / Lead | Peluncuran Lembar Formulir Pendaftaran Fisik Resmi A4 Cetak (F-PPDB - M25) dan Kalender Agenda Akademik & Jadwal Seleksi Terpadu Multi-Unit (/agenda, /api/agenda, iCalendar .ics export - M26). |
-| **v2.17.0** | 18 Sep 2026 | User Directive / Lead | Peluncuran Formulir Daftar Ulang & Pengukuran Seragam Online Santri (/portal/ppdb/[regNo]/daftar-ulang, /api/portal/re-registration - M27) dan Konsol Monitoring Logistik Seragam & Ekspor Konveksi CSV (/admin/:schoolSlug/re-registration - M28). |
-| **v2.18.0** | 18 Sep 2026 | User Directive / Lead | Peluncuran Buku Induk Santri Digital DAPODIK & EMIS Ready (/admin/:schoolSlug/students, StudentDossierPrintModal - M29) dan Rubrik Asesmen Observasi PPDB Terpadu (AssessmentRubricModal, AssessmentSheetPrintModal - M30). |
+| **v2.17.0** | 18 Sep 2026 | User Directive / Lead | Peluncuran Formulir Daftar Ulang & Pengukuran Seragam Online Peserta Didik (/portal/ppdb/[regNo]/daftar-ulang, /api/portal/re-registration - M27) dan Konsol Monitoring Logistik Seragam & Ekspor Konveksi CSV (/admin/:schoolSlug/re-registration - M28). |
+| **v2.18.0** | 18 Sep 2026 | User Directive / Lead | Peluncuran Buku Induk Peserta Didik Digital DAPODIK & EMIS Ready (/admin/:schoolSlug/students, StudentDossierPrintModal - M29) dan Rubrik Asesmen Observasi PPDB Terpadu (AssessmentRubricModal, AssessmentSheetPrintModal - M30). |
 | **v2.19.0** | 18 Sep 2026 | User Directive / Lead | Standardisasi menyeluruh istilah Guru & Murid, Pemasangan Havenly Arch Carousel di Beranda Pusat (/), serta Peluncuran Galeri Prestasi & Karya Murid Dinamis (/api/admin/achievements & AchievementShowcaseModal - M31). |
 | **v2.20.0** | 18 Sep 2026 | User Directive / Lead | Perluasan Spesifikasi Modul Eksekutif & Teknis: M32 (Konsol Tata Kelola Prestasi Murid & Generator Piagam A4), M33 (Sistem Presensi QR Code KTS Murid), M34 (Buku Rapor Digital & Laporan Capaian Mutabaah Tahfidz), M35 (Tata Kelola SPP Bulanan, Virtual Account Midtrans & Kuitansi Digital). |
 | **v2.21.0** | 25 Sep 2026 | User Directive / Lead | **Refinement Super Premium Formulir PPDB Online (/ppdb/daftar):**<br>1. Penyeragaman warna banner & kartu header menjadi **Solid Deep Forest Emerald (#064E3B)**, eliminasi gradasi multi-warna mencolok.<br>2. Pembersihan redundansi deskripsi dan nama unit berulang.<br>3. Penerapan **Strict Multi-Tenant Isolation** pada formulir: peniadaan dropdown/select ganti unit di dalam form pendaftaran aktif.<br>4. Layout grid **Anti-Mepet** dengan pelebaran horizontal gap 40px (`columnGap: 2.5rem`, `rowGap: 1.75rem`) dan penataan ulang flex NIK.<br>5. Standardisasi **Badge Nomor Poin Resmi 28 Butir Berkas Fisik** (`[Poin 01]` s.d. `[Poin 28]`) berdesain monospaced eksekutif berbayang lembut.<br>6. Penyiapan aset standar PWA (`icon-192.png` & `icon-512.png`) dan eliminasi warning console 404. |
@@ -70,7 +70,7 @@ Mewujudkan ekosistem digital terpadu satu pintu (*one-stop integrated education 
 | `SUPERADMIN_YAYASAN` | Seluruh Unit (Cross-Tenant) | `/admin/foundation` | Memantau statistik agregat seluruh sekolah, mengelola akun admin sekolah, dan konfigurasi global. |
 | `ADMIN_TK` | Khusus TK IT Al-Afiyah | `/admin/tk/dashboard` | Mengelola konten CMS web TK, memantau pendaftar, profil guru TK, dan pengumuman. |
 | `ADMIN_SD` | Khusus SD IT Al-Afiyah | `/admin/sd/dashboard` | Mengelola konten CMS web SD, memantau pendaftar, memvalidasi kuota kelas, dan pengumuman. |
-| `ADMIN_SMP` | Khusus SMP IT Al-Afiyah | `/admin/smp/dashboard` | Mengelola konten CMS web SMP, mengelola kuota santri, capaian tahfidz, dan pengumuman. |
+| `ADMIN_SMP` | Khusus SMP IT Al-Afiyah | `/admin/smp/dashboard` | Mengelola konten CMS web SMP, mengelola kuota peserta didik, capaian tahfidz, dan pengumuman. |
 | `PETUGAS_PPDB` | Sesuai Unit Sekolah | `/admin/:schoolSlug/ppdb` | Memverifikasi berkas pendaftaran, menentukan jadwal observasi, dan merilis status kelulusan. |
 | `PETUGAS_KEUANGAN` | Sesuai Unit Sekolah | `/admin/:schoolSlug/finance` | Memantau pembayaran formulir, melakukan rekonsiliasi kas masuk, dan menerbitkan kuitansi digital. |
 | `MITRA_AFILIASI` | Personal Mitra | `/affiliate/dashboard` | Memperoleh tautan referral unik, memantau konversi, melihat buku kas komisi, dan mengajukan payout. |
@@ -140,7 +140,7 @@ Halaman informasi kemitraan rujukan (`/affiliate`). Simulator estimasi komisi in
 ### M8 — Panel Admin Minimalis Google Style, PPDB & Finance ✅
 Dasbor Superadmin Yayasan & Admin Unit (TK, SD, SMP). Editor CMS dinamis untuk mengubah banner, profil & kontak. Panel Seleksi PPDB (`/admin/:slug/ppdb`) & Keuangan (`/admin/:slug/finance`).
 
-### M9 — Fitur Ekspor Data Santri & Rekonsiliasi Kas (CSV/Excel) ✅
+### M9 — Fitur Ekspor Data Peserta Didik & Rekonsiliasi Kas (CSV/Excel) ✅
 Ekspor data pendaftar PPDB format UTF-8 dengan BOM (aman di Excel). Ekspor pembukuan tagihan kas masuk formulir PPDB. Ekspor rekap komisi mitra afiliasi.
 
 ### M10 — Konsol Pemantau Notifikasi WhatsApp Real-Time ✅
@@ -155,7 +155,7 @@ Model Prisma relasional `NewsPost` & API CRUD penerbitan. Konsol Newsroom Google
 ### M13 — Panel Sentral Superadmin (Kuota, Gelombang & Rekening) ✅
 Kolom database School: quota, waveName, isPpdbOpen, bankName, bankAcc, bankHolder. API route `/api/admin/settings` (GET & PUT). Konsol `/admin/foundation/settings` (3 tab: Kuota, Biaya, Rekening). Validasi kapasitas kuota & status buka/tutup pada formulir PPDB online publik.
 
-### M14 — Dokumen Resmi Santri & Surat Keputusan Penerimaan ✅
+### M14 — Dokumen Resmi Peserta Didik & Surat Keputusan Penerimaan ✅
 Modal SK Kelulusan resmi Kop Surat Yayasan dengan stempel basah digital & nomor SK. Kartu Peserta Ujian/Observasi dengan QR Code verifikasi. Kuitansi digital lunas kas PPDB untuk portal wali & panel kasir tata usaha.
 
 ### M15 — Dasbor Analitik Inteligensi & Corong Konversi PPDB ✅
@@ -183,7 +183,7 @@ API pencarian multi-kriteria `/api/ppdb/check-status`. Halaman pelacak `/ppdb/ce
 Komponen `StudentIdCardModal.tsx` berstandar ISO/IEC 7810 ID-1. Visualisasi 3D Card Flip (muka depan chip & hologram; muka belakang magnetik & QR). Optimalisasi cetak fisik presisi 2 sisi berdampingan (@media print).
 
 ### M23 — Papan Pengumuman Hasil Seleksi PPDB Publik ✅
-Halaman publik `/ppdb/pengumuman` & API route `/api/ppdb/announcements`. Tabel direktori murid lolos seleksi dengan filter unit (TK/SD/SMP) & jalur. Tombol 1-klik buka portal santri untuk unduh SK kelulusan & kartu murid.
+Halaman publik `/ppdb/pengumuman` & API route `/api/ppdb/announcements`. Tabel direktori murid lolos seleksi dengan filter unit (TK/SD/SMP) & jalur. Tombol 1-klik buka portal peserta didik untuk unduh SK kelulusan & kartu murid.
 
 ### M24 — WhatsApp Broadcast Center di Panel Admin Yayasan ✅
 Modul pengiriman notifikasi massal `/admin/foundation/broadcast` & API route. Pustaka canned templates terintegrasi & variabel token dinamis. Live bubble preview WhatsApp otentik & pencatatan ke NotificationLog.
@@ -652,12 +652,12 @@ Berdasarkan preferensi pengguna dan penyesuaian terminologi branding yayasan, se
 1. **Komponen Navigasi & Portal:**
    - Navigasi dropdown: `"Kemitraan Mitra Afiliasi"`.
    - Pencarian global: `"Program Kemitraan Mitra Afiliasi"`.
-   - Modal edit biodata santri: Placeholder sumber informasi diperbarui menjadi `"misal: Kerabat, Spanduk, Media Sosial, Mitra Afiliasi"`.
+   - Modal edit biodata peserta didik: Placeholder sumber informasi diperbarui menjadi `"misal: Kerabat, Spanduk, Media Sosial, Mitra Afiliasi"`.
 
 2. **Ekosistem PPDB Terpadu (`/ppdb` & `/ppdb/daftar`):**
    - Jalur masuk resmi: `"Jalur Rujukan Mitra Afiliasi"`.
    - FAQ & CTA Banner: Diperbarui mengacu pada `"Program Mitra Afiliasi"`.
-   - Formulir registrasi santri:
+   - Formulir registrasi peserta didik:
      - Input rujukan: `"Kode Rujukan / Referral Mitra Afiliasi (Opsional)"`.
      - Ringkasan tagihan (Langkah 6): `"Rujukan Mitra Afiliasi: [KODE]"`.
 
@@ -776,7 +776,7 @@ Berdasarkan arahan pengguna untuk melengkapi penamaan pilar pendidikan menjadi *
 1. **Penyempurnaan Nomenklatur Judul & Subjudul:**
    - Judul seksi fondasi pendidikan secara eksplisit disempurnakan menjadi: **"Tiga Pilar Karakter SD IT Al-Afiyah"** (sebelumnya hanya *"Tiga Pilar Karakter Al-Afiyah"*).
    - Lencana seksi diperbarui menjadi: **"Fondasi Pendidikan SD IT Al-Afiyah"** dengan indikator dot bercahaya emerald berdenyut (*pulse*).
-   - Subjudul diperkaya: *"Mendidik santri & murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur'an."*
+   - Subjudul diperkaya: *"Mendidik peserta didik & murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur'an."*
 
 2. **Sistem Animasi Gelembung Halus Interaktif (Smooth Liquid Bubble System):**
    - **Komponen Klien `InteractiveBubbleCard.tsx`:**
@@ -1053,7 +1053,7 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - `/sd` live memuat poster berversi, judul pengumuman T.A. 2027/2028, WA 6281310139001 & alamat Giri Asih.
 
 ### 23.6 Revisi — Urutan Galeri Poster SPMB (5 Okt 2026)
-- Urutan `SPMB_POSTERS` di `SchoolLandingTemplate.tsx`: **1) Story "Telah Dibuka"** (foto santriwati, default aktif), **2) Brosur Biaya & Syarat**, **3) Poster Kuota Terbatas** (sebelumnya berlabel "Poster Utama").
+- Urutan `SPMB_POSTERS` di `SchoolLandingTemplate.tsx`: **1) Story "Telah Dibuka"** (foto peserta didik putri, default aktif), **2) Brosur Biaya & Syarat**, **3) Poster Kuota Terbatas** (sebelumnya berlabel "Poster Utama").
 - Preview, thumbnail, modal, dan tombol "Unduh … (JPG)" mengikuti item terpilih secara reaktif (`activePoster`).
 
 ### 23.7 Revisi — Bingkai Poster Penuh (5 Okt 2026)

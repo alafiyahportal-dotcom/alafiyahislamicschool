@@ -149,7 +149,7 @@ Untuk menerima pembayaran formulir PPDB secara langsung ke rekening kas yayasan 
 
 ## 6. Konfigurasi WhatsApp Notification Gateway
 
-Untuk mengirimkan pesan konfirmasi pendaftaran, tanda terima kuitansi kas masuk, dan jadwal observasi langsung ke nomor WhatsApp calon wali santri:
+Untuk mengirimkan pesan konfirmasi pendaftaran, tanda terima kuitansi kas masuk, dan jadwal observasi langsung ke nomor WhatsApp calon wali peserta didik:
 
 1. Daftarkan nomor WhatsApp resmi yayasan pada penyedia WhatsApp Gateway (misal: [Fonnte.com](https://fonnte.com) atau Wablas).
 2. Dapatkan API Token perangkat.
@@ -200,7 +200,7 @@ sudo certbot --nginx -d alafiyah.sch.id -d www.alafiyah.sch.id
 
 ## 8. Prosedur Pencadangan Data Harian (Backup & Recovery SOP)
 
-Untuk menjamin keamanan data santri dan tagihan keuangan yayasan dari risiko kehilangan data, pasang script pencadangan otomatis harian via cron job:
+Untuk menjamin keamanan data peserta didik dan tagihan keuangan yayasan dari risiko kehilangan data, pasang script pencadangan otomatis harian via cron job:
 
 ```bash
 # Buat script backup otomatis di server

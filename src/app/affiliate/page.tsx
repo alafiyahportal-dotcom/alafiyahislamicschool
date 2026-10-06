@@ -265,30 +265,30 @@ export default function AffiliatePublicPage() {
       title: 'Wali Murid & Keluarga Besar Al-Afiyah',
       subtitle: 'Pengalaman nyata putra-putri Anda adalah rekomendasi paling tulus bagi sesama orang tua.',
       icon: Users,
-      advantageTitle: 'Potongan SPP & Tabungan Pendidikan Santri',
+      advantageTitle: 'Potongan SPP & Tabungan Pendidikan Peserta Didik',
       advantageText:
         'Komisi pendaftaran dapat dialihkan otomatis untuk memotong tagihan SPP bulanan ananda di sekolah atau dicairkan penuh ke rekening bank orang tua.',
       why: 'Sebagai orang tua yang merasakan langsung lingkungan islami, tahfidz mutqin, dan kenyamanan belajar di Al-Afiyah, cerita Anda sangat dipercaya oleh sanak kerabat.',
-      earningExample: 'Rekomendasikan 3 kerabat masuk SD IT = Rp 450.000 (bisa menutup biaya seragam atau SPP santri).',
+      earningExample: 'Rekomendasikan 3 kerabat masuk SD IT = Rp 450.000 (bisa menutup biaya seragam atau SPP peserta didik).',
       template:
         "Assalamu'alaikum wr. wb. Ayah/Bunda, bagi yang sedang mencari sekolah Islam berkualitas dengan bimbingan tahfidz intensif dan karakter qurani di Majalengka, PPDB Al-Afiyah (TK, SD, SMP) kini sudah dibuka. Informasi dan pendaftaran resmi: https://alafiyah.sch.id/ref/KODE-MITRA",
     },
     guru: {
       badge: 'Dewan Guru & Asatidz',
       title: 'Dewan Guru, Asatidz & Tenaga Pendidik',
-      subtitle: 'Bantu murid dan santri binaan melanjutkan pendidikan ke jenjang lanjutan terbaik.',
+      subtitle: 'Bantu murid dan peserta didik binaan melanjutkan pendidikan ke jenjang lanjutan terbaik.',
       icon: School,
       advantageTitle: 'Insentif Pengembangan Profesi & Apresiasi Pendidik',
       advantageText:
-        'Apresiasi komisi berkah sebagai wujud penghormatan atas bimbingan dedikatif Anda dalam mengarahkan santri melanjutkan studi ke jenjang TK, SD, maupun SMP IT.',
-      why: 'Guru dan asatidz memiliki peran sentral dalam mengarahkan masa depan santri. Setiap santri yang Anda bimbing diapresiasi dengan hak komisi yang halal.',
-      earningExample: 'Rekomendasikan 5 santri lulusan melanjutkan ke SMP IT = Rp 2.750.000 langsung cair ke rekening pendidik.',
+        'Apresiasi komisi berkah sebagai wujud penghormatan atas bimbingan dedikatif Anda dalam mengarahkan peserta didik melanjutkan studi ke jenjang TK, SD, maupun SMP IT.',
+      why: 'Guru dan asatidz memiliki peran sentral dalam mengarahkan masa depan peserta didik. Setiap peserta didik yang Anda bimbing diapresiasi dengan hak komisi yang halal.',
+      earningExample: 'Rekomendasikan 5 peserta didik lulusan melanjutkan ke SMP IT = Rp 2.750.000 langsung cair ke rekening pendidik.',
       template:
-        "Bismillah. Untuk wali murid dan adik-adik santri yang mencari kelanjutan sekolah terpadu dengan kurikulum unggul, hafalan Al-Qur'an, dan adab harian, kami merekomendasikan Ma'had Al-Afiyah. Pendaftaran: https://alafiyah.sch.id/ref/KODE-MITRA",
+        "Bismillah. Untuk wali murid dan adik-adik peserta didik yang mencari kelanjutan sekolah terpadu dengan kurikulum unggul, hafalan Al-Qur'an, dan adab harian, kami merekomendasikan Ma'had Al-Afiyah. Pendaftaran: https://alafiyah.sch.id/ref/KODE-MITRA",
     },
     alumni: {
-      badge: 'Alumni Santri',
-      title: 'Alumni Santri & Pelajar Al-Afiyah',
+      badge: 'Alumni Peserta Didik',
+      title: 'Alumni Peserta Didik & Pelajar Al-Afiyah',
       subtitle: 'Jadilah jembatan kebaikan untuk adik kelas dan generasi penerus almamater tercinta.',
       icon: GraduationCap,
       advantageTitle: 'Kemandirian Finansial Mahasiswa & Khidmah Almamater',
@@ -297,7 +297,7 @@ export default function AffiliatePublicPage() {
       why: 'Anda adalah bukti hidup kualitas pendidikan karakter Al-Afiyah. Ajak adik kandung, sepupu, atau rekan di majelis untuk merasakan manfaat belajar di Al-Afiyah.',
       earningExample: "Ajak 3 sanak famili bergabung di Ma'had Al-Afiyah = Rp 1.150.000 siap ditransfer ke rekening mahasiswa Anda.",
       template:
-        'Hai semuanya! Buat yang nanya sekolah Islam favorit di Majalengka yang lingkungan santrinya asik dan fokus tahfidz, aku sangat rekomendasikan Al-Afiyah: https://alafiyah.sch.id/ref/KODE-MITRA',
+        'Hai semuanya! Buat yang nanya sekolah Islam favorit di Majalengka yang lingkungan belajarnya asik dan fokus tahfidz, aku sangat rekomendasikan Al-Afiyah: https://alafiyah.sch.id/ref/KODE-MITRA',
     },
     relawan: {
       badge: 'Penggiat Dakwah',
@@ -308,9 +308,9 @@ export default function AffiliatePublicPage() {
       advantageText:
         'Jadikan program kemitraan ini sebagai sumber pendanaan mandiri untuk kas majelis taklim, logistik dakwah, atau kegiatan sosial tanpa membebani jamaah.',
       why: 'Bagi Anda yang aktif di majelis taklim atau media sosial dakwah, program kemitraan ini adalah sarana menyebarkan kebaikan tanpa biaya modal sepeser pun.',
-      earningExample: 'Sebar tautan di majelis & jaring 8 santri baru = Rp 3.200.000 dana operasional dakwah berkah.',
+      earningExample: 'Sebar tautan di majelis & jaring 8 peserta didik baru = Rp 3.200.000 dana operasional dakwah berkah.',
       template:
-        "Alhamdulillah, pendaftaran santri baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SD IT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Informasi lengkap: https://alafiyah.sch.id/ref/KODE-MITRA",
+        "Alhamdulillah, pendaftaran peserta didik baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SD IT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Informasi lengkap: https://alafiyah.sch.id/ref/KODE-MITRA",
     },
   };
 
@@ -321,7 +321,7 @@ export default function AffiliatePublicPage() {
     },
     {
       q: 'Kapan komisi dicairkan ke rekening bank saya?',
-      a: 'Komisi pendaftaran formulir (Rp 50.000) diverifikasi dan dicairkan seketika saat calon wali murid melunasi biaya formulir. Sedangkan komisi registrasi ulang dicairkan ke rekening bank mitra (BSI, BRI, BCA, Mandiri, dll.) saat santri menyelesaikan daftar ulang.',
+      a: 'Komisi pendaftaran formulir (Rp 50.000) diverifikasi dan dicairkan seketika saat calon wali murid melunasi biaya formulir. Sedangkan komisi registrasi ulang dicairkan ke rekening bank mitra (BSI, BRI, BCA, Mandiri, dll.) saat peserta didik menyelesaikan daftar ulang.',
     },
     {
       q: 'Apakah pendaftaran mitra afiliasi ini dipungut biaya?',
@@ -329,7 +329,7 @@ export default function AffiliatePublicPage() {
     },
     {
       q: 'Bagaimana saya memantau siapa saja yang mendaftar lewat link saya?',
-      a: 'Setiap mitra mendapatkan akses ke Dasbor Afiliasi Pribadi secara real-time. Anda dapat melihat daftar nama calon santri, status verifikasi berkas, konfirmasi pembayaran, dan total saldo komisi yang siap dicairkan.',
+      a: 'Setiap mitra mendapatkan akses ke Dasbor Afiliasi Pribadi secara real-time. Anda dapat melihat daftar nama calon peserta didik, status verifikasi berkas, konfirmasi pembayaran, dan total saldo komisi yang siap dicairkan.',
     },
     {
       q: 'Apakah sekolah menyediakan materi promosi dan brosur?',
@@ -339,7 +339,7 @@ export default function AffiliatePublicPage() {
 
   const marqueeKeywords = [
     'AKAD SYARIAH WAKALAH BIL UJRAH',
-    'KOMISI HINGGA RP 550.000 / SANTRI',
+    'KOMISI HINGGA RP 550.000 / PESERTA DIDIK',
     'TANPA BIAYA PENDAFTARAN',
     'PENCAIRAN CEPAT BANK BSI',
     'DASHBOARD REAL-TIME 24/7',
@@ -422,7 +422,7 @@ export default function AffiliatePublicPage() {
                   <div className="col-span-7 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white">
                     <Image
                       src="/images/sd-activity-halaqah-tahfidz.jpg"
-                      alt="Santri Tahfidz Al-Afiyah"
+                      alt="Peserta Didik Tahfidz Al-Afiyah"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 60vw, 30vw"
@@ -444,7 +444,7 @@ export default function AffiliatePublicPage() {
                   <div className="col-span-12 relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-xl border-2 border-white">
                     <Image
                       src="/images/smp-outing-1.jpg"
-                      alt="Kegiatan Outing Santri Al-Afiyah"
+                      alt="Kegiatan Outing Peserta Didik Al-Afiyah"
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 50vw"
@@ -540,7 +540,7 @@ export default function AffiliatePublicPage() {
                 <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100">
                   <Image
                     src="/images/sd-hero-greenhouse.jpg"
-                    alt="Praktik Sains Santri Al-Afiyah"
+                    alt="Praktik Sains Peserta Didik Al-Afiyah"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 40vw"
@@ -549,7 +549,7 @@ export default function AffiliatePublicPage() {
                 <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100">
                   <Image
                     src="/images/smp-hero-bilingual.jpg"
-                    alt="Suasana Santri Bilingual Al-Afiyah"
+                    alt="Suasana Peserta Didik Bilingual Al-Afiyah"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 40vw"
@@ -566,7 +566,7 @@ export default function AffiliatePublicPage() {
             {/* Right Column: Narrative Copy & Metric Progress Bars (Exact Reference Match) */}
             <div className="lg:col-span-7 space-y-6 text-left lg:pl-6">
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program kemitraan dakwah resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni santri, hingga penggiat majelis taklim—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.
+                Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program kemitraan dakwah resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga penggiat majelis taklim—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.
               </p>
 
               {/* Progress Metric Bars with Lime Dots (From Reference Image) */}
@@ -610,7 +610,7 @@ export default function AffiliatePublicPage() {
             {[
               { val: 'Rp 0', label: 'Modal Awal Pendaftaran' },
               { val: '100%', label: 'Akad Syariah Wakalah' },
-              { val: 'Rp 550rb', label: 'Ujrah Tertinggi / Santri' },
+              { val: 'Rp 550rb', label: 'Ujrah Tertinggi / Peserta Didik' },
               { val: '3 Unit', label: 'TK IT, SD IT, & SMP IT' },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center">
@@ -684,7 +684,7 @@ export default function AffiliatePublicPage() {
                     Tahap 1
                   </span>
                   <h3 className="text-xl font-bold text-white mt-0.5">Komisi Formulir</h3>
-                  <p className="text-2xl font-extrabold text-white mt-1">Rp 50.000 <span className="text-xs text-slate-300 font-normal">/ Santri</span></p>
+                  <p className="text-2xl font-extrabold text-white mt-1">Rp 50.000 <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span></p>
                   <p className="text-xs text-emerald-100/70 mt-2 leading-relaxed">
                     Dicairkan seketika saat calon wali murid menyelesaikan pengisian dan pembayaran formulir pendaftaran PPDB online resmi.
                   </p>
@@ -716,7 +716,7 @@ export default function AffiliatePublicPage() {
                     Hitung Estimasi Komisi
                   </h3>
                   <p className="text-xs text-slate-800 mt-1">
-                    Geser slider kuota calon santri untuk menghitung hak ujrah Anda:
+                    Geser slider kuota calon peserta didik untuk menghitung hak ujrah Anda:
                   </p>
                 </div>
 
@@ -746,9 +746,9 @@ export default function AffiliatePublicPage() {
                 {/* Range Slider */}
                 <div className="space-y-1.5 pt-1">
                   <div className="flex justify-between text-xs font-bold text-slate-900">
-                    <span>Target Calon Santri:</span>
+                    <span>Target Calon Peserta Didik:</span>
                     <span className="font-mono text-sm font-extrabold px-2 py-0.5 rounded bg-white text-slate-950 border border-slate-950/20">
-                      {calcStudents} Santri
+                      {calcStudents} Peserta Didik
                     </span>
                   </div>
                   <input
@@ -761,9 +761,9 @@ export default function AffiliatePublicPage() {
                     className="w-full h-2.5 bg-slate-900/20 rounded-lg appearance-none cursor-pointer accent-slate-950"
                   />
                   <div className="flex justify-between text-[10px] text-slate-700 font-mono">
-                    <span>1 Santri</span>
-                    <span>10 Santri</span>
-                    <span>20 Santri</span>
+                    <span>1 Peserta Didik</span>
+                    <span>10 Peserta Didik</span>
+                    <span>20 Peserta Didik</span>
                   </div>
                 </div>
 
@@ -798,7 +798,7 @@ export default function AffiliatePublicPage() {
                 <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10">
                   <Image
                     src="/images/tk-hero-kids.jpg"
-                    alt="Santri Ceria Al-Afiyah"
+                    alt="Peserta Didik Ceria Al-Afiyah"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 33vw"
@@ -809,7 +809,7 @@ export default function AffiliatePublicPage() {
                     Tahap 2
                   </span>
                   <h3 className="text-xl font-bold text-white mt-0.5">Komisi Daftar Ulang</h3>
-                  <p className="text-2xl font-extrabold text-white mt-1">s.d. Rp 500.000 <span className="text-xs text-slate-300 font-normal">/ Santri</span></p>
+                  <p className="text-2xl font-extrabold text-white mt-1">s.d. Rp 500.000 <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span></p>
                   <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
                     <p className="flex justify-between border-b border-white/5 pb-1">
                       <span>TK IT Al-Afiyah:</span>
@@ -862,7 +862,7 @@ export default function AffiliatePublicPage() {
               {[
                 { id: 'wali', label: 'Wali Murid', icon: Users },
                 { id: 'guru', label: 'Guru & Asatidz', icon: School },
-                { id: 'alumni', label: 'Alumni Santri', icon: GraduationCap },
+                { id: 'alumni', label: 'Alumni Peserta Didik', icon: GraduationCap },
                 { id: 'relawan', label: 'Penggiat Dakwah', icon: Sparkles },
               ].map((tab) => {
                 const Icon = tab.icon;
@@ -1025,7 +1025,7 @@ export default function AffiliatePublicPage() {
               { step: '01', title: 'Daftar Akun', desc: 'Isi formulir pendaftaran gratis dalam 1 menit tanpa modal.' },
               { step: '02', title: 'Dapat Link Unik', desc: 'Masuk ke dasbor dan salin tautan rujukan resmi bertanda nama Anda.' },
               { step: '03', title: 'Sebar Tautan', desc: 'Bagikan informasi PPDB ke kerabat, status WhatsApp, atau majelis.' },
-              { step: '04', title: 'Pantau Real-Time', desc: 'Cek perkembangan pendaftaran dan verifikasi santri di dasbor.' },
+              { step: '04', title: 'Pantau Real-Time', desc: 'Cek perkembangan pendaftaran dan verifikasi peserta didik di dasbor.' },
               { step: '05', title: 'Komisi Masuk', desc: 'Komisi otomatis ditransfer langsung ke rekening bank Anda.' },
             ].map((s) => (
               <div
@@ -1539,7 +1539,7 @@ function tabTitleMap(key: string): string {
     case 'guru':
       return 'Guru / Asatidz';
     case 'alumni':
-      return 'Alumni Santri';
+      return 'Alumni Peserta Didik';
     case 'relawan':
       return 'Penggiat Dakwah';
     default:

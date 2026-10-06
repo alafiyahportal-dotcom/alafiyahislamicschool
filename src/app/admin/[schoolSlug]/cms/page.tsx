@@ -354,9 +354,9 @@ export default async function SchoolCMSEditorPage({
         category: 'Ibadah & Karakter',
       },
     ] : schoolSlug === 'smp' ? [
-      { name: 'Keseruan River Tubing Cikadongdong', image: '/images/smp-tubing-1.jpg', desc: 'Outing class santri mengarungi arus sungai Cikadongdong Majalengka.', category: 'Outing Class' },
-      { name: 'Kekompakan Tim Santri Mengarungi Arus', image: '/images/smp-tubing-2.jpg', desc: 'Pembentukan karakter kepemimpinan & ukhuwah islamiyah santri.', category: 'Rihlah' },
-      { name: 'Foto Bersama Usai Pengarungan', image: '/images/smp-outing-3.jpg', desc: 'Dokumentasi kebersamaan santri & dewan asatidz SMP IT Al-Afiyah.', category: 'Dokumentasi' },
+      { name: 'Keseruan River Tubing Cikadongdong', image: '/images/smp-tubing-1.jpg', desc: 'Outing class peserta didik mengarungi arus sungai Cikadongdong Majalengka.', category: 'Outing Class' },
+      { name: 'Kekompakan Tim Peserta Didik Mengarungi Arus', image: '/images/smp-tubing-2.jpg', desc: 'Pembentukan karakter kepemimpinan & ukhuwah islamiyah peserta didik.', category: 'Rihlah' },
+      { name: 'Foto Bersama Usai Pengarungan', image: '/images/smp-outing-3.jpg', desc: 'Dokumentasi kebersamaan peserta didik & dewan asatidz SMP IT Al-Afiyah.', category: 'Dokumentasi' },
       { name: 'Persiapan Outing Class River Tubing', image: '/images/smp-outing-1.jpg', desc: 'Foto bersama di spanduk selamat datang River Tubing Cikadongdong.', category: 'Persiapan' },
       { name: 'Pengarahan Keselamatan Dewan Asatidz', image: '/images/smp-outing-2.jpg', desc: 'Pembekalan adab tadabbur alam dan briefing keselamatan dari asatidz.', category: 'Pembekalan' },
     ] : [

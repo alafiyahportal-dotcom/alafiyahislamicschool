@@ -8,7 +8,7 @@ export function BoyStudentIcon({ className = "w-full h-full" }: { className?: st
       {/* Background Soft Rounded Squircle */}
       <rect width="48" height="48" rx="14" fill="#E0F2FE" />
       
-      {/* Educational Boy / Santri Vector */}
+      {/* Educational Boy / Peserta Didik Vector */}
       {/* Peci / Songkok / Student Cap */}
       <path
         d="M16 16.5C16 12.5 19.5 10 24 10C28.5 10 32 12.5 32 16.5V18.5H16V16.5Z"
@@ -53,7 +53,7 @@ export function GirlStudentIcon({ className = "w-full h-full" }: { className?: s
       {/* Background Soft Rounded Squircle */}
       <rect width="48" height="48" rx="14" fill="#FCE7F3" />
       
-      {/* Educational Girl / Santriwati Hijab Vector */}
+      {/* Educational Girl / Peserta Didik Putri Hijab Vector */}
       {/* Outer Syar'i Hijab Silhouette */}
       <path
         d="M24 9C16.5 9 13 13.5 13 21.5C13 28.5 17 33.5 24 33.5C31 33.5 35 28.5 35 21.5C35 13.5 31.5 9 24 9Z"
