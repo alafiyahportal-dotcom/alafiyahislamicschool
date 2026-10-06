@@ -503,14 +503,26 @@ export default function AffiliatePublicPage() {
       {/* =========================================================================
           2. MARQUEE RIBBON BANNER (Reference Signature Dark Green Ticker)
          ========================================================================= */}
-      <div className="bg-[#153424] text-white py-3.5 overflow-hidden whitespace-nowrap border-y border-emerald-950/40 select-none">
-        <div className="inline-flex items-center space-x-8 animate-marquee font-bold text-xs sm:text-sm tracking-wider uppercase">
-          {[...marqueeKeywords, ...marqueeKeywords].map((item, idx) => (
-            <span key={idx} className="inline-flex items-center space-x-8">
-              <span>{item}</span>
-              <span className="text-[#a3e635] text-base leading-none">✻</span>
-            </span>
-          ))}
+      <div className="bg-[#153424] text-white py-3.5 overflow-hidden whitespace-nowrap border-y border-emerald-950/40 select-none relative">
+        <div className="flex w-max animate-marquee font-bold text-xs sm:text-sm tracking-wider uppercase">
+          {/* First loop track */}
+          <div className="flex items-center shrink-0">
+            {marqueeKeywords.map((item, idx) => (
+              <span key={`a-${idx}`} className="inline-flex items-center space-x-6 sm:space-x-8 px-4 sm:px-6 shrink-0">
+                <span>{item}</span>
+                <span className="text-[#a3e635] text-sm leading-none select-none">✻</span>
+              </span>
+            ))}
+          </div>
+          {/* Second duplicate track for seamless infinite scroll */}
+          <div className="flex items-center shrink-0" aria-hidden="true">
+            {marqueeKeywords.map((item, idx) => (
+              <span key={`b-${idx}`} className="inline-flex items-center space-x-6 sm:space-x-8 px-4 sm:px-6 shrink-0">
+                <span>{item}</span>
+                <span className="text-[#a3e635] text-sm leading-none select-none">✻</span>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
