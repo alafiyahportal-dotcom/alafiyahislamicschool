@@ -157,9 +157,9 @@ export default function AffiliatePublicPage() {
 
   const FORM_FEE = 50000;
   const REG_FEES = {
-    all: 375000,
+    all: 285000,
     tk: 250000,
-    sd: 350000,
+    sd: 100000,
     smp: 500000,
   };
 
@@ -269,7 +269,7 @@ export default function AffiliatePublicPage() {
       advantageText:
         'Komisi pendaftaran dapat dialihkan otomatis untuk memotong tagihan SPP bulanan ananda di sekolah atau dicairkan penuh ke rekening bank orang tua.',
       why: 'Sebagai orang tua yang merasakan langsung lingkungan islami, tahfidz mutqin, dan kenyamanan belajar di Al-Afiyah, cerita Anda sangat dipercaya oleh sanak kerabat.',
-      earningExample: 'Rekomendasikan 3 kerabat masuk SD IT = Rp 1.200.000 (bisa menutup biaya SPP berbulan-bulan).',
+      earningExample: 'Rekomendasikan 3 kerabat masuk SD IT = Rp 450.000 (bisa menutup biaya seragam atau SPP santri).',
       template:
         "Assalamu'alaikum wr. wb. Ayah/Bunda, bagi yang sedang mencari sekolah Islam berkualitas dengan bimbingan tahfidz intensif dan karakter qurani di Majalengka, PPDB Al-Afiyah (TK, SD, SMP) kini sudah dibuka. Informasi dan pendaftaran resmi: https://alafiyah.sch.id/ref/KODE-MITRA",
     },
@@ -725,7 +725,7 @@ export default function AffiliatePublicPage() {
                   {[
                     { id: 'all', label: 'Semua Jenjang' },
                     { id: 'tk', label: 'TK IT (300rb)' },
-                    { id: 'sd', label: 'SD IT (400rb)' },
+                    { id: 'sd', label: 'SD IT (150rb)' },
                     { id: 'smp', label: 'SMP IT (550rb)' },
                   ].map((u) => (
                     <button
@@ -817,7 +817,7 @@ export default function AffiliatePublicPage() {
                     </p>
                     <p className="flex justify-between border-b border-white/5 pb-1">
                       <span>SD IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">Rp 350.000</strong>
+                      <strong className="text-white font-mono">Rp 100.000</strong>
                     </p>
                     <p className="flex justify-between pt-0.5">
                       <span>SMP IT Al-Afiyah:</span>

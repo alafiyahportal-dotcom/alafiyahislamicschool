@@ -47,7 +47,7 @@ export default function AffiliateRegisterPage() {
   const [simTk, setSimTk] = useState(2);
   const [simSd, setSimSd] = useState(4);
   const [simSmp, setSimSmp] = useState(2);
-  const estimatedEarnings = (simTk * 250000) + (simSd * 350000) + (simSmp * 500000);
+  const estimatedEarnings = (simTk * 250000) + (simSd * 100000) + (simSmp * 500000);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -176,7 +176,7 @@ export default function AffiliateRegisterPage() {
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
                       <span className="text-[10px] text-emerald-200 block font-medium">SD IT</span>
-                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 350.000</strong>
+                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 100.000</strong>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
                       <span className="text-[10px] text-emerald-200 block font-medium">SMP IT</span>

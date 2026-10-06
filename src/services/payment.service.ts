@@ -73,9 +73,10 @@ export class PaymentService {
 
     const paidAt = new Date();
 
-    // Commission rule: TK 250k, SD 350k, SMP 500k
-    let commission = 350000;
+    // Commission rule: TK 250k, SD 100k (daftar ulang), SMP 500k
+    let commission = 100000;
     if (existing.school.slug === 'tk') commission = 250000;
+    if (existing.school.slug === 'sd') commission = 100000;
     if (existing.school.slug === 'smp') commission = 500000;
 
     // Atomic transaction for all state mutations
