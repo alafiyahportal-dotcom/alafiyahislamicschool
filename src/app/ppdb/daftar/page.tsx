@@ -27,7 +27,8 @@ import {
   Users,
   Sparkles,
   Copy,
-  Lock
+  Lock,
+  MessageCircle
 } from 'lucide-react';
 import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { extractSubdomain, getSchoolUrl } from '@/lib/domain';
@@ -1895,148 +1896,102 @@ function PPDBFormContent() {
                 </div>
               </div>
 
-              {/* Metode Pembayaran */}
-              {!isPaid ? (
-                <div className="space-y-4">
-                  <label className="block text-xs font-bold text-slate-800">
-                    Pilih Metode Pembayaran (Midtrans Sandbox Simulator)
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {['QRIS', 'BNI VA', 'BRI VA', 'MANDIRI'].map((method) => (
-                      <button
-                        key={method}
-                        type="button"
-                        onClick={() => setSelectedPayment(method)}
-                        className={`p-3 rounded-xl border text-center transition-all ${
-                          selectedPayment === method
-                            ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold shadow-xs'
-                            : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                        }`}
-                      >
-                        <span className="text-xs font-semibold block">{method}</span>
-                      </button>
-                    ))}
+              {/* Petunjuk Pembayaran Resmi Sekolah */}
+              <div className="space-y-4">
+                <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border border-emerald-300 text-xs space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-extrabold text-emerald-950 flex items-center gap-1.5 text-xs sm:text-sm">
+                      <CreditCard className="w-4 h-4 text-emerald-700" />
+                      <span>Metode 1: Transfer Bank Resmi Sekolah</span>
+                    </span>
+                    <span className="text-[10px] bg-emerald-700 text-white px-2.5 py-0.5 rounded-full font-bold shadow-2xs">
+                      Bank Muamalat
+                    </span>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={handleSimulatePayment}
-                    disabled={isPaying}
-                    className="w-full py-3.5 px-6 rounded-xl gold-gradient text-white text-sm font-bold shadow-md hover:opacity-95 transition-all flex items-center justify-center space-x-2 disabled:opacity-70 cursor-pointer"
-                  >
-                    {isPaying ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Menghubungkan ke Midtrans Simulator...</span>
-                      </>
-                    ) : (
-                      <>
-                        <CreditCard className="w-4 h-4" />
-                        <span>Bayar Sekarang (Simulasi Instan Rp {createdResult.amount.toLocaleString('id-ID')})</span>
-                      </>
-                    )}
-                  </button>
-
-                  {/* Rekening Resmi Transfer Bank Khusus Unit SMP IT */}
-                  {activeSchool.slug === 'smp' && (
-                    <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border border-emerald-300 text-xs space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="font-extrabold text-emerald-950 flex items-center gap-1.5">
-                          <CreditCard className="w-4 h-4 text-emerald-700" />
-                          <span>Rekening Resmi Pembayaran SPMB SMP IT:</span>
-                        </span>
-                        <span className="text-[10px] bg-emerald-700 text-white px-2.5 py-0.5 rounded-full font-bold shadow-2xs">
-                          Bank Muamalat
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white p-3.5 rounded-xl border border-emerald-200 shadow-2xs">
-                        <div>
-                          <span className="text-[10px] text-slate-500 uppercase font-medium block">Nomor Rekening:</span>
-                          <strong className="text-base sm:text-lg font-mono font-bold text-slate-900 tracking-wider">
-                            1360012405
-                          </strong>
-                          <span className="text-xs text-slate-600 block mt-0.5">a.n <strong>SMP IT Al Afiyah</strong></span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            if (typeof navigator !== 'undefined' && navigator.clipboard) {
-                              navigator.clipboard.writeText('1360012405');
-                              setCopiedBankAcc(true);
-                              setTimeout(() => setCopiedBankAcc(false), 2200);
-                            }
-                          }}
-                          className="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-2xs transition-all cursor-pointer flex items-center gap-1.5"
-                        >
-                          {copiedBankAcc ? (
-                            <>
-                              <Check className="w-3.5 h-3.5 text-white" />
-                              <span>Tersalin!</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5 text-white" />
-                              <span>Salin No. Rek</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
-                      <p className="text-[11px] text-slate-600 leading-relaxed">
-                        Jika melakukan transfer via ATM / Mobile Banking, sertakan keterangan berita: <strong>{createdResult.registrationNo}</strong> dan simpan struk/bukti transfer untuk konfirmasi ke panitia.
-                      </p>
+                  <div className="flex items-center justify-between bg-white p-3.5 rounded-xl border border-emerald-200 shadow-2xs">
+                    <div>
+                      <span className="text-[10px] text-slate-500 uppercase font-medium block">Nomor Rekening:</span>
+                      <strong className="text-base sm:text-lg font-mono font-bold text-slate-900 tracking-wider">
+                        1360012405
+                      </strong>
+                      <span className="text-xs text-slate-600 block mt-0.5">
+                        a.n <strong>SMP IT Al Afiyah / Yayasan Al-Afiyah</strong>
+                      </span>
                     </div>
-                  )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                          navigator.clipboard.writeText('1360012405');
+                          setCopiedBankAcc(true);
+                          setTimeout(() => setCopiedBankAcc(false), 2200);
+                        }
+                      }}
+                      className="px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-2xs transition-all cursor-pointer flex items-center gap-1.5"
+                    >
+                      {copiedBankAcc ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-white" />
+                          <span>Tersalin!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5 text-white" />
+                          <span>Salin No. Rek</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
 
-                  {/* Opsi Bayar Nanti di Kasir Sekolah / Transfer Manual */}
-                  <div className="pt-2 border-t border-slate-200/80">
-                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                      <div>
-                        <p className="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
-                          <SchoolIcon className="w-4 h-4 text-emerald-700" />
-                          <span>Ingin Bayar Nanti di Kasir Sekolah / Transfer Bank?</span>
-                        </p>
-                        <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
-                          Nomor registrasi ananda sudah aman tersimpan. Pembayaran formulir bisa diselesaikan di kantor tata usaha sekolah.
-                        </p>
-                      </div>
-                      <Link
-                        href={`/portal/ppdb/${createdResult.registrationNo}`}
-                        className="w-full sm:w-auto px-4 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold shrink-0 transition-colors flex items-center justify-center space-x-1.5 shadow-2xs"
-                      >
-                        <span>Buka Portal Murid Saja</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-sm">
-                    <Check className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-base font-bold text-emerald-900">
-                    Pembayaran Lunas Terverifikasi!
-                  </h3>
-                  <p className="text-xs text-emerald-800 max-w-md mx-auto">
-                    Kuitansi resmi dan notifikasi telah dikirimkan via WhatsApp ke nomor{' '}
-                    <span className="font-bold">{formData.motherPhone}</span>.
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Saat transfer lewat ATM / M-Banking, mohon sertakan keterangan berita: <strong className="text-slate-900 font-mono">{createdResult.registrationNo}</strong> dan simpan struk transfer untuk dikonfirmasi.
                   </p>
-                  <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <Link
-                      href={`/portal/ppdb/${createdResult.registrationNo}`}
-                      className="py-2.5 px-5 rounded-xl bg-emerald-700 text-white text-xs font-bold shadow-sm hover:bg-emerald-800 transition-colors"
-                    >
-                      Buka Portal Murid & Unduh Kartu Tes →
-                    </Link>
-                    <Link
-                      href="/"
-                      className="py-2.5 px-4 rounded-xl bg-white border border-emerald-300 text-emerald-800 text-xs font-semibold hover:bg-emerald-50"
-                    >
-                      Kembali ke Beranda
-                    </Link>
+                </div>
+
+                {/* Metode 2: Bayar Tunai di Kasir */}
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 text-xs space-y-1.5">
+                  <p className="font-extrabold text-slate-800 flex items-center gap-1.5">
+                    <SchoolIcon className="w-4 h-4 text-emerald-700" />
+                    <span>Metode 2: Bayar Tunai (Cash) di Kasir / TU Sekolah</span>
+                  </p>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Bunda/Ayah juga dapat langsung melakukan pembayaran di <strong>Kantor Tata Usaha (TU) Al-Afiyah</strong> pada hari kerja (Senin – Sabtu, pukul 07.30 – 15.00 WIB) cukup dengan menyebutkan No. Registrasi <strong className="font-mono text-slate-900">{createdResult.registrationNo}</strong>.
+                  </p>
+                </div>
+
+                {/* Tombol Konfirmasi WhatsApp */}
+                <a
+                  href={`https://wa.me/6281310139001?text=${encodeURIComponent(
+                    `Assalamu'alaikum Panitia PPDB Al-Afiyah,\n\nSaya orang tua/wali dari calon murid:\n• Nama Murid: ${formData.studentName}\n• No. Registrasi: ${createdResult.registrationNo}\n• Unit: ${createdResult.schoolName}\n• Biaya Pendaftaran: Rp ${createdResult.amount.toLocaleString('id-ID')}\n\nIngin konfirmasi pembayaran biaya formulir PPDB. Terlampir bukti transfer kami. Terima kasih.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center justify-center space-x-2"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Konfirmasi Pembayaran via WhatsApp Panitia</span>
+                </a>
+
+                {/* Tombol Utama Buka Portal Murid */}
+                <div className="pt-2">
+                  <Link
+                    href={`/portal/ppdb/${createdResult.registrationNo}`}
+                    className="w-full py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold shadow-md transition-all flex items-center justify-center space-x-2"
+                  >
+                    <span>Buka Portal Murid & Pantau Status Ananda</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                {/* Edukasi Simpan No Registrasi */}
+                <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/90 text-amber-900 text-[11px] leading-relaxed flex items-start space-x-2">
+                  <Sparkles className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold">Info untuk Orang Tua:</span> Bunda/Ayah tidak perlu mendaftar akun atau mengingat kata sandi. Cukup simpan Nomor Registrasi <strong className="font-mono font-bold text-amber-950">{createdResult.registrationNo}</strong> ini atau bookmark tautan Portal Murid untuk memantau status verifikasi berkas dan mengunduh Kartu Ujian Observasi.
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           )}
 
