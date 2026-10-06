@@ -5,12 +5,7 @@ export const metadata: Metadata = {
   description:
     'Informasi Jalur Masuk, Syarat Pendaftaran, Biaya Pendidikan & Formulir Online PPDB TK IT, SD IT, dan SMP IT Al-Afiyah Majalengka.',
   icons: {
-    icon: [
-      { url: '/images/sd-logo.png', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    shortcut: '/images/sd-logo.png',
-    apple: '/images/sd-logo.png',
+    icon: '/favicon.ico',
   },
 };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
@@ -26,6 +26,10 @@ import {
 
 export default function AffiliateRegisterPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    document.title = 'Daftar Mitra Affiliate Al-Afiyah | Sekolah IT Al-Afiyah';
+  }, []);
 
   const [formData, setFormData] = useState({
     fullName: '',

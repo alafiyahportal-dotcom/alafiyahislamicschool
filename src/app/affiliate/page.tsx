@@ -78,6 +78,11 @@ function AnimatedRupiah({ value }: { value: number }) {
 export default function AffiliatePublicPage() {
   const router = useRouter();
 
+  // Set browser tab title
+  useEffect(() => {
+    document.title = 'Affiliate Al-Afiyah | Program Kemitraan Dakwah & Kebaikan';
+  }, []);
+
   // State: Hero Live Card Copy Interaction
   const [heroCopied, setHeroCopied] = useState(false);
   const handleHeroCopy = () => {

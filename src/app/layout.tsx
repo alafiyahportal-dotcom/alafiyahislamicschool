@@ -35,15 +35,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Ekosistem Pendidikan Terpadu Al-Afiyah | Yayasan Pendidikan Imam Bonjol Majalengka",
+  title: {
+    default: "Al-Afiyah | Yayasan Pendidikan Imam Bonjol Majalengka",
+    template: "%s | Al-Afiyah",
+  },
   description: "Portal Terpadu Multi-Tenant TK IT, SD IT, & SMP IT Al-Afiyah Majalengka. Pendaftaran Peserta Didik Baru (PPDB), kurikulum tahfidz Qur'an, dan informasi resmi.",
   icons: {
-    icon: [
-      { url: '/images/sd-logo.png', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    shortcut: '/images/sd-logo.png',
-    apple: '/images/sd-logo.png',
+    icon: '/favicon.ico',
   },
   // PWA manifest
   manifest: "/manifest.json",
@@ -67,9 +65,6 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="icon" href="/images/sd-logo.png" type="image/png" sizes="any" />
-        <link rel="shortcut icon" href="/images/sd-logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/sd-logo.png" />
       </head>
       <body className="min-h-full flex flex-col w-full max-w-full">
         <Script

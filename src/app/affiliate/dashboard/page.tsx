@@ -66,6 +66,10 @@ export default function AffiliateDashboardPage() {
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
   const [copiedTemplate, setCopiedTemplate] = useState<string | null>(null);
 
+  useEffect(() => {
+    document.title = 'Dasbor Mitra Affiliate Al-Afiyah';
+  }, []);
+
   // Conversion filter & search states
   const [conversionFilter, setConversionFilter] = useState<'ALL' | 'APPROVED' | 'PAID' | 'PENDING'>('ALL');
   const [searchStudent, setSearchStudent] = useState('');

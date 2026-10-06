@@ -24,12 +24,7 @@ export async function generateMetadata({
     },
     description: `Panel Pengelolaan & Administrasi Resmi ${unitName}`,
     icons: {
-      icon: [
-        { url: '/images/sd-logo.png', type: 'image/png' },
-        { url: '/favicon.ico', sizes: 'any' },
-      ],
-      shortcut: '/images/sd-logo.png',
-      apple: '/images/sd-logo.png',
+      icon: schoolSlug === 'sd' ? '/images/sd-logo.png' : '/favicon.ico',
     },
   };
 }

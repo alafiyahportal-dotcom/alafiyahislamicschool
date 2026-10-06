@@ -249,19 +249,10 @@ function PPDBFormContent() {
     }
   };
 
-  // Dynamic browser tab title & favicon for SD IT Al-Afiyah
+  // Dynamic browser tab title for PPDB
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      document.title = `Formulir Pendaftaran Murid Baru (SD IT Al-Afiyah) | PPDB T.A. 2027/2028`;
-
-      let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon';
-        document.getElementsByTagName('head')[0].appendChild(link);
-      }
-      link.type = 'image/png';
-      link.href = '/images/sd-logo.png';
+      document.title = `Formulir Pendaftaran Murid Baru | PPDB Al-Afiyah T.A. 2027/2028`;
     }
   }, []);
 

@@ -7,12 +7,7 @@ export const metadata: Metadata = {
   },
   description: 'Pusat Manajemen Ekosistem Pendidikan Yayasan Pendidikan Imam Bonjol Majalengka',
   icons: {
-    icon: [
-      { url: '/images/sd-logo.png', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    shortcut: '/images/sd-logo.png',
-    apple: '/images/sd-logo.png',
+    icon: '/favicon.ico',
   },
 };
 
