@@ -406,8 +406,11 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0">
-          <p>{current.bottomCopyright}</p>
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0 text-center sm:text-left">
+          <p className="leading-relaxed">
+            <span>{current.bottomCopyright.replace(/Seluruh Hak Cipta Dilindungi\./, '').trim()}</span>{' '}
+            <span className="block sm:inline whitespace-nowrap">Seluruh Hak Cipta Dilindungi.</span>
+          </p>
           {'bottomLinks' in current && current.bottomLinks && current.bottomLinks.length > 0 && (
           <div className="flex items-center space-x-4">
             {current.bottomLinks.map((item, idx) => (
