@@ -4,7 +4,7 @@ import { extractSubdomain } from '@/lib/domain';
 import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
 
 // Allowed root domains for redirection protection
-const ALLOWED_ROOT_HOSTS = ['alafiyah.sch.id', 'localhost', '127.0.0.1', 'vercel.app'];
+const ALLOWED_ROOT_HOSTS = ['alafiyah.sch.id', 'sditalafiyah.sch.id', 'localhost', '127.0.0.1', 'vercel.app'];
 
 function isAllowedHost(host: string): boolean {
   const hostname = host.split(':')[0].toLowerCase();
