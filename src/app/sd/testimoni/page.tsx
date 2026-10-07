@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { prisma } from '@/lib/prisma';
 import { 
   HeartHandshake, 
   ArrowLeft, 
@@ -74,7 +75,33 @@ const TESTIMONIALS = [
   }
 ];
 
-export default function SdTestimoniPage() {
+export const revalidate = 0;
+
+export default async function SdTestimoniPage() {
+  let displayTestimonials = TESTIMONIALS;
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'testimonials');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        displayTestimonials = parsed.map((item: any, idx: number) => ({
+          name: item.name,
+          role: item.role,
+          quote: item.quote,
+          rating: item.rating || 5,
+          tag: item.tag || TESTIMONIALS[idx % TESTIMONIALS.length]?.tag || 'Keluarga Besar Al-Afiyah',
+        }));
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SD testimonials from CMS, using default list:', err);
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Navbar schoolSlug="sd" />
@@ -115,7 +142,7 @@ export default function SdTestimoniPage() {
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {TESTIMONIALS.map((testi, idx) => (
+              {displayTestimonials.map((testi, idx) => (
                 <div
                   key={idx}
                   className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between relative group"

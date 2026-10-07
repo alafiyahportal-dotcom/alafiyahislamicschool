@@ -3,9 +3,8 @@ import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
-import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
-import SdGuruClient from './SdGuruClient';
+import SdGuruClient, { TeacherItem } from '@/app/sd/guru/SdGuruClient';
 
 export const metadata: Metadata = {
   title: 'Dewan Guru & Asatidzah SD IT',
@@ -20,10 +19,32 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const revalidate = 0; // Selalu ambil data terbaru saat admin mengubah profil guru
+
+function inferCategory(role: string = '', specialization: string = ''): string {
+  const text = `${role} ${specialization}`.toLowerCase();
+  if (text.includes('tahfidz') || text.includes('qur') || text.includes('diniyyah') || text.includes('arab') || text.includes('syariah') || text.includes('agama')) {
+    return 'Tahfidz & Diniyyah';
+  }
+  if (text.includes('olahraga') || text.includes('futsal') || text.includes('penjas') || text.includes('jasmani') || text.includes('bakat')) {
+    return 'Olahraga & Bakat';
+  }
+  if (text.includes('sains') || text.includes('alam') || text.includes('outdoor') || text.includes('agro') || text.includes('greenhouse') || text.includes('biofloc') || text.includes('ipa') || text.includes('matematika')) {
+    return 'Sains & Alam';
+  }
+  return 'Manajemen & Kelas';
+}
+
+function inferDegrees(name: string, fallbackDegree: string = 'Pendidik Resmi'): string {
+  if (name.includes(',')) {
+    const parts = name.split(',');
+    return parts.slice(1).join(',').trim() || fallbackDegree;
+  }
+  return fallbackDegree;
+}
 
 export default async function SdGuruPage() {
-  let teachers: any[] = [];
+  let teachers: TeacherItem[] = [];
 
   try {
     const dbTeachers = await prisma.teacher.findMany({
@@ -42,11 +63,12 @@ export default async function SdGuruPage() {
         bio: t.bio || '',
         imageUrl: t.photoUrl || '/images/teacher-avatar-placeholder.jpg',
         specialization: t.specialization || 'Pendidik Karakter Nabawiyah',
-        degrees: (t as Record<string, any>).degrees || 'Pendidik Resmi',
+        degrees: inferDegrees(t.name, t.specialization || 'Pendidik Profesional'),
+        category: inferCategory(t.role, t.specialization || ''),
       }));
     }
   } catch (err) {
-    console.error('Error fetching SD teachers from DB, using curated list:', err);
+    console.error('Error fetching SD teachers from DB, falling back to curated list in client:', err);
   }
 
   return (
@@ -60,3 +82,4 @@ export default async function SdGuruPage() {
     </div>
   );
 }
+

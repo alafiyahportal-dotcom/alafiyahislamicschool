@@ -194,6 +194,11 @@ export async function POST(request: Request) {
     // Revalidate public landing and admin pages to prevent stale cache
     try {
       revalidatePath(`/${schoolSlug}`);
+      revalidatePath(`/${schoolSlug}/karakter`);
+      revalidatePath(`/${schoolSlug}/profil`);
+      revalidatePath(`/${schoolSlug}/program`);
+      revalidatePath(`/${schoolSlug}/testimoni`);
+      revalidatePath(`/${schoolSlug}/dokumentasi`);
       revalidatePath(`/admin/${schoolSlug}/cms`);
       revalidatePath('/ppdb/daftar');
       if (schoolSlug === 'foundation') {

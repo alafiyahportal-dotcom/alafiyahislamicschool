@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { prisma } from '@/lib/prisma';
 import { 
   HeartHandshake, 
   BookOpen, 
@@ -121,7 +122,48 @@ const SEVEN_HABITS = [
   }
 ];
 
-export default function SdKarakterPage() {
+export const revalidate = 0;
+
+export default async function SdKarakterPage() {
+  let displayPillars = THREE_PILLARS;
+  let displayHabits = SEVEN_HABITS;
+  let headline = 'Pilar Karakter & Nilai Islami SD IT Al-Afiyah';
+  let description = 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.';
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'sd_karakter');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (parsed.heroHeadline) headline = parsed.heroHeadline;
+      if (parsed.heroDescription) description = parsed.heroDescription;
+      if (Array.isArray(parsed.threePillars) && parsed.threePillars.length > 0) {
+        displayPillars = parsed.threePillars.map((p: any, idx: number) => ({
+          number: p.number || String(idx + 1).padStart(2, '0'),
+          title: p.title,
+          tagline: p.tagline || '',
+          desc: p.desc || '',
+          icon: THREE_PILLARS[idx % THREE_PILLARS.length]?.icon || HeartHandshake,
+          color: p.color || THREE_PILLARS[idx % THREE_PILLARS.length]?.color || 'emerald',
+          points: Array.isArray(p.points) ? p.points : (p.points ? [p.points] : []),
+        }));
+      }
+      if (Array.isArray(parsed.sevenHabits) && parsed.sevenHabits.length > 0) {
+        displayHabits = parsed.sevenHabits.map((h: any, idx: number) => ({
+          title: h.title,
+          sub: h.sub || '',
+          desc: h.desc || '',
+          icon: SEVEN_HABITS[idx % SEVEN_HABITS.length]?.icon || Sun,
+        }));
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SD karakter data from CMS:', err);
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Navbar schoolSlug="sd" />
@@ -148,11 +190,11 @@ export default function SdKarakterPage() {
               </div>
 
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Pilar Karakter &amp; Nilai Islami SD IT Al-Afiyah
+                {headline}
               </h1>
 
               <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-                Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur&apos;an.
+                {description}
               </p>
             </div>
           </div>
@@ -174,7 +216,7 @@ export default function SdKarakterPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-              {THREE_PILLARS.map((pilar) => (
+              {displayPillars.map((pilar) => (
                 <div
                   key={pilar.number}
                   className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-emerald-400/60 transition-all flex flex-col justify-between group"
@@ -233,7 +275,7 @@ export default function SdKarakterPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {SEVEN_HABITS.map((item, idx) => {
+              {displayHabits.map((item, idx) => {
                 const HabitIcon = item.icon;
                 return (
                   <div

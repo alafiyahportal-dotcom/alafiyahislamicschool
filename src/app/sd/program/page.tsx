@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { prisma } from '@/lib/prisma';
 import { 
   ArrowLeft, 
   ChevronRight, 
@@ -107,7 +108,33 @@ const SD_PROGRAMS = [
   },
 ];
 
-export default function SdProgramPage() {
+export const revalidate = 0;
+
+export default async function SdProgramPage() {
+  let displayPrograms = SD_PROGRAMS;
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'programs');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        displayPrograms = parsed.map((item: any, idx: number) => ({
+          number: String(idx + 1).padStart(2, '0'),
+          title: item.title,
+          desc: item.desc || item.description || '',
+          badge: item.badge || 'Program Unggulan',
+          icon: SD_PROGRAMS[idx]?.icon || HeartHandshake,
+        }));
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SD programs from CMS, using default list:', err);
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Navbar schoolSlug="sd" />
@@ -188,7 +215,7 @@ export default function SdProgramPage() {
               </p>
             </div>
             <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SD_PROGRAMS.map((item) => (
+              {displayPrograms.map((item) => (
                 <div
                   key={item.number}
                   className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group"

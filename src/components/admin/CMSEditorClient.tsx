@@ -34,11 +34,40 @@ import {
   Upload,
   Newspaper,
   X,
-  Share2
+  Share2,
+  HeartHandshake,
+  Building2
 } from 'lucide-react';
 import { UnitSlideData } from '@/components/landing/UnitHeroSlider';
 import { compressImageClient } from '@/lib/image-compress';
 import { AffiliateCMSData, DEFAULT_AFFILIATE_CONTENT } from '@/types/affiliate-cms';
+
+export interface SDKarakterPillar {
+  number: string;
+  title: string;
+  tagline: string;
+  desc: string;
+  points: string[];
+}
+
+export interface SDKarakterHabit {
+  title: string;
+  sub: string;
+  desc: string;
+}
+
+export interface SDKarakterData {
+  heroHeadline?: string;
+  heroDescription?: string;
+  threePillars: SDKarakterPillar[];
+  sevenHabits: SDKarakterHabit[];
+}
+
+export interface SDProfilData {
+  visiText: string;
+  misiList: string[];
+  identitasList: Array<{ label: string; value: string }>;
+}
 
 export interface CMSInitialData {
   hero: {
@@ -73,6 +102,8 @@ export interface CMSInitialData {
   };
   affiliate?: AffiliateCMSData;
   presetImages?: PresetImage[];
+  sdKarakter?: SDKarakterData;
+  sdProfil?: SDProfilData;
 }
 
 interface CMSEditorClientProps {
@@ -104,6 +135,78 @@ const PRESET_IMAGES_DEFAULT: PresetImage[] = [
   { label: 'Brosur Resmi SPMB SDIT', url: '/images/sd-spmb-brosur.jpg', forUnits: ['sd', 'foundation'] },
 ];
 
+export const DEFAULT_SD_KARAKTER: SDKarakterData = {
+  heroHeadline: 'Pilar Karakter & Nilai Islami SD IT Al-Afiyah',
+  heroDescription: 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.',
+  threePillars: [
+    {
+      number: '01',
+      title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
+      tagline: 'Iman Sebelum Al-Qur\'an • Adab Sebelum Ilmu',
+      desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlaq mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
+      points: [
+        'Pembiasaan shalat berjamaah fardhu dan adab di masjid',
+        'Pelatihan muhadharah & da\'i cilik berani tampil',
+        'Keteladanan adab birrul walidain kepada orang tua dan guru'
+      ]
+    },
+    {
+      number: '02',
+      title: 'Smart, Literasi & Tahfidz Al-Qur\'an',
+      tagline: 'Fashihah Bacaan • Mutqin Hafalan • Logika Tajam',
+      desc: 'Pembelajaran terpadu yang memadukan kurikulum nasional dan penguatan literasi numerasi modern dengan bimbingan tahfidz Al-Qur\'an Juz 30 mutqin. Menggunakan metode talaqqi tartil yang ramah anak dan membahagiakan murid.',
+      points: [
+        'Target kelulusan Tahfidz Juz 30 Mutqin',
+        'Basic literasi, numerasi kontekstual, dan logika sains',
+        'Suasana kelas multimedia yang asri, hangat, dan menyenangkan'
+      ]
+    },
+    {
+      number: '03',
+      title: 'Outdoor Learning & Pelatihan Kemandirian',
+      tagline: 'Agro-Sains Kontekstual • Tangguh & Berwawasan Alam',
+      desc: 'Eksplorasi kontekstual di alam terbuka dan greenhouse bambu P4S An-Nabawiyah. Murid mempraktikkan langsung budidaya perikanan biofloc, semai bibit sayur, pemetaan bakat pribadi (talent mapping), serta pembinaan karakter mandiri menyambut fase aqil-baligh.',
+      points: [
+        'Field study edukasi pertanian & perikanan di P4S An-Nabawiyah',
+        'Pelatihan kemandirian praktis menyambut fase aqil-baligh',
+        'Penyaluran minat bakat (Futsal juara 2, pidato, seni islami)'
+      ]
+    }
+  ],
+  sevenHabits: [
+    { title: 'Salimul Aqidah', sub: 'Aqidah yang Bersih & Lurus', desc: 'Menanamkan tauhidullah murni sejak dini, mencintai Allah dan Rasul-Nya di atas segalanya.' },
+    { title: 'Shahihul Ibadah', sub: 'Ibadah yang Benar Sesuai Sunnah', desc: 'Membimbing tata cara wudhu, shalat berjamaah, dan doa harian sesuai tuntunan Rasulullah ﷺ.' },
+    { title: 'Matinul Khuluq', sub: 'Akhlak yang Kokoh & Santun', desc: 'Beradab kepada orang tua, menghormati ustadz/ustadzah, serta berkasih sayang kepada sesama.' },
+    { title: 'Qadirun \'alal Kasbi', sub: 'Mandiri & Terampil', desc: 'Mampu merapikan perlengkapan sendiri, berjiwa wirausaha islami, dan tidak bergantung pada orang lain.' },
+    { title: 'Mutsaqqoful Fikri', sub: 'Cerdas & Berwawasan Luas', desc: 'Gemar membaca buku, bernalar kritis dalam sains, serta fasih dalam literasi kontekstual.' },
+    { title: 'Qawiyyul Jismi', sub: 'Jasmani yang Sehat & Tangguh', desc: 'Menjaga kebersihan fisik, pola makan halal-thayyib, dan aktif berolahraga (futsal & beladiri).' },
+    { title: 'Nafi\'un Lighairihi', sub: 'Bermanfaat Bagi Sesama', desc: 'Suka menolong teman, berinfak sedekah subuh, dan menyebarkan kebaikan di lingkungan sekitar.' }
+  ]
+};
+
+export const DEFAULT_SD_PROFIL: SDProfilData = {
+  visiText: 'Mendidik generasi sholeh, cerdas, mandiri, berwawasan luas, dan berakhlakul islami.',
+  misiList: [
+    'Menumbuhkan nilai-nilai tauhid dalam seluruh aspek pembelajaran dan pembiasaan.',
+    'Mengajarkan aqidah dan ibadah yang sohihah sesuai dengan Al-Qur’an dan As-Sunnah sesuai dengan pemahaman salafus sholih.',
+    'Membiasakan anak dengan akhlak Islami dalam keseharian.',
+    'Mendidik anak agar kreatif dan inovatif.',
+    'Menanamkan rasa cinta yang mendalam kepada Allah ﷻ dan Rasul-Nya ﷺ.',
+    'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.'
+  ],
+  identitasList: [
+    { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
+    { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
+    { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
+    { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },
+    { label: 'Kurikulum Pembelajaran', value: 'Perpaduan Kurikulum Diknas (K-13) & Kurikulum Yayasan berpijak pada Iman dan Taqwa' },
+    { label: 'Program Unggulan', value: 'Tahsin dan Tahfidz Al-Qur\'an' },
+    { label: 'Jenjang Pendidikan', value: 'Sekolah Dasar Islam Terpadu (Kelas 1 - 6)' },
+    { label: 'Alamat Sekolah', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411' },
+    { label: 'Telepon / WhatsApp', value: '0813-1013-9001 (Layanan Terpadu Tata Usaha & SPMB)' },
+    { label: 'Email Resmi', value: 'sditalafiyahmjl@gmail.com' }
+  ]
+};
 
 export default function CMSEditorClient({
   schoolSlug,
@@ -291,13 +394,17 @@ export default function CMSEditorClient({
     | 'facilities'
     | 'testimonials'
     | 'tuition'
-    | 'affiliate';
+    | 'affiliate'
+    | 'sd_karakter'
+    | 'sd_profil';
 
   const [activeTab, setActiveTab] = useState<TabType>('hero');
   const [viewMode, setViewMode] = useState<'editor' | 'preview'>('editor');
   const [formData, setFormData] = useState<CMSInitialData>({
     ...initialData,
     affiliate: initialData.affiliate || DEFAULT_AFFILIATE_CONTENT,
+    sdKarakter: initialData.sdKarakter || DEFAULT_SD_KARAKTER,
+    sdProfil: initialData.sdProfil || DEFAULT_SD_PROFIL,
   });
 
   // Active slide index for hero slider manager
@@ -506,6 +613,10 @@ export default function CMSEditorClient({
         payloadToSave = formData.tuition;
       } else if (activeTab === 'affiliate') {
         payloadToSave = formData.affiliate || DEFAULT_AFFILIATE_CONTENT;
+      } else if (activeTab === 'sd_karakter') {
+        payloadToSave = formData.sdKarakter || DEFAULT_SD_KARAKTER;
+      } else if (activeTab === 'sd_profil') {
+        payloadToSave = formData.sdProfil || DEFAULT_SD_PROFIL;
       }
 
       const res = await fetch('/api/admin/cms', {
@@ -558,6 +669,20 @@ export default function CMSEditorClient({
         ...(prev.affiliate || DEFAULT_AFFILIATE_CONTENT),
         [key]: value,
       },
+    }));
+  };
+
+  const updateSdKarakter = (updater: (prev: SDKarakterData) => SDKarakterData) => {
+    setFormData((prev) => ({
+      ...prev,
+      sdKarakter: updater(prev.sdKarakter || DEFAULT_SD_KARAKTER),
+    }));
+  };
+
+  const updateSdProfil = (updater: (prev: SDProfilData) => SDProfilData) => {
+    setFormData((prev) => ({
+      ...prev,
+      sdProfil: updater(prev.sdProfil || DEFAULT_SD_PROFIL),
     }));
   };
 
@@ -818,6 +943,12 @@ export default function CMSEditorClient({
           ...(schoolSlug === 'foundation'
             ? [{ id: 'affiliate', label: '9. Landing Page Afiliasi', icon: Share2 }]
             : []),
+          ...(schoolSlug === 'sd'
+            ? [
+                { id: 'sd_karakter', label: '9. Pilar Karakter (/sd/karakter)', icon: HeartHandshake },
+                { id: 'sd_profil', label: '10. Profil & Visi Misi (/sd/profil)', icon: Building2 },
+              ]
+            : []),
         ].map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -842,7 +973,7 @@ export default function CMSEditorClient({
           className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-300 shadow-2xs cursor-pointer ml-auto"
         >
           <Newspaper className="w-3.5 h-3.5 text-amber-700" />
-          <span>{schoolSlug === 'foundation' ? '10. Kelola Berita & Artikel ↗' : '9. Kelola Berita & Artikel ↗'}</span>
+          <span>{schoolSlug === 'foundation' ? '10. Kelola Berita & Artikel ↗' : schoolSlug === 'sd' ? '11. Kelola Berita & Artikel ↗' : '9. Kelola Berita & Artikel ↗'}</span>
         </Link>
       </div>
 
@@ -896,6 +1027,16 @@ export default function CMSEditorClient({
           {activeTab === 'affiliate' && (
             <span>
               <strong>Landing Page Kemitraan Afiliasi:</strong> Tampil pada halaman publik <strong>/affiliate</strong>. Anda dapat mengedit headline, 3 kolase foto hero, running text pita, narasi program, dan nominal tarif bagi hasil komisi.
+            </span>
+          )}
+          {activeTab === 'sd_karakter' && (
+            <span>
+              <strong>Halaman Pilar Karakter (/sd/karakter):</strong> Kelola judul headline, 3 Pilar Karakter Nabawiyah (*Mendidik dengan Sunnah*, *Smart Literasi Tahfidz*, *Outdoor Learning* beserta poin-poinnya), dan 7 Karakter Profil Murid (*Salimul Aqidah*, *Shahihul Ibadah*, dll). Perubahan langsung tampil seketika di web!
+            </span>
+          )}
+          {activeTab === 'sd_profil' && (
+            <span>
+              <strong>Halaman Profil Lengkap (/sd/profil):</strong> Kelola visi resmi sekolah, butir-butir misi pembinaan murid, serta daftar data satuan pendidikan resmi (akreditasi, yayasan, kurikulum, alamat, dll).
             </span>
           )}
         </div>
@@ -2702,6 +2843,474 @@ export default function CMSEditorClient({
                       className="w-full text-xs text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
                     />
                   </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 10: SD KARAKTER EDITOR */}
+          {activeTab === 'sd_karakter' && (
+            <div className="space-y-6">
+              {/* Header Box */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+                <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                      <HeartHandshake className="w-5 h-5 text-[#184F48]" />
+                      <span>Editor Pilar Karakter &amp; Nilai Islami SD IT</span>
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-1">
+                      Konten ini tampil langsung pada halaman publik <strong>/sd/karakter</strong>.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#184F48] hover:bg-[#123e38] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>{isSaving ? 'Menyimpan...' : 'Simpan Pilar Karakter'}</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Judul Banner Utama (Headline)
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.sdKarakter?.heroHeadline || ''}
+                      onChange={(e) => updateSdKarakter((prev) => ({ ...prev, heroHeadline: e.target.value }))}
+                      className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Deskripsi Pengantar Karakter
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.sdKarakter?.heroDescription || ''}
+                      onChange={(e) => updateSdKarakter((prev) => ({ ...prev, heroDescription: e.target.value }))}
+                      className="w-full text-xs text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: 3 Pilar Utama */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+                <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-extrabold text-slate-900">
+                      Tiga Pilar Utama Smart Akhlaq Fitrah
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Tiga pilar kurikulum terpadu SD IT Al-Afiyah beserta rincian poin pembiasaannya.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {(formData.sdKarakter?.threePillars || DEFAULT_SD_KARAKTER.threePillars).map((pillar, pIdx) => (
+                    <div key={pIdx} className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/90 space-y-4">
+                      <div className="flex items-center justify-between border-b border-slate-200/60 pb-3">
+                        <span className="px-2.5 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800">
+                          Pilar {pillar.number}
+                        </span>
+                        <span className="text-xs font-semibold text-slate-400">Pilar #{pIdx + 1}</span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                            Judul Pilar
+                          </label>
+                          <input
+                            type="text"
+                            value={pillar.title}
+                            onChange={(e) => {
+                              const newPillars = [...(formData.sdKarakter?.threePillars || DEFAULT_SD_KARAKTER.threePillars)];
+                              newPillars[pIdx] = { ...newPillars[pIdx], title: e.target.value };
+                              updateSdKarakter((prev) => ({ ...prev, threePillars: newPillars }));
+                            }}
+                            className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                            Slogan / Tagline Pilar
+                          </label>
+                          <input
+                            type="text"
+                            value={pillar.tagline}
+                            onChange={(e) => {
+                              const newPillars = [...(formData.sdKarakter?.threePillars || DEFAULT_SD_KARAKTER.threePillars)];
+                              newPillars[pIdx] = { ...newPillars[pIdx], tagline: e.target.value };
+                              updateSdKarakter((prev) => ({ ...prev, threePillars: newPillars }));
+                            }}
+                            className="w-full text-xs font-semibold text-emerald-700 border border-slate-300 rounded-xl p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Deskripsi Lengkap Pilar
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={pillar.desc}
+                          onChange={(e) => {
+                            const newPillars = [...(formData.sdKarakter?.threePillars || DEFAULT_SD_KARAKTER.threePillars)];
+                            newPillars[pIdx] = { ...newPillars[pIdx], desc: e.target.value };
+                            updateSdKarakter((prev) => ({ ...prev, threePillars: newPillars }));
+                          }}
+                          className="w-full text-xs text-slate-800 border border-slate-300 rounded-xl p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
+                        />
+                      </div>
+
+                      {/* Points list */}
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <label className="text-[11px] font-bold text-slate-700">
+                            Poin Praktik Pembiasaan
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newPillars = [...(formData.sdKarakter?.threePillars || DEFAULT_SD_KARAKTER.threePillars)];
+                              newPillars[pIdx] = {
+                                ...newPillars[pIdx],
+                                points: [...(newPillars[pIdx].points || []), 'Poin pembiasaan baru']
+                              };
+                              updateSdKarakter((prev) => ({ ...prev, threePillars: newPillars }));
+                            }}
+                            className="text-[10px] font-bold text-[#184F48] hover:underline flex items-center gap-1 cursor-pointer"
+                          >
+                            <Plus className="w-3 h-3" />
+                            <span>Tambah Poin</span>
+                          </button>
+                        </div>
+
+                        <div className="space-y-2">
+                          {pillar.points.map((pt, ptIdx) => (
+                            <div key={ptIdx} className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={pt}
+                                onChange={(e) => {
+                                  const newPillars = [...(formData.sdKarakter?.threePillars || DEFAULT_SD_KARAKTER.threePillars)];
+                                  const newPts = [...newPillars[pIdx].points];
+                                  newPts[ptIdx] = e.target.value;
+                                  newPillars[pIdx] = { ...newPillars[pIdx], points: newPts };
+                                  updateSdKarakter((prev) => ({ ...prev, threePillars: newPillars }));
+                                }}
+                                className="flex-1 text-xs text-slate-800 border border-slate-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const newPillars = [...(formData.sdKarakter?.threePillars || DEFAULT_SD_KARAKTER.threePillars)];
+                                  newPillars[pIdx] = {
+                                    ...newPillars[pIdx],
+                                    points: newPillars[pIdx].points.filter((_, i) => i !== ptIdx)
+                                  };
+                                  updateSdKarakter((prev) => ({ ...prev, threePillars: newPillars }));
+                                }}
+                                className="p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                                title="Hapus Poin"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Card 3: 7 Karakter Profil Murid */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+                <div className="border-b border-slate-100 pb-3">
+                  <h4 className="text-sm font-extrabold text-slate-900">
+                    7 Karakter Profil Murid Nabawiyah
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Standar pembinaan karakter pribadi murid harian (Salimul Aqidah, Shahihul Ibadah, dll).
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {(formData.sdKarakter?.sevenHabits || DEFAULT_SD_KARAKTER.sevenHabits).map((habit, hIdx) => (
+                    <div key={hIdx} className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black text-[#184F48] font-mono">0{hIdx + 1}</span>
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                          Nama Karakter
+                        </label>
+                        <input
+                          type="text"
+                          value={habit.title}
+                          onChange={(e) => {
+                            const newHabits = [...(formData.sdKarakter?.sevenHabits || DEFAULT_SD_KARAKTER.sevenHabits)];
+                            newHabits[hIdx] = { ...newHabits[hIdx], title: e.target.value };
+                            updateSdKarakter((prev) => ({ ...prev, sevenHabits: newHabits }));
+                          }}
+                          className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-lg p-2 bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                          Subjudul / Makna
+                        </label>
+                        <input
+                          type="text"
+                          value={habit.sub}
+                          onChange={(e) => {
+                            const newHabits = [...(formData.sdKarakter?.sevenHabits || DEFAULT_SD_KARAKTER.sevenHabits)];
+                            newHabits[hIdx] = { ...newHabits[hIdx], sub: e.target.value };
+                            updateSdKarakter((prev) => ({ ...prev, sevenHabits: newHabits }));
+                          }}
+                          className="w-full text-xs text-emerald-700 font-semibold border border-slate-300 rounded-lg p-2 bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-600 mb-0.5">
+                          Deskripsi Pembiasaan
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={habit.desc}
+                          onChange={(e) => {
+                            const newHabits = [...(formData.sdKarakter?.sevenHabits || DEFAULT_SD_KARAKTER.sevenHabits)];
+                            newHabits[hIdx] = { ...newHabits[hIdx], desc: e.target.value };
+                            updateSdKarakter((prev) => ({ ...prev, sevenHabits: newHabits }));
+                          }}
+                          className="w-full text-xs text-slate-700 border border-slate-300 rounded-lg p-2 bg-white leading-relaxed"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#184F48] hover:bg-[#123e38] text-white text-xs font-bold shadow-md transition-all cursor-pointer"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>{isSaving ? 'Menyimpan...' : 'Simpan Semua Perubahan Karakter'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 11: SD PROFIL EDITOR */}
+          {activeTab === 'sd_profil' && (
+            <div className="space-y-6">
+              {/* Header Box */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+                <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                      <Building2 className="w-5 h-5 text-[#184F48]" />
+                      <span>Editor Profil, Visi, Misi &amp; Identitas SD IT</span>
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-1">
+                      Konten ini tampil langsung pada halaman publik <strong>/sd/profil</strong>.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#184F48] hover:bg-[#123e38] text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>{isSaving ? 'Menyimpan...' : 'Simpan Profil Sekolah'}</span>
+                  </button>
+                </div>
+
+                {/* Visi Sekolah */}
+                <div className="space-y-4 pt-2">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Teks Visi Resmi SD IT Al-Afiyah
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.sdProfil?.visiText || ''}
+                      onChange={(e) => updateSdProfil((prev) => ({ ...prev, visiText: e.target.value }))}
+                      className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Misi Pendidikan Sekolah */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+                <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-extrabold text-slate-900">
+                      Misi Pendidikan Sekolah (Daftar Butir Poin)
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Langkah strategis pembinaan murid yang tampil di halaman profil.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const currentMisi = formData.sdProfil?.misiList || DEFAULT_SD_PROFIL.misiList;
+                      updateSdProfil((prev) => ({
+                        ...prev,
+                        misiList: [...currentMisi, 'Menumbuhkan potensi dan akhlaq islami murid secara berkelanjutan.']
+                      }));
+                    }}
+                    className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 text-xs font-bold cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Tambah Misi</span>
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {(formData.sdProfil?.misiList || DEFAULT_SD_PROFIL.misiList).map((misi, mIdx) => (
+                    <div key={mIdx} className="flex items-center gap-3">
+                      <span className="w-6 h-6 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-black flex items-center justify-center shrink-0 border border-emerald-200 font-mono">
+                        {mIdx + 1}
+                      </span>
+                      <input
+                        type="text"
+                        value={misi}
+                        onChange={(e) => {
+                          const currentMisi = [...(formData.sdProfil?.misiList || DEFAULT_SD_PROFIL.misiList)];
+                          currentMisi[mIdx] = e.target.value;
+                          updateSdProfil((prev) => ({ ...prev, misiList: currentMisi }));
+                        }}
+                        className="flex-1 text-xs text-slate-800 border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const currentMisi = [...(formData.sdProfil?.misiList || DEFAULT_SD_PROFIL.misiList)];
+                          if (currentMisi.length <= 1) {
+                            alert('Minimal harus ada 1 butir misi.');
+                            return;
+                          }
+                          updateSdProfil((prev) => ({
+                            ...prev,
+                            misiList: currentMisi.filter((_, i) => i !== mIdx)
+                          }));
+                        }}
+                        className="p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                        title="Hapus Misi"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Data Satuan Pendidikan (Tabel Identitas) */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+                <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-extrabold text-slate-900">
+                      Tabel Data Satuan Pendidikan &amp; Legalitas
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Informasi resmi sekolah seperti Akreditasi, Gugus, Kurikulum, Alamat, dan Kontak Resmi.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const currentList = formData.sdProfil?.identitasList || DEFAULT_SD_PROFIL.identitasList;
+                      updateSdProfil((prev) => ({
+                        ...prev,
+                        identitasList: [...currentList, { label: 'Keterangan Tambahan', value: '-' }]
+                      }));
+                    }}
+                    className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 text-xs font-bold cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Tambah Baris</span>
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  {(formData.sdProfil?.identitasList || DEFAULT_SD_PROFIL.identitasList).map((item, idIdx) => (
+                    <div key={idIdx} className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 p-3 rounded-xl bg-slate-50/70 border border-slate-200 items-center">
+                      <div className="sm:col-span-4">
+                        <input
+                          type="text"
+                          value={item.label}
+                          onChange={(e) => {
+                            const currentList = [...(formData.sdProfil?.identitasList || DEFAULT_SD_PROFIL.identitasList)];
+                            currentList[idIdx] = { ...currentList[idIdx], label: e.target.value };
+                            updateSdProfil((prev) => ({ ...prev, identitasList: currentList }));
+                          }}
+                          placeholder="Label (misal: Status Akreditasi)"
+                          className="w-full text-xs font-bold text-slate-700 border border-slate-300 rounded-lg p-2 bg-white"
+                        />
+                      </div>
+                      <div className="sm:col-span-7">
+                        <input
+                          type="text"
+                          value={item.value}
+                          onChange={(e) => {
+                            const currentList = [...(formData.sdProfil?.identitasList || DEFAULT_SD_PROFIL.identitasList)];
+                            currentList[idIdx] = { ...currentList[idIdx], value: e.target.value };
+                            updateSdProfil((prev) => ({ ...prev, identitasList: currentList }));
+                          }}
+                          placeholder="Nilai (misal: Terakreditasi B (BAN-SM))"
+                          className="w-full text-xs text-slate-900 border border-slate-300 rounded-lg p-2 bg-white"
+                        />
+                      </div>
+                      <div className="sm:col-span-1 flex justify-end">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const currentList = [...(formData.sdProfil?.identitasList || DEFAULT_SD_PROFIL.identitasList)];
+                            updateSdProfil((prev) => ({
+                              ...prev,
+                              identitasList: currentList.filter((_, i) => i !== idIdx)
+                            }));
+                          }}
+                          className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                          title="Hapus Baris"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#184F48] hover:bg-[#123e38] text-white text-xs font-bold shadow-md transition-all cursor-pointer"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>{isSaving ? 'Menyimpan...' : 'Simpan Semua Data Profil'}</span>
+                  </button>
                 </div>
               </div>
             </div>

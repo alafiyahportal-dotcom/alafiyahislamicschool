@@ -16,7 +16,7 @@ import {
   UserCheck
 } from 'lucide-react';
 
-interface TeacherItem {
+export interface TeacherItem {
   id: string;
   name: string;
   role: string;

@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { prisma } from '@/lib/prisma';
 import { 
   Building2, 
   Award, 
@@ -37,8 +38,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SdProfilPage() {
-  const identitasList = [
+export const revalidate = 0;
+
+export default async function SdProfilPage() {
+  const defaultIdentitasList = [
     { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
     { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
@@ -51,7 +54,7 @@ export default function SdProfilPage() {
     { label: 'Email Resmi', value: 'sditalafiyahmjl@gmail.com' },
   ];
 
-  const misiList = [
+  const defaultMisiList = [
     'Menumbuhkan nilai-nilai tauhid dalam seluruh aspek pembelajaran dan pembiasaan.',
     'Mengajarkan aqidah dan ibadah yang sohihah sesuai dengan Al-Qur’an dan As-Sunnah sesuai dengan pemahaman salafus sholih.',
     'Membiasakan anak dengan akhlak Islami dalam keseharian.',
@@ -59,6 +62,32 @@ export default function SdProfilPage() {
     'Menanamkan rasa cinta yang mendalam kepada Allah ﷻ dan Rasul-Nya ﷺ.',
     'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.'
   ];
+
+  let identitasList = defaultIdentitasList;
+  let misiList = defaultMisiList;
+  let visiText = 'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlaq mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.';
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'sd_profil');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (Array.isArray(parsed.identitasList) && parsed.identitasList.length > 0) {
+        identitasList = parsed.identitasList;
+      }
+      if (Array.isArray(parsed.misiList) && parsed.misiList.length > 0) {
+        misiList = parsed.misiList;
+      }
+      if (parsed.visiText) {
+        visiText = parsed.visiText;
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SD profil data from CMS:', err);
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
@@ -254,7 +283,7 @@ export default function SdProfilPage() {
                   </div>
 
                   <blockquote className="p-5 rounded-xl bg-slate-50/90 border-l-4 border-[#00A651] text-emerald-950 font-semibold text-base sm:text-lg leading-relaxed">
-                    &ldquo;Mendidik generasi sholeh, cerdas, mandiri, berwawasan luas, dan berakhlakul islami.&rdquo;
+                    &ldquo;{visiText}&rdquo;
                   </blockquote>
 
                   <p className="mt-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
-interface GalleryItem {
+export interface GalleryItem {
   id: string;
   name: string;
   image: string;
@@ -145,13 +145,15 @@ const CATEGORIES = [
   'Prestasi & Bakat'
 ];
 
-export default function SdDokumentasiClient() {
+export default function SdDokumentasiClient({ initialGallery }: { initialGallery?: GalleryItem[] }) {
   const [activeCategory, setActiveCategory] = useState<string>('Semua');
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryItem | null>(null);
 
+  const galleryList = (initialGallery && initialGallery.length > 0) ? initialGallery : GALLERY_DATA;
+
   const filteredItems = activeCategory === 'Semua'
-    ? GALLERY_DATA
-    : GALLERY_DATA.filter((item) => item.category === activeCategory);
+    ? galleryList
+    : galleryList.filter((item) => item.category === activeCategory);
 
   return (
     <div className="w-full">

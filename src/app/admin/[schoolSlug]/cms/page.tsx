@@ -444,7 +444,9 @@ export default async function SchoolCMSEditorPage({
     testimonials: testimonialsPayload,
     tuition: tuitionPayload,
     affiliate: (sectionsMap.affiliate as any) || undefined,
-    presetImages: (sectionsMap.preset_images as any) || undefined
+    presetImages: (sectionsMap.preset_images as any) || undefined,
+    sdKarakter: (sectionsMap.sd_karakter as any) || undefined,
+    sdProfil: (sectionsMap.sd_profil as any) || undefined
   };
 
   const session = await getSession();

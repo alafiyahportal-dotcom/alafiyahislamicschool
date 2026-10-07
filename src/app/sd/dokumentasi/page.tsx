@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
-import SdDokumentasiClient from './SdDokumentasiClient';
+import { prisma } from '@/lib/prisma';
+import SdDokumentasiClient, { GalleryItem } from './SdDokumentasiClient';
 
 export const metadata: Metadata = {
   title: 'Dokumentasi & Belajar SD IT',
@@ -18,12 +19,40 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SdDokumentasiPage() {
+export const revalidate = 0;
+
+export default async function SdDokumentasiPage() {
+  let gallery: GalleryItem[] | undefined = undefined;
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'facilities');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        gallery = parsed.map((item: any, idx: number) => ({
+          id: `facility-${idx + 1}`,
+          name: item.name || 'Dokumentasi SD IT',
+          image: item.image || '/images/sd-hero-greenhouse.jpg',
+          desc: item.desc || item.description || '',
+          category: item.category || 'Aktivitas Kelas',
+          date: 'Tahun Ajaran 2026/2027',
+          location: 'SD IT Al-Afiyah Majalengka'
+        }));
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SD gallery/facilities from CMS:', err);
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Navbar schoolSlug="sd" />
       <main className="flex-1">
-        <SdDokumentasiClient />
+        <SdDokumentasiClient initialGallery={gallery} />
       </main>
       <Footer schoolSlug="sd" />
       <StickyMobileBar schoolSlug="sd" />
