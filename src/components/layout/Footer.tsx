@@ -41,14 +41,14 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       logoUrl: '/images/sd-logo.png',
       badgeLetter: 'SD',
       description:
-        'Sekolah Dasar Islam Terpadu berkarakter Smart Akhlaq Fitrah dengan metode Nabawiyah. Memadukan kemuliaan adab, hafalan Al-Qur\'an, sains modern, dan kemandirian murid.',
-      accreditation: 'Terakreditasi Resmi',
-      permit: 'Izin Kemenag & Kemdikbud',
+        'SDIT Al Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. Memadukan kurikulum Diknas & yayasan dalam mutu berpijak iman dan taqwa, dengan program unggulan Tahsin & Tahfidz Al-Qur\'an.',
+      accreditation: 'Terakreditasi B',
+      permit: 'YPIB • Gugus 3 Nusa Indah',
       address:
         'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
       hotline: '+62 813-1013-9001',
       hotlineWa: 'https://wa.me/6281310139001',
-      email: 'sdit@alafiyah.sch.id',
+      email: 'sditalafiyahmjl@gmail.com',
       navTitle: 'Navigasi SD IT',
       navLinks: [
         { label: 'Profil & Karakter Nabawi', href: '/sd#values' },

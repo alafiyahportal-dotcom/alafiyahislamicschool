@@ -155,7 +155,7 @@ export default function SdKontakPage() {
                     <Mail className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-slate-800 block">Email Resmi:</strong>
-                      <span className="font-mono">sdit@alafiyahislamicschool.sch.id</span>
+                      <span className="font-mono">sditalafiyahmjl@gmail.com</span>
                     </div>
                   </div>
 

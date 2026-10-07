@@ -44,23 +44,25 @@ export const dynamic = 'force-dynamic';
 
 export default function SdProfilPage() {
   const identitasList = [
-    { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
-    { label: 'Status Sekolah', value: 'Swasta Terakreditasi BAN-SM (Predikat A)' },
+    { label: 'Nama Sekolah', value: 'SDIT Al Afiyah Majalengka' },
+    { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
+    { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
+    { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },
+    { label: 'Kurikulum Pembelajaran', value: 'Perpaduan Kurikulum Diknas (K-13) & Kurikulum Yayasan berpijak pada Iman dan Taqwa' },
+    { label: 'Program Unggulan', value: 'Tahsin dan Tahfidz Al-Qur\'an' },
     { label: 'Jenjang Pendidikan', value: 'Sekolah Dasar Islam Terpadu (Kelas 1 - 6)' },
-    { label: 'Pilar Pendidikan', value: 'Smart Akhlaq Fitrah • Karakter Nabawiyah' },
-    { label: 'Target Tahfidz', value: 'Juz 30 Mutqin & Fashihah Makharijul Huruf' },
-    { label: 'Alamat Kampus', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Majalengka Wetan 45411' },
-    { label: 'Lembaga Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol Majalengka' },
-    { label: 'Kontak Tata Usaha', value: '+62 813-1013-9001 (WhatsApp Resmi)' },
+    { label: 'Alamat Kampus', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411' },
+    { label: 'Telepon / WhatsApp', value: '0813-1013-9001 (Layanan Terpadu Tata Usaha & SPMB)' },
+    { label: 'Email Resmi', value: 'sditalafiyahmjl@gmail.com' },
   ];
 
   const misiList = [
-    'Menyelenggarakan pendidikan Islam holistik berlandaskan Al-Qur\'an dan As-Sunnah sesuai pemahaman yang lurus.',
-    'Menanamkan adab sebelum ilmu dan iman sebelum Al-Qur\'an melalui pembiasaan ibadah praktis harian.',
-    'Membimbing bimbingan tahsin tartil dan hafalan Al-Qur\'an Juz 30 mutqin dengan metode yang ramah anak dan menyenangkan.',
-    'Mengembangkan kecerdasan literasi dasar, numerasi kontekstual, dan logika sains modern sejak dini.',
-    'Melaksanakan outdoor learning terintegrasi di greenhouse dan budidaya perikanan P4S An-Nabawiyah.',
-    'Membina kemandirian murid dalam menyambut fase aqil-baligh serta mengasah potensi bakat minat peserta didik.'
+    'Menumbuhkan nilai-nilai tauhid dalam seluruh aspek pembelajaran dan pembiasaan.',
+    'Mengajarkan aqidah dan ibadah yang sohihah sesuai dengan Al-Qur’an dan As-Sunnah sesuai dengan pemahaman salafus sholih.',
+    'Membiasakan anak dengan akhlak Islami dalam keseharian.',
+    'Mendidik anak agar kreatif dan inovatif.',
+    'Menanamkan rasa cinta yang mendalam kepada Allah ﷻ dan Rasul-Nya ﷺ.',
+    'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.'
   ];
 
   return (
@@ -117,20 +119,136 @@ export default function SdProfilPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={20} duration={500} className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Akreditasi A</span>
-                <span className="text-xs text-emerald-700 font-medium">BAN-SM Terakreditasi Unggul</span>
+                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Akreditasi B</span>
+                <span className="text-xs text-emerald-700 font-medium">BAN-SM Resmi</span>
               </div>
               <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">2 Rombel</span>
-                <span className="text-xs text-emerald-700 font-medium">Kuota Terbatas SPMB 2027</span>
+                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">YPIB Majalengka</span>
+                <span className="text-xs text-emerald-700 font-medium">Yayasan Pendidikan Imam Bonjol</span>
               </div>
               <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Juz 30 Mutqin</span>
-                <span className="text-xs text-emerald-700 font-medium">Target Capaian Tahfidz</span>
+                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Gugus 3 Nusa Indah</span>
+                <span className="text-xs text-emerald-700 font-medium">Sekolah Imbas 7 Sekolah</span>
               </div>
               <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Giri Asih</span>
-                <span className="text-xs text-emerald-700 font-medium">Kampus Asri &amp; Ramah Anak</span>
+                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Tahsin &amp; Tahfidz</span>
+                <span className="text-xs text-emerald-700 font-medium">Program Unggulan Al-Qur&apos;an</span>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* Sambutan Kepala Sekolah SDIT Al Afiyah */}
+        <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-slate-50/70 border-b border-slate-200/80">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal yOffset={24} duration={500}>
+              <div className="rounded-3xl bg-white border border-emerald-200/90 shadow-sm p-6 sm:p-10 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-50/80 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+                
+                <div className="relative z-10">
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+                    <span className="px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 border border-emerald-200">
+                      <GraduationCap className="w-4 h-4 text-emerald-700" />
+                      <span>Sambutan Kepala Sekolah SDIT Al Afiyah</span>
+                    </span>
+                    <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+                      🌱 Tempat Bertumbuh
+                    </span>
+                  </div>
+
+                  <div className="space-y-4 text-xs sm:text-sm lg:text-base text-slate-700 leading-relaxed font-normal">
+                    <p className="font-bold text-emerald-950 text-base sm:text-lg">
+                      Bismillahirrahmanirrahim.
+                    </p>
+                    <p>
+                      Selamat datang di <strong>SDIT Al Afiyah</strong>, tempat kami meyakini bahwa setiap anak adalah amanah Allah ﷻ dengan potensi, keunikan, dan fitrahnya masing-masing.
+                    </p>
+                    <p>
+                      Bagi kami, pendidikan bukan sekadar tentang nilai dan prestasi. Pendidikan adalah tentang menemani anak bertumbuh, mengenal dirinya, mencintai kebaikan, serta berkembang sesuai fitrahnya dalam lingkungan yang penuh iman, ilmu, dan kasih sayang.
+                    </p>
+                    <blockquote className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border-l-4 border-[#00A651] text-emerald-950 font-semibold italic text-sm sm:text-base">
+                      &ldquo;Karena itu, SDIT Al Afiyah bukan sekadar tempat belajar, namun juga tempat bertumbuh.&rdquo;
+                    </blockquote>
+                    <p>
+                      Kami mengajak Ayah Bunda untuk bersama-sama memilih lingkungan pendidikan terbaik bagi putra-putri tercinta. Mari tumbuhkan iman, karakter, potensi, dan kecintaan belajar mereka bersama kami.
+                    </p>
+                    <p>
+                      Mari bergabung bersama SDIT Al Afiyah — tempat anak belajar dengan bahagia, bertumbuh dengan cinta, dan berkembang menjadi pribadi yang bermanfaat.
+                    </p>
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                      <p className="font-extrabold text-slate-900 text-sm sm:text-base">
+                        Kepala Sekolah SDIT Al Afiyah
+                      </p>
+                      <p className="text-xs text-emerald-700 font-semibold mt-0.5">
+                        SDIT Al Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. 🌱
+                      </p>
+                    </div>
+                    <Link
+                      href="/sd/spmb"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-sm transition-all active:scale-95 shrink-0"
+                    >
+                      <span>Informasi SPMB SDIT</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* Selayang Pandang & Legalitas Sekolah */}
+        <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
+                  Selayang Pandang &amp; Naungan
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                  Mengenal Lebih Dekat SDIT Al Afiyah Majalengka
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <strong>SDIT Al Afiyah</strong> adalah sekolah formal yang berada di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong>. SDIT Al Afiyah juga merupakan <strong>sekolah imbas dari 7 sekolah lainnya di Gugus 3 Nusa Indah</strong> yang ada di Kecamatan Majalengka, Kabupaten Majalengka.
+                </p>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  SDIT Al Afiyah menyelenggarakan pendidikan dan pembelajaran berdasarkan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum muatan lokal yang bernuansa keagamaan/religi</strong>. Selain itu, terdapat program unggulan utama, yaitu <strong>Tahsin dan Tahfidz Al-Qur&apos;an</strong>.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-2.5 sm:gap-3">
+                  <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-[#00A651]" />
+                    <span>Terakreditasi B Resmi</span>
+                  </div>
+                  <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-[#00A651]" />
+                    <span>Tahsin &amp; Tahfidz Qur&apos;an</span>
+                  </div>
+                  <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
+                    <Building2 className="w-4 h-4 text-[#00A651]" />
+                    <span>Naungan YPIB Majalengka</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                <div className="relative z-10">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 bg-white/10 px-3 py-1 rounded-full inline-block mb-3">
+                    MUTU PENDIDIKAN BERPIJAK IMTAK
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold leading-snug">
+                    Perpaduan Kurikulum Diknas &amp; Religi Yayasan
+                  </h3>
+                  <p className="mt-3 text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-normal">
+                    SDIT Al Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan kurikulum Diknas dan kurikulum yayasan dalam mutu berpijak pada iman dan taqwa.
+                  </p>
+                  <div className="mt-6 pt-4 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-200">
+                    <span>Kampus Giri Asih</span>
+                    <span className="font-bold text-amber-300">Gugus 3 Nusa Indah</span>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
           </div>
@@ -152,23 +270,23 @@ export default function SdProfilPage() {
                         Arah &amp; Cita-Cita
                       </span>
                       <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-                        Visi SD IT Al-Afiyah
+                        Visi SDIT Al Afiyah
                       </h2>
                     </div>
                   </div>
 
                   <blockquote className="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-emerald-950 font-bold text-base sm:text-lg leading-relaxed">
-                    &ldquo;Mencetak Generasi Sholeh, Cerdas, Mandiri, Berwawasan Luas, dan Berakhlakul Islami dengan Metode Pendidikan Karakter Nabawiyah.&rdquo;
+                    &ldquo;Mendidik generasi sholeh, cerdas, mandiri, berwawasan luas, dan berakhlakul islami.&rdquo;
                   </blockquote>
 
                   <p className="mt-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Visi ini menegaskan komitmen SD IT Al-Afiyah dalam membangun keseimbangan antara keteguhan iman, keindahan adab pergaulan, kecakapan nalar berpikir, serta kesehatan fisik jasmani murid.
+                    Visi ini menegaskan komitmen SDIT Al Afiyah dalam membentuk murid yang berkepribadian islami, berakhlak mulia, cerdas dalam pemikiran, serta mandiri dalam amal ibadah dan kehidupan sehari-hari.
                   </p>
                 </div>
 
                 <div className="mt-8 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-semibold text-emerald-700">
                   <Sparkles className="w-4 h-4 text-emerald-600" />
-                  <span>Pilar Smart Akhlaq Fitrah</span>
+                  <span>Berpijak Pada Iman &amp; Taqwa</span>
                 </div>
               </div>
 

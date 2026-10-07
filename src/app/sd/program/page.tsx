@@ -156,9 +156,49 @@ export default function SdProgramPage() {
           </div>
         </section>
 
+        {/* Banner Landasan Kurikulum & Program Unggulan */}
+        <section className="py-8 bg-white border-b border-slate-200/80">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal yOffset={20} duration={500} className="p-6 sm:p-8 rounded-3xl bg-emerald-50/80 border border-emerald-200 flex flex-col lg:flex-row items-center justify-between gap-6">
+              <div className="space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#00A651] bg-white px-3 py-1 rounded-full border border-emerald-200 inline-block shadow-2xs">
+                  Landasan Kurikulum &amp; Program Unggulan
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
+                  Perpaduan Kurikulum Diknas &amp; Kurikulum Yayasan
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 max-w-3xl leading-relaxed">
+                  SDIT Al Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum yayasan (muatan lokal religi)</strong> dalam mutu berpijak pada iman dan taqwa. Selain itu, kami menghadirkan program unggulan utama: <strong>Tahsin dan Tahfidz Al Qur&apos;an</strong>.
+                </p>
+              </div>
+              <div className="flex flex-wrap lg:flex-col gap-2.5 shrink-0 w-full lg:w-auto">
+                <div className="px-4 py-2 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-emerald-900 shadow-2xs flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#00A651]" />
+                  <span>Kurikulum Diknas &amp; Muatan Religi</span>
+                </div>
+                <div className="px-4 py-2 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-emerald-900 shadow-2xs flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-500" />
+                  <span>Program Unggulan: Tahsin &amp; Tahfidz</span>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* 10 Program Cards Grid */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 text-center max-w-2xl mx-auto">
+              <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
+                Pilar Karakter &amp; Pembelajaran
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+                10 Program Unggulan SDIT Al Afiyah
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                Bukan sekadar tempat belajar, namun juga tempat bertumbuh dengan cinta dan iman.
+              </p>
+            </div>
             <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {SD_PROGRAMS.map((item) => {
                 const IconComponent = item.icon;
