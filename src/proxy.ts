@@ -88,21 +88,25 @@ export function proxy(request: NextRequest) {
   // ─── 3. Page Route Protection ──────────────────────────────────────────────
   const isPublicPage =
     pathname === '/' ||
+    pathname.startsWith('/sd') ||
+    pathname.startsWith('/tk') ||
+    pathname.startsWith('/smp') ||
     pathname === '/satuan-pendidikan' ||
     pathname === '/profil' ||
     pathname === '/kontak' ||
     pathname === '/berita' ||
     pathname.startsWith('/berita/') ||
     pathname === '/doa-dzikir' ||
-    pathname === '/tk' ||
-    pathname === '/sd' ||
-    pathname === '/smp' ||
     pathname === '/agenda' ||
     pathname.startsWith('/ppdb') ||
     pathname.startsWith('/portal') ||
     pathname === '/affiliate' ||
     pathname.startsWith('/ref') ||
     pathname.startsWith('/api/') ||
+    pathname === '/sitemap.xml' ||
+    pathname === '/robots.txt' ||
+    pathname.startsWith('/google') ||
+    pathname.includes('.') ||
     pathname === '/manifest.json' ||
     pathname === '/siakad-manifest.json' ||
     pathname === '/login';
