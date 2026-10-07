@@ -92,7 +92,8 @@ export default function SdProfilPage() {
               </div>
 
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah
+                Sekolah Dasar Islam <br />
+                Terpadu (SD&nbsp;IT) Al-Afiyah
               </h1>
 
               <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
