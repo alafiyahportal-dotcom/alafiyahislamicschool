@@ -20,7 +20,8 @@ import {
   Check,
   Sparkles,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  ArrowLeft
 } from 'lucide-react';
 
 interface SearchResultItem {
@@ -101,13 +102,15 @@ function CheckStatusSdContent() {
         <div className="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(#00A651_1px,transparent_1px)] [background-size:20px_20px]" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
-          {/* Breadcrumb SD */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 border border-emerald-200/80 shadow-xs mb-4 text-xs font-medium text-emerald-800">
-            <Link href="/sd" className="hover:underline">SD IT Al-Afiyah</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-emerald-400" />
-            <Link href="/sd/spmb" className="hover:underline">SPMB Online</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-emerald-950 font-semibold">Lacak Status</span>
+          {/* Breadcrumb SD & Tombol Kembali */}
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Link
+              href="/sd"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 hover:bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all shadow-2xs active:scale-95"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Kembali ke Beranda SD IT</span>
+            </Link>
           </div>
 
           <div className="text-xs sm:text-sm font-arabic font-bold text-emerald-700 tracking-wider mb-2">

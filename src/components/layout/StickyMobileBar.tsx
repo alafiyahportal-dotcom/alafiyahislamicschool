@@ -70,34 +70,17 @@ export default function StickyMobileBar({
         <span className={`text-[9px] font-bold ${schoolSlug === 'sd' ? 'text-[#00A651]' : 'text-softwater-dark'} leading-none mt-0.5`}>Lacak</span>
       </Link>
       
-      <a
+      <Link
         href={targetHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => {
-          setIsOpening(true);
-          setTimeout(() => setIsOpening(false), 2000);
-        }}
         className={`min-w-0 flex-1 py-2.5 px-3 rounded-full ${
           schoolSlug === 'sd'
             ? 'bg-[#00A651] hover:bg-[#008f45] shadow-[#00A651]/30'
             : 'bg-gradient-to-r from-softwater-dark to-softwater'
-        } text-white text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5 transition-all active:scale-95 ${
-          isOpening ? 'opacity-85 cursor-wait' : 'hover:opacity-95'
-        }`}
+        } text-white text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5 transition-all active:scale-95`}
       >
-        {isOpening ? (
-          <>
-            <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin flex-shrink-0" />
-            <span className="truncate">Membuka SPMB...</span>
-          </>
-        ) : (
-          <>
-            <span className="truncate">{btnLabel}</span>
-            <ArrowRight className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" />
-          </>
-        )}
-      </a>
+        <span className="truncate">{btnLabel}</span>
+        <ArrowRight className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" />
+      </Link>
     </div>
   );
 }

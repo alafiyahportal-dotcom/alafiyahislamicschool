@@ -41,7 +41,12 @@ export const metadata: Metadata = {
   },
   description: "Portal Terpadu Multi-Tenant TK IT, SD IT, & SMP IT Al-Afiyah Majalengka. Pendaftaran Peserta Didik Baru (PPDB), kurikulum tahfidz Qur'an, dan informasi resmi.",
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/images/sd-logo.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/images/sd-logo.png',
+    apple: '/images/sd-logo.png',
   },
   // PWA manifest
   manifest: "/manifest.json",

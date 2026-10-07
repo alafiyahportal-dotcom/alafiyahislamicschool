@@ -33,7 +33,8 @@ import {
   Sparkles,
   Percent,
   Tag,
-  CreditCard
+  CreditCard,
+  Search
 } from 'lucide-react';
 
 import { getStoredReferralCode } from '@/lib/referral';
@@ -689,14 +690,8 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
                   {/* Direct Action Buttons */}
                   <div className="pt-2 flex flex-wrap items-center gap-3">
-                    <a
+                    <Link
                       href={`/ppdb/daftar?school=smp${refCode ? `&ref=${encodeURIComponent(refCode)}` : ''}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        setIsOpeningSpmb(true);
-                        setTimeout(() => setIsOpeningSpmb(false), 2000);
-                      }}
                       className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
                     >
                       {isOpeningSpmb ? (
@@ -710,7 +705,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}
-                    </a>
+                    </Link>
 
                     <a
                       href={`https://wa.me/${school.waCenterPhone}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20Gelombang%201.`}
@@ -862,28 +857,32 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
                   {/* Direct Action Buttons */}
                   <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center gap-3">
-                    <a
+                    <Link
                       href={ppdbUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        setIsOpeningSpmb(true);
-                        setTimeout(() => setIsOpeningSpmb(false), 2000);
-                      }}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-xs sm:text-sm shadow-xs transition-colors active:scale-95"
                     >
-                      {isOpeningSpmb ? (
-                        <>
-                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <span>Membuka SPMB...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>{school.slug === 'sd' ? 'Daftar SPMB SD IT Online' : 'Daftar SPMB Online'}</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </>
-                      )}
-                    </a>
+                      <span>{school.slug === 'sd' ? 'Daftar SPMB SD IT Online' : 'Daftar SPMB Online'}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+
+                    {school.slug === 'sd' && (
+                      <>
+                        <Link
+                          href="/sd/spmb"
+                          className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm transition-colors"
+                        >
+                          <FileText className="w-4 h-4 text-emerald-700" />
+                          <span>Alur &amp; Syarat SPMB</span>
+                        </Link>
+                        <Link
+                          href="/sd/spmb/cek-status"
+                          className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm transition-colors"
+                        >
+                          <Search className="w-4 h-4 text-emerald-700" />
+                          <span>Lacak Status</span>
+                        </Link>
+                      </>
+                    )}
 
                     <a
                       href={`https://wa.me/${school.waCenterPhone}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SD%20IT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20murid%20baru.`}
@@ -1355,6 +1354,18 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   </div>
                 </ScrollReveal>
               ))}
+            </div>
+
+            {/* Tombol Buka Halaman Khusus Warta */}
+            <div className="mt-10 text-center">
+              <Link
+                href={school.slug === 'sd' ? '/sd/berita' : `/berita?school=${school.slug}`}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm shadow-xs transition-all active:scale-95"
+              >
+                <Newspaper className="w-4 h-4 text-[#00A651]" />
+                <span>Buka Seluruh Halaman Warta &amp; Prestasi {school.name}</span>
+                <ArrowRight className="w-4 h-4 text-emerald-700" />
+              </Link>
             </div>
           </div>
         </section>

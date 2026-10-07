@@ -18,7 +18,8 @@ import {
   CreditCard,
   MessageCircle,
   HelpCircle,
-  X
+  X,
+  ArrowLeft
 } from 'lucide-react';
 
 export interface AcceptedStudent {
@@ -120,6 +121,18 @@ export default function AnnouncementBoardClient({
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           {isSd && (
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Link 
+                href="/sd" 
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-white text-xs font-semibold transition-all active:scale-95"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Kembali ke Beranda SD IT</span>
+              </Link>
+            </div>
+          )}
+
+          {isSd && (
             <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 drop-shadow-sm">
               مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
             </p>
@@ -140,14 +153,14 @@ export default function AnnouncementBoardClient({
           {/* Quick Action Navigation Buttons */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
-              href={isSd ? '/ppdb/cek-status?school=sd' : '/ppdb/cek-status'}
+              href={isSd ? '/sd/spmb/cek-status' : '/ppdb/cek-status'}
               className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white text-[#00A651] font-bold text-xs sm:text-sm hover:bg-[#E8F8F0] transition shadow-md"
             >
               <Search className="w-4 h-4 text-[#00A651]" />
               <span>Cek Status Pribadi via NIK / WA</span>
             </Link>
             <Link
-              href={isSd ? '/ppdb/daftar?school=sd' : '/ppdb/daftar'}
+              href={isSd ? '/sd/spmb' : '/ppdb/daftar'}
               className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold text-xs sm:text-sm transition"
             >
               <ChevronRight className="w-4 h-4" />

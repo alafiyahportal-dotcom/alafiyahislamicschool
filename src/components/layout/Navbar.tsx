@@ -217,31 +217,26 @@ export default function Navbar({
             name: 'Satuan Pendidikan',
             href: '/satuan-pendidikan',
             hasDropdown: true,
-            openInNewTab: true,
             items: [
               {
                 label: 'TK IT Al-Afiyah',
                 href: getSchoolUrl('tk'),
                 desc: 'PAUD & TK Islam Terpadu • Usia 4–6 Tahun',
-                openInNewTab: true,
               },
               {
                 label: 'SD IT Al-Afiyah',
                 href: getSchoolUrl('sd'),
                 desc: 'Sekolah Dasar Islam Terpadu • Kelas 1–6',
-                openInNewTab: true,
               },
               {
                 label: 'SMP IT Al-Afiyah',
                 href: getSchoolUrl('smp'),
                 desc: 'SMP IT Full Day School • Kelas 7–9',
-                openInNewTab: true,
               },
               {
                 label: 'Selayang Pandang Satuan Pendidikan',
                 href: '/satuan-pendidikan',
                 desc: 'Ikhtisar kurikulum terpadu & target tahfidz',
-                openInNewTab: true,
               },
             ],
           },

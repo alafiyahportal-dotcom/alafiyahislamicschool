@@ -12,6 +12,14 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Warta & Kajian Islam Al-Afiyah | Berita, Prestasi & Artikel Edukasi',
   description: 'Kumpulan berita terkini, pengumuman Sumatif Tengah Semester (STS), prestasi murid, artikel adab dan parenting islami Yayasan Pendidikan Imam Bonjol.',
+  icons: {
+    icon: [
+      { url: '/images/sd-logo.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/images/sd-logo.png',
+    apple: '/images/sd-logo.png',
+  },
 };
 
 const DEFAULT_ARTICLES: NewsArticle[] = [

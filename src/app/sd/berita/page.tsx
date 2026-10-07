@@ -5,12 +5,20 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
-import { Newspaper, ChevronRight } from 'lucide-react';
+import { Newspaper, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SD IT Al-Afiyah Majalengka',
   description: 'Berita kegiatan belajar mengajar, prestasi kejuaraan santri, agenda sekolah, dan khazanah artikel Islami SD IT Al-Afiyah Majalengka.',
+  icons: {
+    icon: [
+      { url: '/images/sd-logo.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/images/sd-logo.png',
+    apple: '/images/sd-logo.png',
+  },
 };
 
 const DEFAULT_SD_ARTICLES: NewsArticle[] = [
@@ -116,11 +124,15 @@ export default async function SdNewsPage() {
         <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto relative z-10 text-center">
-          {/* Breadcrumb */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-emerald-100 text-xs font-semibold mb-4">
-            <Link href="/sd" className="hover:underline">SD IT Al-Afiyah</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-emerald-300" />
-            <span className="text-white font-bold">Warta & Prestasi</span>
+          {/* Breadcrumb & Tombol Kembali */}
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Link
+              href="/sd"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-white text-xs font-semibold transition-all active:scale-95"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Kembali ke Beranda SD IT</span>
+            </Link>
           </div>
 
           <p className="font-arabic text-xl sm:text-2xl text-emerald-200 mb-2 tracking-wide drop-shadow-xs">

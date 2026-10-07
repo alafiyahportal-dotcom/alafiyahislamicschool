@@ -19,7 +19,8 @@ import {
   Award,
   ChevronRight,
   CreditCard,
-  HeartHandshake
+  HeartHandshake,
+  ArrowLeft
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -37,11 +38,15 @@ export default function SdSpmbInfoPage() {
         <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(#00A651_1px,transparent_1px)] [background-size:24px_24px]" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 text-center">
-          {/* Breadcrumb */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-emerald-200 shadow-xs mb-4 text-xs font-semibold text-emerald-800">
-            <Link href="/sd" className="hover:underline">SD IT Al-Afiyah</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-emerald-950 font-bold">Informasi & Alur SPMB</span>
+          {/* Breadcrumb & Tombol Kembali */}
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Link
+              href="/sd"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 hover:bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all shadow-2xs active:scale-95"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Kembali ke Beranda SD IT</span>
+            </Link>
           </div>
 
           <div className="text-xs sm:text-sm font-arabic font-bold text-emerald-700 tracking-wider mb-2">

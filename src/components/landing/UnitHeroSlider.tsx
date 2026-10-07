@@ -151,38 +151,13 @@ function HeroContent({
       </div>
 
       {/* Single Primary CTA — slim, fit-content, left-aligned with the text margin */}
-      {isSpmbLink ? (
-        <a
-          href={rawLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => {
-            setIsOpening(true);
-            setTimeout(() => setIsOpening(false), 2000);
-          }}
-          className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
-        >
-          {isOpening ? (
-            <>
-              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
-              <span>Membuka SPMB...</span>
-            </>
-          ) : (
-            <>
-              <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
-              <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
-            </>
-          )}
-        </a>
-      ) : (
-        <Link
-          href={rawLink}
-          className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
-        >
-          <span>{slide.primaryCtaText || 'Daftar Sekarang'}</span>
-          <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
-        </Link>
-      )}
+      <Link
+        href={rawLink}
+        className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
+      >
+        <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
+        <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+      </Link>
 
       {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
       {slide.trustItems && slide.trustItems.length > 0 && (
@@ -211,7 +186,7 @@ export default function UnitHeroSlider({
 }: UnitHeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const ppdbUrl = `/ppdb/daftar?school=${slug}`;
+  const ppdbUrl = slug === 'sd' ? '/sd/spmb/daftar' : `/ppdb/daftar?school=${slug}`;
   const waUrl = `https://wa.me/${waCenterPhone}?text=${encodeURIComponent(
     `Assalamu'alaikum Panitia SPMB ${schoolName}, saya ingin bertanya perihal informasi pendaftaran murid baru TP 2027/2028.`
   )}`;
