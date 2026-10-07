@@ -112,25 +112,42 @@ export default function AnnouncementBoardClient({
       {/* Top Banner Hero */}
       <section className={`relative overflow-hidden ${
         isSd
-          ? 'bg-gradient-to-br from-[#008f45] via-[#00A651] to-[#007036]'
+          ? 'bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651]'
           : 'bg-gradient-to-br from-[#184F48] via-[#1E5D55] to-[#2D7A70]'
       } text-white pt-12 pb-20 px-4 sm:px-6 lg:px-8`}>
-        {/* Subtle Decorative Background Circles */}
-        <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-white/5 blur-2xl pointer-events-none" />
-        <div className="absolute bottom-0 left-10 -mb-20 w-80 h-80 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
+        {/* Subtle Decorative Background Texture */}
+        {isSd ? (
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+        ) : (
+          <>
+            <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-white/5 blur-2xl pointer-events-none" />
+            <div className="absolute bottom-0 left-10 -mb-20 w-80 h-80 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
+          </>
+        )}
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
-          {isSd && (
-            <div className="flex items-center justify-center gap-2 mb-4">
+          {isSd ? (
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <Link 
                 href="/sd" 
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-white text-xs font-semibold transition-all active:scale-95"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-emerald-50 hover:text-white transition-all active:scale-95"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Beranda SD IT</span>
               </Link>
+              <nav className="flex items-center gap-1.5 text-xs text-emerald-200" aria-label="Breadcrumb">
+                <Link href="/sd" className="hover:text-white transition-colors">
+                  SD IT
+                </Link>
+                <ChevronRight className="w-3 h-3 text-emerald-300/60" />
+                <Link href="/sd/spmb" className="hover:text-white transition-colors">
+                  SPMB
+                </Link>
+                <ChevronRight className="w-3 h-3 text-emerald-300/60" />
+                <span className="text-white font-medium">Pengumuman</span>
+              </nav>
             </div>
-          )}
+          ) : null}
 
           {isSd && (
             <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 drop-shadow-sm">

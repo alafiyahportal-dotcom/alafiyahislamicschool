@@ -11,6 +11,7 @@ import confetti from 'canvas-confetti';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   ArrowRight,
+  ArrowLeft,
   Users,
   CheckCircle2,
   Loader2,
@@ -139,6 +140,16 @@ function AnimatedRupiah({ value }: { value: number }) {
 
 export default function AffiliatePublicPage() {
   const router = useRouter();
+
+  const [schoolSlug, setSchoolSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const s = params.get('school');
+      if (s) setSchoolSlug(s);
+    }
+  }, []);
 
   // Dynamic CMS content state initialized with high-quality defaults
   const [cmsContent, setCmsContent] = useState<Required<AffiliateCMSData>>(DEFAULT_AFFILIATE_CONTENT);
@@ -393,7 +404,7 @@ export default function AffiliatePublicPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between selection:bg-emerald-100 selection:text-emerald-900 font-sans antialiased text-slate-800">
-      <Navbar transparentAtTop={false} />
+      <Navbar schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} transparentAtTop={false} />
 
       {/* =========================================================================
           1. HERO SECTION: Clean Crisp White Background with Bento Photo Grid
@@ -411,6 +422,17 @@ export default function AffiliatePublicPage() {
               variants={scrollFadeVariant}
               className="lg:col-span-6 space-y-6 text-left"
             >
+              {schoolSlug === 'sd' && (
+                <div className="mb-2">
+                  <Link
+                    href="/sd"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all active:scale-95"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Kembali ke Beranda SD IT</span>
+                  </Link>
+                </div>
+              )}
               <DoublePillBadge label={cmsContent.heroBadge || "Program Kemitraan Dakwah & Kebaikan"} />
 
               <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-slate-950 leading-[1.12]">
@@ -1760,8 +1782,8 @@ export default function AffiliatePublicPage() {
         </div>
       )}
 
-      <Footer />
-      <StickyMobileBar />
+      <Footer schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} />
+      <StickyMobileBar schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} />
     </div>
   );
 }

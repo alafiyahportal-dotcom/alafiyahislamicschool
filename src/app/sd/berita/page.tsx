@@ -120,31 +120,47 @@ export default async function SdNewsPage() {
       <Navbar schoolSlug="sd" />
 
       {/* Hero Header Khusus SD IT */}
-      <section className="relative text-white pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#007a3d] via-[#00A651] to-[#005c2e]">
-        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
-        <div className="max-w-5xl mx-auto relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb & Tombol Kembali */}
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
             <Link
               href="/sd"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-white text-xs font-semibold transition-all active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-emerald-50 hover:text-white transition-all active:scale-95"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Kembali ke Beranda SD IT</span>
             </Link>
+
+            <nav className="flex items-center gap-1.5 text-xs text-emerald-200" aria-label="Breadcrumb">
+              <Link href="/sd" className="hover:text-white transition-colors">
+                SD IT
+              </Link>
+              <ChevronRight className="w-3 h-3 text-emerald-300/60" />
+              <span className="text-white font-medium">Berita &amp; Artikel</span>
+            </nav>
           </div>
 
-          <p className="font-arabic text-xl sm:text-2xl text-emerald-200 mb-2 tracking-wide drop-shadow-xs">
-            مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
-          </p>
+          <div className="max-w-3xl">
+            <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
+              مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
+            </p>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            Warta, Prestasi & Khazanah SD IT
-          </h1>
-          <p className="mt-3.5 text-sm sm:text-base text-emerald-100 max-w-2xl mx-auto leading-relaxed">
-            Dinamika belajar santri, dokumentasi kegiatan luar kelas, torehan prestasi kejuaraan, serta mutiara faedah keislaman keluarga besar SD IT Al-Afiyah.
-          </p>
+            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-emerald-900/60 border border-emerald-400/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3.5 shadow-xs">
+              <Newspaper className="w-3.5 h-3.5 text-emerald-300" />
+              <span>WARTA &amp; KHAZANAH ISLAM</span>
+            </span>
+
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              Warta, Prestasi &amp; Khazanah SD IT
+            </h1>
+
+            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
+              Dinamika belajar santri, dokumentasi kegiatan luar kelas, torehan prestasi kejuaraan, serta mutiara faedah keislaman keluarga besar SD IT Al-Afiyah.
+            </p>
+          </div>
         </div>
       </section>
 

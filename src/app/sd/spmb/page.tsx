@@ -33,74 +33,89 @@ export default function SdSpmbInfoPage() {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
       <Navbar schoolSlug="sd" />
 
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-14 bg-gradient-to-b from-[#00A651]/12 via-emerald-50/50 to-slate-50 border-b border-emerald-100 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(#00A651_1px,transparent_1px)] [background-size:24px_24px]" />
+      {/* Hero Header Khusus SD IT */}
+      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb & Tombol Kembali */}
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
             <Link
               href="/sd"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 hover:bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all shadow-2xs active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-emerald-50 hover:text-white transition-all active:scale-95"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+              <ArrowLeft className="w-3.5 h-3.5" />
               <span>Kembali ke Beranda SD IT</span>
             </Link>
+
+            <nav className="flex items-center gap-1.5 text-xs text-emerald-200" aria-label="Breadcrumb">
+              <Link href="/sd" className="hover:text-white transition-colors">
+                SD IT
+              </Link>
+              <ChevronRight className="w-3 h-3 text-emerald-300/60" />
+              <span className="text-white font-medium">Informasi SPMB</span>
+            </nav>
           </div>
 
-          <div className="text-xs sm:text-sm font-arabic font-bold text-emerald-700 tracking-wider mb-2">
-            مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
-          </div>
+          <div className="max-w-3xl">
+            <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
+              مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
+            </p>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Sistem Penerimaan Murid Baru (SPMB) <br className="hidden sm:inline" />
-            <span className="text-[#00A651]">SD IT Al-Afiyah Majalengka</span>
-          </h1>
+            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-emerald-900/60 border border-emerald-400/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3.5 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>SPMB TAHUN AJARAN 2027/2028</span>
+            </span>
 
-          <p className="mt-3.5 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Membuka pendaftaran Gelombang 1 Tahun Ajaran 2027/2028. Kuota terbatas hanya 2 rombongan belajar (maksimal 60 santri) demi menjaga intensitas pengawasan adab dan tahfidz mutqin.
-          </p>
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              Penerimaan Murid Baru (SPMB) <br className="hidden sm:inline" />
+              SD IT Al-Afiyah Majalengka
+            </h1>
 
-          {/* Quick Stat Badges */}
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <div className="px-4 py-2 rounded-xl bg-white border border-emerald-200 text-xs font-semibold text-emerald-900 shadow-xs flex items-center gap-2">
-              <Users className="w-4 h-4 text-[#00A651]" />
-              <span>Kuota: <strong>60 Murid (2 Rombel)</strong></span>
+            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
+              Membuka pendaftaran Gelombang 1 Tahun Ajaran 2027/2028. Kuota terbatas hanya 2 rombongan belajar (maksimal 60 santri) demi menjaga intensitas pembinaan adab nabawi, tahfidz mutqin, dan sains terpadu.
+            </p>
+
+            {/* Quick Stat Badges */}
+            <div className="mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3">
+              <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
+                <Users className="w-4 h-4 text-amber-300" />
+                <span>Kuota: <strong>60 Murid (2 Rombel)</strong></span>
+              </div>
+              <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-amber-300" />
+                <span>Usia Minimal: <strong>6 Th (per 1 Juli 2027)</strong></span>
+              </div>
+              <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-amber-300" />
+                <span>Infaq Pendaftaran: <strong>Rp 250.000</strong></span>
+              </div>
             </div>
-            <div className="px-4 py-2 rounded-xl bg-white border border-emerald-200 text-xs font-semibold text-emerald-900 shadow-xs flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#00A651]" />
-              <span>Usia Minimal: <strong>6 Th (per 1 Juli 2027)</strong></span>
+
+            {/* Call to Actions */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href="/sd/spmb/daftar"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-400/20 active:scale-95 transition-all"
+              >
+                <span>Isi Formulir SPMB Online</span>
+                <ArrowRight className="w-4 h-4 text-slate-950" />
+              </Link>
+
+              <Link
+                href="/sd/spmb/cek-status"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all active:scale-95"
+              >
+                <span>Lacak Status Pendaftaran</span>
+              </Link>
+
+              <Link
+                href="/sd/spmb/pengumuman"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all active:scale-95"
+              >
+                <span>Pengumuman Kelulusan</span>
+              </Link>
             </div>
-            <div className="px-4 py-2 rounded-xl bg-white border border-emerald-200 text-xs font-semibold text-emerald-900 shadow-xs flex items-center gap-2">
-              <CreditCard className="w-4 h-4 text-[#00A651]" />
-              <span>Infaq Pendaftaran: <strong>Rp 250.000</strong></span>
-            </div>
-          </div>
-
-          {/* Call to Actions */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <Link
-              href="/sd/spmb/daftar"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-sm sm:text-base shadow-lg shadow-emerald-600/20 active:scale-95 transition-all"
-            >
-              <span>Isi Formulir SPMB Online</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <Link
-              href="/sd/spmb/cek-status"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold text-sm sm:text-base shadow-xs active:scale-95 transition-all"
-            >
-              <span>Lacak Status Pendaftaran</span>
-            </Link>
-
-            <Link
-              href="/sd/spmb/pengumuman"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold text-sm sm:text-base shadow-xs active:scale-95 transition-all"
-            >
-              <span>Pengumuman Kelulusan</span>
-            </Link>
           </div>
         </div>
       </section>

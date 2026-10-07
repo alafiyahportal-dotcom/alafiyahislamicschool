@@ -74,15 +74,67 @@ const DEMO_STUDENTS: SiakadStudentData[] = [
   }
 ];
 
+const SD_DEMO_STUDENTS: SiakadStudentData[] = [
+  {
+    nis: '2024-SD-0045',
+    fullName: 'Fathimah Azzahra Al-Hafizhah',
+    unitLevel: 'SD',
+    schoolName: 'SD IT Al-Afiyah Majalengka',
+    classGrade: '3 SD IT (Kelas Teladan)',
+    academicYear: '2026/2027',
+    primaryColor: '#059669',
+    accentColor: '#D97706',
+    avatarUrl: undefined,
+    attendanceRate: 96,
+    todayCheckInTime: '06.48 WIB',
+    currentJuzTarget: 'Juz 29 (Surat Al-Mulk)',
+    tahfidzProgress: 88,
+    adabScore: 98,
+  },
+  {
+    nis: '2026-SD-0012',
+    fullName: 'Muhammad Raihan Al-Fatih',
+    unitLevel: 'SD',
+    schoolName: 'SD IT Al-Afiyah Majalengka',
+    classGrade: '1 SD IT (Rombel Abu Bakar)',
+    academicYear: '2026/2027',
+    primaryColor: '#00A651',
+    accentColor: '#F59E0B',
+    avatarUrl: undefined,
+    attendanceRate: 98,
+    todayCheckInTime: '06.42 WIB',
+    currentJuzTarget: 'Juz 30 (Surat An-Naba)',
+    tahfidzProgress: 92,
+    adabScore: 99,
+  },
+  {
+    nis: '2023-SD-0089',
+    fullName: 'Zaidan Al-Farisi',
+    unitLevel: 'SD',
+    schoolName: 'SD IT Al-Afiyah Majalengka',
+    classGrade: '5 SD IT (Rombel Umar)',
+    academicYear: '2026/2027',
+    primaryColor: '#047857',
+    accentColor: '#D97706',
+    avatarUrl: undefined,
+    attendanceRate: 94,
+    todayCheckInTime: '06.45 WIB',
+    currentJuzTarget: 'Juz 28 (Surat Al-Mujadilah)',
+    tahfidzProgress: 95,
+    adabScore: 97,
+  }
+];
+
 interface SiakadMobileShellProps {
   initialSchoolSlug?: string;
 }
 
 export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMobileShellProps) {
   const isSd = initialSchoolSlug === 'sd';
+  const availableStudents = isSd ? SD_DEMO_STUDENTS : DEMO_STUDENTS;
   const [activeTab, setActiveTab] = useState<SiakadTab>('home');
   const [currentStudent, setCurrentStudent] = useState<SiakadStudentData>(
-    DEMO_STUDENTS.find(s => s.unitLevel.toLowerCase() === initialSchoolSlug) || DEMO_STUDENTS[0]
+    availableStudents[0]
   );
   const [showStudentModal, setShowStudentModal] = useState(false);
   const [useDeviceFrame, setUseDeviceFrame] = useState(true);
@@ -95,6 +147,22 @@ export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMo
         background: 'linear-gradient(180deg, #071D1A 0%, #0A2924 50%, #051613 100%)'
       }}
     >
+      {/* Mobile Top Navigation Header */}
+      <div className="md:hidden flex w-full bg-[#08221D] border-b border-emerald-500/20 px-4 py-2.5 items-center justify-between z-50 shrink-0">
+        <Link
+          href={isSd ? "/sd" : "/"}
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-200 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>{isSd ? 'Kembali ke SD IT' : 'Portal Utama'}</span>
+        </Link>
+        <div className="flex items-center gap-1.5">
+          <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+            {isSd ? 'SIAKAD SD IT' : 'SIAKAD MOBILE'}
+          </span>
+        </div>
+      </div>
+
       {/* Top Bar for Desktop Preview Controls */}
       <header className="hidden md:flex w-full bg-[#08221D]/90 backdrop-blur-md border-b border-emerald-500/20 px-4 sm:px-8 py-3.5 items-center justify-between z-50 shrink-0">
         <div className="flex items-center gap-3">
@@ -103,15 +171,15 @@ export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMo
             className="flex items-center gap-2 text-xs font-semibold text-emerald-200/80 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">{isSd ? 'Kembali ke SD IT Al-Afiyah' : 'Kembali ke Portal Yayasan'}</span>
+            <span className="hidden sm:inline">{isSd ? 'Kembali ke Beranda SD IT' : 'Kembali ke Portal Yayasan'}</span>
           </Link>
           <span className="h-4 w-px bg-emerald-500/20 hidden sm:inline" />
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
-              SIAKAD MOBILE iOS
+              {isSd ? 'SIAKAD SD IT' : 'SIAKAD MOBILE iOS'}
             </span>
             <span className="text-xs font-extrabold text-white hidden md:inline">
-              Al-Afiyah School Management System
+              {isSd ? 'SD IT Al-Afiyah Majalengka' : 'Al-Afiyah School Management System'}
             </span>
           </div>
         </div>
@@ -129,24 +197,31 @@ export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMo
             <span className="sm:hidden">Splash</span>
           </button>
 
-          {/* Quick Unit Switcher */}
-          <div className="flex bg-[#051815] p-1 rounded-xl border border-emerald-500/20">
-            {DEMO_STUDENTS.map((st) => (
-              <button
-                key={st.nis}
-                onClick={() => {
-                  setCurrentStudent(st);
-                }}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
-                  currentStudent.nis === st.nis
-                    ? 'bg-emerald-500 text-slate-950 font-black shadow-sm'
-                    : 'text-emerald-200/70 hover:text-white'
-                }`}
-              >
-                <span>{st.unitLevel} IT</span>
-              </button>
-            ))}
-          </div>
+          {/* Quick Unit Switcher (Only on general portal, strictly isolated on SD IT) */}
+          {!isSd ? (
+            <div className="flex bg-[#051815] p-1 rounded-xl border border-emerald-500/20">
+              {DEMO_STUDENTS.map((st) => (
+                <button
+                  key={st.nis}
+                  onClick={() => {
+                    setCurrentStudent(st);
+                  }}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                    currentStudent.nis === st.nis
+                      ? 'bg-emerald-500 text-slate-950 font-black shadow-sm'
+                      : 'text-emerald-200/70 hover:text-white'
+                  }`}
+                >
+                  <span>{st.unitLevel} IT</span>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 bg-[#051815] px-3 py-1.5 rounded-xl border border-emerald-500/20 text-xs font-semibold text-emerald-300">
+              <span className="w-2 h-2 rounded-full bg-[#00A651] animate-pulse" />
+              <span>Unit SD IT Terisolasi</span>
+            </div>
+          )}
 
           {/* Toggle Device Frame (Desktop Only) */}
           <button
@@ -217,7 +292,7 @@ export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMo
                 >
                   <SiakadSplashScreen
                     currentStudent={currentStudent}
-                    availableStudents={DEMO_STUDENTS}
+                    availableStudents={availableStudents}
                     onLoginSuccess={(student) => {
                       setCurrentStudent(student);
                       setShowSplash(false);
@@ -309,7 +384,7 @@ export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMo
             </div>
 
             <div className="space-y-2.5">
-              {DEMO_STUDENTS.map((st) => {
+              {availableStudents.map((st) => {
                 const isSelected = currentStudent.nis === st.nis;
                 return (
                   <button

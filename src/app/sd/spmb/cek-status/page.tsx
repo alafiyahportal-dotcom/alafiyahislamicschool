@@ -98,67 +98,84 @@ function CheckStatusSdContent() {
       <Navbar schoolSlug="sd" />
 
       {/* Hero Header Khusus SD IT */}
-      <section className="relative pt-24 pb-14 bg-gradient-to-b from-[#00A651]/10 via-emerald-50/40 to-slate-50 border-b border-emerald-100 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(#00A651_1px,transparent_1px)] [background-size:20px_20px]" />
+      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
           {/* Breadcrumb SD & Tombol Kembali */}
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
             <Link
               href="/sd"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 hover:bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all shadow-2xs active:scale-95"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-emerald-50 hover:text-white transition-all active:scale-95"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+              <ArrowLeft className="w-3.5 h-3.5" />
               <span>Kembali ke Beranda SD IT</span>
             </Link>
+
+            <nav className="flex items-center gap-1.5 text-xs text-emerald-200" aria-label="Breadcrumb">
+              <Link href="/sd" className="hover:text-white transition-colors">
+                SD IT
+              </Link>
+              <ChevronRight className="w-3 h-3 text-emerald-300/60" />
+              <Link href="/sd/spmb" className="hover:text-white transition-colors">
+                SPMB
+              </Link>
+              <ChevronRight className="w-3 h-3 text-emerald-300/60" />
+              <span className="text-white font-medium">Lacak Status</span>
+            </nav>
           </div>
 
-          <div className="text-xs sm:text-sm font-arabic font-bold text-emerald-700 tracking-wider mb-2">
+          <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
             مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
-          </div>
+          </p>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-            Cek Status Pendaftaran <br className="hidden sm:inline" />
-            <span className="text-[#00A651]">SD IT Al-Afiyah</span>
+          <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-emerald-900/60 border border-emerald-400/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3.5 shadow-xs">
+            <Search className="w-3.5 h-3.5 text-amber-300" />
+            <span>PORTAL VERIFIKASI BERKAS &amp; OBSERVASI</span>
+          </span>
+
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            Cek Status Pendaftaran SPMB <br className="hidden sm:inline" />
+            SD IT Al-Afiyah Majalengka
           </h1>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Pantau perkembangan verifikasi berkas, jadwal observasi calon santri & wawancara orang tua secara transparan dan terpusat.
+          <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 max-w-2xl mx-auto leading-relaxed font-normal">
+            Pantau perkembangan verifikasi berkas, jadwal tes observasi calon santri, serta wawancara orang tua secara transparan dan terpusat.
           </p>
 
           {/* Form Pencarian */}
           <form onSubmit={(e) => handleSearch(e)} className="mt-8 max-w-xl mx-auto">
-            <div className="relative flex items-center shadow-lg rounded-2xl bg-white border-2 border-emerald-500/30 focus-within:border-emerald-500 transition-all p-1.5 sm:p-2">
+            <div className="relative flex items-center shadow-xl rounded-2xl bg-white border-2 border-emerald-400/50 focus-within:border-emerald-300 transition-all p-1.5 sm:p-2 text-slate-800">
               <Search className="w-5 h-5 text-emerald-600 ml-3 shrink-0" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="No. Registrasi (REG-SD-...) / Nama Murid / NIK..."
-                className="w-full px-3 py-2 text-sm sm:text-base text-slate-800 bg-transparent placeholder-slate-400 focus:outline-none"
+                className="w-full px-3 py-2 text-xs sm:text-sm text-slate-800 bg-transparent placeholder-slate-400 focus:outline-none"
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex items-center gap-1.5 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#00A651] hover:bg-[#008f45] text-white text-xs sm:text-sm font-semibold rounded-xl transition-all shadow-md active:scale-95 disabled:opacity-70 shrink-0"
+                className="inline-flex items-center gap-1.5 px-4 sm:px-6 py-2.5 sm:py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-bold rounded-xl transition-all shadow-md active:scale-95 disabled:opacity-70 shrink-0"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
                     <span>Mencari...</span>
                   </>
                 ) : (
                   <>
                     <span>Cari Data</span>
-                    <ArrowRight className="w-4 h-4 hidden sm:inline" />
+                    <ArrowRight className="w-4 h-4 hidden sm:inline text-slate-950" />
                   </>
                 )}
               </button>
             </div>
 
             {errorMessage && (
-              <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-rose-600 font-medium">
-                <AlertCircle className="w-4 h-4 shrink-0" />
+              <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-rose-200 font-medium bg-rose-950/60 px-3 py-1.5 rounded-lg border border-rose-400/30">
+                <AlertCircle className="w-4 h-4 text-rose-300 shrink-0" />
                 <span>{errorMessage}</span>
               </div>
             )}

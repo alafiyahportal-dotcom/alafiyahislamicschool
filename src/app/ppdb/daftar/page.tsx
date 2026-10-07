@@ -582,11 +582,29 @@ function PPDBFormContent() {
     <div className="min-h-screen soft-mesh-bg flex flex-col justify-between py-6 px-4 sm:px-6 lg:px-8">
       {/* Main Multi-Step Card */}
       <div className="max-w-4xl mx-auto w-full my-auto py-2 sm:py-6">
-        {/* Official School Hero Banner Card (Solid Brand #00A651 Identity Color for SD IT) */}
+        {/* Top Back & Breadcrumb Bar */}
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <Link
+            href="/sd/spmb"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white hover:bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all shadow-2xs active:scale-95"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Kembali ke Info SPMB</span>
+          </Link>
+
+          <Link
+            href="/sd"
+            className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 transition-colors"
+          >
+            Beranda SD IT &rarr;
+          </Link>
+        </div>
+
+        {/* Official School Hero Banner Card (Dark Emerald Gradient Identity for SD IT) */}
         <div
-          className="rounded-3xl text-white p-6 sm:p-7 shadow-md border mb-6"
-          style={{ backgroundColor: '#00A651', borderColor: '#008f45' }}
+          className="rounded-3xl text-white p-6 sm:p-7 shadow-md border mb-6 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] border-emerald-700 relative overflow-hidden"
         >
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
           {/* Top Row: Official Badges with High Contrast pill backgrounds */}
           <div className="flex items-center gap-2 flex-wrap mb-3.5">
             <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/15 text-white border border-white/25 shadow-2xs">
