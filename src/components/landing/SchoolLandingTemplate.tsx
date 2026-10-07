@@ -415,7 +415,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       },
     ] : [
       {
-        name: 'Pusat Halaqah Tahfidz & Masjid Kampus',
+        name: 'Pusat Halaqah Tahfidz & Masjid Al-Afiyah',
         image: '/images/arc-tahfidz.jpg',
         desc: 'Pusat ibadah harian berjamaah, pembinaan tahfidz 3-5 juz mutqin, dan majelis kajian adab islami bersama asatidz pembina.',
         category: 'Tahfidz & Ibadah',
@@ -427,10 +427,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         category: 'Akademik',
       },
       {
-        name: 'Gedung Fullday School & Kampus Asri',
+        name: 'Gedung Fullday School & Lingkungan Asri',
         image: '/images/smp-hero-fullday.jpg',
         desc: 'Fasilitas gedung pembelajaran terpadu yang asri, nyaman, dan mendukung program pembinaan karakter fullday school.',
-        category: 'Kampus',
+        category: 'Lingkungan',
       },
       {
         name: 'Laboratorium Multimedia & Komputer',

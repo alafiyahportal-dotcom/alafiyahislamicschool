@@ -860,7 +860,7 @@ export default function CMSEditorClient({
           )}
           {activeTab === 'identity' && (
             <span>
-              <strong>Identitas, Header &amp; Footer:</strong> Nama resmi unit, slogan, alamat lengkap kampus, link Google Maps, email resmi, dan nomor kontak WhatsApp Panitia/CS tampil di logo pojok kiri atas, floating widget helpdesk, formulir pendaftaran resmi, serta seluruh footer halaman website.
+              <strong>Identitas, Header &amp; Footer:</strong> Nama resmi unit, slogan, alamat lengkap sekolah, link Google Maps, email resmi, dan nomor kontak WhatsApp Panitia/CS tampil di logo pojok kiri atas, floating widget helpdesk, formulir pendaftaran resmi, serta seluruh footer halaman website.
             </span>
           )}
           {activeTab === 'stats' && (

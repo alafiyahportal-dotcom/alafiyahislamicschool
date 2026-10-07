@@ -23,12 +23,12 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
       }`;
 
   const sectionSubtitle = isFoundation
-    ? 'Seluruh unit pendidikan (PAUD/TK IT, SD IT, dan SMP IT Al-Afiyah) berada berdampingan dalam satu kawasan kompleks kampus terpadu yang asri, tenang, dan strategis di Majalengka.'
+    ? 'Seluruh unit pendidikan (PAUD/TK IT, SD IT, dan SMP IT Al-Afiyah) berada berdampingan dalam satu kawasan terpadu yang asri, tenang, dan strategis di Lingkungan Giri Asih / Al-Afiyah, Majalengka.'
     : `Lingkungan sekolah ${
         isSd ? 'SD IT Al-Afiyah' : isTk ? 'TK IT Al-Afiyah' : 'SMP IT Al-Afiyah'
       } terletak di kawasan yang asri, tenang, dan mudah diakses di Majalengka.`;
 
-  const addressLabel = isFoundation ? 'Alamat Kompleks Kampus Terpadu' : 'Alamat Sekolah';
+  const addressLabel = isFoundation ? 'Alamat Kawasan Lingkungan Terpadu' : 'Alamat Sekolah';
 
   const schoolAddress =
     isFoundation || isSd
@@ -170,7 +170,7 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
               <a
                 href={`https://wa.me/${phoneRaw}?text=${encodeURIComponent(
                   isFoundation
-                    ? "Assalamu'alaikum Panitia Al-Afiyah, saya ingin bertanya perihal lokasi kampus terpadu TK IT, SD IT & SMP IT Al-Afiyah"
+                    ? "Assalamu'alaikum Panitia Al-Afiyah, saya ingin bertanya perihal lokasi terpadu TK IT, SD IT & SMP IT Al-Afiyah"
                     : `Assalamu'alaikum Panitia ${isSd ? 'SD IT' : isTk ? 'TK IT' : 'SMP IT'}, saya ingin konsultasi lokasi sekolah`
                 )}`}
                 target="_blank"

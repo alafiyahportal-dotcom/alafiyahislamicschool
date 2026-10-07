@@ -34,7 +34,7 @@ const GALLERY_DATA: GalleryItem[] = [
     desc: 'Pembiasaan adab ibadah harian sejak dini dengan shalat berjamaah yang khusyuk, melatih ketertiban, kebersihan, dan akhlak mahmudah.',
     category: 'Ibadah & Karakter',
     date: 'Setiap Hari',
-    location: 'Kampus Giri Asih'
+    location: 'Lingkungan Giri Asih'
   },
   {
     id: 'daicilik-speech',

@@ -26,7 +26,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Profil Lengkap SD IT',
-  description: 'Profil resmi Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah Majalengka. Visi, misi, sejarah kampus Giri Asih, kurikulum Smart Akhlaq Fitrah, dan legalitas resmi BAN-SM.',
+  description: 'Profil resmi Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah Majalengka. Visi, misi, sejarah Lingkungan Giri Asih, kurikulum Smart Akhlaq Fitrah, dan legalitas resmi BAN-SM.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -46,7 +46,7 @@ export default function SdProfilPage() {
     { label: 'Kurikulum Pembelajaran', value: 'Perpaduan Kurikulum Diknas (K-13) & Kurikulum Yayasan berpijak pada Iman dan Taqwa' },
     { label: 'Program Unggulan', value: 'Tahsin dan Tahfidz Al-Qur\'an' },
     { label: 'Jenjang Pendidikan', value: 'Sekolah Dasar Islam Terpadu (Kelas 1 - 6)' },
-    { label: 'Alamat Kampus', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411' },
+    { label: 'Alamat Sekolah', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411' },
     { label: 'Telepon / WhatsApp', value: '0813-1013-9001 (Layanan Terpadu Tata Usaha & SPMB)' },
     { label: 'Email Resmi', value: 'sditalafiyahmjl@gmail.com' },
   ];
@@ -228,7 +228,7 @@ export default function SdProfilPage() {
                     SDIT Al Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan kurikulum Diknas dan kurikulum yayasan dalam mutu berpijak pada iman dan taqwa.
                   </p>
                   <div className="mt-6 pt-4 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-200">
-                    <span>Kampus Giri Asih</span>
+                    <span>Lingkungan Giri Asih</span>
                     <span className="font-bold text-amber-300">Gugus 3 Nusa Indah</span>
                   </div>
                 </div>
@@ -428,7 +428,7 @@ export default function SdProfilPage() {
                     Layanan Tata Usaha &amp; Lokasi
                   </h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    WhatsApp hotline dan lokasi kampus Giri Asih Majalengka Wetan.
+                    WhatsApp hotline dan lokasi sekolah Lingkungan Giri Asih Majalengka Kulon.
                   </p>
                 </div>
               </Link>

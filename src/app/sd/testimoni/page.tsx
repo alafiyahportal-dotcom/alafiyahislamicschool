@@ -47,7 +47,7 @@ const TESTIMONIALS = [
   {
     name: 'Ibu Hj. Rina Nurhasanah, S.Pd.',
     role: 'Wali Murid SD IT Al-Afiyah',
-    quote: 'Lingkungan belajar islami yang hangat dan asatidzah yang mendidik dengan sepenuh hati. Kampus Giri Asih sangat asri, rindang, sejuk, dan aman bagi anak-anak. Pilihan terbaik di Majalengka.',
+    quote: 'Lingkungan belajar islami yang hangat dan asatidzah yang mendidik dengan sepenuh hati. Lingkungan Giri Asih sangat asri, rindang, sejuk, dan aman bagi anak-anak. Pilihan terbaik di Majalengka.',
     rating: 5,
     tag: 'Lingkungan Asri & Ramah Anak'
   },

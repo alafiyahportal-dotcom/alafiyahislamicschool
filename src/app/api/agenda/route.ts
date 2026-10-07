@@ -157,7 +157,7 @@ export const ACADEMIC_EVENTS: AcademicEvent[] = [
     startDate: '2027-02-08',
     endDate: '2027-03-09',
     time: 'Sebulan Penuh',
-    location: 'Masjid Jami\' Al-Afiyah Kampus Terpadu',
+    location: 'Masjid Jami\' Al-Afiyah Lingkungan Terpadu',
     description: 'Khataman Al-Qur\'an murid, ifthar jama\'i berkala, pembagian zakat fitrah, dan shalat tarawih berjamaah.',
     badgeText: 'Ramadhan Mubarak',
   },

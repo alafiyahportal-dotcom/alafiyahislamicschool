@@ -270,10 +270,10 @@ export default function SdSpmbInfoPage() {
               <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
                 <div className="relative z-10">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 bg-white/10 px-3 py-1 rounded-full">
-                    Fasilitas & Kampus SD IT
+                    Fasilitas & Lingkungan SD IT
                   </span>
                   <h3 className="text-xl sm:text-2xl font-bold mt-4">
-                    Kampus Giri Asih Majalengka
+                    Lingkungan Giri Asih Majalengka
                   </h3>
                   <p className="text-xs text-emerald-100 mt-2 leading-relaxed">
                     Lingkungan Giri Asih - Jl. Gerakan Koperasi, Majalengka Kulon. Gedung milik sendiri dengan suasana asri, masjid representatif, dan sarana bermain edukatif.
@@ -318,7 +318,7 @@ export default function SdSpmbInfoPage() {
                 Ingin bertanya langsung ke Panitia SPMB SD IT?
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-lg">
-                Kunjungi sekretariat kami di Kampus Giri Asih atau hubungi WhatsApp resmi Panitia SD IT di 0813-1013-9001.
+                Kunjungi sekretariat kami di Lingkungan Giri Asih atau hubungi WhatsApp resmi Panitia SD IT di 0813-1013-9001.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">

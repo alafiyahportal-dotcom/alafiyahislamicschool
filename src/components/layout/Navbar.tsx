@@ -204,7 +204,7 @@ export default function Navbar({
             { label: 'Pilar Karakter & Nilai Islami', href: activeSlug === 'sd' ? '/sd/karakter' : `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
             { label: 'Dewan Guru & Asatidzah', href: activeSlug === 'sd' ? '/sd/guru' : `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
             { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Fasilitas Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri kegiatan murid, kelas & agro-sains' : 'Lingkungan belajar ramah anak & asri' },
-            { label: activeSlug === 'sd' ? 'Layanan Tata Usaha & Lokasi' : 'Kontak & Lokasi', href: activeSlug === 'sd' ? '/sd/kontak' : '/kontak', desc: activeSlug === 'sd' ? 'Alamat sekolah & rute Google Maps' : 'Alamat kampus & peta navigasi' },
+            { label: activeSlug === 'sd' ? 'Layanan Tata Usaha & Lokasi' : 'Kontak & Lokasi', href: activeSlug === 'sd' ? '/sd/kontak' : '/kontak', desc: activeSlug === 'sd' ? 'Alamat sekolah & rute Google Maps' : 'Alamat sekolah & peta navigasi' },
           ]
         : [
             { label: 'Tentang Yayasan & Sejarah', href: '/profil#tentang', desc: 'Latar belakang pendirian & amanah dakwah' },
@@ -213,7 +213,7 @@ export default function Navbar({
             { label: 'Dewan Guru & Asatidzah', href: '/#dewan-guru', desc: 'Pendidik tahfidz, sains & pembina karakter' },
             { label: 'Sarana & Fasilitas Sekolah', href: '/profil#fasilitas', desc: 'Masjid, lab modern & sarana olahraga' },
             { label: 'Selayang Pandang & Legalitas', href: '/profil#legalitas', desc: 'Izin Kemenkumham, Kemendikbud & Kemenag' },
-            { label: 'Kontak & Lokasi Sekolah', href: '/kontak', desc: 'Alamat kampus & peta navigasi' },
+            { label: 'Kontak & Lokasi Sekolah', href: '/kontak', desc: 'Alamat sekolah & peta navigasi' },
           ],
     },
     // Menu "Satuan Pendidikan" HANYA tampil di website utama (Yayasan/Pusat)

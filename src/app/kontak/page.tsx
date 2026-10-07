@@ -217,7 +217,7 @@ export default async function KontakPage({
                   Rute Menuju Lingkungan Sekolah Al-Afiyah
                 </h4>
                 <p className="text-xs text-emerald-100/80 leading-relaxed">
-                  Lokasi kampus mudah dijangkau dari pusat kota Majalengka, dekat dengan sarana umum, serta memiliki area parkir luas dan aman bagi penjemputan murid.
+                  Lokasi sekolah mudah dijangkau dari pusat kota Majalengka, dekat dengan sarana umum, serta memiliki area parkir luas dan aman bagi penjemputan murid.
                 </p>
                 <div className="pt-2">
                   <a

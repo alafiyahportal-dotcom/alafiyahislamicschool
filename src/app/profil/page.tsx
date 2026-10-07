@@ -47,7 +47,7 @@ export default async function ProfilPage({
     },
     {
       year: '2018',
-      title: 'Pembangunan Kampus & SD IT Al-Afiyah',
+      title: 'Pembangunan Gedung & SD IT Al-Afiyah',
       desc: 'Ekspansi pendidikan ke jenjang dasar (SD IT) di lahan terpadu Majalengka dengan integrasi kurikulum nasional dan kurikulum keislaman komprehensif.',
     },
     {
@@ -483,7 +483,7 @@ export default async function ProfilPage({
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <p className="text-[11px] text-slate-400">
-                Konsultasi &amp; kunjungan kampus: <Link href="/kontak" className="text-emerald-400 underline hover:text-emerald-300">Hubungi Kami</Link>
+                Konsultasi &amp; kunjungan sekolah: <Link href="/kontak" className="text-emerald-400 underline hover:text-emerald-300">Hubungi Kami</Link>
               </p>
             </div>
           </div>

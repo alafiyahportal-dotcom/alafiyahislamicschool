@@ -1875,7 +1875,7 @@ function PPDBFormContent() {
 
               <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 text-xs text-emerald-900 flex items-center space-x-2.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-700 flex-shrink-0" />
-                <span>Dokumen fisik asli dapat dibawa saat jadwal wawancara/observasi berlangsung di lingkungan kampus sekolah.</span>
+                <span>Dokumen fisik asli dapat dibawa saat jadwal wawancara/observasi berlangsung di lingkungan sekolah.</span>
               </div>
             </div>
           )}
