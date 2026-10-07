@@ -352,7 +352,7 @@ export default function Navbar({
         <header
           className={`w-full max-w-full select-none transition-all duration-300 border-b overflow-x-clip ${
             shouldBeTransparent
-              ? 'bg-gradient-to-b from-black/75 via-black/40 to-transparent border-white/10 shadow-none'
+              ? 'bg-transparent border-white/10 shadow-none'
               : 'bg-white/95 backdrop-blur-md shadow-md border-slate-200/90'
           }`}
         >

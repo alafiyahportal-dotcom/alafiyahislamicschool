@@ -7,6 +7,8 @@ import confetti from 'canvas-confetti';
 import { 
   ArrowRight, 
   ArrowLeft, 
+  ChevronRight,
+  GraduationCap,
   CheckCircle2, 
   Upload, 
   CreditCard, 
@@ -30,6 +32,9 @@ import {
   Lock,
   MessageCircle
 } from 'lucide-react';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { extractSubdomain, getSchoolUrl } from '@/lib/domain';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
@@ -579,86 +584,73 @@ function PPDBFormContent() {
   };
 
   return (
-    <div className="min-h-screen soft-mesh-bg flex flex-col justify-between py-6 px-4 sm:px-6 lg:px-8">
-      {/* Main Multi-Step Card */}
-      <div className="max-w-4xl mx-auto w-full my-auto py-2 sm:py-6">
-        {/* Top Back & Breadcrumb Bar */}
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <Link
-            href="/sd/spmb"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white hover:bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all shadow-2xs active:scale-95"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Kembali ke Info SPMB</span>
-          </Link>
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
+      <Navbar schoolSlug="sd" />
 
-          <Link
-            href="/sd"
-            className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 transition-colors"
-          >
-            Beranda SD IT &rarr;
-          </Link>
+      {/* Hero Header Khusus Formulir SPMB SD IT */}
+      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-12 sm:pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
+            <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Beranda SD IT</span>
+            </Link>
+            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
+            <Link href="/sd/spmb" className="hover:text-white transition-colors">
+              SPMB
+            </Link>
+            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
+            <span className="text-white font-medium">Formulir Pendaftaran</span>
+          </nav>
+
+          <div className="max-w-3xl">
+            <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
+              مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
+            </p>
+
+            <div className="text-xs font-bold text-amber-300 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
+              <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
+              <span>SPMB TAHUN AJARAN 2027/2028</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              Formulir Pendaftaran Murid Baru <br className="hidden sm:inline" />
+              SD IT Al-Afiyah Majalengka
+            </h1>
+            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
+              Silakan lengkapi biodata calon murid dan data orang tua/wali secara benar. Kuota Gelombang 1 terbatas hanya 2 Rombel (maksimal 60 murid).
+            </p>
+          </div>
         </div>
+      </section>
 
-        {/* Official School Hero Banner Card (Dark Emerald Gradient Identity for SD IT) */}
-        <div
-          className="rounded-3xl text-white p-6 sm:p-7 shadow-md border mb-6 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] border-emerald-700 relative overflow-hidden"
-        >
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-          {/* Top Row: Official Badges with High Contrast pill backgrounds */}
-          <div className="flex items-center gap-2 flex-wrap mb-3.5">
-            <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/15 text-white border border-white/25 shadow-2xs">
+      {/* Main Multi-Step Form Container */}
+      <main className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20 pb-16 flex-1">
+        {/* Info & Status Badge Bar */}
+        <div className="rounded-2xl bg-white p-4 sm:p-5 shadow-sm border border-emerald-100 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
               Formulir 28 Butir Lengkap
             </span>
-            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-black/15 text-white border border-white/25 shadow-2xs">
+            <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
               {(activeSchool.waveName || 'Gelombang 1').replace(/\(Biaya.*?\)/i, '').trim()} • Biaya Rp {activeSchool.fee.toLocaleString('id-ID')}
             </span>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/25 text-white border border-white/20 hidden sm:inline-block shadow-2xs">
+            <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 hidden sm:inline-block">
               NPSN: 69900910
             </span>
           </div>
-
-          {/* Middle Row: Title + Consultation CTA */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/20">
-            <div className="flex items-center gap-3">
-              <img
-                src="/images/sd-logo.png"
-                alt="Logo SD IT Al-Afiyah"
-                className="w-11 h-11 sm:w-13 sm:h-13 object-contain shrink-0 drop-shadow-sm block"
-              />
-              <div>
-                <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">
-                  Pendaftaran Murid Baru {activeSchool.name}
-                </h1>
-                <p className="text-xs text-white/95 font-medium mt-1">
-                  Jalur {formData.admissionTrack} • Tahun Pelajaran 2027/2028
-                </p>
-              </div>
-            </div>
-
-            {/* Right side WhatsApp Consultation link - High Contrast White with Brand Green text */}
-            <div className="flex items-center gap-2 shrink-0">
-              <a
-                href={`https://wa.me/6281234567890?text=${encodeURIComponent(
-                  `Assalamu'alaikum Panitia SPMB SD IT Al-Afiyah, saya ingin konsultasi seputar pendaftaran murid baru.`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-neutral-100 text-[#00A651] text-xs font-bold transition-all tactile-press shadow-sm cursor-pointer"
-              >
-                <Phone className="w-3.5 h-3.5 text-[#00A651]" />
-                <span>Bantuan Panitia SPMB</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Bottom Guidance Note */}
-          <div className="pt-3.5 flex items-start gap-2 text-xs text-white leading-relaxed font-medium">
-            <ShieldCheck className="w-4 h-4 text-white shrink-0 mt-0.5" />
-            <p>
-              Pendaftaran awal cukup melengkapi data pokok calon murid dan kontak WhatsApp orang tua. Seluruh <strong className="font-bold underline decoration-white/40">28 butir rincian formulir fisik &amp; berkas administrasi</strong> (KK, Akta, Pas Foto 3x4) <strong className="font-bold">dapat disusulkan</strong> via Portal Murid setelah pengisian ini.
-            </p>
-          </div>
+          <a
+            href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SD%20IT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20seputar%20pendaftaran%20murid%20baru"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold transition-all border border-emerald-200 self-start sm:self-auto shrink-0"
+          >
+            <Phone className="w-3.5 h-3.5 text-emerald-700" />
+            <span>Bantuan Panitia: 0813-1013-9001</span>
+          </a>
         </div>
 
         {/* Minimalist Progress Stepper (With Scoped Theme Accent #00A651) */}
@@ -2086,12 +2078,10 @@ function PPDBFormContent() {
             </div>
           )}
         </div>
-      </div>
+      </main>
 
-      {/* Footer copyright */}
-      <div className="max-w-4xl mx-auto w-full text-center text-xs text-slate-400 pt-6">
-        © 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Pendaftaran Resmi SPMB Online.
-      </div>
+      <Footer schoolSlug="sd" />
+      <StickyMobileBar schoolSlug="sd" waPhone="6281310139001" schoolName="SD IT Al-Afiyah" />
     </div>
   );
 }
