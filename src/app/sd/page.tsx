@@ -166,7 +166,7 @@ export default async function SdLandingPage() {
 
   const schoolData: SchoolData = {
     slug: 'sd',
-    name: identityData.name || dbSchool?.name || 'SDIT Al Afiyah Majalengka',
+    name: identityData.name || dbSchool?.name || 'SD IT Al-Afiyah Majalengka',
     badgeText: identityData.badgeText || dbSchool?.badgeText || 'TERAKREDITASI B • YPIB GUGUS 3 NUSA INDAH',
     tagline: identityData.tagline || dbSchool?.tagline || 'Mendidik Generasi Sholeh, Cerdas, Mandiri, Berwawasan Luas, dan Berakhlakul Islami',
     primaryColor: dbSchool?.primaryColor || '#00A651',
@@ -175,7 +175,7 @@ export default async function SdLandingPage() {
     waCenterPhone: identityData.whatsappNumber || dbSchool?.waCenterPhone || '6281310139001',
     address: identityData.schoolAddress || identityData.address || dbSchool?.address || 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka 45411',
     heroHeadline: heroData.headline || 'Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh 🌱',
-    heroSubheadline: heroData.subheadline || 'Selamat datang di SDIT Al Afiyah. Kami menemani anak bertumbuh, mengenal dirinya, mencintai kebaikan, serta berkembang sesuai fitrahnya dalam lingkungan yang penuh iman, ilmu, dan kasih sayang.',
+    heroSubheadline: heroData.subheadline || 'Selamat datang di SD IT Al-Afiyah. Kami menemani anak bertumbuh, mengenal dirinya, mencintai kebaikan, serta berkembang sesuai fitrahnya dalam lingkungan yang penuh iman, ilmu, dan kasih sayang.',
     heroImage: heroData.heroImage || '/images/sd-hero-greenhouse.jpg',
     heroSlides: heroData.slides,
     stats: sectionsMap.stats || heroData.stats,

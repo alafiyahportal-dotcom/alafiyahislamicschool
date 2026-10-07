@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function SdProfilPage() {
   const identitasList = [
-    { label: 'Nama Sekolah', value: 'SDIT Al Afiyah Majalengka' },
+    { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
     { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },
@@ -132,7 +132,7 @@ export default function SdProfilPage() {
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                     <span className="px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 border border-emerald-200">
                       <GraduationCap className="w-4 h-4 text-emerald-700" />
-                      <span>Sambutan Kepala Sekolah SDIT Al Afiyah</span>
+                      <span>Sambutan Kepala Sekolah SD IT Al-Afiyah</span>
                     </span>
                     <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
                       🌱 Tempat Bertumbuh
@@ -144,36 +144,36 @@ export default function SdProfilPage() {
                       Bismillahirrahmanirrahim.
                     </p>
                     <p>
-                      Selamat datang di <strong>SDIT Al Afiyah</strong>, tempat kami meyakini bahwa setiap anak adalah amanah Allah ﷻ dengan potensi, keunikan, dan fitrahnya masing-masing.
+                      Selamat datang di <strong>SD IT Al-Afiyah</strong>, tempat kami meyakini bahwa setiap anak adalah amanah Allah ﷻ dengan potensi, keunikan, dan fitrahnya masing-masing.
                     </p>
                     <p>
                       Bagi kami, pendidikan bukan sekadar tentang nilai dan prestasi. Pendidikan adalah tentang menemani anak bertumbuh, mengenal dirinya, mencintai kebaikan, serta berkembang sesuai fitrahnya dalam lingkungan yang penuh iman, ilmu, dan kasih sayang.
                     </p>
                     <blockquote className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border-l-4 border-[#00A651] text-emerald-950 font-semibold italic text-sm sm:text-base">
-                      &ldquo;Karena itu, SDIT Al Afiyah bukan sekadar tempat belajar, namun juga tempat bertumbuh.&rdquo;
+                      &ldquo;Karena itu, SD IT Al-Afiyah bukan sekadar tempat belajar, namun juga tempat bertumbuh.&rdquo;
                     </blockquote>
                     <p>
                       Kami mengajak Ayah Bunda untuk bersama-sama memilih lingkungan pendidikan terbaik bagi putra-putri tercinta. Mari tumbuhkan iman, karakter, potensi, dan kecintaan belajar mereka bersama kami.
                     </p>
                     <p>
-                      Mari bergabung bersama SDIT Al Afiyah — tempat anak belajar dengan bahagia, bertumbuh dengan cinta, dan berkembang menjadi pribadi yang bermanfaat.
+                      Mari bergabung bersama SD IT Al-Afiyah — tempat anak belajar dengan bahagia, bertumbuh dengan cinta, dan berkembang menjadi pribadi yang bermanfaat.
                     </p>
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <p className="font-extrabold text-slate-900 text-sm sm:text-base">
-                        Kepala Sekolah SDIT Al Afiyah
+                        Kepala Sekolah SD IT Al-Afiyah
                       </p>
                       <p className="text-xs text-emerald-700 font-semibold mt-0.5">
-                        SDIT Al Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. 🌱
+                        SD IT Al-Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. 🌱
                       </p>
                     </div>
                     <Link
                       href="/sd/spmb"
                       className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-sm transition-all active:scale-95 shrink-0"
                     >
-                      <span>Informasi SPMB SDIT</span>
+                      <span>Informasi SPMB SD IT</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
@@ -192,13 +192,13 @@ export default function SdProfilPage() {
                   Selayang Pandang &amp; Naungan
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                  Mengenal Lebih Dekat SDIT Al Afiyah Majalengka
+                  Mengenal Lebih Dekat SD IT Al-Afiyah Majalengka
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  <strong>SDIT Al Afiyah</strong> adalah sekolah formal yang berada di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong>. SDIT Al Afiyah juga merupakan <strong>sekolah imbas dari 7 sekolah lainnya di Gugus 3 Nusa Indah</strong> yang ada di Kecamatan Majalengka, Kabupaten Majalengka.
+                  <strong>SD IT Al-Afiyah</strong> adalah sekolah formal yang berada di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong>. SD IT Al-Afiyah juga merupakan <strong>sekolah imbas dari 7 sekolah lainnya di Gugus 3 Nusa Indah</strong> yang ada di Kecamatan Majalengka, Kabupaten Majalengka.
                 </p>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  SDIT Al Afiyah menyelenggarakan pendidikan dan pembelajaran berdasarkan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum muatan lokal yang bernuansa keagamaan/religi</strong>. Selain itu, terdapat program unggulan utama, yaitu <strong>Tahsin dan Tahfidz Al-Qur&apos;an</strong>.
+                  SD IT Al-Afiyah menyelenggarakan pendidikan dan pembelajaran berdasarkan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum muatan lokal yang bernuansa keagamaan/religi</strong>. Selain itu, terdapat program unggulan utama, yaitu <strong>Tahsin dan Tahfidz Al-Qur&apos;an</strong>.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-2.5 sm:gap-3">
                   <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
@@ -225,7 +225,7 @@ export default function SdProfilPage() {
                     Perpaduan Kurikulum Diknas &amp; Religi Yayasan
                   </h3>
                   <p className="mt-3 text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-normal">
-                    SDIT Al Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan kurikulum Diknas dan kurikulum yayasan dalam mutu berpijak pada iman dan taqwa.
+                    SD IT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan kurikulum Diknas dan kurikulum yayasan dalam mutu berpijak pada iman dan taqwa.
                   </p>
                   <div className="mt-6 pt-4 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-200">
                     <span>Lingkungan Giri Asih</span>
@@ -246,7 +246,7 @@ export default function SdProfilPage() {
                 <div>
                   <div className="mb-5">
                     <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
-                      Visi SDIT Al Afiyah
+                      Visi SD IT Al-Afiyah
                     </span>
                     <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                       Mewujudkan Generasi Sholeh &amp; Berakhlak
@@ -258,7 +258,7 @@ export default function SdProfilPage() {
                   </blockquote>
 
                   <p className="mt-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    Visi ini menegaskan komitmen SDIT Al Afiyah dalam membentuk murid yang berkepribadian islami, berakhlak mulia, cerdas dalam pemikiran, serta mandiri dalam amal ibadah dan kehidupan sehari-hari.
+                    Visi ini menegaskan komitmen SD IT Al-Afiyah dalam membentuk murid yang berkepribadian islami, berakhlak mulia, cerdas dalam pemikiran, serta mandiri dalam amal ibadah dan kehidupan sehari-hari.
                   </p>
                 </div>
               </div>

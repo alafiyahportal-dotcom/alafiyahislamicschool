@@ -31,10 +31,10 @@ export default function GoogleStructuredData() {
       '@context': 'https://schema.org',
       '@type': ['EducationalOrganization', 'School', 'ElementarySchool'],
       '@id': `${siteUrl}/#organization`,
-      name: 'SDIT Al-Afiyah Majalengka',
+      name: 'SD IT Al-Afiyah Majalengka',
       alternateName: [
         'Sekolah Dasar Islam Terpadu Al-Afiyah',
-        'SD IT Al-Afiyah',
+        'SDIT Al-Afiyah',
         'Yayasan Pendidikan Imam Bonjol Al-Afiyah'
       ],
       url: `${siteUrl}/sd`,

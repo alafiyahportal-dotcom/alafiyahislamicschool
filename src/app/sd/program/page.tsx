@@ -156,7 +156,7 @@ export default function SdProgramPage() {
                   Perpaduan Kurikulum Diknas &amp; Kurikulum Yayasan
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-3xl leading-relaxed">
-                  SDIT Al Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum yayasan (muatan lokal religi)</strong> dalam mutu berpijak pada iman dan taqwa. Selain itu, kami menghadirkan program unggulan utama: <strong>Tahsin dan Tahfidz Al Qur&apos;an</strong>.
+                  SD IT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum yayasan (muatan lokal religi)</strong> dalam mutu berpijak pada iman dan taqwa. Selain itu, kami menghadirkan program unggulan utama: <strong>Tahsin dan Tahfidz Al Qur&apos;an</strong>.
                 </p>
               </div>
               <div className="flex flex-wrap lg:flex-col gap-2.5 shrink-0 w-full lg:w-auto">
@@ -181,7 +181,7 @@ export default function SdProgramPage() {
                 Pilar Karakter &amp; Pembelajaran
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
-                10 Program Unggulan SDIT Al Afiyah
+                10 Program Unggulan SD IT Al-Afiyah
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 Bukan sekadar tempat belajar, namun juga tempat bertumbuh dengan cinta dan iman.

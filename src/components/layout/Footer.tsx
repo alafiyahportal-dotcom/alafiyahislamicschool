@@ -41,7 +41,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       logoUrl: '/images/sd-logo.png',
       badgeLetter: 'SD',
       description:
-        'SDIT Al Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. Memadukan kurikulum Diknas & yayasan dalam mutu berpijak iman dan taqwa, dengan program unggulan Tahsin & Tahfidz Al-Qur\'an.',
+        'SD IT Al-Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. Memadukan kurikulum Diknas & yayasan dalam mutu berpijak iman dan taqwa, dengan program unggulan Tahsin & Tahfidz Al-Qur\'an.',
       accreditation: 'Terakreditasi B',
       permit: 'YPIB • Gugus 3 Nusa Indah',
       address:
