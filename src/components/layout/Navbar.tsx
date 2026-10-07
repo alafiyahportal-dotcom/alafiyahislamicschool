@@ -194,8 +194,8 @@ export default function Navbar({
       hasDropdown: true,
       items: activeSlug
         ? [
-            { label: `Profil & Karakter ${brandConfig.title}`, href: `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
-            { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
+            { label: activeSlug === 'sd' ? 'Pilar Karakter SD IT' : `Profil & Karakter ${brandConfig.title}`, href: activeSlug === 'sd' ? '/sd/karakter' : `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
+            { label: 'Dewan Guru & Asatidzah', href: activeSlug === 'sd' ? '/sd/guru' : `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
             { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Fasilitas Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri kegiatan murid, kelas & agro-sains' : 'Lingkungan belajar ramah anak & asri' },
             { label: 'Tentang Yayasan Pembina', href: '/profil', desc: 'Yayasan Pendidikan Imam Bonjol Majalengka' },
             { label: 'Kontak & Lokasi', href: activeSlug === 'sd' ? '/sd/kontak' : '/kontak', desc: 'Alamat kampus & peta navigasi' },
@@ -248,10 +248,10 @@ export default function Navbar({
             hasDropdown: true,
             items: [
               { label: activeSlug === 'sd' ? '10 Program Unggulan SD IT' : 'Kurikulum & Program Unggulan', href: activeSlug === 'sd' ? '/sd/program' : `${brandConfig.homeUrl}#programs`, desc: activeSlug === 'sd' ? 'Karakter nabawiyah, adab & tahfidz mutqin' : 'Pembelajaran terintegrasi & adab harian' },
-              { label: 'Pilar Karakter & Nilai Islami', href: `${brandConfig.homeUrl}#values`, desc: 'Tauhid, tahfidz & budi pekerti luhur' },
+              { label: 'Pilar Karakter & Nilai Islami', href: activeSlug === 'sd' ? '/sd/karakter' : `${brandConfig.homeUrl}#values`, desc: 'Tauhid, tahfidz & budi pekerti luhur' },
               { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Lingkungan Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri nyata kegiatan belajar & agro-sains' : 'Fasilitas nyaman, aman & asri' },
-              { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik berdedikasi & profesional' },
-              { label: 'Testimoni Wali Murid', href: `${brandConfig.homeUrl}#testimonials`, desc: 'Pengalaman & apresiasi orang tua' },
+              { label: 'Dewan Guru & Asatidzah', href: activeSlug === 'sd' ? '/sd/guru' : `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik berdedikasi & profesional' },
+              { label: 'Testimoni Wali Murid', href: activeSlug === 'sd' ? '/sd/testimoni' : `${brandConfig.homeUrl}#testimonials`, desc: 'Pengalaman & apresiasi orang tua' },
             ],
           },
         ]),
