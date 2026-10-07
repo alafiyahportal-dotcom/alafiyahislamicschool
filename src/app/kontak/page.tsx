@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
@@ -31,6 +32,10 @@ export default async function KontakPage({
   const params = await searchParams;
   const schoolSlug = (params.school || params.unit || '').toLowerCase();
   const isSd = schoolSlug === 'sd';
+
+  if (isSd) {
+    redirect('/sd/kontak');
+  }
 
   const contactChannels = isSd
     ? [

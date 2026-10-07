@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
@@ -19,6 +20,10 @@ export default async function DoaDzikirPage({
   const params = await searchParams;
   const schoolSlug = (params.school || params.unit || '').toLowerCase();
   const isSd = schoolSlug === 'sd';
+
+  if (isSd) {
+    redirect('/sd/doa-dzikir');
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-amber-200 selection:text-amber-950">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -21,6 +22,10 @@ export default async function PPDBAnnouncementPage({
   const params = await searchParams;
   const schoolSlug = (params.school || params.unit || '').toLowerCase();
   const isSd = schoolSlug === 'sd';
+
+  if (isSd) {
+    redirect('/sd/spmb/pengumuman');
+  }
 
   // Ambil data sekolah
   const schoolsData = await prisma.school.findMany({

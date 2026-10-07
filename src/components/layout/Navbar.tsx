@@ -196,7 +196,7 @@ export default function Navbar({
         ? [
             { label: `Profil & Karakter ${brandConfig.title}`, href: `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
             { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
-            { label: 'Sarana & Fasilitas Belajar', href: `${brandConfig.homeUrl}#facilities`, desc: 'Lingkungan belajar ramah anak & asri' },
+            { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Fasilitas Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri kegiatan murid, kelas & agro-sains' : 'Lingkungan belajar ramah anak & asri' },
             { label: 'Tentang Yayasan Pembina', href: '/profil', desc: 'Yayasan Pendidikan Imam Bonjol Majalengka' },
             { label: 'Kontak & Lokasi', href: activeSlug === 'sd' ? '/sd/kontak' : '/kontak', desc: 'Alamat kampus & peta navigasi' },
           ]
@@ -244,12 +244,12 @@ export default function Navbar({
       : [
           {
             name: 'Program & Keunggulan',
-            href: `${brandConfig.homeUrl}#programs`,
+            href: activeSlug === 'sd' ? '/sd/program' : `${brandConfig.homeUrl}#programs`,
             hasDropdown: true,
             items: [
-              { label: 'Kurikulum & Program Unggulan', href: `${brandConfig.homeUrl}#programs`, desc: 'Pembelajaran terintegrasi & adab harian' },
+              { label: activeSlug === 'sd' ? '10 Program Unggulan SD IT' : 'Kurikulum & Program Unggulan', href: activeSlug === 'sd' ? '/sd/program' : `${brandConfig.homeUrl}#programs`, desc: activeSlug === 'sd' ? 'Karakter nabawiyah, adab & tahfidz mutqin' : 'Pembelajaran terintegrasi & adab harian' },
               { label: 'Pilar Karakter & Nilai Islami', href: `${brandConfig.homeUrl}#values`, desc: 'Tauhid, tahfidz & budi pekerti luhur' },
-              { label: 'Sarana & Lingkungan Belajar', href: `${brandConfig.homeUrl}#facilities`, desc: 'Fasilitas nyaman, aman & asri' },
+              { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Lingkungan Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri nyata kegiatan belajar & agro-sains' : 'Fasilitas nyaman, aman & asri' },
               { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik berdedikasi & profesional' },
               { label: 'Testimoni Wali Murid', href: `${brandConfig.homeUrl}#testimonials`, desc: 'Pengalaman & apresiasi orang tua' },
             ],
@@ -274,7 +274,7 @@ export default function Navbar({
         { label: `Informasi & Alur SPMB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug === 'sd' ? '/sd/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Syarat berkas, tes observasi & kuota' },
         { label: 'Formulir SPMB Online', href: activeSlug === 'sd' ? '/sd/spmb/daftar' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Isi formulir biodata calon murid' },
         { label: 'Cek Status SPMB', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : (activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status'), desc: 'Pantau verifikasi berkas & nomor registrasi' },
-        { label: 'Pengumuman SPMB', href: activeSlug ? `/ppdb/pengumuman?school=${activeSlug}` : '/ppdb/pengumuman', desc: 'SK kelulusan murid gelombang 1 & 2' },
+        { label: 'Pengumuman SPMB', href: activeSlug === 'sd' ? '/sd/spmb/pengumuman' : (activeSlug ? `/ppdb/pengumuman?school=${activeSlug}` : '/ppdb/pengumuman'), desc: 'SK kelulusan murid gelombang 1 & 2' },
         { label: 'Daftar Ulang & Seragam', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : (activeSlug ? `/portal/ppdb/REG-SD-2026-0001/daftar-ulang?school=${activeSlug}` : '/portal/ppdb/REG-SD-2026-0001/daftar-ulang'), desc: 'Fitting seragam & pelunasan biaya' },
       ],
     },

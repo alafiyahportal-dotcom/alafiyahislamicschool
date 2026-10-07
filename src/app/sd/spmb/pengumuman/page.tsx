@@ -9,6 +9,14 @@ import AnnouncementBoardClient, { AcceptedStudent, SchoolInfo } from '@/componen
 export const metadata: Metadata = {
   title: 'Pengumuman Kelulusan SPMB SD IT Al-Afiyah Majalengka',
   description: 'Pengumuman resmi kelulusan dan rekapitulasi kuota calon murid baru SD IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028.',
+  icons: {
+    icon: [
+      { url: '/images/sd-logo.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/images/sd-logo.png',
+    apple: '/images/sd-logo.png',
+  },
 };
 
 export const dynamic = 'force-dynamic';

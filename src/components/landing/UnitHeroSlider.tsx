@@ -115,23 +115,12 @@ function HeroContent({
       {/* Minimal Floating Badge — outer layer floats, inner layer handles tactile press so transforms never fight */}
       {slide.badge && (
         <div className="mb-4 sm:mb-5 animate-hero-float">
-          {isSpmbLink ? (
-            <a
-              href={rawLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
-            >
-              {slide.badge}
-            </a>
-          ) : (
-            <Link
-              href={rawLink}
-              className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
-            >
-              {slide.badge}
-            </Link>
-          )}
+          <Link
+            href={rawLink}
+            className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
+          >
+            {slide.badge}
+          </Link>
         </div>
       )}
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
@@ -382,6 +383,13 @@ export default async function BeritaPage({
   const params = await searchParams;
   const schoolSlug = (params.school || params.unit || (params.cat === 'sd' ? 'sd' : '')).toLowerCase();
   const isSd = schoolSlug === 'sd';
+
+  if (isSd) {
+    const query = new URLSearchParams();
+    if (params.cat && params.cat !== 'sd') query.set('cat', params.cat);
+    const qs = query.toString() ? `?${query.toString()}` : '';
+    redirect(`/sd/berita${qs}`);
+  }
 
   let articles: NewsArticle[] = [];
 
