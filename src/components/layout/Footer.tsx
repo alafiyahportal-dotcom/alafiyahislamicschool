@@ -61,12 +61,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Formulir SPMB SD IT Online', href: '/sd/spmb/daftar', isHighlighted: true },
       ],
       bottomCopyright: '© 2026 SD IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
-      bottomLinks: [
-        { label: 'Login Portal & SIAKAD', href: '/sd/siakad', isGold: true },
-        { label: 'Doa & Dzikir', href: '/sd/doa-dzikir' },
-        { label: 'Info SPMB SD IT', href: '/sd/spmb' },
-        { label: 'Hotline Panitia SD IT', href: 'https://wa.me/6281310139001', isExternal: true },
-      ],
+      bottomLinks: [],
     },
     tk: {
       name: 'TK IT Al-Afiyah',
@@ -413,7 +408,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         {/* Bottom copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0">
           <p>{current.bottomCopyright}</p>
-          {'bottomLinks' in current && (
+          {'bottomLinks' in current && current.bottomLinks && current.bottomLinks.length > 0 && (
           <div className="flex items-center space-x-4">
             {current.bottomLinks.map((item, idx) => (
               <React.Fragment key={idx}>
