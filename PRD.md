@@ -41,6 +41,7 @@
 | **v2.20.0** | 18 Sep 2026 | User Directive / Lead | Perluasan Spesifikasi Modul Eksekutif & Teknis: M32 (Konsol Tata Kelola Prestasi Murid & Generator Piagam A4), M33 (Sistem Presensi QR Code KTS Murid), M34 (Buku Rapor Digital & Laporan Capaian Mutabaah Tahfidz), M35 (Tata Kelola SPP Bulanan, Virtual Account Midtrans & Kuitansi Digital). |
 | **v2.21.0** | 25 Sep 2026 | User Directive / Lead | **Refinement Super Premium Formulir PPDB Online (/ppdb/daftar):**<br>1. Penyeragaman warna banner & kartu header menjadi **Solid Deep Forest Emerald (#064E3B)**, eliminasi gradasi multi-warna mencolok.<br>2. Pembersihan redundansi deskripsi dan nama unit berulang.<br>3. Penerapan **Strict Multi-Tenant Isolation** pada formulir: peniadaan dropdown/select ganti unit di dalam form pendaftaran aktif.<br>4. Layout grid **Anti-Mepet** dengan pelebaran horizontal gap 40px (`columnGap: 2.5rem`, `rowGap: 1.75rem`) dan penataan ulang flex NIK.<br>5. Standardisasi **Badge Nomor Poin Resmi 28 Butir Berkas Fisik** (`[Poin 01]` s.d. `[Poin 28]`) berdesain monospaced eksekutif berbayang lembut.<br>6. Penyiapan aset standar PWA (`icon-192.png` & `icon-512.png`) dan eliminasi warning console 404. |
 | **v3.16.0** | 5 Okt 2026 | User Directive / Lead | **Produksi & SPMB SD IT 2027/2028:** migrasi Supabase PostgreSQL + deploy Vercel dengan routing hybrid path/subdomain; refinement tipografi hero SD (3 baris + aksen serif "Bukan Sekedar"), kartu statistik bento, identitas hijau `theme-sd`, footer kartu program rata bawah; pembaruan data poster SPMB SD IT T.A. 2027/2028 (3 poster, WA 0813-1013-9001, usia per Juli 2027, biaya gelombang 250/275/300 rb, kalkulator Putra/Putri, 10 program unggulan, sinkronisasi DB). Detail: Bagian 23. |
+| **v3.18.0** | 7 Okt 2026 | User Directive / Lead | **Tata Kelola Mandiri CMS SD, Pembersihan Redundansi Navbar & Kesiapan Google Search Console:**<br>1. **Isolasi Ketat Multi-Tenant CMS SD:** Penambahan Tab 9 (*Pilar Karakter* - `/sd/karakter`) dan Tab 10 (*Profil & Visi Misi* - `/sd/profil`) yang hanya aktif pada unit SD (`schoolSlug === 'sd'`). Data dijamin tidak menimpa unit TK, SMP, atau Yayasan.<br>2. **Pembersihan Redundansi Navbar (Zero Duplicate):** Mengeliminasi menu ganda Dewan Guru (kini khusus di *Profil*), Dokumentasi (khusus di *Profil*), Pilar Karakter (khusus di *Program & Keunggulan*), dan Tata Usaha.<br>3. **Sinkronisasi Dinamis Halaman SD:** `/sd/guru`, `/sd/karakter`, `/sd/profil`, `/sd/program`, `/sd/testimoni`, `/sd/dokumentasi`, `/sd/kontak`, dan `/sd/spmb` 100% dinamis terhubung ke database `cMSSection` dengan revalidasi instan.<br>4. **Pintasan Cepat Dasbor Admin:** Tombol pintas `Kelola Guru ↗`, `Kelola Berita ↗`, dan `Prestasi ↗` langsung pada bar editor CMS.<br>5. **Optimasi Google Search Console & SEO Browser Indexing:** Pembaruan `sitemap.ts` mencakup seluruh rute dinamis SD untuk perayapan bot Google dan pengindeksan hasil pencarian peramban. Detail: Bagian 23.13. |
 
 ---
 
@@ -1088,11 +1089,30 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - **Paragraf Deskripsi:** Dinaikkan dari `text-sm text-neutral-300` menjadi `text-sm sm:text-base lg:text-lg leading-relaxed text-neutral-200` agar terbaca dengan jelas di layar HP.
 - **Daftar Poin Informasi (Trust Items):** Dinaikkan ke `text-xs sm:text-sm font-medium text-neutral-200` dengan pembatas aksen hijau `border-l-2 border-emerald-500/60` yang tegas dan rapi.
 
+### 23.13 Revisi — Tata Kelola Mandiri CMS SD, Pembersihan Redundansi Navbar & Kesiapan Google Search Console (7 Okt 2026)
+- **Isolasi Mutlak Multi-Tenant CMS SD (`schoolSlug === 'sd'`):**
+  1. Penambahan Tab 9 (**Pilar Karakter** - mengelola `/sd/karakter`) dan Tab 10 (**Profil & Visi Misi** - mengelola `/sd/profil`).
+  2. Tab 9 & 10 diproteksi ketat hanya tampil dan tersimpan untuk unit SD IT Al-Afiyah Majalengka.
+  3. Kunci gabungan database Prisma `@@unique([schoolId, sectionKey])` menjamin bahwa unit TK, SMP, dan Yayasan memiliki rekor data terpisah (UUID berbeda) dan tidak akan pernah tertimpa.
+- **Pembersihan Redundansi & Eliminasi Menu Dobel di Navbar (`Navbar.tsx`):**
+  1. *Dewan Guru & Asatidzah:* Dihapus dari *Program & Keunggulan*, kini difokuskan secara eksklusif pada menu *Profil* (`/sd/guru`).
+  2. *Dokumentasi & Belajar:* Dihapus dari *Program & Keunggulan*, kini berada eksklusif pada menu *Profil* (`/sd/dokumentasi`).
+  3. *Pilar Karakter & Nilai Islami:* Dihapus dari *Profil*, kini berada eksklusif pada menu *Program & Keunggulan* (`/sd/karakter`).
+  4. *Layanan Tata Usaha:* Dihapus dari *Lainnya*, kini berada eksklusif pada menu *Profil* (`/sd/kontak`). Menu *Lainnya* difokuskan sebagai *Pusat Bantuan WhatsApp SD IT*.
+- **Sinkronisasi Dinamis Seluruh Halaman SD:**
+  1. Halaman `/sd/guru`, `/sd/karakter`, `/sd/profil`, `/sd/program`, `/sd/testimoni`, `/sd/dokumentasi`, `/sd/kontak`, dan `/sd/spmb` kini dinamis (`revalidate = 0`) membaca langsung dari database `cMSSection`.
+  2. API Handler `/api/admin/cms` secara otomatis merevalidasi cache halaman saat admin mengklik "Simpan Perubahan".
+- **Akses Pintas Cepat (Quick Actions) di CMS SD (`CMSEditorClient.tsx`):**
+  1. Disediakan tombol pintas langsung di header editor CMS: **Kelola Guru ↗** (`/admin/sd/teachers`), **Kelola Berita ↗** (`/admin/sd/news`), dan **Prestasi ↗** (`/admin/sd/achievements`).
+- **Kesiapan Google Search Console & SEO Browser Indexing:**
+  1. `src/app/sitemap.ts` diperbarui mencakup seluruh rute publik unit SD: `/sd`, `/sd/spmb`, `/sd/spmb/daftar`, `/sd/profil`, `/sd/program`, `/sd/karakter`, `/sd/guru`, `/sd/dokumentasi`, `/sd/testimoni`, `/sd/berita`, `/sd/agenda`, `/sd/doa-dzikir`, dan `/sd/kontak`.
+  2. Setiap halaman dilengkapi metadata unik (Title, Description, Canonical URL, OpenGraph) untuk memaksimalkan peringkat pencarian di Google Search dan peramban ponsel.
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
 *tidak pernah mengganti atau menghapus bagian yang sudah ada di atas.*
-*Versi terakhir: 3.17.0 — 5 Okt 2026*
+*Versi terakhir: 3.18.0 — 7 Okt 2026*
 
 
 
