@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -36,7 +36,7 @@ export default function VideoTourSection() {
     },
     {
       title: 'Legalitas Resmi & Terakreditasi',
-      desc: 'Izin operasional lengkap Dinas Pendidikan dan Kemenag dengan status Akreditasi A.',
+      desc: 'Izin operasional lengkap Dinas Pendidikan dan Kemenag dengan status Terakreditasi BAN-S/M Resmi.',
       icon: ShieldCheck,
       accent: 'text-sky-600 bg-sky-50'
     }

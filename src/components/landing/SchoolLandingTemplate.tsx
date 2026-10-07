@@ -205,8 +205,8 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     },
     { 
       label: 'Akreditasi Sekolah', 
-      value: 'A (Unggul)', 
-      subtext: 'BAN-SM Terakreditasi',
+      value: 'Terakreditasi B', 
+      subtext: 'BAN-SM Resmi',
       iconType: 'award',
       badge: 'Mutu Resmi',
       color: 'emerald',
@@ -238,7 +238,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     },
     { 
       label: 'Akreditasi Lembaga', 
-      value: 'A (Unggul)', 
+      value: 'Terakreditasi B', 
       subtext: 'Standar Mutu Nasional',
       iconType: 'award',
       badge: 'Mutu Resmi',

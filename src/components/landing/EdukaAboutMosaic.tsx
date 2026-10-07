@@ -47,7 +47,7 @@ export default function EdukaAboutMosaic() {
                       <ShieldCheck className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-[11px] font-extrabold text-slate-900 leading-tight">Akreditasi A Resmi</div>
+                      <div className="text-[11px] font-extrabold text-slate-900 leading-tight">Terakreditasi Resmi</div>
                       <div className="text-[10px] text-slate-500 font-medium">BAN-S/M &amp; Kemenag</div>
                     </div>
                   </div>

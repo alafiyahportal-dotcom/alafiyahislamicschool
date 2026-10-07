@@ -268,7 +268,7 @@ export default async function SchoolCMSEditorPage({
   const statsPayload = sectionsMap.stats || heroPayload.stats || [
     { label: 'Murid Aktif', value: schoolSlug === 'foundation' ? '850+' : schoolSlug === 'tk' ? '120+' : schoolSlug === 'sd' ? '450+' : '280+' },
     { label: 'Dewan Guru Berpengalaman', value: schoolSlug === 'foundation' ? '75+ Pendidik' : schoolSlug === 'tk' ? '14 Guru' : schoolSlug === 'sd' ? '38 Guru' : '25 Pendidik' },
-    { label: 'Akreditasi Lembaga', value: 'A (Unggul)' },
+    { label: 'Akreditasi Lembaga', value: 'Terakreditasi B' },
     { label: 'Target Tahfidz', value: schoolSlug === 'tk' ? 'Juz 30 Ceria' : schoolSlug === 'sd' ? 'Juz 30 Mutqin' : '3-5 Juz Tartil' }
   ];
 

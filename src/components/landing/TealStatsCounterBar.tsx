@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -24,7 +24,7 @@ const stats: StatItem[] = [
     id: 1,
     number: '3',
     label: 'Unit Sekolah Terpadu',
-    description: 'TK IT, SD IT, & SMP IT Terakreditasi A',
+    description: 'TK IT, SD IT, & SMP IT Terakreditasi Resmi',
     icon: School
   },
   {

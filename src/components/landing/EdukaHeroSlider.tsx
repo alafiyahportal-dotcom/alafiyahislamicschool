@@ -184,7 +184,7 @@ export default function EdukaHeroSlider({ customSlides }: EdukaHeroSliderProps =
           {/* Clean Editorial Trust Row (Plain Text Spacing without Cards or Dots) */}
           <div className="pt-3 flex flex-wrap items-center gap-x-6 sm:gap-x-8 gap-y-2 text-xs sm:text-sm font-semibold text-slate-200/90">
             <span className="whitespace-nowrap tracking-wide">
-              Terakreditasi A Resmi
+              Terakreditasi BAN-S/M Resmi
             </span>
             <span className="whitespace-nowrap tracking-wide hidden sm:inline">
               Kurikulum Terpadu Kemenag &amp; Kemendikbud

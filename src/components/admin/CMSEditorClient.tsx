@@ -1705,7 +1705,7 @@ export default function CMSEditorClient({
                 {(formData.stats || [
                   { label: 'Murid Aktif', value: '450+' },
                   { label: 'Dewan Guru Berpengalaman', value: '38 Guru' },
-                  { label: 'Akreditasi Lembaga', value: 'A (Unggul)' },
+                  { label: 'Akreditasi Lembaga', value: 'Terakreditasi B' },
                   { label: 'Target Tahfidz', value: 'Tartil & Mutqin' }
                 ]).map((st, i) => (
                   <div key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
