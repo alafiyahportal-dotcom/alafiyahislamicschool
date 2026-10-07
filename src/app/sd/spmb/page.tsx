@@ -50,10 +50,6 @@ export default function SdSpmbInfoPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
-              مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
-            </p>
-
             <div className="text-xs font-bold text-amber-300 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
               <span>SPMB TAHUN AJARAN 2027/2028</span>

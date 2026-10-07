@@ -116,10 +116,6 @@ function CheckStatusSdContent() {
             <span className="text-white font-medium">Lacak Status</span>
           </nav>
 
-          <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
-            مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
-          </p>
-
           <div className="text-xs font-bold text-amber-300 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
             <Search className="w-3.5 h-3.5 text-amber-300" />
             <span>PORTAL VERIFIKASI BERKAS &amp; OBSERVASI</span>

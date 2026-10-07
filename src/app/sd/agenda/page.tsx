@@ -44,10 +44,6 @@ export default function SdAgendaPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
-              تَقْوِيمُ الأَنْشِطَةِ الأَكَادِيمِيَّةِ لِمَدْرَسَةِ العَافِيَةِ
-            </p>
-
             <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <Calendar className="w-3.5 h-3.5 text-emerald-300" />
               <span>KALENDER RESMI KEGIATAN &amp; SPMB</span>
