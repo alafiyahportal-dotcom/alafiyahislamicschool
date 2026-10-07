@@ -141,7 +141,7 @@ function CheckStatusSdContent() {
           </h1>
 
           <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 max-w-2xl mx-auto leading-relaxed font-normal">
-            Pantau perkembangan verifikasi berkas, jadwal tes observasi calon santri, serta wawancara orang tua secara transparan dan terpusat.
+            Pantau perkembangan verifikasi berkas, jadwal tes observasi calon murid, serta wawancara orang tua secara transparan dan terpusat.
           </p>
 
           {/* Form Pencarian */}
@@ -346,12 +346,12 @@ function CheckStatusSdContent() {
               Data Tidak Ditemukan
             </h3>
             <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Tidak ada calon santri SD IT Al-Afiyah yang cocok dengan kata kunci &ldquo;<span className="font-semibold text-slate-800">{query}</span>&rdquo;.
+              Tidak ada calon murid SD IT Al-Afiyah yang cocok dengan kata kunci &ldquo;<span className="font-semibold text-slate-800">{query}</span>&rdquo;.
             </p>
             <div className="mt-5 p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-left text-xs text-slate-600 space-y-1.5">
               <p className="font-semibold text-slate-800">Tips Pencarian:</p>
               <p>• Masukkan Nomor Registrasi lengkap (contoh: <span className="font-mono font-medium">REG-SD-2026-0001</span>).</p>
-              <p>• Atau ketik nama lengkap calon santri sesuai Akta Kelahiran.</p>
+              <p>• Atau ketik nama lengkap calon murid sesuai Akta Kelahiran.</p>
               <p>• Bila baru saja mengisi formulir, silakan tunggu 2-3 menit hingga database tersinkronisasi.</p>
             </div>
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">

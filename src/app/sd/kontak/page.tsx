@@ -46,7 +46,7 @@ export default function SdKontakPage() {
     {
       title: 'Konsultasi Program Tahfidz SD IT',
       number: '+62 813-1013-9001',
-      desc: 'Informasi kurikulum tahfidz mutqin juz 30, hafalan hadits, dan target capaian ibadah santri.',
+      desc: 'Informasi kurikulum tahfidz mutqin juz 30, hafalan hadits, dan target capaian ibadah murid.',
       link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Asatidzah%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20tahfidz',
       cta: 'Konsultasi Tahfidz',
       badge: 'Tahfidz Qur’an',
@@ -96,7 +96,7 @@ export default function SdKontakPage() {
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Silakan hubungi kami untuk informasi kurikulum Smart Akhlaq Fitrah, pendaftaran santri baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke Kampus Giri Asih SD IT Al-Afiyah.
+              Silakan hubungi kami untuk informasi kurikulum Smart Akhlaq Fitrah, pendaftaran murid baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke Kampus Giri Asih SD IT Al-Afiyah.
             </p>
           </div>
         </div>

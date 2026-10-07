@@ -9,8 +9,8 @@ import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Dzikir Pagi Petang & Doa Harian Santri SD IT Al-Afiyah',
-  description: 'Kumpulan dzikir pagi dan petang shahih (Al-Ma’tsurat) serta doa harian santri penuntut ilmu SD IT Al-Afiyah Majalengka lengkap dengan counter digital.',
+  title: 'Dzikir Pagi Petang & Doa Harian Murid SD IT Al-Afiyah',
+  description: 'Kumpulan dzikir pagi dan petang shahih (Al-Ma’tsurat) serta doa harian murid penuntut ilmu SD IT Al-Afiyah Majalengka lengkap dengan counter digital.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -61,7 +61,7 @@ export default function SdDoaDzikirPage() {
             </span>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dzikir Pagi, Petang &amp; Doa Santri SD IT
+              Dzikir Pagi, Petang &amp; Doa Murid SD IT
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">

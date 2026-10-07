@@ -7,7 +7,7 @@ import SdDokumentasiClient from './SdDokumentasiClient';
 
 export const metadata: Metadata = {
   title: 'Dokumentasi & Belajar SD IT',
-  description: 'Galeri foto dan dokumentasi kegiatan belajar mengajar, pembiasaan shalat berjamaah, da\'i cilik, agro-sains di P4S An-Nabawiyah, dan prestasi santri SD IT Al-Afiyah Majalengka.',
+  description: 'Galeri foto dan dokumentasi kegiatan belajar mengajar, pembiasaan shalat berjamaah, da\'i cilik, agro-sains di P4S An-Nabawiyah, dan prestasi murid SD IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },

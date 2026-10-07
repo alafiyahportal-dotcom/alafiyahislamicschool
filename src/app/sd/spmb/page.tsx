@@ -26,7 +26,7 @@ import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Informasi & Alur SPMB SD IT Al-Afiyah Majalengka TA 2027/2028',
-  description: 'Panduan lengkap penerimaan santri baru SD IT Al-Afiyah. Syarat usia, alur pendaftaran, observasi, kuota rombel dan rincian biaya.',
+  description: 'Panduan lengkap penerimaan murid baru SD IT Al-Afiyah. Syarat usia, alur pendaftaran, observasi, kuota rombel dan rincian biaya.',
 };
 
 export default function SdSpmbInfoPage() {
@@ -74,7 +74,7 @@ export default function SdSpmbInfoPage() {
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Membuka pendaftaran Gelombang 1 Tahun Ajaran 2027/2028. Kuota terbatas hanya 2 rombongan belajar (maksimal 60 santri) demi menjaga intensitas pembinaan adab nabawi, tahfidz mutqin, dan sains terpadu.
+              Membuka pendaftaran Gelombang 1 Tahun Ajaran 2027/2028. Kuota terbatas hanya 2 rombongan belajar (maksimal 60 murid) demi menjaga intensitas pembinaan adab nabawi, tahfidz mutqin, dan sains terpadu.
             </p>
 
             {/* Quick Stat Badges */}
@@ -129,7 +129,7 @@ export default function SdSpmbInfoPage() {
             Tahapan Pendaftaran
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
-            4 Langkah Mudah Menjadi Santri SD IT Al-Afiyah
+            4 Langkah Mudah Menjadi Murid SD IT Al-Afiyah
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2">
             Proses terintegrasi secara digital, transparan, dan memudahkan orang tua calon murid.
@@ -187,7 +187,7 @@ export default function SdSpmbInfoPage() {
                 Observasi & Wawancara
               </h3>
               <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Calon santri mengikuti observasi kematangan sensorik, motorik & pengenalan huruf. Orang tua mengikuti sesi wawancara keselarasan visi pendidikan.
+                Calon murid mengikuti observasi kematangan sensorik, motorik & pengenalan huruf. Orang tua mengikuti sesi wawancara keselarasan visi pendidikan.
               </p>
             </div>
             <div className="mt-4 pt-4 border-t border-slate-100">
@@ -207,7 +207,7 @@ export default function SdSpmbInfoPage() {
                 Kelulusan & Seragam
               </h3>
               <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Pengumuman hasil kelulusan melalui Papan Pengumuman resmi, dilanjutkan daftar ulang, pengukuran seragam syar&apos;i, dan penyambutan santri baru.
+                Pengumuman hasil kelulusan melalui Papan Pengumuman resmi, dilanjutkan daftar ulang, pengukuran seragam syar&apos;i, dan penyambutan murid baru.
               </p>
             </div>
             <div className="mt-4 pt-4 border-t border-slate-100">
@@ -227,7 +227,7 @@ export default function SdSpmbInfoPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#00A651] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-                  Persyaratan Calon Santri
+                  Persyaratan Calon Murid
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
                   Syarat Masuk SD IT Al-Afiyah
@@ -249,7 +249,7 @@ export default function SdSpmbInfoPage() {
                     <CheckCircle2 className="w-5 h-5 text-[#00A651] shrink-0 mt-0.5" />
                     <div>
                       <h4 className="text-xs sm:text-sm font-bold text-slate-800">Kelengkapan Administrasi</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Scan/Fotokopi Akta Kelahiran, Kartu Keluarga (KK), KTP kedua orang tua, serta pas foto terbaru santri.</p>
+                      <p className="text-xs text-slate-600 mt-0.5">Scan/Fotokopi Akta Kelahiran, Kartu Keluarga (KK), KTP kedua orang tua, serta pas foto terbaru murid.</p>
                     </div>
                   </div>
 
@@ -283,7 +283,7 @@ export default function SdSpmbInfoPage() {
                     </div>
                     <div>
                       <span className="text-slate-400 text-xs block">Rasio Kelas</span>
-                      <span className="text-lg font-extrabold text-white">28-30 Santri/Kelas</span>
+                      <span className="text-lg font-extrabold text-white">28-30 Murid/Kelas</span>
                     </div>
                   </div>
 

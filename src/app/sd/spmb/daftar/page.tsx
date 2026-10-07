@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Formulir Pendaftaran SPMB Online SD IT Al-Afiyah Majalengka',
-  description: 'Formulir resmi pendaftaran calon murid baru SD IT Al-Afiyah Tahun Ajaran 2027/2028. Pengisian biodata santri dan orang tua secara digital.',
+  description: 'Formulir resmi pendaftaran calon murid baru SD IT Al-Afiyah Tahun Ajaran 2027/2028. Pengisian biodata calon murid dan orang tua secara digital.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },

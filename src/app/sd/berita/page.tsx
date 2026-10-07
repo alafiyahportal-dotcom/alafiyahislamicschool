@@ -11,7 +11,7 @@ import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SD IT Al-Afiyah Majalengka',
-  description: 'Berita kegiatan belajar mengajar, prestasi kejuaraan santri, agenda sekolah, dan khazanah artikel Islami SD IT Al-Afiyah Majalengka.',
+  description: 'Berita kegiatan belajar mengajar, prestasi kejuaraan murid, agenda sekolah, dan khazanah artikel Islami SD IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
 const DEFAULT_SD_ARTICLES: NewsArticle[] = [
   {
     id: 'sd-warta-1',
-    title: 'Kemeriahan Market Day & Cooking Day: Melatih Jiwa Kewirausahaan Islami Santri SD IT',
+    title: 'Kemeriahan Market Day & Cooking Day: Melatih Jiwa Kewirausahaan Islami Murid SD IT',
     slug: 'market-day-cooking-day-sdit-al-afiyah',
     category: 'Kegiatan',
-    excerpt: 'Santri SD IT Al-Afiyah belajar adab bermuamalah, kejujuran dalam berdagang, dan melatih kemandirian finansial sejak dini melalui simulasi pasar syariah.',
+    excerpt: 'Murid SD IT Al-Afiyah belajar adab bermuamalah, kejujuran dalam berdagang, dan melatih kemandirian finansial sejak dini melalui simulasi pasar syariah.',
     author: 'Humas SD IT Al-Afiyah',
     date: '4 Okt 2026',
     schoolName: 'SD IT Al-Afiyah',
@@ -37,7 +37,7 @@ const DEFAULT_SD_ARTICLES: NewsArticle[] = [
   },
   {
     id: 'sd-warta-2',
-    title: 'Alhamdulillah! Tiga Santri SD IT Al-Afiyah Raih Juara MHQ Juz 30 Tingkat Kabupaten',
+    title: 'Alhamdulillah! Tiga Murid SD IT Al-Afiyah Raih Juara MHQ Juz 30 Tingkat Kabupaten',
     slug: 'juara-mhq-juz-30-kabupaten-majalengka',
     category: 'Prestasi',
     excerpt: 'Prestasi membanggakan kembali ditorehkan ananda dalam ajang Musabaqah Hifdzil Qur’an. Berkat bimbingan intensif dan muraja’ah berkala.',
@@ -159,7 +159,7 @@ export default async function SdNewsPage() {
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Dinamika belajar santri, dokumentasi kegiatan luar kelas, torehan prestasi kejuaraan, serta mutiara faedah keislaman keluarga besar SD IT Al-Afiyah.
+              Dinamika belajar murid, dokumentasi kegiatan luar kelas, torehan prestasi kejuaraan, serta mutiara faedah keislaman keluarga besar SD IT Al-Afiyah.
             </p>
           </div>
         </div>
