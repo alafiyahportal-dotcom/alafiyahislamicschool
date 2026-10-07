@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | SD IT Al-Afiyah Majalengka',
-    default: 'SD IT Al-Afiyah Majalengka | Sekolah Dasar Islam Terpadu Unggulan',
+    template: '%s | SD IT Al-Afiyah YPIB',
+    default: 'SD IT Al-Afiyah Majalengka | YPIB',
   },
-  description: 'PPDB SD IT Al-Afiyah Majalengka. Kurikulum terpadu nasional, hafalan tahfidz juz 30 mutqin, pembentukan karakter islami, dan sains modern.',
+  description: 'Website Resmi SD IT Al-Afiyah Majalengka di bawah naungan Yayasan Pendidikan Imam Bonjol (YPIB). Terakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlaq Fitrah, dan bimbingan Tahfidz Juz 30 Mutqin.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     ],
     shortcut: '/images/sd-logo.png',
     apple: '/images/sd-logo.png',
+  },
+  openGraph: {
+    title: 'SD IT Al-Afiyah Majalengka | YPIB',
+    description: 'Sekolah Dasar Islam Terpadu Al-Afiyah di Lingkungan Giri Asih Majalengka naungan Yayasan Pendidikan Imam Bonjol.',
+    siteName: 'SD IT Al-Afiyah Majalengka - YPIB',
+    locale: 'id_ID',
+    type: 'website',
   },
 };
 
