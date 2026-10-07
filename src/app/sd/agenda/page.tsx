@@ -6,7 +6,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import AgendaCalendarClient from '@/components/agenda/AgendaCalendarClient';
 import { ACADEMIC_EVENTS } from '@/app/api/agenda/route';
-import { ArrowLeft, Calendar, Sparkles, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, ChevronRight } from 'lucide-react';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {

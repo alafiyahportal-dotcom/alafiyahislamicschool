@@ -7,7 +7,6 @@ import {
   Users, 
   ArrowLeft, 
   ChevronRight, 
-  Sparkles, 
   Award, 
   BookOpen, 
   GraduationCap, 

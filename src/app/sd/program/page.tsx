@@ -6,7 +6,6 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
-  Sparkles, 
   ArrowLeft, 
   ChevronRight, 
   CheckCircle2, 
@@ -43,7 +42,7 @@ const SD_PROGRAMS = [
     title: 'Mendidik dengan Sunnah',
     desc: 'Menggunakan metode Pendidikan Karakter Nabawiyah dan keteladanan sunnah Rasulullah ﷺ dalam setiap interaksi dan pembiasaan harian.',
     badge: 'Karakter Nabawi',
-    icon: Sparkles
+    icon: HeartHandshake
   },
   {
     number: '02',
@@ -141,7 +140,7 @@ export default function SdProgramPage() {
 
             <div className="max-w-3xl">
               <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-emerald-900/60 border border-emerald-400/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3.5 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
                 <span>10 PROGRAM UNGGULAN SD IT</span>
               </span>
 
@@ -200,44 +199,34 @@ export default function SdProgramPage() {
               </p>
             </div>
             <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SD_PROGRAMS.map((item) => {
-                const IconComponent = item.icon;
-                return (
-                  <div
-                    key={item.number}
-                    className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:shadow-md hover:border-emerald-400/60 transition-all flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-                          {item.number}
-                        </span>
-                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-100 px-2.5 py-1 rounded-full">
-                          {item.badge}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-2.5 mb-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-emerald-100/70 text-emerald-700 flex items-center justify-center shrink-0">
-                          <IconComponent className="w-4 h-4" />
-                        </div>
-                        <h2 className="text-base font-bold text-slate-900 leading-snug">
-                          {item.title}
-                        </h2>
-                      </div>
-
-                      <p className="text-xs text-slate-600 leading-relaxed mt-2">
-                        {item.desc}
-                      </p>
+              {SD_PROGRAMS.map((item) => (
+                <div
+                  key={item.number}
+                  className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3.5">
+                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
+                        {item.badge}
+                      </span>
+                      <span className="text-xs font-black text-[#00A651] font-mono">{item.number}</span>
                     </div>
 
-                    <div className="mt-5 pt-3 border-t border-slate-100 flex items-center text-[11px] font-semibold text-emerald-700 gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>Standar Kurikulum SD IT Al-Afiyah</span>
-                    </div>
+                    <h2 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors leading-snug mb-2">
+                      {item.title}
+                    </h2>
+
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {item.desc}
+                    </p>
                   </div>
-                );
-              })}
+
+                  <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#00A651]">
+                    <span>Terintegrasi Kurikulum</span>
+                    <span className="text-[11px] text-[#00A651]">✦</span>
+                  </div>
+                </div>
+              ))}
             </ScrollReveal>
 
             {/* Quick Links to other SD tabs */}

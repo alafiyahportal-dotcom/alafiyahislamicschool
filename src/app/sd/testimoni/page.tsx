@@ -9,7 +9,6 @@ import {
   HeartHandshake, 
   ArrowLeft, 
   ChevronRight, 
-  Sparkles, 
   Star, 
   Quote, 
   CheckCircle2, 
@@ -130,7 +129,7 @@ export default function SdTestimoniPage() {
               {TESTIMONIALS.map((testi, idx) => (
                 <div
                   key={idx}
-                  className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200 shadow-2xs hover:shadow-lg hover:border-emerald-300 transition-all flex flex-col justify-between relative"
+                  className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between relative group"
                 >
                   <Quote className="w-10 h-10 text-emerald-100 absolute top-5 right-5 pointer-events-none" />
 

@@ -11,7 +11,7 @@ import {
   Users, 
   FileText, 
   HelpCircle, 
-  Sparkles, 
+  GraduationCap, 
   MessageCircle, 
   Clock, 
   ShieldCheck, 
@@ -64,7 +64,7 @@ export default function SdSpmbInfoPage() {
             </p>
 
             <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-emerald-900/60 border border-emerald-400/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3.5 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
               <span>SPMB TAHUN AJARAN 2027/2028</span>
             </span>
 
@@ -138,82 +138,98 @@ export default function SdSpmbInfoPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Step 1 */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100/70 text-[#00A651] flex items-center justify-center font-extrabold text-lg mb-4">
-                1
+              <div className="flex items-center justify-between mb-3.5">
+                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
+                  01
+                </span>
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                  Langkah 1
+                </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
                 Pendaftaran Online
               </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
                 Mengisi formulir biodata calon murid dan data orang tua/wali melalui portal SPMB SD IT. Dapatkan ID registrasi pendaftaran resmi.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-slate-100">
-              <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-1 rounded">
-                Waktu: 5-10 Menit
-              </span>
+            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+              <span>Waktu: 5-10 Menit</span>
+              <span>✦</span>
             </div>
           </div>
 
           {/* Step 2 */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100/70 text-[#00A651] flex items-center justify-center font-extrabold text-lg mb-4">
-                2
+              <div className="flex items-center justify-between mb-3.5">
+                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
+                  02
+                </span>
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                  Langkah 2
+                </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
                 Infaq & Berkas
               </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
                 Menyelesaikan infaq pendaftaran Rp 250.000 ke rekening resmi yayasan dan mengunggah scan Kartu Keluarga serta Akta Kelahiran.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-slate-100">
-              <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-1 rounded">
-                Verifikasi Otomatis
-              </span>
+            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+              <span>Verifikasi Otomatis</span>
+              <span>✦</span>
             </div>
           </div>
 
           {/* Step 3 */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100/70 text-[#00A651] flex items-center justify-center font-extrabold text-lg mb-4">
-                3
+              <div className="flex items-center justify-between mb-3.5">
+                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
+                  03
+                </span>
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                  Langkah 3
+                </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
                 Observasi & Wawancara
               </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
                 Calon murid mengikuti observasi kematangan sensorik, motorik & pengenalan huruf. Orang tua mengikuti sesi wawancara keselarasan visi pendidikan.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-slate-100">
-              <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-1 rounded">
-                Ramah Anak & Nyaman
-              </span>
+            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+              <span>Ramah Anak & Nyaman</span>
+              <span>✦</span>
             </div>
           </div>
 
           {/* Step 4 */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs flex flex-col justify-between">
+          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100/70 text-[#00A651] flex items-center justify-center font-extrabold text-lg mb-4">
-                4
+              <div className="flex items-center justify-between mb-3.5">
+                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
+                  04
+                </span>
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                  Langkah 4
+                </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
                 Kelulusan & Seragam
               </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
                 Pengumuman hasil kelulusan melalui Papan Pengumuman resmi, dilanjutkan daftar ulang, pengukuran seragam syar&apos;i, dan penyambutan murid baru.
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-slate-100">
-              <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-1 rounded">
-                Fitting & Siap Belajar
-              </span>
+            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+              <span>Fitting & Siap Belajar</span>
+              <span>✦</span>
             </div>
           </div>
         </div>

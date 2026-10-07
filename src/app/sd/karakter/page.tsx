@@ -11,7 +11,7 @@ import {
   GraduationCap, 
   ArrowLeft, 
   ChevronRight, 
-  Sparkles, 
+  Award, 
   CheckCircle2, 
   ShieldCheck, 
   Compass, 
@@ -95,7 +95,7 @@ const SEVEN_HABITS = [
     title: 'Matinul Khuluq',
     sub: 'Akhlak yang Kokoh & Santun',
     desc: 'Beradab kepada orang tua, menghormati ustadz/ustadzah, serta berkasih sayang kepada sesama.',
-    icon: Sparkles
+    icon: HeartHandshake
   },
   {
     title: 'Qadirun \'alal Kasbi',
@@ -154,7 +154,7 @@ export default function SdKarakterPage() {
 
             <div className="max-w-3xl">
               <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-emerald-900/60 border border-emerald-400/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3.5 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                <Award className="w-3.5 h-3.5 text-emerald-300" />
                 <span>NILAI UTAMA &amp; CHARACTER BUILDING</span>
               </span>
 
@@ -184,51 +184,46 @@ export default function SdKarakterPage() {
               </p>
             </ScrollReveal>
 
-            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {THREE_PILLARS.map((pilar) => {
-                const IconComp = pilar.icon;
-                return (
-                  <div
-                    key={pilar.number}
-                    className="p-7 rounded-3xl bg-white border border-slate-200 shadow-xs hover:shadow-lg hover:border-emerald-400/60 transition-all flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-5">
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
-                          <IconComp className="w-6 h-6" />
-                        </div>
-                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                          Pilar {pilar.number}
-                        </span>
-                      </div>
-
-                      <h3 className="text-lg font-bold text-slate-900 mb-1 leading-snug">
-                        {pilar.title}
-                      </h3>
-                      <p className="text-xs font-semibold text-emerald-700 mb-3">
-                        {pilar.tagline}
-                      </p>
-                      <p className="text-xs text-slate-600 leading-relaxed">
-                        {pilar.desc}
-                      </p>
-
-                      <div className="mt-6 pt-4 border-t border-slate-100 space-y-2.5">
-                        {pilar.points.map((pt, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                            <span>{pt}</span>
-                          </div>
-                        ))}
-                      </div>
+            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+              {THREE_PILLARS.map((pilar) => (
+                <div
+                  key={pilar.number}
+                  className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-emerald-400/60 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
+                        Pilar {pilar.number}
+                      </span>
+                      <span className="text-xs font-black text-[#00A651] font-mono">{pilar.number}</span>
                     </div>
 
-                    <div className="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-                      <span>Kurikulum Terintegrasi</span>
-                      <span>✦</span>
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1 group-hover:text-[#00A651] transition-colors leading-snug">
+                      {pilar.title}
+                    </h3>
+                    <p className="text-xs font-semibold text-emerald-700 mb-3">
+                      {pilar.tagline}
+                    </p>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {pilar.desc}
+                    </p>
+
+                    <div className="mt-5 pt-4 border-t border-slate-100 space-y-2.5">
+                      {pilar.points.map((pt, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{pt}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                );
-              })}
+
+                  <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#00A651]">
+                    <span>Kurikulum Terintegrasi</span>
+                    <span className="text-[11px] text-[#00A651]">✦</span>
+                  </div>
+                </div>
+              ))}
             </ScrollReveal>
           </div>
         </section>
@@ -254,25 +249,29 @@ export default function SdKarakterPage() {
                 return (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between"
+                    className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all flex flex-col justify-between group"
                   >
                     <div>
-                      <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-3">
-                        <HabitIcon className="w-4 h-4" />
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[11px] font-black text-[#00A651] font-mono">0{idx + 1}</span>
+                        <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-[#00A651] group-hover:text-white transition-colors">
+                          <HabitIcon className="w-4 h-4" />
+                        </div>
                       </div>
-                      <h3 className="text-sm font-bold text-slate-900 mb-0.5">
+                      <h3 className="text-sm font-bold text-slate-900 mb-0.5 group-hover:text-[#00A651] transition-colors">
                         {item.title}
                       </h3>
                       <p className="text-[11px] font-semibold text-emerald-700 mb-2">
                         {item.sub}
                       </p>
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <p className="text-xs text-slate-600 leading-relaxed font-normal">
                         {item.desc}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-2.5 border-t border-slate-200/60 flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      <span>Karakter 0{idx + 1}</span>
+                    <div className="mt-4 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      <span>Karakter Al-Afiyah</span>
+                      <span className="text-[#00A651]">✦</span>
                     </div>
                   </div>
                 );

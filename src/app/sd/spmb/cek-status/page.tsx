@@ -18,7 +18,6 @@ import {
   HelpCircle,
   Copy,
   Check,
-  Sparkles,
   ExternalLink,
   ChevronRight,
   ArrowLeft
@@ -189,9 +188,9 @@ function CheckStatusSdContent() {
         <ScrollReveal yOffset={20} duration={500}>
           {/* State: Belum Mencari */}
         {!hasSearched && (
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-xs text-center max-w-2xl mx-auto">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 flex items-center justify-center text-[#00A651] mb-4">
-              <Sparkles className="w-7 h-7" />
+          <div className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80 shadow-xs text-center max-w-2xl mx-auto">
+            <div className="w-12 h-12 mx-auto rounded-xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-center text-[#00A651] mb-4">
+              <Search className="w-6 h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-slate-800">
               Siapkan Nomor Registrasi SD IT Anda

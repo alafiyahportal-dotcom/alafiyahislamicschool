@@ -109,7 +109,7 @@ export default function SdKontakPage() {
           {/* Kolom Kiri: Info Kontak & WhatsApp */}
           <div className="lg:col-span-5 space-y-6">
             <ScrollReveal yOffset={24} duration={500}>
-              <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-slate-200/80">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/80">
                 <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
                   <Headphones className="w-5 h-5 text-[#00A651]" />
                   <span>Saluran Resmi SD IT</span>

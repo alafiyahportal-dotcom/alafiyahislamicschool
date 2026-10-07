@@ -8,12 +8,11 @@ import {
   ChevronRight, 
   ZoomIn, 
   X, 
-  Sparkles, 
   CheckCircle2, 
   GraduationCap, 
   Calendar, 
-  HeartHandshake,
-  ArrowRight,
+  HeartHandshake, 
+  ArrowRight, 
 } from 'lucide-react';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
@@ -207,7 +206,7 @@ export default function SdDokumentasiClient() {
                 <span>Smart Akhlaq Fitrah</span>
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-200" />
+                <HeartHandshake className="w-3.5 h-3.5 text-emerald-200" />
                 <span>Karakter Nabawiyah</span>
               </span>
             </div>

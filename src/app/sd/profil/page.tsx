@@ -7,15 +7,12 @@ import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
   Building2, 
-  Target, 
   Award, 
   CheckCircle2, 
   BookOpen, 
   ShieldCheck, 
-  Compass, 
   ArrowLeft, 
   ChevronRight, 
-  Sparkles, 
   GraduationCap, 
   HeartHandshake, 
   Trees, 
@@ -142,7 +139,7 @@ export default function SdProfilPage() {
         <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-slate-50/70 border-b border-slate-200/80">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={24} duration={500}>
-              <div className="rounded-3xl bg-white border border-emerald-200/90 shadow-sm p-6 sm:p-10 relative overflow-hidden">
+              <div className="rounded-2xl bg-white border border-slate-200/80 shadow-xs p-6 sm:p-10 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-50/80 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
                 
                 <div className="relative z-10">
@@ -233,7 +230,7 @@ export default function SdProfilPage() {
                 </div>
               </div>
 
-              <div className="lg:col-span-5 bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+              <div className="lg:col-span-5 bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-2xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
                 <div className="relative z-10">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 bg-white/10 px-3 py-1 rounded-full inline-block mb-3">
                     MUTU PENDIDIKAN BERPIJAK IMTAK
@@ -257,69 +254,51 @@ export default function SdProfilPage() {
         {/* Visi & Misi */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
               {/* Visi Card */}
-              <div className="p-7 sm:p-9 rounded-3xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
-                      <Target className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest block">
-                        Arah &amp; Cita-Cita
-                      </span>
-                      <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-                        Visi SDIT Al Afiyah
-                      </h2>
-                    </div>
+                  <div className="mb-5">
+                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
+                      Visi SDIT Al Afiyah
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                      Mewujudkan Generasi Sholeh &amp; Berakhlak
+                    </h2>
                   </div>
 
-                  <blockquote className="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-emerald-950 font-bold text-base sm:text-lg leading-relaxed">
+                  <blockquote className="p-5 rounded-xl bg-slate-50/90 border-l-4 border-[#00A651] text-emerald-950 font-semibold text-base sm:text-lg leading-relaxed">
                     &ldquo;Mendidik generasi sholeh, cerdas, mandiri, berwawasan luas, dan berakhlakul islami.&rdquo;
                   </blockquote>
 
-                  <p className="mt-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="mt-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                     Visi ini menegaskan komitmen SDIT Al Afiyah dalam membentuk murid yang berkepribadian islami, berakhlak mulia, cerdas dalam pemikiran, serta mandiri dalam amal ibadah dan kehidupan sehari-hari.
                   </p>
-                </div>
-
-                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-semibold text-emerald-700">
-                  <Sparkles className="w-4 h-4 text-emerald-600" />
-                  <span>Berpijak Pada Iman &amp; Taqwa</span>
                 </div>
               </div>
 
               {/* Misi Card */}
-              <div className="p-7 sm:p-9 rounded-3xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center">
-                      <Compass className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-amber-700 uppercase tracking-widest block">
-                        Langkah Strategis
-                      </span>
-                      <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-                        Misi Pendidikan Sekolah
-                      </h2>
-                    </div>
+                  <div className="mb-5">
+                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
+                      Misi Pendidikan Sekolah
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                      Langkah Strategis Pembinaan Murid
+                    </h2>
                   </div>
 
                   <div className="space-y-3">
                     {misiList.map((misi, idx) => (
                       <div key={idx} className="flex items-start gap-3 text-xs sm:text-[13px] text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span className="w-5 h-5 rounded-md bg-emerald-50 text-emerald-800 text-[11px] font-bold flex items-center justify-center shrink-0 border border-emerald-200/80 mt-0.5 font-mono">
+                          {idx + 1}
+                        </span>
                         <span className="leading-relaxed">{misi}</span>
                       </div>
                     ))}
                   </div>
-                </div>
-
-                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-semibold text-amber-800">
-                  <ShieldCheck className="w-4 h-4 text-amber-600" />
-                  <span>Komitmen Penyelenggaraan Holistik</span>
                 </div>
               </div>
             </ScrollReveal>
@@ -365,13 +344,13 @@ export default function SdProfilPage() {
               </p>
             </ScrollReveal>
 
-            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               <Link
                 href="/sd/program"
-                className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all group flex items-start gap-4"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
+                  <BookOpen className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -385,10 +364,10 @@ export default function SdProfilPage() {
 
               <Link
                 href="/sd/karakter"
-                className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all group flex items-start gap-4"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
-                  <HeartHandshake className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
+                  <HeartHandshake className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -402,10 +381,10 @@ export default function SdProfilPage() {
 
               <Link
                 href="/sd/dokumentasi"
-                className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all group flex items-start gap-4"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
-                  <Camera className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
+                  <Camera className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -419,10 +398,10 @@ export default function SdProfilPage() {
 
               <Link
                 href="/sd/guru"
-                className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all group flex items-start gap-4"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
-                  <Users className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
+                  <Users className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -436,10 +415,10 @@ export default function SdProfilPage() {
 
               <Link
                 href="/sd/testimoni"
-                className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all group flex items-start gap-4"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
-                  <Award className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
+                  <Award className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -453,10 +432,10 @@ export default function SdProfilPage() {
 
               <Link
                 href="/sd/kontak"
-                className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all group flex items-start gap-4"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
+                  <MapPin className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
