@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -24,7 +25,15 @@ export const metadata: Metadata = {
   description: 'Sejarah, Visi Misi, Dewan Pembina, 7 Karakter Lulusan, Fasilitas Sekolah, dan Legalitas Resmi Yayasan Pendidikan Imam Bonjol & Al-Afiyah Majalengka.',
 };
 
-export default function ProfilPage() {
+export default async function ProfilPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ school?: string; unit?: string }>;
+}) {
+  const params = await searchParams;
+  if (params?.school === 'sd' || params?.unit === 'sd') {
+    redirect('/sd/profil');
+  }
   const milestones = [
     {
       year: '2012',

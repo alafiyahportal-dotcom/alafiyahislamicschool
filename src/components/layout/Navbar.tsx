@@ -190,15 +190,15 @@ export default function Navbar({
     },
     {
       name: 'Profil',
-      href: '/profil',
+      href: activeSlug === 'sd' ? '/sd/profil' : '/profil',
       hasDropdown: true,
       items: activeSlug
         ? [
-            { label: activeSlug === 'sd' ? 'Pilar Karakter SD IT' : `Profil & Karakter ${brandConfig.title}`, href: activeSlug === 'sd' ? '/sd/karakter' : `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
+            { label: activeSlug === 'sd' ? 'Profil Lengkap SD IT' : `Profil & Karakter ${brandConfig.title}`, href: activeSlug === 'sd' ? '/sd/profil' : `${brandConfig.homeUrl}#values`, desc: 'Visi, misi & identitas resmi SD IT' },
+            { label: 'Pilar Karakter & Nilai Islami', href: activeSlug === 'sd' ? '/sd/karakter' : `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
             { label: 'Dewan Guru & Asatidzah', href: activeSlug === 'sd' ? '/sd/guru' : `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
             { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Fasilitas Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri kegiatan murid, kelas & agro-sains' : 'Lingkungan belajar ramah anak & asri' },
-            { label: 'Tentang Yayasan Pembina', href: '/profil', desc: 'Yayasan Pendidikan Imam Bonjol Majalengka' },
-            { label: 'Kontak & Lokasi', href: activeSlug === 'sd' ? '/sd/kontak' : '/kontak', desc: 'Alamat kampus & peta navigasi' },
+            { label: activeSlug === 'sd' ? 'Layanan Tata Usaha & Lokasi' : 'Kontak & Lokasi', href: activeSlug === 'sd' ? '/sd/kontak' : '/kontak', desc: 'Alamat kampus & peta navigasi' },
           ]
         : [
             { label: 'Tentang Yayasan & Sejarah', href: '/profil#tentang', desc: 'Latar belakang pendirian & amanah dakwah' },
