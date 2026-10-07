@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
   Sparkles, 
   ArrowLeft, 
@@ -158,7 +159,7 @@ export default function SdProgramPage() {
         {/* 10 Program Cards Grid */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {SD_PROGRAMS.map((item) => {
                 const IconComponent = item.icon;
                 return (
@@ -197,10 +198,10 @@ export default function SdProgramPage() {
                   </div>
                 );
               })}
-            </div>
+            </ScrollReveal>
 
             {/* Quick Links to other SD tabs */}
-            <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <ScrollReveal delay={0.1} yOffset={20} duration={500} className="mt-12 p-6 sm:p-8 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h3 className="text-base font-bold text-emerald-950">
                   Lihat Dokumentasi Kegiatan Pembelajaran
@@ -224,7 +225,7 @@ export default function SdProgramPage() {
                   <span>Info SPMB SD IT</span>
                 </Link>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
       </main>

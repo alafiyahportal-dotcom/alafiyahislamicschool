@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
   HeartHandshake, 
   ArrowLeft, 
@@ -125,7 +126,7 @@ export default function SdTestimoniPage() {
         {/* Testimonials Grid */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {TESTIMONIALS.map((testi, idx) => (
                 <div
                   key={idx}
@@ -167,13 +168,13 @@ export default function SdTestimoniPage() {
                   </div>
                 </div>
               ))}
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Bottom CTA */}
         <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Bergabunglah Bersama Keluarga Besar SD IT Al-Afiyah
             </h2>
@@ -195,7 +196,7 @@ export default function SdTestimoniPage() {
                 <span>Informasi SPMB SD IT</span>
               </Link>
             </div>
-          </div>
+          </ScrollReveal>
         </section>
       </main>
       <Footer schoolSlug="sd" />

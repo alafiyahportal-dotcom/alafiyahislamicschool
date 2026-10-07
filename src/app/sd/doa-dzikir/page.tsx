@@ -6,6 +6,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import DoaDzikirClient from '@/components/doa/DoaDzikirClient';
 import { ArrowLeft, ChevronRight, BookOpen } from 'lucide-react';
 import Link from 'next/link';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Dzikir Pagi Petang & Doa Harian Santri SD IT Al-Afiyah',
@@ -72,7 +73,9 @@ export default function SdDoaDzikirPage() {
 
       {/* Main Content */}
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-6 relative z-20">
-        <DoaDzikirClient />
+        <ScrollReveal yOffset={24} duration={500}>
+          <DoaDzikirClient />
+        </ScrollReveal>
       </main>
 
       <Footer schoolSlug="sd" />

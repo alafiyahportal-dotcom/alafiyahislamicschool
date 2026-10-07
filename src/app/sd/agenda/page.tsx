@@ -7,6 +7,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import AgendaCalendarClient from '@/components/agenda/AgendaCalendarClient';
 import { ACADEMIC_EVENTS } from '@/app/api/agenda/route';
 import { ArrowLeft, Calendar, Sparkles, ChevronRight } from 'lucide-react';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Agenda & Kalender Akademik SD IT',
@@ -72,10 +73,12 @@ export default function SdAgendaPage() {
       </section>
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 -mt-6 relative z-20">
-        <AgendaCalendarClient 
-          initialEvents={ACADEMIC_EVENTS} 
-          schoolSlug="sd" 
-        />
+        <ScrollReveal yOffset={24} duration={500}>
+          <AgendaCalendarClient 
+            initialEvents={ACADEMIC_EVENTS} 
+            schoolSlug="sd" 
+          />
+        </ScrollReveal>
       </main>
 
       <Footer schoolSlug="sd" />

@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
   HeartHandshake, 
   BookOpen, 
@@ -171,7 +172,7 @@ export default function SdKarakterPage() {
         {/* 3 Pilar Utama Cards */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-10">
+            <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
               <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                 Fondasi Pendidikan
               </span>
@@ -181,9 +182,9 @@ export default function SdKarakterPage() {
               <p className="text-xs sm:text-sm text-slate-600 mt-2">
                 Tiga pilar kurikulum terpadu yang menjiwai seluruh dinamika kegiatan belajar di SD IT Al-Afiyah.
               </p>
-            </div>
+            </ScrollReveal>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {THREE_PILLARS.map((pilar) => {
                 const IconComp = pilar.icon;
                 return (
@@ -228,14 +229,14 @@ export default function SdKarakterPage() {
                   </div>
                 );
               })}
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* 7 Karakter Murid Nabawiyah */}
         <section className="py-12 sm:py-16 bg-white border-t border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-12">
+            <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                 Target Capaian Pribadi Murid
               </span>
@@ -245,9 +246,9 @@ export default function SdKarakterPage() {
               <p className="text-xs sm:text-sm text-slate-600 mt-2">
                 Standar kompetensi karakter lulusan yang dibina melalui bimbingan asatidzah setiap hari.
               </p>
-            </div>
+            </ScrollReveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {SEVEN_HABITS.map((item, idx) => {
                 const HabitIcon = item.icon;
                 return (
@@ -276,13 +277,13 @@ export default function SdKarakterPage() {
                   </div>
                 );
               })}
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Bottom CTA */}
         <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Siapkan Fondasi Karakter Islami Ananda Bersama SD IT Al-Afiyah
             </h2>
@@ -304,7 +305,7 @@ export default function SdKarakterPage() {
                 <span>Informasi SPMB SD IT</span>
               </Link>
             </div>
-          </div>
+          </ScrollReveal>
         </section>
       </main>
       <Footer schoolSlug="sd" />

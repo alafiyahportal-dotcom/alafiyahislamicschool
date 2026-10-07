@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
   Users, 
   ArrowLeft, 
@@ -156,7 +157,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
       <section className="py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Category Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          <ScrollReveal yOffset={20} duration={500} className="flex flex-wrap items-center justify-center gap-2 mb-10">
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat;
               return (
@@ -174,10 +175,10 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                 </button>
               );
             })}
-          </div>
+          </ScrollReveal>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredTeachers.map((teacher) => (
               <div
                 key={teacher.id}
@@ -235,13 +236,13 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Bottom CTA */}
       <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Ingin Berkonsultasi Langsung dengan Dewan Asatidzah?
           </h2>
@@ -266,7 +267,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
               <span>Kembali ke Beranda SD IT</span>
             </Link>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </div>
   );

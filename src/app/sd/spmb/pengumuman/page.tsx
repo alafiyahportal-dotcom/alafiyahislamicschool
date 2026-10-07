@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import AnnouncementBoardClient, { AcceptedStudent, SchoolInfo } from '@/components/ppdb/AnnouncementBoardClient';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Pengumuman Kelulusan SPMB SD IT Al-Afiyah Majalengka',
@@ -114,12 +115,14 @@ export default async function SdAnnouncementPage() {
       <Navbar schoolSlug="sd" />
 
       <main className="flex-1 pt-24 pb-16">
-        <AnnouncementBoardClient
-          initialData={formattedData}
-          initialStats={stats}
-          schools={schoolsFormatted}
-          schoolSlug="sd"
-        />
+        <ScrollReveal yOffset={24} duration={500}>
+          <AnnouncementBoardClient
+            initialData={formattedData}
+            initialStats={stats}
+            schools={schoolsFormatted}
+            schoolSlug="sd"
+          />
+        </ScrollReveal>
       </main>
 
       <Footer schoolSlug="sd" />

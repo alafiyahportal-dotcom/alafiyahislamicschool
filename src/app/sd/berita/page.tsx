@@ -7,6 +7,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { Newspaper, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SD IT Al-Afiyah Majalengka',
@@ -166,7 +167,9 @@ export default async function SdNewsPage() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-6 relative z-20">
-        <NewsListClient initialArticles={articles} />
+        <ScrollReveal yOffset={24} duration={500}>
+          <NewsListClient initialArticles={articles} />
+        </ScrollReveal>
       </main>
 
       <Footer schoolSlug="sd" />

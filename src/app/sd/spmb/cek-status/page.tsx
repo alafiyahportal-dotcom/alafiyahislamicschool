@@ -23,6 +23,7 @@ import {
   ChevronRight,
   ArrowLeft
 } from 'lucide-react';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 
 interface SearchResultItem {
   id: string;
@@ -185,7 +186,8 @@ function CheckStatusSdContent() {
 
       {/* Main Results Container */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* State: Belum Mencari */}
+        <ScrollReveal yOffset={20} duration={500}>
+          {/* State: Belum Mencari */}
         {!hasSearched && (
           <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-xs text-center max-w-2xl mx-auto">
             <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 flex items-center justify-center text-[#00A651] mb-4">
@@ -395,6 +397,7 @@ function CheckStatusSdContent() {
             <span>WhatsApp Panitia SD IT</span>
           </a>
         </div>
+      </ScrollReveal>
       </main>
 
       <Footer schoolSlug="sd" />

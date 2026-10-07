@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
   Building2, 
   Target, 
@@ -114,7 +115,7 @@ export default function SdProfilPage() {
         {/* 4 Quick Stat Highlights */}
         <section className="py-8 bg-white border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <ScrollReveal yOffset={20} duration={500} className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
                 <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Akreditasi A</span>
                 <span className="text-xs text-emerald-700 font-medium">BAN-SM Terakreditasi Unggul</span>
@@ -131,14 +132,14 @@ export default function SdProfilPage() {
                 <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Giri Asih</span>
                 <span className="text-xs text-emerald-700 font-medium">Kampus Asri &amp; Ramah Anak</span>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Visi & Misi */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
               {/* Visi Card */}
               <div className="p-7 sm:p-9 rounded-3xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
                 <div>
@@ -203,23 +204,23 @@ export default function SdProfilPage() {
                   <span>Komitmen Penyelenggaraan Holistik</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Tabel Identitas Sekolah & Lingkungan Belajar */}
         <section className="py-12 sm:py-16 bg-white border-t border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-10">
+            <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
               <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                 Data Satuan Pendidikan
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
                 Identitas Resmi SD IT Al-Afiyah
               </h2>
-            </div>
+            </ScrollReveal>
 
-            <div className="max-w-3xl mx-auto rounded-2xl border border-slate-200 overflow-hidden shadow-2xs bg-white">
+            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="max-w-3xl mx-auto rounded-2xl border border-slate-200 overflow-hidden shadow-2xs bg-white">
               <dl className="divide-y divide-slate-100">
                 {identitasList.map((item, idx) => (
                   <div key={idx} className="px-5 py-3.5 sm:grid sm:grid-cols-3 sm:gap-4 hover:bg-slate-50/80 transition-colors">
@@ -230,23 +231,23 @@ export default function SdProfilPage() {
                   </div>
                 ))}
               </dl>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Quick Links ke Fitur Khusus SD IT */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-10">
+            <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                 Jelajahi Lebih Dekat SD IT Al-Afiyah
               </h2>
               <p className="text-xs text-slate-500 mt-1">
                 Buka seluruh fitur dan halaman khusus tanpa tercampur dengan unit lain.
               </p>
-            </div>
+            </ScrollReveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <Link
                 href="/sd/program"
                 className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all group flex items-start gap-4"
@@ -348,13 +349,13 @@ export default function SdProfilPage() {
                   </p>
                 </div>
               </Link>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Bottom CTA to SPMB */}
         <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Penerimaan Murid Baru SD IT Al-Afiyah T.A. 2027/2028
             </h2>
@@ -376,7 +377,7 @@ export default function SdProfilPage() {
                 <span>Alur &amp; Syarat SPMB</span>
               </Link>
             </div>
-          </div>
+          </ScrollReveal>
         </section>
       </main>
       <Footer schoolSlug="sd" />

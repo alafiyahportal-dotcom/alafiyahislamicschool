@@ -13,8 +13,9 @@ import {
   GraduationCap, 
   Calendar, 
   HeartHandshake,
-  ArrowRight
+  ArrowRight,
 } from 'lucide-react';
+import ScrollReveal from '@/components/landing/ScrollReveal';
 
 interface GalleryItem {
   id: string;
@@ -218,127 +219,133 @@ export default function SdDokumentasiClient() {
       <section className="py-10 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Category Filter Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10">
-            {CATEGORIES.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
-                    isActive
-                      ? 'bg-[#00A651] text-white shadow-md scale-105'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
+          <ScrollReveal yOffset={16} duration={400}>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10">
+              {CATEGORIES.map((cat) => {
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
+                      isActive
+                        ? 'bg-[#00A651] text-white shadow-md scale-105'
+                        : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+          </ScrollReveal>
 
           {/* Photo Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredItems.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => setSelectedPhoto(item)}
-                className="group rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-2xs hover:shadow-lg hover:border-emerald-400/60 transition-all duration-300 cursor-pointer flex flex-col justify-between"
-              >
-                <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
-                      {item.category}
-                    </span>
-                  </div>
-
-                  {item.location && (
-                    <div className="absolute bottom-3 left-3">
-                      <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-900/80 text-white backdrop-blur-xs">
-                        {item.location}
+          <ScrollReveal yOffset={24} duration={500}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {filteredItems.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedPhoto(item)}
+                  className="group rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-2xs hover:shadow-lg hover:border-emerald-400/60 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                >
+                  <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
+                        {item.category}
                       </span>
                     </div>
-                  )}
 
-                  <div className="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
-                    <span className="px-4 py-2 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
-                      <ZoomIn className="w-4 h-4 text-emerald-700" />
-                      <span>Perbesar Foto</span>
-                    </span>
+                    {item.location && (
+                      <div className="absolute bottom-3 left-3">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-900/80 text-white backdrop-blur-xs">
+                          {item.location}
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
+                      <span className="px-4 py-2 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
+                        <ZoomIn className="w-4 h-4 text-emerald-700" />
+                        <span>Perbesar Foto</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-1.5 group-hover:text-emerald-700 transition-colors leading-snug">
+                        {item.name}
+                      </h3>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                      <span className="flex items-center gap-1">
+                        <Camera className="w-3.5 h-3.5" />
+                        <span>Lihat Detail</span>
+                      </span>
+                      <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                    </div>
                   </div>
                 </div>
-
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-1.5 group-hover:text-emerald-700 transition-colors leading-snug">
-                      {item.name}
-                    </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                    <span className="flex items-center gap-1">
-                      <Camera className="w-3.5 h-3.5" />
-                      <span>Lihat Detail</span>
-                    </span>
-                    <span className="group-hover:translate-x-1 transition-transform">➔</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Bottom CTA to SPMB */}
       <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16 border-t border-emerald-800">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="px-3.5 py-1.5 rounded-full bg-emerald-800/80 border border-emerald-600/40 text-emerald-200 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 mb-3">
-            <HeartHandshake className="w-3.5 h-3.5 text-amber-300" />
-            <span>Penerimaan Murid Baru T.A. 2027/2028</span>
-          </span>
+        <ScrollReveal yOffset={24} duration={500}>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span className="px-3.5 py-1.5 rounded-full bg-emerald-800/80 border border-emerald-600/40 text-emerald-200 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 mb-3">
+              <HeartHandshake className="w-3.5 h-3.5 text-amber-300" />
+              <span>Penerimaan Murid Baru T.A. 2027/2028</span>
+            </span>
 
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
-            Ingin Ananda Bertumbuh &amp; Belajar di SD IT Al-Afiyah?
-          </h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
+              Ingin Ananda Bertumbuh &amp; Belajar di SD IT Al-Afiyah?
+            </h2>
 
-          <p className="mt-2.5 text-xs sm:text-sm text-emerald-100 max-w-2xl mx-auto leading-relaxed">
-            Kuota terbatas hanya 2 Rombel demi pendampingan adab dan pembentukan karakter nabawiyah yang optimal.
-          </p>
+            <p className="mt-2.5 text-xs sm:text-sm text-emerald-100 max-w-2xl mx-auto leading-relaxed">
+              Kuota terbatas hanya 2 Rombel demi pendampingan adab dan pembentukan karakter nabawiyah yang optimal.
+            </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/sd/spmb/daftar"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
-            >
-              <span>Daftar SPMB SD IT Online</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/sd/spmb"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all"
-            >
-              <span>Alur &amp; Syarat SPMB</span>
-            </Link>
-            <Link
-              href="/sd"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-emerald-200 hover:text-white font-medium text-xs sm:text-sm transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Kembali ke Beranda SD IT</span>
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/sd/spmb/daftar"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
+              >
+                <span>Daftar SPMB SD IT Online</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/sd/spmb"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all"
+              >
+                <span>Alur &amp; Syarat SPMB</span>
+              </Link>
+              <Link
+                href="/sd"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-emerald-200 hover:text-white font-medium text-xs sm:text-sm transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Kembali ke Beranda SD IT</span>
+              </Link>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Lightbox Modal */}
