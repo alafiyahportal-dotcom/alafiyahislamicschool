@@ -31,34 +31,25 @@ export default function SdDoaDzikirPage() {
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb & Tombol Kembali */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-            <Link
-              href="/sd"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-emerald-50 hover:text-white transition-all active:scale-95"
-            >
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
+            <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Kembali ke Beranda SD IT</span>
+              <span>Beranda SD IT</span>
             </Link>
-
-            <nav className="flex items-center gap-1.5 text-xs text-emerald-200" aria-label="Breadcrumb">
-              <Link href="/sd" className="hover:text-white transition-colors">
-                SD IT
-              </Link>
-              <ChevronRight className="w-3 h-3 text-emerald-300/60" />
-              <span className="text-white font-medium">Doa &amp; Dzikir</span>
-            </nav>
-          </div>
+            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
+            <span className="text-white font-medium">Doa &amp; Dzikir</span>
+          </nav>
 
           <div className="max-w-3xl">
             <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 tracking-wide drop-shadow-sm">
               أَذْكَارُ الصَّبَاحِ وَالمَسَاءِ وَالأَدْعِيَةُ اليَوْمِيَّةُ
             </p>
 
-            <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest bg-emerald-900/60 border border-emerald-400/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3.5 shadow-xs">
+            <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
               <span>BENTENG IBADAH &amp; ADAB HARIAN</span>
-            </span>
+            </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Dzikir Pagi, Petang &amp; Doa Murid SD IT
