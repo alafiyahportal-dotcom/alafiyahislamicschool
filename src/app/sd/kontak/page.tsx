@@ -15,14 +15,15 @@ import {
   Headphones,
   ChevronRight,
   MessageCircle,
-  ArrowLeft
+  ArrowLeft,
+  Navigation
 } from 'lucide-react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Kontak Tata Usaha & Lokasi Kampus SD IT Al-Afiyah Majalengka',
-  description: 'Alamat lengkap Kampus Giri Asih, nomor WhatsApp resmi Tata Usaha & SPMB SD IT Al-Afiyah Majalengka, jam layanan kantor dan petunjuk arah.',
+  title: 'Kontak Tata Usaha & Lokasi SD IT Al-Afiyah Majalengka',
+  description: 'Alamat lengkap, nomor WhatsApp resmi Tata Usaha & SPMB SD IT Al-Afiyah Majalengka, jam layanan kantor dan petunjuk arah.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -79,7 +80,7 @@ export default function SdKontakPage() {
 
             <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <Headphones className="w-3.5 h-3.5 text-emerald-300" />
-              <span>LAYANAN TATA USAHA &amp; CS KAMPUS</span>
+              <span>LAYANAN TATA USAHA &amp; INFORMASI SD IT</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -87,7 +88,7 @@ export default function SdKontakPage() {
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Silakan hubungi kami untuk informasi kurikulum Smart Akhlaq Fitrah, pendaftaran murid baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke Kampus Giri Asih SD IT Al-Afiyah.
+              Silakan hubungi kami untuk informasi kurikulum Smart Akhlaq Fitrah, pendaftaran murid baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke SD IT Al-Afiyah Majalengka.
             </p>
           </div>
         </div>
@@ -153,8 +154,8 @@ export default function SdKontakPage() {
                   <div className="flex items-start space-x-3">
                     <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-slate-800 block">Alamat Kampus SD IT Al-Afiyah:</strong>
-                      <span>Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411</span>
+                      <strong className="text-slate-800 block">Alamat SD IT Al-Afiyah:</strong>
+                      <span>Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411</span>
                     </div>
                   </div>
                 </div>
@@ -180,15 +181,15 @@ export default function SdKontakPage() {
                   <ContactFormClient />
                 </div>
 
-                {/* Google Maps Kampus SD IT */}
+                {/* Google Maps SD IT Al-Afiyah */}
                 <div className="bg-white rounded-3xl p-6 shadow-xs border border-slate-200/80 overflow-hidden">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
-                      <Building2 className="w-5 h-5 text-[#00A651]" />
-                      <h3 className="font-bold text-slate-800 text-sm">Lokasi Kampus SD IT Al-Afiyah</h3>
+                      <MapPin className="w-5 h-5 text-[#00A651]" />
+                      <h3 className="font-bold text-slate-800 text-sm">Lokasi SD IT Al-Afiyah</h3>
                     </div>
                     <a
-                      href="https://maps.google.com/?q=SD+IT+Al-Afiyah+Majalengka"
+                      href="https://www.google.com/maps/dir/?api=1&destination=-6.8367783,108.237785"
                       target="_blank"
                       rel="noreferrer"
                       className="text-xs font-semibold text-emerald-700 hover:underline inline-flex items-center space-x-1"
@@ -197,10 +198,11 @@ export default function SdKontakPage() {
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
-                  <div className="w-full h-64 rounded-2xl overflow-hidden border border-slate-200 relative bg-slate-100">
+
+                  <div className="w-full h-72 rounded-2xl overflow-hidden border border-slate-200 relative bg-slate-100 mb-4">
                     <iframe
-                      title="Peta Kampus SD IT Al-Afiyah"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.737154576774!2d108.2268482!3d-6.8320499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f2f9c3c8c7c9d%3A0x6b8764032d966e31!2sMajalengka%20Kulon!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                      title="Peta Lokasi SD IT Al-Afiyah"
+                      src="https://maps.google.com/maps?q=-6.8367783%2C108.237785&t=&z=18&ie=UTF8&iwloc=&output=embed"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -208,6 +210,27 @@ export default function SdKontakPage() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                     />
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a
+                      href="https://www.google.com/maps/dir/?api=1&destination=-6.8367783,108.237785"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 text-center"
+                    >
+                      <Navigation className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Petunjuk Arah (Google Maps)</span>
+                    </a>
+                    <a
+                      href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SD%20IT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20lokasi%20sekolah"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2.5 px-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-bold transition-colors flex items-center justify-center gap-2 text-center"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Hubungi via WhatsApp</span>
+                    </a>
                   </div>
                 </div>
               </div>
