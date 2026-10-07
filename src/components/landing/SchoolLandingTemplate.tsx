@@ -254,6 +254,23 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     },
   ];
 
+  const displayStats: EnhancedStatItem[] = useMemo(() => {
+    if (school.stats && Array.isArray(school.stats) && school.stats.length > 0) {
+      return school.stats.map((st, idx) => {
+        const fallback = defaultStats[idx] || defaultStats[0];
+        return {
+          label: st.label || fallback.label,
+          value: st.value || fallback.value,
+          subtext: (st as any).subtext || fallback.subtext,
+          iconType: (st as any).iconType || fallback.iconType,
+          badge: (st as any).badge || fallback.badge,
+          color: (st as any).color || fallback.color,
+        };
+      });
+    }
+    return defaultStats;
+  }, [school.stats, defaultStats]);
+
   const defaultPrograms = school.programs || [
     {
       title: 'Tahsin & Tahfidz Al-Qur\'an',
@@ -490,7 +507,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
             onTouchStart={() => {}}
           >
-            {defaultStats.map((stat, idx) => (
+            {displayStats.map((stat, idx) => (
               <ScrollReveal
                 key={stat.label}
                 as="li"

@@ -134,7 +134,7 @@ export default async function SchoolCMSEditorPage({
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'WhatsApp (0813-1013-9001)',
           secondaryCtaLink: `https://wa.me/${school.waCenterPhone}`,
-          image: '/images/sd-hero-activity.jpg',
+          image: '/images/sd-hero-greenhouse.jpg',
           trustItems: [
             { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
             { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
@@ -265,25 +265,97 @@ export default async function SchoolCMSEditorPage({
 
   const heroPayload = sectionsMap.hero || {};
   const identityPayload = sectionsMap.identity || sectionsMap.contact || {};
-  const statsPayload = sectionsMap.stats || heroPayload.stats || [
-    { label: 'Murid Aktif', value: schoolSlug === 'foundation' ? '850+' : schoolSlug === 'tk' ? '120+' : schoolSlug === 'sd' ? '450+' : '280+' },
-    { label: 'Dewan Guru Berpengalaman', value: schoolSlug === 'foundation' ? '75+ Pendidik' : schoolSlug === 'tk' ? '14 Guru' : schoolSlug === 'sd' ? '38 Guru' : '25 Pendidik' },
+  const defaultStatsForSchool = schoolSlug === 'sd' ? [
+    { label: 'Kuota Penerimaan', value: 'Hanya 2 Rombel' },
+    { label: 'Pilar Pendidikan', value: 'Smart Akhlaq Fitrah' },
+    { label: 'Akreditasi Sekolah', value: 'Terakreditasi B' },
+    { label: 'Bimbingan Tahfidz', value: 'Juz 30 Mutqin' }
+  ] : [
+    { label: 'Murid Aktif', value: schoolSlug === 'foundation' ? '850+' : schoolSlug === 'tk' ? '120+' : '280+' },
+    { label: 'Dewan Guru Berpengalaman', value: schoolSlug === 'foundation' ? '75+ Pendidik' : schoolSlug === 'tk' ? '14 Guru' : '25 Pendidik' },
     { label: 'Akreditasi Lembaga', value: 'Terakreditasi B' },
-    { label: 'Target Tahfidz', value: schoolSlug === 'tk' ? 'Juz 30 Ceria' : schoolSlug === 'sd' ? 'Juz 30 Mutqin' : '3-5 Juz Tartil' }
+    { label: 'Target Tahfidz', value: schoolSlug === 'tk' ? 'Juz 30 Ceria' : '3-5 Juz Tartil' }
   ];
+  const statsPayload = sectionsMap.stats || heroPayload.stats || defaultStatsForSchool;
 
-  const valuesPayload = sectionsMap.values || [
+  const defaultValuesForSchool = schoolSlug === 'sd' ? [
+    {
+      title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
+      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlaq dan ilmu, serta iman sebelum Al-Qur\'an.'
+    },
+    {
+      title: 'Smart, Literasi & Tahfidz Qur\'an',
+      description: 'Pembelajaran terpadu penguatan basic literasi dan numerasi serta bimbingan tahfidz Juz 30 mutqin dengan suasana asri yang membahagiakan murid.'
+    },
+    {
+      title: 'Outdoor Learning & Pelatihan Aqil-Baligh',
+      description: 'Eksplorasi kontekstual di alam dan kebun pertanian terbuka, pelatihan kemandirian aqil-baligh, serta pemetaan potensi bakat dan skill murid.'
+    }
+  ] : [
     { title: 'Akidah & Akhlakul Karimah', description: 'Penanaman adab nabawiyah, pembiasaan shalat berjamaah, dan birrul walidain.' },
     { title: 'Tahsin & Tahfidz Al-Qur\'an', description: 'Metode bimbingan talaqqi ramah anak dengan target hafalan mutqin dan tartil.' },
     { title: 'Sains & Teknologi Unggulan', description: 'Laboratorium interaktif, pembelajaran nalar logika, dan literasi digital beradab.' }
   ];
+  const valuesPayload = sectionsMap.values || defaultValuesForSchool;
 
-  const programsPayload = sectionsMap.programs || [
+  const defaultProgramsForSchool = schoolSlug === 'sd' ? [
+    {
+      title: 'Mendidik dengan Sunnah',
+      desc: 'Menggunakan metode Pendidikan Karakter Nabawiyah dan keteladanan sunnah Rasulullah ﷺ.',
+      badge: 'Karakter Nabawi',
+    },
+    {
+      title: 'Akhlaq dan Ilmu',
+      desc: 'Menanamkan iman sebelum Al-Qur\'an serta adab sebelum ilmu agar berkah dan berakhlak mulia.',
+      badge: 'Iman & Adab',
+    },
+    {
+      title: 'Lingkungan Nyaman & Asri',
+      desc: 'Suasana sekolah yang bersih, sejuk, rindang, dan membahagiakan anak dalam belajar.',
+      badge: 'Ramah Anak',
+    },
+    {
+      title: 'Basic Literasi & Numerasi',
+      desc: 'Penguatan fondasi calistung kontekstual, nalar sains, dan logika matematika sejak dini.',
+      badge: 'Literasi Numerasi',
+    },
+    {
+      title: 'Outdoor Learning',
+      desc: 'Pembelajaran aktif di alam terbuka, sains tanaman di greenhouse bambu, dan observasi kebun sekolah.',
+      badge: 'Outdoor Learning',
+    },
+    {
+      title: 'Pelatihan Aqil-Baligh',
+      desc: 'Pembinaan agar murid mandiri, terampil, dan beradab dalam menyambut fase aqil-baligh.',
+      badge: 'Kemandirian',
+    },
+    {
+      title: 'Pemetaan Potensi Bakat & Skill',
+      desc: 'Identifikasi dan pengembangan potensi bakat, skill, dan kemandirian tiap murid.',
+      badge: 'Talent Mapping',
+    },
+    {
+      title: 'Tahfidz Qur\'an',
+      desc: 'Bimbingan tahsin tartil dan hafalan Al-Qur\'an intensif juz 30 mutqin ramah anak.',
+      badge: 'Tahfidz Mutqin',
+    },
+    {
+      title: 'Penumbuhan Karakter Bakat',
+      desc: 'Menumbuhkan karakter positif melalui penyaluran minat dan bakat murid secara terarah.',
+      badge: 'Karakter Bakat',
+    },
+    {
+      title: 'Pembelajaran Berfokus pada Proses',
+      desc: 'Menghargai proses belajar tiap anak, bukan sekadar hasil akhir.',
+      badge: 'Proses Belajar',
+    },
+  ] : [
     { title: 'Tahfidz Al-Qur\'an Intensif', desc: 'Bimbingan bimbingan talaqqi tartil bersama dewan guru setiap pagi.', badge: 'Utama' },
     { title: 'Bilingual & Digital Literacy', desc: 'Pengenalan teknologi edukasi dan pembiasaan percakapan bahasa Arab & Inggris praktis.', badge: 'Modern' },
     { title: 'Pramuka SIT & Olahraga Sunnah', desc: 'Pembentukan karakter ksatria muslim melalui kepanduan dan panahan.', badge: 'Karakter' },
     { title: 'Parenting Qur\'ani Berkala', desc: 'Sinergi erat antara dewan guru dan wali murid demi pembiasaan anak di rumah.', badge: 'Sinergi' }
   ];
+  const programsPayload = sectionsMap.programs || defaultProgramsForSchool;
 
   const facilitiesPayload = sectionsMap.facilities || (
     schoolSlug === 'sd' ? [
@@ -388,11 +460,11 @@ export default async function SchoolCMSEditorPage({
     : defaultTestimonialsForSchool;
 
   const tuitionPayload = sectionsMap.tuition || {
-    registrationFee: school.registrationFee || (schoolSlug === 'tk' ? 150000 : schoolSlug === 'sd' ? 200000 : 250000),
+    registrationFee: school.registrationFee || (schoolSlug === 'tk' ? 150000 : 250000),
     monthlyTuition: schoolSlug === 'tk' ? 250000 : schoolSlug === 'sd' ? 400000 : 650000,
-    developmentFee: schoolSlug === 'tk' ? 2500000 : schoolSlug === 'sd' ? 4500000 : 7000000,
+    developmentFee: schoolSlug === 'tk' ? 2500000 : schoolSlug === 'sd' ? 3500000 : 7000000,
     quota: school.quota || 60,
-    waveName: school.waveName || 'Gelombang 1 (2027/2028)'
+    waveName: school.waveName || (schoolSlug === 'sd' ? 'Gelombang 1 (T.A. 2027/2028)' : 'Gelombang 1 (2027/2028)')
   };
 
   // Ensure SD IT slides adhere strictly to the universal headline (no 'Ananda' and identical text across slides)

@@ -1108,11 +1108,35 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
   1. `src/app/sitemap.ts` diperbarui mencakup seluruh rute publik unit SD: `/sd`, `/sd/spmb`, `/sd/spmb/daftar`, `/sd/profil`, `/sd/program`, `/sd/karakter`, `/sd/guru`, `/sd/dokumentasi`, `/sd/testimoni`, `/sd/berita`, `/sd/agenda`, `/sd/doa-dzikir`, dan `/sd/kontak`.
   2. Setiap halaman dilengkapi metadata unik (Title, Description, Canonical URL, OpenGraph) untuk memaksimalkan peringkat pencarian di Google Search dan peramban ponsel.
 
+### 23.14 Revisi — Penyelarasan Total Editor Konten CMS SD dengan Realitas Halaman Publik (8 Okt 2026)
+- **Akar Masalah (Root Cause):**
+  1. Bagian editor CMS SD (`/admin/sd/cms`) sebelumnya memuat nilai-nilai dummy / umum bawaan template lama (misalnya pada tab *Nilai Keunggulan* memuat "Akidah & Akhlakul Karimah", counter angka statistik memuat angka umum "Murid Aktif 450+", galeri fasilitas di DB terpotong hanya 4 item, dan biaya pendaftaran masih tertulis Rp 200.000).
+  2. Slide 3 pada fallback carousel masih merujuk ke file gambar AI lama (`/images/sd-hero-activity.jpg`) yang sudah dihapus.
+  3. `SchoolLandingTemplate.tsx` sebelumnya mengabaikan `school.stats` dari database dan hanya merender array statis `defaultStats`.
+- **Solusi & Penyelarasan Menyeluruh:**
+  1. **Tab 1 (Banner & Slide Hero):** Memperbarui Slide 3 menggunakan foto asli greenhouse bambu (`/images/sd-hero-greenhouse.jpg`) dan memastikan teks judul universal serta badge kuota seragam.
+  2. **Tab 2 (Profil, Alamat & Kontak):** Menyelaraskan identitas resmi unit menjadi `SD IT Al-Afiyah Majalengka`, badge `TERAKREDITASI B • YPIB GUGUS 3 NUSA INDAH`, email `sditalafiyahmjl@gmail.com`, dan jam pelayanan TU yang akurat.
+  3. **Tab 3 (Counter Angka Statistik):** Menyelaraskan 4 angka capaian SD IT menjadi:
+     - `Kuota Penerimaan`: `Hanya 2 Rombel`
+     - `Pilar Pendidikan`: `Smart Akhlaq Fitrah`
+     - `Akreditasi Sekolah`: `Terakreditasi B`
+     - `Bimbingan Tahfidz`: `Juz 30 Mutqin`
+     Serta memodifikasi `SchoolLandingTemplate.tsx` agar memanfaatkan `displayStats` reaktif yang bersumber dari database CMS.
+  4. **Tab 4 (Nilai & Pilar Keunggulan):** Menyelaraskan 3 pilar karakter otentik SD IT Al-Afiyah:
+     - `Mendidik dengan Sunnah & Karakter Nabawiyah`
+     - `Smart, Literasi & Tahfidz Qur'an`
+     - `Outdoor Learning & Pelatihan Aqil-Baligh`
+  5. **Tab 5 (Program Pilihan):** Mengisi 10 program unggulan resmi SPMB SD IT T.A. 2027/2028.
+  6. **Tab 6 (Galeri & Fasilitas):** Mengisi 11 foto dokumentasi lapangan nyata aktivitas siswi/murid SD IT (shalat berjamaah, da'i cilik, kelas 6B, greenhouse, kolam biofloc, futsal, halaqah tahfidz).
+  7. **Tab 8 (Biaya & Kuota SPMB):** Menyelaraskan formulir pendaftaran Rp 250.000, SPP Rp 400.000, pengembangan Rp 3.500.000, kuota 60 murid (2 rombel), dan gelombang Gelombang 1 (T.A. 2027/2028).
+  8. **Sinkronisasi Database Cloud (`cMSSection`):** Mengeksekusi script sinkronisasi database untuk memperbarui dan menyimpan seluruh payload section SD IT secara permanen di Supabase cloud.
+- **Hasil Verifikasi:** `npm run build` lolos 100% tanpa error (62/62 rute valid).
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
 *tidak pernah mengganti atau menghapus bagian yang sudah ada di atas.*
-*Versi terakhir: 3.18.0 — 7 Okt 2026*
+*Versi terakhir: 3.19.0 — 8 Okt 2026*
 
 
 

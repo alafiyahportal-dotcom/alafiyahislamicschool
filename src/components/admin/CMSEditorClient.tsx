@@ -466,7 +466,7 @@ export default function CMSEditorClient({
       primaryCtaLink: '/ppdb/daftar?school=sd',
       secondaryCtaText: 'WhatsApp (0813-1013-9001)',
       secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
-      image: '/images/sd-hero-activity.jpg',
+      image: '/images/sd-hero-greenhouse.jpg',
       trustItems: [
         { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
         { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
@@ -1862,12 +1862,19 @@ export default function CMSEditorClient({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {(formData.stats || [
-                  { label: 'Murid Aktif', value: '450+' },
-                  { label: 'Dewan Guru Berpengalaman', value: '38 Guru' },
-                  { label: 'Akreditasi Lembaga', value: 'Terakreditasi B' },
-                  { label: 'Target Tahfidz', value: 'Tartil & Mutqin' }
-                ]).map((st, i) => (
+                {(formData.stats && formData.stats.length > 0 ? formData.stats : (
+                  schoolSlug === 'sd' ? [
+                    { label: 'Kuota Penerimaan', value: 'Hanya 2 Rombel' },
+                    { label: 'Pilar Pendidikan', value: 'Smart Akhlaq Fitrah' },
+                    { label: 'Akreditasi Sekolah', value: 'Terakreditasi B' },
+                    { label: 'Bimbingan Tahfidz', value: 'Juz 30 Mutqin' }
+                  ] : [
+                    { label: 'Murid Aktif', value: '450+' },
+                    { label: 'Dewan Guru Berpengalaman', value: '38 Guru' },
+                    { label: 'Akreditasi Lembaga', value: 'Terakreditasi B' },
+                    { label: 'Target Tahfidz', value: 'Tartil & Mutqin' }
+                  ]
+                )).map((st, i) => (
                   <div key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                     <span className="text-xs font-extrabold text-[#184F48]">
                       Statistik #{i + 1}
@@ -1917,11 +1924,26 @@ export default function CMSEditorClient({
               </div>
 
               <div className="space-y-4">
-                {(formData.values || [
-                  { title: 'Akidah & Akhlakul Karimah', description: 'Penanaman adab nabawiyah, pembiasaan shalat berjamaah, dan birrul walidain.' },
-                  { title: 'Tahsin & Tahfidz Al-Qur\'an', description: 'Bimbingan talaqqi ramah anak dengan target hafalan mutqin dan tartil.' },
-                  { title: 'Sains & Teknologi Unggulan', description: 'Pembelajaran sains terpadu, literasi digital dan bilingual aplikatif.' }
-                ]).map((val, i) => (
+                {(formData.values && formData.values.length > 0 ? formData.values : (
+                  schoolSlug === 'sd' ? [
+                    {
+                      title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
+                      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlaq dan ilmu, serta iman sebelum Al-Qur\'an.'
+                    },
+                    {
+                      title: 'Smart, Literasi & Tahfidz Qur\'an',
+                      description: 'Pembelajaran terpadu penguatan basic literasi dan numerasi serta bimbingan tahfidz Juz 30 mutqin dengan suasana asri yang membahagiakan murid.'
+                    },
+                    {
+                      title: 'Outdoor Learning & Pelatihan Aqil-Baligh',
+                      description: 'Eksplorasi kontekstual di alam dan kebun pertanian terbuka, pelatihan kemandirian aqil-baligh, serta pemetaan potensi bakat dan skill murid.'
+                    }
+                  ] : [
+                    { title: 'Akidah & Akhlakul Karimah', description: 'Penanaman adab nabawiyah, pembiasaan shalat berjamaah, dan birrul walidain.' },
+                    { title: 'Tahsin & Tahfidz Al-Qur\'an', description: 'Bimbingan talaqqi ramah anak dengan target hafalan mutqin dan tartil.' },
+                    { title: 'Sains & Teknologi Unggulan', description: 'Pembelajaran sains terpadu, literasi digital dan bilingual aplikatif.' }
+                  ]
+                )).map((val, i) => (
                   <div key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                     <span className="text-xs font-extrabold text-[#184F48]">
                       Pilar Keunggulan #{i + 1}
