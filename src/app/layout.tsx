@@ -96,6 +96,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: 'fc7b11c6b1e81534',
+  },
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
