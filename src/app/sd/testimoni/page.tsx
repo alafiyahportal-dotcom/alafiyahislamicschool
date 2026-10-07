@@ -29,8 +29,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = 'force-dynamic';
-
 const TESTIMONIALS = [
   {
     name: 'Ibu Nani Mulyani, S.Pd.',

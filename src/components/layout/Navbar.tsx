@@ -132,6 +132,12 @@ export default function Navbar({
   };
 
   // Brand config
+  const isSubdomain = Boolean(clientSubdomain);
+  const getUnitHomeUrl = (slug: 'tk' | 'sd' | 'smp' | 'foundation') => {
+    if (slug === 'foundation') return isSubdomain ? getSchoolUrl('foundation') : '/';
+    return isSubdomain && clientSubdomain === slug ? '/' : `/${slug}`;
+  };
+
   const brandConfig = (() => {
     switch (activeSlug) {
       case 'tk':
@@ -140,7 +146,7 @@ export default function Navbar({
           arabic: 'روضة الأطفال الإسلامية العافية',
           title: schoolName || 'TK IT Al-Afiyah',
           subtitle: 'Pendidikan Anak Usia Dini • Majalengka',
-          homeUrl: getSchoolUrl('tk'),
+          homeUrl: getUnitHomeUrl('tk'),
           ppdbLink: '/ppdb/daftar?school=tk',
           ctaText: 'Info SPMB TK IT',
           logoUrl: undefined,
@@ -151,7 +157,7 @@ export default function Navbar({
           arabic: 'المدرسة الابتدائية الإسلامية العافية',
           title: schoolName || 'SD IT Al-Afiyah',
           subtitle: 'Smart Akhlaq Fitrah • Majalengka',
-          homeUrl: getSchoolUrl('sd'),
+          homeUrl: getUnitHomeUrl('sd'),
           ppdbLink: '/sd/spmb',
           ctaText: 'Info SPMB SD IT',
           logoUrl: '/images/sd-logo.png',
@@ -162,7 +168,7 @@ export default function Navbar({
           arabic: 'المدرسة المتوسطة الإسلامية العافية',
           title: schoolName || 'SMP IT Al-Afiyah',
           subtitle: 'Sekolah Menengah Pertama Islam Terpadu',
-          homeUrl: getSchoolUrl('smp'),
+          homeUrl: getUnitHomeUrl('smp'),
           ppdbLink: '/ppdb/daftar?school=smp',
           ctaText: 'Info SPMB SMP IT',
           logoUrl: undefined,
@@ -173,7 +179,7 @@ export default function Navbar({
           arabic: 'معهد العافية الإسلامي',
           title: 'Yayasan Pendidikan Imam Bonjol',
           subtitle: 'Ekosistem Pendidikan Terpadu Al-Afiyah Majalengka',
-          homeUrl: getSchoolUrl('foundation'),
+          homeUrl: getUnitHomeUrl('foundation'),
           ppdbLink: '/ppdb/daftar',
           ctaText: 'Info SPMB Online',
           logoUrl: undefined,
@@ -362,8 +368,9 @@ export default function Navbar({
               {/* Brand Logo & Typography (Al-Irsyad Inspired, Responsive & Truncated on Mobile) */}
               <Link
                 href={brandConfig.homeUrl}
+                prefetch={true}
                 onClick={() => {
-                  if (typeof window !== 'undefined') {
+                  if (typeof window !== 'undefined' && pathname === brandConfig.homeUrl) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
@@ -461,8 +468,9 @@ export default function Navbar({
                       ) : (
                         <Link
                           href={nav.href}
+                          prefetch={true}
                           onClick={() => {
-                            if (nav.name === 'Beranda' && typeof window !== 'undefined') {
+                            if (nav.name === 'Beranda' && pathname === nav.href && typeof window !== 'undefined') {
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }
                           }}
@@ -548,6 +556,7 @@ export default function Navbar({
                                   ) : (
                                     <Link
                                       href={item.href}
+                                      prefetch={true}
                                       className="block"
                                     >
                                       {itemInner}
@@ -761,6 +770,7 @@ export default function Navbar({
                       <Link
                         key={nav.name}
                         href={nav.href}
+                        prefetch={true}
                         onClick={() => setIsMobileMenuOpen(false)}
                         className="block px-3 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50 hover:text-softwater-dark transition-colors"
                       >
@@ -829,6 +839,7 @@ export default function Navbar({
                               <Link
                                 key={item.label}
                                 href={item.href}
+                                prefetch={true}
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-softwater-dark hover:bg-white rounded-lg transition-colors"
                               >

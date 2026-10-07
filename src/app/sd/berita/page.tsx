@@ -73,7 +73,7 @@ const DEFAULT_SD_ARTICLES: NewsArticle[] = [
   }
 ];
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default async function SdNewsPage() {
   let articles: NewsArticle[] = [];

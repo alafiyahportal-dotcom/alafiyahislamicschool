@@ -18,8 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = 'force-dynamic';
-
 export default function SdDokumentasiPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">

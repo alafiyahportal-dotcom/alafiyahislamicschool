@@ -34,8 +34,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = 'force-dynamic';
-
 const SD_PROGRAMS = [
   {
     number: '01',

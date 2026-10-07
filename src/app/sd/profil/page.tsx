@@ -37,8 +37,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = 'force-dynamic';
-
 export default function SdProfilPage() {
   const identitasList = [
     { label: 'Nama Sekolah', value: 'SDIT Al Afiyah Majalengka' },
