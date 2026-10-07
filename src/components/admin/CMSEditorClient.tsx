@@ -967,14 +967,33 @@ export default function CMSEditorClient({
             </button>
           );
         })}
-        {/* Direct Link to News & Articles Editor */}
-        <Link
-          href={schoolSlug === 'foundation' ? '/admin/foundation/cms' : `/admin/${schoolSlug}/news`}
-          className="flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-300 shadow-2xs cursor-pointer ml-auto"
-        >
-          <Newspaper className="w-3.5 h-3.5 text-amber-700" />
-          <span>{schoolSlug === 'foundation' ? '10. Kelola Berita & Artikel ↗' : schoolSlug === 'sd' ? '11. Kelola Berita & Artikel ↗' : '9. Kelola Berita & Artikel ↗'}</span>
-        </Link>
+        {/* Direct Action Links to Dedicated Managers */}
+        <div className="flex items-center gap-1.5 ml-auto pl-2 border-l border-slate-200">
+          <Link
+            href={schoolSlug === 'foundation' ? '/admin/foundation/users' : `/admin/${schoolSlug}/teachers`}
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-300 shadow-2xs cursor-pointer"
+            title="Kelola Daftar Dewan Guru & Tenaga Kependidikan"
+          >
+            <GraduationCap className="w-3.5 h-3.5 text-emerald-700" />
+            <span>Kelola Guru ↗</span>
+          </Link>
+          <Link
+            href={schoolSlug === 'foundation' ? '/admin/foundation/cms' : `/admin/${schoolSlug}/news`}
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-300 shadow-2xs cursor-pointer"
+            title="Kelola Warta, Artikel & Kajian Berita Sekolah"
+          >
+            <Newspaper className="w-3.5 h-3.5 text-amber-700" />
+            <span>Kelola Berita ↗</span>
+          </Link>
+          <Link
+            href={schoolSlug === 'foundation' ? '/admin/foundation/achievements' : `/admin/${schoolSlug}/achievements`}
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors bg-indigo-50 text-indigo-900 hover:bg-indigo-100 border border-indigo-300 shadow-2xs cursor-pointer"
+            title="Kelola Data Piagam & Prestasi Juara Murid"
+          >
+            <Award className="w-3.5 h-3.5 text-indigo-700" />
+            <span>Prestasi ↗</span>
+          </Link>
+        </div>
       </div>
 
       {/* LOCATION ANNOTATION HELPER BAR */}

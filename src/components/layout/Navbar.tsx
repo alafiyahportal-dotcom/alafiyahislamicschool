@@ -198,13 +198,19 @@ export default function Navbar({
       name: 'Profil',
       href: activeSlug === 'sd' ? '/sd/profil' : '/profil',
       hasDropdown: true,
-      items: activeSlug
+      items: activeSlug === 'sd'
         ? [
-            { label: activeSlug === 'sd' ? 'Profil Lengkap SD IT' : `Profil & Karakter ${brandConfig.title}`, href: activeSlug === 'sd' ? '/sd/profil' : `${brandConfig.homeUrl}#values`, desc: 'Visi, misi & identitas resmi SD IT' },
-            { label: 'Pilar Karakter & Nilai Islami', href: activeSlug === 'sd' ? '/sd/karakter' : `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
-            { label: 'Dewan Guru & Asatidzah', href: activeSlug === 'sd' ? '/sd/guru' : `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
-            { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Fasilitas Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri kegiatan murid, kelas & agro-sains' : 'Lingkungan belajar ramah anak & asri' },
-            { label: activeSlug === 'sd' ? 'Layanan Tata Usaha & Lokasi' : 'Kontak & Lokasi', href: activeSlug === 'sd' ? '/sd/kontak' : '/kontak', desc: activeSlug === 'sd' ? 'Alamat sekolah & rute Google Maps' : 'Alamat sekolah & peta navigasi' },
+            { label: 'Profil Lengkap SD IT', href: '/sd/profil', desc: 'Visi, misi & identitas resmi SD IT' },
+            { label: 'Dewan Guru & Asatidzah', href: '/sd/guru', desc: 'Pendidik tahfidz, sains & pembina karakter' },
+            { label: 'Dokumentasi & Belajar SD IT', href: '/sd/dokumentasi', desc: 'Galeri nyata kegiatan belajar & agro-sains' },
+            { label: 'Layanan Tata Usaha & Lokasi', href: '/sd/kontak', desc: 'Alamat sekolah & rute Google Maps' },
+          ]
+        : activeSlug
+        ? [
+            { label: `Profil & Karakter ${brandConfig.title}`, href: `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
+            { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
+            { label: 'Sarana & Fasilitas Belajar', href: `${brandConfig.homeUrl}#facilities`, desc: 'Lingkungan belajar ramah anak & asri' },
+            { label: 'Kontak & Lokasi', href: '/kontak', desc: 'Alamat sekolah & peta navigasi' },
           ]
         : [
             { label: 'Tentang Yayasan & Sejarah', href: '/profil#tentang', desc: 'Latar belakang pendirian & amanah dakwah' },
@@ -252,13 +258,18 @@ export default function Navbar({
             name: 'Program & Keunggulan',
             href: activeSlug === 'sd' ? '/sd/program' : `${brandConfig.homeUrl}#programs`,
             hasDropdown: true,
-            items: [
-              { label: activeSlug === 'sd' ? '10 Program Unggulan SD IT' : 'Kurikulum & Program Unggulan', href: activeSlug === 'sd' ? '/sd/program' : `${brandConfig.homeUrl}#programs`, desc: activeSlug === 'sd' ? 'Karakter nabawiyah, adab & tahfidz mutqin' : 'Pembelajaran terintegrasi & adab harian' },
-              { label: 'Pilar Karakter & Nilai Islami', href: activeSlug === 'sd' ? '/sd/karakter' : `${brandConfig.homeUrl}#values`, desc: 'Tauhid, tahfidz & budi pekerti luhur' },
-              { label: activeSlug === 'sd' ? 'Dokumentasi & Belajar SD IT' : 'Sarana & Lingkungan Belajar', href: activeSlug === 'sd' ? '/sd/dokumentasi' : `${brandConfig.homeUrl}#facilities`, desc: activeSlug === 'sd' ? 'Galeri nyata kegiatan belajar & agro-sains' : 'Fasilitas nyaman, aman & asri' },
-              { label: 'Dewan Guru & Asatidzah', href: activeSlug === 'sd' ? '/sd/guru' : `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik berdedikasi & profesional' },
-              { label: 'Testimoni Wali Murid', href: activeSlug === 'sd' ? '/sd/testimoni' : `${brandConfig.homeUrl}#testimonials`, desc: 'Pengalaman & apresiasi orang tua' },
-            ],
+            items: activeSlug === 'sd'
+              ? [
+                  { label: '10 Program Unggulan SD IT', href: '/sd/program', desc: 'Karakter nabawiyah, adab & tahfidz mutqin' },
+                  { label: 'Pilar Karakter & Nilai Islami', href: '/sd/karakter', desc: 'Tauhid, 7 pilar adab & kemandirian murid' },
+                  { label: 'Kurikulum Smart Akhlaq Fitrah', href: '/sd#values', desc: 'Fondasi iman sebelum Qur’an & adab harian' },
+                  { label: 'Testimoni Wali Murid', href: '/sd/testimoni', desc: 'Pengalaman & apresiasi orang tua siswa' },
+                ]
+              : [
+                  { label: 'Kurikulum & Program Unggulan', href: `${brandConfig.homeUrl}#programs`, desc: 'Pembelajaran terintegrasi & adab harian' },
+                  { label: 'Pilar Nilai & Karakter', href: `${brandConfig.homeUrl}#values`, desc: 'Tauhid, tahfidz & budi pekerti luhur' },
+                  { label: 'Testimoni Wali Murid', href: `${brandConfig.homeUrl}#testimonials`, desc: 'Pengalaman & apresiasi orang tua' },
+                ],
           },
         ]),
     {
@@ -299,11 +310,6 @@ export default function Navbar({
             : 'https://wa.me/6281223344552?text=Assalamu%27alaikum%20Ustadz%2C%20saya%20ingin%20bertanya%20seputar%20pendidikan%20Al-Afiyah', 
           desc: 'Konsultasi kurikulum adab & syar’i langsung dengan asatidzah', 
           openInNewTab: true 
-        },
-        { 
-          label: activeSlug === 'sd' ? 'Hubungi Tata Usaha & CS SD IT' : 'Hubungi Sekretariat Yayasan', 
-          href: activeSlug === 'sd' ? '/sd/kontak' : (activeSlug ? `/kontak?school=${activeSlug}` : '/kontak'), 
-          desc: activeSlug === 'sd' ? 'Layanan TU SD IT & lokasi sekolah' : 'Layanan konsultasi offline & Google Maps' 
         },
         { 
           label: activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SD IT' : 'Pusat Bantuan WhatsApp', 

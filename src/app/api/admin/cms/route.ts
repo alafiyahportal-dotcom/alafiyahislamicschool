@@ -199,6 +199,8 @@ export async function POST(request: Request) {
       revalidatePath(`/${schoolSlug}/program`);
       revalidatePath(`/${schoolSlug}/testimoni`);
       revalidatePath(`/${schoolSlug}/dokumentasi`);
+      revalidatePath(`/${schoolSlug}/kontak`);
+      revalidatePath(`/${schoolSlug}/spmb`);
       revalidatePath(`/admin/${schoolSlug}/cms`);
       revalidatePath('/ppdb/daftar');
       if (schoolSlug === 'foundation') {

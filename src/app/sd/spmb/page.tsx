@@ -23,6 +23,9 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { prisma } from '@/lib/prisma';
+
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'SPMB SD IT Al-Afiyah Majalengka - Pendaftaran Murid Baru TA 2027/2028',
@@ -40,7 +43,60 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SdSpmbInfoPage() {
+export default async function SdSpmbInfoPage() {
+  let quotaText = '60 Murid (2 Rombel)';
+  let regFeeText = 'Rp 250.000';
+  let waveName = 'Gelombang 1';
+  let waNumber = '0813-1013-9001';
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      select: { id: true },
+    });
+    if (school) {
+      const [tuitionSection, identitySection] = await Promise.all([
+        prisma.cMSSection.findUnique({
+          where: { schoolId_sectionKey: { schoolId: school.id, sectionKey: 'tuition' } },
+        }),
+        prisma.cMSSection.findUnique({
+          where: { schoolId_sectionKey: { schoolId: school.id, sectionKey: 'identity' } },
+        }),
+      ]);
+
+      if (tuitionSection?.payload) {
+        try {
+          const t = JSON.parse(tuitionSection.payload);
+          if (t && typeof t === 'object') {
+            if (t.quota) quotaText = `${t.quota} Murid (${Math.ceil(t.quota / 30)} Rombel)`;
+            if (t.registrationFee) {
+              regFeeText = `Rp ${Number(t.registrationFee).toLocaleString('id-ID')}`;
+            }
+            if (t.waveName) waveName = t.waveName;
+          }
+        } catch {}
+      }
+
+      if (identitySection?.payload) {
+        try {
+          const id = JSON.parse(identitySection.payload);
+          if (id && typeof id === 'object') {
+            if (id.whatsappNumber) {
+              waNumber = id.whatsappNumber.startsWith('62') 
+                ? '0' + id.whatsappNumber.slice(2) 
+                : id.whatsappNumber;
+            }
+          }
+        } catch {}
+      }
+    }
+  } catch (err) {
+    console.error('Failed to load dynamic SPMB info:', err);
+  }
+
+  const cleanWa = waNumber.replace(/[^0-9]/g, '');
+  const waForLink = cleanWa.startsWith('0') ? '62' + cleanWa.slice(1) : (cleanWa || '6281310139001');
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
       <Navbar schoolSlug="sd" />
@@ -63,7 +119,7 @@ export default function SdSpmbInfoPage() {
           <div className="max-w-3xl">
             <div className="text-xs font-bold text-amber-300 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
-              <span>SPMB TAHUN AJARAN 2027/2028</span>
+              <span>SPMB TAHUN AJARAN 2027/2028 • {waveName.toUpperCase()}</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -72,14 +128,14 @@ export default function SdSpmbInfoPage() {
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Membuka pendaftaran Gelombang 1 Tahun Ajaran 2027/2028. Kuota terbatas hanya 2 rombongan belajar (maksimal 60 murid) demi menjaga intensitas pembinaan adab nabawi, tahfidz mutqin, dan sains terpadu.
+              Membuka pendaftaran {waveName} Tahun Ajaran 2027/2028. Kuota terbatas hanya {quotaText} demi menjaga intensitas pembinaan adab nabawi, tahfidz mutqin, dan sains terpadu.
             </p>
 
             {/* Quick Stat Badges */}
             <div className="mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3">
               <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
                 <Users className="w-4 h-4 text-amber-300" />
-                <span>Kuota: <strong>60 Murid (2 Rombel)</strong></span>
+                <span>Kuota: <strong>{quotaText}</strong></span>
               </div>
               <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-amber-300" />
@@ -87,7 +143,7 @@ export default function SdSpmbInfoPage() {
               </div>
               <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
                 <CreditCard className="w-4 h-4 text-amber-300" />
-                <span>Infaq Pendaftaran: <strong>Rp 250.000</strong></span>
+                <span>Infaq Pendaftaran: <strong>{regFeeText}</strong></span>
               </div>
             </div>
 
@@ -174,7 +230,7 @@ export default function SdSpmbInfoPage() {
                 Infaq & Berkas
               </h3>
               <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
-                Menyelesaikan infaq pendaftaran Rp 250.000 ke rekening resmi yayasan dan mengunggah scan Kartu Keluarga serta Akta Kelahiran.
+                Menyelesaikan infaq pendaftaran {regFeeText} ke rekening resmi yayasan dan mengunggah scan Kartu Keluarga serta Akta Kelahiran.
               </p>
             </div>
             <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
@@ -293,7 +349,7 @@ export default function SdSpmbInfoPage() {
                   <div className="mt-6 pt-6 border-t border-emerald-800/60 grid grid-cols-2 gap-4">
                     <div>
                       <span className="text-slate-400 text-xs block">Kapasitas Maksimal</span>
-                      <span className="text-lg font-extrabold text-white">60 Calon Murid</span>
+                      <span className="text-lg font-extrabold text-white">{quotaText}</span>
                     </div>
                     <div>
                       <span className="text-slate-400 text-xs block">Rasio Kelas</span>
@@ -329,7 +385,7 @@ export default function SdSpmbInfoPage() {
                 Ingin bertanya langsung ke Panitia SPMB SD IT?
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-lg">
-                Kunjungi sekretariat kami di Lingkungan Giri Asih atau hubungi WhatsApp resmi Panitia SD IT di 0813-1013-9001.
+                Kunjungi sekretariat kami di Lingkungan Giri Asih atau hubungi WhatsApp resmi Panitia SD IT di {waNumber}.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
@@ -340,7 +396,7 @@ export default function SdSpmbInfoPage() {
                 <span>Lokasi & Kontak TU</span>
               </Link>
               <a
-                href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi%20mengenai%20pendaftaran"
+                href={`https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi%20mengenai%20pendaftaran`}
                 target="_blank"
                 rel="noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"

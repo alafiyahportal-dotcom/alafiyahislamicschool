@@ -20,6 +20,9 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { prisma } from '@/lib/prisma';
+
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Kontak Tata Usaha & Lokasi SD IT Al-Afiyah Majalengka',
@@ -34,21 +37,63 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SdKontakPage() {
+export default async function SdKontakPage() {
+  let address = 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411';
+  let email = 'sditalafiyahmjl@gmail.com';
+  let whatsappNumber = '0813-1013-9001';
+  let mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=-6.8367783,108.237785';
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'sd' },
+      select: { id: true },
+    });
+    if (school) {
+      const section = await prisma.cMSSection.findUnique({
+        where: {
+          schoolId_sectionKey: {
+            schoolId: school.id,
+            sectionKey: 'identity',
+          },
+        },
+      });
+      if (section?.payload) {
+        try {
+          const c = JSON.parse(section.payload);
+          if (c && typeof c === 'object') {
+            if (c.address) address = c.address;
+            if (c.email) email = c.email;
+            if (c.whatsappNumber) {
+              whatsappNumber = c.whatsappNumber.startsWith('62') 
+                ? '0' + c.whatsappNumber.slice(2) 
+                : c.whatsappNumber;
+            }
+            if (c.mapsUrl) mapsUrl = c.mapsUrl;
+          }
+        } catch {}
+      }
+    }
+  } catch (err) {
+    console.error('Failed to load dynamic SD contact info:', err);
+  }
+
+  const cleanWa = whatsappNumber.replace(/[^0-9]/g, '');
+  const waForLink = cleanWa.startsWith('0') ? '62' + cleanWa.slice(1) : (cleanWa || '6281310139001');
+
   const contactChannels = [
     {
       title: 'Layanan Utama & Panitia SPMB SD IT',
-      number: '+62 813-1013-9001',
+      number: whatsappNumber,
       desc: 'Konsultasi kurikulum dasar, Smart Akhlaq Fitrah, pendaftaran murid baru (SPMB), dan tata usaha.',
-      link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
+      link: `https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran`,
       cta: 'Chat WhatsApp SD IT',
       badge: 'Unit SD IT Resmi',
     },
     {
       title: 'Konsultasi Program Tahfidz SD IT',
-      number: '+62 813-1013-9001',
+      number: whatsappNumber,
       desc: 'Informasi kurikulum tahfidz mutqin juz 30, hafalan hadits, dan target capaian ibadah murid.',
-      link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Asatidzah%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20tahfidz',
+      link: `https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Asatidzah%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20tahfidz`,
       cta: 'Konsultasi Tahfidz',
       badge: 'Tahfidz Qur’an',
     },
@@ -143,7 +188,9 @@ export default function SdKontakPage() {
                     <Mail className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-slate-800 block">Email Resmi:</strong>
-                      <span className="font-mono">sditalafiyahmjl@gmail.com</span>
+                      <a href={`mailto:${email}`} className="font-mono text-emerald-700 hover:underline">
+                        {email}
+                      </a>
                     </div>
                   </div>
 
@@ -151,7 +198,7 @@ export default function SdKontakPage() {
                     <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-slate-800 block">Alamat SD IT Al-Afiyah:</strong>
-                      <span>Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411</span>
+                      <span>{address}</span>
                     </div>
                   </div>
                 </div>
@@ -185,7 +232,7 @@ export default function SdKontakPage() {
                       <h3 className="font-bold text-slate-800 text-sm">Lokasi SD IT Al-Afiyah</h3>
                     </div>
                     <a
-                      href="https://www.google.com/maps/dir/?api=1&destination=-6.8367783,108.237785"
+                      href={mapsUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="text-xs font-semibold text-emerald-700 hover:underline inline-flex items-center space-x-1"
