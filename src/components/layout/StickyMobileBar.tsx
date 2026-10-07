@@ -23,7 +23,7 @@ export default function StickyMobileBar({
     setRefCode(getStoredReferralCode());
   }, []);
 
-  let targetHref = schoolSlug ? `/ppdb/daftar?school=${schoolSlug}` : '/ppdb/daftar';
+  let targetHref = schoolSlug === 'sd' ? '/sd/spmb/daftar' : (schoolSlug ? `/ppdb/daftar?school=${schoolSlug}` : '/ppdb/daftar');
   if (refCode) {
     targetHref += `${targetHref.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
   }
@@ -40,7 +40,7 @@ export default function StickyMobileBar({
     ? 'Daftar SPMB SMP IT'
     : 'Daftar SPMB Online';
 
-  const lacakHref = schoolSlug ? `/ppdb/cek-status?school=${schoolSlug}` : '/ppdb/cek-status';
+  const lacakHref = schoolSlug === 'sd' ? '/sd/spmb/cek-status' : (schoolSlug ? `/ppdb/cek-status?school=${schoolSlug}` : '/ppdb/cek-status');
 
   return (
     <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t border-[#D4EBE7] px-3 py-2 shadow-2xl flex items-center space-x-2 max-w-full overflow-hidden">

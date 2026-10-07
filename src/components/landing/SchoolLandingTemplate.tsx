@@ -155,9 +155,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     setRefCode(getStoredReferralCode());
   }, []);
 
-  let ppdbUrl = `/ppdb/daftar?school=${school.slug}`;
+  let ppdbUrl = school.slug === 'sd' ? '/sd/spmb/daftar' : `/ppdb/daftar?school=${school.slug}`;
   if (refCode) {
-    ppdbUrl += `&ref=${encodeURIComponent(refCode)}`;
+    ppdbUrl += `${ppdbUrl.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
   }
 
   const handleCopyAccount = (accountNo: string) => {
