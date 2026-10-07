@@ -25,8 +25,19 @@ import {
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Informasi & Alur SPMB SD IT Al-Afiyah Majalengka TA 2027/2028',
-  description: 'Panduan lengkap penerimaan murid baru SD IT Al-Afiyah. Syarat usia, alur pendaftaran, observasi, kuota rombel dan rincian biaya.',
+  title: 'SPMB SD IT Al-Afiyah Majalengka - Pendaftaran Murid Baru TA 2027/2028',
+  description: 'Pendaftaran Murid Baru (SPMB) SD IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas, kurikulum Smart Akhlaq Fitrah, dan Tahfidz Juz 30 Mutqin. Daftar online sekarang.',
+  alternates: {
+    canonical: '/sd/spmb',
+  },
+  openGraph: {
+    title: 'SPMB SD IT Al-Afiyah Majalengka TA 2027/2028',
+    description: 'Penerimaan Murid Baru SD IT Al-Afiyah. Bimbingan karakter nabawiyah, tahfidz juz 30, dan kurikulum terpadu.',
+    url: '/sd/spmb',
+    siteName: 'SD IT Al-Afiyah Majalengka',
+    locale: 'id_ID',
+    type: 'website',
+  },
 };
 
 export default function SdSpmbInfoPage() {
