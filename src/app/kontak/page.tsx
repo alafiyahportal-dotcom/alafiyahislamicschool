@@ -23,45 +23,72 @@ export const metadata: Metadata = {
   description: 'Alamat lengkap, nomor telepon, WhatsApp konsultasi PPDB, jam operasional kantor, dan peta lokasi sekolah terpadu Al-Afiyah di Majalengka.',
 };
 
-export default function KontakPage() {
-  const contactChannels = [
-    {
-      title: 'Hotline PPDB Terpadu',
-      number: '+62 812-2334-4552',
-      desc: 'Informasi umum, pendaftaran murid baru, jadwal observasi dan tes.',
-      link: 'https://wa.me/6281223344552?text=Bismillah,%20saya%20ingin%20konsultasi%20PPDB%20Al-Afiyah',
-      cta: 'Chat WhatsApp',
-      badge: 'Respon Cepat',
-    },
-    {
-      title: 'Layanan Unit TK IT',
-      number: '+62 853-1122-3341',
-      desc: 'Konsultasi kurikulum sentra, trial class usia dini, dan parenting balita.',
-      link: 'https://wa.me/6281223344552?text=Bismillah,%20konsultasi%20TK%20IT%20Al-Afiyah',
-      cta: 'Hubungi TK IT',
-      badge: 'PAUD/TK',
-    },
-    {
-      title: 'Layanan SPMB SD IT',
-      number: '+62 813-1013-9001',
-      desc: 'Konsultasi kurikulum dasar, Smart Akhlaq Fitrah, dan pendaftaran murid baru (SPMB).',
-      link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
-      cta: 'Hubungi SD IT',
-      badge: 'Sekolah Dasar',
-    },
-    {
-      title: 'Layanan Unit SMP IT',
-      number: '+62 853-1122-3343',
-      desc: 'Konsultasi Full Day School, program mutqin tahfidz, dan beasiswa.',
-      link: 'https://wa.me/6281223344552?text=Bismillah,%20konsultasi%20SMP%20IT%20Al-Afiyah',
-      cta: 'Hubungi SMP IT',
-      badge: 'SMP IT',
-    },
-  ];
+export default async function KontakPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ school?: string; unit?: string }>;
+}) {
+  const params = await searchParams;
+  const schoolSlug = (params.school || params.unit || '').toLowerCase();
+  const isSd = schoolSlug === 'sd';
+
+  const contactChannels = isSd
+    ? [
+        {
+          title: 'Layanan Utama & SPMB SD IT',
+          number: '+62 813-1013-9001',
+          desc: 'Konsultasi kurikulum dasar, Smart Akhlaq Fitrah, pendaftaran murid baru (SPMB), dan tata usaha.',
+          link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
+          cta: 'Chat WhatsApp SD IT',
+          badge: 'Unit SD IT Resmi',
+        },
+        {
+          title: 'Konsultasi Program Tahfidz SD IT',
+          number: '+62 813-1013-9001',
+          desc: 'Informasi kurikulum tahfidz mutqin juz 30, hafalan hadits, dan target capaian ibadah murid.',
+          link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Asatidzah%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20tahfidz',
+          cta: 'Konsultasi Tahfidz',
+          badge: 'Tahfidz Qur’an',
+        },
+      ]
+    : [
+        {
+          title: 'Hotline PPDB Terpadu',
+          number: '+62 812-2334-4552',
+          desc: 'Informasi umum, pendaftaran murid baru, jadwal observasi dan tes.',
+          link: 'https://wa.me/6281223344552?text=Bismillah,%20saya%20ingin%20konsultasi%20PPDB%20Al-Afiyah',
+          cta: 'Chat WhatsApp',
+          badge: 'Respon Cepat',
+        },
+        {
+          title: 'Layanan Unit TK IT',
+          number: '+62 853-1122-3341',
+          desc: 'Konsultasi kurikulum sentra, trial class usia dini, dan parenting balita.',
+          link: 'https://wa.me/6281223344552?text=Bismillah,%20konsultasi%20TK%20IT%20Al-Afiyah',
+          cta: 'Hubungi TK IT',
+          badge: 'PAUD/TK',
+        },
+        {
+          title: 'Layanan SPMB SD IT',
+          number: '+62 813-1013-9001',
+          desc: 'Konsultasi kurikulum dasar, Smart Akhlaq Fitrah, dan pendaftaran murid baru (SPMB).',
+          link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
+          cta: 'Hubungi SD IT',
+          badge: 'Sekolah Dasar',
+        },
+        {
+          title: 'Layanan Unit SMP IT',
+          number: '+62 853-1122-3343',
+          desc: 'Konsultasi Full Day School, program mutqin tahfidz, dan beasiswa.',
+          link: 'https://wa.me/6281223344552?text=Bismillah,%20konsultasi%20SMP%20IT%20Al-Afiyah',
+          cta: 'Hubungi SMP IT',
+          badge: 'SMP IT',
+        },
+      ];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-amber-200 selection:text-amber-950">
-      <Navbar />
+      <Navbar schoolSlug={schoolSlug as any} />
 
       {/* Hero Header */}
       <section className="relative bg-gradient-to-br from-[#123E38] via-[#184F48] to-[#256D63] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -205,8 +232,12 @@ export default function KontakPage() {
 
       </main>
 
-      <Footer />
-      <StickyMobileBar />
+      <Footer schoolSlug={schoolSlug as any} />
+      <StickyMobileBar 
+        schoolSlug={schoolSlug} 
+        waPhone={isSd ? '6281310139001' : '6281223344552'} 
+        schoolName={isSd ? 'SD IT Al-Afiyah' : 'Al-Afiyah'} 
+      />
     </div>
   );
 }

@@ -262,13 +262,13 @@ export default function Navbar({
         ]),
     {
       name: 'Berita & Artikel',
-      href: '/berita',
+      href: activeSlug ? `/berita?school=${activeSlug}` : '/berita',
       hasDropdown: true,
       items: [
-        { label: 'Warta Sekolah Terbaru', href: '/berita', desc: 'Liputan kegiatan & informasi terkini' },
-        { label: 'Artikel & Kajian Islam', href: '/berita?cat=kajian', desc: 'Tausiyah, adab & wawasan keislaman' },
-        { label: 'Prestasi Murid Al-Afiyah', href: '/berita?cat=prestasi', desc: 'Juara olimpiade & musabaqah hifdzil Qur’an' },
-        { label: 'Agenda & Kalender Akademik', href: '/agenda', desc: 'Jadwal ujian, libur & kegiatan resmi' },
+        { label: activeSlug === 'sd' ? 'Warta SD IT Terbaru' : 'Warta Sekolah Terbaru', href: activeSlug ? `/berita?school=${activeSlug}` : '/berita', desc: 'Liputan kegiatan & informasi terkini' },
+        { label: 'Artikel & Kajian Islam', href: activeSlug ? `/berita?cat=kajian&school=${activeSlug}` : '/berita?cat=kajian', desc: 'Tausiyah, adab & wawasan keislaman' },
+        { label: activeSlug === 'sd' ? 'Prestasi Murid SD IT' : 'Prestasi Murid Al-Afiyah', href: activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi', desc: 'Juara olimpiade & musabaqah hifdzil Qur’an' },
+        { label: 'Agenda & Kalender Akademik', href: activeSlug ? `/agenda?school=${activeSlug}` : '/agenda', desc: 'Jadwal ujian, libur & kegiatan resmi' },
       ],
     },
     {
@@ -279,8 +279,8 @@ export default function Navbar({
         { label: `Informasi & Alur SPMB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Syarat berkas, tes observasi & kuota' },
         { label: 'Formulir SPMB Online', href: activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar', desc: 'Isi formulir biodata calon murid' },
         { label: 'Cek Status SPMB', href: activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status', desc: 'Pantau verifikasi berkas & nomor registrasi' },
-        { label: 'Pengumuman SPMB', href: '/ppdb/pengumuman', desc: 'SK kelulusan murid gelombang 1 & 2' },
-        { label: 'Daftar Ulang & Seragam', href: '/portal/ppdb/REG-SD-2026-0001/daftar-ulang', desc: 'Fitting seragam & pelunasan biaya' },
+        { label: 'Pengumuman SPMB', href: activeSlug ? `/ppdb/pengumuman?school=${activeSlug}` : '/ppdb/pengumuman', desc: 'SK kelulusan murid gelombang 1 & 2' },
+        { label: 'Daftar Ulang & Seragam', href: activeSlug ? `/portal/ppdb/REG-SD-2026-0001/daftar-ulang?school=${activeSlug}` : '/portal/ppdb/REG-SD-2026-0001/daftar-ulang', desc: 'Fitting seragam & pelunasan biaya' },
       ],
     },
     {
@@ -288,12 +288,28 @@ export default function Navbar({
       href: '#',
       hasDropdown: true,
       items: [
-        { label: 'SIAKAD Mobile Murid (iOS)', href: '/portal/siakad', desc: 'Portal presensi QR, capaian tahfidz & rapor digital' },
-        { label: 'Kemitraan Mitra Afiliasi', href: '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
-        { label: 'Doa & Dzikir Harian', href: '/doa-dzikir', desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
-        { label: 'Tanya Ustadz & Konsultasi', href: 'https://wa.me/6281223344552?text=Assalamu%27alaikum%20Ustadz%2C%20saya%20ingin%20bertanya%20seputar%20pendidikan%20Al-Afiyah', desc: 'Konsultasi kurikulum adab & syar’i langsung dengan asatidzah', openInNewTab: true },
-        { label: 'Hubungi Sekretariat Yayasan', href: '/kontak', desc: 'Layanan konsultasi offline & Google Maps' },
-        { label: 'Pusat Bantuan WhatsApp', href: 'https://wa.me/6282123456789', desc: 'Respon cepat tim sekretariat' },
+        { label: 'SIAKAD Mobile Murid (iOS)', href: activeSlug ? `/portal/siakad?school=${activeSlug}` : '/portal/siakad', desc: 'Portal presensi QR, capaian tahfidz & rapor digital' },
+        { label: 'Kemitraan Mitra Afiliasi', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
+        { label: 'Doa & Dzikir Harian', href: activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir', desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
+        { 
+          label: 'Tanya Ustadz & Konsultasi', 
+          href: activeSlug === 'sd' 
+            ? 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Ustadz%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi' 
+            : 'https://wa.me/6281223344552?text=Assalamu%27alaikum%20Ustadz%2C%20saya%20ingin%20bertanya%20seputar%20pendidikan%20Al-Afiyah', 
+          desc: 'Konsultasi kurikulum adab & syar’i langsung dengan asatidzah', 
+          openInNewTab: true 
+        },
+        { 
+          label: activeSlug === 'sd' ? 'Hubungi Tata Usaha & CS SD IT' : 'Hubungi Sekretariat Yayasan', 
+          href: activeSlug ? `/kontak?school=${activeSlug}` : '/kontak', 
+          desc: activeSlug === 'sd' ? 'Layanan TU SD IT & lokasi kampus' : 'Layanan konsultasi offline & Google Maps' 
+        },
+        { 
+          label: activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SD IT' : 'Pusat Bantuan WhatsApp', 
+          href: activeSlug === 'sd' ? 'https://wa.me/6281310139001' : 'https://wa.me/6281223344552', 
+          desc: 'Respon cepat tim panitia',
+          openInNewTab: true 
+        },
       ],
     },
   ];
@@ -838,7 +854,11 @@ export default function Navbar({
               <Link
                 href={brandConfig.ppdbLink}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-3 px-4 rounded-full bg-softwater-dark text-white text-xs font-bold text-center block shadow-md hover:bg-softwater-deep transition-all"
+                className={`w-full py-3 px-4 rounded-full ${
+                  activeSlug === 'sd'
+                    ? 'bg-[#00A651] hover:bg-[#008f45]'
+                    : 'bg-softwater-dark hover:bg-softwater-deep'
+                } text-white text-xs font-bold text-center block shadow-md transition-all`}
               >
                 {brandConfig.ctaText}
               </Link>
@@ -851,13 +871,13 @@ export default function Navbar({
                 <span>Login Portal Layanan &amp; Akademik</span>
               </Link>
               <a
-                href="https://wa.me/6281223344552"
+                href={activeSlug === 'sd' ? 'https://wa.me/6281310139001' : 'https://wa.me/6281223344552'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2 px-4 rounded-full text-slate-600 text-xs font-medium text-center flex items-center justify-center space-x-2 hover:text-softwater-dark transition-all"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Pusat Bantuan WhatsApp</span>
+                <span>{activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SD IT' : 'Pusat Bantuan WhatsApp'}</span>
               </a>
             </div>
           </div>

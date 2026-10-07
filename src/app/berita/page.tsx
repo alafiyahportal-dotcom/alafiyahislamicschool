@@ -366,12 +366,23 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
   }
 ];
 
-export default async function BeritaPage() {
+export default async function BeritaPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ cat?: string; school?: string; unit?: string }>;
+}) {
+  const params = await searchParams;
+  const schoolSlug = (params.school || params.unit || (params.cat === 'sd' ? 'sd' : '')).toLowerCase();
+  const isSd = schoolSlug === 'sd';
+
   let articles: NewsArticle[] = [];
 
   try {
     const dbPosts = await prisma.newsPost.findMany({
-      where: { isPublished: true },
+      where: { 
+        isPublished: true,
+        ...(isSd ? { school: { slug: 'sd' } } : {}),
+      },
       orderBy: { publishedAt: 'desc' },
       include: { school: true },
       take: 20,
@@ -384,13 +395,13 @@ export default async function BeritaPage() {
         slug: p.slug,
         category: p.category || 'Kabar Sekolah',
         excerpt: p.excerpt || p.content.slice(0, 150) + '...',
-        author: p.author || 'Humas Al-Afiyah',
+        author: p.author || (isSd ? 'Humas SD IT Al-Afiyah' : 'Humas Al-Afiyah'),
         date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
           day: 'numeric',
           month: 'short',
           year: 'numeric',
         }),
-        schoolName: p.school?.name,
+        schoolName: p.school?.name || (isSd ? 'SD IT Al-Afiyah' : undefined),
         readingTime: '4 menit baca',
         imageUrl: p.coverImage || undefined,
         paragraphs: p.content ? p.content.split('\n').filter((l: string) => l.trim().length > 0) : undefined,
@@ -402,31 +413,39 @@ export default async function BeritaPage() {
 
   // If DB has fewer than 3 posts, supplement with default curated articles
   if (articles.length === 0) {
-    articles = DEFAULT_ARTICLES;
+    articles = isSd 
+      ? DEFAULT_ARTICLES.filter(a => a.schoolName === 'SD IT Al-Afiyah' || a.category === 'Artikel & Kajian')
+      : DEFAULT_ARTICLES;
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-amber-200 selection:text-amber-950">
-      <Navbar />
+      <Navbar schoolSlug={schoolSlug as any} />
 
       {/* Hero Header */}
-      <section className="relative bg-gradient-to-br from-[#123E38] via-[#184F48] to-[#256D63] text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className={`relative text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden ${
+        isSd
+          ? 'bg-gradient-to-br from-[#008f45] via-[#00A651] to-[#007036]'
+          : 'bg-gradient-to-br from-[#123E38] via-[#184F48] to-[#256D63]'
+      }`}>
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-3 tracking-wide drop-shadow-sm">
-            نَشَرَاتُ وَمَقَالَاتُ مَعْهَدِ العَافِيَةِ
+            {isSd ? 'مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ' : 'نَشَرَاتُ وَمَقَالَاتُ مَعْهَدِ العَافِيَةِ'}
           </p>
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-200 text-xs font-semibold uppercase tracking-wider mb-5">
             <Newspaper className="w-3.5 h-3.5 text-amber-300" />
-            <span>Warta Sekolah &amp; Khazanah Keilmuan</span>
+            <span>{isSd ? 'Warta & Khazanah SD IT Al-Afiyah' : 'Warta Sekolah & Khazanah Keilmuan'}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
-            Kabar Berita &amp; Pengumuman Sekolah
+            {isSd ? 'Kabar Berita & Prestasi SD IT' : 'Kabar Berita & Pengumuman Sekolah'}
           </h1>
           <p className="mt-4 text-base sm:text-lg text-emerald-100/90 max-w-2xl mx-auto leading-relaxed">
-            Informasi resmi agenda ujian sumatif, dinamika kegiatan belajar murid, dokumentasi sekolah, serta mutiara faedah keilmuan dari para asatidzah.
+            {isSd 
+              ? 'Informasi resmi kegiatan belajar mengajar murid, field study, kejuaraan, dan artikel mutiara adab nabawiyah SD IT Al-Afiyah.'
+              : 'Informasi resmi agenda ujian sumatif, dinamika kegiatan belajar murid, dokumentasi sekolah, serta mutiara faedah keilmuan dari para asatidzah.'}
           </p>
         </div>
       </section>
@@ -436,8 +455,12 @@ export default async function BeritaPage() {
         <NewsListClient initialArticles={articles} />
       </main>
 
-      <Footer />
-      <StickyMobileBar />
+      <Footer schoolSlug={schoolSlug as any} />
+      <StickyMobileBar 
+        schoolSlug={schoolSlug} 
+        waPhone={isSd ? '6281310139001' : '6281223344552'} 
+        schoolName={isSd ? 'SD IT Al-Afiyah' : 'Al-Afiyah'} 
+      />
     </div>
   );
 }

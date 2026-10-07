@@ -12,17 +12,32 @@ export const metadata: Metadata = {
     'Jadwal lengkap gelombang PPDB, ujian observasi, kalender akademik, dan kegiatan murid TK IT, SD IT, SMP IT Al-Afiyah Majalengka.',
 };
 
-export default function AgendaPage() {
+export default async function AgendaPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ school?: string; unit?: string }>;
+}) {
+  const params = await searchParams;
+  const schoolSlug = (params.school || params.unit || '').toLowerCase();
+  const isSd = schoolSlug === 'sd';
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F7FBFB] text-slate-800">
-      <Navbar />
+      <Navbar schoolSlug={schoolSlug as any} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <AgendaCalendarClient initialEvents={ACADEMIC_EVENTS} />
+        <AgendaCalendarClient 
+          initialEvents={ACADEMIC_EVENTS} 
+          schoolSlug={schoolSlug} 
+        />
       </main>
 
-      <Footer />
-      <StickyMobileBar />
+      <Footer schoolSlug={schoolSlug as any} />
+      <StickyMobileBar 
+        schoolSlug={schoolSlug} 
+        waPhone={isSd ? '6281310139001' : '6281223344552'} 
+        schoolName={isSd ? 'SD IT Al-Afiyah' : 'Al-Afiyah'} 
+      />
     </div>
   );
 }

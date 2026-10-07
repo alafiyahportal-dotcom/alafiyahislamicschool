@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   description: 'Portal Sistem Informasi Akademik (SIAKAD) Mobile Al-Afiyah Majalengka. Pantau kehadiran presensi gerbang, mutaba\'ah tahfidz Al-Qur\'an, rapor digital, dan SPP murid secara real-time.',
 };
 
-export default function SiakadMobilePage() {
-  return <SiakadMobileShell />;
+export default async function SiakadMobilePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ school?: string; unit?: string }>;
+}) {
+  const params = await searchParams;
+  const schoolSlug = (params.school || params.unit || 'sd').toLowerCase();
+  return <SiakadMobileShell initialSchoolSlug={schoolSlug} />;
 }

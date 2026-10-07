@@ -74,9 +74,16 @@ const DEMO_STUDENTS: SiakadStudentData[] = [
   }
 ];
 
-export default function SiakadMobileShell() {
+interface SiakadMobileShellProps {
+  initialSchoolSlug?: string;
+}
+
+export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMobileShellProps) {
+  const isSd = initialSchoolSlug === 'sd';
   const [activeTab, setActiveTab] = useState<SiakadTab>('home');
-  const [currentStudent, setCurrentStudent] = useState<SiakadStudentData>(DEMO_STUDENTS[0]);
+  const [currentStudent, setCurrentStudent] = useState<SiakadStudentData>(
+    DEMO_STUDENTS.find(s => s.unitLevel.toLowerCase() === initialSchoolSlug) || DEMO_STUDENTS[0]
+  );
   const [showStudentModal, setShowStudentModal] = useState(false);
   const [useDeviceFrame, setUseDeviceFrame] = useState(true);
   const [showSplash, setShowSplash] = useState(true);
@@ -92,11 +99,11 @@ export default function SiakadMobileShell() {
       <header className="hidden md:flex w-full bg-[#08221D]/90 backdrop-blur-md border-b border-emerald-500/20 px-4 sm:px-8 py-3.5 items-center justify-between z-50 shrink-0">
         <div className="flex items-center gap-3">
           <Link 
-            href="/"
+            href={isSd ? "/sd" : "/"}
             className="flex items-center gap-2 text-xs font-semibold text-emerald-200/80 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Kembali ke Portal Yayasan</span>
+            <span className="hidden sm:inline">{isSd ? 'Kembali ke SD IT Al-Afiyah' : 'Kembali ke Portal Yayasan'}</span>
           </Link>
           <span className="h-4 w-px bg-emerald-500/20 hidden sm:inline" />
           <div className="flex items-center gap-2">

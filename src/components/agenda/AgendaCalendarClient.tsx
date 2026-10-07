@@ -27,6 +27,7 @@ import type { AcademicEvent } from '@/app/api/agenda/route';
 
 interface AgendaCalendarClientProps {
   initialEvents: AcademicEvent[];
+  schoolSlug?: string;
 }
 
 const MONTH_NAMES = [
@@ -36,11 +37,12 @@ const MONTH_NAMES = [
 
 const DAY_NAMES = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu'];
 
-export default function AgendaCalendarClient({ initialEvents }: AgendaCalendarClientProps) {
+export default function AgendaCalendarClient({ initialEvents, schoolSlug }: AgendaCalendarClientProps) {
+  const isSd = schoolSlug === 'sd';
   // Calendar state - Default to September 2026 (active academic/PPDB month in sample data)
   const [currentYear, setCurrentYear] = useState(2026);
   const [currentMonth, setCurrentMonth] = useState(8); // 8 is September (0-indexed)
-  const [selectedUnit, setSelectedUnit] = useState<string>('all');
+  const [selectedUnit, setSelectedUnit] = useState<string>(isSd ? 'sd' : 'all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeView, setActiveView] = useState<'grid' | 'timeline'>('grid');
@@ -221,15 +223,19 @@ export default function AgendaCalendarClient({ initialEvents }: AgendaCalendarCl
         <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-[#E8F3F1]/70 pointer-events-none blur-2xl" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#E8F3F1] border border-[#2D7A70]/30 text-xs font-bold text-[#184F48] mb-3">
-              <CalendarDays className="w-3.5 h-3.5 text-[#2D7A70]" />
-              <span>Tahun Ajaran 2026/2027</span>
+            <div className={`inline-flex items-center space-x-2 px-3 py-1 rounded-full border text-xs font-bold mb-3 ${
+              isSd ? 'bg-[#E8F8F0] border-[#A7F3D0] text-[#00A651]' : 'bg-[#E8F3F1] border-[#2D7A70]/30 text-[#184F48]'
+            }`}>
+              <CalendarDays className="w-3.5 h-3.5" />
+              <span>{isSd ? 'Agenda Akademik SD IT Al-Afiyah T.A. 2026/2027' : 'Tahun Ajaran 2026/2027'}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Kalender Agenda &amp; Jadwal Seleksi Terpadu
+              {isSd ? 'Kalender Agenda & Jadwal SD IT Al-Afiyah' : 'Kalender Agenda & Jadwal Seleksi Terpadu'}
             </h1>
             <p className="text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
-              Pantau jadwal lengkap gelombang PPDB, ujian observasi murid, agenda kegiatan belajar mengajar, serta kalender hari libur Islam di lingkungan Yayasan Pendidikan Imam Bonjol Majalengka.
+              {isSd
+                ? 'Pantau jadwal resmi gelombang SPMB SD IT, observasi murid, agenda kegiatan belajar mengajar (KBM), field study, serta kalender hari libur Islam SD IT Al-Afiyah Majalengka.'
+                : 'Pantau jadwal lengkap gelombang PPDB, ujian observasi murid, agenda kegiatan belajar mengajar, serta kalender hari libur Islam di lingkungan Yayasan Pendidikan Imam Bonjol Majalengka.'}
             </p>
           </div>
 
@@ -274,25 +280,25 @@ export default function AgendaCalendarClient({ initialEvents }: AgendaCalendarCl
           <div className="p-3.5 rounded-2xl bg-amber-50/60 border border-amber-100/80">
             <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">Agenda PPDB</div>
             <div className="text-xl font-extrabold text-amber-900 mt-0.5">
-              {initialEvents.filter((e) => e.category === 'ppdb').length} Jadwal
+              {initialEvents.filter((e) => e.category === 'ppdb' && (!isSd || e.schoolSlug === 'sd' || e.schoolSlug === 'all')).length} Jadwal
             </div>
           </div>
           <div className="p-3.5 rounded-2xl bg-sky-50/60 border border-sky-100/80">
             <div className="text-[11px] font-bold text-sky-800 uppercase tracking-wider">Akademik &amp; Ujian</div>
             <div className="text-xl font-extrabold text-sky-900 mt-0.5">
-              {initialEvents.filter((e) => e.category === 'akademik').length} Agenda
+              {initialEvents.filter((e) => e.category === 'akademik' && (!isSd || e.schoolSlug === 'sd' || e.schoolSlug === 'all')).length} Agenda
             </div>
           </div>
           <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-100/80">
             <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider">Peringatan Islam</div>
             <div className="text-xl font-extrabold text-emerald-900 mt-0.5">
-              {initialEvents.filter((e) => e.category === 'islamic').length} Kegiatan
+              {initialEvents.filter((e) => e.category === 'islamic' && (!isSd || e.schoolSlug === 'sd' || e.schoolSlug === 'all')).length} Kegiatan
             </div>
           </div>
           <div className="p-3.5 rounded-2xl bg-purple-50/60 border border-purple-100/80">
             <div className="text-[11px] font-bold text-purple-800 uppercase tracking-wider">Aktivitas Murid</div>
             <div className="text-xl font-extrabold text-purple-900 mt-0.5">
-              {initialEvents.filter((e) => e.category === 'kegiatan').length} Acara
+              {initialEvents.filter((e) => e.category === 'kegiatan' && (!isSd || e.schoolSlug === 'sd' || e.schoolSlug === 'all')).length} Acara
             </div>
           </div>
         </div>
@@ -302,31 +308,38 @@ export default function AgendaCalendarClient({ initialEvents }: AgendaCalendarCl
       <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-2xs border border-[#D4EBE7] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         {/* Unit Filters */}
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-          {[
-            { id: 'all', label: 'Semua Unit', icon: Layers },
-            { id: 'tk', label: 'TK IT', icon: GraduationCap },
-            { id: 'sd', label: 'SD IT', icon: School },
-            { id: 'smp', label: 'SMP IT', icon: BookOpen },
-            { id: 'foundation', label: 'Yayasan', icon: Users },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const active = selectedUnit === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setSelectedUnit(tab.id)}
-                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5 transition-all cursor-pointer ${
-                  active
-                    ? 'bg-[#184F48] text-white shadow-sm'
-                    : 'bg-slate-50 text-slate-600 hover:bg-[#E8F3F1] hover:text-[#184F48]'
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+          {isSd ? (
+            <div className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5 bg-[#00A651] text-white shadow-xs">
+              <School className="w-3.5 h-3.5 text-amber-300" />
+              <span>Unit SD IT Al-Afiyah</span>
+            </div>
+          ) : (
+            [
+              { id: 'all', label: 'Semua Unit', icon: Layers },
+              { id: 'tk', label: 'TK IT', icon: GraduationCap },
+              { id: 'sd', label: 'SD IT', icon: School },
+              { id: 'smp', label: 'SMP IT', icon: BookOpen },
+              { id: 'foundation', label: 'Yayasan', icon: Users },
+            ].map((tab) => {
+              const Icon = tab.icon;
+              const active = selectedUnit === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setSelectedUnit(tab.id)}
+                  className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5 transition-all cursor-pointer ${
+                    active
+                      ? 'bg-[#184F48] text-white shadow-sm'
+                      : 'bg-slate-50 text-slate-600 hover:bg-[#E8F3F1] hover:text-[#184F48]'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })
+          )}
         </div>
 
         {/* Search and View Mode Switcher */}

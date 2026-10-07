@@ -56,14 +56,17 @@ interface AnnouncementBoardClientProps {
     smpCount: number;
   };
   schools: SchoolInfo[];
+  schoolSlug?: string;
 }
 
 export default function AnnouncementBoardClient({
   initialData,
   initialStats,
   schools,
+  schoolSlug,
 }: AnnouncementBoardClientProps) {
-  const [activeUnit, setActiveUnit] = useState<string>('all');
+  const isSd = schoolSlug === 'sd';
+  const [activeUnit, setActiveUnit] = useState<string>(schoolSlug || 'all');
   const [activeTrack, setActiveTrack] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedNo, setCopiedNo] = useState<string | null>(null);
@@ -95,7 +98,7 @@ export default function AnnouncementBoardClient({
       case 'tk':
         return 'bg-amber-50 text-amber-800 border-amber-200';
       case 'sd':
-        return 'bg-teal-50 text-teal-800 border-teal-200';
+        return 'bg-[#E8F8F0] text-[#00A651] border-[#A7F3D0]';
       case 'smp':
         return 'bg-emerald-50 text-emerald-800 border-emerald-200';
       default:
@@ -106,38 +109,49 @@ export default function AnnouncementBoardClient({
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F3F9F8] via-[#F8FAFC] to-white pb-24">
       {/* Top Banner Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#184F48] via-[#1E5D55] to-[#2D7A70] text-white pt-12 pb-20 px-4 sm:px-6 lg:px-8">
+      <section className={`relative overflow-hidden ${
+        isSd
+          ? 'bg-gradient-to-br from-[#008f45] via-[#00A651] to-[#007036]'
+          : 'bg-gradient-to-br from-[#184F48] via-[#1E5D55] to-[#2D7A70]'
+      } text-white pt-12 pb-20 px-4 sm:px-6 lg:px-8`}>
         {/* Subtle Decorative Background Circles */}
         <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-white/5 blur-2xl pointer-events-none" />
         <div className="absolute bottom-0 left-10 -mb-20 w-80 h-80 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
+          {isSd && (
+            <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 drop-shadow-sm">
+              مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
+            </p>
+          )}
           <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-amber-300 mb-4">
-            <span>Pengumuman Kelulusan Resmi TA 2027/2028</span>
+            <span>{isSd ? 'Pengumuman Kelulusan SPMB SD IT Al-Afiyah TA 2027/2028' : 'Pengumuman Kelulusan Resmi TA 2027/2028'}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Papan Hasil Seleksi PPDB Terpadu
+            {isSd ? 'Papan Hasil Seleksi SPMB SD IT Al-Afiyah' : 'Papan Hasil Seleksi PPDB Terpadu'}
           </h1>
           <p className="max-w-3xl mx-auto text-sm sm:text-base text-[#D4EBE7] leading-relaxed">
-            Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & wawancara di Yayasan Pendidikan Imam Bonjol Majalengka (TK IT, SD IT, & SMP IT Al-Afiyah).
+            {isSd
+              ? 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & tes wawancara nabawiyah di SD IT Al-Afiyah Majalengka.'
+              : 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & wawancara di Yayasan Pendidikan Imam Bonjol Majalengka (TK IT, SD IT, & SMP IT Al-Afiyah).'}
           </p>
 
           {/* Quick Action Navigation Buttons */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/ppdb/cek-status"
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white text-[#184F48] font-bold text-xs sm:text-sm hover:bg-[#E8F3F1] transition shadow-md"
+              href={isSd ? '/ppdb/cek-status?school=sd' : '/ppdb/cek-status'}
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white text-[#00A651] font-bold text-xs sm:text-sm hover:bg-[#E8F8F0] transition shadow-md"
             >
-              <Search className="w-4 h-4 text-[#2D7A70]" />
+              <Search className="w-4 h-4 text-[#00A651]" />
               <span>Cek Status Pribadi via NIK / WA</span>
             </Link>
             <Link
-              href="/ppdb/daftar"
+              href={isSd ? '/ppdb/daftar?school=sd' : '/ppdb/daftar'}
               className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold text-xs sm:text-sm transition"
             >
               <ChevronRight className="w-4 h-4" />
-              <span>Alur & Pendaftaran Gelombang Baru</span>
+              <span>Alur &amp; Pendaftaran SPMB SD IT</span>
             </Link>
           </div>
         </div>
@@ -147,139 +161,184 @@ export default function AnnouncementBoardClient({
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
         
         {/* KPI Summary Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
-          {/* Card Total */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200/80 flex items-center space-x-3.5"
-          >
-            <div className="w-12 h-12 rounded-xl bg-[#E8F3F1] text-[#184F48] flex items-center justify-center font-bold flex-shrink-0">
-              <Trophy className="w-6 h-6 text-[#2D7A70]" />
-            </div>
-            <div>
-              <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Total Murid Lolos
-              </p>
-              <p className="text-xl sm:text-2xl font-black text-slate-900">
-                {initialStats.totalAccepted}{' '}
-                <span className="text-xs font-medium text-slate-400">Murid</span>
-              </p>
-            </div>
-          </motion.div>
+        {isSd ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-8 max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-emerald-200/80 flex items-center space-x-3.5"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#E8F8F0] text-[#00A651] flex items-center justify-center font-bold flex-shrink-0">
+                <Trophy className="w-6 h-6 text-[#00A651]" />
+              </div>
+              <div>
+                <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Murid Diterima SD IT
+                </p>
+                <p className="text-xl sm:text-2xl font-black text-slate-900">
+                  {initialStats.sdCount}{' '}
+                  <span className="text-xs font-medium text-slate-400">Murid Lolos</span>
+                </p>
+              </div>
+            </motion.div>
 
-          {/* Card TK */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
-            className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-amber-200/80 flex items-center space-x-3.5"
-          >
-            <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold flex-shrink-0">
-              <span className="text-sm font-black">TK</span>
-            </div>
-            <div>
-              <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-amber-800">
-                TK IT Al-Afiyah
-              </p>
-              <p className="text-xl sm:text-2xl font-black text-slate-900">
-                {initialStats.tkCount}{' '}
-                <span className="text-xs font-medium text-slate-400">/ 50 Kuota</span>
-              </p>
-            </div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.05 }}
+              className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-[#A7F3D0] flex items-center space-x-3.5"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#E8F8F0] text-[#00A651] flex items-center justify-center font-bold flex-shrink-0">
+                <School className="w-6 h-6 text-[#00A651]" />
+              </div>
+              <div>
+                <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-800">
+                  Target Kuota SD IT
+                </p>
+                <p className="text-xl sm:text-2xl font-black text-slate-900">
+                  60 Kuota <span className="text-xs font-medium text-emerald-600">(2 Rombel)</span>
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+            {/* Card Total */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200/80 flex items-center space-x-3.5"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#E8F3F1] text-[#184F48] flex items-center justify-center font-bold flex-shrink-0">
+                <Trophy className="w-6 h-6 text-[#2D7A70]" />
+              </div>
+              <div>
+                <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Total Murid Lolos
+                </p>
+                <p className="text-xl sm:text-2xl font-black text-slate-900">
+                  {initialStats.totalAccepted}{' '}
+                  <span className="text-xs font-medium text-slate-400">Murid</span>
+                </p>
+              </div>
+            </motion.div>
 
-          {/* Card SD */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-teal-200/80 flex items-center space-x-3.5"
-          >
-            <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center font-bold flex-shrink-0">
-              <span className="text-sm font-black">SD</span>
-            </div>
-            <div>
-              <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-teal-800">
-                SD IT Al-Afiyah
-              </p>
-              <p className="text-xl sm:text-2xl font-black text-slate-900">
-                {initialStats.sdCount}{' '}
-                <span className="text-xs font-medium text-slate-400">/ 60 Kuota</span>
-              </p>
-            </div>
-          </motion.div>
+            {/* Card TK */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.05 }}
+              className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-amber-200/80 flex items-center space-x-3.5"
+            >
+              <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold flex-shrink-0">
+                <span className="text-sm font-black">TK</span>
+              </div>
+              <div>
+                <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-amber-800">
+                  TK IT Al-Afiyah
+                </p>
+                <p className="text-xl sm:text-2xl font-black text-slate-900">
+                  {initialStats.tkCount}{' '}
+                  <span className="text-xs font-medium text-slate-400">/ 50 Kuota</span>
+                </p>
+              </div>
+            </motion.div>
 
-          {/* Card SMP */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.15 }}
-            className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-emerald-200/80 flex items-center space-x-3.5"
-          >
-            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold flex-shrink-0">
-              <span className="text-sm font-black">SMP</span>
-            </div>
-            <div>
-              <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-800">
-                SMP IT Al-Afiyah
-              </p>
-              <p className="text-xl sm:text-2xl font-black text-slate-900">
-                {initialStats.smpCount}{' '}
-                <span className="text-xs font-medium text-slate-400">/ 75 Kuota</span>
-              </p>
-            </div>
-          </motion.div>
-        </div>
+            {/* Card SD */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-teal-200/80 flex items-center space-x-3.5"
+            >
+              <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center font-bold flex-shrink-0">
+                <span className="text-sm font-black">SD</span>
+              </div>
+              <div>
+                <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-teal-800">
+                  SD IT Al-Afiyah
+                </p>
+                <p className="text-xl sm:text-2xl font-black text-slate-900">
+                  {initialStats.sdCount}{' '}
+                  <span className="text-xs font-medium text-slate-400">/ 60 Kuota</span>
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Card SMP */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.15 }}
+              className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-emerald-200/80 flex items-center space-x-3.5"
+            >
+              <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold flex-shrink-0">
+                <span className="text-sm font-black">SMP</span>
+              </div>
+              <div>
+                <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-800">
+                  SMP IT Al-Afiyah
+                </p>
+                <p className="text-xl sm:text-2xl font-black text-slate-900">
+                  {initialStats.smpCount}{' '}
+                  <span className="text-xs font-medium text-slate-400">/ 75 Kuota</span>
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
 
         {/* Filter & Search Bar Container */}
         <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200/80 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             
-            {/* Unit Selector Tabs */}
-            <div className="flex items-center space-x-1.5 p-1 bg-slate-100/80 rounded-xl overflow-x-auto">
-              <button
-                onClick={() => setActiveUnit('all')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
-                  activeUnit === 'all'
-                    ? 'bg-white text-[#184F48] shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                Semua Unit ({initialStats.totalAccepted})
-              </button>
-              <button
-                onClick={() => setActiveUnit('tk')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
-                  activeUnit === 'tk'
-                    ? 'bg-white text-amber-800 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                TK IT ({initialStats.tkCount})
-              </button>
-              <button
-                onClick={() => setActiveUnit('sd')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
-                  activeUnit === 'sd'
-                    ? 'bg-white text-teal-800 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                SD IT ({initialStats.sdCount})
-              </button>
-              <button
-                onClick={() => setActiveUnit('smp')}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
-                  activeUnit === 'smp'
-                    ? 'bg-white text-emerald-800 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                SMP IT ({initialStats.smpCount})
-              </button>
-            </div>
+            {/* Unit Selector Tabs - Only shown when NOT locked to SD IT */}
+            {!isSd && (
+              <div className="flex items-center space-x-1.5 p-1 bg-slate-100/80 rounded-xl overflow-x-auto">
+                <button
+                  onClick={() => setActiveUnit('all')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+                    activeUnit === 'all'
+                      ? 'bg-white text-[#184F48] shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  Semua Unit ({initialStats.totalAccepted})
+                </button>
+                <button
+                  onClick={() => setActiveUnit('tk')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+                    activeUnit === 'tk'
+                      ? 'bg-white text-amber-800 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  TK IT ({initialStats.tkCount})
+                </button>
+                <button
+                  onClick={() => setActiveUnit('sd')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+                    activeUnit === 'sd'
+                      ? 'bg-white text-teal-800 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  SD IT ({initialStats.sdCount})
+                </button>
+                <button
+                  onClick={() => setActiveUnit('smp')}
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+                    activeUnit === 'smp'
+                      ? 'bg-white text-emerald-800 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  SMP IT ({initialStats.smpCount})
+                </button>
+              </div>
+            )}
 
             {/* Instant Search Input */}
             <div className="relative w-full md:w-80">
@@ -502,7 +561,9 @@ export default function AnnouncementBoardClient({
         </div>
 
         {/* Need Help Banner */}
-        <div className="bg-gradient-to-r from-[#184F48] to-[#2D7A70] rounded-2xl p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+        <div className={`rounded-2xl p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md ${
+          isSd ? 'bg-gradient-to-r from-[#00A651] to-[#008f45]' : 'bg-gradient-to-r from-[#184F48] to-[#2D7A70]'
+        }`}>
           <div className="space-y-1.5 text-center sm:text-left">
             <h3 className="text-lg sm:text-xl font-black">
               Nomor Registrasi Anda Belum Tercantum?
@@ -513,8 +574,8 @@ export default function AnnouncementBoardClient({
           </div>
           <div className="flex items-center space-x-3 flex-shrink-0">
             <Link
-              href="/ppdb/cek-status"
-              className="px-4 py-2.5 rounded-xl bg-white text-[#184F48] text-xs sm:text-sm font-bold hover:bg-[#E8F3F1] transition shadow-xs"
+              href={isSd ? '/ppdb/cek-status?school=sd' : '/ppdb/cek-status'}
+              className={`px-4 py-2.5 rounded-xl bg-white ${isSd ? 'text-[#00A651] hover:bg-[#E8F8F0]' : 'text-[#184F48] hover:bg-[#E8F3F1]'} text-xs sm:text-sm font-bold transition shadow-xs`}
             >
               Cek Status Pribadi
             </Link>
