@@ -4,7 +4,7 @@ import { extractSubdomain } from '@/lib/domain';
 import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
 
 // Allowed root domains for redirection protection
-const ALLOWED_ROOT_HOSTS = ['alafiyah.sch.id', 'sditalafiyah.sch.id', 'localhost', '127.0.0.1', 'vercel.app'];
+const ALLOWED_ROOT_HOSTS = ['alafiyah.id', 'alafiyah.sch.id', 'sditalafiyah.sch.id', 'localhost', '127.0.0.1', 'vercel.app'];
 
 function isAllowedHost(host: string): boolean {
   const hostname = host.split(':')[0].toLowerCase();
@@ -16,7 +16,7 @@ function isAllowedHost(host: string): boolean {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const rawHost = request.headers.get('host') || 'localhost:3000';
-  const host = isAllowedHost(rawHost) ? rawHost : 'alafiyah.sch.id';
+  const host = isAllowedHost(rawHost) ? rawHost : 'alafiyah.id';
   const subdomain = extractSubdomain(host);
 
   // ─── 1. Subdomain Multi-Tenant Routing ─────────────────────────────────────
