@@ -550,8 +550,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               <Download className="w-3.5 h-3.5 text-emerald-600" />
               <span>Pengumuman &amp; Unduh Dokumen Resmi</span>
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
-              Poster &amp; Brosur SPMB {school.name}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
+              Poster &amp; Brosur Resmi SPMB <br />
+              <span className="text-[#007638] inline-block">{school.name}</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-2">
               Informasi resmi Sistem Penerimaan Murid Baru Tahun Ajaran 2027/2028. Tersedia dalam resolusi tinggi yang dapat Anda unduh atau simpan langsung.
@@ -945,8 +946,15 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs mb-3">
               Nilai Utama &amp; Character Building
             </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              {school.slug === 'sd' ? 'Tiga Pilar Karakter SD IT Al-Afiyah' : `Tiga Pilar Karakter ${school.name}`}
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+              {school.slug === 'sd' ? (
+                <>
+                  Tiga Pilar Karakter <br />
+                  <span className="text-[#007638] inline-block">{school.name}</span>
+                </>
+              ) : (
+                `Tiga Pilar Karakter ${school.name}`
+              )}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed">
               {school.slug === 'sd'
@@ -1000,16 +1008,19 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                     </p>
                   </div>
 
-                  <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800">
+                  <Link
+                    href={school.slug === 'sd' ? '/sd/karakter' : '#values'}
+                    className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 transition-colors cursor-pointer"
+                  >
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       <span>Prinsip Smart Akhlaq Fitrah</span>
                     </span>
-                    <span className="text-[11px] font-bold text-emerald-700 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex items-center gap-1">
-                      <span>Selengkapnya</span>
+                    <span className="text-[11px] font-bold text-emerald-700 group-hover:translate-x-1 transition-all flex items-center gap-1">
+                      <span>Buka Pilar</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
-                  </div>
+                  </Link>
                 </InteractiveBubbleCard>
               </ScrollReveal>
             ))}
@@ -1040,8 +1051,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
               Kurikulum Terintegrasi
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
-              Program Unggulan <span className="text-amber-400">{school.name}</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3 leading-snug">
+              Program Unggulan <br />
+              <span className="text-amber-400 inline-block">{school.name}</span>
             </h2>
             <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
               Pilar keunggulan kurikulum berakar pada nilai karakter nabawiyah, adab islami, serta penguatan literasi dan agro-sains.
@@ -1057,29 +1069,34 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 duration={500}
                 className="h-full flex flex-col"
               >
-                <InteractiveBubbleCard
-                  variant={idx % 2 === 0 ? 'emerald' : 'teal'}
-                  className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group"
+                <Link
+                  href={school.slug === 'sd' ? '/sd/program' : '#programs'}
+                  className="h-full flex flex-col"
                 >
-                  <div className="flex-1 pb-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
-                        {prog.badge}
-                      </span>
-                      <span className="text-xs font-black text-[#00A651] font-mono">0{idx + 1}</span>
+                  <InteractiveBubbleCard
+                    variant={idx % 2 === 0 ? 'emerald' : 'teal'}
+                    className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group cursor-pointer"
+                  >
+                    <div className="flex-1 pb-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
+                          {prog.badge}
+                        </span>
+                        <span className="text-xs font-black text-[#00A651] font-mono">0{idx + 1}</span>
+                      </div>
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-[#00A651] transition-colors leading-snug">
+                        {sanitizeAdabText(prog.title)}
+                      </h3>
+                      <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                        {sanitizeAdabText(prog.desc)}
+                      </p>
                     </div>
-                    <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-[#00A651] transition-colors leading-snug">
-                      {sanitizeAdabText(prog.title)}
-                    </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                      {sanitizeAdabText(prog.desc)}
-                    </p>
-                  </div>
-                  <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#00A651]">
-                    <span>Terintegrasi Kurikulum</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#00A651] group-hover:translate-x-0.5 transition-all" />
-                  </div>
-                </InteractiveBubbleCard>
+                    <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#00A651]">
+                      <span>Buka Detail Program</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#00A651] group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </InteractiveBubbleCard>
+                </Link>
               </ScrollReveal>
             ))}
           </div>
@@ -1112,8 +1129,15 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Kompetensi &amp; Dedikasi</span>
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
-                  Dewan Guru &amp; Tenaga Pendidik
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
+                  {school.slug === 'sd' ? (
+                    <>
+                      Dewan Guru &amp; Tenaga Pendidik <br />
+                      <span className="text-[#007638] inline-block">{school.name}</span>
+                    </>
+                  ) : (
+                    `Dewan Guru & Tenaga Pendidik ${school.name}`
+                  )}
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1">
                   Mendidik dengan keteladanan akhlak, hafalan mutqin, dan dedikasi penuh kasih sayang.
@@ -1173,11 +1197,13 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-200/60 text-center">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
-                        Tenaga Pendidik {school.name}
-                      </span>
-                    </div>
+                    <Link
+                      href={school.slug === 'sd' ? '/sd/guru' : '#teachers'}
+                      className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 transition-colors"
+                    >
+                      <span>Lihat Profil Asatidzah</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-emerald-700" />
+                    </Link>
                   </div>
                 </ScrollReveal>
               ))}
@@ -1203,12 +1229,19 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       <section id="facilities" className="py-16 sm:py-20 bg-slate-50/50 border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-            <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-2xs">
+            <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-2xs">
               <Camera className="w-3.5 h-3.5 text-emerald-600" />
-              <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Dokumentasi SD IT' : 'Sarana Prasarana'}</span>
+              <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Belajar SD IT Al-Afiyah' : 'Sarana Prasarana'}</span>
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
-              {school.slug === 'sd' ? 'Dokumentasi Kegiatan & Aktivitas Belajar SD IT' : 'Fasilitas Pembelajaran Modern & Representatif'}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
+              {school.slug === 'sd' ? (
+                <>
+                  Dokumentasi Aktivitas Belajar <br />
+                  <span className="text-[#007638] inline-block">{school.name}</span>
+                </>
+              ) : (
+                'Fasilitas Pembelajaran Modern & Representatif'
+              )}
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed">
               {school.slug === 'sd'
@@ -1284,10 +1317,14 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                         {sanitizeAdabText(fac.desc)}
                       </p>
                     </div>
-                    <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
-                      <span>Lihat Dokumentasi</span>
-                      <span className="text-xs group-hover:translate-x-1 transition-transform">➔</span>
-                    </div>
+                    <Link
+                      href={school.slug === 'sd' ? '/sd/dokumentasi' : '#facilities'}
+                      className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700 hover:text-emerald-950 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span>Buka Galeri Dokumentasi</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-emerald-700 group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
                 </div>
               </ScrollReveal>

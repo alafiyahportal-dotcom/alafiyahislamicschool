@@ -28,8 +28,8 @@ export default function SpmbRoadmapSection({
       num: '01',
       title: 'Registrasi Formulir Digital',
       badge: 'Tahap 1',
-      time: 'Waktu: ± 5-10 Menit',
-      icon: FileText,
+      actionText: 'Isi Formulir SPMB',
+      href: ppdbUrl,
       tagline: '28 Poin Standar Dapodik',
       desc: 'Orang tua mengisi formulir biodata ananda & keluarga secara online melalui portal SPMB SD IT. Langsung mendapatkan ID Pendaftaran resmi serta akses kartu pendaftaran.',
     },
@@ -37,8 +37,8 @@ export default function SpmbRoadmapSection({
       num: '02',
       title: 'Infaq Pendaftaran & Berkas',
       badge: 'Tahap 2',
-      time: 'Verifikasi Otomatis',
-      icon: CreditCard,
+      actionText: 'Lihat Panduan & Biaya',
+      href: '/sd/spmb#biaya',
       tagline: `Infaq Rp ${registrationFee.toLocaleString('id-ID')}`,
       desc: 'Penyelesaian infaq formulir melalui transfer ke rekening resmi yayasan dan upload dokumen kelengkapan (scan Akta Kelahiran, Kartu Keluarga, dan KTP orang tua) via portal.',
     },
@@ -46,8 +46,8 @@ export default function SpmbRoadmapSection({
       num: '03',
       title: 'Observasi Fitrah & Ta’aruf',
       badge: 'Tahap 3',
-      time: 'Ramah & Membahagiakan',
-      icon: Users,
+      actionText: 'Panduan Observasi Murid',
+      href: '/sd/spmb',
       tagline: 'Bukan Tes Tulis Kognitif',
       desc: 'Ananda diajak berinteraksi riang untuk pemetaan fitrah, kematangan motorik & sensorik. Ayah Bunda mengikuti sesi ta’aruf untuk menyelaraskan visi tarbiyah rumah dan sekolah.',
     },
@@ -55,8 +55,8 @@ export default function SpmbRoadmapSection({
       num: '04',
       title: 'Pengumuman & Daftar Ulang',
       badge: 'Tahap 4',
-      time: 'Penyambutan Murid',
-      icon: GraduationCap,
+      actionText: 'Cek Pengumuman Kelulusan',
+      href: '/sd/spmb/pengumuman',
       tagline: 'Kuota 2 Rombel Terbatas',
       desc: 'Hasil kelulusan diumumkan via portal & WhatsApp resmi. Dilanjutkan pelunasan infaq sarana pendidikan, pengukuran seragam resmi, dan pengenalan lingkungan sekolah (ta’aruf).',
     },
@@ -68,20 +68,21 @@ export default function SpmbRoadmapSection({
       className="py-16 sm:py-20 bg-emerald-950 scroll-mt-16 sm:scroll-mt-20 w-full text-white relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header - Styled Exactly Like Program Unggulan */}
+        {/* Header - Balanced line-break with full SD IT Al-Afiyah Majalengka */}
         <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
           <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
             Tahapan SPMB T.A. 2027/2028
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
-            4 Langkah Mudah Menjadi Murid <span className="text-amber-400">SD IT Al-Afiyah</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3 leading-snug">
+            4 Langkah Mudah Pendaftaran <br />
+            <span className="text-amber-400 inline-block">SD IT Al-Afiyah Majalengka</span>
           </h2>
           <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
             Sistem penerimaan yang ramah keluarga, transparan, dan terintegrasi digital tanpa prosedur yang berbelit.
           </p>
         </ScrollReveal>
 
-        {/* 4 Steps - White High-Contrast Cards matching Program Unggulan */}
+        {/* 4 Steps - Clickable White High-Contrast Cards matching Program Unggulan */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, idx) => (
             <ScrollReveal
@@ -91,7 +92,10 @@ export default function SpmbRoadmapSection({
               duration={500}
               className="h-full flex flex-col"
             >
-              <div className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group text-slate-900">
+              <Link
+                href={step.href}
+                className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group text-slate-900 cursor-pointer"
+              >
                 <div className="flex-1 pb-4">
                   <div className="flex items-center justify-between mb-3">
                     <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
@@ -110,10 +114,10 @@ export default function SpmbRoadmapSection({
                   </p>
                 </div>
                 <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#00A651]">
-                  <span>{step.time}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#00A651] group-hover:translate-x-0.5 transition-all" />
+                  <span>{step.actionText}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#00A651] group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
             </ScrollReveal>
           ))}
         </div>

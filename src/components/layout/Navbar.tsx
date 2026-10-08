@@ -154,9 +154,9 @@ export default function Navbar({
       case 'sd':
         return {
           code: 'SD',
-          arabic: 'المدرسة الابتدائية الإسلامية العافية',
-          title: schoolName || 'SD IT Al-Afiyah',
-          subtitle: 'Smart Akhlaq Fitrah • Majalengka',
+          arabic: '',
+          title: 'SD IT AL-AFIYAH',
+          subtitle: 'SMART AKHLAQ FITRAH',
           homeUrl: getUnitHomeUrl('sd'),
           ppdbLink: '/sd/spmb',
           ctaText: 'Info SPMB SD IT',
@@ -390,30 +390,64 @@ export default function Navbar({
                   />
                 )}
                 <div className="min-w-0 flex flex-col justify-center">
-                  {/* Arabic Calligraphy Style Title */}
-                  <div
-                    className={`text-xs xs:text-sm sm:text-lg xl:text-xl font-bold tracking-normal font-serif transition-colors leading-tight truncate ${
-                      shouldBeTransparent
-                        ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
-                        : 'text-softwater-dark group-hover:text-softwater'
-                    }`}
-                    title={brandConfig.arabic}
-                  >
-                    {brandConfig.arabic}
-                  </div>
+                  {brandConfig.arabic ? (
+                    <>
+                      {/* Arabic Calligraphy Style Title */}
+                      <div
+                        className={`text-xs xs:text-sm sm:text-lg xl:text-xl font-bold tracking-normal font-serif transition-colors leading-tight truncate ${
+                          shouldBeTransparent
+                            ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
+                            : 'text-softwater-dark group-hover:text-softwater'
+                        }`}
+                        title={brandConfig.arabic}
+                      >
+                        {brandConfig.arabic}
+                      </div>
 
-                  {/* Latin Name (Pure White on Transparent, Slate-800 on Scrolled) */}
-                  <div className="mt-0.5">
-                    <span
-                      className={`text-[11px] sm:text-sm font-extrabold uppercase tracking-wider transition-colors truncate block ${
-                        shouldBeTransparent
-                          ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
-                          : 'text-slate-800 group-hover:text-softwater-dark'
-                      }`}
-                    >
-                      {brandConfig.title}
-                    </span>
-                  </div>
+                      {/* Latin Name (Pure White on Transparent, Slate-800 on Scrolled) */}
+                      <div className="mt-0.5">
+                        <span
+                          className={`text-[11px] sm:text-sm font-extrabold uppercase tracking-wider transition-colors truncate block ${
+                            shouldBeTransparent
+                              ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
+                              : 'text-slate-800 group-hover:text-softwater-dark'
+                          }`}
+                        >
+                          {brandConfig.title}
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Latin Name as Primary Headline on Top */}
+                      <div>
+                        <span
+                          className={`text-xs xs:text-sm sm:text-base font-extrabold uppercase tracking-wider transition-colors truncate block leading-tight ${
+                            shouldBeTransparent
+                              ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
+                              : 'text-slate-900 group-hover:text-[#00A651]'
+                          }`}
+                        >
+                          {brandConfig.title}
+                        </span>
+                      </div>
+
+                      {/* Subtitle Below (e.g. SMART AKHLAQ FITRAH - smaller size) */}
+                      {brandConfig.subtitle && (
+                        <div className="mt-0.5">
+                          <span
+                            className={`text-[9px] xs:text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-colors truncate block ${
+                              shouldBeTransparent
+                                ? 'text-emerald-300 drop-shadow-xs'
+                                : 'text-[#007638]'
+                            }`}
+                          >
+                            {brandConfig.subtitle}
+                          </span>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </Link>
 
@@ -749,12 +783,19 @@ export default function Navbar({
                     />
                   )}
                   <div>
-                    <div className="text-sm font-bold text-softwater-dark">
-                      {brandConfig.arabic}
-                    </div>
-                    <div className="text-[11px] font-semibold text-slate-700">
+                    {brandConfig.arabic ? (
+                      <div className="text-sm font-bold text-softwater-dark">
+                        {brandConfig.arabic}
+                      </div>
+                    ) : null}
+                    <div className="text-xs font-black uppercase text-slate-800 tracking-wider">
                       {brandConfig.title}
                     </div>
+                    {brandConfig.subtitle && (
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-[#007638] mt-0.5">
+                        {brandConfig.subtitle}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <button
