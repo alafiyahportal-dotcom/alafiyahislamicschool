@@ -30,7 +30,6 @@ import {
   Camera,
   Copy,
   Check,
-  Sparkles,
   Percent,
   Tag,
   CreditCard,
@@ -556,7 +555,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 <div className="lg:col-span-6 space-y-6">
                   <div>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100/80 text-emerald-900 border border-emerald-200 mb-3">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                      <Tag className="w-3.5 h-3.5 text-emerald-800" />
                       <span>SPMB TP 2027/2028 • Gelombang 1 &amp; 2</span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
@@ -570,7 +569,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   {/* Wave 1 Card */}
                   <div className="p-5 rounded-2xl bg-white border-2 border-emerald-500 shadow-sm relative overflow-hidden">
                     <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-bl-xl shadow-xs flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
+                      <Check className="w-3 h-3" />
                       <span>Sedang Dibuka</span>
                     </div>
                     <div className="flex items-center gap-2 mb-1.5">
@@ -1058,7 +1057,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   </div>
                   <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#00A651]">
                     <span>Terintegrasi Kurikulum</span>
-                    <span className="text-[11px] text-[#00A651] group-hover:translate-x-0.5 transition-all">✦</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#00A651] group-hover:translate-x-0.5 transition-all" />
                   </div>
                 </InteractiveBubbleCard>
               </ScrollReveal>
@@ -1071,7 +1070,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 href="/sd/program"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
               >
-                <Sparkles className="w-4 h-4 text-[#00A651]" />
+                <BookOpen className="w-4 h-4 text-[#00A651]" />
                 <span>Buka Halaman Khusus 10 Program Unggulan &amp; Kurikulum SD IT</span>
                 <ArrowRight className="w-4 h-4 text-emerald-700" />
               </Link>

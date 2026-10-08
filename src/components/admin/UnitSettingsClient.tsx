@@ -14,7 +14,6 @@ import {
   Unlock,
   Lock,
   RotateCcw,
-  Sparkles,
   School,
   Wallet
 } from 'lucide-react';

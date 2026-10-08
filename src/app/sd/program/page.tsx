@@ -16,8 +16,8 @@ import {
   Compass, 
   Award, 
   Users, 
-  BrainCircuit, 
   Trees, 
+  GraduationCap,
   ShieldCheck, 
   ArrowRight 
 } from 'lucide-react';
@@ -62,7 +62,7 @@ const SD_PROGRAMS = [
     title: 'Basic Literasi & Numerasi',
     desc: 'Penguatan fondasi calistung kontekstual, nalar sains terpadu, dan logika matematika sejak dini tanpa membebani mental anak.',
     badge: 'Literasi & Numerasi',
-    icon: BrainCircuit
+    icon: GraduationCap
   },
   {
     number: '05',
@@ -239,7 +239,7 @@ export default async function SdProgramPage() {
 
                   <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#00A651]">
                     <span>Terintegrasi Kurikulum</span>
-                    <span className="text-[11px] text-[#00A651]">✦</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00A651]" />
                   </div>
                 </div>
               ))}

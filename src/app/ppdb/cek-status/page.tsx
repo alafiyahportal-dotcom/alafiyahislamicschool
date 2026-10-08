@@ -19,7 +19,6 @@ import {
   HelpCircle,
   Copy,
   Check,
-  Sparkles,
   ExternalLink
 } from 'lucide-react';
 
@@ -110,7 +109,7 @@ function CheckStatusContent() {
         {/* Hero Header */}
         <div className="text-center max-w-2xl mx-auto mb-8">
           <div className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wide px-3.5 py-1.5 rounded-full border shadow-2xs mb-3 bg-[#E8F8F0] text-[#00A651] border-[#A7F3D0]">
-            <Sparkles className="w-3.5 h-3.5 text-[#00A651]" />
+            <Search className="w-3.5 h-3.5 text-[#00A651]" />
             <span>Layanan Mandiri Pelacak Pendaftaran SD IT Al-Afiyah</span>
           </div>
 

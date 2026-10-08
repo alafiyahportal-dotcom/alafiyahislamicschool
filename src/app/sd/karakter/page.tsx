@@ -251,7 +251,7 @@ export default async function SdKarakterPage() {
 
                   <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#00A651]">
                     <span>Kurikulum Terintegrasi</span>
-                    <span className="text-[11px] text-[#00A651]">✦</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00A651]" />
                   </div>
                 </div>
               ))}
@@ -302,7 +302,7 @@ export default async function SdKarakterPage() {
 
                     <div className="mt-4 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       <span>Karakter Al-Afiyah</span>
-                      <span className="text-[#00A651]">✦</span>
+                      <CheckCircle2 className="w-3 h-3 text-[#00A651]" />
                     </div>
                   </div>
                 );

@@ -37,7 +37,6 @@ import {
   BadgeCheck,
   CheckCheck,
   Copy,
-  Sparkles,
   Percent,
   Tag
 } from 'lucide-react';
@@ -1034,7 +1033,7 @@ export default function PPDBHubPage() {
               <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-300 text-xs space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 font-bold text-emerald-950 text-sm">
-                    <Sparkles className="w-4 h-4 text-amber-600" />
+                    <BadgeCheck className="w-4 h-4 text-emerald-700" />
                     <span>SPMB SMP IT Al-Afiyah 2027/2028</span>
                   </div>
                   <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-emerald-700 text-white shadow-2xs">

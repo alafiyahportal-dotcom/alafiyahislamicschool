@@ -27,7 +27,7 @@ import {
   Heart,
   Calendar,
   Users,
-  Sparkles,
+  Info,
   Copy,
   Lock,
   MessageCircle
@@ -2013,7 +2013,7 @@ function PPDBFormContent() {
 
                 {/* Edukasi Simpan No Registrasi */}
                 <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/90 text-amber-900 text-[11px] leading-relaxed flex items-start space-x-2">
-                  <Sparkles className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                  <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold">Info untuk Orang Tua:</span> Bunda/Ayah tidak perlu mendaftar akun atau mengingat kata sandi. Cukup simpan Nomor Registrasi <strong className="font-mono font-bold text-amber-950">{createdResult.registrationNo}</strong> ini atau bookmark tautan Portal Murid untuk memantau status verifikasi berkas dan mengunduh Kartu Ujian Observasi.
                   </div>

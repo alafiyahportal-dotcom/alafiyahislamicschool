@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { getSchoolUrl } from '@/lib/domain';
 import {
   ArrowRight,
-  Sparkles,
   BookOpen,
   ShieldCheck,
   Leaf,
@@ -40,7 +39,7 @@ const unitCards: UnitCardData[] = [
     image: '/images/tk-hero-kids.jpg',
     features: [
       {
-        icon: Sparkles,
+        icon: Award,
         text: 'Sentra Fitrah & Karakter Usia Emas',
         iconColor: 'text-amber-600',
       },

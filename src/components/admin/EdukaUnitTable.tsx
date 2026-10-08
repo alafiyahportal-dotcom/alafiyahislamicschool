@@ -7,7 +7,7 @@ import {
   Users,
   BookOpen,
   School,
-  Sparkles,
+  Compass,
   Layers,
   Plus,
   Pencil,
@@ -412,7 +412,7 @@ export default function EdukaUnitTable({
       case 'tahfidz':
         return <BookOpen className="w-5 h-5 text-slate-700 group-hover:text-emerald-700 transition-colors" />;
       case 'science':
-        return <Sparkles className="w-5 h-5 text-slate-700 group-hover:text-emerald-700 transition-colors" />;
+        return <Compass className="w-5 h-5 text-slate-700 group-hover:text-emerald-700 transition-colors" />;
       case 'school':
         return <School className="w-5 h-5 text-slate-700 group-hover:text-emerald-700 transition-colors" />;
       case 'users':

@@ -38,7 +38,6 @@ import {
   HeartHandshake,
   Building2,
   Compass,
-  Sparkles,
   ArrowRight,
   Sun,
   CreditCard,
@@ -1389,7 +1388,7 @@ export default function CMSEditorClient({
                 <div className="max-w-4xl mx-auto space-y-6">
                   <div className="text-center">
                     <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-[#00A651]" />
+                      <Tag className="w-3.5 h-3.5 text-[#00A651]" />
                       <span>Rincian Investasi &amp; Rekening Resmi SPMB SD IT T.A. 2027/2028</span>
                     </span>
                   </div>
@@ -1643,7 +1642,7 @@ export default function CMSEditorClient({
               {/* Visi */}
               <div className="max-w-3xl mx-auto bg-white rounded-3xl border border-emerald-200 p-6 sm:p-8 shadow-xs text-center space-y-3 relative overflow-hidden">
                 <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 mx-auto flex items-center justify-center font-bold">
-                  ✦
+                  <Compass className="w-5 h-5 text-emerald-700" />
                 </div>
                 <span className="text-xs font-extrabold uppercase tracking-widest text-[#00A651] block">
                   Visi SD IT Al-Afiyah
