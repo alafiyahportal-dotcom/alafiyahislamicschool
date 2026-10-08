@@ -41,6 +41,9 @@ import UnitHeroSlider, { UnitSlideData } from './UnitHeroSlider';
 import InteractiveBubbleCard from './InteractiveBubbleCard';
 import CampusLocationMapSection from './CampusLocationMapSection';
 import ScrollReveal from './ScrollReveal';
+import Hero3DStatCards from './Hero3DStatCards';
+import PrincipalGreetingSection from './PrincipalGreetingSection';
+import SpmbRoadmapSection from './SpmbRoadmapSection';
 
 export interface TeacherData {
   id: string;
@@ -496,40 +499,48 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         registrationFee={school.registrationFee}
         waCenterPhone={school.waCenterPhone}
         customSlides={school.heroSlides}
+        statsCards={school.slug === 'sd' ? <Hero3DStatCards stats={displayStats} /> : undefined}
       />
 
-      {/* Stats: compact 2×2 bento grid on mobile, 4-up on desktop */}
-      <section className="relative z-10 bg-neutral-50 border-b border-neutral-200/70 py-4 sm:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* No-op touchstart (delegated to all cards) makes iOS Safari apply :active immediately on tap */}
-          <ul
-            className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
-            onTouchStart={() => {}}
-          >
-            {displayStats.map((stat, idx) => (
-              <ScrollReveal
-                key={stat.label}
-                as="li"
-                delay={idx * 0.1}
-                yOffset={20}
-                duration={500}
-                className="bg-white rounded-2xl border border-neutral-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-3.5 sm:p-5 cursor-pointer select-none [-webkit-tap-highlight-color:transparent] transition-all duration-200 ease-out hover:border-neutral-300 active:scale-[0.97] active:bg-neutral-50 active:border-emerald-500/40 active:shadow-sm motion-reduce:transition-none motion-reduce:active:scale-100"
-              >
-                <p className="flex items-start gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-neutral-500 leading-tight">
-                  <span className="text-green-600 mt-px">{renderStatIcon(stat.iconType)}</span>
-                  <span>{stat.label}</span>
-                </p>
-                <p className="mt-1.5 text-sm sm:text-base font-bold text-neutral-900 leading-snug">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-[11px] text-neutral-400 line-clamp-1">
-                  {stat.subtext}
-                </p>
-              </ScrollReveal>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* Stats: for non-SD units, show the standard fallback bar */}
+      {school.slug !== 'sd' && (
+        <section className="relative z-10 bg-neutral-50 border-b border-neutral-200/70 py-4 sm:py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* No-op touchstart (delegated to all cards) makes iOS Safari apply :active immediately on tap */}
+            <ul
+              className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+              onTouchStart={() => {}}
+            >
+              {displayStats.map((stat, idx) => (
+                <ScrollReveal
+                  key={stat.label}
+                  as="li"
+                  delay={idx * 0.1}
+                  yOffset={20}
+                  duration={500}
+                  className="bg-white rounded-2xl border border-neutral-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-3.5 sm:p-5 cursor-pointer select-none [-webkit-tap-highlight-color:transparent] transition-all duration-200 ease-out hover:border-neutral-300 active:scale-[0.97] active:bg-neutral-50 active:border-emerald-500/40 active:shadow-sm motion-reduce:transition-none motion-reduce:active:scale-100"
+                >
+                  <p className="flex items-start gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-neutral-500 leading-tight">
+                    <span className="text-green-600 mt-px">{renderStatIcon(stat.iconType)}</span>
+                    <span>{stat.label}</span>
+                  </p>
+                  <p className="mt-1.5 text-sm sm:text-base font-bold text-neutral-900 leading-snug">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-[11px] text-neutral-400 line-clamp-1">
+                    {stat.subtext}
+                  </p>
+                </ScrollReveal>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* Sambutan Resmi Kepala Sekolah (Khusus SD IT Al-Afiyah) */}
+      {school.slug === 'sd' && (
+        <PrincipalGreetingSection schoolSlug={school.slug} />
+      )}
 
       {/* Pengumuman & Brosur Resmi SPMB (Khusus & Dapat Diunduh) */}
       <section id="pengumuman" className="py-16 sm:py-20 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
@@ -917,6 +928,15 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           </ScrollReveal>
         </div>
       </section>
+
+      {/* Alur SPMB 4 Langkah Visual Roadmap (Khusus SD IT Al-Afiyah) */}
+      {school.slug === 'sd' && (
+        <SpmbRoadmapSection
+          registrationFee={school.registrationFee}
+          waCenterPhone={school.waCenterPhone}
+          ppdbUrl={ppdbUrl}
+        />
+      )}
 
       {/* 3 Core Values (Pilar Karakter Islami SD IT Al-Afiyah): Modern Minimalist */}
       <section id="values" className="relative py-20 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">

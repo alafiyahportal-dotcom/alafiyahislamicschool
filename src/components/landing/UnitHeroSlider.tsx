@@ -31,6 +31,7 @@ interface UnitHeroSliderProps {
   registrationFee?: number;
   waCenterPhone: string;
   customSlides?: UnitSlideData[];
+  statsCards?: React.ReactNode;
 }
 
 function renderHeroHeadline(
@@ -171,7 +172,8 @@ export default function UnitHeroSlider({
   badgeText,
   registrationFee = 250000,
   waCenterPhone,
-  customSlides
+  customSlides,
+  statsCards
 }: UnitHeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -336,8 +338,12 @@ export default function UnitHeroSlider({
 
   return (
     <section
-      className="relative bg-slate-950 text-white overflow-hidden select-none w-full min-h-[660px] sm:min-h-[700px] lg:min-h-[740px] flex-shrink-0 flex flex-col justify-start"
-      style={{ minHeight: '680px' }}
+      className={`relative bg-slate-950 text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col ${
+        statsCards
+          ? 'min-h-[100dvh] lg:min-h-[820px] justify-between'
+          : 'min-h-[660px] sm:min-h-[700px] lg:min-h-[740px] justify-start'
+      }`}
+      style={{ minHeight: statsCards ? '100dvh' : '680px' }}
     >
       {/* Background Slides with Ken Burns Zoom & Smooth Seamless Crossfade */}
       {slides.map((s, idx) => {
@@ -364,7 +370,7 @@ export default function UnitHeroSlider({
             </div>
             {/* Multi-Layer Cinematic Contrast Gradient */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/40 z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/45 z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30 z-10 pointer-events-none" />
             {/* Subtle Unit Theme Ambient Glow */}
             <div
               className={`absolute top-1/4 left-10 w-96 h-96 ${themeConfig.glowColor} rounded-full blur-3xl pointer-events-none z-10`}
@@ -375,7 +381,9 @@ export default function UnitHeroSlider({
 
       {/* Main Content Container with Zero-Jeda Smooth Crossfade & Header Clearance */}
       <div
-        className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20 lg:pb-24 w-full flex flex-col justify-start"
+        className={`relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-start ${
+          statsCards ? 'pb-6 sm:pb-8' : 'pb-16 sm:pb-20 lg:pb-24'
+        }`}
         style={{ paddingTop: 'clamp(108px, 14vh, 140px)' }}
       >
         {isAllSameContent ? (
@@ -415,6 +423,13 @@ export default function UnitHeroSlider({
           </div>
         )}
       </div>
+
+      {/* Hero Bottom Highlight Cards nested inside the banner */}
+      {statsCards && (
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-4">
+          {statsCards}
+        </div>
+      )}
     </section>
   );
 }
