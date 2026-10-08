@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function GoogleStructuredData() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://alafiyahislamicschool.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.alafiyah.id';
 
   const structuredData = [
     // 1. WebSite Schema with Google Sitelinks Searchbox

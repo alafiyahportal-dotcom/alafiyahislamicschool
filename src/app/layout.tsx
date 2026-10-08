@@ -35,7 +35,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://alafiyahislamicschool.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.alafiyah.id';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
