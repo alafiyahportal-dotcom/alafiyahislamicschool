@@ -9,10 +9,23 @@
 
 export type SchoolSlug = 'tk' | 'sd' | 'smp';
 
-const KNOWN_SLUGS: SchoolSlug[] = ['tk', 'sd', 'smp'];
+export const SUBDOMAIN_TO_SLUG: Record<string, SchoolSlug> = {
+  tk: 'tk',
+  tkit: 'tk',
+  sd: 'sd',
+  sdit: 'sd',
+  smp: 'smp',
+  smpit: 'smp',
+};
+
+export const SLUG_TO_SUBDOMAIN: Record<SchoolSlug, string> = {
+  tk: 'tkit',
+  sd: 'sdit',
+  smp: 'smpit',
+};
 
 /**
- * Parses the subdomain from a hostname (e.g. tk.localhost:3000 -> "tk")
+ * Parses the subdomain from a hostname (e.g. sdit.alafiyah.id -> "sd", tk.alafiyah.id -> "tk")
  */
 export function extractSubdomain(host: string): SchoolSlug | null {
   if (!host) return null;
@@ -27,9 +40,9 @@ export function extractSubdomain(host: string): SchoolSlug | null {
 
   const parts = hostname.split('.');
   if (parts.length >= 2) {
-    const candidate = parts[0] as SchoolSlug;
-    if (KNOWN_SLUGS.includes(candidate)) {
-      return candidate;
+    const candidate = parts[0];
+    if (candidate in SUBDOMAIN_TO_SLUG) {
+      return SUBDOMAIN_TO_SLUG[candidate];
     }
   }
 
@@ -45,7 +58,7 @@ export function getCleanRootDomain(host?: string): string {
   const portSuffix = port ? `:${port}` : '';
 
   const parts = hostname.split('.');
-  if (parts.length >= 2 && KNOWN_SLUGS.includes(parts[0] as SchoolSlug)) {
+  if (parts.length >= 2 && parts[0] in SUBDOMAIN_TO_SLUG) {
     return `${parts.slice(1).join('.')}${portSuffix}`;
   }
 
@@ -82,10 +95,10 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
       return `${protocol}//${currentHost}/${slug}${normalizedPath}`;
     }
 
-    // Get root host (without tk/sd/smp prefix)
+    // Get root host (without prefix)
     let rootHost = currentHost;
     const parts = currentHostname.split('.');
-    if (parts.length >= 2 && KNOWN_SLUGS.includes(parts[0] as SchoolSlug)) {
+    if (parts.length >= 2 && parts[0] in SUBDOMAIN_TO_SLUG) {
       rootHost = `${parts.slice(1).join('.')}${portSuffix}`;
     }
 
@@ -93,7 +106,8 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
       return `${protocol}//${rootHost}${normalizedPath || '/'}`;
     }
 
-    return `${protocol}//${slug}.${rootHost}${normalizedPath || '/'}`;
+    const targetSub = SLUG_TO_SUBDOMAIN[slug] || slug;
+    return `${protocol}//${targetSub}.${rootHost}${normalizedPath || '/'}`;
   }
 
   // Server-side / SSR resolution
@@ -111,5 +125,6 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
     return `${protocol}//${envRoot}${normalizedPath || '/'}`;
   }
 
-  return `${protocol}//${slug}.${envRoot}${normalizedPath || '/'}`;
+  const targetSub = SLUG_TO_SUBDOMAIN[slug] || slug;
+  return `${protocol}//${targetSub}.${envRoot}${normalizedPath || '/'}`;
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { extractSubdomain } from '@/lib/domain';
+import { extractSubdomain, SLUG_TO_SUBDOMAIN } from '@/lib/domain';
+import type { SchoolSlug } from '@/lib/domain';
 import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
 
 // Allowed root domains for redirection protection
@@ -37,16 +38,17 @@ export function proxy(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    // Cross-school navigation (e.g. on tk subdomain clicking /sd or /smp)
+    // Cross-school navigation (e.g. on tkit subdomain clicking /sd or /smp)
     if (pathname === '/tk' || pathname === '/sd' || pathname === '/smp') {
-      const targetSlug = pathname.slice(1);
+      const targetSlug = pathname.slice(1) as SchoolSlug;
+      const targetSub = SLUG_TO_SUBDOMAIN[targetSlug] || targetSlug;
       const url = request.nextUrl.clone();
       const [hostname, port] = host.split(':');
       const portSuffix = port ? `:${port}` : '';
       const parts = hostname.split('.');
       const rootDomain = parts.slice(1).join('.');
       if (ALLOWED_ROOT_HOSTS.some((a) => rootDomain.endsWith(a))) {
-        url.host = `${targetSlug}.${rootDomain}${portSuffix}`;
+        url.host = `${targetSub}.${rootDomain}${portSuffix}`;
         url.pathname = '/';
         return NextResponse.redirect(url);
       }
@@ -59,11 +61,12 @@ export function proxy(request: NextRequest) {
     const isVercel = hostname.endsWith('.vercel.app');
     const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
     if (!isIp && !isVercel && !isLocalhost && (pathname === '/tk' || pathname === '/sd' || pathname === '/smp')) {
-      const targetSlug = pathname.slice(1);
+      const targetSlug = pathname.slice(1) as SchoolSlug;
+      const targetSub = SLUG_TO_SUBDOMAIN[targetSlug] || targetSlug;
       const url = request.nextUrl.clone();
       const [hostNameOnly, port] = host.split(':');
       const portSuffix = port ? `:${port}` : '';
-      url.host = `${targetSlug}.${hostNameOnly}${portSuffix}`;
+      url.host = `${targetSub}.${hostNameOnly}${portSuffix}`;
       url.pathname = '/';
       return NextResponse.redirect(url);
     }
