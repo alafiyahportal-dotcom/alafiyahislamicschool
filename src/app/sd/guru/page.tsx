@@ -23,16 +23,13 @@ export const revalidate = 0; // Selalu ambil data terbaru saat admin mengubah pr
 
 function inferCategory(role: string = '', specialization: string = ''): string {
   const text = `${role} ${specialization}`.toLowerCase();
-  if (text.includes('tahfidz') || text.includes('qur') || text.includes('diniyyah') || text.includes('arab') || text.includes('syariah') || text.includes('agama')) {
-    return 'Tahfidz & Diniyyah';
+  if (text.includes('yayasan') || text.includes('kepala') || text.includes('komite') || text.includes('pimpinan')) {
+    return 'Pimpinan & Komite';
   }
-  if (text.includes('olahraga') || text.includes('futsal') || text.includes('penjas') || text.includes('jasmani') || text.includes('bakat')) {
-    return 'Olahraga & Bakat';
+  if (text.includes('tahfidz') || text.includes('kurikulum') || text.includes('qur') || text.includes('diniyyah') || text.includes('arab') || text.includes('agama')) {
+    return 'Kurikulum & Tahfidz';
   }
-  if (text.includes('sains') || text.includes('alam') || text.includes('outdoor') || text.includes('agro') || text.includes('greenhouse') || text.includes('biofloc') || text.includes('ipa') || text.includes('matematika')) {
-    return 'Sains & Alam';
-  }
-  return 'Manajemen & Kelas';
+  return 'Kesiswaan & Operasional';
 }
 
 function inferDegrees(name: string, fallbackDegree: string = 'Pendidik Resmi'): string {

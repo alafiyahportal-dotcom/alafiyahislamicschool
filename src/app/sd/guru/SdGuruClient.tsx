@@ -27,85 +27,111 @@ export interface TeacherItem {
   category?: string;
 }
 
+function getInitials(name: string): string {
+  const clean = name.split(',')[0].trim();
+  const words = clean.split(/\s+/).filter(Boolean);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+}
+
 const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
-    id: 't-1',
-    name: 'Ustadz H. Ahmad Fauzi, M.Pd.',
-    role: 'Kepala Sekolah SD IT Al-Afiyah',
-    degrees: 'M.Pd.I',
-    specialization: 'Pendidikan Karakter & Manajemen Sekolah',
-    bio: 'Menanamkan adab sebelum ilmu dan mendidik dengan sunnah agar berkah mengiringi langkah tiap murid.',
+    id: 't-sd-1',
+    name: 'Jejen Nurbayan, S.Sos',
+    role: 'Ketua Yayasan',
+    degrees: 'S.Sos',
+    specialization: 'Manajemen Kelembagaan & Kebijakan Yayasan',
+    bio: 'Mengarahkan visi pendidikan terpadu berlandaskan tauhid dan akhlak mulia demi masa depan generasi Qur\'ani.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Manajemen & Kelas'
+    category: 'Pimpinan & Komite'
   },
   {
-    id: 't-2',
-    name: 'Ustadzah Siti Maryam, S.Pd.I, Al-Hafizhah',
-    role: 'Koordinator Tahfidz Al-Qur\'an',
-    degrees: 'S.Pd.I (Hafizhah 30 Juz Mutqin)',
-    specialization: 'Talaqqi Tartil & Tahfidz Juz 30',
-    bio: 'Bimbingan menghafal Al-Qur\'an dengan penuh kehangatan, fashihah makhraj huruf, dan menumbuhkan cinta Qur\'an sejak dini.',
+    id: 't-sd-2',
+    name: 'Febrian Fauzi, S.Pd',
+    role: 'Kepala Sekolah',
+    degrees: 'S.Pd',
+    specialization: 'Kepemimpinan Sekolah & Mutu Pendidikan',
+    bio: 'Mendidik dengan keteladanan dan menanamkan adab sebelum ilmu agar proses belajar anak senantiasa berkah dan membahagiakan.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Tahfidz & Diniyyah'
+    category: 'Pimpinan & Komite'
   },
   {
-    id: 't-3',
-    name: 'Ustadz Ridwan Nugraha, S.Pd.',
-    role: 'Wali Kelas & Guru Pembina Karakter',
-    degrees: 'S.Pd. Pendidikan Dasar',
-    specialization: 'Literasi & Numerasi Kontekstual',
-    bio: 'Membuat proses belajar calistung dan sains terasa ramah, kontekstual, dan membahagiakan bagi ananda.',
+    id: 't-sd-3',
+    name: 'Yayan Herdianto, S.Pd',
+    role: 'Komite Sekolah',
+    degrees: 'S.Pd',
+    specialization: 'Kemitraan Sekolah & Paguyuban Orang Tua',
+    bio: 'Menjembatani komunikasi sinergis antara pihak sekolah dan orang tua murid demi tercapainya lingkungan belajar yang ideal.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Manajemen & Kelas'
+    category: 'Pimpinan & Komite'
   },
   {
-    id: 't-4',
-    name: 'Ustadzah Nurul Hidayah, S.Ag.',
-    role: 'Guru Bahasa Arab & Adab Harian',
-    degrees: 'S.Ag. Pendidikan Bahasa Arab',
-    specialization: 'Bahasa Arab Praktis & Adab Nabawiyah',
-    bio: 'Mengenalkan kosakata Arab harian dan hadits-hadits pilihan dengan lagu dan pembiasaan praktis di kelas.',
+    id: 't-sd-4',
+    name: 'Windi Widayanti, S.Pd',
+    role: 'Kasie Kurikulum',
+    degrees: 'S.Pd',
+    specialization: 'Kurikulum Merdeka & Integrasi Karakter Adab',
+    bio: 'Mengembangkan kurikulum kontekstual yang memadukan capaian akademis nasional dengan penguatan karakter islami.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Tahfidz & Diniyyah'
+    category: 'Kurikulum & Tahfidz'
   },
   {
-    id: 't-5',
-    name: 'Ustadz Bayu Pratama, S.Or.',
-    role: 'Pembina Olahraga & Pelatih Futsal',
-    degrees: 'S.Or. Pendidikan Olahraga',
-    specialization: 'Futsal Prestasi & Kebugaran Jasmani',
-    bio: 'Melatih fisik tangguh, sportivitas islami, dan mental juara (Piala Juara 2 Futsal Pelajar Daerah).',
+    id: 't-sd-5',
+    name: 'Muhammad Rizki, S.Pd',
+    role: 'Koordinator Tahfidz',
+    degrees: 'S.Pd',
+    specialization: 'Talaqqi, Tartil & Tahfidz Al-Qur\'an',
+    bio: 'Membimbing hafalan Al-Qur\'an dengan metode yang ramah, tartil sesuai tajwid, dan menumbuhkan kecintaan pada Al-Qur\'an sejak dini.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Olahraga & Bakat'
+    category: 'Kurikulum & Tahfidz'
   },
   {
-    id: 't-6',
-    name: 'Ustadz Hendra Gunawan, S.Pt.',
-    role: 'Pembina Agro-Sains & Outdoor Learning',
-    degrees: 'S.Pt. / Praktisi P4S An-Nabawiyah',
-    specialization: 'Agro-Literasi, Greenhouse & Biofloc',
-    bio: 'Membimbing murid tadabbur alam semesta, memindahkan bibit sayur ke polybag, dan observasi ekosistem air tawar.',
+    id: 't-sd-6',
+    name: 'Iyan Kusdiana, S.Pd',
+    role: 'Wakasek Kesiswaan',
+    degrees: 'S.Pd',
+    specialization: 'Pembinaan Karakter & Pengembangan Minat Murid',
+    bio: 'Membimbing pembiasaan disiplin, adab harian, dan keaktifan murid dalam berbagai kegiatan ekstrakurikuler positif.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Sains & Alam'
+    category: 'Kesiswaan & Operasional'
   },
+  {
+    id: 't-sd-7',
+    name: 'Moch. Ajat Nurhidayat, S.T',
+    role: 'Tata Usaha Sekolah',
+    degrees: 'S.T',
+    specialization: 'Administrasi Sekolah & Sistem Informasi Akademik',
+    bio: 'Memberikan pelayanan administrasi, kearsipan data pokok, dan operasional layanan sekolah yang tertib serta terpercaya.',
+    imageUrl: '/images/teacher-avatar-placeholder.jpg',
+    category: 'Kesiswaan & Operasional'
+  },
+  {
+    id: 't-sd-8',
+    name: 'Aditya Rahadian, S.TP',
+    role: 'Bendahara',
+    degrees: 'S.TP',
+    specialization: 'Tata Kelola Keuangan & Akuntabilitas Anggaran',
+    bio: 'Menyelenggarakan pencatatan anggaran dan tata kelola keuangan sekolah yang transparan, amanah, dan akuntabel.',
+    imageUrl: '/images/teacher-avatar-placeholder.jpg',
+    category: 'Kesiswaan & Operasional'
+  }
 ];
 
 const CATEGORIES = [
-  'Semua Asatidzah',
-  'Tahfidz & Diniyyah',
-  'Manajemen & Kelas',
-  'Sains & Alam',
-  'Olahraga & Bakat'
+  'Semua Pendidik & Staf',
+  'Pimpinan & Komite',
+  'Kurikulum & Tahfidz',
+  'Kesiswaan & Operasional'
 ];
 
 export default function SdGuruClient({ initialTeachers }: { initialTeachers: TeacherItem[] }) {
-  const [activeCategory, setActiveCategory] = useState<string>('Semua Asatidzah');
+  const [activeCategory, setActiveCategory] = useState<string>('Semua Pendidik & Staf');
 
   const teachersList = initialTeachers && initialTeachers.length > 0
     ? initialTeachers
     : DEFAULT_SD_TEACHERS;
 
-  const filteredTeachers = activeCategory === 'Semua Asatidzah'
+  const filteredTeachers = activeCategory === 'Semua Pendidik & Staf'
     ? teachersList
     : teachersList.filter((t) => t.category === activeCategory);
 
@@ -130,15 +156,15 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
           <div className="max-w-3xl">
             <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <UserCheck className="w-3.5 h-3.5 text-emerald-300" />
-              <span>KOMPETENSI &amp; DEDIKASI PENDIDIK</span>
+              <span>STRUKTUR PIMPINAN &amp; TENAGA KEPENDIDIKAN</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dewan Guru &amp; Asatidzah SD IT Al-Afiyah
+              Dewan Guru &amp; Tenaga Pendidik SD IT Al-Afiyah
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Para asatidzah hafizh Qur&apos;an dan tenaga pendidik profesional yang mengabdi dengan keteladanan sunnah, mendampingi proses tumbuh kembang ananda dengan kesabaran dan cinta kasih.
+              Struktur pimpinan yayasan, kepala sekolah, komite, dewan asatidzah, dan staf kependidikan yang mengabdi dengan keteladanan sunnah, mendampingi proses tumbuh kembang ananda dengan adab dan profesionalisme.
             </p>
           </div>
         </div>
@@ -177,7 +203,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
               >
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-16 h-16 rounded-2xl bg-emerald-100/80 border border-emerald-300/60 flex items-center justify-center text-emerald-800 font-bold text-xl shrink-0 overflow-hidden">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200/90 border border-emerald-300/70 flex items-center justify-center text-emerald-800 font-extrabold text-base tracking-wider shrink-0 overflow-hidden shadow-inner">
                       {teacher.imageUrl && teacher.imageUrl.includes('/') && !teacher.imageUrl.includes('placeholder') ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -186,7 +212,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <span>{teacher.name.charAt(0) || 'U'}</span>
+                        <span>{getInitials(teacher.name)}</span>
                       )}
                     </div>
                     <div>
@@ -221,9 +247,9 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
                   <span className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Tenaga Pendidik SD IT</span>
+                    <span>SD IT Al-Afiyah</span>
                   </span>
-                  <span>Al-Afiyah</span>
+                  <span className="text-slate-400 font-normal">Majalengka</span>
                 </div>
               </div>
             ))}
