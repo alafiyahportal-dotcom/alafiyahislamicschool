@@ -1068,11 +1068,14 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             <div className="mt-10 text-center">
               <Link
                 href="/sd/program"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center leading-snug"
               >
-                <BookOpen className="w-4 h-4 text-[#00A651]" />
-                <span>Buka Halaman Khusus 10 Program Unggulan &amp; Kurikulum SD IT</span>
-                <ArrowRight className="w-4 h-4 text-emerald-700" />
+                <BookOpen className="w-4 h-4 text-[#00A651] shrink-0" />
+                <span>
+                  Buka Halaman Khusus 10 Program Unggulan <br className="hidden sm:inline" />
+                  &amp; Kurikulum SD&nbsp;IT
+                </span>
+                <ArrowRight className="w-4 h-4 text-emerald-700 shrink-0" />
               </Link>
             </div>
           )}

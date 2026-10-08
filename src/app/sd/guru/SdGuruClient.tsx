@@ -159,8 +159,9 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
               <span>STRUKTUR PIMPINAN &amp; TENAGA KEPENDIDIKAN</span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dewan Guru &amp; Tenaga Pendidik SD IT Al-Afiyah
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
+              Dewan Guru &amp; Tenaga Pendidik <br className="hidden sm:inline" />
+              SD&nbsp;IT Al-Afiyah
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">

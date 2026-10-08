@@ -182,8 +182,9 @@ export default async function SdSpmbInfoPage() {
           <span className="text-[11px] font-bold uppercase tracking-wider text-[#00A651] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
             Tahapan Pendaftaran
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
-            4 Langkah Mudah Menjadi Murid SD IT Al-Afiyah
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 text-balance leading-snug">
+            4 Langkah Mudah Menjadi Murid <br className="hidden sm:inline" />
+            SD&nbsp;IT Al-Afiyah
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2">
             Proses terintegrasi secara digital, transparan, dan memudahkan orang tua calon murid.
@@ -299,8 +300,8 @@ export default async function SdSpmbInfoPage() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#00A651] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
                   Persyaratan Calon Murid
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
-                  Syarat Masuk SD IT Al-Afiyah
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 text-balance leading-snug">
+                  Syarat Masuk SD&nbsp;IT Al-Afiyah
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
                   Kami menerapkan kriteria yang memastikan kenyamanan belajar dan kesiapan psikologis anak dalam mengikuti kurikulum terpadu nasional dan kepesantrenan.

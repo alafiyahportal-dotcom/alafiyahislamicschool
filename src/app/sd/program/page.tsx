@@ -160,8 +160,9 @@ export default async function SdProgramPage() {
                 <span>10 PROGRAM UNGGULAN SD IT</span>
               </div>
 
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Program Unggulan &amp; Kurikulum Terpadu SD IT
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
+                Program Unggulan &amp; Kurikulum Terpadu <br className="hidden sm:inline" />
+                SD&nbsp;IT Al-Afiyah
               </h1>
 
               <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
@@ -207,8 +208,9 @@ export default async function SdProgramPage() {
               <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
                 Pilar Karakter &amp; Pembelajaran
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
-                10 Program Unggulan SD IT Al-Afiyah
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 text-balance leading-snug">
+                10 Program Unggulan <br className="hidden sm:inline" />
+                SD&nbsp;IT Al-Afiyah
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 Bukan sekadar tempat belajar, namun juga tempat bertumbuh dengan cinta dan iman.

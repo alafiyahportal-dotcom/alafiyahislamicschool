@@ -220,8 +220,9 @@ export default async function SdProfilPage() {
                 <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
                   Selayang Pandang &amp; Naungan
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                  Mengenal Lebih Dekat SD IT Al-Afiyah Majalengka
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight text-balance leading-snug">
+                  Mengenal Lebih Dekat <br className="hidden sm:inline" />
+                  SD&nbsp;IT Al-Afiyah Majalengka
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                   <strong>SD IT Al-Afiyah</strong> adalah sekolah formal yang berada di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong>. SD IT Al-Afiyah juga merupakan <strong>sekolah imbas dari 7 sekolah lainnya di Gugus 3 Nusa Indah</strong> yang ada di Kecamatan Majalengka, Kabupaten Majalengka.

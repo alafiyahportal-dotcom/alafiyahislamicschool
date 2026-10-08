@@ -189,7 +189,7 @@ export default async function SdKarakterPage() {
                 <span>NILAI UTAMA &amp; CHARACTER BUILDING</span>
               </div>
 
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
                 {headline}
               </h1>
 
@@ -266,8 +266,9 @@ export default async function SdKarakterPage() {
               <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                 Target Capaian Pribadi Murid
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
-                7 Karakter Profil Murid SD IT Al-Afiyah
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5 text-balance leading-snug">
+                7 Karakter Profil Murid <br className="hidden sm:inline" />
+                SD&nbsp;IT Al-Afiyah
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-2">
                 Standar kompetensi karakter lulusan yang dibina melalui bimbingan asatidzah setiap hari.
