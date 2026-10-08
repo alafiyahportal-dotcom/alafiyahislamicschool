@@ -183,13 +183,90 @@ async function main() {
     waveName: 'Gelombang 1 (T.A. 2027/2028)'
   };
 
+  // 7. SD Karakter
+  const sdKarakterData = {
+    heroHeadline: 'Pilar Karakter & Nilai Islami SD IT Al-Afiyah',
+    heroDescription: 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.',
+    threePillars: [
+      {
+        number: '01',
+        title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
+        tagline: 'Iman Sebelum Al-Qur\'an • Adab Sebelum Ilmu',
+        desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlaq mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
+        points: [
+          'Pembiasaan shalat berjamaah fardhu dan adab di masjid',
+          'Pelatihan muhadharah & da\'i cilik berani tampil',
+          'Keteladanan adab birrul walidain kepada orang tua dan guru'
+        ]
+      },
+      {
+        number: '02',
+        title: 'Smart, Literasi & Tahfidz Al-Qur\'an',
+        tagline: 'Fashihah Bacaan • Mutqin Hafalan • Logika Tajam',
+        desc: 'Pembelajaran terpadu yang memadukan kurikulum nasional dan penguatan literasi numerasi modern dengan bimbingan tahfidz Al-Qur\'an Juz 30 mutqin. Menggunakan metode talaqqi tartil yang ramah anak dan membahagiakan murid.',
+        points: [
+          'Target kelulusan Tahfidz Juz 30 Mutqin',
+          'Basic literasi, numerasi kontekstual, dan logika sains',
+          'Suasana kelas multimedia yang asri, hangat, dan menyenangkan'
+        ]
+      },
+      {
+        number: '03',
+        title: 'Outdoor Learning & Pelatihan Kemandirian',
+        tagline: 'Agro-Sains Kontekstual • Tangguh & Berwawasan Alam',
+        desc: 'Eksplorasi kontekstual di alam terbuka dan greenhouse bambu P4S An-Nabawiyah. Murid mempraktikkan langsung budidaya perikanan biofloc, semai bibit sayur, pemetaan bakat pribadi (talent mapping), serta pembinaan karakter mandiri menyambut fase aqil-baligh.',
+        points: [
+          'Field study edukasi pertanian & perikanan di P4S An-Nabawiyah',
+          'Pelatihan kemandirian praktis menyambut fase aqil-baligh',
+          'Penyaluran minat bakat (Futsal juara 2, pidato, seni islami)'
+        ]
+      }
+    ],
+    sevenHabits: [
+      { title: 'Salimul Aqidah', sub: 'Aqidah yang Bersih & Lurus', desc: 'Menanamkan tauhidullah murni sejak dini, mencintai Allah dan Rasul-Nya di atas segalanya.' },
+      { title: 'Shahihul Ibadah', sub: 'Ibadah yang Benar Sesuai Sunnah', desc: 'Membimbing tata cara wudhu, shalat berjamaah, dan doa harian sesuai tuntunan Rasulullah ﷺ.' },
+      { title: 'Matinul Khuluq', sub: 'Akhlak yang Kokoh & Santun', desc: 'Beradab kepada orang tua, menghormati ustadz/ustadzah, serta berkasih sayang kepada sesama.' },
+      { title: 'Qadirun \'alal Kasbi', sub: 'Mandiri & Terampil', desc: 'Mampu merapikan perlengkapan sendiri, berjiwa wirausaha islami, dan tidak bergantung pada orang lain.' },
+      { title: 'Mutsaqqoful Fikri', sub: 'Cerdas & Berwawasan Luas', desc: 'Gemar membaca buku, bernalar kritis dalam sains, serta fasih dalam literasi kontekstual.' },
+      { title: 'Qawiyyul Jismi', sub: 'Jasmani yang Sehat & Tangguh', desc: 'Menjaga kebersihan fisik, pola makan halal-thayyib, dan aktif berolahraga (futsal & beladiri).' },
+      { title: 'Nafi\'un Lighairihi', sub: 'Bermanfaat Bagi Sesama', desc: 'Suka menolong teman, berinfak sedekah subuh, dan menyebarkan kebaikan di lingkungan sekitar.' }
+    ]
+  };
+
+  // 8. SD Profil
+  const sdProfilData = {
+    visiText: 'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlaq mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.',
+    misiList: [
+      'Menumbuhkan nilai-nilai tauhid dalam seluruh aspek pembelajaran dan pembiasaan.',
+      'Mengajarkan aqidah dan ibadah yang sohihah sesuai dengan Al-Qur’an dan As-Sunnah sesuai dengan pemahaman salafus sholih.',
+      'Membiasakan anak dengan akhlak Islami dalam keseharian.',
+      'Mendidik anak agar kreatif dan inovatif.',
+      'Menanamkan rasa cinta yang mendalam kepada Allah ﷻ dan Rasul-Nya ﷺ.',
+      'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.'
+    ],
+    identitasList: [
+      { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
+      { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
+      { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
+      { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },
+      { label: 'Kurikulum Pembelajaran', value: 'Perpaduan Kurikulum Diknas (K-13) & Kurikulum Yayasan berpijak pada Iman dan Taqwa' },
+      { label: 'Program Unggulan', value: 'Tahsin dan Tahfidz Al-Qur\'an' },
+      { label: 'Jenjang Pendidikan', value: 'Sekolah Dasar Islam Terpadu (Kelas 1 - 6)' },
+      { label: 'Alamat Sekolah', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411' },
+      { label: 'Telepon / WhatsApp', value: '0813-1013-9001 (Layanan Terpadu Tata Usaha & SPMB)' },
+      { label: 'Email Resmi', value: 'sditalafiyahmjl@gmail.com' }
+    ]
+  };
+
   const sectionsToSync = [
     { key: 'identity', payload: JSON.stringify(identityData) },
     { key: 'stats', payload: JSON.stringify(statsData) },
     { key: 'values', payload: JSON.stringify(valuesData) },
     { key: 'programs', payload: JSON.stringify(programsData) },
     { key: 'facilities', payload: JSON.stringify(facilitiesData) },
-    { key: 'tuition', payload: JSON.stringify(tuitionData) }
+    { key: 'tuition', payload: JSON.stringify(tuitionData) },
+    { key: 'sd_karakter', payload: JSON.stringify(sdKarakterData) },
+    { key: 'sd_profil', payload: JSON.stringify(sdProfilData) }
   ];
 
   for (const item of sectionsToSync) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { prisma } from '@/lib/prisma';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
-import CMSEditorClient, { CMSInitialData } from '@/components/admin/CMSEditorClient';
+import CMSEditorClient, { CMSInitialData, DEFAULT_SD_KARAKTER, DEFAULT_SD_PROFIL } from '@/components/admin/CMSEditorClient';
 import { notFound } from 'next/navigation';
 import { getSession } from '@/lib/session';
 
@@ -517,8 +517,8 @@ export default async function SchoolCMSEditorPage({
     tuition: tuitionPayload,
     affiliate: (sectionsMap.affiliate as any) || undefined,
     presetImages: (sectionsMap.preset_images as any) || undefined,
-    sdKarakter: (sectionsMap.sd_karakter as any) || undefined,
-    sdProfil: (sectionsMap.sd_profil as any) || undefined
+    sdKarakter: (sectionsMap.sd_karakter as any) || (schoolSlug === 'sd' ? DEFAULT_SD_KARAKTER : undefined),
+    sdProfil: (sectionsMap.sd_profil as any) || (schoolSlug === 'sd' ? DEFAULT_SD_PROFIL : undefined)
   };
 
   const session = await getSession();

@@ -36,7 +36,16 @@ import {
   X,
   Share2,
   HeartHandshake,
-  Building2
+  Building2,
+  Compass,
+  Sparkles,
+  ArrowRight,
+  Sun,
+  CreditCard,
+  Tag,
+  Percent,
+  MessageCircle,
+  FileText
 } from 'lucide-react';
 import { UnitSlideData } from '@/components/landing/UnitHeroSlider';
 import { compressImageClient } from '@/lib/image-compress';
@@ -1072,7 +1081,7 @@ export default function CMSEditorClient({
               <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
               <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
               <span className="text-xs font-mono text-slate-300 ml-2">
-                Pratinjau: {publicUrl} — {activeTab === 'hero' ? 'Hero Banner' : activeTab === 'identity' ? 'Profil & Kontak' : activeTab === 'stats' ? 'Counter Statistik' : activeTab === 'values' ? 'Nilai Keunggulan' : activeTab === 'programs' ? 'Program Pilihan' : activeTab === 'facilities' ? 'Fasilitas Sekolah' : activeTab === 'testimonials' ? 'Testimoni Wali Murid' : 'Biaya PPDB'}
+                Pratinjau: {publicUrl} — {activeTab === 'hero' ? 'Hero Banner' : activeTab === 'identity' ? 'Profil & Kontak' : activeTab === 'stats' ? 'Counter Statistik' : activeTab === 'values' ? 'Nilai Keunggulan' : activeTab === 'programs' ? 'Program Pilihan' : activeTab === 'facilities' ? 'Fasilitas Sekolah' : activeTab === 'testimonials' ? 'Testimoni Wali Murid' : activeTab === 'tuition' ? 'Biaya PPDB' : activeTab === 'affiliate' ? 'Kemitraan Afiliasi' : activeTab === 'sd_karakter' ? 'Pilar Karakter & Nilai Islami SD IT' : activeTab === 'sd_profil' ? 'Profil, Visi Misi & Legalitas SD IT' : 'Pratinjau'}
               </span>
             </div>
             <span className="text-[11px] font-bold bg-white/10 px-2.5 py-1 rounded text-emerald-400">Live Interactive</span>
@@ -1082,7 +1091,7 @@ export default function CMSEditorClient({
           {activeTab === 'hero' && (
             <div className="relative bg-slate-950 text-white min-h-[480px] sm:min-h-[520px] flex items-center p-6 sm:p-12 overflow-hidden select-none">
               <div className="absolute inset-0 z-0">
-                <Image src={currentSlide.image || '/images/arc-tahfidz.jpg'} alt="Banner Preview" fill sizes="(max-width: 768px) 100vw, 1200px" className="w-full h-full object-cover opacity-35 scale-105 transition-all duration-1000" />
+                <Image src={currentSlide.image || (schoolSlug === 'sd' ? '/images/sd-hero-greenhouse.jpg' : '/images/arc-tahfidz.jpg')} alt="Banner Preview" fill sizes="(max-width: 768px) 100vw, 1200px" className="w-full h-full object-cover opacity-35 scale-105 transition-all duration-1000" />
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
               </div>
               <div className="relative z-10 max-w-2xl space-y-4">
@@ -1101,7 +1110,7 @@ export default function CMSEditorClient({
                       Namun Juga
                     </span>
                     <span className="block text-2xl sm:text-4xl font-extrabold text-[#00A651] leading-tight drop-shadow">
-                      {currentSlide.titleHighlight || 'Tempat Bertumbuh'}
+                      {currentSlide.titleHighlight || 'Tempat Bertumbuh 🌱'}
                     </span>
                   </div>
                 ) : (
@@ -1114,10 +1123,12 @@ export default function CMSEditorClient({
                 )}
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">{currentSlide.description}</p>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <span className="px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs shadow-lg inline-flex items-center space-x-1.5">
-                    <span>{currentSlide.primaryCtaText}</span><ChevronRight className="w-4 h-4" />
+                  <span className={`px-5 py-2.5 rounded-xl font-extrabold text-xs shadow-lg inline-flex items-center space-x-1.5 ${schoolSlug === 'sd' ? 'bg-[#00A651] text-white hover:bg-[#008f45]' : 'bg-amber-500 text-slate-950'}`}>
+                    <span>{currentSlide.primaryCtaText || (schoolSlug === 'sd' ? 'Daftar SPMB SD IT Online' : 'Daftar Sekarang')}</span><ChevronRight className="w-4 h-4" />
                   </span>
-                  <span className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-xs">{currentSlide.secondaryCtaText}</span>
+                  <span className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-xs">
+                    {currentSlide.secondaryCtaText || (schoolSlug === 'sd' ? 'WhatsApp Panitia SPMB' : 'Konsultasi')}
+                  </span>
                 </div>
                 {currentSlide.trustItems && currentSlide.trustItems.length > 0 && (
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-4 border-t border-white/15">
@@ -1184,42 +1195,135 @@ export default function CMSEditorClient({
 
           {/* === TAB 3: STATS COUNTER PREVIEW === */}
           {activeTab === 'stats' && (
-            <div className="p-6 sm:p-10 bg-slate-50 min-h-[280px] flex items-center justify-center">
-              <div className="w-full max-w-3xl bg-gradient-to-r from-[#071D1A] via-[#0D3330] to-[#184F48] rounded-2xl p-6 sm:p-8">
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  {(formData.stats || []).map((st, i) => (
-                    <div key={i} className="text-center space-y-1">
-                      <p className="text-2xl sm:text-3xl font-black text-amber-400">{st.value}</p>
-                      <p className="text-[11px] font-bold text-emerald-300 leading-tight">{st.label}</p>
-                    </div>
-                  ))}
+            schoolSlug === 'sd' ? (
+              <div className="p-6 sm:p-10 bg-neutral-50 min-h-[300px]">
+                <div className="max-w-4xl mx-auto">
+                  <div className="text-center mb-6">
+                    <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs">
+                      Bento Grid Statistik &amp; Keunggulan SD IT (Tampilan Website /sd)
+                    </span>
+                  </div>
+                  <ul className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    {(formData.stats || []).map((stat, idx) => {
+                      const icons = [
+                        <Users key="users" className="w-4 h-4 text-emerald-600 shrink-0" />,
+                        <Compass key="comp" className="w-4 h-4 text-emerald-600 shrink-0" />,
+                        <Award key="award" className="w-4 h-4 text-emerald-600 shrink-0" />,
+                        <BookOpen key="book" className="w-4 h-4 text-emerald-600 shrink-0" />
+                      ];
+                      const subtexts = [
+                        'Fasilitas & Pendampingan',
+                        'Pertanian & Perikanan',
+                        'Futsal & Da\'i Cilik',
+                        'Kurikulum Terpadu'
+                      ];
+                      return (
+                        <li
+                          key={idx}
+                          className="bg-white rounded-2xl border border-neutral-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-3.5 sm:p-5 transition-all duration-200 hover:border-neutral-300"
+                        >
+                          <p className="flex items-start gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-neutral-500 leading-tight">
+                            <span className="mt-px">{icons[idx % icons.length]}</span>
+                            <span>{stat.label}</span>
+                          </p>
+                          <p className="mt-1.5 text-base sm:text-lg font-bold text-neutral-900 leading-snug">
+                            {stat.value}
+                          </p>
+                          <p className="mt-1 text-[11px] text-neutral-400 line-clamp-1">
+                            {(stat as any).subtext || subtexts[idx % subtexts.length]}
+                          </p>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-6 sm:p-10 bg-slate-50 min-h-[280px] flex items-center justify-center">
+                <div className="w-full max-w-3xl bg-gradient-to-r from-[#071D1A] via-[#0D3330] to-[#184F48] rounded-2xl p-6 sm:p-8">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {(formData.stats || []).map((st, i) => (
+                      <div key={i} className="text-center space-y-1">
+                        <p className="text-2xl sm:text-3xl font-black text-amber-400">{st.value}</p>
+                        <p className="text-[11px] font-bold text-emerald-300 leading-tight">{st.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )
           )}
 
           {/* === TAB 4: VALUES PREVIEW === */}
           {activeTab === 'values' && (
-            <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px]">
-              <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Pilar Nilai & Keunggulan</p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-                {(formData.values || []).map((val, i) => (
-                  <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs text-center space-y-2">
-                    <div className="w-10 h-10 rounded-xl bg-[#E8F3F1] mx-auto flex items-center justify-center">
-                      <GraduationCap className="w-5 h-5 text-[#184F48]" />
+            schoolSlug === 'sd' ? (
+              <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px]">
+                <div className="text-center max-w-2xl mx-auto mb-8">
+                  <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs mb-2">
+                    Nilai Utama &amp; Character Building
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                    Tiga Pilar Karakter SD IT Al-Afiyah
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-2 max-w-xl mx-auto leading-relaxed">
+                    Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur&apos;an.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+                  {(formData.values || []).map((val, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-3xl p-6 bg-white border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between"
+                    >
+                      <div className="pb-4">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className={idx === 0 ? 'text-emerald-700' : idx === 1 ? 'text-amber-700' : 'text-teal-700'}>
+                            {idx === 0 ? <HeartHandshake className="w-7 h-7" /> : idx === 1 ? <BookOpen className="w-7 h-7" /> : <GraduationCap className="w-7 h-7" />}
+                          </div>
+                          <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border shadow-2xs ${idx === 0 ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : idx === 1 ? 'bg-amber-50 text-amber-800 border-amber-200' : 'bg-teal-50 text-teal-800 border-teal-200'}`}>
+                            Pilar 0{idx + 1}
+                          </span>
+                        </div>
+                        <h4 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                          {val.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                          {val.description}
+                        </p>
+                      </div>
+                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                          <span>Prinsip Smart Akhlaq Fitrah</span>
+                        </span>
+                        <ArrowRight className="w-3.5 h-3.5 text-emerald-700" />
+                      </div>
                     </div>
-                    <p className="text-sm font-bold text-slate-900">{val.title}</p>
-                    <p className="text-xs text-slate-500 leading-relaxed">{val.description}</p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px]">
+                <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Pilar Nilai &amp; Keunggulan</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                  {(formData.values || []).map((val, i) => (
+                    <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs text-center space-y-2">
+                      <div className="w-10 h-10 rounded-xl bg-[#E8F3F1] mx-auto flex items-center justify-center">
+                        <GraduationCap className="w-5 h-5 text-[#184F48]" />
+                      </div>
+                      <p className="text-sm font-bold text-slate-900">{val.title}</p>
+                      <p className="text-xs text-slate-500 leading-relaxed">{val.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
           )}
 
           {/* === TAB 5: PROGRAMS PREVIEW === */}
           {activeTab === 'programs' && (
             <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px]">
-              <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Program Pilihan & Unggulan</p>
+              <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Program Pilihan &amp; Unggulan</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 {(formData.programs || []).map((prog, i) => (
                   <div key={i} className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex items-start gap-3">
@@ -1240,7 +1344,7 @@ export default function CMSEditorClient({
           {/* === TAB 6: FACILITIES PREVIEW === */}
           {activeTab === 'facilities' && (
             <div className="p-6 sm:p-10 bg-slate-50 min-h-[400px]">
-              <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Galeri Fasilitas & Sarana Sekolah</p>
+              <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Galeri Fasilitas &amp; Sarana Sekolah</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 {(formData.facilities || []).map((fac, i) => (
                   <div key={i} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
@@ -1260,7 +1364,7 @@ export default function CMSEditorClient({
           {/* === TAB 7: TESTIMONIALS PREVIEW === */}
           {activeTab === 'testimonials' && (
             <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px]">
-              <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Testimoni Orang Tua & Wali Murid</p>
+              <p className="text-xs font-bold text-center text-slate-400 uppercase tracking-widest mb-6">Testimoni Orang Tua &amp; Wali Murid</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 {(formData.testimonials || []).map((t, i) => (
                   <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
@@ -1280,33 +1384,126 @@ export default function CMSEditorClient({
 
           {/* === TAB 8: TUITION PREVIEW === */}
           {activeTab === 'tuition' && (
-            <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px] flex items-center justify-center">
-              <div className="w-full max-w-sm bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-                <div className="bg-[#184F48] text-white p-4 text-center">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-300">{formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}</p>
-                  <p className="text-lg font-black mt-0.5">Rincian Biaya PPDB</p>
-                  <p className="text-xs text-emerald-200">{schoolName}</p>
-                </div>
-                <div className="p-5 space-y-3 text-sm">
-                  {[
-                    { label: 'Biaya Formulir Pendaftaran', value: formData.tuition.registrationFee },
-                    { label: 'SPP Bulanan', value: formData.tuition.monthlyTuition },
-                    { label: 'Uang Pengembangan (Pangkal)', value: formData.tuition.developmentFee },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
-                      <span className="text-xs text-slate-600">{item.label}</span>
-                      <span className="text-xs font-black text-[#184F48]">
-                        Rp {(item.value || 0).toLocaleString('id-ID')}
-                      </span>
+            schoolSlug === 'sd' ? (
+              <div className="p-6 sm:p-10 bg-slate-50 min-h-[400px]">
+                <div className="max-w-4xl mx-auto space-y-6">
+                  <div className="text-center">
+                    <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#00A651]" />
+                      <span>Rincian Investasi &amp; Rekening Resmi SPMB SD IT T.A. 2027/2028</span>
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    {/* Left: SPMB Poster Box */}
+                    <div className="lg:col-span-5 flex flex-col items-center">
+                      <div className="relative group rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-white max-w-xs w-full">
+                        <img
+                          src="/images/sd-spmb-story.jpg"
+                          alt="Poster SPMB SD IT Al-Afiyah"
+                          className="w-full h-auto object-cover max-h-[380px]"
+                        />
+                        <div className="p-3 text-center bg-slate-900 text-white text-[11px] font-bold">
+                          Story SPMB Resmi SD IT 2027/2028
+                        </div>
+                      </div>
                     </div>
-                  ))}
-                  <div className="bg-[#E8F3F1] rounded-xl p-3 flex items-center justify-between mt-2">
-                    <span className="text-xs font-bold text-[#184F48]">Sisa Kuota</span>
-                    <span className="text-xl font-black text-[#184F48]">{formData.tuition.quota ?? 60} murid</span>
+                    {/* Right: Bank Muamalat & Fees */}
+                    <div className="lg:col-span-7 space-y-4">
+                      {/* Bank Card */}
+                      <div className="rounded-2xl p-5 text-white shadow-md relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 border border-emerald-600/40">
+                        <div className="flex items-center justify-between pb-3 border-b border-white/15">
+                          <div className="flex items-center gap-2">
+                            <CreditCard className="w-4 h-4 text-amber-300" />
+                            <span className="text-[11px] font-bold tracking-wider uppercase text-emerald-100">
+                              Rekening Resmi Pembayaran SPMB
+                            </span>
+                          </div>
+                          <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-amber-400 text-slate-950 uppercase">
+                            Terverifikasi
+                          </span>
+                        </div>
+                        <div className="py-4 space-y-2">
+                          <span className="text-[10px] text-emerald-200 block uppercase font-medium">Bank Penerima:</span>
+                          <h4 className="text-lg font-black text-white">Bank Muamalat</h4>
+                          <div className="bg-black/25 p-3 rounded-xl border border-white/15 flex items-center justify-between">
+                            <div>
+                              <span className="text-[9px] text-emerald-200 block font-medium uppercase">Nomor Rekening:</span>
+                              <span className="text-xl font-black font-mono text-amber-300">1360012405</span>
+                            </div>
+                            <span className="text-xs font-bold text-white/90">A.n SMP / SD IT Al Afiyah</span>
+                          </div>
+                        </div>
+                        <p className="text-[10px] text-emerald-100/80 pt-2 border-t border-white/15">
+                          Seluruh pembayaran formulir pendaftaran dan daftar ulang SPMB hanya disalurkan melalui rekening resmi di atas.
+                        </p>
+                      </div>
+
+                      {/* Tuition Breakdown Card */}
+                      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
+                        <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                          <span className="text-xs font-bold text-slate-900">{formData.tuition.waveName || 'Gelombang 1 (T.A. 2027/2028)'}</span>
+                          <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                            Sisa Kuota: {formData.tuition.quota ?? 60} murid
+                          </span>
+                        </div>
+                        <div className="space-y-2 text-xs">
+                          <div className="flex justify-between py-1 border-b border-slate-100">
+                            <span className="text-slate-600">Biaya Formulir Pendaftaran</span>
+                            <span className="font-bold text-slate-900">Rp {(formData.tuition.registrationFee || 250000).toLocaleString('id-ID')}</span>
+                          </div>
+                          <div className="flex justify-between py-1 border-b border-slate-100">
+                            <span className="text-slate-600">SPP Bulanan</span>
+                            <span className="font-bold text-slate-900">Rp {(formData.tuition.monthlyTuition || 450000).toLocaleString('id-ID')}</span>
+                          </div>
+                          <div className="flex justify-between py-1 border-b border-slate-100">
+                            <span className="text-slate-600">Uang Pengembangan (Pangkal)</span>
+                            <span className="font-bold text-slate-900">Rp {(formData.tuition.developmentFee || 3500000).toLocaleString('id-ID')}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 pt-2">
+                          <span className="px-4 py-2.5 rounded-xl bg-[#00A651] text-white font-bold text-xs shadow-xs inline-flex items-center gap-1.5">
+                            <span>Daftar SPMB SD IT Online</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
+                          <span className="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs inline-flex items-center gap-1.5">
+                            <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                            <span>WhatsApp Panitia SPMB</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px] flex items-center justify-center">
+                <div className="w-full max-w-sm bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+                  <div className="bg-[#184F48] text-white p-4 text-center">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-300">{formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}</p>
+                    <p className="text-lg font-black mt-0.5">Rincian Biaya PPDB</p>
+                    <p className="text-xs text-emerald-200">{schoolName}</p>
+                  </div>
+                  <div className="p-5 space-y-3 text-sm">
+                    {[
+                      { label: 'Biaya Formulir Pendaftaran', value: formData.tuition.registrationFee },
+                      { label: 'SPP Bulanan', value: formData.tuition.monthlyTuition },
+                      { label: 'Uang Pengembangan (Pangkal)', value: formData.tuition.developmentFee },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                        <span className="text-xs text-slate-600">{item.label}</span>
+                        <span className="text-xs font-black text-[#184F48]">
+                          Rp {(item.value || 0).toLocaleString('id-ID')}
+                        </span>
+                      </div>
+                    ))}
+                    <div className="bg-[#E8F3F1] rounded-xl p-3 flex items-center justify-between mt-2">
+                      <span className="text-xs font-bold text-[#184F48]">Sisa Kuota</span>
+                      <span className="text-xl font-black text-[#184F48]">{formData.tuition.quota ?? 60} murid</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
           )}
 
           {/* === TAB 9: AFFILIATE PREVIEW === */}
@@ -1327,6 +1524,187 @@ export default function CMSEditorClient({
                   <span>Buka Halaman /affiliate di Tab Baru</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
+              </div>
+            </div>
+          )}
+
+          {/* === TAB 9 (SD): SD KARAKTER & 7 HABITS PREVIEW === */}
+          {activeTab === 'sd_karakter' && (
+            <div className="p-6 sm:p-10 bg-slate-50 min-h-[500px] space-y-8">
+              {/* Hero Banner Header */}
+              <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-3xl p-6 sm:p-8 text-center space-y-3 shadow-md relative overflow-hidden">
+                <span className="text-xs font-bold text-emerald-950 uppercase tracking-widest bg-amber-400 px-3.5 py-1.5 rounded-full inline-block font-mono">
+                  Character Building • Smart Akhlaq Fitrah
+                </span>
+                <h3 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  {formData.sdKarakter?.heroHeadline || DEFAULT_SD_KARAKTER.heroHeadline}
+                </h3>
+                <p className="text-xs sm:text-sm text-emerald-100 max-w-2xl mx-auto leading-relaxed">
+                  {formData.sdKarakter?.heroDescription || DEFAULT_SD_KARAKTER.heroDescription}
+                </p>
+              </div>
+
+              {/* 3 Pillars */}
+              <div className="space-y-4">
+                <div className="text-center">
+                  <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    Tiga Pilar Karakter Nabawiyah
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  {((formData.sdKarakter?.threePillars && formData.sdKarakter.threePillars.length > 0)
+                    ? formData.sdKarakter.threePillars
+                    : DEFAULT_SD_KARAKTER.threePillars
+                  ).map((pillar, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs flex flex-col justify-between"
+                    >
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="w-9 h-9 rounded-2xl bg-emerald-50 text-emerald-800 font-black text-sm flex items-center justify-center border border-emerald-200">
+                            {pillar.number || `0${idx + 1}`}
+                          </span>
+                          <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                            Pilar Utama
+                          </span>
+                        </div>
+                        <h4 className="text-base font-bold text-slate-900 leading-snug">
+                          {pillar.title}
+                        </h4>
+                        <p className="text-[11px] font-semibold text-emerald-700">
+                          {pillar.tagline}
+                        </p>
+                        <p className="text-xs text-slate-600 leading-relaxed">
+                          {pillar.desc}
+                        </p>
+                        {Array.isArray(pillar.points) && pillar.points.length > 0 && (
+                          <div className="pt-3 border-t border-slate-100 space-y-1.5">
+                            {pillar.points.map((pt, pIdx) => (
+                              <div key={pIdx} className="flex items-start gap-2 text-xs text-slate-700">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                                <span>{pt}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 7 Habits */}
+              <div className="space-y-4 pt-4 border-t border-slate-200">
+                <div className="text-center">
+                  <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    7 Kebiasaan Anak Sholeh SD IT Al-Afiyah
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
+                  {((formData.sdKarakter?.sevenHabits && formData.sdKarakter.sevenHabits.length > 0)
+                    ? formData.sdKarakter.sevenHabits
+                    : DEFAULT_SD_KARAKTER.sevenHabits
+                  ).map((habit, hIdx) => (
+                    <div
+                      key={hIdx}
+                      className="bg-white rounded-2xl border border-slate-200 p-4 shadow-2xs space-y-1.5"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono font-bold text-[#00A651]">0{hIdx + 1}</span>
+                        <Sun className="w-3.5 h-3.5 text-amber-500" />
+                      </div>
+                      <h5 className="text-sm font-bold text-slate-900">{habit.title}</h5>
+                      <p className="text-[11px] font-semibold text-emerald-700 leading-tight">{habit.sub}</p>
+                      <p className="text-xs text-slate-500 leading-relaxed pt-1">{habit.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* === TAB 10 (SD): SD PROFIL & IDENTITAS PREVIEW === */}
+          {activeTab === 'sd_profil' && (
+            <div className="p-6 sm:p-10 bg-slate-50 min-h-[500px] space-y-8">
+              {/* Header */}
+              <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-3xl p-6 sm:p-8 text-center space-y-2 shadow-md">
+                <span className="text-xs font-bold text-emerald-950 uppercase tracking-widest bg-amber-400 px-3.5 py-1.5 rounded-full inline-block font-mono">
+                  Profil Resmi &amp; Legalitas Sekolah
+                </span>
+                <h3 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  SD IT Al-Afiyah Majalengka
+                </h3>
+                <p className="text-xs sm:text-sm text-emerald-100 max-w-2xl mx-auto">
+                  Sekolah Dasar Islam Terpadu berlandaskan Al-Qur&apos;an dan Sunnah di Lingkungan Giri Asih
+                </p>
+              </div>
+
+              {/* Visi */}
+              <div className="max-w-3xl mx-auto bg-white rounded-3xl border border-emerald-200 p-6 sm:p-8 shadow-xs text-center space-y-3 relative overflow-hidden">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 mx-auto flex items-center justify-center font-bold">
+                  ✦
+                </div>
+                <span className="text-xs font-extrabold uppercase tracking-widest text-[#00A651] block">
+                  Visi SD IT Al-Afiyah
+                </span>
+                <p className="text-base sm:text-lg font-bold text-slate-900 italic leading-relaxed">
+                  &ldquo;{formData.sdProfil?.visiText || DEFAULT_SD_PROFIL.visiText}&rdquo;
+                </p>
+              </div>
+
+              {/* Misi */}
+              <div className="max-w-4xl mx-auto space-y-4">
+                <div className="text-center">
+                  <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    Misi Pendidikan Terpadu
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {((formData.sdProfil?.misiList && formData.sdProfil.misiList.length > 0)
+                    ? formData.sdProfil.misiList
+                    : DEFAULT_SD_PROFIL.misiList
+                  ).map((misi, mIdx) => (
+                    <div
+                      key={mIdx}
+                      className="bg-white rounded-2xl border border-slate-200 p-4 shadow-2xs flex items-start gap-3"
+                    >
+                      <span className="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-black flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
+                        0{mIdx + 1}
+                      </span>
+                      <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                        {misi}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Identitas Satuan Pendidikan & Legalitas */}
+              <div className="max-w-4xl mx-auto space-y-4 pt-4 border-t border-slate-200">
+                <div className="text-center">
+                  <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    Data Satuan Pendidikan &amp; Legalitas Resmi BAN-SM
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {((formData.sdProfil?.identitasList && formData.sdProfil.identitasList.length > 0)
+                    ? formData.sdProfil.identitasList
+                    : DEFAULT_SD_PROFIL.identitasList
+                  ).map((item, idIdx) => (
+                    <div
+                      key={idIdx}
+                      className="bg-white rounded-2xl border border-slate-200 p-4 shadow-2xs flex flex-col justify-between"
+                    >
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                        {item.label}
+                      </span>
+                      <p className="text-xs font-bold text-slate-800 leading-snug">
+                        {item.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}

@@ -5,7 +5,7 @@
 **Prinsip Desain:** *Unified Super Premium Enterprise Design System (Satu Model Tata Letak Mewah Berstandar Dunia dengan Aksen Identitas Khas Tiap Unit)*  
 **Gaya Panel Admin & CMS:** *Clean Minimalist Modern ala Google Workspace (Ruang Lapang, Border Subtil 1px, Tipografi Tajam, Bebas Ornamen Artifisial)*  
 **Arsitektur Data Dev:** *Multi-Tenant Logical Isolation via Prisma ORM (SQLite lokal tersemat untuk dev instan, 100% siap dialihkan ke PostgreSQL untuk rilis produksi)*  
-**Versi Dokumen:** 2.21.0-DEFINITIVE (Penyempurnaan Super Premium Formulir PPDB: Solid Forest Emerald, Isolasi Ketat Unit, Grid Gutter 40px, Badge Poin 28 Butir Berkas Fisik, dan Integritas PWA)  
+**Versi Dokumen:** 3.20.0-DEFINITIVE (Penyelarasan Komprehensif Pratinjau Live CMS SD, Desain Otentik Bento Grid & SPMB, serta Eliminasi Kekosongan Tab 9 & 10)  
 **Status:** Disetujui sebagai Acuan Baku Pengembangan
 
 ---
@@ -42,6 +42,7 @@
 | **v2.21.0** | 25 Sep 2026 | User Directive / Lead | **Refinement Super Premium Formulir PPDB Online (/ppdb/daftar):**<br>1. Penyeragaman warna banner & kartu header menjadi **Solid Deep Forest Emerald (#064E3B)**, eliminasi gradasi multi-warna mencolok.<br>2. Pembersihan redundansi deskripsi dan nama unit berulang.<br>3. Penerapan **Strict Multi-Tenant Isolation** pada formulir: peniadaan dropdown/select ganti unit di dalam form pendaftaran aktif.<br>4. Layout grid **Anti-Mepet** dengan pelebaran horizontal gap 40px (`columnGap: 2.5rem`, `rowGap: 1.75rem`) dan penataan ulang flex NIK.<br>5. Standardisasi **Badge Nomor Poin Resmi 28 Butir Berkas Fisik** (`[Poin 01]` s.d. `[Poin 28]`) berdesain monospaced eksekutif berbayang lembut.<br>6. Penyiapan aset standar PWA (`icon-192.png` & `icon-512.png`) dan eliminasi warning console 404. |
 | **v3.16.0** | 5 Okt 2026 | User Directive / Lead | **Produksi & SPMB SD IT 2027/2028:** migrasi Supabase PostgreSQL + deploy Vercel dengan routing hybrid path/subdomain; refinement tipografi hero SD (3 baris + aksen serif "Bukan Sekedar"), kartu statistik bento, identitas hijau `theme-sd`, footer kartu program rata bawah; pembaruan data poster SPMB SD IT T.A. 2027/2028 (3 poster, WA 0813-1013-9001, usia per Juli 2027, biaya gelombang 250/275/300 rb, kalkulator Putra/Putri, 10 program unggulan, sinkronisasi DB). Detail: Bagian 23. |
 | **v3.18.0** | 7 Okt 2026 | User Directive / Lead | **Tata Kelola Mandiri CMS SD, Pembersihan Redundansi Navbar & Kesiapan Google Search Console:**<br>1. **Isolasi Ketat Multi-Tenant CMS SD:** Penambahan Tab 9 (*Pilar Karakter* - `/sd/karakter`) dan Tab 10 (*Profil & Visi Misi* - `/sd/profil`) yang hanya aktif pada unit SD (`schoolSlug === 'sd'`). Data dijamin tidak menimpa unit TK, SMP, atau Yayasan.<br>2. **Pembersihan Redundansi Navbar (Zero Duplicate):** Mengeliminasi menu ganda Dewan Guru (kini khusus di *Profil*), Dokumentasi (khusus di *Profil*), Pilar Karakter (khusus di *Program & Keunggulan*), dan Tata Usaha.<br>3. **Sinkronisasi Dinamis Halaman SD:** `/sd/guru`, `/sd/karakter`, `/sd/profil`, `/sd/program`, `/sd/testimoni`, `/sd/dokumentasi`, `/sd/kontak`, dan `/sd/spmb` 100% dinamis terhubung ke database `cMSSection` dengan revalidasi instan.<br>4. **Pintasan Cepat Dasbor Admin:** Tombol pintas `Kelola Guru ↗`, `Kelola Berita ↗`, dan `Prestasi ↗` langsung pada bar editor CMS.<br>5. **Optimasi Google Search Console & SEO Browser Indexing:** Pembaruan `sitemap.ts` mencakup seluruh rute dinamis SD untuk perayapan bot Google dan pengindeksan hasil pencarian peramban. Detail: Bagian 23.13. |
+| **v3.20.0** | 8 Okt 2026 | User Directive / Lead | **Penyelarasan Komprehensif Pratinjau Live CMS SD & Eliminasi Tampilan Kosong Tab 9 & 10:**<br>1. **Eliminasi Tampilan Kosong Pratinjau:** Menambahkan blok render pratinjau live untuk Tab 9 (`sd_karakter` - Pilar Karakter & 7 Habits) dan Tab 10 (`sd_profil` - Profil, Visi Misi & Legalitas BAN-SM) pada `CMSEditorClient.tsx`. Sebelumnya kedua tab tidak memiliki blok kondisi render pratinjau sehingga muncul blank putih.<br>2. **Penyelarasan Pratinjau dengan Desain Website SD (`/sd`):**<br>- *Tab 1 (Hero):* Menyesuaikan tombol aksi hijau zamrud `#00A651` dan fallback foto greenhouse bambu asli.<br>- *Tab 3 (Stats):* Menggantikan kartu gradasi lama menjadi 2x2 Bento Grid berlatar `neutral-50` dengan ikon Users, Compass, Award, dan BookOpen persis tampilan `/sd`.<br>- *Tab 4 (Values):* Merender Tiga Pilar Karakter otentik dengan badge Pilar 01/02/03 dan footer Prinsip Smart Akhlaq Fitrah.<br>- *Tab 8 (Tuition):* Menampilkan poster resmi SPMB Story, rincian biaya gelombang 1, dan visual Rekening Resmi Bank Muamalat (1360012405).<br>3. **Penyediaan Nilai Fallback Server-Side:** Memastikan `src/app/admin/[schoolSlug]/cms/page.tsx` menyediakan fallback `DEFAULT_SD_KARAKTER` dan `DEFAULT_SD_PROFIL` sehingga data selalu terisi aman dan terisolasi khusus unit SD. Detail: Bagian 23.15. |
 
 ---
 
@@ -1132,11 +1133,39 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
   8. **Sinkronisasi Database Cloud (`cMSSection`):** Mengeksekusi script sinkronisasi database untuk memperbarui dan menyimpan seluruh payload section SD IT secara permanen di Supabase cloud.
 - **Hasil Verifikasi:** `npm run build` lolos 100% tanpa error (62/62 rute valid).
 
+### 23.15 Revisi — Penyelarasan Pratinjau Live (Live Preview) CMS SD IT & Eliminasi Kekosongan Tab 9 & 10 (8 Okt 2026)
+- **Akar Masalah (Root Cause):**
+  1. Pada komponen `CMSEditorClient.tsx`, blok `viewMode === 'preview'` sebelumnya hanya memiliki kondisi rendering untuk tab `hero`, `identity`, `stats`, `values`, `programs`, `facilities`, `testimonials`, `tuition`, dan `affiliate`.
+  2. Tab 9 (`sd_karakter`) dan Tab 10 (`sd_profil`) sama sekali tidak memiliki blok render pratinjau (`activeTab === 'sd_karakter'` dan `activeTab === 'sd_profil'`), sehingga saat admin berpindah ke mode Pratinjau Live, area layar bawah menjadi kosong melompong (hanya bilah chrome browser atas yang terlihat).
+  3. Pratinjau live untuk tab lain (seperti *Stats*, *Values*, *Tuition*) masih menggunakan kartu template generik (misalnya gradasi gelap untuk statistik, ikon toga polos untuk pilar) yang berbeda jauh dengan estetika visual asli halaman beranda `/sd`.
+- **Implementasi Solusi & Rekayasa Komponen:**
+  1. **Penambahan Pratinjau Live Tab 9 (`sd_karakter`):**
+     - Header Banner bernuansa hijau gradasi `#064e3b` hingga `#00A651` dengan badge *Character Building • Smart Akhlaq Fitrah*, headline dinamis, dan deskripsi.
+     - Pratinjau 3 Pilar Karakter Nabawiyah (*Mendidik dengan Sunnah*, *Smart Literasi & Tahfidz*, *Outdoor Learning*) lengkap dengan badge nomor, tagline, deskripsi, dan checklist butir poin dengan ikon `CheckCircle2`.
+     - Pratinjau 7 Karakter Profil Murid (*Salimul Aqidah*, *Shahihul Ibadah*, *Matinul Khuluq*, dll) dalam grid kartu interaktif dengan ikon `Sun`.
+  2. **Penambahan Pratinjau Live Tab 10 (`sd_profil`):**
+     - Header Banner resmi Profil & Legalitas SD IT Al-Afiyah Majalengka.
+     - Kartu Visi berbingkai hijau zamrud dengan kutipan terformat elegan.
+     - Kartu Misi berpenomoran numerik terpadu (01 s.d. 06).
+     - Grid Data Satuan Pendidikan & Legalitas Resmi BAN-SM (NPSN, NSS, Akreditasi B, Gugus 3 Nusa Indah, Yayasan YPIB, Alamat Lingkungan Giri Asih).
+  3. **Penyelarasan Pratinjau Live Tab 1 (Hero):**
+     - Menggunakan tombol CTA hijau zamrud `#00A651` (Daftar SPMB SD IT Online & WhatsApp Panitia) dan fallback foto greenhouse bambu asli.
+  4. **Penyelarasan Pratinjau Live Tab 3 (Stats):**
+     - Mengubah tampilan preview unit SD menjadi 2×2 Bento Grid berlatar `neutral-50` dengan ikon Users, Compass, Award, dan BookOpen persis seperti yang tampil di website `/sd`.
+  5. **Penyelarasan Pratinjau Live Tab 4 (Values):**
+     - Menampilkan 3 kartu pilar karakter otentik dengan badge Pilar 01/02/03 dan footer *Prinsip Smart Akhlaq Fitrah*.
+  6. **Penyelarasan Pratinjau Live Tab 8 (Tuition / SPMB):**
+     - Menampilkan visual poster resmi Story SPMB, rincian biaya pendaftaran, SPP, dan Uang Pengembangan, serta visual kartu Rekening Resmi Bank Muamalat (1360012405) a.n SMP / SD IT Al Afiyah.
+  7. **Integritas Data & Isolasi Multi-Tenant:**
+     - Seluruh pratinjau dan tab tambahan ini terisolasi eksklusif untuk `schoolSlug === 'sd'`, memastikan unit TK, SMP, dan Yayasan tidak terpengaruh sedikit pun.
+- **Hasil Verifikasi:**
+  - Build produksi lolos 100% (62 dari 62 rute Next.js valid, 0 error).
+
 ---
 
 *Dokumen ini bersifat akumulatif. Setiap update baru DITAMBAHKAN di bawah,*
 *tidak pernah mengganti atau menghapus bagian yang sudah ada di atas.*
-*Versi terakhir: 3.19.0 — 8 Okt 2026*
+*Versi terakhir: 3.20.0 — 8 Okt 2026*
 
 
 
