@@ -338,12 +338,8 @@ export default function UnitHeroSlider({
 
   return (
     <section
-      className={`relative bg-slate-950 text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col ${
-        statsCards
-          ? 'min-h-[100dvh] lg:min-h-[820px] justify-between'
-          : 'min-h-[660px] sm:min-h-[700px] lg:min-h-[740px] justify-start'
-      }`}
-      style={{ minHeight: statsCards ? '100dvh' : '680px' }}
+      className="relative bg-slate-950 text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-start"
+      style={{ minHeight: '680px' }}
     >
       {/* Background Slides with Ken Burns Zoom & Smooth Seamless Crossfade */}
       {slides.map((s, idx) => {
@@ -382,9 +378,9 @@ export default function UnitHeroSlider({
       {/* Main Content Container with Zero-Jeda Smooth Crossfade & Header Clearance */}
       <div
         className={`relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-start ${
-          statsCards ? 'pb-6 sm:pb-8' : 'pb-16 sm:pb-20 lg:pb-24'
+          statsCards ? 'pb-3 sm:pb-5' : 'pb-16 sm:pb-20 lg:pb-24'
         }`}
-        style={{ paddingTop: 'clamp(108px, 14vh, 140px)' }}
+        style={{ paddingTop: 'clamp(96px, 12vh, 128px)' }}
       >
         {isAllSameContent ? (
           <div className="relative w-full max-w-3xl lg:max-w-5xl flex flex-col items-start justify-start text-left">
@@ -426,7 +422,7 @@ export default function UnitHeroSlider({
 
       {/* Hero Bottom Highlight Cards nested inside the banner */}
       {statsCards && (
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-4">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-1 sm:pt-2">
           {statsCards}
         </div>
       )}

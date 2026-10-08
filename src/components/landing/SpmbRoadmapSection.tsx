@@ -11,7 +11,6 @@ import {
   ArrowRight, 
   CheckCircle2, 
   Clock, 
-  Sparkles,
   PhoneCall
 } from 'lucide-react';
 
@@ -80,7 +79,7 @@ export default function SpmbRoadmapSection({
         {/* Header */}
         <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
           <span className="text-xs font-bold text-emerald-300 uppercase tracking-widest bg-emerald-950/80 px-3.5 py-1.5 rounded-full border border-emerald-500/30 inline-flex items-center gap-1.5 shadow-inner">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00A651]" />
             <span>Alur Pendaftaran Resmi TP 2027/2028</span>
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight mt-3">

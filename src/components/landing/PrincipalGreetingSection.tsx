@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ScrollReveal from './ScrollReveal';
-import { Quote, Sparkles, CheckCircle2, ArrowRight, ShieldCheck, HeartHandshake, BookOpen } from 'lucide-react';
+import { Quote, Compass, CheckCircle2, ArrowRight, ShieldCheck, HeartHandshake, BookOpen } from 'lucide-react';
 
 interface PrincipalGreetingProps {
   schoolSlug?: string;
@@ -81,7 +81,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
 
                     <div className="bg-emerald-50/60 rounded-xl p-3 border border-emerald-100/80">
                       <p className="text-[10px] font-bold text-emerald-800 uppercase tracking-wide flex items-center gap-1">
-                        <Sparkles className="w-3 h-3 text-emerald-600" />
+                        <Compass className="w-3 h-3 text-emerald-600" />
                         <span>Pendekatan</span>
                       </p>
                       <p className="text-xs font-bold text-slate-800 mt-1">
