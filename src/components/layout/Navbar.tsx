@@ -156,7 +156,7 @@ export default function Navbar({
           code: 'SD',
           arabic: '',
           title: 'SD IT AL-AFIYAH',
-          subtitle: 'SMART AKHLAQ FITRAH',
+          subtitle: 'SMART AKHLAK FITRAH',
           homeUrl: getUnitHomeUrl('sd'),
           ppdbLink: '/sd/spmb',
           ctaText: 'Info SPMB SD IT',
@@ -262,7 +262,7 @@ export default function Navbar({
               ? [
                   { label: '10 Program Unggulan SD IT', href: '/sd/program', desc: 'Karakter nabawiyah, adab & tahfidz mutqin' },
                   { label: 'Pilar Karakter & Nilai Islami', href: '/sd/karakter', desc: 'Tauhid, 7 pilar adab & kemandirian murid' },
-                  { label: 'Kurikulum Smart Akhlaq Fitrah', href: '/sd#values', desc: 'Fondasi iman sebelum Qur’an & adab harian' },
+                  { label: 'Kurikulum Smart Akhlak Fitrah', href: '/sd#values', desc: 'Fondasi iman sebelum Qur’an & adab harian' },
                   { label: 'Testimoni Wali Murid', href: '/sd/testimoni', desc: 'Pengalaman & apresiasi orang tua siswa' },
                 ]
               : [
@@ -432,7 +432,7 @@ export default function Navbar({
                         </span>
                       </div>
 
-                      {/* Subtitle Below (e.g. SMART AKHLAQ FITRAH - smaller size) */}
+                      {/* Subtitle Below (e.g. SMART AKHLAK FITRAH - smaller size) */}
                       {brandConfig.subtitle && (
                         <div className="mt-0.5">
                           <span

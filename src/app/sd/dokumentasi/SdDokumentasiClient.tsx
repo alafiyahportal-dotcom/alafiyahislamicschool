@@ -196,7 +196,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
                 <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
-                <span>Smart Akhlaq Fitrah</span>
+                <span>Smart Akhlak Fitrah</span>
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
                 <HeartHandshake className="w-3.5 h-3.5 text-emerald-200" />

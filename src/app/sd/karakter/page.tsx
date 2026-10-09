@@ -24,7 +24,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Pilar Karakter & Nilai Islami SD IT',
-  description: 'Pilar pendidikan karakter nabawiyah, metode Smart Akhlaq Fitrah, adab sebelum ilmu, dan pembiasaan sunnah harian murid SD IT Al-Afiyah Majalengka.',
+  description: 'Pilar pendidikan karakter nabawiyah, metode Smart Akhlak Fitrah, adab sebelum ilmu, dan pembiasaan sunnah harian murid SD IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -40,7 +40,7 @@ const THREE_PILLARS = [
     number: '01',
     title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
     tagline: 'Iman Sebelum Al-Qur\'an • Adab Sebelum Ilmu',
-    desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlaq mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
+    desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlak mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
     icon: HeartHandshake,
     color: 'emerald',
     points: [
@@ -208,7 +208,7 @@ export default async function SdKarakterPage() {
                 Fondasi Pendidikan
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
-                Tiga Pilar Utama Smart Akhlaq Fitrah
+                Tiga Pilar Utama Smart Akhlak Fitrah
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-2">
                 Tiga pilar kurikulum terpadu yang menjiwai seluruh dinamika kegiatan belajar di SD IT Al-Afiyah.

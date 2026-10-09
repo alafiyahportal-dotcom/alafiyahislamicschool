@@ -29,7 +29,7 @@ export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'SPMB SD IT Al-Afiyah Majalengka - Pendaftaran Murid Baru TA 2027/2028',
-  description: 'Pendaftaran Murid Baru (SPMB) SD IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas, kurikulum Smart Akhlaq Fitrah, dan Tahfidz Juz 30 Mutqin. Daftar online sekarang.',
+  description: 'Pendaftaran Murid Baru (SPMB) SD IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas, kurikulum Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin. Daftar online sekarang.',
   alternates: {
     canonical: '/sd/spmb',
   },

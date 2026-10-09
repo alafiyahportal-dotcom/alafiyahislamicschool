@@ -35,7 +35,7 @@ const HELPDESK_UNITS: UnitHelpdesk[] = [
   {
     slug: 'sd',
     name: 'SDIT Al-Afiyah',
-    badge: 'Smart Akhlaq Fitrah • Hanya 2 Rombel',
+    badge: 'Smart Akhlak Fitrah • Hanya 2 Rombel',
     phone: '6281310139001',
     officerName: 'Ibu Guru Panitia SPMB SD IT',
     greetingTemplate: 'Assalamu\'alaikum Panitia SPMB SDIT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran murid baru SD IT (SPMB 2027/2028).',

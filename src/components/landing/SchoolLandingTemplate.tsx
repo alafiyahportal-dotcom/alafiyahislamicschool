@@ -199,7 +199,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     },
     { 
       label: 'Pilar Pendidikan', 
-      value: 'Smart Akhlaq Fitrah', 
+      value: 'Smart Akhlak Fitrah', 
       subtext: 'Fondasi Karakter Nabawiyah',
       iconType: 'compass',
       badge: 'Kurikulum Khas',
@@ -313,7 +313,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     school.slug === 'sd' ? [
       {
         title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
-        description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlaq dan ilmu, serta iman sebelum Al-Qur\'an.',
+        description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlak dan ilmu, serta iman sebelum Al-Qur\'an.',
       },
       {
         title: 'Smart, Literasi & Tahfidz Qur\'an',
@@ -1014,7 +1014,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   >
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      <span>Prinsip Smart Akhlaq Fitrah</span>
+                      <span>Prinsip Smart Akhlak Fitrah</span>
                     </span>
                     <span className="text-[11px] font-bold text-emerald-700 group-hover:translate-x-1 transition-all flex items-center gap-1">
                       <span>Buka Pilar</span>

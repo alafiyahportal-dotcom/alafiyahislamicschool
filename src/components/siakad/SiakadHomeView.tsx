@@ -53,19 +53,19 @@ export const SIAKAD_NEWS_ARTICLES: SiakadNewsItem[] = [
     author: 'Kurikulum SD IT Al-Afiyah',
     authorRole: 'Biro Kurikulum & Asesmen Akademik',
     coverImage: '/images/sts-semester-1-sdit.jpg',
-    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlaq Fitrah.',
+    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlak Fitrah.',
     readTime: '2 mnt baca',
     paragraphs: [
       'Bismillah, segenap civitas akademika Yayasan dan dewan guru SD IT Al-Afiyah mengucapkan: "Selamat Melaksanakan Sumatif Tengah Semester (STS) Semester 1 Tahun Ajaran 2026/2027" bagi seluruh murid kelas 1 hingga 6 SD IT Al-Afiyah.',
       'Pelaksanaan Sumatif Tengah Semester (STS) 1 ini dimulai serentak pada hari Senin, 21 September 2026 dengan jam belajar khusus yaitu pukul 07.15 s.d 11.00 WIB bertempat di ruang kelas masing-masing Lingkungan Sekolah SD IT Al-Afiyah.',
-      'Mengusung tagline dan karakter utama "Smart Akhlaq Fitrah", kegiatan asesmen ini dirancang bukan sekadar mengukur capaian kognitif pembelajaran intrakurikuler, melainkan sarana pembiasaan adab kejujuran, ketelitian, dan kemandirian belajar sejak usia dini.',
+      'Mengusung tagline dan karakter utama "Smart Akhlak Fitrah", kegiatan asesmen ini dirancang bukan sekadar mengukur capaian kognitif pembelajaran intrakurikuler, melainkan sarana pembiasaan adab kejujuran, ketelitian, dan kemandirian belajar sejak usia dini.',
       'Kami mengimbau kepada seluruh ayah dan bunda wali murid untuk mendampingi ananda dengan menjaga kebugaran fisik, memastikan sarapan bergizi sebelum berangkat, serta memanjatkan doa terbaik agar ananda diberikan kelapangan berpikir dan hasil yang berkah.'
     ],
     keyHighlights: [
       'Jadwal Pelaksanaan: Mulai 21 September 2026.',
       'Waktu: Pukul 07.15 s.d 11.00 WIB.',
       'Lokasi: Lingkungan Sekolah SD IT Al-Afiyah.',
-      'Tagline & Karakter: Smart Akhlaq Fitrah (Menjunjung tinggi kejujuran & adab mandiri).'
+      'Tagline & Karakter: Smart Akhlak Fitrah (Menjunjung tinggi kejujuran & adab mandiri).'
     ]
   },
   {
@@ -177,7 +177,7 @@ export const SIAKAD_NEWS_ARTICLES: SiakadNewsItem[] = [
     excerpt: 'Memasuki pekan evaluasi berkala, seluruh peserta didik dibimbing membiasakan adab jujur, tertib, dan menghargai waktu dalam menuntaskan target belajar.',
     readTime: '2 mnt baca',
     paragraphs: [
-      'Bismillah, dalam rangka mengawal capaian belajar yang seimbang antara kompetensi materi dan keteguhan akhlaq, sekolah menyelenggarakan Pekan Penilaian Harian Berbasis Adab.',
+      'Bismillah, dalam rangka mengawal capaian belajar yang seimbang antara kompetensi materi dan keteguhan akhlak, sekolah menyelenggarakan Pekan Penilaian Harian Berbasis Adab.',
       'Rangkaian kegiatan ini mengajak para murid untuk membiasakan berdoa sebelum mengawali lembar tugas, mengedepankan kejujuran mutlak, serta saling menghormati ketenangan ruang belajar.',
       'Para wali kelas dan asatidzah pendamping memberikan apresiasi khusus bagi ananda yang menunjukkan inisiatif adab terpuji sepanjang proses belajar mandiri.',
       'Sinergi dan doa para orang tua di rumah senantiasa menjadi pilar utama keberkahan ilmu dan kemudahan bagi ananda tercinta.'

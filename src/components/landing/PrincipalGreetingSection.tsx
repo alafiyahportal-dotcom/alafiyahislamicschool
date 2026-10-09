@@ -51,10 +51,10 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                 Segala puji hanya bagi Allah Ta’ala yang telah melimpahkan nikmat iman, islam, dan kesehatan kepada kita semua. Shalawat serta salam semoga senantiasa tercurah kepada uswah hasanah kita, Nabi Muhammad ﷺ, beserta keluarga, sahabat, dan pengikutnya hingga akhir zaman.
               </p>
               <p>
-                Ayah dan Bunda yang dirahmati Allah, mendidik anak di era modern ini bukan sekadar mengejar angka dan keunggulan akademis kognitif semata. Lebih dari itu, tantangan terpenting kita adalah <strong className="text-slate-900 font-semibold">menjaga fitrah keimanan</strong> anak agar tetap murni serta membekali mereka dengan akhlaqul karimah.
+                Ayah dan Bunda yang dirahmati Allah, mendidik anak di era modern ini bukan sekadar mengejar angka dan keunggulan akademis kognitif semata. Lebih dari itu, tantangan terpenting kita adalah <strong className="text-slate-900 font-semibold">menjaga fitrah keimanan</strong> anak agar tetap murni serta membekali mereka dengan akhlakul karimah.
               </p>
               <p>
-                Di SD IT Al-Afiyah Majalengka, kami memegang teguh prinsip <span className="bg-emerald-50 text-emerald-950 font-semibold px-2 py-0.5 rounded border border-emerald-200">“Adab Sebelum Ilmu, dan Iman Sebelum Al-Qur’an”</span>. Melalui kurikulum Smart Akhlaq Fitrah dan suasana sekolah yang asri di Lingkungan Giri Asih Majalengka Wetan, kami berikhtiar menciptakan atmosfer belajar yang membahagiakan, ramah anak, dan bebas dari perundungan.
+                Di SD IT Al-Afiyah Majalengka, kami memegang teguh prinsip <span className="bg-emerald-50 text-emerald-950 font-semibold px-2 py-0.5 rounded border border-emerald-200">“Adab Sebelum Ilmu, dan Iman Sebelum Al-Qur’an”</span>. Melalui kurikulum Smart Akhlak Fitrah dan suasana sekolah yang asri di Lingkungan Giri Asih Majalengka Wetan, kami berikhtiar menciptakan atmosfer belajar yang membahagiakan, ramah anak, dan bebas dari perundungan.
               </p>
               <p>
                 Kami menyambut hangat kehadiran putra-putri tercinta Ayah dan Bunda untuk bertumbuh bersama keluarga besar SD IT Al-Afiyah, menjadi generasi sholeh-sholehah yang mencintai Al-Qur’an dan berbakti kepada orang tua.

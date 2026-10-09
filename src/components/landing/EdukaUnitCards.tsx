@@ -53,7 +53,7 @@ const units: SchoolUnitItem[] = [
     slug: 'sd',
     name: 'SDIT Al-Afiyah Majalengka',
     subdomainLabel: 'sd.alafiyah.sch.id',
-    levelBadge: 'Smart Akhlaq Fitrah • SDIT',
+    levelBadge: 'Smart Akhlak Fitrah • SDIT',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
     image: '/images/sd-spmb-poster-2027.jpg',
     ageGroup: 'Usia 6 - 12 Tahun (Kelas 1 s/d 6)',

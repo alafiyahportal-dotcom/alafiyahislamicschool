@@ -115,7 +115,7 @@ export default function PPDBHubPage() {
       slug: 'sd',
       name: 'SDIT Al-Afiyah',
       level: 'Sekolah Dasar Islam Terpadu',
-      badge: 'Smart Akhlaq Fitrah • Hanya 2 Rombel',
+      badge: 'Smart Akhlak Fitrah • Hanya 2 Rombel',
       target: 'Tahfidz Juz 30 Mutqin & Karakter Nabawiyah',
       fee: 'Rp 250.000',
       quotaTotal: 56,
@@ -126,7 +126,7 @@ export default function PPDBHubPage() {
       desc: 'Bukan sekadar tempat belajar namun juga tempat bertumbuh. Mendidik dengan sunnah, metode karakter nabawiyah, iman sebelum Qur’an, dan outdoor learning.',
       highlights: [
         'Mendidik dengan Sunnah & Karakter Nabawiyah',
-        'Iman Sebelum Qur’an, Akhlaq dan Ilmu',
+        'Iman Sebelum Qur’an, Akhlak dan Ilmu',
         'Lingkungan Asri, Nyaman & Membahagiakan',
         'Outdoor Learning (Greenhouse & Kebun Terbuka)',
         'Pelatihan Aqil-Baligh & Pemetaan Bakat',
@@ -1094,7 +1094,7 @@ export default function PPDBHubPage() {
                   </span>
                 </div>
                 <p className="text-slate-600 text-[11px] leading-relaxed">
-                  Flyer resmi sistem penerimaan murid baru SDIT Al Afiyah dengan 8 program unggulan terpadu (Smart Akhlaq Fitrah).
+                  Flyer resmi sistem penerimaan murid baru SDIT Al Afiyah dengan 8 program unggulan terpadu (Smart Akhlak Fitrah).
                 </p>
                 <div className="flex flex-wrap items-center gap-2 pt-1">
                   <a

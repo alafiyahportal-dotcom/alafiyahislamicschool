@@ -29,7 +29,7 @@ async function main() {
   // 2. Stats
   const statsData = [
     { label: 'Kuota Penerimaan', value: 'Hanya 2 Rombel' },
-    { label: 'Pilar Pendidikan', value: 'Smart Akhlaq Fitrah' },
+    { label: 'Pilar Pendidikan', value: 'Smart Akhlak Fitrah' },
     { label: 'Akreditasi Sekolah', value: 'Terakreditasi B' },
     { label: 'Bimbingan Tahfidz', value: 'Juz 30 Mutqin' }
   ];
@@ -38,7 +38,7 @@ async function main() {
   const valuesData = [
     {
       title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
-      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlaq dan ilmu, serta iman sebelum Al-Qur\'an.'
+      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlak dan ilmu, serta iman sebelum Al-Qur\'an.'
     },
     {
       title: 'Smart, Literasi & Tahfidz Qur\'an',
@@ -58,7 +58,7 @@ async function main() {
       badge: 'Karakter Nabawi',
     },
     {
-      title: 'Akhlaq dan Ilmu',
+      title: 'Akhlak dan Ilmu',
       desc: 'Menanamkan iman sebelum Al-Qur\'an serta adab sebelum ilmu agar berkah dan berakhlak mulia.',
       badge: 'Iman & Adab',
     },
@@ -192,7 +192,7 @@ async function main() {
         number: '01',
         title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
         tagline: 'Iman Sebelum Al-Qur\'an • Adab Sebelum Ilmu',
-        desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlaq mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
+        desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlak mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
         points: [
           'Pembiasaan shalat berjamaah fardhu dan adab di masjid',
           'Pelatihan muhadharah & da\'i cilik berani tampil',
@@ -235,7 +235,7 @@ async function main() {
 
   // 8. SD Profil
   const sdProfilData = {
-    visiText: 'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlaq mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.',
+    visiText: 'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlak mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.',
     misiList: [
       'Menumbuhkan nilai-nilai tauhid dalam seluruh aspek pembelajaran dan pembiasaan.',
       'Mengajarkan aqidah dan ibadah yang sohihah sesuai dengan Al-Qur’an dan As-Sunnah sesuai dengan pemahaman salafus sholih.',

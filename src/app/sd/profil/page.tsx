@@ -27,7 +27,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Profil Lengkap SD IT',
-  description: 'Profil resmi Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah Majalengka. Visi, misi, sejarah Lingkungan Giri Asih, kurikulum Smart Akhlaq Fitrah, dan legalitas resmi BAN-SM.',
+  description: 'Profil resmi Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah Majalengka. Visi, misi, sejarah Lingkungan Giri Asih, kurikulum Smart Akhlak Fitrah, dan legalitas resmi BAN-SM.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -65,7 +65,7 @@ export default async function SdProfilPage() {
 
   let identitasList = defaultIdentitasList;
   let misiList = defaultMisiList;
-  let visiText = 'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlaq mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.';
+  let visiText = 'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlak mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.';
 
   try {
     const school = await prisma.school.findUnique({

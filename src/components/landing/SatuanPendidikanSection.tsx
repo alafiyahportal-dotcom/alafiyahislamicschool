@@ -59,13 +59,13 @@ const unitCards: UnitCardData[] = [
   {
     id: 'sd',
     name: 'SD IT Al-Afiyah',
-    hashtag: '# SDIT Smart Akhlaq Fitrah',
+    hashtag: '# SDIT Smart Akhlak Fitrah',
     image: '/images/sd-hero-greenhouse.jpg',
     isFeatured: true,
     features: [
       {
         icon: ShieldCheck,
-        text: 'Smart Akhlaq Fitrah & Sunnah Nabawiyah',
+        text: 'Smart Akhlak Fitrah & Sunnah Nabawiyah',
         iconColor: 'text-amber-600',
       },
       {
@@ -156,7 +156,7 @@ export default function SatuanPendidikanSection() {
           <div className="lg:max-w-md flex flex-col items-start lg:items-end justify-between">
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal mb-5 lg:text-right">
               Seluruh satuan pendidikan dirancang berkesinambungan: mulai dari
-              PAUD &amp; TK IT usia emas, SD IT dengan karakter Smart Akhlaq Fitrah,
+              PAUD &amp; TK IT usia emas, SD IT dengan karakter Smart Akhlak Fitrah,
               hingga SMP IT unggulan dengan sistem fullday &amp; asrama.
             </p>
 
@@ -196,7 +196,7 @@ export default function SatuanPendidikanSection() {
                   />
                   {card.isFeatured && (
                     <div className="absolute top-3 right-3 bg-[#0D5C54]/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                      Smart Akhlaq Fitrah
+                      Smart Akhlak Fitrah
                     </div>
                   )}
                 </div>

@@ -91,7 +91,7 @@ export default async function SchoolCMSEditorPage({
           titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
-          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
           primaryCtaText: 'Daftar SPMB SD IT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'WhatsApp (0813-1013-9001)',
@@ -99,7 +99,7 @@ export default async function SchoolCMSEditorPage({
           image: '/images/sd-hero-greenhouse.jpg',
           trustItems: [
             { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
-            { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+            { icon: 'check' as const, text: 'Smart Akhlak Fitrah' },
             { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
             { icon: 'calendar' as const, text: `Formulir: Rp ${school.registrationFee.toLocaleString('id-ID')}` }
           ]
@@ -110,7 +110,7 @@ export default async function SchoolCMSEditorPage({
           titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
-          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
           primaryCtaText: 'Daftar SPMB SD IT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'WhatsApp (0813-1013-9001)',
@@ -118,7 +118,7 @@ export default async function SchoolCMSEditorPage({
           image: '/images/sd-hero-garden.jpg',
           trustItems: [
             { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
-            { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+            { icon: 'check' as const, text: 'Smart Akhlak Fitrah' },
             { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
             { icon: 'calendar' as const, text: `Formulir: Rp ${school.registrationFee.toLocaleString('id-ID')}` }
           ]
@@ -129,7 +129,7 @@ export default async function SchoolCMSEditorPage({
           titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
-          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+          description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
           primaryCtaText: 'Daftar SPMB SD IT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'WhatsApp (0813-1013-9001)',
@@ -137,7 +137,7 @@ export default async function SchoolCMSEditorPage({
           image: '/images/sd-hero-greenhouse.jpg',
           trustItems: [
             { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
-            { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+            { icon: 'check' as const, text: 'Smart Akhlak Fitrah' },
             { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
             { icon: 'calendar' as const, text: `Formulir: Rp ${school.registrationFee.toLocaleString('id-ID')}` }
           ]
@@ -267,7 +267,7 @@ export default async function SchoolCMSEditorPage({
   const identityPayload = sectionsMap.identity || sectionsMap.contact || {};
   const defaultStatsForSchool = schoolSlug === 'sd' ? [
     { label: 'Kuota Penerimaan', value: 'Hanya 2 Rombel' },
-    { label: 'Pilar Pendidikan', value: 'Smart Akhlaq Fitrah' },
+    { label: 'Pilar Pendidikan', value: 'Smart Akhlak Fitrah' },
     { label: 'Akreditasi Sekolah', value: 'Terakreditasi B' },
     { label: 'Bimbingan Tahfidz', value: 'Juz 30 Mutqin' }
   ] : [
@@ -281,7 +281,7 @@ export default async function SchoolCMSEditorPage({
   const defaultValuesForSchool = schoolSlug === 'sd' ? [
     {
       title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
-      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlaq dan ilmu, serta iman sebelum Al-Qur\'an.'
+      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlak dan ilmu, serta iman sebelum Al-Qur\'an.'
     },
     {
       title: 'Smart, Literasi & Tahfidz Qur\'an',
@@ -305,7 +305,7 @@ export default async function SchoolCMSEditorPage({
       badge: 'Karakter Nabawi',
     },
     {
-      title: 'Akhlaq dan Ilmu',
+      title: 'Akhlak dan Ilmu',
       desc: 'Menanamkan iman sebelum Al-Qur\'an serta adab sebelum ilmu agar berkah dan berakhlak mulia.',
       badge: 'Iman & Adab',
     },
@@ -480,7 +480,7 @@ export default async function SchoolCMSEditorPage({
       titlePart1: baseHeadline1,
       titleHighlight: baseHighlight,
       titlePart2: '',
-      description: first.description || 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      description: first.description || 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
       primaryCtaText: first.primaryCtaText || 'Daftar SPMB SD IT',
       primaryCtaLink: first.primaryCtaLink || '/ppdb/daftar?school=sd',
       secondaryCtaText: first.secondaryCtaText || 'WhatsApp (0813-1013-9001)',

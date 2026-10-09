@@ -106,7 +106,7 @@ export default function AffiliateGuidePage() {
                 YAYASAN PENDIDIKAN IMAM BONJOL MAJALENGKA
               </h2>
               <p className="text-xs sm:text-sm font-bold text-emerald-800">
-                SD IT AL-AFIYAH MAJALENGKA (SMART AKHLAQ FITRAH)
+                SD IT AL-AFIYAH MAJALENGKA (SMART AKHLAK FITRAH)
               </p>
             </div>
           </div>

@@ -45,7 +45,7 @@ const SD_PROGRAMS = [
   },
   {
     number: '02',
-    title: 'Akhlaq dan Ilmu',
+    title: 'Akhlak dan Ilmu',
     desc: 'Menanamkan iman sebelum Al-Qur\'an serta adab sebelum ilmu agar ilmu yang diraih berkah, berakar kuat, dan melahirkan akhlak mulia.',
     badge: 'Iman & Adab',
     icon: BookOpen

@@ -79,7 +79,7 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
     slug: 'sumatif-tengah-semester-1-sdit-al-afiyah',
     category: 'Pengumuman',
     schoolName: 'SD IT Al-Afiyah',
-    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlaq Fitrah.',
+    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlak Fitrah.',
     author: 'Kurikulum SD IT Al-Afiyah',
     date: '20 Sep 2026',
     readingTime: '2 menit baca',
@@ -87,14 +87,14 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
     paragraphs: [
       'Bismillah, segenap pimpinan Yayasan, kepala sekolah, dan dewan asatidzah mengucapkan: "Selamat Melaksanakan Sumatif Tengah Semester (STS) Semester 1 Tahun Ajaran 2026/2027" bagi seluruh murid kelas 1 hingga 6 SD IT Al-Afiyah.',
       'Pelaksanaan Sumatif Tengah Semester (STS) 1 ini dimulai serentak pada hari Senin, 21 September 2026 dengan jam kegiatan belajar asesmen khusus, yaitu pukul 07.15 s.d 11.00 WIB bertempat di ruang kelas masing-masing Lingkungan Sekolah SD IT Al-Afiyah.',
-      'Mengusung motto dan identitas "Smart Akhlaq Fitrah", kegiatan asesmen ini dirancang bukan sekadar mengevaluasi penguasaan materi ajar kurikulum, melainkan menjadi wahana pembentukan karakter murid yang jujur, teliti, mandiri, dan beradab.',
+      'Mengusung motto dan identitas "Smart Akhlak Fitrah", kegiatan asesmen ini dirancang bukan sekadar mengevaluasi penguasaan materi ajar kurikulum, melainkan menjadi wahana pembentukan karakter murid yang jujur, teliti, mandiri, dan beradab.',
       'Kami mengimbau kepada seluruh ayah dan bunda wali murid untuk mendampingi ananda dengan menjaga pola istirahat yang cukup, membiasakan sarapan sehat sebelum berangkat, serta senantiasa memanjatkan doa terbaik agar ananda diberikan kelapangan berpikir dan kemudahan dari Allah Ta’ala.'
     ],
     keyHighlights: [
       'Jadwal Pelaksanaan: Mulai 21 September 2026.',
       'Waktu: Pukul 07.15 s.d 11.00 WIB.',
       'Lokasi: Lingkungan Sekolah SD IT Al-Afiyah.',
-      'Tagline & Karakter: Smart Akhlaq Fitrah (Menjunjung tinggi kejujuran & adab mandiri).'
+      'Tagline & Karakter: Smart Akhlak Fitrah (Menjunjung tinggi kejujuran & adab mandiri).'
     ]
   },
   {

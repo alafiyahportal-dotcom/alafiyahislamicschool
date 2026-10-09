@@ -60,7 +60,7 @@ export default async function SdLandingPage() {
       badge: 'Karakter Nabawi',
     },
     {
-      title: 'Akhlaq dan Ilmu',
+      title: 'Akhlak dan Ilmu',
       desc: 'Menanamkan iman sebelum Al-Qur\'an serta adab sebelum ilmu agar berkah dan berakhlak mulia.',
       badge: 'Iman & Adab',
     },
@@ -156,7 +156,7 @@ export default async function SdLandingPage() {
       title: 'Selamat Melaksanakan Sumatif Tengah Semester (STS) 1 SD IT Al-Afiyah',
       slug: 'sumatif-tengah-semester-1-sdit-al-afiyah',
       category: 'Pengumuman',
-      excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai dengan menjunjung tinggi nilai kejujuran, ketelitian, dan prinsip Smart Akhlaq Fitrah.',
+      excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai dengan menjunjung tinggi nilai kejujuran, ketelitian, dan prinsip Smart Akhlak Fitrah.',
       content: 'Bismillah, segenap pimpinan Yayasan, kepala sekolah, dan dewan asatidzah mengucapkan selamat melaksanakan Sumatif Tengah Semester (STS) 1 bagi seluruh murid SD IT Al-Afiyah. Kegiatan asesmen ini dirancang sebagai wahana pembentukan karakter murid yang jujur, teliti, mandiri, dan beradab.',
       coverImage: '/images/sts-semester-1-sdit.jpg',
       author: 'Kurikulum SD IT Al-Afiyah',

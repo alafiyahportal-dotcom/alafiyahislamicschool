@@ -5,7 +5,7 @@ export const metadata: Metadata = {
     template: '%s | SD IT Al-Afiyah YPIB',
     default: 'SD IT Al-Afiyah Majalengka | YPIB',
   },
-  description: 'Website Resmi SD IT Al-Afiyah Majalengka di bawah naungan Yayasan Pendidikan Imam Bonjol (YPIB). Terakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlaq Fitrah, dan bimbingan Tahfidz Juz 30 Mutqin.',
+  description: 'Website Resmi SD IT Al-Afiyah Majalengka di bawah naungan Yayasan Pendidikan Imam Bonjol (YPIB). Terakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlak Fitrah, dan bimbingan Tahfidz Juz 30 Mutqin.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },

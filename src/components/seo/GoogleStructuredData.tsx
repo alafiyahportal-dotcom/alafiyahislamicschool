@@ -49,7 +49,7 @@ export default function GoogleStructuredData() {
         `${siteUrl}/images/sd-activity-classroom-6b.jpg`,
         `${siteUrl}/images/sd-activity-shalat-berjamaah.jpg`
       ],
-      description: 'Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah di Lingkungan Giri Asih Majalengka. Terakreditasi B resmi oleh BAN-SM, mengusung kurikulum terpadu Smart Akhlaq Fitrah dan Tahfidz Juz 30 Mutqin.',
+      description: 'Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah di Lingkungan Giri Asih Majalengka. Terakreditasi B resmi oleh BAN-SM, mengusung kurikulum terpadu Smart Akhlak Fitrah dan Tahfidz Juz 30 Mutqin.',
       telephone: '+62-813-1013-9001',
       email: 'sditalafiyahmjl@gmail.com',
       address: {

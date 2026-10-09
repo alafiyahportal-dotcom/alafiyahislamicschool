@@ -40,7 +40,7 @@ export const ACADEMIC_EVENTS: AcademicEvent[] = [
     endDate: '2026-09-26',
     time: '07:15 - 11:00 WIB',
     location: 'Lingkungan Sekolah SD IT Al-Afiyah',
-    description: 'Pelaksanaan asesmen Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah. Smart Akhlaq Fitrah.',
+    description: 'Pelaksanaan asesmen Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah. Smart Akhlak Fitrah.',
     badgeText: 'STS Semester 1',
     isImportant: true,
   },

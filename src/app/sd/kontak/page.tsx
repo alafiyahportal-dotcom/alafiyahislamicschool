@@ -84,7 +84,7 @@ export default async function SdKontakPage() {
     {
       title: 'Layanan Utama & Panitia SPMB SD IT',
       number: whatsappNumber,
-      desc: 'Konsultasi kurikulum dasar, Smart Akhlaq Fitrah, pendaftaran murid baru (SPMB), dan tata usaha.',
+      desc: 'Konsultasi kurikulum dasar, Smart Akhlak Fitrah, pendaftaran murid baru (SPMB), dan tata usaha.',
       link: `https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran`,
       cta: 'Chat WhatsApp SD IT',
       badge: 'Unit SD IT Resmi',
@@ -129,7 +129,7 @@ export default async function SdKontakPage() {
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Silakan hubungi kami untuk informasi kurikulum Smart Akhlaq Fitrah, pendaftaran murid baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke SD IT Al-Afiyah Majalengka.
+              Silakan hubungi kami untuk informasi kurikulum Smart Akhlak Fitrah, pendaftaran murid baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke SD IT Al-Afiyah Majalengka.
             </p>
           </div>
         </div>

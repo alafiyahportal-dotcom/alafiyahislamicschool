@@ -28,7 +28,7 @@ const UNIT_MAP: Record<UnitKey, UnitInfo> = {
     badge: 'SD IT AL-AFIYAH MAJALENGKA',
     unitName: 'SD IT Al-Afiyah Majalengka',
     tagline: 'Portal Layanan Akademik & SPMB',
-    motto: 'Smart • Akhlaq • Fitrah',
+    motto: 'Smart • Akhlak • Fitrah',
     registerUrl: '/sd/spmb/daftar',
   },
   tk: {
@@ -52,7 +52,7 @@ const DEFAULT_PORTAL: UnitInfo = {
   badge: 'SD IT AL-AFIYAH MAJALENGKA',
   unitName: 'SD IT Al-Afiyah Majalengka',
   tagline: 'Portal Layanan Akademik & SPMB',
-  motto: 'Smart • Akhlaq • Fitrah',
+  motto: 'Smart • Akhlak • Fitrah',
   registerUrl: '/sd/spmb/daftar',
 };
 
@@ -174,7 +174,7 @@ export default function LoginPage() {
               </p>
               
               <p className="text-xs font-bold text-white/90 mt-0.5 tracking-wide">
-                Smart • Akhlaq • Fitrah
+                Smart • Akhlak • Fitrah
               </p>
             </div>
 

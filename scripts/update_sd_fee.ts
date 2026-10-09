@@ -6,7 +6,7 @@ import { prisma } from '../src/lib/prisma';
  */
 const PROGRAMS_2027 = [
   { title: 'Mendidik dengan Sunnah', desc: 'Menggunakan metode Pendidikan Karakter Nabawiyah dan keteladanan sunnah Rasulullah ﷺ.', badge: 'Karakter Nabawi' },
-  { title: 'Akhlaq dan Ilmu', desc: "Menanamkan iman sebelum Al-Qur'an serta adab sebelum ilmu agar berkah dan berakhlak mulia.", badge: 'Iman & Adab' },
+  { title: 'Akhlak dan Ilmu', desc: "Menanamkan iman sebelum Al-Qur'an serta adab sebelum ilmu agar berkah dan berakhlak mulia.", badge: 'Iman & Adab' },
   { title: 'Lingkungan Nyaman & Asri', desc: 'Suasana sekolah yang bersih, sejuk, rindang, dan membahagiakan anak dalam belajar.', badge: 'Ramah Anak' },
   { title: 'Basic Literasi & Numerasi', desc: 'Penguatan fondasi calistung kontekstual, nalar sains, dan logika matematika sejak dini.', badge: 'Literasi Numerasi' },
   { title: 'Outdoor Learning', desc: 'Pembelajaran aktif di alam terbuka, sains tanaman di greenhouse bambu, dan observasi kebun sekolah.', badge: 'Outdoor Learning' },

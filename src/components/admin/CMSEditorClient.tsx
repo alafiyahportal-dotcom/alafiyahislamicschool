@@ -151,7 +151,7 @@ export const DEFAULT_SD_KARAKTER: SDKarakterData = {
       number: '01',
       title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
       tagline: 'Iman Sebelum Al-Qur\'an • Adab Sebelum Ilmu',
-      desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlaq mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
+      desc: 'Mendidik murid dengan keteladanan sunnah Rasulullah ﷺ, menanamkan akhlak mahmudah dan adab mulia sejak dini. Pembiasaan shalat berjamaah tepat waktu, hafalan doa harian, serta kultum da\'i cilik melatih generasi yang beriman kokoh dan beradab luhur.',
       points: [
         'Pembiasaan shalat berjamaah fardhu dan adab di masjid',
         'Pelatihan muhadharah & da\'i cilik berani tampil',
@@ -431,7 +431,7 @@ export default function CMSEditorClient({
       titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
-      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
       primaryCtaText: 'Daftar SPMB SD IT',
       primaryCtaLink: '/ppdb/daftar?school=sd',
       secondaryCtaText: 'WhatsApp (0813-1013-9001)',
@@ -450,7 +450,7 @@ export default function CMSEditorClient({
       titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
-      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
       primaryCtaText: 'Daftar SPMB SD IT',
       primaryCtaLink: '/ppdb/daftar?school=sd',
       secondaryCtaText: 'WhatsApp (0813-1013-9001)',
@@ -469,7 +469,7 @@ export default function CMSEditorClient({
       titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
-      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+      description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
       primaryCtaText: 'Daftar SPMB SD IT',
       primaryCtaLink: '/ppdb/daftar?school=sd',
       secondaryCtaText: 'WhatsApp (0813-1013-9001)',
@@ -1293,7 +1293,7 @@ export default function CMSEditorClient({
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
                         <span className="flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                          <span>Prinsip Smart Akhlaq Fitrah</span>
+                          <span>Prinsip Smart Akhlak Fitrah</span>
                         </span>
                         <ArrowRight className="w-3.5 h-3.5 text-emerald-700" />
                       </div>
@@ -1533,7 +1533,7 @@ export default function CMSEditorClient({
               {/* Hero Banner Header */}
               <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-3xl p-6 sm:p-8 text-center space-y-3 shadow-md relative overflow-hidden">
                 <span className="text-xs font-bold text-emerald-950 uppercase tracking-widest bg-amber-400 px-3.5 py-1.5 rounded-full inline-block font-mono">
-                  Character Building • Smart Akhlaq Fitrah
+                  Character Building • Smart Akhlak Fitrah
                 </span>
                 <h3 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
                   {formData.sdKarakter?.heroHeadline || DEFAULT_SD_KARAKTER.heroHeadline}
@@ -2242,7 +2242,7 @@ export default function CMSEditorClient({
                 {(formData.stats && formData.stats.length > 0 ? formData.stats : (
                   schoolSlug === 'sd' ? [
                     { label: 'Kuota Penerimaan', value: 'Hanya 2 Rombel' },
-                    { label: 'Pilar Pendidikan', value: 'Smart Akhlaq Fitrah' },
+                    { label: 'Pilar Pendidikan', value: 'Smart Akhlak Fitrah' },
                     { label: 'Akreditasi Sekolah', value: 'Terakreditasi B' },
                     { label: 'Bimbingan Tahfidz', value: 'Juz 30 Mutqin' }
                   ] : [
@@ -2305,7 +2305,7 @@ export default function CMSEditorClient({
                   schoolSlug === 'sd' ? [
                     {
                       title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
-                      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlaq dan ilmu, serta iman sebelum Al-Qur\'an.'
+                      description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlak dan ilmu, serta iman sebelum Al-Qur\'an.'
                     },
                     {
                       title: 'Smart, Literasi & Tahfidz Qur\'an',
@@ -3324,7 +3324,7 @@ export default function CMSEditorClient({
                 <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900">
-                      Tiga Pilar Utama Smart Akhlaq Fitrah
+                      Tiga Pilar Utama Smart Akhlak Fitrah
                     </h4>
                     <p className="text-xs text-slate-500 mt-0.5">
                       Tiga pilar kurikulum terpadu SD IT Al-Afiyah beserta rincian poin pembiasaannya.
@@ -3594,7 +3594,7 @@ export default function CMSEditorClient({
                       const currentMisi = formData.sdProfil?.misiList || DEFAULT_SD_PROFIL.misiList;
                       updateSdProfil((prev) => ({
                         ...prev,
-                        misiList: [...currentMisi, 'Menumbuhkan potensi dan akhlaq islami murid secara berkelanjutan.']
+                        misiList: [...currentMisi, 'Menumbuhkan potensi dan akhlak islami murid secara berkelanjutan.']
                       }));
                     }}
                     className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 text-xs font-bold cursor-pointer"

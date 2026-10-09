@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     default: "SD IT Al-Afiyah Majalengka | Yayasan Pendidikan Imam Bonjol",
     template: "%s | SD IT Al-Afiyah",
   },
-  description: "Portal Resmi SPMB SD IT Al-Afiyah Majalengka. Sekolah Dasar Islam Terpadu berakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlaq Fitrah, dan Tahfidz Juz 30 Mutqin di Lingkungan Giri Asih.",
+  description: "Portal Resmi SPMB SD IT Al-Afiyah Majalengka. Sekolah Dasar Islam Terpadu berakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin di Lingkungan Giri Asih.",
   keywords: [
     "SDIT Al Afiyah",
     "SD IT Al-Afiyah Majalengka",

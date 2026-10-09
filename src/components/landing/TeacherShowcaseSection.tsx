@@ -68,7 +68,7 @@ export default function TeacherShowcaseSection({ teachers = [] }: TeacherShowcas
           </h2>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-            Dewan guru dan tenaga pendidik kami tidak hanya mengajarkan ilmu pengetahuan, namun menjadi teladan akhlaqul karimah dalam keseharian murid.
+            Dewan guru dan tenaga pendidik kami tidak hanya mengajarkan ilmu pengetahuan, namun menjadi teladan akhlakul karimah dalam keseharian murid.
           </p>
         </div>
 

@@ -260,7 +260,7 @@ export default function UnitHeroSlider({
         titleHighlight: 'Tempat Bertumbuh',
         titlePart2: '',
         description:
-          'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlaq Fitrah serta bimbingan metode karakter nabawiyah.',
+          'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
         primaryCtaText: 'Daftar SPMB SD IT',
         primaryCtaLink: ppdbUrl,
         secondaryCtaText: 'WhatsApp (0813-1013-9001)',
