@@ -10,16 +10,16 @@ export default function GoogleStructuredData() {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
       url: siteUrl,
-      name: 'SD IT & Yayasan Al-Afiyah Majalengka',
+      name: 'SDIT & Yayasan Al-Afiyah Majalengka',
       alternateName: [
         'Al-Afiyah Islamic School',
         'SDIT Al Afiyah',
-        'SD IT Al-Afiyah Majalengka',
-        'SPMB SD IT Al-Afiyah',
+        'SDIT Al-Afiyah Majalengka',
+        'SPMB SDIT Al-Afiyah',
         'PMB Al-Afiyah Majalengka',
         'YPIB Majalengka'
       ],
-      description: 'Portal Resmi Sistem Penerimaan Murid Baru (SPMB), Profil Satuan Pendidikan, dan Informasi Terpadu SD IT Al-Afiyah Majalengka.',
+      description: 'Portal Resmi Sistem Penerimaan Murid Baru (SPMB), Profil Satuan Pendidikan, dan Informasi Terpadu SDIT Al-Afiyah Majalengka.',
       inLanguage: 'id-ID',
       publisher: {
         '@id': `${siteUrl}/#organization`
@@ -31,7 +31,7 @@ export default function GoogleStructuredData() {
       '@context': 'https://schema.org',
       '@type': ['EducationalOrganization', 'School', 'ElementarySchool'],
       '@id': `${siteUrl}/#organization`,
-      name: 'SD IT Al-Afiyah Majalengka',
+      name: 'SDIT Al-Afiyah Majalengka',
       alternateName: [
         'Sekolah Dasar Islam Terpadu Al-Afiyah',
         'SDIT Al-Afiyah',
@@ -49,7 +49,7 @@ export default function GoogleStructuredData() {
         `${siteUrl}/images/sd-activity-classroom-6b.jpg`,
         `${siteUrl}/images/sd-activity-shalat-berjamaah.jpg`
       ],
-      description: 'Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah di Lingkungan Giri Asih Majalengka. Terakreditasi B resmi oleh BAN-SM, mengusung kurikulum terpadu Smart Akhlak Fitrah dan Tahfidz Juz 30 Mutqin.',
+      description: 'Sekolah Dasar Islam Terpadu (SDIT) Al-Afiyah di Lingkungan Giri Asih Majalengka. Terakreditasi B resmi oleh BAN-SM, mengusung kurikulum terpadu Smart Akhlak Fitrah dan Tahfidz Juz 30 Mutqin.',
       telephone: '+62-813-1013-9001',
       email: 'sditalafiyahmjl@gmail.com',
       address: {
@@ -90,13 +90,13 @@ export default function GoogleStructuredData() {
         {
           '@type': 'SiteNavigationElement',
           name: 'Masuk ke Akun',
-          description: 'Masuk ke Akun Portal SPMB & Sistem Informasi SD IT Al-Afiyah. Cek status pendaftaran dan kelulusan.',
+          description: 'Masuk ke Akun Portal SPMB & Sistem Informasi SDIT Al-Afiyah. Cek status pendaftaran dan kelulusan.',
           url: `${siteUrl}/login`
         },
         {
           '@type': 'SiteNavigationElement',
-          name: 'SPMB SD IT Al-Afiyah',
-          description: 'Pendaftaran Murid Baru (SPMB) SD IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas.',
+          name: 'SPMB SDIT Al-Afiyah',
+          description: 'Pendaftaran Murid Baru (SPMB) SDIT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas.',
           url: `${siteUrl}/sd/spmb`
         },
         {
@@ -107,8 +107,8 @@ export default function GoogleStructuredData() {
         },
         {
           '@type': 'SiteNavigationElement',
-          name: 'Profil Lengkap SD IT',
-          description: 'Visi, misi, status akreditasi B, dan profil resmi satuan pendidikan SD IT Al-Afiyah.',
+          name: 'Profil Lengkap SDIT',
+          description: 'Visi, misi, status akreditasi B, dan profil resmi satuan pendidikan SDIT Al-Afiyah.',
           url: `${siteUrl}/sd/profil`
         },
         {

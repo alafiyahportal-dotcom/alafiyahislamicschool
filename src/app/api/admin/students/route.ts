@@ -197,7 +197,7 @@ export async function POST(req: NextRequest) {
       const generatedNis = `${prefix}${String(nextNum).padStart(4, '0')}`;
       const defaultClass =
         body.classGrade ||
-        (reg.school.slug === 'tk' ? 'TK A' : reg.school.slug === 'sd' ? '1 SD IT' : '7 SMP IT');
+        (reg.school.slug === 'tk' ? 'TK A' : reg.school.slug === 'sd' ? '1 SDIT' : '7 SMP IT');
 
       const newStudent = await prisma.student.create({
         data: {

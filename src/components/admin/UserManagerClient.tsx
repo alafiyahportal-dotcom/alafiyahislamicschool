@@ -117,7 +117,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
       case 'ADMIN_SD':
         return (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-800 border border-teal-200">
-            Admin SD IT
+            Admin SDIT
           </span>
         );
       case 'ADMIN_SMP':
@@ -366,7 +366,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
             <option value="ALL">Semua Peran (Roles)</option>
             <option value="SUPERADMIN">Superadmin Yayasan</option>
             <option value="ADMIN_TK">Admin TK IT</option>
-            <option value="ADMIN_SD">Admin SD IT</option>
+            <option value="ADMIN_SD">Admin SDIT</option>
             <option value="ADMIN_SMP">Admin SMP IT</option>
             <option value="FINANCE">Bendahara / Kasir</option>
             <option value="PPDB_OFFICER">Petugas Seleksi PPDB</option>
@@ -385,7 +385,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
             <option value="ALL">Semua Penugasan</option>
             <option value="FOUNDATION">Pusat Yayasan (Lintas Unit)</option>
             <option value="tk">PAUD / TK IT Al-Afiyah</option>
-            <option value="sd">SD IT Al-Afiyah</option>
+            <option value="sd">SDIT Al-Afiyah</option>
             <option value="smp">SMP IT Al-Afiyah</option>
           </select>
         </div>
@@ -574,7 +574,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
                     className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#2D7A70] focus:outline-hidden"
                   >
                     <option value="ADMIN_TK">Admin Unit TK IT</option>
-                    <option value="ADMIN_SD">Admin Unit SD IT</option>
+                    <option value="ADMIN_SD">Admin Unit SDIT</option>
                     <option value="ADMIN_SMP">Admin Unit SMP IT</option>
                     <option value="PPDB_OFFICER">Petugas Seleksi PPDB</option>
                     <option value="FINANCE">Bendahara / Kasir Tata Usaha</option>
@@ -697,7 +697,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
                     className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#2D7A70] focus:outline-hidden"
                   >
                     <option value="ADMIN_TK">Admin Unit TK IT</option>
-                    <option value="ADMIN_SD">Admin Unit SD IT</option>
+                    <option value="ADMIN_SD">Admin Unit SDIT</option>
                     <option value="ADMIN_SMP">Admin Unit SMP IT</option>
                     <option value="PPDB_OFFICER">Petugas Seleksi PPDB</option>
                     <option value="FINANCE">Bendahara / Kasir Tata Usaha</option>

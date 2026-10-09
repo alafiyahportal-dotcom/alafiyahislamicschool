@@ -28,16 +28,16 @@ import { prisma } from '@/lib/prisma';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'SPMB SD IT Al-Afiyah Majalengka - Pendaftaran Murid Baru TA 2027/2028',
-  description: 'Pendaftaran Murid Baru (SPMB) SD IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas, kurikulum Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin. Daftar online sekarang.',
+  title: 'SPMB SDIT Al-Afiyah Majalengka - Pendaftaran Murid Baru TA 2027/2028',
+  description: 'Pendaftaran Murid Baru (SPMB) SDIT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas, kurikulum Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin. Daftar online sekarang.',
   alternates: {
     canonical: '/sd/spmb',
   },
   openGraph: {
-    title: 'SPMB SD IT Al-Afiyah Majalengka TA 2027/2028',
-    description: 'Penerimaan Murid Baru SD IT Al-Afiyah. Bimbingan karakter nabawiyah, tahfidz juz 30, dan kurikulum terpadu.',
+    title: 'SPMB SDIT Al-Afiyah Majalengka TA 2027/2028',
+    description: 'Penerimaan Murid Baru SDIT Al-Afiyah. Bimbingan karakter nabawiyah, tahfidz juz 30, dan kurikulum terpadu.',
     url: '/sd/spmb',
-    siteName: 'SD IT Al-Afiyah Majalengka',
+    siteName: 'SDIT Al-Afiyah Majalengka',
     locale: 'id_ID',
     type: 'website',
   },
@@ -101,7 +101,7 @@ export default async function SdSpmbInfoPage() {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
       <Navbar schoolSlug="sd" />
 
-      {/* Hero Header Khusus SD IT */}
+      {/* Hero Header Khusus SDIT */}
       <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
@@ -110,7 +110,7 @@ export default async function SdSpmbInfoPage() {
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SD IT</span>
+              <span>Beranda SDIT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-emerald-300/50" />
             <span className="text-white font-medium">Informasi SPMB</span>
@@ -124,7 +124,7 @@ export default async function SdSpmbInfoPage() {
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Penerimaan Murid Baru (SPMB) <br className="hidden sm:inline" />
-              SD IT Al-Afiyah Majalengka
+              SDIT Al-Afiyah Majalengka
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
@@ -207,7 +207,7 @@ export default async function SdSpmbInfoPage() {
                 Pendaftaran Online
               </h3>
               <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
-                Mengisi formulir biodata calon murid dan data orang tua/wali melalui portal SPMB SD IT. Dapatkan ID registrasi pendaftaran resmi.
+                Mengisi formulir biodata calon murid dan data orang tua/wali melalui portal SPMB SDIT. Dapatkan ID registrasi pendaftaran resmi.
               </p>
             </div>
             <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
@@ -291,7 +291,7 @@ export default async function SdSpmbInfoPage() {
         </ScrollReveal>
       </section>
 
-      {/* Syarat & Ketentuan SPMB SD IT */}
+      {/* Syarat & Ketentuan SPMB SDIT */}
       <section className="py-12 bg-white border-y border-slate-200">
         <ScrollReveal yOffset={24} duration={500}>
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -338,7 +338,7 @@ export default async function SdSpmbInfoPage() {
               <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
                 <div className="relative z-10">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 bg-white/10 px-3 py-1 rounded-full">
-                    Fasilitas & Lingkungan SD IT
+                    Fasilitas & Lingkungan SDIT
                   </span>
                   <h3 className="text-xl sm:text-2xl font-bold mt-4">
                     Lingkungan Giri Asih Majalengka
@@ -383,10 +383,10 @@ export default async function SdSpmbInfoPage() {
                 Layanan Konsultasi Offline & Online
               </span>
               <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-1">
-                Ingin bertanya langsung ke Panitia SPMB SD IT?
+                Ingin bertanya langsung ke Panitia SPMB SDIT?
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-lg">
-                Kunjungi sekretariat kami di Lingkungan Giri Asih atau hubungi WhatsApp resmi Panitia SD IT di {waNumber}.
+                Kunjungi sekretariat kami di Lingkungan Giri Asih atau hubungi WhatsApp resmi Panitia SDIT di {waNumber}.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
@@ -403,7 +403,7 @@ export default async function SdSpmbInfoPage() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp Panitia SD IT</span>
+                <span>WhatsApp Panitia SDIT</span>
               </a>
             </div>
           </div>

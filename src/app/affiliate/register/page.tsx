@@ -175,7 +175,7 @@ export default function AffiliateRegisterPage() {
                       <strong className="text-xs font-bold text-white block mt-0.5">Rp 250.000</strong>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
-                      <span className="text-[10px] text-emerald-200 block font-medium">SD IT</span>
+                      <span className="text-[10px] text-emerald-200 block font-medium">SDIT</span>
                       <strong className="text-xs font-bold text-white block mt-0.5">Rp 100.000</strong>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
@@ -219,7 +219,7 @@ export default function AffiliateRegisterPage() {
                 {/* SD slider */}
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-slate-600 font-medium">Calon Murid SD IT:</span>
+                    <span className="text-slate-600 font-medium">Calon Murid SDIT:</span>
                     <strong className="text-slate-900 font-bold">{simSd} Murid</strong>
                   </div>
                   <input
@@ -278,7 +278,7 @@ export default function AffiliateRegisterPage() {
                   <div>
                     <strong className="text-slate-900 block font-semibold">Tautan Referral Multi-Unit Otomatis</strong>
                     <span className="text-slate-500 text-[11px] leading-relaxed">
-                      Satu akun langsung mendapatkan tautan khusus TK IT, SD IT, dan SMP IT dengan cookie tracking 30 hari.
+                      Satu akun langsung mendapatkan tautan khusus TK IT, SDIT, dan SMP IT dengan cookie tracking 30 hari.
                     </span>
                   </div>
                 </div>

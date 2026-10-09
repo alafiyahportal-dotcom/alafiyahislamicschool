@@ -74,7 +74,7 @@ export default function StudentIdCardModal({
           gradient: 'from-[#184F48] via-[#23635b] to-[#2D7A70]',
           accent: 'border-teal-300 text-teal-200',
           badgeBg: 'bg-teal-300 text-slate-950',
-          badgeText: 'SD IT AL-AFIYAH',
+          badgeText: 'SDIT AL-AFIYAH',
           code: 'SDIT',
         };
     }
@@ -294,7 +294,7 @@ function FrontCardDesign({
           {theme.code === 'SDIT' ? (
             <img
               src="/images/sd-logo.png"
-              alt="Logo SD IT Al-Afiyah"
+              alt="Logo SDIT Al-Afiyah"
               className="w-9 h-9 object-contain shrink-0 drop-shadow-sm"
             />
           ) : (

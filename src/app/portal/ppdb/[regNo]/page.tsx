@@ -78,7 +78,7 @@ export default async function ApplicantPortalPage({
                 {reg.school.slug === 'sd' && (
                   <img
                     src="/images/sd-logo.png"
-                    alt="Logo SD IT Al-Afiyah"
+                    alt="Logo SDIT Al-Afiyah"
                     className="w-4 h-4 object-contain shrink-0"
                   />
                 )}
@@ -239,7 +239,7 @@ export default async function ApplicantPortalPage({
                     {reg.school.slug === 'sd' && (
                       <img
                         src="/images/sd-logo.png"
-                        alt="Logo SD IT Al-Afiyah"
+                        alt="Logo SDIT Al-Afiyah"
                         className="w-4 h-4 object-contain inline-block"
                       />
                     )}

@@ -40,15 +40,15 @@ export default async function KontakPage({
   const contactChannels = isSd
     ? [
         {
-          title: 'Layanan Utama & SPMB SD IT',
+          title: 'Layanan Utama & SPMB SDIT',
           number: '+62 813-1013-9001',
           desc: 'Konsultasi kurikulum dasar, Smart Akhlak Fitrah, pendaftaran murid baru (SPMB), dan tata usaha.',
           link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
-          cta: 'Chat WhatsApp SD IT',
-          badge: 'Unit SD IT Resmi',
+          cta: 'Chat WhatsApp SDIT',
+          badge: 'Unit SDIT Resmi',
         },
         {
-          title: 'Konsultasi Program Tahfidz SD IT',
+          title: 'Konsultasi Program Tahfidz SDIT',
           number: '+62 813-1013-9001',
           desc: 'Informasi kurikulum tahfidz mutqin juz 30, hafalan hadits, dan target capaian ibadah murid.',
           link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Asatidzah%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20tahfidz',
@@ -74,11 +74,11 @@ export default async function KontakPage({
           badge: 'PAUD/TK',
         },
         {
-          title: 'Layanan SPMB SD IT',
+          title: 'Layanan SPMB SDIT',
           number: '+62 813-1013-9001',
           desc: 'Konsultasi kurikulum dasar, Smart Akhlak Fitrah, dan pendaftaran murid baru (SPMB).',
           link: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran',
-          cta: 'Hubungi SD IT',
+          cta: 'Hubungi SDIT',
           badge: 'Sekolah Dasar',
         },
         {
@@ -241,7 +241,7 @@ export default async function KontakPage({
       <StickyMobileBar 
         schoolSlug={schoolSlug} 
         waPhone={isSd ? '6281310139001' : '6281223344552'} 
-        schoolName={isSd ? 'SD IT Al-Afiyah' : 'Al-Afiyah'} 
+        schoolName={isSd ? 'SDIT Al-Afiyah' : 'Al-Afiyah'} 
       />
     </div>
   );

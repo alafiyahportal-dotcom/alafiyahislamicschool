@@ -10,9 +10,9 @@ import { ArrowLeft, Calendar, ChevronRight } from 'lucide-react';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Agenda & Kalender Akademik SD IT',
+  title: 'Agenda & Kalender Akademik SDIT',
   description:
-    'Jadwal lengkap kegiatan belajar, gelombang SPMB, ujian observasi, PTS/PAS, mabit tahfidz, dan kegiatan murid SD IT Al-Afiyah Majalengka.',
+    'Jadwal lengkap kegiatan belajar, gelombang SPMB, ujian observasi, PTS/PAS, mabit tahfidz, dan kegiatan murid SDIT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -28,7 +28,7 @@ export default function SdAgendaPage() {
     <div className="min-h-screen flex flex-col bg-[#F7FBFB] text-slate-800 font-sans">
       <Navbar schoolSlug="sd" />
 
-      {/* Hero Header Khusus SD IT */}
+      {/* Hero Header Khusus SDIT */}
       <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
@@ -37,7 +37,7 @@ export default function SdAgendaPage() {
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SD IT</span>
+              <span>Beranda SDIT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-emerald-300/50" />
             <span className="text-white font-medium">Agenda &amp; Kalender</span>
@@ -50,11 +50,11 @@ export default function SdAgendaPage() {
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Agenda &amp; Kalender Akademik SD IT
+              Agenda &amp; Kalender Akademik SDIT
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Jadwal lengkap kegiatan belajar mengajar, gelombang SPMB 2027/2028, asesmen STS/SAS, mabit tahfidz Al-Qur&apos;an, dan agenda resmi murid SD IT Al-Afiyah Majalengka.
+              Jadwal lengkap kegiatan belajar mengajar, gelombang SPMB 2027/2028, asesmen STS/SAS, mabit tahfidz Al-Qur&apos;an, dan agenda resmi murid SDIT Al-Afiyah Majalengka.
             </p>
           </div>
         </div>

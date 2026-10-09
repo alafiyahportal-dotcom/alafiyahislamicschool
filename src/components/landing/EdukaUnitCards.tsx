@@ -176,7 +176,7 @@ export default function EdukaUnitCards() {
                           {unit.slug === 'sd' && (
                             <img
                               src="/images/sd-logo.png"
-                              alt="Logo SD IT Al-Afiyah"
+                              alt="Logo SDIT Al-Afiyah"
                               className="w-7 h-7 object-contain shrink-0"
                             />
                           )}

@@ -26,21 +26,21 @@ export const metadata: Metadata = {
 const DEFAULT_ARTICLES: NewsArticle[] = [
   {
     id: 'sd-field-study-1',
-    title: 'Field Study SD IT Al-Afiyah di P4S An-Nabawiyah: Praktik Pertanian & Perikanan Smart Akhlak Fitrah',
+    title: 'Field Study SDIT Al-Afiyah di P4S An-Nabawiyah: Praktik Pertanian & Perikanan Smart Akhlak Fitrah',
     slug: 'field-study-sd-it-al-afiyah-p4s-an-nabawiyah',
     category: 'Kabar Sekolah',
-    schoolName: 'SD IT Al-Afiyah',
-    excerpt: 'Puluhan murid SD IT Al-Afiyah mengikuti kegiatan field study di P4S An-Nabawiyah. Murid belajar memindahkan semai bibit sayur ke polybag, observasi greenhouse bambu, dan edukasi budidaya perikanan biofloc.',
-    author: 'Humas SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
+    excerpt: 'Puluhan murid SDIT Al-Afiyah mengikuti kegiatan field study di P4S An-Nabawiyah. Murid belajar memindahkan semai bibit sayur ke polybag, observasi greenhouse bambu, dan edukasi budidaya perikanan biofloc.',
+    author: 'Humas SDIT Al-Afiyah',
     date: '25 Sep 2026',
     readingTime: '3 menit baca',
     imageUrl: '/images/sd-field-study-banner.jpg',
     paragraphs: [
-      'Alhamdulillah, dalam rangka mewujudkan kurikulum kontekstual berbasis alam dan karakter, murid-murid SD IT Al-Afiyah melaksanakan kegiatan "Field Study: Smart Akhlak Fitrah" bertempat di Pusat Pelatihan Pertanian dan Perdesaan Swadaya (P4S) An-Nabawiyah.',
+      'Alhamdulillah, dalam rangka mewujudkan kurikulum kontekstual berbasis alam dan karakter, murid-murid SDIT Al-Afiyah melaksanakan kegiatan "Field Study: Smart Akhlak Fitrah" bertempat di Pusat Pelatihan Pertanian dan Perdesaan Swadaya (P4S) An-Nabawiyah.',
       'Kegiatan edukasi luar kelas ini dirancang untuk mengenalkan fitrah anak terhadap alam semesta dan menumbuhkan rasa syukur atas limpahan rezeki ciptaan Allah Ta\'ala. Mengenakan seragam lapangan dan rompi praktikum, para murid tampak sangat antusias mengikuti seluruh rangkaian agenda.',
-      'Dalam sesi agro-literasi, siswi SD IT Al-Afiyah dibimbing langsung oleh dewan guru mengenai tahapan pembenihan tanaman hortikultura. Mulai dari mengamati tunas tanaman di rak semai greenhouse, hingga praktik langsung memindahkan bibit cabai dan sayuran ke media tanam polybag secara mandiri dan cermat.',
+      'Dalam sesi agro-literasi, siswi SDIT Al-Afiyah dibimbing langsung oleh dewan guru mengenai tahapan pembenihan tanaman hortikultura. Mulai dari mengamati tunas tanaman di rak semai greenhouse, hingga praktik langsung memindahkan bibit cabai dan sayuran ke media tanam polybag secara mandiri dan cermat.',
       'Sementara itu pada sesi perikanan, murid-murid ikhwan diajak mengamati ekosistem air tawar pada kolam budidaya biofloc terpal. Murid mempraktikkan langsung cara pemberian pakan ikan yang teratur dan mempelajari siklus hidup ikan air tawar sebagai bagian dari pembelajaran sains nabawi.',
-      'Kepala SD IT Al-Afiyah menyampaikan bahwa kegiatan field study ini adalah wujud nyata pilar Smart Akhlak Fitrah, di mana proses belajar tidak hanya terbatas di dalam empat dinding kelas, melainkan bersentuhan langsung dengan lingkungan nyata untuk membangun kemandirian, adab, dan kecerdasan anak.'
+      'Kepala SDIT Al-Afiyah menyampaikan bahwa kegiatan field study ini adalah wujud nyata pilar Smart Akhlak Fitrah, di mana proses belajar tidak hanya terbatas di dalam empat dinding kelas, melainkan bersentuhan langsung dengan lingkungan nyata untuk membangun kemandirian, adab, dan kecerdasan anak.'
     ],
     keyHighlights: [
       'Lokasi Kegiatan: P4S An-Nabawiyah bersama dewan asatidzah pendamping.',
@@ -51,18 +51,18 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
   },
   {
     id: 'sd-futsal-2',
-    title: 'Alhamdulillah! Tim Futsal SD IT Al-Afiyah Raih Juara 2 (Second Place) Tingkat Daerah',
+    title: 'Alhamdulillah! Tim Futsal SDIT Al-Afiyah Raih Juara 2 (Second Place) Tingkat Daerah',
     slug: 'tim-futsal-sd-it-al-afiyah-raih-juara-2',
     category: 'Prestasi',
-    schoolName: 'SD IT Al-Afiyah',
-    excerpt: 'Prestasi membanggakan kembali ditorehkan murid-murid SD IT Al-Afiyah. Tim Futsal sekolah berhasil menyabet gelar Second Place dalam kejuaraan futsal antar-sekolah tingkat daerah.',
-    author: 'Pembina Olahraga SD IT',
+    schoolName: 'SDIT Al-Afiyah',
+    excerpt: 'Prestasi membanggakan kembali ditorehkan murid-murid SDIT Al-Afiyah. Tim Futsal sekolah berhasil menyabet gelar Second Place dalam kejuaraan futsal antar-sekolah tingkat daerah.',
+    author: 'Pembina Olahraga SDIT',
     date: '23 Sep 2026',
     readingTime: '3 menit baca',
     imageUrl: '/images/sd-futsal-champion.jpg',
     paragraphs: [
-      'Keluarga besar SD IT Al-Afiyah bersyukur atas torehan prestasi membanggakan yang diraih oleh Tim Futsal murid SD IT Al-Afiyah. Dalam turnamen kompetisi futsal pelajar tingkat daerah, tim sekolah sukses menembus babak final dan mengamankan posisi Juara 2 (Second Place).',
-      'Perjalanan tim futsal SD IT Al-Afiyah diwarnai dengan perjuangan gigih, kekompakan strategi bermain, dan yang paling utama adalah menjunjung tinggi sportivitas serta adab islami di dalam maupun di luar lapangan.',
+      'Keluarga besar SDIT Al-Afiyah bersyukur atas torehan prestasi membanggakan yang diraih oleh Tim Futsal murid SDIT Al-Afiyah. Dalam turnamen kompetisi futsal pelajar tingkat daerah, tim sekolah sukses menembus babak final dan mengamankan posisi Juara 2 (Second Place).',
+      'Perjalanan tim futsal SDIT Al-Afiyah diwarnai dengan perjuangan gigih, kekompakan strategi bermain, dan yang paling utama adalah menjunjung tinggi sportivitas serta adab islami di dalam maupun di luar lapangan.',
       'Penyerahan trofi kejuaraan dan piagam penghargaan dilangsungkan secara khidmat pada saat apel upacara bendera di lapangan sekolah. Didampingi dewan guru dan kepala sekolah, seluruh siswa-siswi yang memadati lapangan turut memberikan tepuk tangan apresiasi dan doa.',
       'Pihak sekolah senantiasa mendukung penuh penyaluran minat dan bakat murid, baik dalam bidang tahfidz Al-Qur\'an, sains teknologi, maupun bidang kebugaran jasmani dan ketangkasan olahraga sesuai anjuran Rasulullah ﷺ.'
     ],
@@ -70,30 +70,30 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
       'Gelar Juara: Second Place (Juara 2) Turnamen Futsal Pelajar Tingkat Daerah.',
       'Karakter: Menjunjung tinggi sportivitas islami, kerja sama tim, dan mental juara.',
       'Apresiasi: Penyerahan piala dan sertifikat resmi pada apel upacara di hadapan seluruh murid.',
-      'Pengembangan Bakat: Fasilitas ekstrakurikuler futsal dan olahraga terpadu di SD IT Al-Afiyah.'
+      'Pengembangan Bakat: Fasilitas ekstrakurikuler futsal dan olahraga terpadu di SDIT Al-Afiyah.'
     ]
   },
   {
     id: 'sts-1',
-    title: 'Selamat Melaksanakan Sumatif Tengah Semester (STS) 1 SD IT Al-Afiyah',
+    title: 'Selamat Melaksanakan Sumatif Tengah Semester (STS) 1 SDIT Al-Afiyah',
     slug: 'sumatif-tengah-semester-1-sdit-al-afiyah',
     category: 'Pengumuman',
-    schoolName: 'SD IT Al-Afiyah',
-    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlak Fitrah.',
-    author: 'Kurikulum SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
+    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SDIT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlak Fitrah.',
+    author: 'Kurikulum SDIT Al-Afiyah',
     date: '20 Sep 2026',
     readingTime: '2 menit baca',
     imageUrl: '/images/sts-semester-1-sdit.jpg',
     paragraphs: [
-      'Bismillah, segenap pimpinan Yayasan, kepala sekolah, dan dewan asatidzah mengucapkan: "Selamat Melaksanakan Sumatif Tengah Semester (STS) Semester 1 Tahun Ajaran 2026/2027" bagi seluruh murid kelas 1 hingga 6 SD IT Al-Afiyah.',
-      'Pelaksanaan Sumatif Tengah Semester (STS) 1 ini dimulai serentak pada hari Senin, 21 September 2026 dengan jam kegiatan belajar asesmen khusus, yaitu pukul 07.15 s.d 11.00 WIB bertempat di ruang kelas masing-masing Lingkungan Sekolah SD IT Al-Afiyah.',
+      'Bismillah, segenap pimpinan Yayasan, kepala sekolah, dan dewan asatidzah mengucapkan: "Selamat Melaksanakan Sumatif Tengah Semester (STS) Semester 1 Tahun Ajaran 2026/2027" bagi seluruh murid kelas 1 hingga 6 SDIT Al-Afiyah.',
+      'Pelaksanaan Sumatif Tengah Semester (STS) 1 ini dimulai serentak pada hari Senin, 21 September 2026 dengan jam kegiatan belajar asesmen khusus, yaitu pukul 07.15 s.d 11.00 WIB bertempat di ruang kelas masing-masing Lingkungan Sekolah SDIT Al-Afiyah.',
       'Mengusung motto dan identitas "Smart Akhlak Fitrah", kegiatan asesmen ini dirancang bukan sekadar mengevaluasi penguasaan materi ajar kurikulum, melainkan menjadi wahana pembentukan karakter murid yang jujur, teliti, mandiri, dan beradab.',
       'Kami mengimbau kepada seluruh ayah dan bunda wali murid untuk mendampingi ananda dengan menjaga pola istirahat yang cukup, membiasakan sarapan sehat sebelum berangkat, serta senantiasa memanjatkan doa terbaik agar ananda diberikan kelapangan berpikir dan kemudahan dari Allah Ta’ala.'
     ],
     keyHighlights: [
       'Jadwal Pelaksanaan: Mulai 21 September 2026.',
       'Waktu: Pukul 07.15 s.d 11.00 WIB.',
-      'Lokasi: Lingkungan Sekolah SD IT Al-Afiyah.',
+      'Lokasi: Lingkungan Sekolah SDIT Al-Afiyah.',
       'Tagline & Karakter: Smart Akhlak Fitrah (Menjunjung tinggi kejujuran & adab mandiri).'
     ]
   },
@@ -145,17 +145,17 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
   },
   {
     id: '3',
-    title: 'Kunjungan Edukasi Saintifik Murid SD IT Al-Afiyah ke Laboratorium Botani',
+    title: 'Kunjungan Edukasi Saintifik Murid SDIT Al-Afiyah ke Laboratorium Botani',
     slug: 'kunjungan-edukasi-sd-it-laboratorium-botani',
     category: 'Kabar Sekolah',
-    schoolName: 'SD IT Al-Afiyah',
-    excerpt: 'Murid kelas 5 SD IT mempraktikkan langsung ayat-ayat kauniyyah tentang proses fotosintesis tumbuhan dan keanekaragaman flora lokal.',
-    author: 'Humas SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
+    excerpt: 'Murid kelas 5 SDIT mempraktikkan langsung ayat-ayat kauniyyah tentang proses fotosintesis tumbuhan dan keanekaragaman flora lokal.',
+    author: 'Humas SDIT Al-Afiyah',
     date: '05 Sep 2026',
     readingTime: '4 menit baca',
     imageUrl: '/images/sd-hero-greenhouse.jpg',
     paragraphs: [
-      'Sebagai bagian dari pembelajaran kontekstual kurikulum terpadu, puluhan murid kelas 5 SD IT Al-Afiyah melaksanakan kegiatan field trip edukatif ke Laboratorium Botani dan Konservasi Tumbuhan.',
+      'Sebagai bagian dari pembelajaran kontekstual kurikulum terpadu, puluhan murid kelas 5 SDIT Al-Afiyah melaksanakan kegiatan field trip edukatif ke Laboratorium Botani dan Konservasi Tumbuhan.',
       'Kegiatan ini memadukan materi sains tentang jaringan tumbuhan dan fotosintesis dengan tadabbur ayat-ayat kauniyyah dalam Al-Qur’an Surat An-Nahl dan Surat Al-An’am tentang bagaimana Allah menumbuhkan aneka tanaman sebagai karunia bagi manusia.',
       'Murid diajak mengamati klorofil daun di bawah mikroskop digital, mengenal teknik okulasi tanaman buah lokal, serta membuat herbarium mini secara berkelompok.',
       'Melalui observasi lapangan ini, murid tidak hanya memahami teori biologi secara mendalam, tetapi juga semakin kagum atas kebesaran Allah Azza wa Jalla sang Pencipta alam semesta.'
@@ -283,17 +283,17 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
   },
   {
     id: '9',
-    title: 'Pekan Bahasa Arab & Inggris: Menumbuhkan Percakapan Aktif dan Percaya Diri Murid SD IT',
+    title: 'Pekan Bahasa Arab & Inggris: Menumbuhkan Percakapan Aktif dan Percaya Diri Murid SDIT',
     slug: 'pekan-bahasa-arab-inggris-sd-it',
     category: 'Kabar Sekolah',
-    schoolName: 'SD IT Al-Afiyah',
-    excerpt: 'Melalui kegiatan Hiwar Yaumi dan Daily English Vocabulary, murid SD IT Al-Afiyah unjuk kebolehan pidato dan bercerita kisah sahabat nabi dalam bahasa asing.',
+    schoolName: 'SDIT Al-Afiyah',
+    excerpt: 'Melalui kegiatan Hiwar Yaumi dan Daily English Vocabulary, murid SDIT Al-Afiyah unjuk kebolehan pidato dan bercerita kisah sahabat nabi dalam bahasa asing.',
     author: 'Ustadzah Nurul Hidayah, M.Pd.',
     date: '02 Agu 2026',
     readingTime: '4 menit baca',
     imageUrl: '/images/smp-hero-bilingual.jpg',
     paragraphs: [
-      'Suasana di lingkungan SD IT Al-Afiyah tampak lebih semarak dengan digelarnya Pekan Bahasa Internasional (Language Week) yang mengusung tema "Cinta Bahasa Al-Qur’an dan Komunikasi Global".',
+      'Suasana di lingkungan SDIT Al-Afiyah tampak lebih semarak dengan digelarnya Pekan Bahasa Internasional (Language Week) yang mengusung tema "Cinta Bahasa Al-Qur’an dan Komunikasi Global".',
       'Sepanjang pekan, murid diajak membiasakan percakapan sederhana sehari-hari (Hiwar Yaumi) dalam bahasa Arab saat berinteraksi di lingkungan kelas serta pengenalan kosakata bahasa Inggris tematik.',
       'Berbagai perlombaan edukatif digelar, mulai dari lomba khitobah (pidato cilik), spelling bee islami, storytelling kisah sahabat Rasulullah, hingga drama musikal nasyid berbahasa Arab.',
       'Kegiatan ini terbukti memicu antusiasme tinggi murid tanpa rasa takut salah, menanamkan keberanian berbicara di depan umum sejak bangku sekolah dasar.'
@@ -411,13 +411,13 @@ export default async function BeritaPage({
         slug: p.slug,
         category: p.category || 'Kabar Sekolah',
         excerpt: p.excerpt || p.content.slice(0, 150) + '...',
-        author: p.author || (isSd ? 'Humas SD IT Al-Afiyah' : 'Humas Al-Afiyah'),
+        author: p.author || (isSd ? 'Humas SDIT Al-Afiyah' : 'Humas Al-Afiyah'),
         date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
           day: 'numeric',
           month: 'short',
           year: 'numeric',
         }),
-        schoolName: p.school?.name || (isSd ? 'SD IT Al-Afiyah' : undefined),
+        schoolName: p.school?.name || (isSd ? 'SDIT Al-Afiyah' : undefined),
         readingTime: '4 menit baca',
         imageUrl: p.coverImage || undefined,
         paragraphs: p.content ? p.content.split('\n').filter((l: string) => l.trim().length > 0) : undefined,
@@ -430,7 +430,7 @@ export default async function BeritaPage({
   // If DB has fewer than 3 posts, supplement with default curated articles
   if (articles.length === 0) {
     articles = isSd 
-      ? DEFAULT_ARTICLES.filter(a => a.schoolName === 'SD IT Al-Afiyah' || a.category === 'Artikel & Kajian')
+      ? DEFAULT_ARTICLES.filter(a => a.schoolName === 'SDIT Al-Afiyah' || a.category === 'Artikel & Kajian')
       : DEFAULT_ARTICLES;
   }
 
@@ -452,15 +452,15 @@ export default async function BeritaPage({
           </p>
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-200 text-xs font-semibold uppercase tracking-wider mb-5">
             <Newspaper className="w-3.5 h-3.5 text-amber-300" />
-            <span>{isSd ? 'Warta & Khazanah SD IT Al-Afiyah' : 'Warta Sekolah & Khazanah Keilmuan'}</span>
+            <span>{isSd ? 'Warta & Khazanah SDIT Al-Afiyah' : 'Warta Sekolah & Khazanah Keilmuan'}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
-            {isSd ? 'Kabar Berita & Prestasi SD IT' : 'Kabar Berita & Pengumuman Sekolah'}
+            {isSd ? 'Kabar Berita & Prestasi SDIT' : 'Kabar Berita & Pengumuman Sekolah'}
           </h1>
           <p className="mt-4 text-base sm:text-lg text-emerald-100/90 max-w-2xl mx-auto leading-relaxed">
             {isSd 
-              ? 'Informasi resmi kegiatan belajar mengajar murid, field study, kejuaraan, dan artikel mutiara adab nabawiyah SD IT Al-Afiyah.'
+              ? 'Informasi resmi kegiatan belajar mengajar murid, field study, kejuaraan, dan artikel mutiara adab nabawiyah SDIT Al-Afiyah.'
               : 'Informasi resmi agenda ujian sumatif, dinamika kegiatan belajar murid, dokumentasi sekolah, serta mutiara faedah keilmuan dari para asatidzah.'}
           </p>
         </div>
@@ -475,7 +475,7 @@ export default async function BeritaPage({
       <StickyMobileBar 
         schoolSlug={schoolSlug} 
         waPhone={isSd ? '6281310139001' : '6281223344552'} 
-        schoolName={isSd ? 'SD IT Al-Afiyah' : 'Al-Afiyah'} 
+        schoolName={isSd ? 'SDIT Al-Afiyah' : 'Al-Afiyah'} 
       />
     </div>
   );

@@ -205,7 +205,7 @@ export default function BroadcastManagerClient({
     studentName: 'Muhammad Rayyan Al-Ghifari',
     parentName: 'Hendra Gunawan',
     registrationNo: 'REG-SD-2026-0001',
-    schoolName: 'SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
   };
 
   const previewMessage = messageContent
@@ -446,7 +446,7 @@ export default function BroadcastManagerClient({
                     {[
                       { slug: 'all', label: 'Semua' },
                       { slug: 'tk', label: 'TK IT' },
-                      { slug: 'sd', label: 'SD IT' },
+                      { slug: 'sd', label: 'SDIT' },
                       { slug: 'smp', label: 'SMP IT' },
                     ].map((u) => (
                       <button

@@ -70,7 +70,7 @@ function CheckStatusContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           query: searchQuery,
-          school: 'sd', // Strictly filter for SD IT registrations
+          school: 'sd', // Strictly filter for SDIT registrations
         }),
       });
 
@@ -102,7 +102,7 @@ function CheckStatusContent() {
 
   return (
     <div className="min-h-screen soft-mesh-bg flex flex-col justify-between overflow-x-clip">
-      {/* SD IT Dedicated Navbar */}
+      {/* SDIT Dedicated Navbar */}
       <Navbar schoolSlug="sd" />
 
       <main className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 my-auto pb-24 sm:pb-12">
@@ -110,14 +110,14 @@ function CheckStatusContent() {
         <div className="text-center max-w-2xl mx-auto mb-8">
           <div className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wide px-3.5 py-1.5 rounded-full border shadow-2xs mb-3 bg-[#E8F8F0] text-[#00A651] border-[#A7F3D0]">
             <Search className="w-3.5 h-3.5 text-[#00A651]" />
-            <span>Layanan Mandiri Pelacak Pendaftaran SD IT Al-Afiyah</span>
+            <span>Layanan Mandiri Pelacak Pendaftaran SDIT Al-Afiyah</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Lacak Status SPMB SD IT Al-Afiyah
+            Lacak Status SPMB SDIT Al-Afiyah
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-            Periksa progres verifikasi berkas, jadwal tes observasi, dan pengumuman penerimaan calon murid baru SD IT Al-Afiyah T.A. 2027/2028.
+            Periksa progres verifikasi berkas, jadwal tes observasi, dan pengumuman penerimaan calon murid baru SDIT Al-Afiyah T.A. 2027/2028.
           </p>
         </div>
 
@@ -129,7 +129,7 @@ function CheckStatusContent() {
                 Masukkan Kata Kunci Pencarian Murid:
               </label>
               <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                Unit SD IT
+                Unit SDIT
               </span>
             </div>
 
@@ -204,7 +204,7 @@ function CheckStatusContent() {
             <div className="flex items-center justify-between pb-2 border-b border-slate-200">
               <div className="flex items-center space-x-2">
                 <h2 className="text-sm font-bold text-slate-900">
-                  Hasil Pencarian SD IT Al-Afiyah
+                  Hasil Pencarian SDIT Al-Afiyah
                 </h2>
                 <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
                   {results.length} Murid Ditemukan
@@ -221,17 +221,17 @@ function CheckStatusContent() {
                   <HelpCircle className="w-6 h-6" />
                 </div>
                 <h3 className="text-base font-bold text-slate-900">
-                  Data Pendaftaran Tidak Ditemukan di SD IT
+                  Data Pendaftaran Tidak Ditemukan di SDIT
                 </h3>
                 <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                  Pastikan Nomor Registrasi (contoh: <span className="font-mono font-bold text-slate-700">REG-SD-2026-0001</span>), NIK, atau Nomor WhatsApp yang dimasukkan sudah benar saat mengisi formulir SPMB SD IT.
+                  Pastikan Nomor Registrasi (contoh: <span className="font-mono font-bold text-slate-700">REG-SD-2026-0001</span>), NIK, atau Nomor WhatsApp yang dimasukkan sudah benar saat mengisi formulir SPMB SDIT.
                 </p>
                 <div className="pt-2 flex justify-center">
                   <Link
                     href="/ppdb/daftar?school=sd"
                     className="inline-flex items-center space-x-1.5 px-5 py-2.5 rounded-xl text-white text-xs font-bold transition-all shadow-xs bg-[#00A651] hover:bg-[#008f45]"
                   >
-                    <span>Daftar SPMB SD IT Sekarang</span>
+                    <span>Daftar SPMB SDIT Sekarang</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -281,7 +281,7 @@ function CheckStatusContent() {
                           {item.status === 'ACCEPTED' ? (
                             <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300">
                               <Award className="w-3.5 h-3.5 text-emerald-600" />
-                              <span>Alhamdulillah, Diterima di SD IT</span>
+                              <span>Alhamdulillah, Diterima di SDIT</span>
                             </span>
                           ) : item.status === 'INTERVIEW_SCHEDULED' ? (
                             <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold border border-blue-300">
@@ -311,7 +311,7 @@ function CheckStatusContent() {
                       href={`/portal/ppdb/${item.registrationNo}`}
                       className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-white text-xs font-bold shrink-0 transition-all flex items-center justify-center space-x-1.5 shadow-xs bg-[#00A651] hover:bg-[#008f45]"
                     >
-                      <span>Buka Portal Murid SD IT</span>
+                      <span>Buka Portal Murid SDIT</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
@@ -321,7 +321,7 @@ function CheckStatusContent() {
           </div>
         )}
 
-        {/* Assistance / Hotline Card SD IT */}
+        {/* Assistance / Hotline Card SDIT */}
         <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-3 text-xs text-slate-600">
             <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 border bg-[#E8F8F0] text-[#00A651] border-[#A7F3D0]">
@@ -329,10 +329,10 @@ function CheckStatusContent() {
             </div>
             <div>
               <span className="font-bold text-slate-900 block text-sm">
-                Butuh Bantuan Panitia SPMB SD IT?
+                Butuh Bantuan Panitia SPMB SDIT?
               </span>
               <span className="text-slate-600 text-xs leading-relaxed">
-                Hubungi layanan konsultasi WhatsApp resmi panitia penerimaan murid baru SD IT Al-Afiyah Majalengka (0813-1013-9001).
+                Hubungi layanan konsultasi WhatsApp resmi panitia penerimaan murid baru SDIT Al-Afiyah Majalengka (0813-1013-9001).
               </span>
             </div>
           </div>
@@ -342,20 +342,20 @@ function CheckStatusContent() {
             rel="noreferrer"
             className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#00A651] hover:bg-[#008f45] text-white text-xs font-bold shrink-0 transition-colors flex items-center justify-center space-x-1.5 shadow-xs cursor-pointer"
           >
-            <span>Hubungi WhatsApp Panitia SD IT</span>
+            <span>Hubungi WhatsApp Panitia SDIT</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
       </main>
 
-      {/* SD IT Dedicated Footer */}
+      {/* SDIT Dedicated Footer */}
       <Footer schoolSlug="sd" />
 
-      {/* SD IT Mobile Sticky Bar */}
+      {/* SDIT Mobile Sticky Bar */}
       <StickyMobileBar 
         schoolSlug="sd" 
         waPhone="6281310139001" 
-        schoolName="SD IT Al-Afiyah" 
+        schoolName="SDIT Al-Afiyah" 
       />
     </div>
   );
@@ -368,7 +368,7 @@ export default function CheckStatusPage() {
         <div className="min-h-screen soft-mesh-bg flex items-center justify-center">
           <div className="flex flex-col items-center space-y-3">
             <Loader2 className="w-8 h-8 text-[#00A651] animate-spin" />
-            <p className="text-xs font-semibold text-slate-600">Memuat Portal Lacak Status SD IT...</p>
+            <p className="text-xs font-semibold text-slate-600">Memuat Portal Lacak Status SDIT...</p>
           </div>
         </div>
       }

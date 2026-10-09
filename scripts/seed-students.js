@@ -70,7 +70,7 @@ async function main() {
       status: 'ACCEPTED',
       registrationFee: 150000,
     },
-    // SD IT - ACCEPTED (Tahfidz Track)
+    // SDIT - ACCEPTED (Tahfidz Track)
     {
       registrationNo: 'REG-SD-2026-0201',
       schoolId: sd.id,
@@ -95,7 +95,7 @@ async function main() {
       status: 'ACCEPTED',
       registrationFee: 200000,
     },
-    // SD IT - ACCEPTED (Beasiswa Dhuafa)
+    // SDIT - ACCEPTED (Beasiswa Dhuafa)
     {
       registrationNo: 'REG-SD-2026-0202',
       schoolId: sd.id,
@@ -134,7 +134,7 @@ async function main() {
         track: 'Tahfidz & Prestasi',
         programType: 'Boarding Pesantren Tahfidz',
         hafalanQuran: '3 Juz (Juz 30, 29, 28)',
-        previousSchool: 'SD IT Al-Afiyah Majalengka'
+        previousSchool: 'SDIT Al-Afiyah Majalengka'
       }),
       parentData: JSON.stringify({
         fatherName: 'Drs. H. Mulyadi M.M.',

@@ -162,7 +162,7 @@ export default function AchievementShowcaseModal({
                 {[
                   { slug: 'all', label: 'Semua Unit' },
                   { slug: 'tk', label: 'TK IT' },
-                  { slug: 'sd', label: 'SD IT' },
+                  { slug: 'sd', label: 'SDIT' },
                   { slug: 'smp', label: 'SMP IT' },
                 ].map((unit) => (
                   <button

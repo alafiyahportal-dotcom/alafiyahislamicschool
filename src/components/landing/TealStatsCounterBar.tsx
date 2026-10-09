@@ -24,7 +24,7 @@ const stats: StatItem[] = [
     id: 1,
     number: '3',
     label: 'Unit Sekolah Terpadu',
-    description: 'TK IT, SD IT, & SMP IT Terakreditasi Resmi',
+    description: 'TK IT, SDIT, & SMP IT Terakreditasi Resmi',
     icon: School
   },
   {

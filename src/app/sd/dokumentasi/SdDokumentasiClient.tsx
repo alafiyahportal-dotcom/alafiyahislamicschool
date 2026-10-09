@@ -43,7 +43,7 @@ const GALLERY_DATA: GalleryItem[] = [
     desc: 'Mengasah rasa percaya diri murid, kecakapan public speaking, hafalan doa harian, dan penyampaian pesan kebaikan santun di hadapan teman sebaya.',
     category: 'Ibadah & Karakter',
     date: 'Program Mingguan',
-    location: 'Ruang Serbaguna SD IT'
+    location: 'Ruang Serbaguna SDIT'
   },
   {
     id: 'kultum-murid',
@@ -52,7 +52,7 @@ const GALLERY_DATA: GalleryItem[] = [
     desc: 'Melatih keberanian berbicara di hadapan publik, membawakan tausiyah singkat, serta menumbuhkan jiwa kepemimpinan nabawiyah.',
     category: 'Ibadah & Karakter',
     date: 'Bada Shalat Dzuhur',
-    location: 'Masjid & Kelas SD IT'
+    location: 'Masjid & Kelas SDIT'
   },
   {
     id: 'halaqah-tahfidz',
@@ -70,7 +70,7 @@ const GALLERY_DATA: GalleryItem[] = [
     desc: 'Ruang kelas yang asri, bersih, ceria, dan berfasilitas lengkap, menciptakan suasana belajar yang fokus, interaktif, dan ramah anak.',
     category: 'Aktivitas Kelas',
     date: 'T.A. Berjalan',
-    location: 'Gedung Belajar SD IT'
+    location: 'Gedung Belajar SDIT'
   },
   {
     id: 'multimedia-learning',
@@ -88,13 +88,13 @@ const GALLERY_DATA: GalleryItem[] = [
     desc: 'Pelaksanaan asesmen sumatif semester ganjil yang mengedepankan integritas, kejujuran diri, dan ketelitian belajar murid.',
     category: 'Aktivitas Kelas',
     date: 'September 2026',
-    location: 'Ruang Asesmen SD IT'
+    location: 'Ruang Asesmen SDIT'
   },
   {
     id: 'field-study-banner',
     name: 'Field Study Smart Akhlak Fitrah (P4S An-Nabawiyah)',
     image: '/images/sd-field-study-banner.jpg',
-    desc: 'Observasi kontekstual murid SD IT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
+    desc: 'Observasi kontekstual murid SDIT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
     category: 'Agro-Sains & Alam',
     date: 'September 2026',
     location: 'P4S An-Nabawiyah'
@@ -128,7 +128,7 @@ const GALLERY_DATA: GalleryItem[] = [
   },
   {
     id: 'futsal-champion',
-    name: 'Prestasi Tim Futsal SD IT Al-Afiyah (Second Place)',
+    name: 'Prestasi Tim Futsal SDIT Al-Afiyah (Second Place)',
     image: '/images/sd-futsal-champion.jpg',
     desc: 'Raihan piala Juara 2 (Second Place) Futsal tingkat pelajar daerah, melatih sportivitas, mental juara, dan ukhuwah islamiyah.',
     category: 'Prestasi & Bakat',
@@ -157,7 +157,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
 
   return (
     <div className="w-full">
-      {/* Header Banner Hijau Khas SD IT */}
+      {/* Header Banner Hijau Khas SDIT */}
       <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
         {/* Subtle patterned backdrop */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
@@ -168,7 +168,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SD IT</span>
+              <span>Beranda SDIT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-emerald-300/50" />
             <span className="text-white font-medium">Dokumentasi &amp; Belajar</span>
@@ -177,22 +177,22 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
           <div className="max-w-3xl">
             <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <Camera className="w-3.5 h-3.5 text-emerald-300" />
-              <span>DOKUMENTASI &amp; SARANA BELAJAR SD IT</span>
+              <span>DOKUMENTASI &amp; SARANA BELAJAR SDIT</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dokumentasi Kegiatan &amp; Aktivitas Belajar SD IT
+              Dokumentasi Kegiatan &amp; Aktivitas Belajar SDIT
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Potret nyata keseharian murid SD IT Al-Afiyah Majalengka: pembiasaan ibadah shalat berjamaah, muhadharah da&apos;i cilik, suasana kelas interaktif, agro-literasi di P4S An-Nabawiyah, dan prestasi membanggakan.
+              Potret nyata keseharian murid SDIT Al-Afiyah Majalengka: pembiasaan ibadah shalat berjamaah, muhadharah da&apos;i cilik, suasana kelas interaktif, agro-literasi di P4S An-Nabawiyah, dan prestasi membanggakan.
             </p>
 
             {/* Quick Badges */}
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-6 text-xs text-emerald-100">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />
-                <span>100% Dokumentasi Asli SD IT</span>
+                <span>100% Dokumentasi Asli SDIT</span>
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
                 <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
@@ -307,7 +307,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
             </span>
 
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
-              Ingin Ananda Bertumbuh &amp; Belajar di SD IT Al-Afiyah?
+              Ingin Ananda Bertumbuh &amp; Belajar di SDIT Al-Afiyah?
             </h2>
 
             <p className="mt-2.5 text-xs sm:text-sm text-emerald-100 max-w-2xl mx-auto leading-relaxed">
@@ -319,7 +319,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
                 href="/sd/spmb/daftar"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
               >
-                <span>Daftar SPMB SD IT Online</span>
+                <span>Daftar SPMB SDIT Online</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
@@ -333,7 +333,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-emerald-200 hover:text-white font-medium text-xs sm:text-sm transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span>Kembali ke Beranda SD IT</span>
+                <span>Kembali ke Beranda SDIT</span>
               </Link>
             </div>
           </div>

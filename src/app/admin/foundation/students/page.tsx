@@ -7,7 +7,7 @@ import { StudentDossierManagerClient } from '@/components/admin/StudentDossierMa
 export const metadata: Metadata = {
   title: 'Buku Induk Murid Terpadu | Yayasan Pendidikan Imam Bonjol',
   description:
-    'Konsol konsolidasi Buku Induk Siswa/Murid digital seluruh unit TK IT, SD IT, dan SMP IT Al-Afiyah.',
+    'Konsol konsolidasi Buku Induk Siswa/Murid digital seluruh unit TK IT, SDIT, dan SMP IT Al-Afiyah.',
 };
 
 export const dynamic = 'force-dynamic';

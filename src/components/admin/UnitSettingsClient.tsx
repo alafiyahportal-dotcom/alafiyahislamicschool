@@ -440,7 +440,7 @@ export default function UnitSettingsClient({ initialSchool }: UnitSettingsClient
                 type="text"
                 value={school.bankAccountHolder}
                 onChange={(e) => handleChange('bankAccountHolder', e.target.value)}
-                placeholder="Contoh: SD IT Al-Afiyah Majalengka"
+                placeholder="Contoh: SDIT Al-Afiyah Majalengka"
                 className="w-full px-3.5 py-2.5 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#10B981]"
               />
             </div>

@@ -71,7 +71,7 @@ export default function AdminSidebar({
     if (typeof document !== 'undefined') {
       const unitTitle =
         schoolSlug === 'sd'
-          ? 'Admin SD IT Al-Afiyah'
+          ? 'Admin SDIT Al-Afiyah'
           : schoolSlug === 'tk'
           ? 'Admin TK IT Al-Afiyah'
           : schoolSlug === 'smp'
@@ -257,7 +257,7 @@ export default function AdminSidebar({
             {schoolSlug === 'sd' ? (
               <img
                 src="/images/sd-logo.png"
-                alt="Logo SD IT Al-Afiyah"
+                alt="Logo SDIT Al-Afiyah"
                 className="w-10 h-10 object-contain shrink-0"
               />
             ) : (
@@ -279,7 +279,7 @@ export default function AdminSidebar({
                 {schoolSlug === 'tk'
                   ? 'TK IT Al-Afiyah'
                   : schoolSlug === 'sd'
-                  ? 'SD IT Al-Afiyah'
+                  ? 'SDIT Al-Afiyah'
                   : schoolSlug === 'smp'
                   ? 'SMP IT Al-Afiyah'
                   : schoolName || 'Yayasan Al-Afiyah'}
@@ -323,7 +323,7 @@ export default function AdminSidebar({
               >
                 <option value="foundation">Yayasan Pusat</option>
                 <option value="tk">TK IT Al-Afiyah</option>
-                <option value="sd">SD IT Al-Afiyah</option>
+                <option value="sd">SDIT Al-Afiyah</option>
                 <option value="smp">SMP IT Al-Afiyah</option>
               </select>
               <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />

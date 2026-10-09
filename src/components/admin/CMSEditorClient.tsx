@@ -131,21 +131,21 @@ interface PresetImage {
 
 const PRESET_IMAGES_DEFAULT: PresetImage[] = [
   // Foto Asli Kegiatan Murid & Guru Al-Afiyah (Dokumentasi Lapangan Nyata)
-  { label: 'Halaqah Tahfidz SD IT', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Belajar Kelas 6B SD IT', url: '/images/sd-activity-classroom-6b.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Halaqah Tahfidz SDIT', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Belajar Kelas 6B SDIT', url: '/images/sd-activity-classroom-6b.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Outing Rafting SMP IT Majalengka', url: '/images/smp-outing-1.jpg', forUnits: ['smp', 'foundation'] },
   { label: 'Outing Bersama SMP IT', url: '/images/smp-outing-2.jpg', forUnits: ['smp', 'foundation'] },
-  { label: 'Praktik Menanam Bibit SD IT', url: '/images/sd-planting-guidance.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Edukasi Kolam Ikan SD IT', url: '/images/sd-field-fish-feeding.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Juara Turnamen Futsal SD IT', url: '/images/sd-futsal-champion.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Shalat Berjamaah Murid SD IT', url: '/images/sd-activity-shalat-berjamaah.jpg', forUnits: ['sd', 'foundation'] },
-  { label: 'Praktik Multimedia SD IT', url: '/images/sd-activity-multimedia-learning.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Praktik Menanam Bibit SDIT', url: '/images/sd-planting-guidance.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Edukasi Kolam Ikan SDIT', url: '/images/sd-field-fish-feeding.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Juara Turnamen Futsal SDIT', url: '/images/sd-futsal-champion.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Shalat Berjamaah Murid SDIT', url: '/images/sd-activity-shalat-berjamaah.jpg', forUnits: ['sd', 'foundation'] },
+  { label: 'Praktik Multimedia SDIT', url: '/images/sd-activity-multimedia-learning.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Brosur Resmi SPMB SDIT', url: '/images/sd-spmb-brosur.jpg', forUnits: ['sd', 'foundation'] },
 ];
 
 export const DEFAULT_SD_KARAKTER: SDKarakterData = {
-  heroHeadline: 'Pilar Karakter & Nilai Islami SD IT Al-Afiyah',
-  heroDescription: 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.',
+  heroHeadline: 'Pilar Karakter & Nilai Islami SDIT Al-Afiyah',
+  heroDescription: 'Mendidik murid di SDIT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.',
   threePillars: [
     {
       number: '01',
@@ -203,7 +203,7 @@ export const DEFAULT_SD_PROFIL: SDProfilData = {
     'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.'
   ],
   identitasList: [
-    { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
+    { label: 'Nama Sekolah', value: 'SDIT Al-Afiyah Majalengka' },
     { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },
@@ -432,7 +432,7 @@ export default function CMSEditorClient({
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
       description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-      primaryCtaText: 'Daftar SPMB SD IT',
+      primaryCtaText: 'Daftar SPMB SDIT',
       primaryCtaLink: '/ppdb/daftar?school=sd',
       secondaryCtaText: 'WhatsApp (0813-1013-9001)',
       secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
@@ -451,7 +451,7 @@ export default function CMSEditorClient({
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
       description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-      primaryCtaText: 'Daftar SPMB SD IT',
+      primaryCtaText: 'Daftar SPMB SDIT',
       primaryCtaLink: '/ppdb/daftar?school=sd',
       secondaryCtaText: 'WhatsApp (0813-1013-9001)',
       secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
@@ -470,7 +470,7 @@ export default function CMSEditorClient({
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
       description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-      primaryCtaText: 'Daftar SPMB SD IT',
+      primaryCtaText: 'Daftar SPMB SDIT',
       primaryCtaLink: '/ppdb/daftar?school=sd',
       secondaryCtaText: 'WhatsApp (0813-1013-9001)',
       secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
@@ -520,7 +520,7 @@ export default function CMSEditorClient({
     }
     const newSlides = [...slides];
     if (schoolSlug === 'sd' && field !== 'image' && field !== 'id') {
-      // For SD IT, headline, badge, subtitle, and CTA are universal across all carousel slides
+      // For SDIT, headline, badge, subtitle, and CTA are universal across all carousel slides
       newSlides.forEach((s, idx) => {
         newSlides[idx] = {
           ...newSlides[idx],
@@ -813,7 +813,7 @@ export default function CMSEditorClient({
           {schoolSlug === 'sd' ? (
             <img
               src="/images/sd-logo.png"
-              alt="Logo SD IT Al-Afiyah"
+              alt="Logo SDIT Al-Afiyah"
               className="w-10 h-10 object-contain shrink-0"
             />
           ) : (
@@ -841,7 +841,7 @@ export default function CMSEditorClient({
               >
                 <option value="foundation">Yayasan Pendidikan Imam Bonjol (Beranda Pusat)</option>
                 <option value="tk">TK IT Al-Afiyah Majalengka</option>
-                <option value="sd">SD IT Al-Afiyah Majalengka</option>
+                <option value="sd">SDIT Al-Afiyah Majalengka</option>
                 <option value="smp">SMP IT Al-Afiyah Majalengka</option>
               </select>
             ) : (
@@ -850,7 +850,7 @@ export default function CMSEditorClient({
                   {schoolSlug === 'tk'
                     ? 'TK IT Al-Afiyah'
                     : schoolSlug === 'sd'
-                    ? 'SD IT Al-Afiyah'
+                    ? 'SDIT Al-Afiyah'
                     : schoolSlug === 'smp'
                     ? 'SMP IT Al-Afiyah'
                     : schoolName}
@@ -1080,7 +1080,7 @@ export default function CMSEditorClient({
               <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
               <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
               <span className="text-xs font-mono text-slate-300 ml-2">
-                Pratinjau: {publicUrl} — {activeTab === 'hero' ? 'Hero Banner' : activeTab === 'identity' ? 'Profil & Kontak' : activeTab === 'stats' ? 'Counter Statistik' : activeTab === 'values' ? 'Nilai Keunggulan' : activeTab === 'programs' ? 'Program Pilihan' : activeTab === 'facilities' ? 'Fasilitas Sekolah' : activeTab === 'testimonials' ? 'Testimoni Wali Murid' : activeTab === 'tuition' ? 'Biaya PPDB' : activeTab === 'affiliate' ? 'Kemitraan Afiliasi' : activeTab === 'sd_karakter' ? 'Pilar Karakter & Nilai Islami SD IT' : activeTab === 'sd_profil' ? 'Profil, Visi Misi & Legalitas SD IT' : 'Pratinjau'}
+                Pratinjau: {publicUrl} — {activeTab === 'hero' ? 'Hero Banner' : activeTab === 'identity' ? 'Profil & Kontak' : activeTab === 'stats' ? 'Counter Statistik' : activeTab === 'values' ? 'Nilai Keunggulan' : activeTab === 'programs' ? 'Program Pilihan' : activeTab === 'facilities' ? 'Fasilitas Sekolah' : activeTab === 'testimonials' ? 'Testimoni Wali Murid' : activeTab === 'tuition' ? 'Biaya PPDB' : activeTab === 'affiliate' ? 'Kemitraan Afiliasi' : activeTab === 'sd_karakter' ? 'Pilar Karakter & Nilai Islami SDIT' : activeTab === 'sd_profil' ? 'Profil, Visi Misi & Legalitas SDIT' : 'Pratinjau'}
               </span>
             </div>
             <span className="text-[11px] font-bold bg-white/10 px-2.5 py-1 rounded text-emerald-400">Live Interactive</span>
@@ -1123,7 +1123,7 @@ export default function CMSEditorClient({
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">{currentSlide.description}</p>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <span className={`px-5 py-2.5 rounded-xl font-extrabold text-xs shadow-lg inline-flex items-center space-x-1.5 ${schoolSlug === 'sd' ? 'bg-[#00A651] text-white hover:bg-[#008f45]' : 'bg-amber-500 text-slate-950'}`}>
-                    <span>{currentSlide.primaryCtaText || (schoolSlug === 'sd' ? 'Daftar SPMB SD IT Online' : 'Daftar Sekarang')}</span><ChevronRight className="w-4 h-4" />
+                    <span>{currentSlide.primaryCtaText || (schoolSlug === 'sd' ? 'Daftar SPMB SDIT Online' : 'Daftar Sekarang')}</span><ChevronRight className="w-4 h-4" />
                   </span>
                   <span className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-xs">
                     {currentSlide.secondaryCtaText || (schoolSlug === 'sd' ? 'WhatsApp Panitia SPMB' : 'Konsultasi')}
@@ -1156,7 +1156,7 @@ export default function CMSEditorClient({
                   {schoolSlug === 'sd' ? (
                     <img
                       src="/images/sd-logo.png"
-                      alt="Logo SD IT Al-Afiyah"
+                      alt="Logo SDIT Al-Afiyah"
                       className="w-12 h-12 object-contain shrink-0"
                     />
                   ) : (
@@ -1199,7 +1199,7 @@ export default function CMSEditorClient({
                 <div className="max-w-4xl mx-auto">
                   <div className="text-center mb-6">
                     <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs">
-                      Bento Grid Statistik &amp; Keunggulan SD IT (Tampilan Website /sd)
+                      Bento Grid Statistik &amp; Keunggulan SDIT (Tampilan Website /sd)
                     </span>
                   </div>
                   <ul className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -1262,10 +1262,10 @@ export default function CMSEditorClient({
                     Nilai Utama &amp; Character Building
                   </span>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                    Tiga Pilar Karakter SD IT Al-Afiyah
+                    Tiga Pilar Karakter SDIT Al-Afiyah
                   </h3>
                   <p className="text-xs text-slate-600 mt-2 max-w-xl mx-auto leading-relaxed">
-                    Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur&apos;an.
+                    Mendidik murid di SDIT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur&apos;an.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
@@ -1389,7 +1389,7 @@ export default function CMSEditorClient({
                   <div className="text-center">
                     <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
                       <Tag className="w-3.5 h-3.5 text-[#00A651]" />
-                      <span>Rincian Investasi &amp; Rekening Resmi SPMB SD IT T.A. 2027/2028</span>
+                      <span>Rincian Investasi &amp; Rekening Resmi SPMB SDIT T.A. 2027/2028</span>
                     </span>
                   </div>
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -1398,11 +1398,11 @@ export default function CMSEditorClient({
                       <div className="relative group rounded-2xl overflow-hidden border border-slate-200 shadow-md bg-white max-w-xs w-full">
                         <img
                           src="/images/sd-spmb-story.jpg"
-                          alt="Poster SPMB SD IT Al-Afiyah"
+                          alt="Poster SPMB SDIT Al-Afiyah"
                           className="w-full h-auto object-cover max-h-[380px]"
                         />
                         <div className="p-3 text-center bg-slate-900 text-white text-[11px] font-bold">
-                          Story SPMB Resmi SD IT 2027/2028
+                          Story SPMB Resmi SDIT 2027/2028
                         </div>
                       </div>
                     </div>
@@ -1429,7 +1429,7 @@ export default function CMSEditorClient({
                               <span className="text-[9px] text-emerald-200 block font-medium uppercase">Nomor Rekening:</span>
                               <span className="text-xl font-black font-mono text-amber-300">1360012405</span>
                             </div>
-                            <span className="text-xs font-bold text-white/90">A.n SMP / SD IT Al Afiyah</span>
+                            <span className="text-xs font-bold text-white/90">A.n SMP / SDIT Al Afiyah</span>
                           </div>
                         </div>
                         <p className="text-[10px] text-emerald-100/80 pt-2 border-t border-white/15">
@@ -1461,7 +1461,7 @@ export default function CMSEditorClient({
                         </div>
                         <div className="flex items-center gap-2 pt-2">
                           <span className="px-4 py-2.5 rounded-xl bg-[#00A651] text-white font-bold text-xs shadow-xs inline-flex items-center gap-1.5">
-                            <span>Daftar SPMB SD IT Online</span>
+                            <span>Daftar SPMB SDIT Online</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </span>
                           <span className="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs inline-flex items-center gap-1.5">
@@ -1597,7 +1597,7 @@ export default function CMSEditorClient({
               <div className="space-y-4 pt-4 border-t border-slate-200">
                 <div className="text-center">
                   <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                    7 Kebiasaan Anak Sholeh SD IT Al-Afiyah
+                    7 Kebiasaan Anak Sholeh SDIT Al-Afiyah
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
@@ -1632,7 +1632,7 @@ export default function CMSEditorClient({
                   Profil Resmi &amp; Legalitas Sekolah
                 </span>
                 <h3 className="text-xl sm:text-3xl font-extrabold text-white tracking-tight">
-                  SD IT Al-Afiyah Majalengka
+                  SDIT Al-Afiyah Majalengka
                 </h3>
                 <p className="text-xs sm:text-sm text-emerald-100 max-w-2xl mx-auto">
                   Sekolah Dasar Islam Terpadu berlandaskan Al-Qur&apos;an dan Sunnah di Lingkungan Giri Asih
@@ -1645,7 +1645,7 @@ export default function CMSEditorClient({
                   <Compass className="w-5 h-5 text-emerald-700" />
                 </div>
                 <span className="text-xs font-extrabold uppercase tracking-widest text-[#00A651] block">
-                  Visi SD IT Al-Afiyah
+                  Visi SDIT Al-Afiyah
                 </span>
                 <p className="text-base sm:text-lg font-bold text-slate-900 italic leading-relaxed">
                   &ldquo;{formData.sdProfil?.visiText || DEFAULT_SD_PROFIL.visiText}&rdquo;
@@ -1792,7 +1792,7 @@ export default function CMSEditorClient({
                   <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 flex items-start gap-2.5">
                     <span className="text-base flex-shrink-0">💡</span>
                     <div className="leading-relaxed">
-                      <strong className="font-bold text-emerald-900 block mb-0.5">Konsep Carousel Hero SD IT:</strong>
+                      <strong className="font-bold text-emerald-900 block mb-0.5">Konsep Carousel Hero SDIT:</strong>
                       Teks headline, subjudul, badge, dan tombol bersifat <strong>universal</strong> untuk seluruh carousel. Mengubah teks di sini akan diterapkan seragam ke seluruh slide, dan carousel di halaman publik hanya akan memutar 3 foto latar belakang (Slide 1, Slide 2, Slide 3) secara halus.
                     </div>
                   </div>
@@ -1837,11 +1837,11 @@ export default function CMSEditorClient({
                       type="text"
                       value={currentSlide.titlePart2}
                       onChange={(e) => updateCurrentSlide('titlePart2', e.target.value)}
-                      placeholder={schoolSlug === 'sd' ? '(Kosongkan untuk SD IT)' : ' & Berwawasan Global'}
+                      placeholder={schoolSlug === 'sd' ? '(Kosongkan untuk SDIT)' : ' & Berwawasan Global'}
                       className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                     />
                     <span className="text-[10px] text-slate-400 mt-1 block">
-                      {schoolSlug === 'sd' ? 'Untuk SD IT dikosongkan (tanpa kata Ananda).' : 'Teks penutup setelah highlight (opsional).'}
+                      {schoolSlug === 'sd' ? 'Untuk SDIT dikosongkan (tanpa kata Ananda).' : 'Teks penutup setelah highlight (opsional).'}
                     </span>
                   </div>
                 </div>
@@ -3070,11 +3070,11 @@ export default function CMSEditorClient({
 
                 {/* 3 Unit Commission Cards */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                  {/* Unit 1: SD IT Al-Afiyah */}
+                  {/* Unit 1: SDIT Al-Afiyah */}
                   <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-3.5">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-extrabold text-emerald-950 uppercase tracking-wide">
-                        1. Unit SD IT Al-Afiyah
+                        1. Unit SDIT Al-Afiyah
                       </span>
                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 font-bold">
                         Total Rp {((formData.affiliate?.commissionFormSd ?? 50000) + (formData.affiliate?.commissionReRegSd ?? 100000)).toLocaleString('id-ID')}
@@ -3275,7 +3275,7 @@ export default function CMSEditorClient({
                   <div>
                     <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
                       <HeartHandshake className="w-5 h-5 text-[#184F48]" />
-                      <span>Editor Pilar Karakter &amp; Nilai Islami SD IT</span>
+                      <span>Editor Pilar Karakter &amp; Nilai Islami SDIT</span>
                     </h3>
                     <p className="text-xs text-slate-500 mt-1">
                       Konten ini tampil langsung pada halaman publik <strong>/sd/karakter</strong>.
@@ -3327,7 +3327,7 @@ export default function CMSEditorClient({
                       Tiga Pilar Utama Smart Akhlak Fitrah
                     </h4>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Tiga pilar kurikulum terpadu SD IT Al-Afiyah beserta rincian poin pembiasaannya.
+                      Tiga pilar kurikulum terpadu SDIT Al-Afiyah beserta rincian poin pembiasaannya.
                     </p>
                   </div>
                 </div>
@@ -3544,7 +3544,7 @@ export default function CMSEditorClient({
                   <div>
                     <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
                       <Building2 className="w-5 h-5 text-[#184F48]" />
-                      <span>Editor Profil, Visi, Misi &amp; Identitas SD IT</span>
+                      <span>Editor Profil, Visi, Misi &amp; Identitas SDIT</span>
                     </h3>
                     <p className="text-xs text-slate-500 mt-1">
                       Konten ini tampil langsung pada halaman publik <strong>/sd/profil</strong>.
@@ -3565,7 +3565,7 @@ export default function CMSEditorClient({
                 <div className="space-y-4 pt-2">
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                      Teks Visi Resmi SD IT Al-Afiyah
+                      Teks Visi Resmi SDIT Al-Afiyah
                     </label>
                     <textarea
                       rows={3}

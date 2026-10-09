@@ -25,10 +25,10 @@ interface TestimonialItem {
 const testimonials: TestimonialItem[] = [
   {
     name: 'Bpk. Hendra Gunawan, S.T.',
-    role: 'Wali Murid Kelas 4 SD IT',
-    unit: 'SD IT Al-Afiyah',
+    role: 'Wali Murid Kelas 4 SDIT',
+    unit: 'SDIT Al-Afiyah',
     quote:
-      'Alhamdulillah, ananda Farhan sejak masuk SD IT Al-Afiyah menjadi sangat gemar membaca Al-Qur’an. Hafalannya sudah masuk Juz 29 dan shalat fardhu selalu di awal waktu tanpa harus disuruh.',
+      'Alhamdulillah, ananda Farhan sejak masuk SDIT Al-Afiyah menjadi sangat gemar membaca Al-Qur’an. Hafalannya sudah masuk Juz 29 dan shalat fardhu selalu di awal waktu tanpa harus disuruh.',
     rating: 5
   },
   {

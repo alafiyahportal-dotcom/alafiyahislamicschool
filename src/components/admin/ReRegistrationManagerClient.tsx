@@ -347,7 +347,7 @@ export default function ReRegistrationManagerClient({
           <div className="flex items-center gap-2">
             <div className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-emerald-50 text-[#184F48] border border-emerald-200/80 text-xs font-semibold shadow-2xs">
               <School className="w-4 h-4 text-[#2D7A70]" />
-              <span>Unit: {initialUnit === 'tk' ? 'PAUD / TK IT Al-Afiyah' : initialUnit === 'sd' ? 'SD IT Al-Afiyah' : initialUnit === 'smp' ? 'SMP IT Al-Afiyah' : `${initialUnit.toUpperCase()} IT Al-Afiyah`}</span>
+              <span>Unit: {initialUnit === 'tk' ? 'PAUD / TK IT Al-Afiyah' : initialUnit === 'sd' ? 'SDIT Al-Afiyah' : initialUnit === 'smp' ? 'SMP IT Al-Afiyah' : `${initialUnit.toUpperCase()} IT Al-Afiyah`}</span>
             </div>
           </div>
         ) : (
@@ -355,7 +355,7 @@ export default function ReRegistrationManagerClient({
             {[
               { id: 'all', label: 'Semua Unit', icon: Layers },
               { id: 'tk', label: 'TK IT', icon: GraduationCap },
-              { id: 'sd', label: 'SD IT', icon: School },
+              { id: 'sd', label: 'SDIT', icon: School },
               { id: 'smp', label: 'SMP IT', icon: BookOpen },
             ].map((tab) => {
               const Icon = tab.icon;

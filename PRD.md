@@ -1,7 +1,7 @@
 # PRODUCT REQUIREMENT DOCUMENT (PRD) EKSEKUTIF & TEKNIS
 # Platform Ekosistem Pendidikan Terpadu Multi-Tenant Al-Afiyah
 **Institusi Pengelola:** Yayasan Pendidikan Imam Bonjol Majalengka  
-**Unit Sekolah:** TK IT Al-Afiyah | SD IT Al-Afiyah | SMP IT Al-Afiyah  
+**Unit Sekolah:** TK IT Al-Afiyah | SDIT Al-Afiyah | SMP IT Al-Afiyah  
 **Prinsip Desain:** *Unified Super Premium Enterprise Design System (Satu Model Tata Letak Mewah Berstandar Dunia dengan Aksen Identitas Khas Tiap Unit)*  
 **Gaya Panel Admin & CMS:** *Clean Minimalist Modern ala Google Workspace (Ruang Lapang, Border Subtil 1px, Tipografi Tajam, Bebas Ornamen Artifisial)*  
 **Arsitektur Data Dev:** *Multi-Tenant Logical Isolation via Prisma ORM (SQLite lokal tersemat untuk dev instan, 100% siap dialihkan ke PostgreSQL untuk rilis produksi)*  
@@ -40,7 +40,7 @@
 | **v2.19.0** | 18 Sep 2026 | User Directive / Lead | Standardisasi menyeluruh istilah Guru & Murid, Pemasangan Havenly Arch Carousel di Beranda Pusat (/), serta Peluncuran Galeri Prestasi & Karya Murid Dinamis (/api/admin/achievements & AchievementShowcaseModal - M31). |
 | **v2.20.0** | 18 Sep 2026 | User Directive / Lead | Perluasan Spesifikasi Modul Eksekutif & Teknis: M32 (Konsol Tata Kelola Prestasi Murid & Generator Piagam A4), M33 (Sistem Presensi QR Code KTS Murid), M34 (Buku Rapor Digital & Laporan Capaian Mutabaah Tahfidz), M35 (Tata Kelola SPP Bulanan, Virtual Account Midtrans & Kuitansi Digital). |
 | **v2.21.0** | 25 Sep 2026 | User Directive / Lead | **Refinement Super Premium Formulir PPDB Online (/ppdb/daftar):**<br>1. Penyeragaman warna banner & kartu header menjadi **Solid Deep Forest Emerald (#064E3B)**, eliminasi gradasi multi-warna mencolok.<br>2. Pembersihan redundansi deskripsi dan nama unit berulang.<br>3. Penerapan **Strict Multi-Tenant Isolation** pada formulir: peniadaan dropdown/select ganti unit di dalam form pendaftaran aktif.<br>4. Layout grid **Anti-Mepet** dengan pelebaran horizontal gap 40px (`columnGap: 2.5rem`, `rowGap: 1.75rem`) dan penataan ulang flex NIK.<br>5. Standardisasi **Badge Nomor Poin Resmi 28 Butir Berkas Fisik** (`[Poin 01]` s.d. `[Poin 28]`) berdesain monospaced eksekutif berbayang lembut.<br>6. Penyiapan aset standar PWA (`icon-192.png` & `icon-512.png`) dan eliminasi warning console 404. |
-| **v3.16.0** | 5 Okt 2026 | User Directive / Lead | **Produksi & SPMB SD IT 2027/2028:** migrasi Supabase PostgreSQL + deploy Vercel dengan routing hybrid path/subdomain; refinement tipografi hero SD (3 baris + aksen serif "Bukan Sekedar"), kartu statistik bento, identitas hijau `theme-sd`, footer kartu program rata bawah; pembaruan data poster SPMB SD IT T.A. 2027/2028 (3 poster, WA 0813-1013-9001, usia per Juli 2027, biaya gelombang 250/275/300 rb, kalkulator Putra/Putri, 10 program unggulan, sinkronisasi DB). Detail: Bagian 23. |
+| **v3.16.0** | 5 Okt 2026 | User Directive / Lead | **Produksi & SPMB SDIT 2027/2028:** migrasi Supabase PostgreSQL + deploy Vercel dengan routing hybrid path/subdomain; refinement tipografi hero SD (3 baris + aksen serif "Bukan Sekedar"), kartu statistik bento, identitas hijau `theme-sd`, footer kartu program rata bawah; pembaruan data poster SPMB SDIT T.A. 2027/2028 (3 poster, WA 0813-1013-9001, usia per Juli 2027, biaya gelombang 250/275/300 rb, kalkulator Putra/Putri, 10 program unggulan, sinkronisasi DB). Detail: Bagian 23. |
 | **v3.18.0** | 7 Okt 2026 | User Directive / Lead | **Tata Kelola Mandiri CMS SD, Pembersihan Redundansi Navbar & Kesiapan Google Search Console:**<br>1. **Isolasi Ketat Multi-Tenant CMS SD:** Penambahan Tab 9 (*Pilar Karakter* - `/sd/karakter`) dan Tab 10 (*Profil & Visi Misi* - `/sd/profil`) yang hanya aktif pada unit SD (`schoolSlug === 'sd'`). Data dijamin tidak menimpa unit TK, SMP, atau Yayasan.<br>2. **Pembersihan Redundansi Navbar (Zero Duplicate):** Mengeliminasi menu ganda Dewan Guru (kini khusus di *Profil*), Dokumentasi (khusus di *Profil*), Pilar Karakter (khusus di *Program & Keunggulan*), dan Tata Usaha.<br>3. **Sinkronisasi Dinamis Halaman SD:** `/sd/guru`, `/sd/karakter`, `/sd/profil`, `/sd/program`, `/sd/testimoni`, `/sd/dokumentasi`, `/sd/kontak`, dan `/sd/spmb` 100% dinamis terhubung ke database `cMSSection` dengan revalidasi instan.<br>4. **Pintasan Cepat Dasbor Admin:** Tombol pintas `Kelola Guru ↗`, `Kelola Berita ↗`, dan `Prestasi ↗` langsung pada bar editor CMS.<br>5. **Optimasi Google Search Console & SEO Browser Indexing:** Pembaruan `sitemap.ts` mencakup seluruh rute dinamis SD untuk perayapan bot Google dan pengindeksan hasil pencarian peramban. Detail: Bagian 23.13. |
 | **v3.20.0** | 8 Okt 2026 | User Directive / Lead | **Penyelarasan Komprehensif Pratinjau Live CMS SD & Eliminasi Tampilan Kosong Tab 9 & 10:**<br>1. **Eliminasi Tampilan Kosong Pratinjau:** Menambahkan blok render pratinjau live untuk Tab 9 (`sd_karakter` - Pilar Karakter & 7 Habits) dan Tab 10 (`sd_profil` - Profil, Visi Misi & Legalitas BAN-SM) pada `CMSEditorClient.tsx`. Sebelumnya kedua tab tidak memiliki blok kondisi render pratinjau sehingga muncul blank putih.<br>2. **Penyelarasan Pratinjau dengan Desain Website SD (`/sd`):**<br>- *Tab 1 (Hero):* Menyesuaikan tombol aksi hijau zamrud `#00A651` dan fallback foto greenhouse bambu asli.<br>- *Tab 3 (Stats):* Menggantikan kartu gradasi lama menjadi 2x2 Bento Grid berlatar `neutral-50` dengan ikon Users, Compass, Award, dan BookOpen persis tampilan `/sd`.<br>- *Tab 4 (Values):* Merender Tiga Pilar Karakter otentik dengan badge Pilar 01/02/03 dan footer Prinsip Smart Akhlaq Fitrah.<br>- *Tab 8 (Tuition):* Menampilkan poster resmi SPMB Story, rincian biaya gelombang 1, dan visual Rekening Resmi Bank Muamalat (1360012405).<br>3. **Penyediaan Nilai Fallback Server-Side:** Memastikan `src/app/admin/[schoolSlug]/cms/page.tsx` menyediakan fallback `DEFAULT_SD_KARAKTER` dan `DEFAULT_SD_PROFIL` sehingga data selalu terisi aman dan terisolasi khusus unit SD. Detail: Bagian 23.15. |
 
@@ -51,7 +51,7 @@
 ### 1.1 Latar Belakang
 Yayasan Pendidikan Imam Bonjol Majalengka mengelola tiga jenjang pendidikan Islam unggulan:
 1. **TK IT AL AFIYAH** (Pendidikan Anak Usia Dini & Taman Kanak-Kanak Islam Terpadu)
-2. **SD IT AL AFIYAH** (Sekolah Dasar Islam Terpadu)
+2. **SDIT AL AFIYAH** (Sekolah Dasar Islam Terpadu)
 3. **SMP IT AL AFIYAH** (Sekolah Menengah Pertama Islam Terpadu & Pusat Tahfidz)
 
 ### 1.2 Visi Platform
@@ -71,7 +71,7 @@ Mewujudkan ekosistem digital terpadu satu pintu (*one-stop integrated education 
 | :--- | :--- | :--- | :--- |
 | `SUPERADMIN_YAYASAN` | Seluruh Unit (Cross-Tenant) | `/admin/foundation` | Memantau statistik agregat seluruh sekolah, mengelola akun admin sekolah, dan konfigurasi global. |
 | `ADMIN_TK` | Khusus TK IT Al-Afiyah | `/admin/tk/dashboard` | Mengelola konten CMS web TK, memantau pendaftar, profil guru TK, dan pengumuman. |
-| `ADMIN_SD` | Khusus SD IT Al-Afiyah | `/admin/sd/dashboard` | Mengelola konten CMS web SD, memantau pendaftar, memvalidasi kuota kelas, dan pengumuman. |
+| `ADMIN_SD` | Khusus SDIT Al-Afiyah | `/admin/sd/dashboard` | Mengelola konten CMS web SD, memantau pendaftar, memvalidasi kuota kelas, dan pengumuman. |
 | `ADMIN_SMP` | Khusus SMP IT Al-Afiyah | `/admin/smp/dashboard` | Mengelola konten CMS web SMP, mengelola kuota peserta didik, capaian tahfidz, dan pengumuman. |
 | `PETUGAS_PPDB` | Sesuai Unit Sekolah | `/admin/:schoolSlug/ppdb` | Memverifikasi berkas pendaftaran, menentukan jadwal observasi, dan merilis status kelulusan. |
 | `PETUGAS_KEUANGAN` | Sesuai Unit Sekolah | `/admin/:schoolSlug/finance` | Memantau pembayaran formulir, melakukan rekonsiliasi kas masuk, dan menerbitkan kuitansi digital. |
@@ -98,7 +98,7 @@ Mewujudkan ekosistem digital terpadu satu pintu (*one-stop integrated education 
 | Unit | Warna Primer | Warna Aksen |
 | :--- | :--- | :--- |
 | TK IT | Emerald Fresh `#10B981` | Gold Soft `#FBBF24` |
-| SD IT | Emerald Classic `#059669` | Gold Berkilau `#D97706` |
+| SDIT | Emerald Classic `#059669` | Gold Berkilau `#D97706` |
 | SMP IT | Royal Green `#064E3B` | Gold Prestige `#B45309` |
 | Yayasan | Deep Teal `#184F48` | Amber `#F59E0B` |
 
@@ -131,7 +131,7 @@ Halaman `/login` responsif. Tombol Quick Role Switcher uji coba 1-klik peran dem
 Engine pencatat pesan WhatsApp simulasi ke database. Modul simulator pembayaran Midtrans lokal (QRIS & Virtual Account). Webhook sinkronisasi otomatis status tagihan ke VERIFIED.
 
 ### M5 — Landing Page Terpadu (Hub, TK, SD, SMP) ✅
-Halaman Portal Utama Yayasan (`/`). Halaman TK IT Al-Afiyah (`/tk`) aksen Zamrud Segar. Halaman SD IT Al-Afiyah (`/sd`) aksen Zamrud Klasik & Emas. Halaman SMP IT Al-Afiyah (`/smp`) aksen Hijau Royal Islami. 4 halaman muka publik responsif, berkecepatan tinggi, kaya konten.
+Halaman Portal Utama Yayasan (`/`). Halaman TK IT Al-Afiyah (`/tk`) aksen Zamrud Segar. Halaman SDIT Al-Afiyah (`/sd`) aksen Zamrud Klasik & Emas. Halaman SMP IT Al-Afiyah (`/smp`) aksen Hijau Royal Islami. 4 halaman muka publik responsif, berkecepatan tinggi, kaya konten.
 
 ### M6 — Formulir PPDB Dinamis Bertahap (Multi-Step) ✅
 Form 6 langkah responsif dengan animasi Framer Motion. Kuesioner adaptif (TK: motorik; SD: Iqro; SMP: hafalan Quran). Area unggah berkas (KK, Akta, Foto) dengan pratinjau langsung. Auto-Save Draft dan checkout invoice formulir.
@@ -396,7 +396,7 @@ akan diinput oleh admin yayasan melalui Admin Panel SETELAH semua fitur & tampil
 - [ ] Berita Kegiatan TK (3-4 artikel terbaru dari DB)
 - [ ] CTA Final (banner ajak daftar + countdown kuota jika hampir penuh)
 
-#### Halaman SD IT (/sd) — Section Wajib
+#### Halaman SDIT (/sd) — Section Wajib
 - [ ] Hero banner slider 2 slide (CMS)
 - [ ] Tentang SD: visi misi, keunggulan, target Juz 30 mutqin
 - [ ] Kurikulum Terpadu: Kemendikbud + Tahfidz + Bilingual Arab-Inggris
@@ -531,7 +531,7 @@ Penyempurnaan holistik pengalaman pendaftaran calon wali murid pada formulir onl
    - Menghapus pengulangan nama unit dan deskripsi berulang pada header langkah formulir.
 3. **Strict Multi-Tenant Isolation pada Formulir:**
    - Menghilangkan dropdown/select penggantian unit di dalam form pendaftaran yang aktif.
-   - Pendaftar yang membuka link pendaftaran suatu unit (misal SD IT) tetap berada pada unit tersebut tanpa risiko salah memilih unit lain.
+   - Pendaftar yang membuka link pendaftaran suatu unit (misal SDIT) tetap berada pada unit tersebut tanpa risiko salah memilih unit lain.
 4. **Ergonomi Grid Anti-Mepet (Layout Spacing 40px):**
    - Pelebaran jarak horizontal antar-kolom menjadi 40px (`columnGap: 2.5rem`, `rowGap: 1.75rem`) pada breakpoint md/lg.
    - Penambahan `min-w-0` pada semua anak kolom agar input tidak meluap.
@@ -589,7 +589,7 @@ Penyempurnaan prioritas dan elevasi kualitas visual (*Super Premium Enterprise D
 1. **Ekosistem PPDB (Penerimaan Peserta Didik Baru Terpadu):**
    - **Elevasi Antarmuka Pusat PPDB (`/ppdb`):**
      - Desain visual bernuansa *Deep Forest Emerald (#064E3B)* dengan aksen emas prestise dan Mowilex Soft Water (`#E8F3F1`, `#2D7A70`).
-     - Kartu unit sekolah komparatif (TK IT, SD IT, SMP IT Al-Afiyah) dengan kuota live, target hafalan Al-Qur'an bersanad, jam belajar, dan tombol pendaftaran langsung per unit.
+     - Kartu unit sekolah komparatif (TK IT, SDIT, SMP IT Al-Afiyah) dengan kuota live, target hafalan Al-Qur'an bersanad, jam belajar, dan tombol pendaftaran langsung per unit.
      - Penjelasan 3 Jalur Masuk: *Jalur Reguler*, *Jalur Beasiswa Tahfidz Prestasi (Keringanan hingga 100%)*, dan *Jalur Rujukan Duta Syiar Afiliasi*.
      - Alur 4 langkah pendaftaran transparan dan *Interactive FAQ Accordion* untuk pertanyaan krusial wali murid (usia minimal, tes non-calistung ramah anak, opsi susulkan berkas stopmap, dan beasiswa).
    - **Ketahanan Pelacakan Referral pada Formulir (`/ppdb/daftar`):**
@@ -620,7 +620,7 @@ Penyempurnaan prioritas dan elevasi kualitas visual (*Super Premium Enterprise D
 ### 11.1 Ruang Lingkup Peningkatan Interaktivitas
 1. **Pusat PPDB Terpadu (`/ppdb`):**
    - **Kalkulator Biaya Pendidikan Terpadu TP 2026/2027:**
-     - Pemilih jenjang interaktif: TK IT, SD IT, dan SMP IT Al-Afiyah.
+     - Pemilih jenjang interaktif: TK IT, SDIT, dan SMP IT Al-Afiyah.
      - Rincian itemized resmi: Infaq formulir, uang sarana (pangkal), seragam 4 stel, buku paket modul, dan SPP bulan pertama.
      - Toggle diskon saudara kandung (-10% uang sarana) dan beasiswa prestasi tahfidz (-50% s.d. 100% uang sarana).
      - Kalkulasi total estimasi biaya dan simulasi skema angsuran syariah 3x termin (DP 40% + 2x cicilan bebas bunga).
@@ -680,39 +680,39 @@ Berdasarkan preferensi pengguna dan penyesuaian terminologi branding yayasan, se
 
 ---
 
-## 13. UPDATE v3.6 — Integrasi Foto Asli Kegiatan Murid SD IT Al-Afiyah sebagai Banner & Showcase Resmi
+## 13. UPDATE v3.6 — Integrasi Foto Asli Kegiatan Murid SDIT Al-Afiyah sebagai Banner & Showcase Resmi
 
-Sesuai arahan pengguna dengan melampirkan berkas foto asli kegiatan luar kelas dari dewan guru SD IT Al-Afiyah Majalengka, seluruh aset visual dan banner unit SD IT telah disesuaikan dan diintegrasikan:
+Sesuai arahan pengguna dengan melampirkan berkas foto asli kegiatan luar kelas dari dewan guru SDIT Al-Afiyah Majalengka, seluruh aset visual dan banner unit SDIT telah disesuaikan dan diintegrasikan:
 
 1. **Aset Foto Asli dari Guru (`/public/images/`):**
-   - **`sd-hero-greenhouse.jpg` (Landscape 16:9 - 1024x576):** Foto guru bertopi safari membimbing murid putra menanam bibit tanaman sayur di greenhouse bambu sekolah dengan seragam merah-putih dan kalung ID Card resmi SD IT Al-Afiyah. Menjadi foto utama *hero slider* dan kartu unit SD.
+   - **`sd-hero-greenhouse.jpg` (Landscape 16:9 - 1024x576):** Foto guru bertopi safari membimbing murid putra menanam bibit tanaman sayur di greenhouse bambu sekolah dengan seragam merah-putih dan kalung ID Card resmi SDIT Al-Afiyah. Menjadi foto utama *hero slider* dan kartu unit SD.
    - **`sd-hero-garden.jpg` (Landscape 16:9 - 1024x576):** Foto barisan rapi murid putri membawa buku observasi di samping bedengan kebun sayur hijau yang asri dan gerbang lengkung bambu. Menjadi slide kedua *outdoor learning & agro-literasi*.
    - **`sd-hero-activity.jpg` (Portrait 9:16 - 576x1024):** Foto keceriaan murid-murid putri berseragam jilbab putih & rok merah dengan kalung identitas bertuliskan *"SDIT AL-AFIYAH MAJALENGKA"* memegang buku mutaba'ah di kebun sekolah. Menjadi slide ketiga *prestasi & karakter*.
    - **`sd-hero-students.jpg`:** Diperbarui secara sinkron untuk menjamin *backward compatibility* pada semua rute legacy.
 
 2. **Pembaruan Komponen & Landing Page:**
-   - **`UnitHeroSlider.tsx` (Slide Hero SD IT `/sd`):**
+   - **`UnitHeroSlider.tsx` (Slide Hero SDIT `/sd`):**
      - Slide 1: Menampilkan `sd-hero-greenhouse.jpg` dengan copy *"Membangun Generasi Emas Qur'ani & Berkarakter Unggul"*.
      - Slide 2: Menampilkan `sd-hero-garden.jpg` dengan badge *"Outdoor Learning & Agro-Literasi Ramah Anak"*.
      - Slide 3: Menampilkan `sd-hero-activity.jpg` dengan copy *"Wujudkan Potensi Akhlak & Prestasi Ananda Tercinta"*.
    - **`EdukaUnitCards.tsx` (Beranda Pusat `/`):**
-     - Kartu unit SD IT Al-Afiyah diperbarui menampilkan foto asli greenhouse `sd-hero-greenhouse.jpg`.
-   - **`SchoolLandingTemplate.tsx` (Galeri Fasilitas SD IT `/sd`):**
-     - Daftar fasilitas bawaan SD IT menambahkan *"Greenhouse & Kebun Edukasi Pertanian"* serta *"Taman Belajar Outdoor Terbuka"*.
+     - Kartu unit SDIT Al-Afiyah diperbarui menampilkan foto asli greenhouse `sd-hero-greenhouse.jpg`.
+   - **`SchoolLandingTemplate.tsx` (Galeri Fasilitas SDIT `/sd`):**
+     - Daftar fasilitas bawaan SDIT menambahkan *"Greenhouse & Kebun Edukasi Pertanian"* serta *"Taman Belajar Outdoor Terbuka"*.
    - **`HavenlyArchCarousel.tsx` (Figur Murid Berprestasi):**
-     - Menampilkan foto asli kegiatan sains outdoor murid SD IT Al-Afiyah.
+     - Menampilkan foto asli kegiatan sains outdoor murid SDIT Al-Afiyah.
    - **Prisma SQLite Database:**
      - Rekor CMS section `hero` untuk unit `sd` diperbarui menggunakan `/images/sd-hero-greenhouse.jpg`.
 
 ---
 
-## 14. UPDATE v3.7 — Header Transparan-ke-Putih Dinamis (Gaya Insan Kamil) & Pembersihan Menyeluruh Foto CMS SD IT
+## 14. UPDATE v3.7 — Header Transparan-ke-Putih Dinamis (Gaya Insan Kamil) & Pembersihan Menyeluruh Foto CMS SDIT
 
-Berdasarkan instruksi pengguna untuk menghadirkan header transparan di awal dan berubah menjadi putih saat di-scroll (seperti referensi situs `insankamil.or.id`) serta memastikan panel admin CMS SD IT bersih dari gambar AI:
+Berdasarkan instruksi pengguna untuk menghadirkan header transparan di awal dan berubah menjadi putih saat di-scroll (seperti referensi situs `insankamil.or.id`) serta memastikan panel admin CMS SDIT bersih dari gambar AI:
 
-1. **Pembersihan Menyeluruh Foto Placeholder / AI di Panel Admin CMS SD IT:**
+1. **Pembersihan Menyeluruh Foto Placeholder / AI di Panel Admin CMS SDIT:**
    - **`CMSEditorClient.tsx`:** Preset gambar banner hero kini memprioritaskan 3 foto otentik dewan guru (`/images/sd-hero-greenhouse.jpg`, `/images/sd-hero-garden.jpg`, `/images/sd-hero-activity.jpg`) dan membersihkan seluruh sisa placeholder AI (`havenly-hero.jpg`, `sd-hero-tahfidz.jpg`).
-   - **`SchoolLandingTemplate.tsx` & `HavenlyArchCarousel.tsx`:** Galeri fasilitas dan profil murid berprestasi diperbarui menggunakan foto asli kegiatan murid SD IT Al-Afiyah.
+   - **`SchoolLandingTemplate.tsx` & `HavenlyArchCarousel.tsx`:** Galeri fasilitas dan profil murid berprestasi diperbarui menggunakan foto asli kegiatan murid SDIT Al-Afiyah.
    - **Sinkronisasi Database SQLite (`cMSSection`):** Payload hero banner unit SD disinkronkan langsung menggunakan foto asli dewan guru sehingga editor CMS berjalan lancar tanpa kendala.
 
 2. **Implementasi Header Transparan-ke-Putih Dinamis (`Navbar.tsx`):**
@@ -762,7 +762,7 @@ Berdasarkan berkas poster/flyer resmi SPMB yang dibagikan oleh tim dewan guru SD
    - **`src/app/sd/page.tsx` & `SchoolLandingTemplate.tsx`:** Menampilkan 8 program unggulan dan 3 pilar karakter Smart Akhlaq Fitrah secara konsisten, serta menyertakan poster resmi di galeri sarana.
    - **`src/app/ppdb/page.tsx`:** Kartu unit SDIT mengusung status *"SPMB 2026/2027 Dibuka"* dengan kuota 56 murid (Hanya 2 Rombel). Modal brosur menyematkan showcase poster resmi dengan tautan unduh JPG dan tombol hotline langsung.
    - **`EdukaUnitCards.tsx`:** Kartu jenjang SD di beranda pusat menampilkan foto poster resmi, badge *"Smart Akhlaq Fitrah • SDIT"*, dan 4 pilar fitur unggulan.
-   - **`Navbar.tsx`:** Subtitle jenjang SD berubah menjadi *"Smart Akhlaq Fitrah • Majalengka"* dan tombol aksi menjadi *"Info SPMB SD IT"*.
+   - **`Navbar.tsx`:** Subtitle jenjang SD berubah menjadi *"Smart Akhlaq Fitrah • Majalengka"* dan tombol aksi menjadi *"Info SPMB SDIT"*.
    - **`kontak/page.tsx`, `HelpdeskChatWidget.tsx`, `ContactFormClient.tsx`:** Jalur kontak khusus SDIT diarahkan langsung ke nomor WhatsApp resmi `62895322226104`.
    - **`CMSEditorClient.tsx` & `admin/[schoolSlug]/cms/page.tsx`:** Pilihan preset gambar banner hero menambahkan flyer resmi SPMB dan default slides diselaraskan.
    - **Database SQLite:** Rekor tabel `School` (`slug = 'sd'`) dan `cMSSection` (`hero`, `programs`, `values`, `identity`) telah diperbarui.
@@ -770,15 +770,15 @@ Berdasarkan berkas poster/flyer resmi SPMB yang dibagikan oleh tim dewan guru SD
 
 ---
 
-## 16. UPDATE v3.9 — Sistem Animasi Gelembung Halus Interaktif (Smooth Liquid Bubbles) & Penyempurnaan Judul "SD IT Al-Afiyah"
+## 16. UPDATE v3.9 — Sistem Animasi Gelembung Halus Interaktif (Smooth Liquid Bubbles) & Penyempurnaan Judul "SDIT Al-Afiyah"
 *(Ditambahkan 26 Sep 2026 — tidak mengganti, melanjutkan dokumen di atas)*
 
 ### 16.1 Latar Belakang & Arahan User
-Berdasarkan arahan pengguna untuk melengkapi penamaan pilar pendidikan menjadi **SD IT Al-Afiyah** serta menambahkan efek animasi gelembung cair yang halus (*smooth liquid bubble effect*) saat mengarahkan kursor dan mengeklik kartu:
+Berdasarkan arahan pengguna untuk melengkapi penamaan pilar pendidikan menjadi **SDIT Al-Afiyah** serta menambahkan efek animasi gelembung cair yang halus (*smooth liquid bubble effect*) saat mengarahkan kursor dan mengeklik kartu:
 1. **Penyempurnaan Nomenklatur Judul & Subjudul:**
-   - Judul seksi fondasi pendidikan secara eksplisit disempurnakan menjadi: **"Tiga Pilar Karakter SD IT Al-Afiyah"** (sebelumnya hanya *"Tiga Pilar Karakter Al-Afiyah"*).
-   - Lencana seksi diperbarui menjadi: **"Fondasi Pendidikan SD IT Al-Afiyah"** dengan indikator dot bercahaya emerald berdenyut (*pulse*).
-   - Subjudul diperkaya: *"Mendidik peserta didik & murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur'an."*
+   - Judul seksi fondasi pendidikan secara eksplisit disempurnakan menjadi: **"Tiga Pilar Karakter SDIT Al-Afiyah"** (sebelumnya hanya *"Tiga Pilar Karakter Al-Afiyah"*).
+   - Lencana seksi diperbarui menjadi: **"Fondasi Pendidikan SDIT Al-Afiyah"** dengan indikator dot bercahaya emerald berdenyut (*pulse*).
+   - Subjudul diperkaya: *"Mendidik peserta didik & murid di SDIT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur'an."*
 
 2. **Sistem Animasi Gelembung Halus Interaktif (Smooth Liquid Bubble System):**
    - **Komponen Klien `InteractiveBubbleCard.tsx`:**
@@ -787,14 +787,14 @@ Berdasarkan arahan pengguna untuk melengkapi penamaan pilar pendidikan menjadi *
      - **Elevasi & Pendaran Hover (Card Float & Radial Glow):** Kartu terangkat halus (`hover:-translate-y-1.5 hover:shadow-xl`) dengan pendaran cahaya radial lembut di belakang kursor.
    - **Komponen Latar Belakang `FloatingAmbientBubbles.tsx`:**
      - Menghadirkan gelembung-gelembung kaca mengambang melayang perlahan di latar belakang seksi Stats Bar dan seksi Tiga Pilar Karakter dengan durasi float bervariasi (6.8s - 10s), bayangan lembut, dan arah gerak organik bolak-balik (`animate-bubble-float` & `animate-bubble-float-reverse`).
-   - **Penerapan Menyeluruh di Halaman SD IT:**
+   - **Penerapan Menyeluruh di Halaman SDIT:**
      - 4 kartu stat kuota dan capaian pada bar statistik.
-     - 3 kartu pilar karakter Smart Akhlaq Fitrah SD IT Al-Afiyah lengkap dengan lencana ikon gelembung melayang mengkilap.
+     - 3 kartu pilar karakter Smart Akhlaq Fitrah SDIT Al-Afiyah lengkap dengan lencana ikon gelembung melayang mengkilap.
      - 8 kartu program unggulan terpadu.
 
 3. **Verifikasi Kualitas:**
    - Kompilasi TypeScript (`npx tsc --noEmit`) tuntas 100% bebas error (Exit Code 0).
-   - Pengujian HTTP fetch pada `sd.localhost:3000` berhasil (Status 200 OK) dan memvalidasi keberadaan teks *"Tiga Pilar Karakter SD IT Al-Afiyah"*.
+   - Pengujian HTTP fetch pada `sd.localhost:3000` berhasil (Status 200 OK) dan memvalidasi keberadaan teks *"Tiga Pilar Karakter SDIT Al-Afiyah"*.
 
 ---
 
@@ -818,7 +818,7 @@ Desain disempurnakan secara menyeluruh menuju standar estetika **Modern Minimali
 
 3. **Animasi Ikon Bergerak & Miring (Dynamic Icon Tilt & Spring Physics):**
    - **Penambahan Ikon Minimalis pada 4 Kartu Statistik:**
-     - Kartu 1 (*Kuota Penerimaan: Hanya 2 Rombel*): Ikon `Users` dengan lencana emerald dan status SPMB SD IT.
+     - Kartu 1 (*Kuota Penerimaan: Hanya 2 Rombel*): Ikon `Users` dengan lencana emerald dan status SPMB SDIT.
      - Kartu 2 (*Pilar Pendidikan: Smart Akhlaq Fitrah*): Ikon `Sparkles` dengan lencana amber dan status Kurikulum.
      - Kartu 3 (*Akreditasi Sekolah: A Unggul*): Ikon `Award` dengan lencana teal dan status Mutu Resmi.
      - Kartu 4 (*Bimbingan Tahfidz: Juz 30 Mutqin*): Ikon `BookOpen` dengan lencana emerald dan status Target Mutqin.
@@ -827,7 +827,7 @@ Desain disempurnakan secara menyeluruh menuju standar estetika **Modern Minimali
      - Saat kursor diarahkan (*hover*), wadah ikon otomatis membesar dan miring secara dinamis (`rotate(-12deg) scale(1.15) translateY(-2px)`).
      - Untuk kartu genap, ikon miring ke arah berlawanan (`rotate(12deg)`).
      - Saat diklik (*active/press*), ikon berayun ke sudut sebaliknya (`rotate(8deg) scale(0.96)`) memberikan sensasi taktil yang hidup dan interaktif.
-   - **3 Pilar Karakter SD IT Al-Afiyah:**
+   - **3 Pilar Karakter SDIT Al-Afiyah:**
      - Wadah ikon 3 pilar (`HeartHandshake`, `BookOpen`, `GraduationCap`) kini mengadopsi animasi miring yang sama, berpadu zoom kartu dan transisi warna teks judul saat disorot kursor.
 
 ### 17.3 Hasil Verifikasi Kualitas
@@ -843,8 +843,8 @@ Desain disempurnakan secara menyeluruh menuju standar estetika **Modern Minimali
 Pengguna menginstruksikan penghapusan tuntas seluruh ikon yang berkesan AI/AI-slop (*"aku mau yang keliatan icon AI/aislop di ganti ya jadi material icon minamalis ala googele mungkin ya, aku gamau ada icon2 AI dmmna pun"*). Ikon bintang berkilau 4-sudut (*Sparkles* ✨) yang selama ini identik dengan fitur kecerdasan buatan (*generative AI*) dieliminasi 100% dari seluruh modul aplikasi dan digantikan dengan simbol-simbol **Google Material Design** yang semantik, formal, dan berorientasi pendidikan islami.
 
 ### 18.2 Standardisasi Ikon Google Material Minimalis
-1. **Penyempurnaan 4 Kartu Statistik SD IT Al-Afiyah (`SchoolLandingTemplate.tsx`):**
-   - **Kartu 1 (Kuota Penerimaan: Hanya 2 Rombel):** Menggunakan ikon `Users` (Material: `groups` 👥) — lencana emerald SPMB SD IT.
+1. **Penyempurnaan 4 Kartu Statistik SDIT Al-Afiyah (`SchoolLandingTemplate.tsx`):**
+   - **Kartu 1 (Kuota Penerimaan: Hanya 2 Rombel):** Menggunakan ikon `Users` (Material: `groups` 👥) — lencana emerald SPMB SDIT.
    - **Kartu 2 (Pilar Pendidikan: Smart Akhlaq Fitrah):** Ikon AI (*Sparkles*) diganti menjadi `Compass` (Material: `explore` 🧭) — menyimbolkan kompas fitrah, orientasi akhlak nabawiyah, dan arah pembinaan karakter.
    - **Kartu 3 (Akreditasi Sekolah: A Unggul):** Menggunakan ikon `Award` (Material: `workspace_premium` 🏅) — lencana teal standar mutu resmi.
    - **Kartu 4 (Bimbingan Tahfidz: Juz 30 Mutqin):** Menggunakan ikon `BookOpen` (Material: `menu_book` 📖) — lencana emerald target hafalan.
@@ -864,7 +864,7 @@ Pengguna menginstruksikan penghapusan tuntas seluruh ikon yang berkesan AI/AI-sl
    - **Generator Piagam Penghargaan (`CertificatePrintModal.tsx`):**
      - Pusat stempel resmi yayasan diganti dari `Sparkles` menjadi `Award` (Material: `military_tech` emblem yayasan).
    - **Pembersihan Import Tak Terpakai:** Dihapus dari `SiakadHomeView.tsx`, `EditBiodataModal.tsx`, dan `AchievementManagerClient.tsx`.
-   - **Seed Basis Data (`prisma/seed.ts`):** Seksi nilai CMS SD IT diselaraskan menggunakan `Compass`.
+   - **Seed Basis Data (`prisma/seed.ts`):** Seksi nilai CMS SDIT diselaraskan menggunakan `Compass`.
 
 ### 18.3 Hasil Verifikasi Kualitas
 - **Audit Pencarian Regex:** Pencarian `Sparkles` di seluruh pohon direktori `src/` menghasilkan **0 temuan** (*zero AI icons remaining*).
@@ -919,7 +919,7 @@ Berdasarkan arahan ini, bilah mikro atas (*top micro-header bar*) setinggi 36px 
 Pengguna melaporkan dua kendala visual penting:
 1. **Banner Offside & Tumpang Tindih:** Judul dan badge di banner hero terdorong terlalu ke atas hingga tertutup oleh header (*"masa ketimpa2 di header sama offside terus ya itu judulnya sama ga rapi malah naik ke atas judul di banneernya"*).
    - **Akar Penyebab (Root Cause):** Pada `UnitHeroSlider.tsx` dan `EdukaHeroSlider.tsx`, kontainer teks dibatasi oleh `min-h-[380px] sm:min-h-[400px]` dengan elemen slide anak `absolute inset-0 flex flex-col justify-center`. Ketika teks slide (badge, h1 multi-baris, deskripsi, 2 tombol, trust items) memiliki tinggi fisik total ~520px, fungsi `justify-center` membagi sisa tinggi negatif ke atas dan ke bawah, sehingga mendorong ujung atas konten naik sebesar ~65px melewati padding dan masuk langsung ke balik header (`y < 72px`). Selain itu, `flex items-center` pada elemen `<section>` membatalkan efek bantalan padding atas.
-2. **Inkonsistensi Warna Teks Nama Unit di Header:** Teks Latin nama unit sekolah (seperti `SD IT Al-Afiyah`) di bawah kaligrafi Arab tampak berbeda tingkat keputihannya/redup dibandingkan teks Arab (*"sama tulisan sd it di header kok ga sesuai putihnya pas di awal atau kamu atur ya biar sama"*).
+2. **Inkonsistensi Warna Teks Nama Unit di Header:** Teks Latin nama unit sekolah (seperti `SDIT Al-Afiyah`) di bawah kaligrafi Arab tampak berbeda tingkat keputihannya/redup dibandingkan teks Arab (*"sama tulisan sd it di header kok ga sesuai putihnya pas di awal atau kamu atur ya biar sama"*).
    - **Akar Penyebab:** Teks Latin sebelumnya menggunakan `text-white/95` (opasitas 95%) dengan kelas bayangan `drop-shadow-xs` (yang bukan kelas valid di Tailwind v4, sehingga tidak menghasilkan drop-shadow), sedangkan teks Arab menggunakan `text-white` murni berpadu `drop-shadow-sm`.
 
 ### 20.2 Solusi & Implementasi
@@ -936,7 +936,7 @@ Pengguna melaporkan dua kendala visual penting:
 
 ### 20.3 Hasil Verifikasi Kualitas
 - **Kompilasi TypeScript:** `npx tsc --noEmit` lolos 100% tanpa error (Exit Code 0).
-- **HTTP Endpoint Check:** Halaman utama (`/`) dan halaman unit SD IT (`/sd`) mengembalikan status HTTP 200 OK dengan konten banner yang lapang dan tidak terpotong header.
+- **HTTP Endpoint Check:** Halaman utama (`/`) dan halaman unit SDIT (`/sd`) mengembalikan status HTTP 200 OK dengan konten banner yang lapang dan tidak terpotong header.
 
 ---
 
@@ -947,12 +947,12 @@ Pengguna melaporkan dua kendala visual penting:
 Pengguna menyampaikan koreksi penting terkait tampilan:
 1. **Permintaan Penghapusan Badge Kuning "SD":** Pengguna secara eksplisit meminta label kuning "SD" di samping nama unit dihapus (*"sama tulisan SD yang kuning ga usah"*), menginginkan tipografi header yang bersih dan terpadu.
 2. **Klarifikasi & Pemulihan Visibilitas Banner Hero:** Pengguna mengamati banner seolah menghilang (*"kok malah hilang bannernya"*).
-   - **Analisis Diagnosis:** Ketika pengguna mengeklik tautan dropdown seperti *"Profil & Karakter SD IT Al-Afiyah"* (`/sd#values`), peramban otomatis menggulir (*auto-scroll*) halaman langsung ke jangkar `#values`, sehingga banner hero tergulir ke atas di luar area pandang (*viewport*). Selain itu, tombol navigasi panah kiri (`ChevronLeft`) pada slider sebelumnya diposisikan di `top-1/2 left-4` yang bertabrakan langsung dengan baris kata judul *"Ananda"*, serta Next.js sempat mencatat peringatan `Image fill with height 0` akibat wadah animasi *Ken Burns* menggunakan `relative` alih-alih `absolute inset-0`.
+   - **Analisis Diagnosis:** Ketika pengguna mengeklik tautan dropdown seperti *"Profil & Karakter SDIT Al-Afiyah"* (`/sd#values`), peramban otomatis menggulir (*auto-scroll*) halaman langsung ke jangkar `#values`, sehingga banner hero tergulir ke atas di luar area pandang (*viewport*). Selain itu, tombol navigasi panah kiri (`ChevronLeft`) pada slider sebelumnya diposisikan di `top-1/2 left-4` yang bertabrakan langsung dengan baris kata judul *"Ananda"*, serta Next.js sempat mencatat peringatan `Image fill with height 0` akibat wadah animasi *Ken Burns* menggunakan `relative` alih-alih `absolute inset-0`.
 
 ### 21.2 Solusi & Implementasi
 1. **Penghapusan Lencana Kuning "SD" di Navbar (`src/components/layout/Navbar.tsx`):**
    - Menghapus elemen `<span className="bg-amber-400 ...">{brandConfig.code}</span>` di samping `brandConfig.title`.
-   - Nama sekolah Latin (`SD IT AL-AFIYAH`) kini tampil murni, elegan, berukuran `text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white drop-shadow-sm` saat transparan, dan `text-slate-800` saat bergulir ke bawah, serasi sempurna dengan kaligrafi Arab di atasnya.
+   - Nama sekolah Latin (`SDIT AL-AFIYAH`) kini tampil murni, elegan, berukuran `text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white drop-shadow-sm` saat transparan, dan `text-slate-800` saat bergulir ke bawah, serasi sempurna dengan kaligrafi Arab di atasnya.
    - Menambahkan event handler `onClick` pada logo merek dan tombol menu *"Beranda"* yang memicu `window.scrollTo({ top: 0, behavior: 'smooth' })`, sehingga kapan pun pengguna mengeklik Beranda atau logo dari bagian bawah halaman, peramban selalu mengantarkan pandangan kembali ke puncak banner hero.
 
 2. **Penyempurnaan Wadah Gambar & Eliminasi Tabrakan Teks (`UnitHeroSlider.tsx` & `EdukaHeroSlider.tsx`):**
@@ -971,11 +971,11 @@ Pengguna menyampaikan koreksi penting terkait tampilan:
 
 ---
 
-## 22. UPDATE v3.15 — Pemulihan Tuntas Banner SD IT (Zero-Collapse Height Lock & Defensive Crash-Proofing)
+## 22. UPDATE v3.15 — Pemulihan Tuntas Banner SDIT (Zero-Collapse Height Lock & Defensive Crash-Proofing)
 *(Ditambahkan 26 Sep 2026 — tidak mengganti, melanjutkan dokumen di atas)*
 
 ### 22.1 Latar Belakang & Masukan Pengguna
-Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Afiyah masih belum muncul (*"mASIH HILANG, tolong kembalikan bannner2 sd"*). Berdasarkan tangkapan layar pengguna pada `sd.localhost:3000`, posisi peramban berada di puncak halaman (`window.scrollY = 0`), namun komponen banner hero (`UnitHeroSlider`) mengalami keruntuhan tinggi (*height collapse to 0px*) di dalam wadah flexbox (`flex flex-col`), sehingga seksi 4 Kartu Statistik langsung melompat ke bawah navbar transparan.
+Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SDIT Al-Afiyah masih belum muncul (*"mASIH HILANG, tolong kembalikan bannner2 sd"*). Berdasarkan tangkapan layar pengguna pada `sd.localhost:3000`, posisi peramban berada di puncak halaman (`window.scrollY = 0`), namun komponen banner hero (`UnitHeroSlider`) mengalami keruntuhan tinggi (*height collapse to 0px*) di dalam wadah flexbox (`flex flex-col`), sehingga seksi 4 Kartu Statistik langsung melompat ke bawah navbar transparan.
 
 ### 22.2 Akar Masalah & Solusi Komprehensif
 1. **Penyebab Keruntuhan Tinggi (*Flexbox Zero-Height Collapse*):**
@@ -989,7 +989,7 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
    - Memberikan fallback aman pada seluruh pemrosesan teks (`(s.titlePart1 || '').trim()`, `(s.titleHighlight || '').trim()`, `(s.titlePart2 || '').trim()`, `(s.badge || '').trim()`, `s.description || ''`).
    - Menyediakan tautan dan label tombol default yang tangguh (`s.primaryCtaLink || ppdbUrl`, `s.secondaryCtaLink || waUrl`), serta menetapkan nilai default `registrationFee = 175000` pada interface props komponen. Komponen dijamin 100% tidak akan pernah mengalami unmount akibat `TypeError`.
 5. **Konfirmasi Bebas Lencana Kuning SD:**
-   - Memastikan nama sekolah di navbar tetap bersih elegan (`SD IT AL-AFIYAH`) dalam warna putih solid bersinar lembut tanpa badge kuning, memenuhi arahan pengguna *"sama tulisan SD yang kuning ga usah"*.
+   - Memastikan nama sekolah di navbar tetap bersih elegan (`SDIT AL-AFIYAH`) dalam warna putih solid bersinar lembut tanpa badge kuning, memenuhi arahan pengguna *"sama tulisan SD yang kuning ga usah"*.
 
 ### 22.3 Hasil Verifikasi Kualitas
 - **Kompilasi TypeScript:** `npx tsc --noEmit` lolos 100% tanpa error (Exit Code 0).
@@ -1001,7 +1001,7 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 
 ---
 
-## 23. UPDATE v3.16 — Rilis Produksi, Refinement Hero SD IT & Data SPMB SD IT T.A. 2027/2028
+## 23. UPDATE v3.16 — Rilis Produksi, Refinement Hero SDIT & Data SPMB SDIT T.A. 2027/2028
 *(Ditambahkan 5 Okt 2026 — tidak mengganti, melanjutkan dokumen di atas)*
 
 ### 23.1 Rilis Produksi (Supabase + Vercel)
@@ -1011,7 +1011,7 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - **Deploy:** setiap push ke `main` otomatis di-deploy Vercel.
 - **Catatan operasional:** error *"MIME type text/plain"* pada CSS saat deploy beruntun adalah *version skew* (hash CSS baru belum tersedia → 404). Solusi: hard refresh; pencegahan: Vercel Skew Protection. Temuan terbuka: `X-Frame-Options` didefinisikan ganda (`DENY` di proxy, `SAMEORIGIN` di `next.config.ts`).
 
-### 23.2 Refinement UI Landing SD IT
+### 23.2 Refinement UI Landing SDIT
 - **Judul hero final (SD):** baris aksen *"Bukan Sekedar"* (Playfair italic, `text-2xl sm:text-3xl lg:text-4xl`), lalu *"Tempat Belajar, / Namun Juga / Tempat Bertumbuh"* (`text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15] tracking-tight`, baris terakhir hijau SD). Kata *"Ananda"* dihapus. Kontainer teks `max-w-xl lg:max-w-2xl text-left`.
 - **Hero umum:** satu CTA hijau, badge mengambang minimal, tanpa kontrol slider, deskripsi lebih sempit, font script tak terpakai dihapus.
 - **Kartu statistik:** bento 2x2 ringkas dengan umpan balik taktil `:active`; peluncur Helpdesk disembunyikan di mobile.
@@ -1019,7 +1019,7 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - **Kartu Program & Nilai:** struktur `flex flex-col h-full`, footer *"Terintegrasi Kurikulum"* dikunci di dasar kartu (`mt-auto pt-4`).
 - **Program Unggulan:** tombol *"Daftar di Program Ini →"* dihapus.
 
-### 23.3 Data SPMB SD IT Al-Afiyah T.A. 2027/2028 (Poster Resmi)
+### 23.3 Data SPMB SDIT Al-Afiyah T.A. 2027/2028 (Poster Resmi)
 | Item | Nilai |
 | :--- | :--- |
 | Kuota | Hanya 2 Rombel |
@@ -1079,7 +1079,7 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 - **Pengecualian Link Eksternal:** HANYA link ke platform pihak ketiga (seperti WhatsApp `wa.me`, Google Maps, dan file dokumen unduhan) yang dipertahankan membuka tab baru (`target="_blank"`).
 
 ### 23.11 Revisi — Penyelarasan Istilah SPMB, Link New Tab, Referral, & Loading State (5 Okt 2026)
-- **Penyelarasan Istilah:** Menyeragamkan seluruh sebutan pendaftaran dari "PPDB" menjadi "SPMB" ("Daftar SPMB SD IT", "Daftar SPMB Online", "Informasi & Alur SPMB", "Formulir SPMB Online", dsb.) pada Navbar, Sticky Mobile Bar, Helpdesk Chat Widget, Hero Slider, dan section landing.
+- **Penyelarasan Istilah:** Menyeragamkan seluruh sebutan pendaftaran dari "PPDB" menjadi "SPMB" ("Daftar SPMB SDIT", "Daftar SPMB Online", "Informasi & Alur SPMB", "Formulir SPMB Online", dsb.) pada Navbar, Sticky Mobile Bar, Helpdesk Chat Widget, Hero Slider, dan section landing.
 - **Link Pendaftaran & New Tab (`target="_blank"`):** Seluruh tombol CTA pendaftaran SPMB membuka tab baru secara konsisten (`target="_blank"` & `rel="noopener noreferrer"`).
 - **Pengekalan Referral:** Menggabungkan `getStoredReferralCode()` ke seluruh pautan pendaftaran SPMB sehingga URL yang dibuka menyertakan `?ref=KODE_MITRA`.
 - **Visual Loading State:** Menambahkan state `isOpeningSpmb` / spinner dan teks "Membuka SPMB..." pada saat tombol CTA pendaftaran diklik agar antarmuka memberikan responsivitas visual instan tanpa membeku.
@@ -1093,13 +1093,13 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
 ### 23.13 Revisi — Tata Kelola Mandiri CMS SD, Pembersihan Redundansi Navbar & Kesiapan Google Search Console (7 Okt 2026)
 - **Isolasi Mutlak Multi-Tenant CMS SD (`schoolSlug === 'sd'`):**
   1. Penambahan Tab 9 (**Pilar Karakter** - mengelola `/sd/karakter`) dan Tab 10 (**Profil & Visi Misi** - mengelola `/sd/profil`).
-  2. Tab 9 & 10 diproteksi ketat hanya tampil dan tersimpan untuk unit SD IT Al-Afiyah Majalengka.
+  2. Tab 9 & 10 diproteksi ketat hanya tampil dan tersimpan untuk unit SDIT Al-Afiyah Majalengka.
   3. Kunci gabungan database Prisma `@@unique([schoolId, sectionKey])` menjamin bahwa unit TK, SMP, dan Yayasan memiliki rekor data terpisah (UUID berbeda) dan tidak akan pernah tertimpa.
 - **Pembersihan Redundansi & Eliminasi Menu Dobel di Navbar (`Navbar.tsx`):**
   1. *Dewan Guru & Asatidzah:* Dihapus dari *Program & Keunggulan*, kini difokuskan secara eksklusif pada menu *Profil* (`/sd/guru`).
   2. *Dokumentasi & Belajar:* Dihapus dari *Program & Keunggulan*, kini berada eksklusif pada menu *Profil* (`/sd/dokumentasi`).
   3. *Pilar Karakter & Nilai Islami:* Dihapus dari *Profil*, kini berada eksklusif pada menu *Program & Keunggulan* (`/sd/karakter`).
-  4. *Layanan Tata Usaha:* Dihapus dari *Lainnya*, kini berada eksklusif pada menu *Profil* (`/sd/kontak`). Menu *Lainnya* difokuskan sebagai *Pusat Bantuan WhatsApp SD IT*.
+  4. *Layanan Tata Usaha:* Dihapus dari *Lainnya*, kini berada eksklusif pada menu *Profil* (`/sd/kontak`). Menu *Lainnya* difokuskan sebagai *Pusat Bantuan WhatsApp SDIT*.
 - **Sinkronisasi Dinamis Seluruh Halaman SD:**
   1. Halaman `/sd/guru`, `/sd/karakter`, `/sd/profil`, `/sd/program`, `/sd/testimoni`, `/sd/dokumentasi`, `/sd/kontak`, dan `/sd/spmb` kini dinamis (`revalidate = 0`) membaca langsung dari database `cMSSection`.
   2. API Handler `/api/admin/cms` secara otomatis merevalidasi cache halaman saat admin mengklik "Simpan Perubahan".
@@ -1116,24 +1116,24 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
   3. `SchoolLandingTemplate.tsx` sebelumnya mengabaikan `school.stats` dari database dan hanya merender array statis `defaultStats`.
 - **Solusi & Penyelarasan Menyeluruh:**
   1. **Tab 1 (Banner & Slide Hero):** Memperbarui Slide 3 menggunakan foto asli greenhouse bambu (`/images/sd-hero-greenhouse.jpg`) dan memastikan teks judul universal serta badge kuota seragam.
-  2. **Tab 2 (Profil, Alamat & Kontak):** Menyelaraskan identitas resmi unit menjadi `SD IT Al-Afiyah Majalengka`, badge `TERAKREDITASI B • YPIB GUGUS 3 NUSA INDAH`, email `sditalafiyahmjl@gmail.com`, dan jam pelayanan TU yang akurat.
-  3. **Tab 3 (Counter Angka Statistik):** Menyelaraskan 4 angka capaian SD IT menjadi:
+  2. **Tab 2 (Profil, Alamat & Kontak):** Menyelaraskan identitas resmi unit menjadi `SDIT Al-Afiyah Majalengka`, badge `TERAKREDITASI B • YPIB GUGUS 3 NUSA INDAH`, email `sditalafiyahmjl@gmail.com`, dan jam pelayanan TU yang akurat.
+  3. **Tab 3 (Counter Angka Statistik):** Menyelaraskan 4 angka capaian SDIT menjadi:
      - `Kuota Penerimaan`: `Hanya 2 Rombel`
      - `Pilar Pendidikan`: `Smart Akhlaq Fitrah`
      - `Akreditasi Sekolah`: `Terakreditasi B`
      - `Bimbingan Tahfidz`: `Juz 30 Mutqin`
      Serta memodifikasi `SchoolLandingTemplate.tsx` agar memanfaatkan `displayStats` reaktif yang bersumber dari database CMS.
-  4. **Tab 4 (Nilai & Pilar Keunggulan):** Menyelaraskan 3 pilar karakter otentik SD IT Al-Afiyah:
+  4. **Tab 4 (Nilai & Pilar Keunggulan):** Menyelaraskan 3 pilar karakter otentik SDIT Al-Afiyah:
      - `Mendidik dengan Sunnah & Karakter Nabawiyah`
      - `Smart, Literasi & Tahfidz Qur'an`
      - `Outdoor Learning & Pelatihan Aqil-Baligh`
-  5. **Tab 5 (Program Pilihan):** Mengisi 10 program unggulan resmi SPMB SD IT T.A. 2027/2028.
-  6. **Tab 6 (Galeri & Fasilitas):** Mengisi 11 foto dokumentasi lapangan nyata aktivitas siswi/murid SD IT (shalat berjamaah, da'i cilik, kelas 6B, greenhouse, kolam biofloc, futsal, halaqah tahfidz).
+  5. **Tab 5 (Program Pilihan):** Mengisi 10 program unggulan resmi SPMB SDIT T.A. 2027/2028.
+  6. **Tab 6 (Galeri & Fasilitas):** Mengisi 11 foto dokumentasi lapangan nyata aktivitas siswi/murid SDIT (shalat berjamaah, da'i cilik, kelas 6B, greenhouse, kolam biofloc, futsal, halaqah tahfidz).
   7. **Tab 8 (Biaya & Kuota SPMB):** Menyelaraskan formulir pendaftaran Rp 250.000, SPP Rp 400.000, pengembangan Rp 3.500.000, kuota 60 murid (2 rombel), dan gelombang Gelombang 1 (T.A. 2027/2028).
-  8. **Sinkronisasi Database Cloud (`cMSSection`):** Mengeksekusi script sinkronisasi database untuk memperbarui dan menyimpan seluruh payload section SD IT secara permanen di Supabase cloud.
+  8. **Sinkronisasi Database Cloud (`cMSSection`):** Mengeksekusi script sinkronisasi database untuk memperbarui dan menyimpan seluruh payload section SDIT secara permanen di Supabase cloud.
 - **Hasil Verifikasi:** `npm run build` lolos 100% tanpa error (62/62 rute valid).
 
-### 23.15 Revisi — Penyelarasan Pratinjau Live (Live Preview) CMS SD IT & Eliminasi Kekosongan Tab 9 & 10 (8 Okt 2026)
+### 23.15 Revisi — Penyelarasan Pratinjau Live (Live Preview) CMS SDIT & Eliminasi Kekosongan Tab 9 & 10 (8 Okt 2026)
 - **Akar Masalah (Root Cause):**
   1. Pada komponen `CMSEditorClient.tsx`, blok `viewMode === 'preview'` sebelumnya hanya memiliki kondisi rendering untuk tab `hero`, `identity`, `stats`, `values`, `programs`, `facilities`, `testimonials`, `tuition`, dan `affiliate`.
   2. Tab 9 (`sd_karakter`) dan Tab 10 (`sd_profil`) sama sekali tidak memiliki blok render pratinjau (`activeTab === 'sd_karakter'` dan `activeTab === 'sd_profil'`), sehingga saat admin berpindah ke mode Pratinjau Live, area layar bawah menjadi kosong melompong (hanya bilah chrome browser atas yang terlihat).
@@ -1144,18 +1144,18 @@ Pengguna menyampaikan koreksi penting bahwa banner hero pada halaman SD IT Al-Af
      - Pratinjau 3 Pilar Karakter Nabawiyah (*Mendidik dengan Sunnah*, *Smart Literasi & Tahfidz*, *Outdoor Learning*) lengkap dengan badge nomor, tagline, deskripsi, dan checklist butir poin dengan ikon `CheckCircle2`.
      - Pratinjau 7 Karakter Profil Murid (*Salimul Aqidah*, *Shahihul Ibadah*, *Matinul Khuluq*, dll) dalam grid kartu interaktif dengan ikon `Sun`.
   2. **Penambahan Pratinjau Live Tab 10 (`sd_profil`):**
-     - Header Banner resmi Profil & Legalitas SD IT Al-Afiyah Majalengka.
+     - Header Banner resmi Profil & Legalitas SDIT Al-Afiyah Majalengka.
      - Kartu Visi berbingkai hijau zamrud dengan kutipan terformat elegan.
      - Kartu Misi berpenomoran numerik terpadu (01 s.d. 06).
      - Grid Data Satuan Pendidikan & Legalitas Resmi BAN-SM (NPSN, NSS, Akreditasi B, Gugus 3 Nusa Indah, Yayasan YPIB, Alamat Lingkungan Giri Asih).
   3. **Penyelarasan Pratinjau Live Tab 1 (Hero):**
-     - Menggunakan tombol CTA hijau zamrud `#00A651` (Daftar SPMB SD IT Online & WhatsApp Panitia) dan fallback foto greenhouse bambu asli.
+     - Menggunakan tombol CTA hijau zamrud `#00A651` (Daftar SPMB SDIT Online & WhatsApp Panitia) dan fallback foto greenhouse bambu asli.
   4. **Penyelarasan Pratinjau Live Tab 3 (Stats):**
      - Mengubah tampilan preview unit SD menjadi 2×2 Bento Grid berlatar `neutral-50` dengan ikon Users, Compass, Award, dan BookOpen persis seperti yang tampil di website `/sd`.
   5. **Penyelarasan Pratinjau Live Tab 4 (Values):**
      - Menampilkan 3 kartu pilar karakter otentik dengan badge Pilar 01/02/03 dan footer *Prinsip Smart Akhlaq Fitrah*.
   6. **Penyelarasan Pratinjau Live Tab 8 (Tuition / SPMB):**
-     - Menampilkan visual poster resmi Story SPMB, rincian biaya pendaftaran, SPP, dan Uang Pengembangan, serta visual kartu Rekening Resmi Bank Muamalat (1360012405) a.n SMP / SD IT Al Afiyah.
+     - Menampilkan visual poster resmi Story SPMB, rincian biaya pendaftaran, SPP, dan Uang Pengembangan, serta visual kartu Rekening Resmi Bank Muamalat (1360012405) a.n SMP / SDIT Al Afiyah.
   7. **Integritas Data & Isolasi Multi-Tenant:**
      - Seluruh pratinjau dan tab tambahan ini terisolasi eksklusif untuk `schoolSlug === 'sd'`, memastikan unit TK, SMP, dan Yayasan tidak terpengaruh sedikit pun.
 - **Hasil Verifikasi:**

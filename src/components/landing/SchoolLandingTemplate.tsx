@@ -136,7 +136,7 @@ export const renderStatIcon = (type: EnhancedStatItem['iconType']) => {
   }
 };
 
-/** Official SPMB SD IT T.A. 2027/2028 materials (index 0 = default active). width/height = intrinsic px, used to size the preview frame. */
+/** Official SPMB SDIT T.A. 2027/2028 materials (index 0 = default active). width/height = intrinsic px, used to size the preview frame. */
 const SPMB_POSTERS = [
   { src: '/images/sd-spmb-story.jpg', label: 'Story Telah Dibuka', file: 'Story-SPMB-SDIT-Al-Afiyah-2027-2028.jpg', width: 575, height: 1024 },
   { src: '/images/sd-spmb-brosur.jpg', label: 'Brosur Biaya & Syarat', file: 'Brosur-SPMB-SDIT-Al-Afiyah-2027-2028.jpg', width: 723, height: 1024 },
@@ -194,7 +194,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       value: 'Hanya 2 Rombel', 
       subtext: 'T.A. 2027/2028 Terbatas',
       iconType: 'users',
-      badge: 'SPMB SD IT',
+      badge: 'SPMB SDIT',
       color: 'emerald',
     },
     { 
@@ -374,11 +374,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {
         name: 'Field Study Smart Akhlak Fitrah (P4S An-Nabawiyah)',
         image: '/images/sd-field-study-banner.jpg',
-        desc: 'Observasi kontekstual murid SD IT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
+        desc: 'Observasi kontekstual murid SDIT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
         category: 'Agro-Sains & Alam',
       },
       {
-        name: 'Prestasi Tim Futsal SD IT Al-Afiyah (Second Place)',
+        name: 'Prestasi Tim Futsal SDIT Al-Afiyah (Second Place)',
         image: '/images/sd-futsal-champion.jpg',
         desc: 'Raihan piala Juara 2 (Second Place) Futsal tingkat pelajar, melatih sportivitas, mental juara, dan ukhuwah islamiyah.',
         category: 'Prestasi & Bakat',
@@ -537,7 +537,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </section>
       )}
 
-      {/* Sambutan Resmi Kepala Sekolah (Khusus SD IT Al-Afiyah) */}
+      {/* Sambutan Resmi Kepala Sekolah (Khusus SDIT Al-Afiyah) */}
       {school.slug === 'sd' && (
         <PrincipalGreetingSection schoolSlug={school.slug} />
       )}
@@ -825,7 +825,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       <span>Hanya 2 Rombel</span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
-                      Penerimaan Murid Baru SD IT Al-Afiyah T.A. 2027/2028
+                      Penerimaan Murid Baru SDIT Al-Afiyah T.A. 2027/2028
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
                       &ldquo;Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh.&rdquo; Menanamkan nilai iman sebelum Al-Qur&apos;an, adab nabawiyah sebelum ilmu, dan pembiasaan sunnah Rasulullah ﷺ dalam suasana sekolah yang asri dan membahagiakan murid.
@@ -889,7 +889,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       href={ppdbUrl}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-xs sm:text-sm shadow-xs transition-colors active:scale-95"
                     >
-                      <span>{school.slug === 'sd' ? 'Daftar SPMB SD IT Online' : 'Daftar SPMB Online'}</span>
+                      <span>{school.slug === 'sd' ? 'Daftar SPMB SDIT Online' : 'Daftar SPMB Online'}</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
 
@@ -930,7 +930,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </div>
       </section>
 
-      {/* Alur SPMB 4 Langkah Visual Roadmap (Khusus SD IT Al-Afiyah) */}
+      {/* Alur SPMB 4 Langkah Visual Roadmap (Khusus SDIT Al-Afiyah) */}
       {school.slug === 'sd' && (
         <SpmbRoadmapSection
           registrationFee={school.registrationFee}
@@ -939,7 +939,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         />
       )}
 
-      {/* 3 Core Values (Pilar Karakter Islami SD IT Al-Afiyah): Modern Minimalist */}
+      {/* 3 Core Values (Pilar Karakter Islami SDIT Al-Afiyah): Modern Minimalist */}
       <section id="values" className="relative py-20 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-14">
@@ -958,7 +958,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed">
               {school.slug === 'sd'
-                ? 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.'
+                ? 'Mendidik murid di SDIT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.'
                 : 'Mendidik anak tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah.'}
             </p>
           </ScrollReveal>
@@ -1033,7 +1033,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm shadow-xs transition-all active:scale-95"
               >
                 <HeartHandshake className="w-4 h-4 text-[#00A651]" />
-                <span>Buka Detail Tiga Pilar Karakter &amp; Nilai Islami SD IT</span>
+                <span>Buka Detail Tiga Pilar Karakter &amp; Nilai Islami SDIT</span>
                 <ArrowRight className="w-4 h-4 text-emerald-700" />
               </Link>
             </div>
@@ -1216,7 +1216,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm shadow-xs transition-all active:scale-95"
                 >
                   <UserCheck className="w-4 h-4 text-[#00A651]" />
-                  <span>Buka Seluruh Profil Dewan Guru &amp; Asatidzah SD IT</span>
+                  <span>Buka Seluruh Profil Dewan Guru &amp; Asatidzah SDIT</span>
                   <ArrowRight className="w-4 h-4 text-emerald-700" />
                 </Link>
               </div>
@@ -1231,7 +1231,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
             <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-2xs">
               <Camera className="w-3.5 h-3.5 text-emerald-600" />
-              <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Belajar SD IT Al-Afiyah' : 'Sarana Prasarana'}</span>
+              <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Belajar SDIT Al-Afiyah' : 'Sarana Prasarana'}</span>
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
               {school.slug === 'sd' ? (
@@ -1249,7 +1249,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 : 'Dukungan infrastruktur lengkap demi kenyamanan dan keamanan aktivitas ibadah dan belajar murid.'}
             </p>
 
-            {/* Filter Tabs for SD IT */}
+            {/* Filter Tabs for SDIT */}
             {school.slug === 'sd' && availableCategories.length > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-6">
                 {availableCategories.map((cat) => {
@@ -1331,7 +1331,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             ))}
           </div>
 
-          {/* Tombol Buka Halaman Khusus Dokumentasi SD IT */}
+          {/* Tombol Buka Halaman Khusus Dokumentasi SDIT */}
           {school.slug === 'sd' && (
             <div className="mt-10 text-center">
               <Link
@@ -1339,7 +1339,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm shadow-xs transition-all active:scale-95"
               >
                 <Camera className="w-4 h-4 text-[#00A651]" />
-                <span>Buka Seluruh Halaman Dokumentasi &amp; Belajar SD IT</span>
+                <span>Buka Seluruh Halaman Dokumentasi &amp; Belajar SDIT</span>
                 <ArrowRight className="w-4 h-4 text-emerald-700" />
               </Link>
             </div>
@@ -1559,7 +1559,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
               >
                 <HeartHandshake className="w-4 h-4 text-[#00A651]" />
-                <span>Buka Seluruh Halaman Testimoni Wali Murid SD IT</span>
+                <span>Buka Seluruh Halaman Testimoni Wali Murid SDIT</span>
                 <ArrowRight className="w-4 h-4 text-emerald-700" />
               </Link>
             </div>

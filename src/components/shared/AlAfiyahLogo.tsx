@@ -28,14 +28,14 @@ export default function AlAfiyahLogo({
 }: AlAfiyahLogoProps) {
   const sizeConfig = SIZES[size] || SIZES.md;
 
-  // Render official SD IT Al-Afiyah emblem when schoolSlug is 'sd'
+  // Render official SDIT Al-Afiyah emblem when schoolSlug is 'sd'
   if (schoolSlug === 'sd') {
     if (variant === 'emblem') {
       return (
         <div className={`inline-flex items-center justify-center ${sizeConfig.box} ${className}`}>
           <img
             src="/images/sd-logo.png"
-            alt="Logo SD IT Al-Afiyah"
+            alt="Logo SDIT Al-Afiyah"
             className="w-full h-full object-contain drop-shadow-sm"
           />
         </div>
@@ -47,7 +47,7 @@ export default function AlAfiyahLogo({
         <div className={`relative flex items-center justify-center ${sizeConfig.box} shrink-0`}>
           <img
             src="/images/sd-logo.png"
-            alt="Logo SD IT Al-Afiyah"
+            alt="Logo SDIT Al-Afiyah"
             className="w-full h-full object-contain drop-shadow-sm"
           />
         </div>
@@ -55,7 +55,7 @@ export default function AlAfiyahLogo({
         {withText && (
           <div className="flex flex-col">
             <span className="font-extrabold tracking-tight text-slate-900 leading-none">
-              SD IT AL-AFIYAH
+              SDIT AL-AFIYAH
             </span>
             <span className="text-[10px] font-semibold text-[#184F48] tracking-wider uppercase mt-0.5">
               Sekolah Dasar Islam Terpadu

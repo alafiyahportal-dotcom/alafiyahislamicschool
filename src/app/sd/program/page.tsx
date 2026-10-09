@@ -23,8 +23,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Program Unggulan & Kurikulum SD IT',
-  description: '10 Program Unggulan SD IT Al-Afiyah Majalengka. Kurikulum terpadu nasional, metode karakter nabawiyah, tahfidz juz 30 mutqin, basic literasi numerasi, dan outdoor learning.',
+  title: 'Program Unggulan & Kurikulum SDIT',
+  description: '10 Program Unggulan SDIT Al-Afiyah Majalengka. Kurikulum terpadu nasional, metode karakter nabawiyah, tahfidz juz 30 mutqin, basic literasi numerasi, dan outdoor learning.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -148,7 +148,7 @@ export default async function SdProgramPage() {
             <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
               <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Beranda SD IT</span>
+                <span>Beranda SDIT</span>
               </Link>
               <ChevronRight className="w-3 h-3 text-emerald-300/50" />
               <span className="text-white font-medium">Program &amp; Keunggulan</span>
@@ -157,7 +157,7 @@ export default async function SdProgramPage() {
             <div className="max-w-3xl">
               <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
                 <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
-                <span>10 PROGRAM UNGGULAN SD IT</span>
+                <span>10 PROGRAM UNGGULAN SDIT</span>
               </div>
 
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
@@ -166,7 +166,7 @@ export default async function SdProgramPage() {
               </h1>
 
               <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-                Bukan sekadar tempat belajar, SD IT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu.
+                Bukan sekadar tempat belajar, SDIT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu.
               </p>
             </div>
           </div>
@@ -184,7 +184,7 @@ export default async function SdProgramPage() {
                   Perpaduan Kurikulum Diknas &amp; Kurikulum Yayasan
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-3xl leading-relaxed">
-                  SD IT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum yayasan (muatan lokal religi)</strong> dalam mutu berpijak pada iman dan taqwa. Selain itu, kami menghadirkan program unggulan utama: <strong>Tahsin dan Tahfidz Al Qur&apos;an</strong>.
+                  SDIT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum yayasan (muatan lokal religi)</strong> dalam mutu berpijak pada iman dan taqwa. Selain itu, kami menghadirkan program unggulan utama: <strong>Tahsin dan Tahfidz Al Qur&apos;an</strong>.
                 </p>
               </div>
               <div className="flex flex-wrap lg:flex-col gap-2.5 shrink-0 w-full lg:w-auto">
@@ -269,7 +269,7 @@ export default async function SdProgramPage() {
                   href="/sd/spmb"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-emerald-100/50 border border-emerald-300 text-emerald-900 font-semibold text-xs transition-colors"
                 >
-                  <span>Info SPMB SD IT</span>
+                  <span>Info SPMB SDIT</span>
                 </Link>
               </div>
             </ScrollReveal>

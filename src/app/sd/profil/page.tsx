@@ -26,8 +26,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Profil Lengkap SD IT',
-  description: 'Profil resmi Sekolah Dasar Islam Terpadu (SD IT) Al-Afiyah Majalengka. Visi, misi, sejarah Lingkungan Giri Asih, kurikulum Smart Akhlak Fitrah, dan legalitas resmi BAN-SM.',
+  title: 'Profil Lengkap SDIT',
+  description: 'Profil resmi Sekolah Dasar Islam Terpadu (SDIT) Al-Afiyah Majalengka. Visi, misi, sejarah Lingkungan Giri Asih, kurikulum Smart Akhlak Fitrah, dan legalitas resmi BAN-SM.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -42,7 +42,7 @@ export const revalidate = 60;
 
 export default async function SdProfilPage() {
   const defaultIdentitasList = [
-    { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
+    { label: 'Nama Sekolah', value: 'SDIT Al-Afiyah Majalengka' },
     { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },
@@ -102,7 +102,7 @@ export default async function SdProfilPage() {
             <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
               <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Beranda SD IT</span>
+                <span>Beranda SDIT</span>
               </Link>
               <ChevronRight className="w-3 h-3 text-emerald-300/50" />
               <span className="text-white font-medium">Profil Sekolah</span>
@@ -161,7 +161,7 @@ export default async function SdProfilPage() {
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                     <span className="px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 border border-emerald-200">
                       <GraduationCap className="w-4 h-4 text-emerald-700" />
-                      <span>Sambutan Kepala Sekolah SD IT Al-Afiyah</span>
+                      <span>Sambutan Kepala Sekolah SDIT Al-Afiyah</span>
                     </span>
                     <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
                       🌱 Tempat Bertumbuh
@@ -173,19 +173,19 @@ export default async function SdProfilPage() {
                       Bismillahirrahmanirrahim.
                     </p>
                     <p>
-                      Selamat datang di <strong>SD IT Al-Afiyah</strong>, tempat kami meyakini bahwa setiap anak adalah amanah Allah ﷻ dengan potensi, keunikan, dan fitrahnya masing-masing.
+                      Selamat datang di <strong>SDIT Al-Afiyah</strong>, tempat kami meyakini bahwa setiap anak adalah amanah Allah ﷻ dengan potensi, keunikan, dan fitrahnya masing-masing.
                     </p>
                     <p>
                       Bagi kami, pendidikan bukan sekadar tentang nilai dan prestasi. Pendidikan adalah tentang menemani anak bertumbuh, mengenal dirinya, mencintai kebaikan, serta berkembang sesuai fitrahnya dalam lingkungan yang penuh iman, ilmu, dan kasih sayang.
                     </p>
                     <blockquote className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border-l-4 border-[#00A651] text-emerald-950 font-semibold italic text-sm sm:text-base">
-                      &ldquo;Karena itu, SD IT Al-Afiyah bukan sekadar tempat belajar, namun juga tempat bertumbuh.&rdquo;
+                      &ldquo;Karena itu, SDIT Al-Afiyah bukan sekadar tempat belajar, namun juga tempat bertumbuh.&rdquo;
                     </blockquote>
                     <p>
                       Kami mengajak Ayah Bunda untuk bersama-sama memilih lingkungan pendidikan terbaik bagi putra-putri tercinta. Mari tumbuhkan iman, karakter, potensi, dan kecintaan belajar mereka bersama kami.
                     </p>
                     <p>
-                      Mari bergabung bersama SD IT Al-Afiyah — tempat anak belajar dengan bahagia, bertumbuh dengan cinta, dan berkembang menjadi pribadi yang bermanfaat.
+                      Mari bergabung bersama SDIT Al-Afiyah — tempat anak belajar dengan bahagia, bertumbuh dengan cinta, dan berkembang menjadi pribadi yang bermanfaat.
                     </p>
                   </div>
 
@@ -195,14 +195,14 @@ export default async function SdProfilPage() {
                         Febrian Fauzi, S.Pd
                       </p>
                       <p className="text-xs text-emerald-700 font-semibold mt-0.5">
-                        Kepala Sekolah SD IT Al-Afiyah
+                        Kepala Sekolah SDIT Al-Afiyah
                       </p>
                     </div>
                     <Link
                       href="/sd/spmb"
                       className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-sm transition-all active:scale-95 shrink-0"
                     >
-                      <span>Informasi SPMB SD IT</span>
+                      <span>Informasi SPMB SDIT</span>
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
@@ -225,10 +225,10 @@ export default async function SdProfilPage() {
                   SD&nbsp;IT Al-Afiyah Majalengka
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  <strong>SD IT Al-Afiyah</strong> adalah sekolah formal yang berada di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong>. SD IT Al-Afiyah juga merupakan <strong>sekolah imbas dari 7 sekolah lainnya di Gugus 3 Nusa Indah</strong> yang ada di Kecamatan Majalengka, Kabupaten Majalengka.
+                  <strong>SDIT Al-Afiyah</strong> adalah sekolah formal yang berada di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong>. SDIT Al-Afiyah juga merupakan <strong>sekolah imbas dari 7 sekolah lainnya di Gugus 3 Nusa Indah</strong> yang ada di Kecamatan Majalengka, Kabupaten Majalengka.
                 </p>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  SD IT Al-Afiyah menyelenggarakan pendidikan dan pembelajaran berdasarkan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum muatan lokal yang bernuansa keagamaan/religi</strong>. Selain itu, terdapat program unggulan utama, yaitu <strong>Tahsin dan Tahfidz Al-Qur&apos;an</strong>.
+                  SDIT Al-Afiyah menyelenggarakan pendidikan dan pembelajaran berdasarkan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum muatan lokal yang bernuansa keagamaan/religi</strong>. Selain itu, terdapat program unggulan utama, yaitu <strong>Tahsin dan Tahfidz Al-Qur&apos;an</strong>.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-2.5 sm:gap-3">
                   <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
@@ -255,7 +255,7 @@ export default async function SdProfilPage() {
                     Perpaduan Kurikulum Diknas &amp; Religi Yayasan
                   </h3>
                   <p className="mt-3 text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-normal">
-                    SD IT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan kurikulum Diknas dan kurikulum yayasan dalam mutu berpijak pada iman dan taqwa.
+                    SDIT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan kurikulum Diknas dan kurikulum yayasan dalam mutu berpijak pada iman dan taqwa.
                   </p>
                   <div className="mt-6 pt-4 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-200">
                     <span>Lingkungan Giri Asih</span>
@@ -276,7 +276,7 @@ export default async function SdProfilPage() {
                 <div>
                   <div className="mb-5">
                     <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
-                      Visi SD IT Al-Afiyah
+                      Visi SDIT Al-Afiyah
                     </span>
                     <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                       Mewujudkan Generasi Sholeh &amp; Berakhlak
@@ -288,7 +288,7 @@ export default async function SdProfilPage() {
                   </blockquote>
 
                   <p className="mt-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    Visi ini menegaskan komitmen SD IT Al-Afiyah dalam membentuk murid yang berkepribadian islami, berakhlak mulia, cerdas dalam pemikiran, serta mandiri dalam amal ibadah dan kehidupan sehari-hari.
+                    Visi ini menegaskan komitmen SDIT Al-Afiyah dalam membentuk murid yang berkepribadian islami, berakhlak mulia, cerdas dalam pemikiran, serta mandiri dalam amal ibadah dan kehidupan sehari-hari.
                   </p>
                 </div>
               </div>
@@ -329,7 +329,7 @@ export default async function SdProfilPage() {
                 Data Satuan Pendidikan
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
-                Identitas Resmi SD IT Al-Afiyah
+                Identitas Resmi SDIT Al-Afiyah
               </h2>
             </ScrollReveal>
 
@@ -348,12 +348,12 @@ export default async function SdProfilPage() {
           </div>
         </section>
 
-        {/* Quick Links ke Fitur Khusus SD IT */}
+        {/* Quick Links ke Fitur Khusus SDIT */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                Jelajahi Lebih Dekat SD IT Al-Afiyah
+                Jelajahi Lebih Dekat SDIT Al-Afiyah
               </h2>
               <p className="text-xs text-slate-500 mt-1">
                 Buka seluruh fitur dan halaman khusus tanpa tercampur dengan unit lain.
@@ -441,7 +441,7 @@ export default async function SdProfilPage() {
                     Testimoni Wali Murid
                   </h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    Ulasan tulus para orang tua murid SD IT Al-Afiyah.
+                    Ulasan tulus para orang tua murid SDIT Al-Afiyah.
                   </p>
                 </div>
               </Link>
@@ -470,7 +470,7 @@ export default async function SdProfilPage() {
         <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
           <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Penerimaan Murid Baru SD IT Al-Afiyah T.A. 2027/2028
+              Penerimaan Murid Baru SDIT Al-Afiyah T.A. 2027/2028
             </h2>
             <p className="mt-3 text-xs sm:text-sm text-emerald-100 max-w-xl mx-auto leading-relaxed">
               Kuota dibatasi hanya 2 Rombel untuk menjaga kualitas pendampingan karakter. Pendaftaran resmi dibuka secara online.

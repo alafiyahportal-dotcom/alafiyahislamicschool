@@ -40,13 +40,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.alafiyah.id';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "SD IT Al-Afiyah Majalengka | Yayasan Pendidikan Imam Bonjol",
-    template: "%s | SD IT Al-Afiyah",
+    default: "SDIT Al-Afiyah Majalengka | Yayasan Pendidikan Imam Bonjol",
+    template: "%s | SDIT Al-Afiyah",
   },
-  description: "Portal Resmi SPMB SD IT Al-Afiyah Majalengka. Sekolah Dasar Islam Terpadu berakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin di Lingkungan Giri Asih.",
+  description: "Portal Resmi SPMB SDIT Al-Afiyah Majalengka. Sekolah Dasar Islam Terpadu berakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin di Lingkungan Giri Asih.",
   keywords: [
     "SDIT Al Afiyah",
-    "SD IT Al-Afiyah Majalengka",
+    "SDIT Al-Afiyah Majalengka",
     "PMB YPIB Majalengka",
     "SPMB SDIT Al-Afiyah",
     "Sekolah Dasar Islam Terpadu Majalengka",
@@ -57,17 +57,17 @@ export const metadata: Metadata = {
     "PPDB Al Afiyah",
     "Program Afiliasi Al Afiyah"
   ],
-  authors: [{ name: "SD IT Al-Afiyah Majalengka" }],
+  authors: [{ name: "SDIT Al-Afiyah Majalengka" }],
   creator: "Yayasan Pendidikan Imam Bonjol Majalengka",
   publisher: "Al-Afiyah Islamic School",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "SD IT Al-Afiyah Majalengka - Sekolah Dasar Islam Terpadu",
-    description: "Pendaftaran Murid Baru (SPMB) SD IT Al-Afiyah Majalengka. Kuota terbatas 2 rombel, kurikulum karakter nabawiyah, dan tahfidz mutqin di Lingkungan Giri Asih.",
+    title: "SDIT Al-Afiyah Majalengka - Sekolah Dasar Islam Terpadu",
+    description: "Pendaftaran Murid Baru (SPMB) SDIT Al-Afiyah Majalengka. Kuota terbatas 2 rombel, kurikulum karakter nabawiyah, dan tahfidz mutqin di Lingkungan Giri Asih.",
     url: siteUrl,
-    siteName: "SD IT Al-Afiyah Majalengka",
+    siteName: "SDIT Al-Afiyah Majalengka",
     locale: "id_ID",
     type: "website",
     images: [
@@ -75,13 +75,13 @@ export const metadata: Metadata = {
         url: "/images/sd-hero-greenhouse.jpg",
         width: 1200,
         height: 630,
-        alt: "SD IT Al-Afiyah Majalengka Lingkungan Giri Asih",
+        alt: "SDIT Al-Afiyah Majalengka Lingkungan Giri Asih",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SD IT Al-Afiyah Majalengka | SPMB TA 2027/2028",
+    title: "SDIT Al-Afiyah Majalengka | SPMB TA 2027/2028",
     description: "Sekolah Dasar Islam Terpadu Terakreditasi B resmi di Lingkungan Giri Asih Majalengka.",
     images: ["/images/sd-hero-greenhouse.jpg"],
   },

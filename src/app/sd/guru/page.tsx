@@ -7,8 +7,8 @@ import { prisma } from '@/lib/prisma';
 import SdGuruClient, { TeacherItem } from '@/app/sd/guru/SdGuruClient';
 
 export const metadata: Metadata = {
-  title: 'Dewan Guru & Asatidzah SD IT',
-  description: 'Profil dewan asatidzah, guru tahfidz Al-Qur\'an, pendidik kurikulum nasional, dan pembina karakter murid SD IT Al-Afiyah Majalengka.',
+  title: 'Dewan Guru & Asatidzah SDIT',
+  description: 'Profil dewan asatidzah, guru tahfidz Al-Qur\'an, pendidik kurikulum nasional, dan pembina karakter murid SDIT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },

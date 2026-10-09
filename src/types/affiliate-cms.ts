@@ -32,7 +32,7 @@ export const DEFAULT_AFFILIATE_CONTENT: Required<AffiliateCMSData> = {
   heroHeadline: 'Sebar Kebaikan Pendidikan,',
   heroHighlight: 'Raih Apresiasi Berkah Nyata',
   heroDescription:
-    'Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SD IT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.',
+    'Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.',
   // Real school photos only
   heroPhoto1: '/images/sd-activity-halaqah-tahfidz.jpg',
   heroPhoto2: '/images/sd-activity-classroom-6b.jpg',
@@ -53,7 +53,7 @@ export const DEFAULT_AFFILIATE_CONTENT: Required<AffiliateCMSData> = {
     'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program kemitraan dakwah resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga penggiat majelis taklim—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.',
   aboutPhotoTop: '/images/sd-planting-guidance.jpg',
   aboutPhotoBottom: '/images/sd-field-fish-feeding.jpg',
-  // SD IT: Formulir Rp 50.000 + Daftar Ulang Rp 100.000 = Rp 150.000
+  // SDIT: Formulir Rp 50.000 + Daftar Ulang Rp 100.000 = Rp 150.000
   commissionFormSd: 50000,
   commissionReRegSd: 100000,
   // TK IT: lebih kecil dari SD (Formulir Rp 25.000 + Daftar Ulang Rp 50.000 = Rp 75.000)

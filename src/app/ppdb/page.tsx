@@ -231,10 +231,10 @@ export default function PPDBHubPage() {
 
   const testimonials = [
     {
-      quote: 'Alhamdulillah perkembangan adab dan hafalan ananda di SD IT Al-Afiyah sangat membanggakan. Guru-gurunya sabar, penuh perhatian, dan komunikasi dengan orang tua sangat intensif lewat aplikasi.',
+      quote: 'Alhamdulillah perkembangan adab dan hafalan ananda di SDIT Al-Afiyah sangat membanggakan. Guru-gurunya sabar, penuh perhatian, dan komunikasi dengan orang tua sangat intensif lewat aplikasi.',
       parent: 'Bunda Siti Sarah, S.Pd.',
-      child: 'Ibunda dari Farhan (Kelas 3 SD IT)',
-      badge: 'Wali Murid SD IT',
+      child: 'Ibunda dari Farhan (Kelas 3 SDIT)',
+      badge: 'Wali Murid SDIT',
       rating: 5,
     },
     {
@@ -255,11 +255,11 @@ export default function PPDBHubPage() {
 
   const faqs = [
     {
-      q: 'Berapa usia minimal untuk mendaftar di SD IT Al-Afiyah?',
-      a: 'Sesuai ketentuan Permendikbud dan pedoman PPDB 2027/2028, calon murid kelas 1 SD IT berusia minimal 6 tahun pada 1 Juli 2027 (kelahiran sebelum 1 Juli 2021). Anak berusia 5 tahun 6 bulan dapat dipertimbangkan jika memiliki rekomendasi kesiapan psikologis dari psikolog profesional atau dewan guru.',
+      q: 'Berapa usia minimal untuk mendaftar di SDIT Al-Afiyah?',
+      a: 'Sesuai ketentuan Permendikbud dan pedoman PPDB 2027/2028, calon murid kelas 1 SDIT berusia minimal 6 tahun pada 1 Juli 2027 (kelahiran sebelum 1 Juli 2021). Anak berusia 5 tahun 6 bulan dapat dipertimbangkan jika memiliki rekomendasi kesiapan psikologis dari psikolog profesional atau dewan guru.',
     },
     {
-      q: 'Apakah ada tes baca-tulis-hitung (Calistung) yang menggugurkan di SD IT?',
+      q: 'Apakah ada tes baca-tulis-hitung (Calistung) yang menggugurkan di SDIT?',
       a: 'Tidak ada. Sesuai kurikulum transisi PAUD ke SD yang menyenangkan, observasi murid difokuskan pada pemetaan pengenalan huruf hijaiyah/Iqro, kemandirian motorik, sosialisasi, dan kesiapan belajar — bukan tes calistung akademis yang kaku.',
     },
     {
@@ -468,7 +468,7 @@ export default function PPDBHubPage() {
             <div className="flex items-center justify-center gap-2 p-1.5 bg-slate-100 rounded-2xl max-w-md mx-auto mb-8">
               {[
                 { id: 'tk', label: 'TK IT Al-Afiyah' },
-                { id: 'sd', label: 'SD IT Al-Afiyah' },
+                { id: 'sd', label: 'SDIT Al-Afiyah' },
                 { id: 'smp', label: 'SMP IT Al-Afiyah' },
               ].map((tab) => (
                 <button
@@ -708,7 +708,7 @@ export default function PPDBHubPage() {
                     href={`/ppdb/daftar?school=${calcUnit}`}
                     className="w-full py-3.5 px-4 rounded-2xl bg-amber-400 hover:bg-amber-500 text-slate-950 text-xs sm:text-sm font-bold transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer tactile-press"
                   >
-                    <span>Daftar {({ tk: 'TK IT Al-Afiyah', sd: 'SD IT Al-Afiyah', smp: 'SMP IT Al-Afiyah' } as const)[calcUnit]} Sekarang</span>
+                    <span>Daftar {({ tk: 'TK IT Al-Afiyah', sd: 'SDIT Al-Afiyah', smp: 'SMP IT Al-Afiyah' } as const)[calcUnit]} Sekarang</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -806,7 +806,7 @@ export default function PPDBHubPage() {
               Testimoni Keluarga Besar Al-Afiyah
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Pengalaman nyata orang tua yang telah mempercayakan pendidikan ananda di TK IT, SD IT, dan SMP IT Al-Afiyah.
+              Pengalaman nyata orang tua yang telah mempercayakan pendidikan ananda di TK IT, SDIT, dan SMP IT Al-Afiyah.
             </p>
           </div>
 
@@ -861,7 +861,7 @@ export default function PPDBHubPage() {
                 Beasiswa Khusus Penghafal Al-Qur&apos;an (Mutqin)
               </h2>
               <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
-                Tersedia keringanan infaq sarana hingga 100% dan beasiswa SPP bagi calon murid SD IT dan SMP IT Al-Afiyah yang memiliki hafalan mutqin bersanad (dengan uji tasmi&apos; panitia).
+                Tersedia keringanan infaq sarana hingga 100% dan beasiswa SPP bagi calon murid SDIT dan SMP IT Al-Afiyah yang memiliki hafalan mutqin bersanad (dengan uji tasmi&apos; panitia).
               </p>
             </div>
 

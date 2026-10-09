@@ -92,7 +92,7 @@ export default async function SchoolCMSEditorPage({
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-          primaryCtaText: 'Daftar SPMB SD IT',
+          primaryCtaText: 'Daftar SPMB SDIT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'WhatsApp (0813-1013-9001)',
           secondaryCtaLink: `https://wa.me/${school.waCenterPhone}`,
@@ -111,7 +111,7 @@ export default async function SchoolCMSEditorPage({
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-          primaryCtaText: 'Daftar SPMB SD IT',
+          primaryCtaText: 'Daftar SPMB SDIT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'WhatsApp (0813-1013-9001)',
           secondaryCtaLink: `https://wa.me/${school.waCenterPhone}`,
@@ -130,7 +130,7 @@ export default async function SchoolCMSEditorPage({
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-          primaryCtaText: 'Daftar SPMB SD IT',
+          primaryCtaText: 'Daftar SPMB SDIT',
           primaryCtaLink: '/ppdb/daftar?school=sd',
           secondaryCtaText: 'WhatsApp (0813-1013-9001)',
           secondaryCtaLink: `https://wa.me/${school.waCenterPhone}`,
@@ -392,11 +392,11 @@ export default async function SchoolCMSEditorPage({
       {
         name: 'Field Study Smart Akhlak Fitrah (P4S An-Nabawiyah)',
         image: '/images/sd-field-study-banner.jpg',
-        desc: 'Observasi kontekstual murid SD IT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
+        desc: 'Observasi kontekstual murid SDIT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
         category: 'Agro-Sains & Alam',
       },
       {
-        name: 'Prestasi Tim Futsal SD IT Al-Afiyah (Second Place)',
+        name: 'Prestasi Tim Futsal SDIT Al-Afiyah (Second Place)',
         image: '/images/sd-futsal-champion.jpg',
         desc: 'Raihan piala Juara 2 (Second Place) Futsal tingkat pelajar, melatih sportivitas, mental juara, dan ukhuwah islamiyah.',
         category: 'Prestasi & Bakat',
@@ -442,12 +442,12 @@ export default async function SchoolCMSEditorPage({
   const defaultTestimonialsForSchool = schoolSlug === 'sd' ? [
     {
       name: 'Ibu Nani Mulyani, S.Pd.',
-      role: 'Wali Murid Kelas 5 SD IT',
+      role: 'Wali Murid Kelas 5 SDIT',
       quote: 'Menumbuhkan kesadaran beribadah, adab, serta empati anak secara alami tanpa paksaan. Pembelajarannya yang menyenangkan dan selaras dengan tumbuh kembang anak didukung sinergi yang kuat antara sekolah dan orang tua benar-benar membentuk karakter anak yang berakhlak mulia dan mencintai ajaran Islam.'
     },
     {
       name: 'Orang Tua Murid Al-Afiyah',
-      role: 'Wali Murid Kelas 2 SD IT',
+      role: 'Wali Murid Kelas 2 SDIT',
       quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.'
     }
   ] : [
@@ -467,7 +467,7 @@ export default async function SchoolCMSEditorPage({
     waveName: school.waveName || (schoolSlug === 'sd' ? 'Gelombang 1 (T.A. 2027/2028)' : 'Gelombang 1 (2027/2028)')
   };
 
-  // Ensure SD IT slides adhere strictly to the universal headline (no 'Ananda' and identical text across slides)
+  // Ensure SDIT slides adhere strictly to the universal headline (no 'Ananda' and identical text across slides)
   let initialSlides = heroPayload.slides || defaultSlides;
   if (schoolSlug === 'sd' && Array.isArray(initialSlides)) {
     const first = initialSlides[0] || defaultSlides[0];
@@ -481,7 +481,7 @@ export default async function SchoolCMSEditorPage({
       titleHighlight: baseHighlight,
       titlePart2: '',
       description: first.description || 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-      primaryCtaText: first.primaryCtaText || 'Daftar SPMB SD IT',
+      primaryCtaText: first.primaryCtaText || 'Daftar SPMB SDIT',
       primaryCtaLink: first.primaryCtaLink || '/ppdb/daftar?school=sd',
       secondaryCtaText: first.secondaryCtaText || 'WhatsApp (0813-1013-9001)',
       secondaryCtaLink: first.secondaryCtaLink || `https://wa.me/${school.waCenterPhone}`,

@@ -18,8 +18,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Testimoni Orang Tua Murid SD IT',
-  description: 'Pengalaman tulus, ulasan, dan testimoni Ayah Bunda wali murid mempercayakan pendidikan ananda di SD IT Al-Afiyah Majalengka.',
+  title: 'Testimoni Orang Tua Murid SDIT',
+  description: 'Pengalaman tulus, ulasan, dan testimoni Ayah Bunda wali murid mempercayakan pendidikan ananda di SDIT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -33,43 +33,43 @@ export const metadata: Metadata = {
 const TESTIMONIALS = [
   {
     name: 'Ibu Nani Mulyani, S.Pd.',
-    role: 'Wali Murid Kelas 5 SD IT Al-Afiyah',
+    role: 'Wali Murid Kelas 5 SDIT Al-Afiyah',
     quote: 'Menumbuhkan kesadaran beribadah, adab, serta empati anak secara alami tanpa paksaan. Pembelajarannya yang menyenangkan dan selaras dengan tumbuh kembang anak didukung sinergi yang kuat antara sekolah dan orang tua benar-benar membentuk karakter anak yang berakhlak mulia dan mencintai ajaran Islam.',
     rating: 5,
     tag: 'Pembentukan Karakter Nabawiyah'
   },
   {
     name: 'dr. H. Asep Irawan, Sp.A',
-    role: 'Wali Murid SD IT Al-Afiyah',
-    quote: 'Alhamdulillah, semenjak sekolah di SD IT Al-Afiyah, ananda menjadi sangat mandiri, tertib shalat berjamaah 5 waktu, dan hafalan Al-Qur\'an Juz 30-nya sangat tartil fashihah makhraj hurufnya. Guru-gurunya luar biasa sabar.',
+    role: 'Wali Murid SDIT Al-Afiyah',
+    quote: 'Alhamdulillah, semenjak sekolah di SDIT Al-Afiyah, ananda menjadi sangat mandiri, tertib shalat berjamaah 5 waktu, dan hafalan Al-Qur\'an Juz 30-nya sangat tartil fashihah makhraj hurufnya. Guru-gurunya luar biasa sabar.',
     rating: 5,
     tag: 'Tahfidz Juz 30 & Kemandirian'
   },
   {
     name: 'Ibu Hj. Rina Nurhasanah, S.Pd.',
-    role: 'Wali Murid SD IT Al-Afiyah',
+    role: 'Wali Murid SDIT Al-Afiyah',
     quote: 'Lingkungan belajar islami yang hangat dan asatidzah yang mendidik dengan sepenuh hati. Lingkungan Giri Asih sangat asri, rindang, sejuk, dan aman bagi anak-anak. Pilihan terbaik di Majalengka.',
     rating: 5,
     tag: 'Lingkungan Asri & Ramah Anak'
   },
   {
     name: 'Ayahanda Farhan Pratama, S.T.',
-    role: 'Wali Murid Kelas 2 SD IT',
+    role: 'Wali Murid Kelas 2 SDIT',
     quote: 'Sangat terkesan dengan program outdoor learning dan field study di P4S An-Nabawiyah. Murid tidak hanya duduk di kelas, tetapi praktik langsung semai sayur di polybag dan pengenalan biofloc. Rasa syukur anak terhadap alam tumbuh pesat.',
     rating: 5,
     tag: 'Outdoor Learning & Agro-Sains'
   },
   {
     name: 'Bunda Aisyah Zahra',
-    role: 'Wali Murid Kelas 1 SD IT',
+    role: 'Wali Murid Kelas 1 SDIT',
     quote: 'Transisi anak saya dari PAUD/TK menuju SD sangat membahagiakan. Guru kelas mendampingi dengan pendekatan kasih sayang tanpa membebani mental. Sekarang ananda berani tampil berbicara kultum di hadapan teman-temannya.',
     rating: 5,
     tag: 'Da\'i Cilik & Percaya Diri'
   },
   {
     name: 'Bapak Dedi Suhendar',
-    role: 'Wali Murid Kelas 4 SD IT',
-    quote: 'Apresiasi tinggi atas dukungan sekolah terhadap bakat minat anak. Tim Futsal SD IT berhasil menyabet Juara 2 tingkat daerah, anak kami dilatih sportivitas dan mental juara islami yang luar biasa.',
+    role: 'Wali Murid Kelas 4 SDIT',
+    quote: 'Apresiasi tinggi atas dukungan sekolah terhadap bakat minat anak. Tim Futsal SDIT berhasil menyabet Juara 2 tingkat daerah, anak kami dilatih sportivitas dan mental juara islami yang luar biasa.',
     rating: 5,
     tag: 'Prestasi Minat & Bakat'
   }
@@ -115,7 +115,7 @@ export default async function SdTestimoniPage() {
             <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
               <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Beranda SD IT</span>
+                <span>Beranda SDIT</span>
               </Link>
               <ChevronRight className="w-3 h-3 text-emerald-300/50" />
               <span className="text-white font-medium">Testimoni</span>
@@ -128,11 +128,11 @@ export default async function SdTestimoniPage() {
               </div>
 
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Testimoni Orang Tua Murid SD IT Al-Afiyah
+                Testimoni Orang Tua Murid SDIT Al-Afiyah
               </h1>
 
               <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-                Kepercayaan tulus Ayah dan Bunda mempercayakan proses tumbuh kembang, adab nabawiyah, dan prestasi pendidikan ananda di SD IT Al-Afiyah Majalengka.
+                Kepercayaan tulus Ayah dan Bunda mempercayakan proses tumbuh kembang, adab nabawiyah, dan prestasi pendidikan ananda di SDIT Al-Afiyah Majalengka.
               </p>
             </div>
           </div>
@@ -191,7 +191,7 @@ export default async function SdTestimoniPage() {
         <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
           <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Bergabunglah Bersama Keluarga Besar SD IT Al-Afiyah
+              Bergabunglah Bersama Keluarga Besar SDIT Al-Afiyah
             </h2>
             <p className="mt-3 text-xs sm:text-sm text-emerald-100 max-w-xl mx-auto leading-relaxed">
               Kuota SPMB T.A. 2027/2028 terbatas hanya 2 Rombel. Segera daftarkan putra-putri tercinta untuk mendapatkan pendidikan terbaik.
@@ -201,14 +201,14 @@ export default async function SdTestimoniPage() {
                 href="/sd/spmb/daftar"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
               >
-                <span>Daftar SPMB SD IT Online</span>
+                <span>Daftar SPMB SDIT Online</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/sd/spmb"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all"
               >
-                <span>Informasi SPMB SD IT</span>
+                <span>Informasi SPMB SDIT</span>
               </Link>
             </div>
           </ScrollReveal>

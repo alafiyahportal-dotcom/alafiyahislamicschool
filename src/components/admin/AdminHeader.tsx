@@ -55,8 +55,8 @@ const UNIT_CONFIGS: Record<string, UnitTabConfig> = {
   },
   sd: {
     slug: 'sd',
-    name: 'SD IT Al-Afiyah',
-    shortName: 'SD IT',
+    name: 'SDIT Al-Afiyah',
+    shortName: 'SDIT',
     url: '/admin/sd/dashboard',
     activeClass: 'bg-emerald-600 text-white shadow-xs ring-1 ring-emerald-600',
     inactiveClass: 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50',

@@ -58,8 +58,8 @@ interface SchoolOption {
 const SCHOOLS: SchoolOption[] = [
   {
     slug: 'sd',
-    name: 'SD IT Al-Afiyah',
-    badge: 'SD IT UNGGULAN',
+    name: 'SDIT Al-Afiyah',
+    badge: 'SDIT UNGGULAN',
     fee: 250000,
     color: 'border-[#00A651] bg-[#00A651]/10 text-slate-900',
     accent: '#00A651',
@@ -67,7 +67,7 @@ const SCHOOLS: SchoolOption[] = [
     waveName: 'Gelombang 1 (1 Okt - 30 Des 2026)',
     bankName: 'Bank Muamalat',
     bankAccountNumber: '1360012405',
-    bankAccountHolder: 'SD IT Al-Afiyah',
+    bankAccountHolder: 'SDIT Al-Afiyah',
   },
 ];
 
@@ -108,7 +108,7 @@ function PPDBFormContent() {
   // Detailed Form Accordion State (Bisa disusulkan atau diisi langsung)
   const [showDetailed28Poin, setShowDetailed28Poin] = useState(false);
 
-  // Form State - Permanently Dedicated to SD IT Al-Afiyah
+  // Form State - Permanently Dedicated to SDIT Al-Afiyah
   const [formData, setFormData] = useState({
     schoolSlug: 'sd' as 'sd',
     admissionTrack: 'REGULER',
@@ -254,14 +254,14 @@ function PPDBFormContent() {
     }
   };
 
-  // Dynamic browser tab title & favicon matching active unit (SD IT Al-Afiyah)
+  // Dynamic browser tab title & favicon matching active unit (SDIT Al-Afiyah)
   useEffect(() => {
     if (typeof document !== 'undefined') {
       const schoolParam = searchParams.get('school');
       const isSd = !schoolParam || schoolParam.toLowerCase() === 'sd';
 
       document.title = isSd
-        ? 'Formulir Pendaftaran Murid Baru (SD IT Al-Afiyah) | PPDB T.A. 2027/2028'
+        ? 'Formulir Pendaftaran Murid Baru (SDIT Al-Afiyah) | PPDB T.A. 2027/2028'
         : `Formulir Pendaftaran Murid Baru (${schoolParam.toUpperCase()} IT Al-Afiyah) | PPDB T.A. 2027/2028`;
 
       const iconHref = isSd ? '/images/sd-logo.png' : '/favicon.ico';
@@ -329,7 +329,7 @@ function PPDBFormContent() {
                 quota: sdSetting.quota || s.quota,
                 bankName: sdSetting.bankName || s.bankName || 'Bank Muamalat',
                 bankAccountNumber: sdSetting.bankAccountNumber || s.bankAccountNumber || '1360012405',
-                bankAccountHolder: sdSetting.bankAccountHolder || s.bankAccountHolder || 'SD IT Al-Afiyah',
+                bankAccountHolder: sdSetting.bankAccountHolder || s.bankAccountHolder || 'SDIT Al-Afiyah',
               }))
             );
           }
@@ -346,7 +346,7 @@ function PPDBFormContent() {
   const isSd = true;
   const isSmp = false;
 
-  // Dedicated Brand Theme Tokens for SD IT Al-Afiyah (#00A651)
+  // Dedicated Brand Theme Tokens for SDIT Al-Afiyah (#00A651)
   const themeBannerBg = 'bg-[#00A651] border-[#008f45]';
   const themeBorderTop = 'border-t-[#00A651]';
   const themeBadgeBg = 'bg-[#00A651]';
@@ -587,7 +587,7 @@ function PPDBFormContent() {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
       <Navbar schoolSlug="sd" />
 
-      {/* Hero Header Khusus Formulir SPMB SD IT */}
+      {/* Hero Header Khusus Formulir SPMB SDIT */}
       <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-12 sm:pb-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
@@ -596,7 +596,7 @@ function PPDBFormContent() {
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SD IT</span>
+              <span>Beranda SDIT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-emerald-300/50" />
             <Link href="/sd/spmb" className="hover:text-white transition-colors">
@@ -614,7 +614,7 @@ function PPDBFormContent() {
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Formulir Pendaftaran Murid Baru <br className="hidden sm:inline" />
-              SD IT Al-Afiyah Majalengka
+              SDIT Al-Afiyah Majalengka
             </h1>
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
               Silakan lengkapi biodata calon murid dan data orang tua/wali secara benar. Kuota Gelombang 1 terbatas hanya 2 Rombel (maksimal 60 murid).
@@ -772,12 +772,12 @@ function PPDBFormContent() {
               )}
 
 
-              {/* Admission Track - Dedicated JALUR REGULER for SD IT */}
+              {/* Admission Track - Dedicated JALUR REGULER for SDIT */}
               <div className="pt-2">
                 <label className="block text-xs font-bold text-slate-700 mb-2">Jalur Pendaftaran Resmi</label>
                 <div className="max-w-sm">
                   <div className="py-3 px-4 rounded-xl text-xs font-extrabold border border-[#00A651] bg-[#00A651]/10 text-[#00A651] ring-2 ring-[#00A651]/20 flex items-center justify-between shadow-2xs">
-                    <span className="tracking-wide">JALUR REGULER SD IT</span>
+                    <span className="tracking-wide">JALUR REGULER SDIT</span>
                     <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#00A651] text-white font-bold shadow-2xs">Gelombang 1</span>
                   </div>
                 </div>
@@ -2077,7 +2077,7 @@ function PPDBFormContent() {
       </main>
 
       <Footer schoolSlug="sd" />
-      <StickyMobileBar schoolSlug="sd" waPhone="6281310139001" schoolName="SD IT Al-Afiyah" />
+      <StickyMobileBar schoolSlug="sd" waPhone="6281310139001" schoolName="SDIT Al-Afiyah" />
     </div>
   );
 }

@@ -147,7 +147,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SD IT</span>
+              <span>Beranda SDIT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-emerald-300/50" />
             <span className="text-white font-medium">Dewan Guru</span>
@@ -248,7 +248,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
                   <span className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>SD IT Al-Afiyah</span>
+                    <span>SDIT Al-Afiyah</span>
                   </span>
                   <span className="text-slate-400 font-normal">Majalengka</span>
                 </div>
@@ -274,7 +274,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
             >
-              <span>Chat WhatsApp Tata Usaha SD IT</span>
+              <span>Chat WhatsApp Tata Usaha SDIT</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <Link
@@ -282,7 +282,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
               className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-emerald-200 hover:text-white font-medium text-xs sm:text-sm transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Kembali ke Beranda SD IT</span>
+              <span>Kembali ke Beranda SDIT</span>
             </Link>
           </div>
         </ScrollReveal>

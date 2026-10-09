@@ -25,8 +25,8 @@ import { prisma } from '@/lib/prisma';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Kontak Tata Usaha & Lokasi SD IT Al-Afiyah Majalengka',
-  description: 'Alamat lengkap, nomor WhatsApp resmi Tata Usaha & SPMB SD IT Al-Afiyah Majalengka, jam layanan kantor dan petunjuk arah.',
+  title: 'Kontak Tata Usaha & Lokasi SDIT Al-Afiyah Majalengka',
+  description: 'Alamat lengkap, nomor WhatsApp resmi Tata Usaha & SPMB SDIT Al-Afiyah Majalengka, jam layanan kantor dan petunjuk arah.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -82,15 +82,15 @@ export default async function SdKontakPage() {
 
   const contactChannels = [
     {
-      title: 'Layanan Utama & Panitia SPMB SD IT',
+      title: 'Layanan Utama & Panitia SPMB SDIT',
       number: whatsappNumber,
       desc: 'Konsultasi kurikulum dasar, Smart Akhlak Fitrah, pendaftaran murid baru (SPMB), dan tata usaha.',
       link: `https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran`,
-      cta: 'Chat WhatsApp SD IT',
-      badge: 'Unit SD IT Resmi',
+      cta: 'Chat WhatsApp SDIT',
+      badge: 'Unit SDIT Resmi',
     },
     {
-      title: 'Konsultasi Program Tahfidz SD IT',
+      title: 'Konsultasi Program Tahfidz SDIT',
       number: whatsappNumber,
       desc: 'Informasi kurikulum tahfidz mutqin juz 30, hafalan hadits, dan target capaian ibadah murid.',
       link: `https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Asatidzah%20SDIT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20tahfidz`,
@@ -103,7 +103,7 @@ export default async function SdKontakPage() {
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
       <Navbar schoolSlug="sd" />
 
-      {/* Hero Header Khusus SD IT */}
+      {/* Hero Header Khusus SDIT */}
       <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
@@ -112,7 +112,7 @@ export default async function SdKontakPage() {
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SD IT</span>
+              <span>Beranda SDIT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-emerald-300/50" />
             <span className="text-white font-medium">Kontak &amp; Lokasi</span>
@@ -121,15 +121,15 @@ export default async function SdKontakPage() {
           <div className="max-w-3xl">
             <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
               <Headphones className="w-3.5 h-3.5 text-emerald-300" />
-              <span>LAYANAN TATA USAHA &amp; INFORMASI SD IT</span>
+              <span>LAYANAN TATA USAHA &amp; INFORMASI SDIT</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Hubungi Tata Usaha &amp; CS SD IT
+              Hubungi Tata Usaha &amp; CS SDIT
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Silakan hubungi kami untuk informasi kurikulum Smart Akhlak Fitrah, pendaftaran murid baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke SD IT Al-Afiyah Majalengka.
+              Silakan hubungi kami untuk informasi kurikulum Smart Akhlak Fitrah, pendaftaran murid baru SPMB, jadwal temu asatidzah, maupun kunjungan langsung ke SDIT Al-Afiyah Majalengka.
             </p>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default async function SdKontakPage() {
               <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-slate-200/80">
                 <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
                   <Headphones className="w-5 h-5 text-[#00A651]" />
-                  <span>Saluran Resmi SD IT</span>
+                  <span>Saluran Resmi SDIT</span>
                 </h2>
 
                 <div className="space-y-4">
@@ -197,7 +197,7 @@ export default async function SdKontakPage() {
                   <div className="flex items-start space-x-3">
                     <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-slate-800 block">Alamat SD IT Al-Afiyah:</strong>
+                      <strong className="text-slate-800 block">Alamat SDIT Al-Afiyah:</strong>
                       <span>{address}</span>
                     </div>
                   </div>
@@ -215,7 +215,7 @@ export default async function SdKontakPage() {
                     <span className="text-[11px] font-bold text-[#00A651] uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                       Formulir Konsultasi & Pengaduan
                     </span>
-                    <h2 className="text-xl font-bold text-slate-900 mt-2">Kirim Pesan ke Tata Usaha SD IT</h2>
+                    <h2 className="text-xl font-bold text-slate-900 mt-2">Kirim Pesan ke Tata Usaha SDIT</h2>
                     <p className="text-xs text-slate-500 mt-1">
                       Pesan Anda akan langsung diteruskan ke tim sekretariat dan dibalas via email atau WhatsApp.
                     </p>
@@ -224,12 +224,12 @@ export default async function SdKontakPage() {
                   <ContactFormClient />
                 </div>
 
-                {/* Google Maps SD IT Al-Afiyah */}
+                {/* Google Maps SDIT Al-Afiyah */}
                 <div className="bg-white rounded-3xl p-6 shadow-xs border border-slate-200/80 overflow-hidden">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <MapPin className="w-5 h-5 text-[#00A651]" />
-                      <h3 className="font-bold text-slate-800 text-sm">Lokasi SD IT Al-Afiyah</h3>
+                      <h3 className="font-bold text-slate-800 text-sm">Lokasi SDIT Al-Afiyah</h3>
                     </div>
                     <a
                       href={mapsUrl}
@@ -244,7 +244,7 @@ export default async function SdKontakPage() {
 
                   <div className="w-full h-72 rounded-2xl overflow-hidden border border-slate-200 relative bg-slate-100 mb-4">
                     <iframe
-                      title="Peta Lokasi SD IT Al-Afiyah"
+                      title="Peta Lokasi SDIT Al-Afiyah"
                       src="https://maps.google.com/maps?q=-6.8367783%2C108.237785&t=&z=18&ie=UTF8&iwloc=&output=embed"
                       width="100%"
                       height="100%"

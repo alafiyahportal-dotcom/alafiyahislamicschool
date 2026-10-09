@@ -329,7 +329,7 @@ export default function AffiliatePublicPage() {
       advantageText:
         'Komisi pendaftaran dapat dialihkan otomatis untuk memotong tagihan SPP bulanan ananda di sekolah atau dicairkan penuh ke rekening bank orang tua.',
       why: 'Sebagai orang tua yang merasakan langsung lingkungan islami, tahfidz mutqin, dan kenyamanan belajar di Al-Afiyah, cerita Anda sangat dipercaya oleh sanak kerabat.',
-      earningExample: 'Rekomendasikan 3 kerabat masuk SD IT = Rp 450.000 (bisa menutup biaya seragam atau SPP peserta didik).',
+      earningExample: 'Rekomendasikan 3 kerabat masuk SDIT = Rp 450.000 (bisa menutup biaya seragam atau SPP peserta didik).',
       template:
         "Assalamu'alaikum wr. wb. Ayah/Bunda, bagi yang sedang mencari sekolah Islam berkualitas dengan bimbingan tahfidz intensif dan karakter qurani di Majalengka, PPDB Al-Afiyah (TK, SD, SMP) kini sudah dibuka. Informasi dan pendaftaran resmi: https://alafiyah.sch.id/ref/KODE-MITRA",
     },
@@ -370,7 +370,7 @@ export default function AffiliatePublicPage() {
       why: 'Bagi Anda yang aktif di majelis taklim atau media sosial dakwah, program kemitraan ini adalah sarana menyebarkan kebaikan tanpa biaya modal sepeser pun.',
       earningExample: 'Sebar tautan di majelis & jaring 8 peserta didik baru = Rp 3.200.000 dana operasional dakwah berkah.',
       template:
-        "Alhamdulillah, pendaftaran peserta didik baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SD IT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Informasi lengkap: https://alafiyah.sch.id/ref/KODE-MITRA",
+        "Alhamdulillah, pendaftaran peserta didik baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SDIT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Informasi lengkap: https://alafiyah.sch.id/ref/KODE-MITRA",
     },
   };
 
@@ -429,7 +429,7 @@ export default function AffiliatePublicPage() {
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all active:scale-95"
                   >
                     <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Kembali ke Beranda SD IT</span>
+                    <span>Kembali ke Beranda SDIT</span>
                   </Link>
                 </div>
               )}
@@ -443,7 +443,7 @@ export default function AffiliatePublicPage() {
               </h1>
 
               <p className="text-slate-600 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed">
-                {cmsContent.heroDescription || 'Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SD IT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.'}
+                {cmsContent.heroDescription || 'Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.'}
               </p>
 
               {/* CTAs: Harmonious Dual-Pill Architecture (Primary Emerald + Secondary White Outline) */}
@@ -758,7 +758,7 @@ export default function AffiliatePublicPage() {
                 val: `Rp ${Math.round(Math.max(FORM_FEES.sd + REG_FEES.sd, FORM_FEES.tk + REG_FEES.tk, FORM_FEES.smp + REG_FEES.smp) / 1000)}rb`,
                 label: 'Ujrah Tertinggi / Peserta Didik',
               },
-              { val: '3 Unit', label: 'TK IT, SD IT, & SMP IT' },
+              { val: '3 Unit', label: 'TK IT, SDIT, & SMP IT' },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center">
                 <div className="flex items-center space-x-2 mb-1">
@@ -856,7 +856,7 @@ export default function AffiliatePublicPage() {
                   </p>
                   <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
                     <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>SD IT Al-Afiyah:</span>
+                      <span>SDIT Al-Afiyah:</span>
                       <strong className="text-white font-mono">
                         Rp {FORM_FEES.sd.toLocaleString('id-ID')}
                       </strong>
@@ -910,7 +910,7 @@ export default function AffiliatePublicPage() {
                 <div className="grid grid-cols-2 gap-1.5 pt-1">
                   {[
                     { id: 'all', label: 'Semua Jenjang' },
-                    { id: 'sd', label: `SD IT (${Math.round((FORM_FEES.sd + REG_FEES.sd) / 1000)}rb)` },
+                    { id: 'sd', label: `SDIT (${Math.round((FORM_FEES.sd + REG_FEES.sd) / 1000)}rb)` },
                     { id: 'smp', label: `SMP IT (${Math.round((FORM_FEES.smp + REG_FEES.smp) / 1000)}rb)` },
                     { id: 'tk', label: `TK IT (${Math.round((FORM_FEES.tk + REG_FEES.tk) / 1000)}rb)` },
                   ].map((u) => (
@@ -1009,7 +1009,7 @@ export default function AffiliatePublicPage() {
                   </p>
                   <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
                     <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>SD IT Al-Afiyah:</span>
+                      <span>SDIT Al-Afiyah:</span>
                       <strong className="text-white font-mono">
                         Rp {REG_FEES.sd.toLocaleString('id-ID')}
                       </strong>

@@ -10,7 +10,7 @@ import { ACADEMIC_EVENTS } from '@/app/api/agenda/route';
 export const metadata: Metadata = {
   title: 'Kalender Agenda Akademik & Jadwal Seleksi Terpadu | Yayasan Pendidikan Imam Bonjol',
   description:
-    'Jadwal lengkap gelombang PPDB, ujian observasi, kalender akademik, dan kegiatan murid TK IT, SD IT, SMP IT Al-Afiyah Majalengka.',
+    'Jadwal lengkap gelombang PPDB, ujian observasi, kalender akademik, dan kegiatan murid TK IT, SDIT, SMP IT Al-Afiyah Majalengka.',
 };
 
 export default async function AgendaPage({
@@ -41,7 +41,7 @@ export default async function AgendaPage({
       <StickyMobileBar 
         schoolSlug={schoolSlug} 
         waPhone={isSd ? '6281310139001' : '6281223344552'} 
-        schoolName={isSd ? 'SD IT Al-Afiyah' : 'Al-Afiyah'} 
+        schoolName={isSd ? 'SDIT Al-Afiyah' : 'Al-Afiyah'} 
       />
     </div>
   );

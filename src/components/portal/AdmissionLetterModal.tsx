@@ -76,7 +76,7 @@ export default function AdmissionLetterModal({
                 <div className="w-14 h-14 flex items-center justify-center shrink-0">
                   <img
                     src="/images/sd-logo.png"
-                    alt="Logo SD IT Al-Afiyah"
+                    alt="Logo SDIT Al-Afiyah"
                     className="w-full h-full object-contain"
                   />
                 </div>

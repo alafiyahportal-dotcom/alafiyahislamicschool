@@ -33,7 +33,7 @@ export default function StickyMobileBar({
   )}`;
 
   const btnLabel = schoolSlug === 'sd'
-    ? 'Daftar SPMB SD IT'
+    ? 'Daftar SPMB SDIT'
     : schoolSlug === 'tk'
     ? 'Daftar SPMB TK IT'
     : schoolSlug === 'smp'

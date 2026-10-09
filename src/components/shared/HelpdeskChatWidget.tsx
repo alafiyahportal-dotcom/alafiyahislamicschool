@@ -37,8 +37,8 @@ const HELPDESK_UNITS: UnitHelpdesk[] = [
     name: 'SDIT Al-Afiyah',
     badge: 'Smart Akhlak Fitrah • Hanya 2 Rombel',
     phone: '6281310139001',
-    officerName: 'Ibu Guru Panitia SPMB SD IT',
-    greetingTemplate: 'Assalamu\'alaikum Panitia SPMB SDIT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran murid baru SD IT (SPMB 2027/2028).',
+    officerName: 'Ibu Guru Panitia SPMB SDIT',
+    greetingTemplate: 'Assalamu\'alaikum Panitia SPMB SDIT Al-Afiyah. Saya ingin berkonsultasi mengenai pendaftaran murid baru SDIT (SPMB 2027/2028).',
     primaryColor: '#059669',
   },
   {
@@ -82,13 +82,13 @@ const FAQ_DATA: FAQItem[] = [
     id: 'faq-1',
     category: 'SYARAT',
     question: 'Kapan batas akhir pendaftaran murid baru dibuka?',
-    answer: 'SD IT Al-Afiyah T.A. 2027/2028 dibuka dalam 3 gelombang: Gelombang 1 (1 Okt – 30 Des 2026, biaya Rp 250.000), Gelombang 2 (1 Jan – 3 Apr 2027, Rp 275.000), dan Gelombang 3 (6 Apr – 26 Jun 2027, Rp 300.000). Jika kuota telah penuh, pendaftaran unit akan otomatis ditutup oleh sistem.',
+    answer: 'SDIT Al-Afiyah T.A. 2027/2028 dibuka dalam 3 gelombang: Gelombang 1 (1 Okt – 30 Des 2026, biaya Rp 250.000), Gelombang 2 (1 Jan – 3 Apr 2027, Rp 275.000), dan Gelombang 3 (6 Apr – 26 Jun 2027, Rp 300.000). Jika kuota telah penuh, pendaftaran unit akan otomatis ditutup oleh sistem.',
   },
   {
     id: 'faq-2',
     category: 'TAHFIDZ',
     question: 'Bagaimana target capaian hafalan Al-Qur\'an dan metodenya?',
-    answer: 'SD IT Al-Afiyah menargetkan hafalan minimal Juz 30 Mutqin dengan metode talaqqi tartil harian. Untuk SMP IT Al-Afiyah, target kurikulum adalah 3-5 Juz mutqin & tartil, serta tersedia kelas khusus Peminatan Tahfidz bagi murid yang ingin mendalami hafalan lebih intensif.',
+    answer: 'SDIT Al-Afiyah menargetkan hafalan minimal Juz 30 Mutqin dengan metode talaqqi tartil harian. Untuk SMP IT Al-Afiyah, target kurikulum adalah 3-5 Juz mutqin & tartil, serta tersedia kelas khusus Peminatan Tahfidz bagi murid yang ingin mendalami hafalan lebih intensif.',
   },
   {
     id: 'faq-3',

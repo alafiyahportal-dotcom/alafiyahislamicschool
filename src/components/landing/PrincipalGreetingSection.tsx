@@ -29,7 +29,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
             </span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-            Pesan hangat dan komitmen pendidikan dari Mudir / Kepala Sekolah SD IT Al-Afiyah Majalengka untuk ayah bunda sekalian.
+            Pesan hangat dan komitmen pendidikan dari Mudir / Kepala Sekolah SDIT Al-Afiyah Majalengka untuk ayah bunda sekalian.
           </p>
         </ScrollReveal>
 
@@ -54,10 +54,10 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                 Ayah dan Bunda yang dirahmati Allah, mendidik anak di era modern ini bukan sekadar mengejar angka dan keunggulan akademis kognitif semata. Lebih dari itu, tantangan terpenting kita adalah <strong className="text-slate-900 font-semibold">menjaga fitrah keimanan</strong> anak agar tetap murni serta membekali mereka dengan akhlakul karimah.
               </p>
               <p>
-                Di SD IT Al-Afiyah Majalengka, kami memegang teguh prinsip <span className="bg-emerald-50 text-emerald-950 font-semibold px-2 py-0.5 rounded border border-emerald-200">“Adab Sebelum Ilmu, dan Iman Sebelum Al-Qur’an”</span>. Melalui kurikulum Smart Akhlak Fitrah dan suasana sekolah yang asri di Lingkungan Giri Asih Majalengka Wetan, kami berikhtiar menciptakan atmosfer belajar yang membahagiakan, ramah anak, dan bebas dari perundungan.
+                Di SDIT Al-Afiyah Majalengka, kami memegang teguh prinsip <span className="bg-emerald-50 text-emerald-950 font-semibold px-2 py-0.5 rounded border border-emerald-200">“Adab Sebelum Ilmu, dan Iman Sebelum Al-Qur’an”</span>. Melalui kurikulum Smart Akhlak Fitrah dan suasana sekolah yang asri di Lingkungan Giri Asih Majalengka Wetan, kami berikhtiar menciptakan atmosfer belajar yang membahagiakan, ramah anak, dan bebas dari perundungan.
               </p>
               <p>
-                Kami menyambut hangat kehadiran putra-putri tercinta Ayah dan Bunda untuk bertumbuh bersama keluarga besar SD IT Al-Afiyah, menjadi generasi sholeh-sholehah yang mencintai Al-Qur’an dan berbakti kepada orang tua.
+                Kami menyambut hangat kehadiran putra-putri tercinta Ayah dan Bunda untuk bertumbuh bersama keluarga besar SDIT Al-Afiyah, menjadi generasi sholeh-sholehah yang mencintai Al-Qur’an dan berbakti kepada orang tua.
               </p>
             </div>
 
@@ -65,7 +65,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
               <div>
                 <p className="text-xs text-slate-500">Wassalamu’alaikum Warahmatullahi Wabarakatuh,</p>
                 <p className="text-base font-black text-slate-900 mt-1">Ust. Febrian Fauzi, S.Pd.</p>
-                <p className="text-xs text-[#007638] font-semibold">Kepala Sekolah SD IT Al-Afiyah Majalengka</p>
+                <p className="text-xs text-[#007638] font-semibold">Kepala Sekolah SDIT Al-Afiyah Majalengka</p>
                 <p className="text-[11px] text-slate-400 mt-0.5">Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka</p>
               </div>
 
@@ -74,7 +74,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                   href="/sd/profil"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
                 >
-                  <span>Lihat Profil SD IT</span>
+                  <span>Lihat Profil SDIT</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link

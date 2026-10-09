@@ -133,11 +133,11 @@ export default function AnnouncementBoardClient({
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-emerald-50 hover:text-white transition-all active:scale-95"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda SD IT</span>
+                <span>Kembali ke Beranda SDIT</span>
               </Link>
               <nav className="flex items-center gap-1.5 text-xs text-emerald-200" aria-label="Breadcrumb">
                 <Link href="/sd" className="hover:text-white transition-colors">
-                  SD IT
+                  SDIT
                 </Link>
                 <ChevronRight className="w-3 h-3 text-emerald-300/60" />
                 <Link href="/sd/spmb" className="hover:text-white transition-colors">
@@ -155,16 +155,16 @@ export default function AnnouncementBoardClient({
             </p>
           )}
           <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-amber-300 mb-4">
-            <span>{isSd ? 'Pengumuman Kelulusan SPMB SD IT Al-Afiyah TA 2027/2028' : 'Pengumuman Kelulusan Resmi TA 2027/2028'}</span>
+            <span>{isSd ? 'Pengumuman Kelulusan SPMB SDIT Al-Afiyah TA 2027/2028' : 'Pengumuman Kelulusan Resmi TA 2027/2028'}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
-            {isSd ? 'Papan Hasil Seleksi SPMB SD IT Al-Afiyah' : 'Papan Hasil Seleksi PPDB Terpadu'}
+            {isSd ? 'Papan Hasil Seleksi SPMB SDIT Al-Afiyah' : 'Papan Hasil Seleksi PPDB Terpadu'}
           </h1>
           <p className="max-w-3xl mx-auto text-sm sm:text-base text-[#D4EBE7] leading-relaxed">
             {isSd
-              ? 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & tes wawancara nabawiyah di SD IT Al-Afiyah Majalengka.'
-              : 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & wawancara di Yayasan Pendidikan Imam Bonjol Majalengka (TK IT, SD IT, & SMP IT Al-Afiyah).'}
+              ? 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & tes wawancara nabawiyah di SDIT Al-Afiyah Majalengka.'
+              : 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & wawancara di Yayasan Pendidikan Imam Bonjol Majalengka (TK IT, SDIT, & SMP IT Al-Afiyah).'}
           </p>
 
           {/* Quick Action Navigation Buttons */}
@@ -181,7 +181,7 @@ export default function AnnouncementBoardClient({
               className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold text-xs sm:text-sm transition"
             >
               <ChevronRight className="w-4 h-4" />
-              <span>Alur &amp; Pendaftaran SPMB SD IT</span>
+              <span>Alur &amp; Pendaftaran SPMB SDIT</span>
             </Link>
           </div>
         </div>
@@ -204,7 +204,7 @@ export default function AnnouncementBoardClient({
               </div>
               <div>
                 <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Murid Diterima SD IT
+                  Murid Diterima SDIT
                 </p>
                 <p className="text-xl sm:text-2xl font-black text-slate-900">
                   {initialStats.sdCount}{' '}
@@ -224,7 +224,7 @@ export default function AnnouncementBoardClient({
               </div>
               <div>
                 <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-800">
-                  Target Kuota SD IT
+                  Target Kuota SDIT
                 </p>
                 <p className="text-xl sm:text-2xl font-black text-slate-900">
                   60 Kuota <span className="text-xs font-medium text-emerald-600">(2 Rombel)</span>
@@ -288,7 +288,7 @@ export default function AnnouncementBoardClient({
               </div>
               <div>
                 <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-teal-800">
-                  SD IT Al-Afiyah
+                  SDIT Al-Afiyah
                 </p>
                 <p className="text-xl sm:text-2xl font-black text-slate-900">
                   {initialStats.sdCount}{' '}
@@ -324,7 +324,7 @@ export default function AnnouncementBoardClient({
         <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200/80 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             
-            {/* Unit Selector Tabs - Only shown when NOT locked to SD IT */}
+            {/* Unit Selector Tabs - Only shown when NOT locked to SDIT */}
             {!isSd && (
               <div className="flex items-center space-x-1.5 p-1 bg-slate-100/80 rounded-xl overflow-x-auto">
                 <button
@@ -355,7 +355,7 @@ export default function AnnouncementBoardClient({
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  SD IT ({initialStats.sdCount})
+                  SDIT ({initialStats.sdCount})
                 </button>
                 <button
                   onClick={() => setActiveUnit('smp')}

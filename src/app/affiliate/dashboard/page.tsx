@@ -183,7 +183,7 @@ export default function AffiliateDashboardPage() {
       summary: 'Cocok untuk disebarkan di grup keluarga, alumni, dan majelis taklim.',
       text: `*Assalamu'alaikum Warahmatullahi Wabarakatuh,*
 
-Bapak/Ibu yang dirahmati Allah, kabar gembira pendaftaran murid baru (*PPDB 2027/2028*) di *Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka* (TK IT, SD IT, SMP IT) resmi dibuka!
+Bapak/Ibu yang dirahmati Allah, kabar gembira pendaftaran murid baru (*PPDB 2027/2028*) di *Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka* (TK IT, SDIT, SMP IT) resmi dibuka!
 
 Keunggulan Al-Afiyah:
  Pembinaan Karakter & Adab Islami
@@ -202,7 +202,7 @@ Informasi kuota dan konsultasi pendaftaran online dapat langsung diakses pada ta
       summary: 'Khusus calon wali murid yang mencari sekolah dasar Islam unggulan.',
       text: `*Mencari SD Islam Terbaik di Majalengka?*
 
-Alhamdulillah *SD IT Al-Afiyah Majalengka* kini membuka pendaftaran murid baru T.A. 2027/2028.
+Alhamdulillah *SDIT Al-Afiyah Majalengka* kini membuka pendaftaran murid baru T.A. 2027/2028.
 
 Fasilitas & Program Unggulan:
  Target 5 - 10 Juz Hafalan Al-Qur'an Bersanad
@@ -494,7 +494,7 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
             <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between text-xs font-bold mb-1">
-                  <span className="text-emerald-900 font-extrabold">SD IT Al-Afiyah</span>
+                  <span className="text-emerald-900 font-extrabold">SDIT Al-Afiyah</span>
                   <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
                     Total Komisi Rp 150.000 / murid
                   </span>
@@ -525,7 +525,7 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleOpenQr('SD IT Al-Afiyah', sdLink)}
+                  onClick={() => handleOpenQr('SDIT Al-Afiyah', sdLink)}
                   className="py-2 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />

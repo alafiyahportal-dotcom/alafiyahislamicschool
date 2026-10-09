@@ -155,11 +155,11 @@ export default function Navbar({
         return {
           code: 'SD',
           arabic: '',
-          title: 'SD IT AL-AFIYAH',
+          title: 'SDIT AL-AFIYAH',
           subtitle: 'SMART AKHLAK FITRAH',
           homeUrl: getUnitHomeUrl('sd'),
           ppdbLink: '/sd/spmb',
-          ctaText: 'Info SPMB SD IT',
+          ctaText: 'Info SPMB SDIT',
           logoUrl: '/images/sd-logo.png',
         };
       case 'smp':
@@ -200,9 +200,9 @@ export default function Navbar({
       hasDropdown: true,
       items: activeSlug === 'sd'
         ? [
-            { label: 'Profil Lengkap SD IT', href: '/sd/profil', desc: 'Visi, misi & identitas resmi SD IT' },
+            { label: 'Profil Lengkap SDIT', href: '/sd/profil', desc: 'Visi, misi & identitas resmi SDIT' },
             { label: 'Dewan Guru & Asatidzah', href: '/sd/guru', desc: 'Pendidik tahfidz, sains & pembina karakter' },
-            { label: 'Dokumentasi & Belajar SD IT', href: '/sd/dokumentasi', desc: 'Galeri nyata kegiatan belajar & agro-sains' },
+            { label: 'Dokumentasi & Belajar SDIT', href: '/sd/dokumentasi', desc: 'Galeri nyata kegiatan belajar & agro-sains' },
             { label: 'Layanan Tata Usaha & Lokasi', href: '/sd/kontak', desc: 'Alamat sekolah & rute Google Maps' },
           ]
         : activeSlug
@@ -236,7 +236,7 @@ export default function Navbar({
                 desc: 'PAUD & TK Islam Terpadu • Usia 4–6 Tahun',
               },
               {
-                label: 'SD IT Al-Afiyah',
+                label: 'SDIT Al-Afiyah',
                 href: getSchoolUrl('sd'),
                 desc: 'Sekolah Dasar Islam Terpadu • Kelas 1–6',
               },
@@ -260,7 +260,7 @@ export default function Navbar({
             hasDropdown: true,
             items: activeSlug === 'sd'
               ? [
-                  { label: '10 Program Unggulan SD IT', href: '/sd/program', desc: 'Karakter nabawiyah, adab & tahfidz mutqin' },
+                  { label: '10 Program Unggulan SDIT', href: '/sd/program', desc: 'Karakter nabawiyah, adab & tahfidz mutqin' },
                   { label: 'Pilar Karakter & Nilai Islami', href: '/sd/karakter', desc: 'Tauhid, 7 pilar adab & kemandirian murid' },
                   { label: 'Kurikulum Smart Akhlak Fitrah', href: '/sd#values', desc: 'Fondasi iman sebelum Qur’an & adab harian' },
                   { label: 'Testimoni Wali Murid', href: '/sd/testimoni', desc: 'Pengalaman & apresiasi orang tua siswa' },
@@ -277,9 +277,9 @@ export default function Navbar({
       href: activeSlug === 'sd' ? '/sd/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'),
       hasDropdown: true,
       items: [
-        { label: activeSlug === 'sd' ? 'Warta SD IT Terbaru' : 'Warta Sekolah Terbaru', href: activeSlug === 'sd' ? '/sd/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'), desc: 'Liputan kegiatan & informasi terkini' },
+        { label: activeSlug === 'sd' ? 'Warta SDIT Terbaru' : 'Warta Sekolah Terbaru', href: activeSlug === 'sd' ? '/sd/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'), desc: 'Liputan kegiatan & informasi terkini' },
         { label: 'Artikel & Kajian Islam', href: activeSlug === 'sd' ? '/sd/berita?cat=kajian' : (activeSlug ? `/berita?cat=kajian&school=${activeSlug}` : '/berita?cat=kajian'), desc: 'Tausiyah, adab & wawasan keislaman' },
-        { label: activeSlug === 'sd' ? 'Prestasi Murid SD IT' : 'Prestasi Murid Al-Afiyah', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi'), desc: 'Juara olimpiade & musabaqah hifdzil Qur’an' },
+        { label: activeSlug === 'sd' ? 'Prestasi Murid SDIT' : 'Prestasi Murid Al-Afiyah', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi'), desc: 'Juara olimpiade & musabaqah hifdzil Qur’an' },
         { label: 'Agenda & Kalender Akademik', href: activeSlug === 'sd' ? '/sd/agenda' : (activeSlug ? `/agenda?school=${activeSlug}` : '/agenda'), desc: 'Jadwal ujian, libur & kegiatan resmi' },
       ],
     },
@@ -312,7 +312,7 @@ export default function Navbar({
           openInNewTab: true 
         },
         { 
-          label: activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SD IT' : 'Pusat Bantuan WhatsApp', 
+          label: activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : 'Pusat Bantuan WhatsApp', 
           href: activeSlug === 'sd' ? 'https://wa.me/6281310139001' : 'https://wa.me/6281223344552', 
           desc: 'Respon cepat tim panitia',
           openInNewTab: true 
@@ -331,7 +331,7 @@ export default function Navbar({
     ...(!activeSlug
       ? [
           { title: 'TK IT Al-Afiyah Majalengka', url: getSchoolUrl('tk'), cat: 'Unit' },
-          { title: 'SD IT Al-Afiyah Majalengka', url: getSchoolUrl('sd'), cat: 'Unit' },
+          { title: 'SDIT Al-Afiyah Majalengka', url: getSchoolUrl('sd'), cat: 'Unit' },
           { title: 'SMP IT Al-Afiyah Majalengka', url: getSchoolUrl('smp'), cat: 'Unit' },
         ]
       : []),
@@ -957,7 +957,7 @@ export default function Navbar({
               >
                 <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span className="text-xs font-semibold">
-                  {activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SD IT' : 'Pusat Bantuan WhatsApp'}
+                  {activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : 'Pusat Bantuan WhatsApp'}
                 </span>
               </a>
             </div>

@@ -1,7 +1,7 @@
 # PANDUAN DEPLOYMENT & MIGRASI PRODUKSI
 # Ekosistem Pendidikan Terpadu Multi-Tenant Al-Afiyah
 **Institusi:** Yayasan Pendidikan Imam Bonjol Majalengka  
-**Unit Sekolah:** TK IT Al-Afiyah | SD IT Al-Afiyah | SMP IT Al-Afiyah  
+**Unit Sekolah:** TK IT Al-Afiyah | SDIT Al-Afiyah | SMP IT Al-Afiyah  
 **Versi Dokumen:** 1.0.0-PROD-RELEASE (Sprint 8 - Milestone 20)
 
 ---

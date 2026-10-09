@@ -42,9 +42,9 @@ async function main() {
   const sd = await prisma.school.create({
     data: {
       slug: 'sd',
-      name: 'SD IT Al-Afiyah',
+      name: 'SDIT Al-Afiyah',
       unitLevel: 'SD',
-      badgeText: 'SD IT UNGGULAN AL-AFIYAH',
+      badgeText: 'SDIT UNGGULAN AL-AFIYAH',
       tagline: 'Membangun Karakter Islami, Literasi Al-Qur\'an & Prestasi Unggul',
       primaryColor: '#059669',
       accentColor: '#D97706',
@@ -54,7 +54,7 @@ async function main() {
       isPpdbOpen: true,
       bankName: 'Bank Syariah Indonesia (BSI)',
       bankAccountNumber: '7788991123',
-      bankAccountHolder: 'SD IT Al-Afiyah Majalengka',
+      bankAccountHolder: 'SDIT Al-Afiyah Majalengka',
       waCenterPhone: '6281223344552',
       address: 'Jl. Pangeran Muhammad KM 2, Simpeureum, Cigasong, Kab. Majalengka',
     },
@@ -87,7 +87,7 @@ async function main() {
       name: 'Yayasan Pendidikan Imam Bonjol',
       unitLevel: 'FOUNDATION',
       badgeText: 'PUSAT YAYASAN PENDIDIKAN IMAM BONJOL',
-      tagline: 'Menaungi Lembaga Pendidikan Islam Terpadu TK IT, SD IT & SMP IT Al-Afiyah',
+      tagline: 'Menaungi Lembaga Pendidikan Islam Terpadu TK IT, SDIT & SMP IT Al-Afiyah',
       primaryColor: '#184F48',
       accentColor: '#D97706',
       registrationFee: 0,
@@ -142,13 +142,13 @@ async function main() {
     },
   });
 
-  // C. Unit SD IT Al-Afiyah
+  // C. Unit SDIT Al-Afiyah
   await prisma.user.create({
     data: {
       email: 'admin.sd@alafiyah.sch.id',
       phone: '6281223344552',
       passwordHash: defaultPassword,
-      fullName: 'Admin SD IT',
+      fullName: 'Admin SDIT',
       role: 'ADMIN_SD',
       schoolId: sd.id,
     },
@@ -170,7 +170,7 @@ async function main() {
       email: 'bendahara.sd@alafiyah.sch.id',
       phone: '6281223344555',
       passwordHash: defaultPassword,
-      fullName: 'Bendahara SD IT',
+      fullName: 'Bendahara SDIT',
       role: 'FINANCE',
       schoolId: sd.id,
     },
@@ -253,7 +253,7 @@ async function main() {
 
   console.log('✅ Official Affiliate Profiles Seeded (Saldo Awal Rp 0)');
 
-  // 5. Seed CMS Sections for SD IT Al-Afiyah
+  // 5. Seed CMS Sections for SDIT Al-Afiyah
   const sdCmsHero = {
     headline: 'Membangun Generasi Emas Qur\'ani & Berprestasi di Majalengka',
     subheadline: 'Sekolah Dasar Islam Terpadu dengan kurikulum terintegrasi, pembinaan tahfidz juz 30, adab harian, dan keunggulan sains modern.',
@@ -310,12 +310,12 @@ async function main() {
   const sdCmsTestimonials = [
     {
       name: 'dr. H. Asep Irawan Sp.A',
-      role: 'Wali Murid Kelas 4 SD IT',
+      role: 'Wali Murid Kelas 4 SDIT',
       quote: 'Alhamdulillah, semenjak sekolah di Al-Afiyah, ananda menjadi sangat disiplin shalat lima waktu tanpa disuruh dan bacaan Qur\'annya sangat tartil.',
     },
     {
       name: 'Orang Tua Murid Al-Afiyah',
-      role: 'Wali Murid Kelas 2 SD IT',
+      role: 'Wali Murid Kelas 2 SDIT',
       quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.',
     },
   ];
@@ -500,19 +500,19 @@ Kegiatan rihlah ini semakin mempererat ikatan kekeluargaan antara guru dan peser
     ],
   });
 
-  // News Posts for SD IT
+  // News Posts for SDIT
   await prisma.newsPost.deleteMany({ where: { schoolId: sd.id } });
   await prisma.newsPost.createMany({
     data: [
       {
         schoolId: sd.id,
-        title: 'Pengumuman Resmi SPMB SD IT Al-Afiyah T.A. 2026/2027: Kuota Terbatas Hanya 2 Rombel',
+        title: 'Pengumuman Resmi SPMB SDIT Al-Afiyah T.A. 2026/2027: Kuota Terbatas Hanya 2 Rombel',
         slug: 'pengumuman-resmi-spmb-sdit-al-afiyah-2026-2027',
         category: 'Pengumuman',
-        excerpt: 'Sistem Penerimaan Murid Baru (SPMB) SD IT Al-Afiyah T.A. 2026/2027 resmi dibuka. Kuota terbatas hanya 2 rombel dengan 8 program unggulan terpadu. Unduh poster dan brosur resmi di sini.',
-        content: `Bismillah, Yayasan Pendidikan Imam Bonjol Majalengka bersama dewan asatidzah SD IT Al-Afiyah mengumumkan pembukaan Sistem Penerimaan Murid Baru (SPMB) Tahun Ajaran 2026/2027.
+        excerpt: 'Sistem Penerimaan Murid Baru (SPMB) SDIT Al-Afiyah T.A. 2026/2027 resmi dibuka. Kuota terbatas hanya 2 rombel dengan 8 program unggulan terpadu. Unduh poster dan brosur resmi di sini.',
+        content: `Bismillah, Yayasan Pendidikan Imam Bonjol Majalengka bersama dewan asatidzah SDIT Al-Afiyah mengumumkan pembukaan Sistem Penerimaan Murid Baru (SPMB) Tahun Ajaran 2026/2027.
 
-Bukan sekadar tempat belajar, SD IT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah Rasulullah ﷺ, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu. Demi menjaga rasio pendampingan yang intensif dan berkualitas, kuota penerimaan murid baru dibatasi HANYA 2 Rombongan Belajar (Rombel).
+Bukan sekadar tempat belajar, SDIT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah Rasulullah ﷺ, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu. Demi menjaga rasio pendampingan yang intensif dan berkualitas, kuota penerimaan murid baru dibatasi HANYA 2 Rombongan Belajar (Rombel).
 
 Ayah dan Bunda dapat mengunduh poster/brosur resmi sekolah untuk informasi lengkap, serta melakukan registrasi online melalui portal resmi SPMB Al-Afiyah.`,
         coverImage: '/images/sd-spmb-poster-2027.jpg',
@@ -522,53 +522,53 @@ Ayah dan Bunda dapat mengunduh poster/brosur resmi sekolah untuk informasi lengk
       },
       {
         schoolId: sd.id,
-        title: 'Field Study SD IT Al-Afiyah di P4S An-Nabawiyah: Praktik Pertanian & Perikanan Smart Akhlak Fitrah',
+        title: 'Field Study SDIT Al-Afiyah di P4S An-Nabawiyah: Praktik Pertanian & Perikanan Smart Akhlak Fitrah',
         slug: 'field-study-sd-it-al-afiyah-p4s-an-nabawiyah',
         category: 'Field Study',
-        excerpt: 'Puluhan murid SD IT Al-Afiyah mengikuti kegiatan field study di P4S An-Nabawiyah. Murid belajar memindahkan semai bibit sayur ke polybag, observasi greenhouse bambu, dan edukasi budidaya perikanan biofloc.',
-        content: `Alhamdulillah, dalam rangka mewujudkan kurikulum kontekstual berbasis alam dan karakter, murid-murid SD IT Al-Afiyah melaksanakan kegiatan "Field Study: Smart Akhlak Fitrah" bertempat di Pusat Pelatihan Pertanian dan Perdesaan Swadaya (P4S) An-Nabawiyah. Kegiatan edukasi luar kelas ini dirancang untuk mengenalkan fitrah anak terhadap alam semesta dan menumbuhkan rasa syukur atas limpahan rezeki ciptaan Allah Ta'ala.`,
+        excerpt: 'Puluhan murid SDIT Al-Afiyah mengikuti kegiatan field study di P4S An-Nabawiyah. Murid belajar memindahkan semai bibit sayur ke polybag, observasi greenhouse bambu, dan edukasi budidaya perikanan biofloc.',
+        content: `Alhamdulillah, dalam rangka mewujudkan kurikulum kontekstual berbasis alam dan karakter, murid-murid SDIT Al-Afiyah melaksanakan kegiatan "Field Study: Smart Akhlak Fitrah" bertempat di Pusat Pelatihan Pertanian dan Perdesaan Swadaya (P4S) An-Nabawiyah. Kegiatan edukasi luar kelas ini dirancang untuk mengenalkan fitrah anak terhadap alam semesta dan menumbuhkan rasa syukur atas limpahan rezeki ciptaan Allah Ta'ala.`,
         coverImage: '/images/sd-field-study-banner.jpg',
-        author: 'Humas SD IT Al-Afiyah',
+        author: 'Humas SDIT Al-Afiyah',
         isPublished: true,
         publishedAt: new Date('2026-09-25T08:00:00Z'),
       },
       {
         schoolId: sd.id,
-        title: 'Alhamdulillah! Tim Futsal SD IT Al-Afiyah Raih Juara 2 (Second Place) Tingkat Daerah',
+        title: 'Alhamdulillah! Tim Futsal SDIT Al-Afiyah Raih Juara 2 (Second Place) Tingkat Daerah',
         slug: 'tim-futsal-sd-it-al-afiyah-raih-juara-2',
         category: 'Prestasi',
-        excerpt: 'Prestasi membanggakan kembali ditorehkan murid-murid SD IT Al-Afiyah. Tim Futsal sekolah berhasil menyabet gelar Second Place dalam kejuaraan futsal antar-sekolah tingkat daerah.',
-        content: `Keluarga besar SD IT Al-Afiyah bersyukur atas torehan prestasi membanggakan yang diraih oleh Tim Futsal murid SD IT Al-Afiyah. Dalam turnamen kompetisi futsal pelajar tingkat daerah, tim sekolah sukses menembus babak final dan mengamankan posisi Juara 2 (Second Place). Pihak sekolah senantiasa mendukung penuh penyaluran minat dan bakat murid.`,
+        excerpt: 'Prestasi membanggakan kembali ditorehkan murid-murid SDIT Al-Afiyah. Tim Futsal sekolah berhasil menyabet gelar Second Place dalam kejuaraan futsal antar-sekolah tingkat daerah.',
+        content: `Keluarga besar SDIT Al-Afiyah bersyukur atas torehan prestasi membanggakan yang diraih oleh Tim Futsal murid SDIT Al-Afiyah. Dalam turnamen kompetisi futsal pelajar tingkat daerah, tim sekolah sukses menembus babak final dan mengamankan posisi Juara 2 (Second Place). Pihak sekolah senantiasa mendukung penuh penyaluran minat dan bakat murid.`,
         coverImage: '/images/sd-futsal-champion.jpg',
-        author: 'Pembina Olahraga SD IT',
+        author: 'Pembina Olahraga SDIT',
         isPublished: true,
         publishedAt: new Date('2026-09-23T08:00:00Z'),
       },
       {
         schoolId: sd.id,
-        title: 'Pembiasaan Adab Shalat Berjamaah dan Pelatihan Da\'i Cilik SD IT Al-Afiyah',
+        title: 'Pembiasaan Adab Shalat Berjamaah dan Pelatihan Da\'i Cilik SDIT Al-Afiyah',
         slug: 'pembiasaan-shalat-berjamaah-daicilik-sdit-al-afiyah',
         category: 'Kegiatan',
-        excerpt: 'Menanamkan adab sebelum ilmu dan iman sebelum Al-Qur\'an, murid SD IT Al-Afiyah dibimbing pembiasaan shalat berjamaah serta latihan muhadharah da\'i cilik berani tampil.',
-        content: `Alhamdulillah, salah satu ruh pendidikan di SD IT Al-Afiyah adalah penguatan karakter nabawiyah dan pembiasaan ibadah praktis sejak dini.
+        excerpt: 'Menanamkan adab sebelum ilmu dan iman sebelum Al-Qur\'an, murid SDIT Al-Afiyah dibimbing pembiasaan shalat berjamaah serta latihan muhadharah da\'i cilik berani tampil.',
+        content: `Alhamdulillah, salah satu ruh pendidikan di SDIT Al-Afiyah adalah penguatan karakter nabawiyah dan pembiasaan ibadah praktis sejak dini.
 
 Setiap hari, siswi dan siswa dibimbing melaksanakan shalat berjamaah dengan tertib, bersih, dan khusyuk di lingkungan kelas yang asri. Selain itu, untuk melatih kepemimpinan dan rasa percaya diri, murid-murid bergiliran memegang mikrofon dalam agenda muhadharah (latihan pidato da'i cilik) serta kultum mandiri menyampaikan nasihat kebaikan kepada rekan sekelasnya.
 
-Dengan suasana kelas yang hangat dan penuh kasih sayang ("Here's Your Second Home"), SD IT Al-Afiyah terus berkomitmen menjadi tempat bertumbuh terbaik bagi ananda.`,
+Dengan suasana kelas yang hangat dan penuh kasih sayang ("Here's Your Second Home"), SDIT Al-Afiyah terus berkomitmen menjadi tempat bertumbuh terbaik bagi ananda.`,
         coverImage: '/images/sd-activity-shalat-berjamaah.jpg',
-        author: 'Kesiswaan SD IT Al-Afiyah',
+        author: 'Kesiswaan SDIT Al-Afiyah',
         isPublished: true,
         publishedAt: new Date('2026-09-27T08:00:00Z'),
       },
       {
         schoolId: sd.id,
-        title: 'Selamat Melaksanakan Sumatif Tengah Semester (STS) 1 SD IT Al-Afiyah',
+        title: 'Selamat Melaksanakan Sumatif Tengah Semester (STS) 1 SDIT Al-Afiyah',
         slug: 'sumatif-tengah-semester-1-sdit-al-afiyah',
         category: 'Pengumuman',
-        excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai dengan menjunjung tinggi nilai kejujuran, ketelitian, dan prinsip Smart Akhlaq Fitrah.',
-        content: `Bismillah, segenap pimpinan Yayasan, kepala sekolah, dan dewan asatidzah mengucapkan selamat melaksanakan Sumatif Tengah Semester (STS) 1 bagi seluruh murid SD IT Al-Afiyah. Kegiatan asesmen ini dirancang sebagai wahana pembentukan karakter murid yang jujur, teliti, mandiri, dan beradab.`,
+        excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SDIT Al-Afiyah dimulai dengan menjunjung tinggi nilai kejujuran, ketelitian, dan prinsip Smart Akhlaq Fitrah.',
+        content: `Bismillah, segenap pimpinan Yayasan, kepala sekolah, dan dewan asatidzah mengucapkan selamat melaksanakan Sumatif Tengah Semester (STS) 1 bagi seluruh murid SDIT Al-Afiyah. Kegiatan asesmen ini dirancang sebagai wahana pembentukan karakter murid yang jujur, teliti, mandiri, dan beradab.`,
         coverImage: '/images/sts-semester-1-sdit.jpg',
-        author: 'Kurikulum SD IT Al-Afiyah',
+        author: 'Kurikulum SDIT Al-Afiyah',
         isPublished: true,
         publishedAt: new Date('2026-09-20T08:00:00Z'),
       },
@@ -655,7 +655,7 @@ Dengan suasana kelas yang hangat dan penuh kasih sayang ("Here's Your Second Hom
       {
         schoolId: sd.id,
         title: 'Medali Emas Olimpiade Sains & Matematika Nasional (OSN)',
-        studentName: 'Murid SD IT Al-Afiyah',
+        studentName: 'Murid SDIT Al-Afiyah',
         category: 'SAINS',
         level: 'NASIONAL',
         rank: 'JUARA_1',

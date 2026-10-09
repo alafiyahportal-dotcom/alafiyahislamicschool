@@ -10,8 +10,8 @@ import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Warta, Prestasi & Khazanah SD IT Al-Afiyah Majalengka',
-  description: 'Berita kegiatan belajar mengajar, prestasi kejuaraan murid, agenda sekolah, dan khazanah artikel Islami SD IT Al-Afiyah Majalengka.',
+  title: 'Warta, Prestasi & Khazanah SDIT Al-Afiyah Majalengka',
+  description: 'Berita kegiatan belajar mengajar, prestasi kejuaraan murid, agenda sekolah, dan khazanah artikel Islami SDIT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -25,25 +25,25 @@ export const metadata: Metadata = {
 const DEFAULT_SD_ARTICLES: NewsArticle[] = [
   {
     id: 'sd-warta-1',
-    title: 'Kemeriahan Market Day & Cooking Day: Melatih Jiwa Kewirausahaan Islami Murid SD IT',
+    title: 'Kemeriahan Market Day & Cooking Day: Melatih Jiwa Kewirausahaan Islami Murid SDIT',
     slug: 'market-day-cooking-day-sdit-al-afiyah',
     category: 'Kegiatan',
-    excerpt: 'Murid SD IT Al-Afiyah belajar adab bermuamalah, kejujuran dalam berdagang, dan melatih kemandirian finansial sejak dini melalui simulasi pasar syariah.',
-    author: 'Humas SD IT Al-Afiyah',
+    excerpt: 'Murid SDIT Al-Afiyah belajar adab bermuamalah, kejujuran dalam berdagang, dan melatih kemandirian finansial sejak dini melalui simulasi pasar syariah.',
+    author: 'Humas SDIT Al-Afiyah',
     date: '4 Okt 2026',
-    schoolName: 'SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
     readingTime: '3 menit baca',
     imageUrl: '/images/hero-building.jpg',
   },
   {
     id: 'sd-warta-2',
-    title: 'Alhamdulillah! Tiga Murid SD IT Al-Afiyah Raih Juara MHQ Juz 30 Tingkat Kabupaten',
+    title: 'Alhamdulillah! Tiga Murid SDIT Al-Afiyah Raih Juara MHQ Juz 30 Tingkat Kabupaten',
     slug: 'juara-mhq-juz-30-kabupaten-majalengka',
     category: 'Prestasi',
     excerpt: 'Prestasi membanggakan kembali ditorehkan ananda dalam ajang Musabaqah Hifdzil Qur’an. Berkat bimbingan intensif dan muraja’ah berkala.',
-    author: 'Kordinator Tahfidz SD IT',
+    author: 'Kordinator Tahfidz SDIT',
     date: '28 Sep 2026',
-    schoolName: 'SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
     readingTime: '4 menit baca',
     imageUrl: '/images/students-learning.jpg',
   },
@@ -53,9 +53,9 @@ const DEFAULT_SD_ARTICLES: NewsArticle[] = [
     slug: 'field-study-alam-sdit-al-afiyah',
     category: 'Kegiatan',
     excerpt: 'Pendidikan tidak hanya di dalam kelas. Murid-murid kelas 2 dan 3 diajak bertadabbur alam memahami ekosistem tumbuhan dan sains terpadu.',
-    author: 'Wali Kelas 3 SD IT',
+    author: 'Wali Kelas 3 SDIT',
     date: '15 Sep 2026',
-    schoolName: 'SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
     readingTime: '5 menit baca',
     imageUrl: '/images/school-gate.jpg',
   },
@@ -64,10 +64,10 @@ const DEFAULT_SD_ARTICLES: NewsArticle[] = [
     title: 'Adab Penuntut Ilmu: Menghormati Guru dan Menjaga Kesucian Majelis Belajar',
     slug: 'adab-penuntut-ilmu-sdit',
     category: 'Artikel & Kajian',
-    excerpt: 'Imam Malik rahimahullah berkata: "Pelajarilah adab sebelum engkau mempelajari ilmu." Mengapa penanaman adab menjadi prioritas utama di SD IT Al-Afiyah.',
-    author: 'Tim Bina Karakter SD IT',
+    excerpt: 'Imam Malik rahimahullah berkata: "Pelajarilah adab sebelum engkau mempelajari ilmu." Mengapa penanaman adab menjadi prioritas utama di SDIT Al-Afiyah.',
+    author: 'Tim Bina Karakter SDIT',
     date: '5 Sep 2026',
-    schoolName: 'SD IT Al-Afiyah',
+    schoolName: 'SDIT Al-Afiyah',
     readingTime: '6 menit baca',
     imageUrl: '/images/hero-building.jpg',
   }
@@ -96,13 +96,13 @@ export default async function SdNewsPage() {
         slug: p.slug,
         category: p.category || 'Kegiatan',
         excerpt: p.excerpt || p.content.slice(0, 150) + '...',
-        author: p.author || 'Humas SD IT Al-Afiyah',
+        author: p.author || 'Humas SDIT Al-Afiyah',
         date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
           day: 'numeric',
           month: 'short',
           year: 'numeric',
         }),
-        schoolName: 'SD IT Al-Afiyah',
+        schoolName: 'SDIT Al-Afiyah',
         readingTime: '4 menit baca',
         imageUrl: p.coverImage || undefined,
         paragraphs: p.content ? p.content.split('\n').filter((l: string) => l.trim().length > 0) : undefined,
@@ -120,7 +120,7 @@ export default async function SdNewsPage() {
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
       <Navbar schoolSlug="sd" />
 
-      {/* Hero Header Khusus SD IT */}
+      {/* Hero Header Khusus SDIT */}
       <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
@@ -129,7 +129,7 @@ export default async function SdNewsPage() {
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SD IT</span>
+              <span>Beranda SDIT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-emerald-300/50" />
             <span className="text-white font-medium">Berita &amp; Artikel</span>
@@ -142,11 +142,11 @@ export default async function SdNewsPage() {
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Warta, Prestasi &amp; Khazanah SD IT
+              Warta, Prestasi &amp; Khazanah SDIT
             </h1>
 
             <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Dinamika belajar murid, dokumentasi kegiatan luar kelas, torehan prestasi kejuaraan, serta mutiara faedah keislaman keluarga besar SD IT Al-Afiyah.
+              Dinamika belajar murid, dokumentasi kegiatan luar kelas, torehan prestasi kejuaraan, serta mutiara faedah keislaman keluarga besar SDIT Al-Afiyah.
             </p>
           </div>
         </div>

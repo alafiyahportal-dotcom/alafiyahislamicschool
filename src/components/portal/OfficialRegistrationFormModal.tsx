@@ -67,7 +67,7 @@ export default function OfficialRegistrationFormModal({
   const getUnitLevel = () => {
     if (schoolSlug === 'tk') return 'PAUD / TK IT (Taman Kanak-Kanak Islam Terpadu)';
     if (schoolSlug === 'smp') return 'SMP IT (Sekolah Menengah Pertama Islam Terpadu)';
-    return 'SD IT (Sekolah Dasar Islam Terpadu)';
+    return 'SDIT (Sekolah Dasar Islam Terpadu)';
   };
 
   return (
@@ -112,7 +112,7 @@ export default function OfficialRegistrationFormModal({
                   <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
                     <img
                       src="/images/sd-logo.png"
-                      alt="Logo SD IT Al-Afiyah"
+                      alt="Logo SDIT Al-Afiyah"
                       className="w-full h-full object-contain"
                     />
                   </div>

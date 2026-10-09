@@ -7,8 +7,8 @@ import { prisma } from '@/lib/prisma';
 import SdDokumentasiClient, { GalleryItem } from './SdDokumentasiClient';
 
 export const metadata: Metadata = {
-  title: 'Dokumentasi & Belajar SD IT',
-  description: 'Galeri foto dan dokumentasi kegiatan belajar mengajar, pembiasaan shalat berjamaah, da\'i cilik, agro-sains di P4S An-Nabawiyah, dan prestasi murid SD IT Al-Afiyah Majalengka.',
+  title: 'Dokumentasi & Belajar SDIT',
+  description: 'Galeri foto dan dokumentasi kegiatan belajar mengajar, pembiasaan shalat berjamaah, da\'i cilik, agro-sains di P4S An-Nabawiyah, dan prestasi murid SDIT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -35,12 +35,12 @@ export default async function SdDokumentasiPage() {
       if (Array.isArray(parsed) && parsed.length > 0) {
         gallery = parsed.map((item: any, idx: number) => ({
           id: `facility-${idx + 1}`,
-          name: item.name || 'Dokumentasi SD IT',
+          name: item.name || 'Dokumentasi SDIT',
           image: item.image || '/images/sd-hero-greenhouse.jpg',
           desc: item.desc || item.description || '',
           category: item.category || 'Aktivitas Kelas',
           date: 'Tahun Ajaran 2026/2027',
-          location: 'SD IT Al-Afiyah Majalengka'
+          location: 'SDIT Al-Afiyah Majalengka'
         }));
       }
     }

@@ -8,8 +8,8 @@ import AnnouncementBoardClient, { AcceptedStudent, SchoolInfo } from '@/componen
 import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Pengumuman Kelulusan SPMB SD IT Al-Afiyah Majalengka',
-  description: 'Pengumuman resmi kelulusan dan rekapitulasi kuota calon murid baru SD IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028.',
+  title: 'Pengumuman Kelulusan SPMB SDIT Al-Afiyah Majalengka',
+  description: 'Pengumuman resmi kelulusan dan rekapitulasi kuota calon murid baru SDIT Al-Afiyah Majalengka Tahun Ajaran 2027/2028.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function SdAnnouncementPage() {
-  // Ambil data sekolah SD IT
+  // Ambil data sekolah SDIT
   const sdSchoolData = await prisma.school.findFirst({
     where: { slug: 'sd' },
     select: {
@@ -55,8 +55,8 @@ export default async function SdAnnouncementPage() {
         {
           id: 'sd-fallback',
           slug: 'sd',
-          name: 'SD IT Al-Afiyah',
-          badgeText: 'SD IT UNGGULAN',
+          name: 'SDIT Al-Afiyah',
+          badgeText: 'SDIT UNGGULAN',
           quota: 60,
           waveName: 'Gelombang 1',
           primaryColor: '#00A651',
@@ -64,7 +64,7 @@ export default async function SdAnnouncementPage() {
         },
       ];
 
-  // Ambil murid SD IT berstatus ACCEPTED
+  // Ambil murid SDIT berstatus ACCEPTED
   const acceptedList = await prisma.pPDBRegistration.findMany({
     where: { 
       status: 'ACCEPTED',

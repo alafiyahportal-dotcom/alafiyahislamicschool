@@ -25,8 +25,8 @@ interface UnitInfo {
 
 const UNIT_MAP: Record<UnitKey, UnitInfo> = {
   sd: {
-    badge: 'SD IT AL-AFIYAH MAJALENGKA',
-    unitName: 'SD IT Al-Afiyah Majalengka',
+    badge: 'SDIT AL-AFIYAH MAJALENGKA',
+    unitName: 'SDIT Al-Afiyah Majalengka',
     tagline: 'Portal Layanan Akademik & SPMB',
     motto: 'Smart • Akhlak • Fitrah',
     registerUrl: '/sd/spmb/daftar',
@@ -47,10 +47,10 @@ const UNIT_MAP: Record<UnitKey, UnitInfo> = {
   },
 };
 
-// Default specifically to SD IT Al-Afiyah Majalengka
+// Default specifically to SDIT Al-Afiyah Majalengka
 const DEFAULT_PORTAL: UnitInfo = {
-  badge: 'SD IT AL-AFIYAH MAJALENGKA',
-  unitName: 'SD IT Al-Afiyah Majalengka',
+  badge: 'SDIT AL-AFIYAH MAJALENGKA',
+  unitName: 'SDIT Al-Afiyah Majalengka',
   tagline: 'Portal Layanan Akademik & SPMB',
   motto: 'Smart • Akhlak • Fitrah',
   registerUrl: '/sd/spmb/daftar',
@@ -65,7 +65,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Default to SD IT unit
+  // Default to SDIT unit
   const [activeUnit, setActiveUnit] = useState<UnitKey>('sd');
   const [homeLink, setHomeLink] = useState('/sd');
 
@@ -141,7 +141,7 @@ export default function LoginPage() {
           <span>Kembali ke Beranda</span>
         </Link>
         <span className="text-[11px] font-bold text-white bg-emerald-950/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-          SD IT Al-Afiyah
+          SDIT Al-Afiyah
         </span>
       </header>
 
@@ -182,7 +182,7 @@ export default function LoginPage() {
 
               {/* Sub-identity: Clear & Non-repetitive */}
               <p className="text-sm font-extrabold text-white mt-1 drop-shadow-sm">
-                SD IT Al-Afiyah Majalengka
+                SDIT Al-Afiyah Majalengka
               </p>
               
               <p className="text-xs font-bold text-white/90 mt-0.5 tracking-wide">

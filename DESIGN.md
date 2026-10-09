@@ -1,6 +1,6 @@
 # Design System & UI/UX Guidelines: Ekosistem Pendidikan Terpadu Al-Afiyah
 
-Dokumen ini merupakan pedoman resmi (*Single Source of Truth*) untuk seluruh perancangan antarmuka (UI), pengalaman pengguna (UX), serta implementasi frontend di seluruh portal dan sistem **Ekosistem Pendidikan Terpadu Al-Afiyah Majalengka** (Yayasan Pendidikan Imam Bonjol, TK IT, SD IT, SMP IT, Portal SPMB/PPDB, SIAKAD Mobile, dan Panel Admin).
+Dokumen ini merupakan pedoman resmi (*Single Source of Truth*) untuk seluruh perancangan antarmuka (UI), pengalaman pengguna (UX), serta implementasi frontend di seluruh portal dan sistem **Ekosistem Pendidikan Terpadu Al-Afiyah Majalengka** (Yayasan Pendidikan Imam Bonjol, TK IT, SDIT, SMP IT, Portal SPMB/PPDB, SIAKAD Mobile, dan Panel Admin).
 
 Setiap pengembang dan asisten AI **wajib** mengikuti aturan dalam dokumen ini agar seluruh halaman memiliki estetika konsisten, berkelas (*premium*), islami modern, dan berstandar industri.
 
@@ -15,7 +15,7 @@ Setiap pengembang dan asisten AI **wajib** mengikuti aturan dalam dokumen ini ag
    - Menghindari tata letak generik dan membosankan (*boxy*, *flat*, atau *cookie-cutter*).
    - Menggunakan *glassmorphism* elegan (`backdrop-blur`), *micro-interactions* taktil, transisi halus, serta *contrast hierarchy* yang tegas.
 3. **Multi-Tenant Identity with Unified Harmony**:
-   - Setiap jenjang unit (TK IT, SD IT, SMP IT, Yayasan) memiliki aksen warna dan nuansa khas, tetapi tetap berada di bawah satu bahasa visual (*design language*) yang harmonis.
+   - Setiap jenjang unit (TK IT, SDIT, SMP IT, Yayasan) memiliki aksen warna dan nuansa khas, tetapi tetap berada di bawah satu bahasa visual (*design language*) yang harmonis.
 4. **Mobile-First & Performance-Driven**:
    - Akses pendaftaran wali murid dan pemantauan peserta didik mayoritas dilakukan via smartphone. Semua elemen harus ramah sentuhan (*touch-friendly*), memiliki *Sticky Mobile Action Bar*, dan waktu muat instan (*Core Web Vitals* optimal).
 
@@ -40,8 +40,8 @@ Setiap jenjang unit memiliki identitas visual yang terisolasi dan spesifik:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│  SD IT AL-AFIYAH (Unggulan & Flagship - Smart Akhlaq Fitrah)            │
-│  - Warna Aksen/CTA : #00A651 (Hijau Segar Resmi SD IT - Pill, Badge, CTA)│
+│  SDIT AL-AFIYAH (Unggulan & Flagship - Smart Akhlaq Fitrah)            │
+│  - Warna Aksen/CTA : #00A651 (Hijau Segar Resmi SDIT - Pill, Badge, CTA)│
 │  - Dark Foundation : bg-emerald-950 (Seragam utk Dark Section & Banner) │
 │  - Larangan Keras  : DILARANG memakai #00A651 sebagai background blok/section!│
 │  - Warna Highlight : #D97706 (Amber Emas)                               │
@@ -92,7 +92,7 @@ Setiap jenjang unit memiliki identitas visual yang terisolasi dan spesifik:
   {titlePart1 && !titlePart1.endsWith(' ') ? ' ' : ''}
   <span className={highlightClass}>{titleHighlight}</span>
   ```
-- **Hindari kata penutup yang redundan** pada headline SD IT (kata *"Ananda"* telah ditiadakan dari Judul Penutup agar struktur headline 3-baris tetap padat dan proporsional).
+- **Hindari kata penutup yang redundan** pada headline SDIT (kata *"Ananda"* telah ditiadakan dari Judul Penutup agar struktur headline 3-baris tetap padat dan proporsional).
 
 ---
 
@@ -112,7 +112,7 @@ Setiap jenjang unit memiliki identitas visual yang terisolasi dan spesifik:
    - Seluruh teks headline, badge, deskripsi, dan tombol CTA tetap **statis** (tidak berubah atau berkedip).
    - Hanya **3 gambar latar belakang** yang berputar secara bergantian dengan durasi 4.5 detik.
    - Transisi latar belakang menggunakan **Smooth Crossfade (1000ms)** dipadukan dengan efek **Ken Burns Zoom** (`animate-kenburns`).
-2. **Struktur Tipografi Hero SD IT**:
+2. **Struktur Tipografi Hero SDIT**:
    - Baris 1 (*Accent Italic Serif*): `Bukan Sekedar`
    - Baris 2 (*Bold Sans*): `Tempat Belajar,`
    - Baris 3 (*Bold Sans*): `Namun Juga`
@@ -131,7 +131,7 @@ Setiap jenjang unit memiliki identitas visual yang terisolasi dan spesifik:
 
 ### 4.4. Tombol Interaktif (*Buttons & CTAs*)
 1. **Primary Button**:
-   - Latar belakang penuh kontras tinggi (SD IT: `#00A651` / TK: `#10B981` / Yayasan: `#184F48`).
+   - Latar belakang penuh kontras tinggi (SDIT: `#00A651` / TK: `#10B981` / Yayasan: `#184F48`).
    - Efek taktil mikro: `hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-md`.
    - Menggunakan ikon pengarah di kanan (`ArrowRight className="w-4 h-4 group-hover:translate-x-1"`).
 2. **Secondary / Outline Button**:
@@ -148,7 +148,7 @@ Setiap jenjang unit memiliki identitas visual yang terisolasi dan spesifik:
 ## 5. Ikonografi & Media Grafis
 
 1. **Logo Resmi Sekolah**:
-   - Seluruh halaman, browser tab, dan dokumen cetak SD IT wajib menggunakan **Logo Resmi SD IT Al-Afiyah** (`/images/sd-logo.png` & `/favicon.ico`).
+   - Seluruh halaman, browser tab, dan dokumen cetak SDIT wajib menggunakan **Logo Resmi SDIT Al-Afiyah** (`/images/sd-logo.png` & `/favicon.ico`).
    - Dilarang keras memuat logo default Vercel, logo placeholder SVG, atau ikon pihak ketiga yang tidak berhubungan.
 2. **Perpustakaan Ikon**:
    - Menggunakan `lucide-react` dengan `strokeWidth={1.75}` atau `2`.
@@ -176,8 +176,8 @@ Setiap jenjang unit memiliki identitas visual yang terisolasi dan spesifik:
 
 Sebelum menyelesaikan pembuatan halaman atau komponen baru, pastikan:
 
-- [ ] Menggunakan warna dan token sesuai satuan pendidikan yang dituju (misal: `.theme-sd` untuk SD IT).
-- [ ] Favicon dan tab browser menampilkan Logo Resmi SD IT Al-Afiyah (`/images/sd-logo.png`).
+- [ ] Menggunakan warna dan token sesuai satuan pendidikan yang dituju (misal: `.theme-sd` untuk SDIT).
+- [ ] Favicon dan tab browser menampilkan Logo Resmi SDIT Al-Afiyah (`/images/sd-logo.png`).
 - [ ] Teks judul tidak ada yang bertabrakan (*dempet*) atau memuat kata usang (*Ananda* pada penutup).
 - [ ] Fitur hapus (seperti pada galeri/CMS) telah menyimpan perubahan ke database backend (`/api/admin/cms`).
 - [ ] Tombol memiliki *state hover*, *active*, dan *loading indicator*.

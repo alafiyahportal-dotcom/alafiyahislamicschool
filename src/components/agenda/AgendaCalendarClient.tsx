@@ -227,14 +227,14 @@ export default function AgendaCalendarClient({ initialEvents, schoolSlug }: Agen
               isSd ? 'bg-[#E8F8F0] border-[#A7F3D0] text-[#00A651]' : 'bg-[#E8F3F1] border-[#2D7A70]/30 text-[#184F48]'
             }`}>
               <CalendarDays className="w-3.5 h-3.5" />
-              <span>{isSd ? 'Agenda Akademik SD IT Al-Afiyah T.A. 2026/2027' : 'Tahun Ajaran 2026/2027'}</span>
+              <span>{isSd ? 'Agenda Akademik SDIT Al-Afiyah T.A. 2026/2027' : 'Tahun Ajaran 2026/2027'}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              {isSd ? 'Kalender Agenda & Jadwal SD IT Al-Afiyah' : 'Kalender Agenda & Jadwal Seleksi Terpadu'}
+              {isSd ? 'Kalender Agenda & Jadwal SDIT Al-Afiyah' : 'Kalender Agenda & Jadwal Seleksi Terpadu'}
             </h1>
             <p className="text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
               {isSd
-                ? 'Pantau jadwal resmi gelombang SPMB SD IT, observasi murid, agenda kegiatan belajar mengajar (KBM), field study, serta kalender hari libur Islam SD IT Al-Afiyah Majalengka.'
+                ? 'Pantau jadwal resmi gelombang SPMB SDIT, observasi murid, agenda kegiatan belajar mengajar (KBM), field study, serta kalender hari libur Islam SDIT Al-Afiyah Majalengka.'
                 : 'Pantau jadwal lengkap gelombang PPDB, ujian observasi murid, agenda kegiatan belajar mengajar, serta kalender hari libur Islam di lingkungan Yayasan Pendidikan Imam Bonjol Majalengka.'}
             </p>
           </div>
@@ -311,13 +311,13 @@ export default function AgendaCalendarClient({ initialEvents, schoolSlug }: Agen
           {isSd ? (
             <div className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5 bg-[#00A651] text-white shadow-xs">
               <School className="w-3.5 h-3.5 text-amber-300" />
-              <span>Unit SD IT Al-Afiyah</span>
+              <span>Unit SDIT Al-Afiyah</span>
             </div>
           ) : (
             [
               { id: 'all', label: 'Semua Unit', icon: Layers },
               { id: 'tk', label: 'TK IT', icon: GraduationCap },
-              { id: 'sd', label: 'SD IT', icon: School },
+              { id: 'sd', label: 'SDIT', icon: School },
               { id: 'smp', label: 'SMP IT', icon: BookOpen },
               { id: 'foundation', label: 'Yayasan', icon: Users },
             ].map((tab) => {

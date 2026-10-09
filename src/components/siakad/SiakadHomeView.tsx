@@ -45,26 +45,26 @@ interface SiakadHomeViewProps {
 export const SIAKAD_NEWS_ARTICLES: SiakadNewsItem[] = [
   {
     id: 'berita-sts-1',
-    title: 'Selamat Melaksanakan Sumatif Tengah Semester (STS) 1 SD IT Al-Afiyah',
+    title: 'Selamat Melaksanakan Sumatif Tengah Semester (STS) 1 SDIT Al-Afiyah',
     category: 'Pengumuman',
     categoryColor: '#059669',
-    unitTag: 'SD IT',
+    unitTag: 'SDIT',
     date: '20 Sep 2026',
-    author: 'Kurikulum SD IT Al-Afiyah',
+    author: 'Kurikulum SDIT Al-Afiyah',
     authorRole: 'Biro Kurikulum & Asesmen Akademik',
     coverImage: '/images/sts-semester-1-sdit.jpg',
-    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SD IT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlak Fitrah.',
+    excerpt: 'Pelaksanaan Sumatif Tengah Semester (STS) Semester 1 TP 2026/2027 SDIT Al-Afiyah dimulai tanggal 21 September 2026 pukul 07.15 s.d 11.00 WIB. Mengusung tagline Smart Akhlak Fitrah.',
     readTime: '2 mnt baca',
     paragraphs: [
-      'Bismillah, segenap civitas akademika Yayasan dan dewan guru SD IT Al-Afiyah mengucapkan: "Selamat Melaksanakan Sumatif Tengah Semester (STS) Semester 1 Tahun Ajaran 2026/2027" bagi seluruh murid kelas 1 hingga 6 SD IT Al-Afiyah.',
-      'Pelaksanaan Sumatif Tengah Semester (STS) 1 ini dimulai serentak pada hari Senin, 21 September 2026 dengan jam belajar khusus yaitu pukul 07.15 s.d 11.00 WIB bertempat di ruang kelas masing-masing Lingkungan Sekolah SD IT Al-Afiyah.',
+      'Bismillah, segenap civitas akademika Yayasan dan dewan guru SDIT Al-Afiyah mengucapkan: "Selamat Melaksanakan Sumatif Tengah Semester (STS) Semester 1 Tahun Ajaran 2026/2027" bagi seluruh murid kelas 1 hingga 6 SDIT Al-Afiyah.',
+      'Pelaksanaan Sumatif Tengah Semester (STS) 1 ini dimulai serentak pada hari Senin, 21 September 2026 dengan jam belajar khusus yaitu pukul 07.15 s.d 11.00 WIB bertempat di ruang kelas masing-masing Lingkungan Sekolah SDIT Al-Afiyah.',
       'Mengusung tagline dan karakter utama "Smart Akhlak Fitrah", kegiatan asesmen ini dirancang bukan sekadar mengukur capaian kognitif pembelajaran intrakurikuler, melainkan sarana pembiasaan adab kejujuran, ketelitian, dan kemandirian belajar sejak usia dini.',
       'Kami mengimbau kepada seluruh ayah dan bunda wali murid untuk mendampingi ananda dengan menjaga kebugaran fisik, memastikan sarapan bergizi sebelum berangkat, serta memanjatkan doa terbaik agar ananda diberikan kelapangan berpikir dan hasil yang berkah.'
     ],
     keyHighlights: [
       'Jadwal Pelaksanaan: Mulai 21 September 2026.',
       'Waktu: Pukul 07.15 s.d 11.00 WIB.',
-      'Lokasi: Lingkungan Sekolah SD IT Al-Afiyah.',
+      'Lokasi: Lingkungan Sekolah SDIT Al-Afiyah.',
       'Tagline & Karakter: Smart Akhlak Fitrah (Menjunjung tinggi kejujuran & adab mandiri).'
     ]
   },
@@ -118,18 +118,18 @@ export const SIAKAD_NEWS_ARTICLES: SiakadNewsItem[] = [
   },
   {
     id: 'berita-3',
-    title: 'Kunjungan Edukasi Saintifik Murid SD IT Al-Afiyah ke Laboratorium Botani',
+    title: 'Kunjungan Edukasi Saintifik Murid SDIT Al-Afiyah ke Laboratorium Botani',
     category: 'Kabar Sekolah',
     categoryColor: '#059669',
-    unitTag: 'SD IT',
+    unitTag: 'SDIT',
     date: '05 Sep 2026',
-    author: 'Humas SD IT Al-Afiyah',
+    author: 'Humas SDIT Al-Afiyah',
     authorRole: 'Biro Komunikasi & Publikasi',
     coverImage: '/images/sd-hero-greenhouse.jpg',
-    excerpt: 'Murid kelas 5 SD IT mempraktikkan langsung ayat-ayat kauniyyah tentang proses fotosintesis tumbuhan dan keanekaragaman flora lokal di Majalengka.',
+    excerpt: 'Murid kelas 5 SDIT mempraktikkan langsung ayat-ayat kauniyyah tentang proses fotosintesis tumbuhan dan keanekaragaman flora lokal di Majalengka.',
     readTime: '4 mnt baca',
     paragraphs: [
-      'Sebagai bagian dari pembelajaran kontekstual kurikulum terpadu, puluhan murid kelas 5 SD IT Al-Afiyah melaksanakan kegiatan field trip edukatif ke Laboratorium Botani dan Konservasi Tumbuhan.',
+      'Sebagai bagian dari pembelajaran kontekstual kurikulum terpadu, puluhan murid kelas 5 SDIT Al-Afiyah melaksanakan kegiatan field trip edukatif ke Laboratorium Botani dan Konservasi Tumbuhan.',
       'Kegiatan ini memadukan materi sains tentang jaringan tumbuhan dan fotosintesis dengan tadabbur ayat-ayat kauniyyah dalam Al-Qur’an Surat An-Nahl dan Surat Al-An’am tentang bagaimana Allah menumbuhkan aneka tanaman sebagai karunia bagi manusia.',
       'Murid diajak mengamati klorofil daun di bawah mikroskop digital, mengenal teknik okulasi tanaman buah lokal Majalengka, serta membuat herbarium mini secara berkelompok.',
       'Melalui observasi lapangan ini, murid tidak hanya memahami teori biologi secara mendalam, tetapi juga semakin kagum atas kebesaran Allah Azza wa Jalla sang Pencipta alam semesta.'
@@ -262,18 +262,18 @@ export const SIAKAD_NEWS_ARTICLES: SiakadNewsItem[] = [
   },
   {
     id: 'berita-9',
-    title: 'Pekan Bahasa Arab & Inggris: Menumbuhkan Percakapan Aktif dan Percaya Diri Murid SD IT',
+    title: 'Pekan Bahasa Arab & Inggris: Menumbuhkan Percakapan Aktif dan Percaya Diri Murid SDIT',
     category: 'Kabar Sekolah',
     categoryColor: '#059669',
-    unitTag: 'SD IT',
+    unitTag: 'SDIT',
     date: '02 Agu 2026',
     author: 'Ustadzah Nurul Hidayah, M.Pd.',
-    authorRole: 'Koordinator Bahasa Asing SD IT Al-Afiyah',
+    authorRole: 'Koordinator Bahasa Asing SDIT Al-Afiyah',
     coverImage: '/images/smp-hero-bilingual.jpg',
-    excerpt: 'Melalui kegiatan Hiwar Yaumi dan Daily English Vocabulary, murid SD IT Al-Afiyah unjuk kebolehan pidato dan bercerita kisah sahabat nabi dalam bahasa asing.',
+    excerpt: 'Melalui kegiatan Hiwar Yaumi dan Daily English Vocabulary, murid SDIT Al-Afiyah unjuk kebolehan pidato dan bercerita kisah sahabat nabi dalam bahasa asing.',
     readTime: '4 mnt baca',
     paragraphs: [
-      'Suasana di lingkungan SD IT Al-Afiyah tampak lebih semarak dengan digelarnya Pekan Bahasa Internasional (Language Week) yang mengusung tema "Cinta Bahasa Al-Qur’an dan Komunikasi Global".',
+      'Suasana di lingkungan SDIT Al-Afiyah tampak lebih semarak dengan digelarnya Pekan Bahasa Internasional (Language Week) yang mengusung tema "Cinta Bahasa Al-Qur’an dan Komunikasi Global".',
       'Sepanjang pekan, murid diajak membiasakan percakapan sederhana sehari-hari (Hiwar Yaumi) dalam bahasa Arab saat berinteraksi di lingkungan kelas serta pengenalan kosakata bahasa Inggris tematik.',
       'Berbagai perlombaan edukatif digelar, mulai dari lomba khitobah (pidato cilik), spelling bee islami, storytelling kisah sahabat Rasulullah, hingga drama musikal nasyid berbahasa Arab.',
       'Kegiatan ini terbukti memicu antusiasme tinggi murid tanpa rasa takut salah, menanamkan keberanian berbicara di depan umum sejak bangku sekolah dasar.'
@@ -743,7 +743,7 @@ export default function SiakadHomeView({
             {[
               { id: 'ALL', label: 'Semua Kabar' },
               { id: 'TK', label: 'TK IT' },
-              { id: 'SD', label: 'SD IT' },
+              { id: 'SD', label: 'SDIT' },
               { id: 'SMP', label: 'SMP IT' },
             ].map((tab) => (
               <button

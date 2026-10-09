@@ -190,7 +190,7 @@ export default function FoundationDashboardClient({
       fileName: `PPDB_Konsolidasi_Yayasan_${new Date().toISOString().slice(0, 10)}`,
       sheetName: 'PPDB Konsolidasi',
       title: 'REKAPITULASI PENERIMAAN MURID BARU (PPDB) TINGKAT YAYASAN',
-      subtitle: 'Yayasan Pendidikan Imam Bonjol Majalengka (TK IT, SD IT, SMP IT Al-Afiyah)',
+      subtitle: 'Yayasan Pendidikan Imam Bonjol Majalengka (TK IT, SDIT, SMP IT Al-Afiyah)',
       columns,
       data: exportRows,
     });
@@ -327,7 +327,7 @@ export default function FoundationDashboardClient({
               >
                 <option value="ALL">Semua Unit Jenjang</option>
                 <option value="tk">TK IT Al-Afiyah</option>
-                <option value="sd">SD IT Al-Afiyah</option>
+                <option value="sd">SDIT Al-Afiyah</option>
                 <option value="smp">SMP IT Al-Afiyah</option>
               </select>
             ) : (

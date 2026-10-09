@@ -3,7 +3,7 @@
  * Handles routing between:
  * - Foundation / Central: alafiyah.sch.id (dev: localhost:3000)
  * - TK IT Unit:           tk.alafiyah.sch.id (dev: tk.localhost:3000)
- * - SD IT Unit:           sd.alafiyah.sch.id (dev: sd.localhost:3000)
+ * - SDIT Unit:           sd.alafiyah.sch.id (dev: sd.localhost:3000)
  * - SMP IT Unit:          smp.alafiyah.sch.id (dev: smp.localhost:3000)
  */
 

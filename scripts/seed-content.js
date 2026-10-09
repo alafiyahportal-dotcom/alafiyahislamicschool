@@ -54,13 +54,13 @@ async function main() {
       ],
     });
 
-    // SD IT Teachers
+    // SDIT Teachers
     await prisma.teacher.createMany({
       data: [
         {
           schoolId: sd.id,
           name: 'Ustadz H. Lukman Hakim, M.Pd.',
-          role: 'Kepala Sekolah SD IT',
+          role: 'Kepala Sekolah SDIT',
           specialization: 'Magister Manajemen Pendidikan & Pembina Kurikulum JSIT',
           photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
           bio: 'Berkomitmen mengintegrasikan nilai-nilai tauhid dalam setiap mata pelajaran umum dan kurikulum nasional.',
@@ -184,18 +184,18 @@ async function main() {
       ],
     });
 
-    // SD IT News
+    // SDIT News
     await prisma.newsPost.createMany({
       data: [
         {
           schoolId: sd.id,
-          title: 'Peserta Didik SD IT Al-Afiyah Raih Juara 1 Olimpiade Sains & Matematika Tingkat Jawa Barat',
+          title: 'Peserta Didik SDIT Al-Afiyah Raih Juara 1 Olimpiade Sains & Matematika Tingkat Jawa Barat',
           slug: 'juara-1-olimpiade-sains-matematika-jabar',
           category: 'Prestasi',
-          excerpt: 'Prestasi membanggakan kembali diraih ananda Muhammad Raihan dan tim olimpiade sains SD IT Al-Afiyah dalam ajang kompetisi sains bergengsi.',
-          content: `Keluarga besar SD IT Al-Afiyah bersyukur atas torehan prestasi ananda Muhammad Raihan (Kelas 5) yang meraih Medali Emas Juara 1 Olimpiade Sains Terpadu Tingkat Propinsi Jawa Barat.\n\nKeberhasilan ini membuktikan bahwa perpaduan kurikulum Al-Qur'an dan penguatan sains modern mampu melahirkan generasi yang unggul dalam ilmu duniawi dan kokoh dalam aqidah ukhrawi. Selamat kepada ananda dan dewan pembina!`,
+          excerpt: 'Prestasi membanggakan kembali diraih ananda Muhammad Raihan dan tim olimpiade sains SDIT Al-Afiyah dalam ajang kompetisi sains bergengsi.',
+          content: `Keluarga besar SDIT Al-Afiyah bersyukur atas torehan prestasi ananda Muhammad Raihan (Kelas 5) yang meraih Medali Emas Juara 1 Olimpiade Sains Terpadu Tingkat Propinsi Jawa Barat.\n\nKeberhasilan ini membuktikan bahwa perpaduan kurikulum Al-Qur'an dan penguatan sains modern mampu melahirkan generasi yang unggul dalam ilmu duniawi dan kokoh dalam aqidah ukhrawi. Selamat kepada ananda dan dewan pembina!`,
           coverImage: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=800&auto=format&fit=crop',
-          author: 'Tim Media SD IT',
+          author: 'Tim Media SDIT',
           isPublished: true,
           publishedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
         },
@@ -205,7 +205,7 @@ async function main() {
           slug: 'kemah-ukhuwah-pandu-sit-majalengka',
           category: 'Kegiatan',
           excerpt: 'Ratusan peserta didik kelas 4-6 mengikuti perkemahan tiga hari dua malam untuk mengasah kemandirian, kekompakan regu, dan ketangguhan fisik berlandaskan adab Islam.',
-          content: `Di tengah sejuknya udara Bumi Perkemahan Majalengka, peserta didik SD IT Al-Afiyah mendirikan tenda dan mengikuti ragam agenda kepanduan Islam, mulai dari navigasi kompas, tali-temali, memasak mandiri, shalat tahajud bersama di alam terbuka, hingga lomba pioneering.\n\nKegiatan ini rutin digelar setiap semester untuk melatih jiwa kepemimpinan dan rasa persaudaraan yang kuat antar-peserta didik.`,
+          content: `Di tengah sejuknya udara Bumi Perkemahan Majalengka, peserta didik SDIT Al-Afiyah mendirikan tenda dan mengikuti ragam agenda kepanduan Islam, mulai dari navigasi kompas, tali-temali, memasak mandiri, shalat tahajud bersama di alam terbuka, hingga lomba pioneering.\n\nKegiatan ini rutin digelar setiap semester untuk melatih jiwa kepemimpinan dan rasa persaudaraan yang kuat antar-peserta didik.`,
           coverImage: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=800&auto=format&fit=crop',
           author: 'Pembina Pramuka SIT',
           isPublished: true,

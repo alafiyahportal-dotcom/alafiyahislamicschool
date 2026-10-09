@@ -47,8 +47,8 @@ export default async function ProfilPage({
     },
     {
       year: '2018',
-      title: 'Pembangunan Gedung & SD IT Al-Afiyah',
-      desc: 'Ekspansi pendidikan ke jenjang dasar (SD IT) di lahan terpadu Majalengka dengan integrasi kurikulum nasional dan kurikulum keislaman komprehensif.',
+      title: 'Pembangunan Gedung & SDIT Al-Afiyah',
+      desc: 'Ekspansi pendidikan ke jenjang dasar (SDIT) di lahan terpadu Majalengka dengan integrasi kurikulum nasional dan kurikulum keislaman komprehensif.',
     },
     {
       year: '2021',
@@ -184,7 +184,7 @@ export default async function ProfilPage({
             Membangun Generasi Qur’ani, Mandiri &amp; Berwawasan Global
           </h1>
           <p className="mt-4 text-base sm:text-lg text-emerald-100/90 max-w-3xl mx-auto leading-relaxed">
-            Yayasan Pendidikan Imam Bonjol menaungi TK IT, SD IT, dan SMP IT Al-Afiyah di Kabupaten Majalengka — memadukan kemurnian aqidah, keluhuran adab, dan keunggulan sains masa depan.
+            Yayasan Pendidikan Imam Bonjol menaungi TK IT, SDIT, dan SMP IT Al-Afiyah di Kabupaten Majalengka — memadukan kemurnian aqidah, keluhuran adab, dan keunggulan sains masa depan.
           </p>
 
           {/* Quick Metrics Bar */}
@@ -195,7 +195,7 @@ export default async function ProfilPage({
             </div>
             <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4 text-center">
               <div className="text-2xl sm:text-3xl font-black text-amber-300">3 Unit</div>
-              <div className="text-xs text-emerald-100 mt-1">TK IT, SD IT &amp; SMP IT</div>
+              <div className="text-xs text-emerald-100 mt-1">TK IT, SDIT &amp; SMP IT</div>
             </div>
             <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4 text-center">
               <div className="text-2xl sm:text-3xl font-black text-amber-300">30 Juz</div>
@@ -465,7 +465,7 @@ export default async function ProfilPage({
                 Legalitas Badan Hukum &amp; Izin Operasional
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Yayasan Pendidikan Imam Bonjol dan seluruh unit pendidikan (TK IT, SD IT, SMP IT Al-Afiyah) memiliki akta notaris resmi, SK Kemenkumham RI, Nomor Pokok Sekolah Nasional (NPSN), serta izin operasional dari Dinas Pendidikan dan Kemenag Kabupaten Majalengka.
+                Yayasan Pendidikan Imam Bonjol dan seluruh unit pendidikan (TK IT, SDIT, SMP IT Al-Afiyah) memiliki akta notaris resmi, SK Kemenkumham RI, Nomor Pokok Sekolah Nasional (NPSN), serta izin operasional dari Dinas Pendidikan dan Kemenag Kabupaten Majalengka.
               </p>
               <div className="pt-2 flex flex-wrap gap-3 text-xs text-slate-300">
                 <span className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">SK Kemenkumham RI Terdaftar</span>

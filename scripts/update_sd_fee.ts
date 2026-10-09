@@ -1,7 +1,7 @@
 import { prisma } from '../src/lib/prisma';
 
 /**
- * Sinkronisasi data SPMB SD IT Al-Afiyah T.A. 2027/2028 (poster resmi).
+ * Sinkronisasi data SPMB SDIT Al-Afiyah T.A. 2027/2028 (poster resmi).
  * Rekening bank sengaja TIDAK diubah.
  */
 const PROGRAMS_2027 = [

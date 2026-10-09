@@ -120,7 +120,7 @@ export default function EdukaAboutMosaic() {
 
             {/* Body Text */}
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-              Yayasan Pendidikan Imam Bonjol Majalengka mengelola ekosistem pendidikan Al-Afiyah yang menaungi jenjang <strong>TK IT</strong>, <strong>SD IT</strong>, dan <strong>SMP IT</strong>. Kami memadukan kurikulum resmi pemerintah dengan keunggulan Al-Qur’an (Tahfidz &amp; Tahsin), pembinaan akhlakul karimah, serta literasi sains dan teknologi masa kini.
+              Yayasan Pendidikan Imam Bonjol Majalengka mengelola ekosistem pendidikan Al-Afiyah yang menaungi jenjang <strong>TK IT</strong>, <strong>SDIT</strong>, dan <strong>SMP IT</strong>. Kami memadukan kurikulum resmi pemerintah dengan keunggulan Al-Qur’an (Tahfidz &amp; Tahsin), pembinaan akhlakul karimah, serta literasi sains dan teknologi masa kini.
             </p>
 
             {/* 2 Feature Points with Circular Badges */}

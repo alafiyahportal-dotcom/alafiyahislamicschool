@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Program Afiliasi Al-Afiyah Majalengka',
-    description: 'Raih komisi syariah berkah dengan menjadi mitra affiliator SPMB SD IT Al-Afiyah.',
+    description: 'Raih komisi syariah berkah dengan menjadi mitra affiliator SPMB SDIT Al-Afiyah.',
     url: '/affiliate',
     siteName: 'Al-Afiyah Islamic School',
     locale: 'id_ID',

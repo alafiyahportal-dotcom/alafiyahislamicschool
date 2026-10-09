@@ -23,8 +23,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Pilar Karakter & Nilai Islami SD IT',
-  description: 'Pilar pendidikan karakter nabawiyah, metode Smart Akhlak Fitrah, adab sebelum ilmu, dan pembiasaan sunnah harian murid SD IT Al-Afiyah Majalengka.',
+  title: 'Pilar Karakter & Nilai Islami SDIT',
+  description: 'Pilar pendidikan karakter nabawiyah, metode Smart Akhlak Fitrah, adab sebelum ilmu, dan pembiasaan sunnah harian murid SDIT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -127,8 +127,8 @@ export const revalidate = 60;
 export default async function SdKarakterPage() {
   let displayPillars = THREE_PILLARS;
   let displayHabits = SEVEN_HABITS;
-  let headline = 'Pilar Karakter & Nilai Islami SD IT Al-Afiyah';
-  let description = 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.';
+  let headline = 'Pilar Karakter & Nilai Islami SDIT Al-Afiyah';
+  let description = 'Mendidik murid di SDIT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.';
 
   try {
     const school = await prisma.school.findUnique({
@@ -177,7 +177,7 @@ export default async function SdKarakterPage() {
             <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
               <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Beranda SD IT</span>
+                <span>Beranda SDIT</span>
               </Link>
               <ChevronRight className="w-3 h-3 text-emerald-300/50" />
               <span className="text-white font-medium">Pilar Karakter</span>
@@ -211,7 +211,7 @@ export default async function SdKarakterPage() {
                 Tiga Pilar Utama Smart Akhlak Fitrah
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-2">
-                Tiga pilar kurikulum terpadu yang menjiwai seluruh dinamika kegiatan belajar di SD IT Al-Afiyah.
+                Tiga pilar kurikulum terpadu yang menjiwai seluruh dinamika kegiatan belajar di SDIT Al-Afiyah.
               </p>
             </ScrollReveal>
 
@@ -316,7 +316,7 @@ export default async function SdKarakterPage() {
         <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
           <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Siapkan Fondasi Karakter Islami Ananda Bersama SD IT Al-Afiyah
+              Siapkan Fondasi Karakter Islami Ananda Bersama SDIT Al-Afiyah
             </h2>
             <p className="mt-3 text-xs sm:text-sm text-emerald-100 max-w-xl mx-auto leading-relaxed">
               Kuota SPMB T.A. 2027/2028 terbatas hanya 2 Rombel. Pendaftaran dibuka untuk kelas 1 putra &amp; putri.
@@ -333,7 +333,7 @@ export default async function SdKarakterPage() {
                 href="/sd/spmb"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all"
               >
-                <span>Informasi SPMB SD IT</span>
+                <span>Informasi SPMB SDIT</span>
               </Link>
             </div>
           </ScrollReveal>

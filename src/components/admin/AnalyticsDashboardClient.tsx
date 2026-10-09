@@ -173,7 +173,7 @@ export default function AnalyticsDashboardClient({
             >
               <option value="ALL">Semua Unit (TK, SD, SMP)</option>
               <option value="tk">PAUD / TK IT Al-Afiyah</option>
-              <option value="sd">SD IT Al-Afiyah</option>
+              <option value="sd">SDIT Al-Afiyah</option>
               <option value="smp">SMP IT Al-Afiyah</option>
             </select>
           </div>
@@ -230,7 +230,7 @@ export default function AnalyticsDashboardClient({
           LAPORAN EKSEKUTIF ANALITIK & INTELIGENSI PENERIMAAN MURID BARU (PPDB) TAHUN AJARAN 2027/2028
         </p>
         <p className="text-[10px] text-slate-500 mt-1">
-          Unit Penyelenggara: TK IT, SD IT, & SMP IT Al-Afiyah | Dicetak pada: {new Date().toLocaleDateString('id-ID', { dateStyle: 'full' })}
+          Unit Penyelenggara: TK IT, SDIT, & SMP IT Al-Afiyah | Dicetak pada: {new Date().toLocaleDateString('id-ID', { dateStyle: 'full' })}
         </p>
       </div>
 

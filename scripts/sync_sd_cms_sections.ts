@@ -15,13 +15,13 @@ async function main() {
 
   // 1. Identity
   const identityData = {
-    name: 'SD IT Al-Afiyah Majalengka',
+    name: 'SDIT Al-Afiyah Majalengka',
     badgeText: 'TERAKREDITASI B • YPIB GUGUS 3 NUSA INDAH',
     tagline: 'Mendidik Generasi Sholeh, Cerdas, Mandiri, Berwawasan Luas, dan Berakhlakul Islami',
     schoolAddress: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka 45411',
     mapsUrl: 'https://maps.google.com/?q=Majalengka',
     whatsappNumber: '6281310139001',
-    officerName: 'Layanan Terpadu Tata Usaha & SPMB SD IT',
+    officerName: 'Layanan Terpadu Tata Usaha & SPMB SDIT',
     email: 'sditalafiyahmjl@gmail.com',
     consultationHours: 'Senin - Jumat: 07.00 - 15.00 WIB • Sabtu: 07.00 - 12.00 WIB'
   };
@@ -139,11 +139,11 @@ async function main() {
     {
       name: 'Field Study Smart Akhlak Fitrah (P4S An-Nabawiyah)',
       image: '/images/sd-field-study-banner.jpg',
-      desc: 'Observasi kontekstual murid SD IT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
+      desc: 'Observasi kontekstual murid SDIT Al-Afiyah di alam terbuka, menanamkan nilai kemandirian, rasa syukur, dan cinta ciptaan Allah Ta\'ala.',
       category: 'Agro-Sains & Alam',
     },
     {
-      name: 'Prestasi Tim Futsal SD IT Al-Afiyah (Second Place)',
+      name: 'Prestasi Tim Futsal SDIT Al-Afiyah (Second Place)',
       image: '/images/sd-futsal-champion.jpg',
       desc: 'Raihan piala Juara 2 (Second Place) Futsal tingkat pelajar, melatih sportivitas, mental juara, dan ukhuwah islamiyah.',
       category: 'Prestasi & Bakat',
@@ -185,8 +185,8 @@ async function main() {
 
   // 7. SD Karakter
   const sdKarakterData = {
-    heroHeadline: 'Pilar Karakter & Nilai Islami SD IT Al-Afiyah',
-    heroDescription: 'Mendidik murid di SD IT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.',
+    heroHeadline: 'Pilar Karakter & Nilai Islami SDIT Al-Afiyah',
+    heroDescription: 'Mendidik murid di SDIT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.',
     threePillars: [
       {
         number: '01',
@@ -245,7 +245,7 @@ async function main() {
       'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.'
     ],
     identitasList: [
-      { label: 'Nama Sekolah', value: 'SD IT Al-Afiyah Majalengka' },
+      { label: 'Nama Sekolah', value: 'SDIT Al-Afiyah Majalengka' },
       { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
       { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
       { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },

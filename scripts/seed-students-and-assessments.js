@@ -88,7 +88,7 @@ async function main() {
       const nisn = `00${year.slice(2)}56${seq}`;
 
       let classGrade = 'TK A';
-      if (reg.school.slug === 'sd') classGrade = '1 SD IT';
+      if (reg.school.slug === 'sd') classGrade = '1 SDIT';
       if (reg.school.slug === 'smp') classGrade = '7 SMP IT';
 
       await prisma.student.create({
@@ -150,7 +150,7 @@ async function main() {
       dob: new Date('2017-08-20'),
       nik: '3210122008170002',
       address: 'Komplek Asri Blok D-14, Kadipaten, Majalengka',
-      classGrade: '3 SD IT',
+      classGrade: '3 SDIT',
       academicYear: '2026/2027',
       parentInfo: JSON.stringify({
         fatherName: 'Ir. Ahmad Zaki, M.T.',

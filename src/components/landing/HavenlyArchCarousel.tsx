@@ -29,16 +29,16 @@ const archItems: ArchItem[] = [
   {
     id: 2,
     title: 'Praktik Sains Greenhouse',
-    role: 'Outdoor Learning SD IT',
-    unit: 'SD IT Al-Afiyah',
+    role: 'Outdoor Learning SDIT',
+    unit: 'SDIT Al-Afiyah',
     image: '/images/sd-hero-greenhouse.jpg',
     quote: 'Murid belajar agro-literasi dan sains nabawi langsung dari kebun dan greenhouse sekolah.'
   },
   {
     id: 3,
-    title: 'Kegiatan Pembelajaran SD IT',
+    title: 'Kegiatan Pembelajaran SDIT',
     role: 'Karakter & Prestasi',
-    unit: 'SD IT Al-Afiyah',
+    unit: 'SDIT Al-Afiyah',
     image: '/images/sd-hero-activity.jpg',
     quote: 'Membentuk karakter Islami, literasi Al-Qur\'an, dan prestasi unggul melalui kegiatan bermakna.'
   },
@@ -52,9 +52,9 @@ const archItems: ArchItem[] = [
   },
   {
     id: 5,
-    title: 'Tim Futsal SD IT',
+    title: 'Tim Futsal SDIT',
     role: 'Juara 2 Turnamen Pelajar',
-    unit: 'SD IT Al-Afiyah',
+    unit: 'SDIT Al-Afiyah',
     image: '/images/sd-futsal-champion.jpg',
     quote: 'Menjunjung sportivitas islami dan kerja sama tim membawa kami meraih trofi membanggakan.'
   },

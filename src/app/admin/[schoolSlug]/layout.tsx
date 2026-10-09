@@ -10,7 +10,7 @@ export async function generateMetadata({
 
   const unitName =
     schoolSlug === 'sd'
-      ? 'Admin SD IT Al-Afiyah'
+      ? 'Admin SDIT Al-Afiyah'
       : schoolSlug === 'tk'
       ? 'Admin TK IT Al-Afiyah'
       : schoolSlug === 'smp'

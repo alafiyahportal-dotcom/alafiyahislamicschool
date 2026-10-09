@@ -43,14 +43,14 @@ export default async function DoaDzikirPage({
           </p>
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-200 text-xs font-semibold uppercase tracking-wider mb-5">
             <BookHeart className="w-3.5 h-3.5 text-amber-300" />
-            <span>{isSd ? 'Pustaka Ruhani Murid SD IT Al-Afiyah' : 'Pustaka Ruhani &amp; Wirid Harian'}</span>
+            <span>{isSd ? 'Pustaka Ruhani Murid SDIT Al-Afiyah' : 'Pustaka Ruhani &amp; Wirid Harian'}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
-            {isSd ? 'Dzikir Pagi, Petang & Doa Harian SD IT' : 'Dzikir Pagi, Petang &amp; Doa Harian Murid'}
+            {isSd ? 'Dzikir Pagi, Petang & Doa Harian SDIT' : 'Dzikir Pagi, Petang &amp; Doa Harian Murid'}
           </h1>
           <p className="mt-4 text-base sm:text-lg text-emerald-100/90 max-w-2xl mx-auto leading-relaxed">
-            Menghidupkan sunnah dzikrullah sebagai benteng keimanan murid, ketenteraman hati penuntut ilmu, serta sarana memohon keberkahan dalam setiap ikhtiar menghafal Al-Qur’an di SD IT Al-Afiyah.
+            Menghidupkan sunnah dzikrullah sebagai benteng keimanan murid, ketenteraman hati penuntut ilmu, serta sarana memohon keberkahan dalam setiap ikhtiar menghafal Al-Qur’an di SDIT Al-Afiyah.
           </p>
         </div>
       </section>
@@ -64,7 +64,7 @@ export default async function DoaDzikirPage({
       <StickyMobileBar 
         schoolSlug={schoolSlug} 
         waPhone={isSd ? '6281310139001' : '6281223344552'} 
-        schoolName={isSd ? 'SD IT Al-Afiyah' : 'Al-Afiyah'} 
+        schoolName={isSd ? 'SDIT Al-Afiyah' : 'Al-Afiyah'} 
       />
     </div>
   );

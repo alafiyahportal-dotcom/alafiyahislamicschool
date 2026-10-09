@@ -58,7 +58,7 @@ const unitCards: UnitCardData[] = [
   },
   {
     id: 'sd',
-    name: 'SD IT Al-Afiyah',
+    name: 'SDIT Al-Afiyah',
     hashtag: '# SDIT Smart Akhlak Fitrah',
     image: '/images/sd-hero-greenhouse.jpg',
     isFeatured: true,
@@ -75,8 +75,8 @@ const unitCards: UnitCardData[] = [
       },
     ],
     description:
-      'Bukan sekadar tempat belajar, SD IT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan keteladanan sunnah Rasulullah ﷺ, penanaman iman sebelum Al-Qur\'an, tahfidz Juz 30 mutqin, serta literasi numerasi sains modern.',
-    primaryBtnText: 'Profil SD IT',
+      'Bukan sekadar tempat belajar, SDIT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan keteladanan sunnah Rasulullah ﷺ, penanaman iman sebelum Al-Qur\'an, tahfidz Juz 30 mutqin, serta literasi numerasi sains modern.',
+    primaryBtnText: 'Profil SDIT',
     primaryBtnLink: getSchoolUrl('sd'),
     secondaryBtnText: 'Daftar SPMB SD',
     secondaryBtnLink: '/ppdb/daftar?school=sd',
@@ -156,7 +156,7 @@ export default function SatuanPendidikanSection() {
           <div className="lg:max-w-md flex flex-col items-start lg:items-end justify-between">
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal mb-5 lg:text-right">
               Seluruh satuan pendidikan dirancang berkesinambungan: mulai dari
-              PAUD &amp; TK IT usia emas, SD IT dengan karakter Smart Akhlak Fitrah,
+              PAUD &amp; TK IT usia emas, SDIT dengan karakter Smart Akhlak Fitrah,
               hingga SMP IT unggulan dengan sistem fullday &amp; asrama.
             </p>
 
@@ -171,7 +171,7 @@ export default function SatuanPendidikanSection() {
         </div>
 
         {/* ===================================================
-            3 SATUAN PENDIDIKAN CARDS: TK IT, SD IT, SMP IT
+            3 SATUAN PENDIDIKAN CARDS: TK IT, SDIT, SMP IT
             Symmetric, Generous 3-Column Grid matching Al-Irsyad Style
             =================================================== */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">

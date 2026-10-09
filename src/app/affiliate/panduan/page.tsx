@@ -65,7 +65,7 @@ export default function AffiliateGuidePage() {
                 Status: In Progress • Siap Cetak
               </span>
               <h1 className="text-sm sm:text-base font-bold text-white leading-tight">
-                Panduan Operasional Akun Afiliasi SD IT Al-Afiyah
+                Panduan Operasional Akun Afiliasi SDIT Al-Afiyah
               </h1>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function AffiliateGuidePage() {
       {/* Main Document Paper Sheet (A4 Styled on Desktop and Print) */}
       <div className="print-paper max-w-4xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/90 overflow-hidden print:shadow-none print:border-none print:rounded-none">
         
-        {/* Kop Surat Resmi Yayasan & SD IT */}
+        {/* Kop Surat Resmi Yayasan & SDIT */}
         <div className="p-6 sm:p-8 border-b-2 border-[#064E3B] text-center bg-slate-50/50 print:bg-transparent">
           <div className="flex items-center justify-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-xl bg-[#064E3B] text-white flex items-center justify-center font-bold text-lg shadow-sm">
@@ -106,7 +106,7 @@ export default function AffiliateGuidePage() {
                 YAYASAN PENDIDIKAN IMAM BONJOL MAJALENGKA
               </h2>
               <p className="text-xs sm:text-sm font-bold text-emerald-800">
-                SD IT AL-AFIYAH MAJALENGKA (SMART AKHLAK FITRAH)
+                SDIT AL-AFIYAH MAJALENGKA (SMART AKHLAK FITRAH)
               </p>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default function AffiliateGuidePage() {
               Cara Pendaftaran &amp; Login Akun Mitra Afiliasi
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-              Panduan ringkas bagi wali murid, dewan guru, dan simpatisan untuk bergabung sebagai mitra syiar dakwah SD IT Al-Afiyah.
+              Panduan ringkas bagi wali murid, dewan guru, dan simpatisan untuk bergabung sebagai mitra syiar dakwah SDIT Al-Afiyah.
             </p>
           </div>
 
@@ -138,7 +138,7 @@ export default function AffiliateGuidePage() {
               <strong className="block font-bold text-emerald-900 mb-0.5">
                 STATUS SISTEM: DALAM TAHAP PENGEMBANGAN AKTIF (IN PROGRESS)
               </strong>
-              Platform digital terpadu Al-Afiyah saat ini terus disempurnakan. Dokumen panduan ini disiapkan sebagai materi bahasan dalam rapat internal SD IT Al-Afiyah siang ini untuk menyerap masukan operasional nyata dari para asatidzah dan pengurus yayasan.
+              Platform digital terpadu Al-Afiyah saat ini terus disempurnakan. Dokumen panduan ini disiapkan sebagai materi bahasan dalam rapat internal SDIT Al-Afiyah siang ini untuk menyerap masukan operasional nyata dari para asatidzah dan pengurus yayasan.
             </div>
           </div>
 
@@ -307,9 +307,9 @@ export default function AffiliateGuidePage() {
               </div>
               <div className="p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50/70 text-center relative shadow-sm">
                 <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full shadow-xs">
-                  Fokus SD IT
+                  Fokus SDIT
                 </span>
-                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">SD IT Al-Afiyah</span>
+                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">SDIT Al-Afiyah</span>
                 <p className="text-xl font-black text-emerald-900 mt-0.5">Rp 150.000</p>
                 <span className="text-[10px] text-emerald-700 font-semibold block">total per murid rujukan</span>
               </div>
@@ -320,10 +320,10 @@ export default function AffiliateGuidePage() {
               </div>
             </div>
 
-            {/* Rincian Mekanisme Komisi SD IT Al-Afiyah */}
+            {/* Rincian Mekanisme Komisi SDIT Al-Afiyah */}
             <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 text-xs space-y-2">
               <span className="font-bold text-emerald-950 block text-[11px] uppercase tracking-wide">
-                📌 Rincian Pembagian Komisi SD IT Al-Afiyah (Total Rp 150.000 / Murid):
+                📌 Rincian Pembagian Komisi SDIT Al-Afiyah (Total Rp 150.000 / Murid):
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-800">
                 <div className="bg-white p-2.5 rounded-lg border border-emerald-200 shadow-2xs">
@@ -343,12 +343,12 @@ export default function AffiliateGuidePage() {
               </div>
             </div>
 
-            {/* Tabel Simulasi Estimasi Pendapatan SD IT */}
+            {/* Tabel Simulasi Estimasi Pendapatan SDIT */}
             <div className="rounded-xl border border-slate-200 overflow-hidden">
               <div className="bg-[#064E3B] text-white px-4 py-2.5 flex items-center justify-between text-xs">
                 <span className="font-bold flex items-center gap-1.5">
                   <Calculator className="w-3.5 h-3.5 text-amber-300" />
-                  Simulasi Estimasi Perolehan Komisi SD IT Al-Afiyah (Rp 150.000 / Murid)
+                  Simulasi Estimasi Perolehan Komisi SDIT Al-Afiyah (Rp 150.000 / Murid)
                 </span>
                 <span className="text-[10px] text-emerald-200 font-medium">Kuota Terbatas: 2 Rombel</span>
               </div>
@@ -396,7 +396,7 @@ export default function AffiliateGuidePage() {
                     <td className="p-2.5 font-bold text-emerald-950">40 Murid (2 Rombel Penuh)</td>
                     <td className="p-2.5 font-mono text-[11px]">40 × Rp 150.000</td>
                     <td className="p-2.5 font-black text-emerald-900">Rp 6.000.000</td>
-                    <td className="p-2.5 font-bold text-emerald-900">Kuota maksimal SD IT Al-Afiyah terpenuhi 100%</td>
+                    <td className="p-2.5 font-bold text-emerald-900">Kuota maksimal SDIT Al-Afiyah terpenuhi 100%</td>
                   </tr>
                 </tbody>
               </table>
@@ -425,7 +425,7 @@ export default function AffiliateGuidePage() {
               Prinsip Syar&apos;i Kemitraan Dakwah Al-Afiyah:
             </h4>
             <p className="text-[11px] text-slate-600 leading-relaxed">
-              Program ini bukan Multi-Level Marketing (MLM) dan tanpa skema piramida. Ini adalah akad murni <em>Ju&apos;alah / Ujrah</em> atas jasa merekomendasikan kebaikan pendidikan Islam. 100% bebas biaya pendaftaran, transparan, dan bertujuan utama mempercepat terpenuhinya kuota eksklusif SD IT Al-Afiyah (<strong>Hanya 2 Rombel</strong>) dengan murid yang satu visi akhlak nabawiyah.
+              Program ini bukan Multi-Level Marketing (MLM) dan tanpa skema piramida. Ini adalah akad murni <em>Ju&apos;alah / Ujrah</em> atas jasa merekomendasikan kebaikan pendidikan Islam. 100% bebas biaya pendaftaran, transparan, dan bertujuan utama mempercepat terpenuhinya kuota eksklusif SDIT Al-Afiyah (<strong>Hanya 2 Rombel</strong>) dengan murid yang satu visi akhlak nabawiyah.
             </p>
           </div>
 

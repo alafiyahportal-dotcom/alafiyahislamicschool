@@ -31,7 +31,7 @@ export default function SpmbRoadmapSection({
       actionText: 'Isi Formulir SPMB',
       href: ppdbUrl,
       tagline: '28 Poin Standar Dapodik',
-      desc: 'Orang tua mengisi formulir biodata ananda & keluarga secara online melalui portal SPMB SD IT. Langsung mendapatkan ID Pendaftaran resmi serta akses kartu pendaftaran.',
+      desc: 'Orang tua mengisi formulir biodata ananda & keluarga secara online melalui portal SPMB SDIT. Langsung mendapatkan ID Pendaftaran resmi serta akses kartu pendaftaran.',
     },
     {
       num: '02',
@@ -68,14 +68,14 @@ export default function SpmbRoadmapSection({
       className="py-16 sm:py-20 bg-emerald-950 scroll-mt-16 sm:scroll-mt-20 w-full text-white relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header - Balanced line-break with full SD IT Al-Afiyah Majalengka */}
+        {/* Header - Balanced line-break with full SDIT Al-Afiyah Majalengka */}
         <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
           <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
             Tahapan SPMB T.A. 2027/2028
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3 leading-snug">
             4 Langkah Mudah Pendaftaran <br />
-            <span className="text-amber-400 inline-block">SD IT Al-Afiyah Majalengka</span>
+            <span className="text-amber-400 inline-block">SDIT Al-Afiyah Majalengka</span>
           </h2>
           <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
             Sistem penerimaan yang ramah keluarga, transparan, dan terintegrasi digital tanpa prosedur yang berbelit.
@@ -127,7 +127,7 @@ export default function SpmbRoadmapSection({
           <div className="bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/15 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <h4 className="text-lg sm:text-xl font-bold text-white">
-                Siap Mendaftarkan Ananda di SD IT Al-Afiyah?
+                Siap Mendaftarkan Ananda di SDIT Al-Afiyah?
               </h4>
               <p className="text-xs sm:text-sm text-emerald-100/90 mt-1">
                 Kuota rombel terbatas hanya 2 kelas (maks. 60 murid) untuk menjamin kualitas pembinaan intensif.

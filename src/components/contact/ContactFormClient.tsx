@@ -20,7 +20,7 @@ export default function ContactFormClient() {
 
     // Direct routing based on unit selection
     let targetPhone = '6281223344552';
-    if (formData.unit.includes('SD IT') || formData.unit.includes('SDIT')) {
+    if (formData.unit.includes('SDIT') || formData.unit.includes('SDIT')) {
       targetPhone = '6281310139001';
     }
 
@@ -116,7 +116,7 @@ export default function ContactFormClient() {
               >
                 <option value="Semua Unit / Yayasan">Semua Unit / Yayasan</option>
                 <option value="TK IT Al-Afiyah">TK IT Al-Afiyah (PAUD/TK)</option>
-                <option value="SD IT Al-Afiyah">SDIT Al-Afiyah (Smart Akhlak Fitrah - SPMB)</option>
+                <option value="SDIT Al-Afiyah">SDIT Al-Afiyah (Smart Akhlak Fitrah - SPMB)</option>
                 <option value="SMP IT Al-Afiyah">SMP IT Al-Afiyah (Fullday School)</option>
               </select>
             </div>

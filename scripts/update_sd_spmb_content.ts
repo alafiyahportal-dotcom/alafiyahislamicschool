@@ -1,7 +1,7 @@
 import { prisma } from '../src/lib/prisma';
 
 /**
- * Sinkronisasi konten DB SPMB SD IT T.A. 2027/2028:
+ * Sinkronisasi konten DB SPMB SDIT T.A. 2027/2028:
  * - Artikel pengumuman SPMB (slug lama dipertahankan agar link tetap hidup).
  * - Referensi poster lama di CMS → file berversi (hindari cache browser 7 hari).
  */

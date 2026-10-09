@@ -486,7 +486,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
               <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-700">
                 <div className="font-bold text-slate-900 text-sm">Ketentuan Masa Orientasi Murid ({registration.school.badgeText}):</div>
                 <p>
-                  1. Murid baru TK IT &amp; SD IT wajib mengikuti Masa Pengenalan Lingkungan Sekolah (MPLS) ceria yang dijadwalkan pada awal Juli 2027.
+                  1. Murid baru TK IT &amp; SDIT wajib mengikuti Masa Pengenalan Lingkungan Sekolah (MPLS) ceria yang dijadwalkan pada awal Juli 2027.
                 </p>
                 <p>
                   2. Paket seragam yang telah dipesan akan dibagikan saat sesi pengukuran ulang dan pengambilan di ruang Tata Usaha pada tanggal 20-25 Juni 2026.
@@ -868,7 +868,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
                   <div className="w-14 h-14 flex items-center justify-center shrink-0">
                     <img
                       src="/images/sd-logo.png"
-                      alt="Logo SD IT Al-Afiyah"
+                      alt="Logo SDIT Al-Afiyah"
                       className="w-full h-full object-contain"
                     />
                   </div>

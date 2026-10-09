@@ -36,12 +36,12 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
   // School-specific configuration tailored to each unit without cross-unit mentions
   const unitConfig = {
     sd: {
-      name: 'SD IT Al-Afiyah',
+      name: 'SDIT Al-Afiyah',
       subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
       logoUrl: '/images/sd-logo.png',
       badgeLetter: 'SD',
       description:
-        'SD IT Al-Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. Memadukan kurikulum Diknas & yayasan dalam mutu berpijak iman dan taqwa, dengan program unggulan Tahsin & Tahfidz Al-Qur\'an.',
+        'SDIT Al-Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. Memadukan kurikulum Diknas & yayasan dalam mutu berpijak iman dan taqwa, dengan program unggulan Tahsin & Tahfidz Al-Qur\'an.',
       accreditation: 'Terakreditasi B',
       permit: 'YPIB • Gugus 3 Nusa Indah',
       address:
@@ -49,18 +49,18 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       hotline: '+62 813-1013-9001',
       hotlineWa: 'https://wa.me/6281310139001',
       email: 'sditalafiyahmjl@gmail.com',
-      navTitle: 'Navigasi SD IT',
+      navTitle: 'Navigasi SDIT',
       navLinks: [
         { label: 'Profil & Karakter Nabawi', href: '/sd#values' },
         { label: 'Program Unggulan', href: '/sd#programs' },
         { label: 'Dewan Asatidzah & Guru', href: '/sd#teachers' },
         { label: 'Fasilitas & Greenhouse', href: '/sd#facilities' },
-        { label: 'Kabar & Artikel SD IT', href: '/sd/berita' },
+        { label: 'Kabar & Artikel SDIT', href: '/sd/berita' },
         { label: 'Agenda & Kalender Akademik', href: '/sd/agenda' },
-        { label: 'Cek Status SPMB SD IT', href: '/sd/spmb/cek-status' },
-        { label: 'Formulir SPMB SD IT Online', href: '/sd/spmb/daftar', isHighlighted: true },
+        { label: 'Cek Status SPMB SDIT', href: '/sd/spmb/cek-status' },
+        { label: 'Formulir SPMB SDIT Online', href: '/sd/spmb/daftar', isHighlighted: true },
       ],
-      bottomCopyright: '© 2026 SD IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
+      bottomCopyright: '© 2026 SDIT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
       bottomLinks: [],
     },
     tk: {
@@ -140,7 +140,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       navTitle: 'Unit Pendidikan',
       navLinks: [
         { label: 'TK IT Al-Afiyah', href: getSchoolUrl('tk') },
-        { label: 'SD IT Al-Afiyah', href: getSchoolUrl('sd') },
+        { label: 'SDIT Al-Afiyah', href: getSchoolUrl('sd') },
         { label: 'SMP IT Al-Afiyah', href: getSchoolUrl('smp') },
         { label: 'Mitra Afiliasi', href: '/affiliate', isGold: true },
       ],
@@ -377,7 +377,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
               {activeSlug === 'sd'
-                ? 'Sekretariat SD IT & Kontak'
+                ? 'Sekretariat SDIT & Kontak'
                 : activeSlug === 'tk'
                 ? 'Sekretariat TK IT & Kontak'
                 : activeSlug === 'smp'

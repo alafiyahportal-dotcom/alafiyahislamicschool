@@ -74,10 +74,10 @@ export default function EdukaUnitTable({
     },
     {
       id: '2',
-      name: 'SD IT Al-Afiyah Majalengka',
-      headmaster: 'Kepala Sekolah SD IT',
+      name: 'SDIT Al-Afiyah Majalengka',
+      headmaster: 'Kepala Sekolah SDIT',
       slug: 'sd',
-      badgeTag: 'SD IT Terpadu',
+      badgeTag: 'SDIT Terpadu',
       iconType: 'school',
       levelInfo: 'Kelas 1 Reguler & Tahfidz',
       studentsCount: 68,
@@ -116,8 +116,8 @@ export default function EdukaUnitTable({
     },
   ];
 
-  // DATASET 2: SD IT SPECIFIC CLASSES (Neutral, Fully Editable)
-  // DATASET 2: SD IT SPECIFIC CLASSES (Neutral, Fully Editable)
+  // DATASET 2: SDIT SPECIFIC CLASSES (Neutral, Fully Editable)
+  // DATASET 2: SDIT SPECIFIC CLASSES (Neutral, Fully Editable)
   const defaultSdRows: UnitRow[] = [
     {
       id: 'sd-1',
@@ -460,9 +460,9 @@ export default function EdukaUnitTable({
   let footerLinkText = 'Kelola Kuota Unit';
 
   if (schoolSlug === 'sd') {
-    title = 'Rombel & Program Belajar SD IT Al-Afiyah';
+    title = 'Rombel & Program Belajar SDIT Al-Afiyah';
     subtitle = 'Status keterisian kuota per kelas & rombongan belajar TP 2027/2028';
-    footerLabel = 'Pusat Penerimaan SD IT';
+    footerLabel = 'Pusat Penerimaan SDIT';
     footerLink = '/admin/sd/ppdb';
     footerLinkText = 'Buka Manajemen PPDB SD';
   } else if (schoolSlug === 'tk') {

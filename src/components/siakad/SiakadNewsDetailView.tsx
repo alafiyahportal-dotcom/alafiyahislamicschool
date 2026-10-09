@@ -18,7 +18,7 @@ export interface SiakadNewsItem {
   title: string;
   category: string;
   categoryColor: string;
-  unitTag?: string; // e.g. "TK IT", "SD IT", "SMP IT", "Yayasan"
+  unitTag?: string; // e.g. "TK IT", "SDIT", "SMP IT", "Yayasan"
   date: string;
   author: string;
   authorRole: string;

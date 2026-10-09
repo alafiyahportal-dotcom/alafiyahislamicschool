@@ -1,7 +1,7 @@
 {
   "name": "Ekosistem Pendidikan Terpadu Al-Afiyah",
   "short_name": "Al-Afiyah",
-  "description": "Portal Resmi Ekosistem Pendidikan Terpadu Al-Afiyah Majalengka — TK IT, SD IT, SMP IT, dan Yayasan Pendidikan Imam Bonjol.",
+  "description": "Portal Resmi Ekosistem Pendidikan Terpadu Al-Afiyah Majalengka — TK IT, SDIT, SMP IT, dan Yayasan Pendidikan Imam Bonjol.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

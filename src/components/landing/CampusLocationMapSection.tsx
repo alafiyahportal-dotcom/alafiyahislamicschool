@@ -19,13 +19,13 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
   const sectionTitle = isFoundation
     ? 'Lokasi Lingkungan Sekolah Islam Terpadu Al-Afiyah'
     : `Lokasi ${
-        isSd ? 'SD IT Al-Afiyah' : isTk ? 'TK IT Al-Afiyah' : isSmp ? 'SMP IT Al-Afiyah' : 'Sekolah Al-Afiyah'
+        isSd ? 'SDIT Al-Afiyah' : isTk ? 'TK IT Al-Afiyah' : isSmp ? 'SMP IT Al-Afiyah' : 'Sekolah Al-Afiyah'
       }`;
 
   const sectionSubtitle = isFoundation
-    ? 'Seluruh unit pendidikan (PAUD/TK IT, SD IT, dan SMP IT Al-Afiyah) berada berdampingan dalam satu kawasan terpadu yang asri, tenang, dan strategis di Lingkungan Giri Asih / Al-Afiyah, Majalengka.'
+    ? 'Seluruh unit pendidikan (PAUD/TK IT, SDIT, dan SMP IT Al-Afiyah) berada berdampingan dalam satu kawasan terpadu yang asri, tenang, dan strategis di Lingkungan Giri Asih / Al-Afiyah, Majalengka.'
     : `Lingkungan sekolah ${
-        isSd ? 'SD IT Al-Afiyah' : isTk ? 'TK IT Al-Afiyah' : 'SMP IT Al-Afiyah'
+        isSd ? 'SDIT Al-Afiyah' : isTk ? 'TK IT Al-Afiyah' : 'SMP IT Al-Afiyah'
       } terletak di kawasan yang asri, tenang, dan mudah diakses di Majalengka.`;
 
   const addressLabel = isFoundation ? 'Alamat Kawasan Lingkungan Terpadu' : 'Alamat Sekolah';
@@ -98,7 +98,7 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
                 {isFoundation && (
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200/80 mb-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
-                    <span>Satu Kompleks Berdampingan: TK IT • SD IT • SMP IT</span>
+                    <span>Satu Kompleks Berdampingan: TK IT • SDIT • SMP IT</span>
                   </div>
                 )}
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
@@ -170,8 +170,8 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
               <a
                 href={`https://wa.me/${phoneRaw}?text=${encodeURIComponent(
                   isFoundation
-                    ? "Assalamu'alaikum Panitia Al-Afiyah, saya ingin bertanya perihal lokasi terpadu TK IT, SD IT & SMP IT Al-Afiyah"
-                    : `Assalamu'alaikum Panitia ${isSd ? 'SD IT' : isTk ? 'TK IT' : 'SMP IT'}, saya ingin konsultasi lokasi sekolah`
+                    ? "Assalamu'alaikum Panitia Al-Afiyah, saya ingin bertanya perihal lokasi terpadu TK IT, SDIT & SMP IT Al-Afiyah"
+                    : `Assalamu'alaikum Panitia ${isSd ? 'SDIT' : isTk ? 'TK IT' : 'SMP IT'}, saya ingin konsultasi lokasi sekolah`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -20,8 +20,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Satuan Pendidikan Terpadu | TK IT, SD IT & SMP IT Al-Afiyah Majalengka',
-  description: 'Program pendidikan berkelanjutan mulai dari jenjang PAUD/TK IT, SD IT, hingga SMP IT Full Day School di Al-Afiyah Yayasan Pendidikan Imam Bonjol.',
+  title: 'Satuan Pendidikan Terpadu | TK IT, SDIT & SMP IT Al-Afiyah Majalengka',
+  description: 'Program pendidikan berkelanjutan mulai dari jenjang PAUD/TK IT, SDIT, hingga SMP IT Full Day School di Al-Afiyah Yayasan Pendidikan Imam Bonjol.',
 };
 
 export default function SatuanPendidikanPage() {
@@ -49,7 +49,7 @@ export default function SatuanPendidikanPage() {
     },
     {
       id: 'sd',
-      name: 'SD IT Al-Afiyah',
+      name: 'SDIT Al-Afiyah',
       subdomainLabel: 'sd.alafiyah.sch.id',
       arabic: 'المَدْرَسَةُ الابْتِدَائِيَّةُ الإِسْلَامِيَّةِ',
       level: 'Pendidikan Dasar (Kelas 1 - 6)',
@@ -66,7 +66,7 @@ export default function SatuanPendidikanPage() {
         'Ekstrakurikuler Memanah, Pramuka IT, Robotika & Silat',
       ],
       link: getSchoolUrl('sd'),
-      ctaText: 'Kunjungi Web SD IT',
+      ctaText: 'Kunjungi Web SDIT',
     },
     {
       id: 'smp',
@@ -265,7 +265,7 @@ export default function SatuanPendidikanPage() {
                     TK IT Al-Afiyah
                   </th>
                   <th className="py-3 px-4 text-xs font-black text-emerald-800 uppercase tracking-wider w-1/4">
-                    SD IT Al-Afiyah
+                    SDIT Al-Afiyah
                   </th>
                   <th className="py-3 px-4 text-xs font-black text-amber-900 uppercase tracking-wider w-1/4">
                     SMP IT Al-Afiyah (Full Day)

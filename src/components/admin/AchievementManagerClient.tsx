@@ -421,7 +421,7 @@ export default function AchievementManagerClient({
             >
               <option value="ALL">Semua Unit Sekolah</option>
               <option value="tk">TK IT Al-Afiyah</option>
-              <option value="sd">SD IT Al-Afiyah</option>
+              <option value="sd">SDIT Al-Afiyah</option>
               <option value="smp">SMP IT Al-Afiyah</option>
             </select>
           )}

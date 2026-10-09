@@ -44,7 +44,7 @@ function renderHeroHeadline(
   const ph = (titleHighlight || '').trim();
   const p2 = (titlePart2 || '').trim();
 
-  // If this is SD IT's headline ("Bukan Sekedar / Sekadar")
+  // If this is SDIT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
     const boldLine = 'block text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15] tracking-tight';
     return (
@@ -261,7 +261,7 @@ export default function UnitHeroSlider({
         titlePart2: '',
         description:
           'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
-        primaryCtaText: 'Daftar SPMB SD IT',
+        primaryCtaText: 'Daftar SPMB SDIT',
         primaryCtaLink: ppdbUrl,
         secondaryCtaText: 'WhatsApp (0813-1013-9001)',
         secondaryCtaLink: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran',

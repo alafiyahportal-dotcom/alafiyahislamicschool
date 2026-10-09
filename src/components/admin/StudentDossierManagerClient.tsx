@@ -68,7 +68,7 @@ export const StudentDossierManagerClient: React.FC<StudentDossierManagerClientPr
     nik: '',
     religion: 'Islam',
     address: '',
-    classGrade: '1 SD IT',
+    classGrade: '1 SDIT',
     academicYear: '2026/2027',
     fatherName: '',
     fatherPhone: '',
@@ -393,7 +393,7 @@ export const StudentDossierManagerClient: React.FC<StudentDossierManagerClientPr
                 nik: '',
                 religion: 'Islam',
                 address: '',
-                classGrade: schoolSlug === 'tk' ? 'TK A' : schoolSlug === 'sd' ? '1 SD IT' : '7 SMP IT',
+                classGrade: schoolSlug === 'tk' ? 'TK A' : schoolSlug === 'sd' ? '1 SDIT' : '7 SMP IT',
                 academicYear: '2026/2027',
                 fatherName: '',
                 fatherPhone: '',
@@ -491,7 +491,7 @@ export const StudentDossierManagerClient: React.FC<StudentDossierManagerClientPr
               >
                 <option value="ALL">Semua Unit Sekolah</option>
                 <option value="tk">TK IT Al-Afiyah</option>
-                <option value="sd">SD IT Al-Afiyah</option>
+                <option value="sd">SDIT Al-Afiyah</option>
                 <option value="smp">SMP IT Al-Afiyah</option>
               </select>
             )}
@@ -795,7 +795,7 @@ export const StudentDossierManagerClient: React.FC<StudentDossierManagerClientPr
                     className="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white"
                   >
                     <option value="tk">TK IT Al-Afiyah</option>
-                    <option value="sd">SD IT Al-Afiyah</option>
+                    <option value="sd">SDIT Al-Afiyah</option>
                     <option value="smp">SMP IT Al-Afiyah</option>
                   </select>
                 </div>
@@ -890,7 +890,7 @@ export const StudentDossierManagerClient: React.FC<StudentDossierManagerClientPr
                     required
                     value={formData.classGrade}
                     onChange={(e) => setFormData({ ...formData, classGrade: e.target.value })}
-                    placeholder="misal: 1 SD IT A"
+                    placeholder="misal: 1 SDIT A"
                     className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                   />
                 </div>
