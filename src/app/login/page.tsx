@@ -155,8 +155,8 @@ export default function LoginPage() {
           {/* Content Wrapper (Relative for Z-Index) */}
           <div className="relative z-10">
 
-            {/* Header Brand Section: Rata Kanan (Right Aligned), Minimalis & Non-Repetitive */}
-            <div className="text-right pt-1 mb-6">
+            {/* Header Brand Section: Rata Kiri (Left Aligned), Minimalis & Non-Repetitive */}
+            <div className="text-left pt-1 mb-6 px-1">
               {/* Badge Pill */}
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white text-[11px] font-black uppercase tracking-wider shadow-sm mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-white" />
