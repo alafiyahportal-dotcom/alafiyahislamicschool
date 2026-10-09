@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
   ArrowLeft,
+  ArrowRight,
   Loader2,
   Eye,
   EyeOff,
@@ -28,7 +29,7 @@ const UNIT_MAP: Record<UnitKey, UnitInfo> = {
     unitName: 'SD IT Al-Afiyah Majalengka',
     tagline: 'Portal Layanan Akademik & SPMB',
     motto: 'Smart • Akhlaq • Fitrah',
-    registerUrl: '/ppdb/daftar?unit=sd',
+    registerUrl: '/sd/spmb/daftar',
   },
   tk: {
     badge: 'TK IT AL-AFIYAH MAJALENGKA',
@@ -46,12 +47,13 @@ const UNIT_MAP: Record<UnitKey, UnitInfo> = {
   },
 };
 
+// Default specifically to SD IT Al-Afiyah Majalengka
 const DEFAULT_PORTAL: UnitInfo = {
-  badge: 'PORTAL AL-AFIYAH TERPADU',
-  unitName: 'Yayasan Pendidikan Imam Bonjol',
+  badge: 'SD IT AL-AFIYAH MAJALENGKA',
+  unitName: 'SD IT Al-Afiyah Majalengka',
   tagline: 'Portal Layanan Akademik & SPMB',
-  motto: 'TK IT • SD IT • SMP IT Al-Afiyah',
-  registerUrl: '/ppdb/daftar',
+  motto: 'Smart • Akhlaq • Fitrah',
+  registerUrl: '/sd/spmb/daftar',
 };
 
 export default function LoginPage() {
@@ -63,30 +65,29 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Unit context detection (from subdomain or URL search param)
-  const [activeUnit, setActiveUnit] = useState<UnitKey | null>(null);
-  const [homeLink, setHomeLink] = useState('/');
+  // Default to SD IT unit
+  const [activeUnit, setActiveUnit] = useState<UnitKey>('sd');
+  const [homeLink, setHomeLink] = useState('/sd');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const paramUnit = params.get('unit') as UnitKey | null;
       const sub = extractSubdomain(window.location.host) as UnitKey | null;
-      const resolved = (paramUnit && ['sd', 'tk', 'smp'].includes(paramUnit)) ? paramUnit : sub;
+      const resolved = (paramUnit && ['sd', 'tk', 'smp'].includes(paramUnit)) 
+        ? paramUnit 
+        : (sub && ['sd', 'tk', 'smp'].includes(sub)) ? sub : 'sd';
 
-      if (resolved && ['sd', 'tk', 'smp'].includes(resolved)) {
-        setActiveUnit(resolved);
-        // If accessed via subdomain (e.g. sdit.alafiyah.id), '/' returns to that unit's home
-        if (sub === resolved) {
-          setHomeLink('/');
-        } else {
-          setHomeLink(`/${resolved}`);
-        }
+      setActiveUnit(resolved);
+      if (sub === resolved) {
+        setHomeLink('/');
+      } else {
+        setHomeLink(`/${resolved}`);
       }
     }
   }, []);
 
-  const currentInfo = activeUnit ? UNIT_MAP[activeUnit] : DEFAULT_PORTAL;
+  const currentInfo = UNIT_MAP[activeUnit] || DEFAULT_PORTAL;
 
   const handleLogin = async (targetEmail = email, targetPass = password) => {
     setIsLoading(true);
@@ -125,7 +126,7 @@ export default function LoginPage() {
           className="inline-flex items-center space-x-1.5 text-xs font-bold text-white bg-white/15 hover:bg-white/25 backdrop-blur-md py-1.5 px-3 rounded-full border border-white/25 transition-all shadow-xs"
         >
           <ArrowLeft className="w-4 h-4 text-emerald-100" />
-          <span>Kembali ke Beranda</span>
+          <span>Kembali ke Beranda SD IT</span>
         </Link>
         <span className="text-[11px] font-bold text-emerald-50 bg-emerald-950/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
           Yayasan Pendidikan Imam Bonjol
@@ -157,7 +158,7 @@ export default function LoginPage() {
             {/* Header Brand Section (No Logo - Clean White Typography & Unit Pill) */}
             <div className="text-center pt-2 mb-6">
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/35 text-white text-[11px] font-black uppercase tracking-wider shadow-xs mb-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-200 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white" />
                 <span>{currentInfo.badge}</span>
               </div>
 
@@ -175,10 +176,10 @@ export default function LoginPage() {
                 Selamat Datang!
               </h1>
               <p className="text-xs sm:text-sm font-semibold text-emerald-100 mt-1">
-                Masuk ke {currentInfo.unitName}
+                Portal Masuk SD IT Al-Afiyah Majalengka
               </p>
               <p className="text-[11px] font-medium text-emerald-200 mt-0.5">
-                {currentInfo.tagline} • <span className="font-extrabold text-white">{currentInfo.motto}</span>
+                Portal Layanan Akademik & SPMB • <span className="font-extrabold text-white">Smart • Akhlaq • Fitrah</span>
               </p>
             </div>
 
@@ -271,7 +272,7 @@ export default function LoginPage() {
                   {isLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
                   ) : (
-                    <ArrowLeft className="w-5 h-5 text-white rotate-180" />
+                    <ArrowRight className="w-5 h-5 text-white" />
                   )}
                 </span>
                 
