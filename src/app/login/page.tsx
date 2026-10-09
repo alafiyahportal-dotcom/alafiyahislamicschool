@@ -116,171 +116,188 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F2FBF5] via-[#F8FCF9] to-[#EDF8F1] flex flex-col justify-between py-8 px-4 sm:px-6 lg:px-8 font-sans antialiased">
+    <div className="min-h-screen bg-gradient-to-br from-[#047857] via-[#065f46] to-[#0f766e] flex flex-col justify-between py-6 px-4 sm:px-6 font-sans antialiased text-white selection:bg-white selection:text-emerald-900">
       
       {/* Top Navigation Bar */}
-      <header className="max-w-md mx-auto w-full flex items-center justify-between pb-4">
+      <header className="max-w-md mx-auto w-full flex items-center justify-between pb-3">
         <Link
           href={homeLink}
-          className="inline-flex items-center space-x-1.5 text-xs font-bold text-slate-600 hover:text-emerald-700 transition-colors py-1.5 px-2.5 rounded-lg hover:bg-emerald-50"
+          className="inline-flex items-center space-x-1.5 text-xs font-bold text-white bg-white/15 hover:bg-white/25 backdrop-blur-md py-1.5 px-3 rounded-full border border-white/25 transition-all shadow-xs"
         >
-          <ArrowLeft className="w-4 h-4 text-emerald-600" />
+          <ArrowLeft className="w-4 h-4 text-emerald-100" />
           <span>Kembali ke Beranda</span>
         </Link>
-        <span className="text-[11px] font-bold text-emerald-900/80 bg-emerald-100/70 px-2.5 py-1 rounded-full border border-emerald-200">
+        <span className="text-[11px] font-bold text-emerald-50 bg-emerald-950/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
           Yayasan Pendidikan Imam Bonjol
         </span>
       </header>
 
-      {/* Main Container: High-Contrast Bold Emerald Card */}
+      {/* Main Container: ATM Mobile-App Style Curved Emerald Card */}
       <main className="max-w-md mx-auto w-full my-auto">
-        <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-xl shadow-emerald-950/5 border border-emerald-100/80 relative">
+        <div className="bg-gradient-to-b from-[#10b981] via-[#059669] to-[#046246] rounded-[38px] sm:rounded-[44px] p-7 sm:p-9 shadow-2xl shadow-emerald-950/40 border border-white/25 relative overflow-hidden">
           
-          {/* Header Brand Section (No Logo - Clean & Authoritative Brand Hierarchy) */}
-          <div className="mb-6 pb-5 border-b border-slate-100">
-            {/* Foundation & Portal Identity */}
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="text-lg sm:text-xl font-black text-emerald-950 tracking-tight leading-tight">
-                  Portal Al-Afiyah
-                </div>
-                <div className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-0.5">
-                  Yayasan Pendidikan Imam Bonjol
-                </div>
-              </div>
+          {/* Top Layered Organic Wave SVGs (Exact Reference ATM) */}
+          <div className="absolute top-0 inset-x-0 h-44 overflow-hidden pointer-events-none">
+            <svg viewBox="0 0 400 180" className="w-full h-full object-cover" preserveAspectRatio="none">
+              <path d="M0,0 L400,0 L400,85 C310,140 230,55 130,115 C65,155 20,135 0,120 Z" fill="rgba(255,255,255,0.18)" />
+              <path d="M0,0 L400,0 L400,55 C270,125 170,35 0,90 Z" fill="rgba(255,255,255,0.12)" />
+            </svg>
+          </div>
 
-              {/* Unit Badge Indicator */}
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider shrink-0">
-                <span className="w-2 h-2 rounded-full bg-[#00A651] ring-2 ring-emerald-300" />
+          {/* Bottom Dark Curve Shadow Wave SVG */}
+          <div className="absolute bottom-0 inset-x-0 h-28 overflow-hidden pointer-events-none">
+            <svg viewBox="0 0 400 120" className="w-full h-full object-cover" preserveAspectRatio="none">
+              <path d="M0,45 C130,110 250,20 400,65 L400,120 L0,120 Z" fill="rgba(2, 44, 34, 0.35)" />
+            </svg>
+          </div>
+
+          {/* Content Wrapper (Relative for Z-Index) */}
+          <div className="relative z-10">
+
+            {/* Header Brand Section (No Logo - Clean White Typography & Unit Pill) */}
+            <div className="text-center pt-2 mb-6">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/35 text-white text-[11px] font-black uppercase tracking-wider shadow-xs mb-3">
+                <span className="w-2 h-2 rounded-full bg-emerald-200 animate-pulse" />
                 <span>{currentInfo.badge}</span>
               </div>
+
+              <div className="text-xl sm:text-2xl font-black text-white tracking-wide uppercase drop-shadow-sm">
+                Portal Al-Afiyah
+              </div>
+              <div className="text-[11px] sm:text-xs font-bold text-emerald-100 tracking-widest uppercase mt-0.5 opacity-90">
+                Yayasan Pendidikan Imam Bonjol Majalengka
+              </div>
             </div>
 
-            {/* Target Unit Subtitle */}
-            <div className="mt-3 pt-3 border-t border-dashed border-emerald-100 flex items-center justify-between text-xs">
-              <span className="font-extrabold text-emerald-800">
-                {currentInfo.unitName}
-              </span>
-              <span className="font-bold text-slate-400">
-                {currentInfo.motto}
-              </span>
-            </div>
-          </div>
-
-          {/* Form Headline */}
-          <div className="mb-6">
-            <h1 className="text-2xl sm:text-[26px] font-black text-slate-900 tracking-tight leading-tight">
-              Masuk ke Akun
-            </h1>
-            <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 leading-relaxed">
-              Selamat datang di Portal Al-Afiyah • {currentInfo.tagline}
-            </p>
-          </div>
-
-          {/* Error Message Box */}
-          {errorMsg && (
-            <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs font-bold text-rose-700 flex items-start gap-2.5" role="alert">
-              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
-              <span>{errorMsg}</span>
-            </div>
-          )}
-
-          {/* Form Fields */}
-          <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="space-y-4">
-            
-            {/* Alamat Email Field */}
-            <div>
-              <label htmlFor="email" className="block text-xs sm:text-sm font-bold text-slate-800 mb-1.5">
-                Alamat Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="nama@email.com"
-                className="w-full px-4 py-3 text-sm font-medium bg-slate-50/60 border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-[#00A651] focus:ring-4 focus:ring-[#00A651]/15 transition-all shadow-2xs"
-              />
+            {/* Headline & Welcome Message */}
+            <div className="text-center mb-6">
+              <h1 className="text-2xl sm:text-[28px] font-black text-white tracking-tight drop-shadow-sm">
+                Selamat Datang!
+              </h1>
+              <p className="text-xs sm:text-sm font-semibold text-emerald-100 mt-1">
+                Masuk ke {currentInfo.unitName}
+              </p>
+              <p className="text-[11px] font-medium text-emerald-200 mt-0.5">
+                {currentInfo.tagline} • <span className="font-extrabold text-white">{currentInfo.motto}</span>
+              </p>
             </div>
 
-            {/* Kata Sandi Field with Forgot Password Link */}
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label htmlFor="password" className="block text-xs sm:text-sm font-bold text-slate-800">
-                  Kata Sandi
+            {/* Error Message Box */}
+            {errorMsg && (
+              <div className="mb-5 p-3 rounded-2xl bg-rose-500/25 backdrop-blur-md border border-rose-200/50 text-xs font-bold text-white flex items-start gap-2.5 shadow-sm" role="alert">
+                <AlertCircle className="w-4 h-4 text-rose-200 flex-shrink-0 mt-0.5" />
+                <span>{errorMsg}</span>
+              </div>
+            )}
+
+            {/* Form Fields: Smooth White Pill Inputs (ATM Reference) */}
+            <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="space-y-4">
+              
+              {/* Alamat Email Field */}
+              <div>
+                <label htmlFor="email" className="block text-xs font-extrabold text-white uppercase tracking-wider mb-1.5 ml-4">
+                  Alamat Email
                 </label>
-                <Link
-                  href="/ppdb/cek-status"
-                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:underline"
-                >
-                  Lupa sandi?
-                </Link>
+                <div className="relative">
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="nama@email.com"
+                    className="w-full px-6 py-3.5 text-sm font-bold bg-white text-slate-800 placeholder:text-slate-400 placeholder:font-normal rounded-full shadow-lg shadow-emerald-950/15 focus:outline-none focus:ring-4 focus:ring-white/50 transition-all border border-transparent"
+                  />
+                </div>
               </div>
-              <div className="relative">
+
+              {/* Kata Sandi Field */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5 px-4">
+                  <label htmlFor="password" className="block text-xs font-extrabold text-white uppercase tracking-wider">
+                    Kata Sandi
+                  </label>
+                  <Link
+                    href="/ppdb/cek-status"
+                    className="text-xs font-bold text-emerald-100 hover:text-white underline underline-offset-2 transition-colors"
+                  >
+                    Lupa sandi?
+                  </Link>
+                </div>
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Masukkan kata sandi"
+                    className="w-full pl-6 pr-12 py-3.5 text-sm font-bold bg-white text-slate-800 placeholder:text-slate-400 placeholder:font-normal rounded-full shadow-lg shadow-emerald-950/15 focus:outline-none focus:ring-4 focus:ring-white/50 transition-all border border-transparent"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-emerald-700 cursor-pointer"
+                    tabIndex={-1}
+                    aria-label="Tampilkan atau sembunyikan kata sandi"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Ingat Saya Checkbox */}
+              <div className="flex items-center space-x-2 pt-1 px-3">
                 <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Masukkan kata sandi"
-                  className="w-full pl-4 pr-11 py-3 text-sm font-medium bg-slate-50/60 border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-[#00A651] focus:ring-4 focus:ring-[#00A651]/15 transition-all shadow-2xs"
+                  type="checkbox"
+                  id="remember"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded border-white/50 text-[#00A651] focus:ring-white cursor-pointer accent-[#00A651]"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-emerald-700 cursor-pointer"
-                  tabIndex={-1}
-                  aria-label="Tampilkan atau sembunyikan kata sandi"
-                >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                </button>
+                <label htmlFor="remember" className="text-xs font-bold text-emerald-50 select-none cursor-pointer">
+                  Ingat saya di perangkat ini
+                </label>
               </div>
+
+              {/* Iconic Signature Capsule Button with Arrow Circle Badge (ATM Reference) */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full mt-2 py-1.5 pl-2 pr-6 rounded-full bg-white hover:bg-emerald-50 text-emerald-900 font-black text-sm sm:text-base tracking-widest uppercase shadow-xl shadow-emerald-950/25 hover:shadow-2xl transition-all flex items-center justify-between group cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed transform active:scale-[0.99]"
+              >
+                {/* Emerald Circle Arrow Icon Badge */}
+                <span className="w-10 h-10 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] text-white flex items-center justify-center shadow-md shadow-emerald-900/30 group-hover:scale-105 transition-transform flex-shrink-0">
+                  {isLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  ) : (
+                    <ArrowLeft className="w-5 h-5 text-white rotate-180" />
+                  )}
+                </span>
+                
+                {/* Centered Button Text */}
+                <span className="flex-1 text-center font-black tracking-widest text-emerald-950">
+                  {isLoading ? 'MEMVERIFIKASI...' : 'MASUK KE AKUN'}
+                </span>
+                
+                {/* Right Spacer for Visual Symmetry */}
+                <span className="w-4" aria-hidden="true" />
+              </button>
+            </form>
+
+            {/* Divider & Registration Prompt */}
+            <div className="border-t border-white/20 my-6" />
+
+            <div className="text-center text-xs sm:text-sm font-semibold text-emerald-100">
+              <span>Belum punya akun pendaftaran? </span>
+              <Link
+                href={currentInfo.registerUrl}
+                className="font-black text-white hover:text-emerald-200 underline underline-offset-2 ml-1 inline-block"
+              >
+                Daftar sekarang
+              </Link>
             </div>
 
-            {/* Ingat Saya Checkbox */}
-            <div className="flex items-center space-x-2 pt-1">
-              <input
-                type="checkbox"
-                id="remember"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-300 text-[#00A651] focus:ring-[#00A651] cursor-pointer accent-[#00A651]"
-              />
-              <label htmlFor="remember" className="text-xs sm:text-sm font-semibold text-slate-700 select-none cursor-pointer">
-                Ingat saya di perangkat ini
-              </label>
-            </div>
-
-            {/* Primary Submit Button (Solid Bold Islamic Emerald Green) */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full mt-2 py-3.5 px-6 rounded-xl bg-[#00A651] hover:bg-[#008f45] active:bg-[#007a3b] text-white font-extrabold text-sm sm:text-base tracking-wide shadow-md shadow-emerald-700/25 hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.99]"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin text-white" />
-                  <span>Memverifikasi akun...</span>
-                </>
-              ) : (
-                <span>Masuk Sekarang</span>
-              )}
-            </button>
-          </form>
-
-          {/* Divider & Registration Prompt */}
-          <div className="border-t border-slate-100 my-6" />
-
-          <div className="text-center text-xs sm:text-sm font-medium text-slate-600">
-            <span>Belum memiliki akun pendaftaran? </span>
-            <Link
-              href={currentInfo.registerUrl}
-              className="font-extrabold text-emerald-700 hover:text-emerald-800 hover:underline inline-block mt-0.5"
-            >
-              Daftar sekarang
-            </Link>
           </div>
 
         </div>
@@ -288,7 +305,7 @@ export default function LoginPage() {
       </main>
 
       {/* Footer Copyright */}
-      <footer className="max-w-md mx-auto w-full text-center text-xs font-medium text-slate-500 pt-6">
+      <footer className="max-w-md mx-auto w-full text-center text-xs font-semibold text-emerald-100/90 pt-5">
         © 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Hak Cipta Dilindungi.
       </footer>
 
