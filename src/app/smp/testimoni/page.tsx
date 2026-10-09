@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -17,8 +17,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Testimoni & Suara Wali Santri SMP IT Al-Afiyah',
-  description: 'Pengalaman tulus, ulasan, dan testimoni orang tua santri menyekolahkan ananda di SMP IT Al-Afiyah Majalengka: Target tahfidz, bahasa Arab, karakter remaja, dan futsal.',
+  title: 'Testimoni & Suara Wali Murid SMP IT Al-Afiyah',
+  description: 'Pengalaman tulus, ulasan, dan testimoni orang tua murid menyekolahkan ananda di SMP IT Al-Afiyah Majalengka: Target tahfidz, bahasa Arab, karakter remaja, dan futsal.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     apple: '/images/smp-logo.png',
   },
   openGraph: {
-    title: 'Testimoni Wali Santri SMP IT Al-Afiyah',
-    description: 'Apresiasi dan kisah sukses wali santri SMP IT Al-Afiyah Majalengka.',
+    title: 'Testimoni Wali Murid SMP IT Al-Afiyah',
+    description: 'Apresiasi dan kisah sukses wali murid SMP IT Al-Afiyah Majalengka.',
     images: ['/images/smp-spmb-poster.png'],
   },
 };
@@ -39,28 +39,28 @@ export const revalidate = 60;
 const SMP_TESTIMONIALS = [
   {
     name: 'Bapak H. Agus Setiawan, S.T.',
-    role: 'Wali Santri Kelas VIII SMP IT Al-Afiyah',
+    role: 'Wali Murid Kelas VIII SMP IT Al-Afiyah',
     tag: 'Karakter Remaja & Mutaba\'ah Digital',
     quote: 'Masa SMP adalah masa yang rawan bagi pergaulan anak remaja. Kami sangat bersyukur menyekolahkan ananda di SMP IT Al-Afiyah. Lewat program SCD dan Mutaba\'ah Digital, ananda sangat tertib shalat 5 waktu berjamaah, santun berbicara kepada orang tua, dan pergaulannya sangat terjaga dari pengaruh negatif.',
     rating: 5,
   },
   {
     name: 'Ibu Hj. Dewi Lestari, M.Pd.',
-    role: 'Wali Santri Kelas IX SMP IT Al-Afiyah',
+    role: 'Wali Murid Kelas IX SMP IT Al-Afiyah',
     tag: 'Tahfidz 5+ Juz & Fasih Bahasa Arab',
     quote: 'Target tahfidznya bukan sekadar menghafal, tapi benar-benar mutqin dengan kaidah tajwid makhraj huruf yang fasih. Ananda sudah menyelesaikan 4 juz dan berani tampil tasmi\' sekali duduk. Pembiasaan bahasa Arabnya juga luar biasa aktif!',
     rating: 5,
   },
   {
     name: 'dr. Bambang Irawan, Sp.OT',
-    role: 'Wali Santri Kelas VII (Alumni SDIT Al-Afiyah)',
+    role: 'Wali Murid Kelas VII (Alumni SDIT Al-Afiyah)',
     tag: 'Diskon 70% & Futsal Development Program',
     quote: 'Sebagai alumni SDIT Al-Afiyah, kami langsung melanjutkan ke SMP IT karena kualitasnya sudah terbukti. Apalagi ada diskon 70% Uang Bangunan di Gelombang 1. Bakat futsal ananda juga berkembang pesat lewat Futsal Development Program dengan pelatih berpengalaman.',
     rating: 5,
   },
   {
     name: 'Ibu Nenden Kurniasih, S.E.',
-    role: 'Wali Santri Kelas VIII SMP IT',
+    role: 'Wali Murid Kelas VIII SMP IT',
     tag: 'Lingkungan Ber-AC & Tenaga Pendidik Ramah',
     quote: 'Fasilitas kelasnya ber-AC, lab komputernya sangat representatif, dan para asatidz membimbing dengan keteladanan penuh kasih sayang. Ananda selalu bersemangat berangkat sekolah dan pulang dengan banyak cerita inspiratif.',
     rating: 5,
@@ -84,7 +84,7 @@ export default function SmpTestimoniPage() {
               <span>Beranda SMP IT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-blue-300/50" />
-            <span className="text-[#ffd51e] font-semibold">Testimoni Wali Santri</span>
+            <span className="text-[#ffd51e] font-semibold">Testimoni Wali Murid</span>
           </nav>
 
           <div className="max-w-3xl">
@@ -94,7 +94,7 @@ export default function SmpTestimoniPage() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Kisah &amp; Suara Wali Santri
+              Kisah &amp; Suara Wali Murid
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">

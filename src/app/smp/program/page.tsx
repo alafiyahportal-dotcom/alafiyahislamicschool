@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -65,7 +65,7 @@ const SMP_PROGRAMS = [
     number: '02',
     title: 'Fasih Berbahasa Arab (Lisan & Tulisan)',
     subtitle: 'Bi\'ah Lughawiyyah • Percakapan Harian • Qawa\'id Dasar',
-    desc: 'Pembiasaan dan pembinaan aktif penguasaan Bahasa Arab fasih. Santri dilatih berkomunikasi langsung (Muhadatsah), memahami kaidah nahwu-sharaf aplikatif, serta mahir membaca dan menerjemahkan teks berbahasa Arab.',
+    desc: 'Pembiasaan dan pembinaan aktif penguasaan Bahasa Arab fasih. Murid dilatih berkomunikasi langsung (Muhadatsah), memahami kaidah nahwu-sharaf aplikatif, serta mahir membaca dan menerjemahkan teks berbahasa Arab.',
     badge: 'Bahasa Arab Aktif',
     icon: Languages,
     accent: 'blue',
@@ -81,13 +81,13 @@ const SMP_PROGRAMS = [
     number: '03',
     title: 'SCD (Student Character Development)',
     subtitle: 'Adab Remaja Islami • Leadership • Kemandirian',
-    desc: 'Program penempaan karakter khusus remaja usia SMP. Mengawal masa transisi pubertas santri dengan penanaman nilai adab islami, etika pergaulan syar\'i, kepemimpinan (leadership), ketahanan mental, serta kemandirian sosial.',
+    desc: 'Program penempaan karakter khusus remaja usia SMP. Mengawal masa transisi pubertas murid dengan penanaman nilai adab islami, etika pergaulan syar\'i, kepemimpinan (leadership), ketahanan mental, serta kemandirian sosial.',
     badge: 'Karakter & Kepemimpinan',
     icon: HeartHandshake,
     accent: 'gold',
     highlights: [
       'Pondasi adab sebelum ilmu dan etika thalabul ilmi',
-      'Latihan kepemimpinan santri (LDKS) & organisasi santri',
+      'Latihan kepemimpinan murid (LDKS) & organisasi murid',
       'Edukasi syar\'i pergaulan remaja & proteksi bahaya pergaulan bebas',
       'Kemandirian tata tertib dan kepedulian lingkungan'
     ]
@@ -97,7 +97,7 @@ const SMP_PROGRAMS = [
     number: '04',
     title: 'Mutaba\'ah Digital',
     subtitle: 'Monitoring Ibadah • Keterbukaan • Sinergi Orang Tua',
-    desc: 'Program monitoring dan pembiasaan ibadah harian berbasis sistem digital. Melibatkan kolaborasi sinergis antara santri, wali santri di rumah, dan dewan guru di sekolah untuk memastikan konsistensi ibadah wajib dan sunnah.',
+    desc: 'Program monitoring dan pembiasaan ibadah harian berbasis sistem digital. Melibatkan kolaborasi sinergis antara murid, wali murid di rumah, dan dewan guru di sekolah untuk memastikan konsistensi ibadah wajib dan sunnah.',
     badge: 'Digital Monitoring',
     icon: Smartphone,
     accent: 'blue',
@@ -105,7 +105,7 @@ const SMP_PROGRAMS = [
       'Pencatatan shalat fardhu berjamaah 5 waktu secara digital',
       'Monitoring shalat sunnah (Tahajjud, Dhuha, Rawatib)',
       'Laporan tilawah harian (One Day One Juz / Half Juz)',
-      'Akses evaluasi perkembangan santri oleh orang tua via gadget'
+      'Akses evaluasi perkembangan murid oleh orang tua via gadget'
     ]
   },
   {
@@ -113,7 +113,7 @@ const SMP_PROGRAMS = [
     number: '05',
     title: 'Futsal Development Program',
     subtitle: 'Olahraga Prestasi • Pelatih Berpengalaman • Turnamen Resmi',
-    desc: 'Program unggulan khusus SMP IT Al-Afiyah yang berfokus pada pembinaan dan pengembangan potensi olahraga futsal secara terarah, disiplin, dan berkelanjutan. Melatih ketahanan fisik, skill taktik, dan sportivitas santri.',
+    desc: 'Program unggulan khusus SMP IT Al-Afiyah yang berfokus pada pembinaan dan pengembangan potensi olahraga futsal secara terarah, disiplin, dan berkelanjutan. Melatih ketahanan fisik, skill taktik, dan sportivitas murid.',
     badge: 'Olahraga Prestasi',
     icon: Trophy,
     accent: 'gold',
@@ -129,7 +129,7 @@ const SMP_PROGRAMS = [
     number: '06',
     title: 'Ekstrakurikuler Pilihan Beragam',
     subtitle: 'Pramuka SIT • Tata Boga • Bahasa Arab Club • Futsal Club',
-    desc: 'Wadah eksplorasi minat, bakat, dan keterampilan praktis (life skills) santri. Setiap santri dapat memilih bidang ekstrakurikuler yang sesuai dengan potensi minat mereka di bawah bimbingan pembina ahli.',
+    desc: 'Wadah eksplorasi minat, bakat, dan keterampilan praktis (life skills) murid. Setiap murid dapat memilih bidang ekstrakurikuler yang sesuai dengan potensi minat mereka di bawah bimbingan pembina ahli.',
     badge: 'Bakat & Minat',
     icon: Flame,
     accent: 'blue',
@@ -137,7 +137,7 @@ const SMP_PROGRAMS = [
       'Pramuka Sekolah Islam Terpadu (SIT) pembentuk ketangkasan',
       'Tata Boga: Praktik kuliner kreatif dan wirausaha makanan sehat',
       'Klub Bahasa Arab & Seni Kaligrafi Islam (Khat)',
-      'Klub Olahraga dan Kebugaran Santri'
+      'Klub Olahraga dan Kebugaran Murid'
     ]
   }
 ];
@@ -270,7 +270,7 @@ export default function SmpProgramPage() {
               Perpaduan Kurikulum Nasional &amp; Kepesantrenan
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
-              Keseimbangan antara sains modern, literasi numerasi, dan pembinaan ruhiyah agar santri siap melanjutkan ke jenjang SMA/MA unggulan maupun pesantren ternama.
+              Keseimbangan antara sains modern, literasi numerasi, dan pembinaan ruhiyah agar murid siap melanjutkan ke jenjang SMA/MA unggulan maupun pesantren ternama.
             </p>
           </div>
 
@@ -303,7 +303,7 @@ export default function SmpProgramPage() {
               </div>
               <h4 className="text-base font-bold text-slate-900 mb-2">Pengembangan Potensi</h4>
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                Futsal Development Program, SCD (Student Character Development), Mutaba'ah Digital ibadah, pramuka, dan kegiatan entrepreneurship santri.
+                Futsal Development Program, SCD (Student Character Development), Mutaba'ah Digital ibadah, pramuka, dan kegiatan entrepreneurship murid.
               </p>
               <span className="text-[11px] font-bold text-[#030164]">Kompetensi Hidup Berkarakter</span>
             </div>

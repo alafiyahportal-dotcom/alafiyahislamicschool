@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -78,7 +78,7 @@ export default function SmpKontakPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Panitia SPMB dan Tata Usaha siap melayani konsultasi pendaftaran, jadwal observasi calon santri, informasi kurikulum, maupun kunjungan langsung ke sekolah kami di Lingkungan Giri Asih.
+              Panitia SPMB dan Tata Usaha siap melayani konsultasi pendaftaran, jadwal observasi calon murid, informasi kurikulum, maupun kunjungan langsung ke sekolah kami di Lingkungan Giri Asih.
             </p>
           </div>
         </div>
@@ -215,7 +215,7 @@ export default function SmpKontakPage() {
                   Kirim Pesan ke Tata Usaha
                 </h3>
                 <p className="text-xs text-slate-600 mt-1">
-                  Silakan tinggalkan pesan untuk pertanyaan seputar biaya SPMB, observasi santri, atau agenda kunjungan.
+                  Silakan tinggalkan pesan untuk pertanyaan seputar biaya SPMB, observasi murid, atau agenda kunjungan.
                 </p>
               </div>
 

@@ -169,8 +169,8 @@ export default function Navbar({
           title: 'SMP IT AL-AFIYAH',
           subtitle: 'BE SMART & RELIGIOUS',
           homeUrl: getUnitHomeUrl('smp'),
-          ppdbLink: '/smp/spmb',
-          ctaText: 'Info SPMB SMP IT',
+          ppdbLink: '/smp/spmb/daftar',
+          ctaText: 'Daftar SPMB Online',
           logoUrl: '/images/smp-logo.png',
         };
       default:
@@ -208,9 +208,9 @@ export default function Navbar({
         : activeSlug === 'smp'
         ? [
             { label: 'Profil Lengkap SMP IT', href: '/smp/profil', desc: 'Visi, misi & legalitas Terakreditasi A' },
-            { label: 'Dewan Asatidz & Pendidik', href: '/smp/guru', desc: 'Pendidik tahfidz, bahasa Arab & pembina santri' },
+            { label: 'Dewan Asatidz & Pendidik', href: '/smp/guru', desc: 'Pendidik tahfidz, bahasa Arab & pembina murid' },
             { label: 'Sarana & Fasilitas Sekolah', href: '/smp/fasilitas', desc: 'Kelas ber-AC, lab komputer & lapangan futsal' },
-            { label: 'Dokumentasi & Outing Santri', href: '/smp/dokumentasi', desc: 'Dokumentasi rihlah tubing, mabit & kegiatan' },
+            { label: 'Dokumentasi & Outing Murid', href: '/smp/dokumentasi', desc: 'Dokumentasi rihlah tubing, mabit & kegiatan' },
             { label: 'Layanan Tata Usaha & Lokasi', href: '/smp/kontak', desc: 'Alamat resmi Jl. Gerakan Koperasi & rute Maps' },
           ]
         : activeSlug

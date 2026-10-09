@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -24,7 +24,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'SCD (Student Character Development) & Mutaba\'ah Digital SMP IT',
-  description: 'Program pembinaan karakter santri remaja SMP IT Al-Afiyah: Penanaman adab nabawiyah, kepemimpinan (leadership), kemandirian, dan monitoring ibadah harian berbasis Mutaba\'ah Digital.',
+  description: 'Program pembinaan karakter murid remaja SMP IT Al-Afiyah: Penanaman adab nabawiyah, kepemimpinan (leadership), kemandirian, dan monitoring ibadah harian berbasis Mutaba\'ah Digital.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -47,7 +47,7 @@ const SCD_PILLARS = [
     number: '01',
     title: 'Akidah Shahihah & Disiplin Ibadah',
     subtitle: 'Shalat Berjamaah • Dzikir Pagi Petang • Mutaba\'ah Digital',
-    desc: 'Menancapkan keyakinan tauhid yang murni serta membiasakan shalat fardhu 5 waktu tepat waktu berjamaah. Setiap santri mencatat dan merefleksikan ibadah harian mereka melalui aplikasi Mutaba\'ah Digital yang terpantau langsung oleh wali santri dan asatidz.',
+    desc: 'Menancapkan keyakinan tauhid yang murni serta membiasakan shalat fardhu 5 waktu tepat waktu berjamaah. Setiap murid mencatat dan merefleksikan ibadah harian mereka melalui aplikasi Mutaba\'ah Digital yang terpantau langsung oleh wali murid dan asatidz.',
     points: [
       'Pembiasaan shalat berjamaah di masjid sekolah',
       'Dzikir pagi dan petang Al-Ma\'tsurat sebagai benteng ruhiyah',
@@ -61,7 +61,7 @@ const SCD_PILLARS = [
     subtitle: 'Birrul Walidain • Santun Bertutur • Anti-Bullying',
     desc: 'Usia remaja adalah masa pencarian identitas diri. SMP IT Al-Afiyah menanamkan adab penuntut ilmu, rasa hormat kepada orang tua dan guru, serta membangun kultur persaudaraan islami (ukhuwah) yang bersih dari bullying dan kekerasan verbal.',
     points: [
-      'Keteladanan adab harian santri bersama dewan asatidz',
+      'Keteladanan adab harian murid bersama dewan asatidz',
       'Etika bergaul syar\'i sesuai bimbingan Al-Qur\'an dan Sunnah',
       'Kultur saling menghargai, tolong-menolong, dan empati sosial',
       'Edukasi literasi digital dan adab bermedia sosial yang bijak'
@@ -70,20 +70,20 @@ const SCD_PILLARS = [
   {
     number: '03',
     title: 'Leadership & Jiwa Kepemimpinan',
-    subtitle: 'Organisasi Santri • LDKS • Keberanian Berpendapat',
-    desc: 'Mencetak calon pemimpin masa depan yang berani berbicara, berjiwa solutif, dan mampu mengelola tanggung jawab. Santri dilatih berorganisasi, memimpin halaqah kultum, dan menyelenggarakan event sekolah.',
+    subtitle: 'Organisasi Murid • LDKS • Keberanian Berpendapat',
+    desc: 'Mencetak calon pemimpin masa depan yang berani berbicara, berjiwa solutif, dan mampu mengelola tanggung jawab. Murid dilatih berorganisasi, memimpin halaqah kultum, dan menyelenggarakan event sekolah.',
     points: [
-      'Latihan Dasar Kepemimpinan Santri (LDKS)',
-      'Organisasi Santri Intra Sekolah (OSIS SMP IT)',
+      'Latihan Dasar Kepemimpinan Murid (LDKS)',
+      'Organisasi Murid Intra Sekolah (OSIS SMP IT)',
       'Khitabah (latihan orasi/pidato) 3 bahasa: Arab, Inggris, Indonesia',
-      'Manajemen proyek bakti sosial santri untuk masyarakat'
+      'Manajemen proyek bakti sosial murid untuk masyarakat'
     ]
   },
   {
     number: '04',
     title: 'Kemandirian & Ketangguhan Fisik',
     subtitle: 'Kedisiplinan Diri • Futsal Development • Ekskul Terarah',
-    desc: 'Santri remaja diajarkan merawat kebersihan diri, merapikan sarana belajar, serta melatih ketahanan fisik melalui Futsal Development Program dan kepanduan Pramuka SIT.',
+    desc: 'Murid remaja diajarkan merawat kebersihan diri, merapikan sarana belajar, serta melatih ketahanan fisik melalui Futsal Development Program dan kepanduan Pramuka SIT.',
     points: [
       'Kemandirian mengelola waktu dan jadwal belajar mandiri',
       'Pembinaan stamina dan ketangkasan fisik lewat olahraga terprogram',
@@ -124,7 +124,7 @@ export default function SmpKarakterPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Mengawal masa emas perkembangan remaja santri agar kokoh dalam aqidah, terbiasa ibadah mandiri, santun dalam bertutur kata, dan memiliki jiwa kepemimpinan visioner.
+              Mengawal masa emas perkembangan remaja murid agar kokoh dalam aqidah, terbiasa ibadah mandiri, santun dalam bertutur kata, dan memiliki jiwa kepemimpinan visioner.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -203,12 +203,12 @@ export default function SmpKarakterPage() {
                 Bagaimana Mutaba'ah Digital Bekerja?
               </h3>
               <p className="text-xs sm:text-sm text-blue-100 leading-relaxed">
-                Mutaba'ah Digital adalah platform pemantauan ibadah dan capaian tahfidz yang menghubungkan siswa, orang tua, dan dewan asatidz secara real-time. Tidak hanya melatih kejujuran santri, sistem ini memberikan transparansi penuh kepada Ayah Bunda di rumah.
+                Mutaba'ah Digital adalah platform pemantauan ibadah dan capaian tahfidz yang menghubungkan siswa, orang tua, dan dewan asatidz secara real-time. Tidak hanya melatih kejujuran murid, sistem ini memberikan transparansi penuh kepada Ayah Bunda di rumah.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                 <div className="p-3.5 rounded-2xl bg-white/10 border border-white/10">
-                  <span className="text-xs font-bold text-[#ffd51e] block">1. Santri Mandiri</span>
+                  <span className="text-xs font-bold text-[#ffd51e] block">1. Murid Mandiri</span>
                   <p className="text-[11px] text-blue-200 mt-1">Menginput aktivitas shalat, tilawah &amp; dzikir setiap hari.</p>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-white/10 border border-white/10">

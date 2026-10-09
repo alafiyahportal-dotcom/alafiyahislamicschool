@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -8,8 +8,8 @@ import { ArrowLeft, ChevronRight, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Dzikir Pagi Petang & Doa Harian Santri SMP IT Al-Afiyah',
-  description: 'Kumpulan dzikir pagi dan petang shahih (Al-Ma’tsurat) serta doa harian penuntut ilmu santri SMP IT Al-Afiyah Majalengka lengkap dengan counter digital dan audio pelafalan.',
+  title: 'Dzikir Pagi Petang & Doa Harian Murid SMP IT Al-Afiyah',
+  description: 'Kumpulan dzikir pagi dan petang shahih (Al-Ma’tsurat) serta doa harian penuntut ilmu murid SMP IT Al-Afiyah Majalengka lengkap dengan counter digital dan audio pelafalan.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     apple: '/images/smp-logo.png',
   },
   openGraph: {
-    title: 'Dzikir Pagi Petang Santri SMP IT Al-Afiyah',
-    description: 'Benteng spiritual harian santri penuntut ilmu Al-Qur\'an.',
+    title: 'Dzikir Pagi Petang Murid SMP IT Al-Afiyah',
+    description: 'Benteng spiritual harian murid penuntut ilmu Al-Qur\'an.',
     images: ['/images/smp-spmb-poster.png'],
   },
 };
@@ -52,7 +52,7 @@ export default function SmpDoaDzikirPage() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dzikir Pagi, Petang &amp; Doa Santri
+              Dzikir Pagi, Petang &amp; Doa Murid
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">

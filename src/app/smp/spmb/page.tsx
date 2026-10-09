@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
@@ -92,7 +92,7 @@ export default async function SmpSpmbInfoPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Selamat datang calon santri dan orang tua murid. SMP IT Al-Afiyah Majalengka membuka pendaftaran murid baru Tahun Ajaran 2027/2028. Manfaatkan promo diskon uang bangunan hingga 70% di Gelombang 1.
+              Selamat datang calon murid dan orang tua murid. SMP IT Al-Afiyah Majalengka membuka pendaftaran murid baru Tahun Ajaran 2027/2028. Manfaatkan promo diskon uang bangunan hingga 70% di Gelombang 1.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -207,7 +207,7 @@ export default async function SmpSpmbInfoPage() {
                 </p>
 
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                  Pendaftaran gelombang reguler dibuka apabila kuota santri baru belum terpenuhi. Pada Gelombang 2 berlaku tarif normal (tanpa potongan diskon uang bangunan).
+                  Pendaftaran gelombang reguler dibuka apabila kuota murid baru belum terpenuhi. Pada Gelombang 2 berlaku tarif normal (tanpa potongan diskon uang bangunan).
                 </p>
 
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-600 space-y-1.5">
@@ -346,7 +346,7 @@ export default async function SmpSpmbInfoPage() {
             <div className="flex items-center gap-2">
               <FileText className="w-5 h-5 text-[#030164]" />
               <h4 className="text-lg font-bold text-slate-900">
-                Persyaratan Berkas Calon Santri
+                Persyaratan Berkas Calon Murid
               </h4>
             </div>
 
@@ -378,14 +378,14 @@ export default async function SmpSpmbInfoPage() {
             <div className="flex items-center gap-2">
               <Award className="w-5 h-5 text-[#030164]" />
               <h4 className="text-lg font-bold text-slate-900">
-                Alur Seleksi &amp; Observasi Santri
+                Alur Seleksi &amp; Observasi Murid
               </h4>
             </div>
 
             <ul className="space-y-2.5 text-xs text-slate-600 pt-2">
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 rounded-full bg-blue-100 text-[#030164] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</span>
-                <span><strong>Pendaftaran Daring:</strong> Isi biodata dan dapatkan nomor registrasi calon santri.</span>
+                <span><strong>Pendaftaran Daring:</strong> Isi biodata dan dapatkan nomor registrasi calon murid.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 rounded-full bg-blue-100 text-[#030164] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</span>
@@ -393,7 +393,7 @@ export default async function SmpSpmbInfoPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 rounded-full bg-blue-100 text-[#030164] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">3</span>
-                <span><strong>Pengumuman Kelulusan:</strong> Cek SK kelulusan santri di website atau via WhatsApp.</span>
+                <span><strong>Pengumuman Kelulusan:</strong> Cek SK kelulusan murid di website atau via WhatsApp.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 rounded-full bg-blue-100 text-[#030164] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">4</span>

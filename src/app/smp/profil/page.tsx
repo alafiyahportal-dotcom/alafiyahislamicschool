@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -66,19 +66,19 @@ export default async function SmpProfilPage() {
   const misiList = [
     {
       title: 'Tauhid & Akhlakul Karimah',
-      desc: 'Menanamkan pondasi akidah yang lurus dan pembiasaan adab nabawiyah dalam kehidupan sehari-hari santri.',
+      desc: 'Menanamkan pondasi akidah yang lurus dan pembiasaan adab nabawiyah dalam kehidupan sehari-hari murid.',
     },
     {
       title: 'Hafalan Qur\'an Mutqin & Tartil',
-      desc: 'Membimbing santri menuntaskan target hafalan 3 hingga 5+ juz dengan kaidah tajwid makharijul huruf yang kokoh.',
+      desc: 'Membimbing murid menuntaskan target hafalan 3 hingga 5+ juz dengan kaidah tajwid makharijul huruf yang kokoh.',
     },
     {
       title: 'Kecakapan Bahasa Arab Aktif',
-      desc: 'Menciptakan bi\'ah lughawiyyah (lingkungan berbahasa) agar santri fasih bertutur dan memahami literatur Arab.',
+      desc: 'Menciptakan bi\'ah lughawiyyah (lingkungan berbahasa) agar murid fasih bertutur dan memahami literatur Arab.',
     },
     {
       title: 'SCD (Student Character Development)',
-      desc: 'Membangun kepemimpinan, kemandirian, kedisiplinan, dan tanggung jawab sosial santri remaja islami.',
+      desc: 'Membangun kepemimpinan, kemandirian, kedisiplinan, dan tanggung jawab sosial murid remaja islami.',
     },
     {
       title: 'Mutaba\'ah Ibadah Digital Kolaboratif',
@@ -86,7 +86,7 @@ export default async function SmpProfilPage() {
     },
     {
       title: 'Pengembangan Bakat & Prestasi Sportif',
-      desc: 'Mewadahi talenta santri melalui Futsal Development Program, tata boga, pramuka, dan karya sains.',
+      desc: 'Mewadahi talenta murid melalui Futsal Development Program, tata boga, pramuka, dan karya sains.',
     },
   ];
 

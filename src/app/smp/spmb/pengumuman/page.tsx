@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -20,7 +20,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Pengumuman Kelulusan SPMB SMP IT Al-Afiyah Majalengka',
-  description: 'Pengumuman resmi kelulusan hasil seleksi observasi santri baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028 Gelombang 1 dan Gelombang 2.',
+  description: 'Pengumuman resmi kelulusan hasil seleksi observasi murid baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028 Gelombang 1 dan Gelombang 2.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Pengumuman Kelulusan SPMB SMP IT Al-Afiyah',
-    description: 'SK Kelulusan Hasil Seleksi Observasi Calon Santri Baru T.A. 2027/2028.',
+    description: 'SK Kelulusan Hasil Seleksi Observasi Calon Murid Baru T.A. 2027/2028.',
     images: ['/images/smp-spmb-poster.png'],
   },
 };
@@ -71,7 +71,7 @@ export default function SmpPengumumanPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Surat Keputusan (SK) Panitia Penerimaan Murid Baru SMP IT Al-Afiyah Majalengka tentang kelulusan tes observasi akademik dan pemetaan tahfidz calon santri.
+              Surat Keputusan (SK) Panitia Penerimaan Murid Baru SMP IT Al-Afiyah Majalengka tentang kelulusan tes observasi akademik dan pemetaan tahfidz calon murid.
             </p>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function SmpPengumumanPage() {
                 Status Pengumuman
               </span>
               <h3 className="text-xl font-bold text-slate-900 mt-1">
-                Jadwal Rilis SK Kelulusan Santri
+                Jadwal Rilis SK Kelulusan Murid
               </h3>
             </div>
             <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
@@ -102,13 +102,13 @@ export default function SmpPengumumanPage() {
             </div>
             <div className="text-xs leading-relaxed text-slate-700">
               <strong className="text-slate-900 text-sm block mb-1">Pengumuman Kelulusan Bertahap</strong>
-              Hasil observasi calon santri diumumkan secara berkala maksimal <strong>3 hari kerja</strong> setelah calon santri menyelesaikan sesi wawancara dan tes tahsin Al-Qur'an.
+              Hasil observasi calon murid diumumkan secara berkala maksimal <strong>3 hari kerja</strong> setelah calon murid menyelesaikan sesi wawancara dan tes tahsin Al-Qur'an.
             </div>
           </div>
 
           <div className="space-y-3 pt-2">
             <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-              Langkah Selanjutnya Bagi Calon Santri yang Dinyatakan Lulus:
+              Langkah Selanjutnya Bagi Calon Murid yang Dinyatakan Lulus:
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">

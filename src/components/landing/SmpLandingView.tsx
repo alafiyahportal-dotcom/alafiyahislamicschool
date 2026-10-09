@@ -63,15 +63,15 @@ const SMP_PROGRAMS = [
     number: '02',
     title: 'Fasih Berbahasa Arab',
     category: 'Bahasa Asing',
-    desc: 'Pembiasaan lingkungan berbahasa (Bi\'ah Lughawiyyah) melalui muhadatsah harian, penguasaan kosa kata praktis, dan khitabah (pidato bahasa Arab).',
+    desc: 'Pembiasaan lingkungan berbahasa (Bi\'ah Lughawiyyah) melalui muhadatsah harian, penguasaan kosa kata praktis, dan khitabah pidato bahasa Arab aktif.',
     href: '/smp/program',
     icon: Languages,
   },
   {
     number: '03',
     title: 'SCD (Student Character Development)',
-    category: 'Karakter',
-    desc: 'Penempaan kepemimpinan santri, adab nabawi, kemandirian aqil-baligh, serta tanggung jawab sosial melalui pembinaan intensif berkelanjutan.',
+    category: 'Karakter & Adab',
+    desc: 'Penempaan kepemimpinan murid, adab nabawi, kemandirian aqil-baligh, serta kedisiplinan dan tanggung jawab sosial melalui pembinaan intensif.',
     href: '/smp/karakter',
     icon: ShieldCheck,
   },
@@ -79,7 +79,7 @@ const SMP_PROGRAMS = [
     number: '04',
     title: 'Mutaba\'ah Digital Terintegrasi',
     category: 'Teknologi Edukasi',
-    desc: 'Sistem monitoring ibadah harian santri (shalat 5 waktu, tilawah, shalat dhuha, tahajjud) berbasis aplikasi yang menghubungkan santri, orang tua, dan asatidz.',
+    desc: 'Sistem monitoring ibadah harian murid (shalat 5 waktu, tilawah harian, shalat dhuha & tahajjud) berbasis aplikasi yang menghubungkan murid, orang tua, dan guru.',
     href: '/smp/program',
     icon: Smartphone,
   },
@@ -95,7 +95,7 @@ const SMP_PROGRAMS = [
     number: '06',
     title: 'Ekstrakurikuler Pilihan Beragam',
     category: 'Bakat & Minat',
-    desc: 'Wadah eksplorasi potensi santri: Pramuka SIT, Tata Boga (Cooking Class), Panahan, Kaligrafi, dan English Club untuk bekal kecakapan hidup modern.',
+    desc: 'Wadah eksplorasi potensi murid: Pramuka SIT, Tata Boga (Cooking Class), Panahan, Kaligrafi, dan English Club untuk bekal kecakapan hidup modern.',
     href: '/smp/program',
     icon: Sparkles,
   },
@@ -118,17 +118,17 @@ const SMP_FACILITIES = [
     title: 'Lapangan Olahraga & Futsal',
     category: 'Olahraga',
     image: '/images/smp-hero-pesantren.jpg',
-    desc: 'Sarana olahraga representatif untuk latihan Futsal Development Program, bola voli, senam pagi, dan turnamen internal santri.',
+    desc: 'Sarana olahraga representatif untuk latihan Futsal Development Program, bola voli, senam pagi, dan turnamen internal murid.',
   },
   {
     title: 'Masjid & Sarana Ibadah Sekolah',
     category: 'Pusat Ibadah',
     image: '/images/smp-outing-3.jpg',
-    desc: 'Pusat pembinaan shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, dan halaqah talaqqi tahfidz santri.',
+    desc: 'Pusat pembinaan shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, dan halaqah talaqqi tahfidz murid.',
   },
   {
     title: 'Outing Class & Tadabbur Alam',
-    category: 'Eksplorasi Santri',
+    category: 'Eksplorasi Murid',
     image: '/images/smp-tubing-1.jpg',
     desc: 'Kegiatan edukasi luar kelas, eksplorasi alam terbuka, dan river tubing untuk melatih keberanian, kerjasama tim, dan tadabbur ciptaan Allah.',
   },
@@ -136,7 +136,7 @@ const SMP_FACILITIES = [
     title: 'Akses Internet & Mutaba\'ah Digital',
     category: 'Sistem Terpadu',
     image: '/images/smp-tubing-2.jpg',
-    desc: 'Infrastruktur digital sekolah yang mendukung absensi presensi digital santri dan integrasi laporan ibadah harian kepada wali murid.',
+    desc: 'Infrastruktur digital sekolah yang mendukung absensi presensi digital murid dan integrasi laporan ibadah harian kepada wali murid.',
   },
 ];
 
@@ -159,7 +159,7 @@ const SMP_FAQS = [
   },
   {
     q: 'Bagaimana alur pendaftaran dan rekening pembayaran resmi?',
-    a: 'Orang tua dapat mengisi formulir secara online melalui website ini atau datang langsung ke sekolah di Lingkungan Giri Asih (Jl. Gerakan Koperasi No. 110, Majalengka Wetan). Infaq formulir sebesar Rp 200.000 ditransfer ke Bank Muamalat No. Rek 1360012405 a.n SMP IT Al Afiyah.',
+    a: 'Orang tua dapat mengisi formulir online yang ringkas melalui menu pendaftaran online website ini atau datang langsung ke sekolah di Lingkungan Giri Asih (Jl. Gerakan Koperasi No. 110, Majalengka Wetan). Infaq formulir sebesar Rp 200.000 ditransfer ke Bank Muamalat No. Rek 1360012405 a.n SMP IT Al Afiyah.',
   },
 ];
 
@@ -357,7 +357,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                         DISKON 70% UANG BANGUNAN*
                       </p>
                       <p className="text-xs text-white font-medium mt-0.5">
-                        Khusus untuk siswa lulusan SDIT Al Afiyah (Hemat Rp 1.750.000)
+                        Khusus untuk murid lulusan SDIT Al Afiyah (Hemat Rp 1.750.000)
                       </p>
                     </div>
 
@@ -366,7 +366,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                         DISKON 50% UANG BANGUNAN**
                       </p>
                       <p className="text-xs text-white font-medium mt-0.5">
-                        Untuk siswa pendaftar dari luar SDIT / Umum (Hemat Rp 1.250.000)
+                        Untuk murid pendaftar dari luar SDIT / Umum (Hemat Rp 1.250.000)
                       </p>
                     </div>
                   </div>
@@ -413,7 +413,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 </p>
               </div>
 
-              {/* Gender Switch */}
+              {/* Gender Switch (Clean Text Only, No Emojis) */}
               <div className="flex items-center gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200 self-start lg:self-auto">
                 <button
                   type="button"
@@ -424,7 +424,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  👦 Santri Ikhwan (Putra)
+                  Murid Ikhwan (Putra)
                 </button>
                 <button
                   type="button"
@@ -435,7 +435,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  🧕 Santri Akhwat (Putri)
+                  Murid Akhwat (Putri)
                 </button>
               </div>
             </div>
@@ -551,7 +551,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 sm:px-5 bg-white">
-                  <span className="font-semibold text-slate-800">6. Program Kegiatan Siswa (SCD, Outing, Mutaba&apos;ah)</span>
+                  <span className="font-semibold text-slate-800">6. Program Kegiatan Murid (SCD, Outing, Mutaba&apos;ah)</span>
                   <span className="font-mono font-bold text-slate-900">Rp 1.700.000</span>
                 </div>
 
@@ -564,7 +564,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 <div className="flex items-center justify-between p-4 sm:p-6 bg-gradient-to-r from-[#030164] to-[#0d077e] text-white">
                   <div>
                     <span className="text-xs uppercase tracking-wider text-[#ffd51e] font-black block">
-                      Total Biaya Pendidikan ({smpGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat'})
+                      Total Biaya Pendidikan ({smpGender === 'ikhwan' ? 'Murid Ikhwan' : 'Murid Akhwat'})
                     </span>
                     <span className="text-xs text-slate-300">
                       {discountBangunan > 0 ? `Hemat Rp ${discountBangunan.toLocaleString('id-ID')} pada Gelombang 1` : 'Tarif Biaya Normal Gelombang 2'}
@@ -722,7 +722,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                       1
                     </span>
                     <p className="text-xs text-slate-700 leading-relaxed">
-                      <strong>Transfer Infaq Formulir:</strong> Transfer Rp 200.000 ke Bank Muamalat 1360012405 a.n SMP IT Al Afiyah.
+                      <strong>Pilih Jalur &amp; Isi Formulir:</strong> Isi data pokok calon murid melalui formulir online ringkas kami.
                     </p>
                   </div>
 
@@ -731,7 +731,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                       2
                     </span>
                     <p className="text-xs text-slate-700 leading-relaxed">
-                      <strong>Isi Formulir Online:</strong> Lengkapi data santri &amp; orang tua melalui halaman pendaftaran online.
+                      <strong>Transfer Infaq Pendaftaran:</strong> Infaq Rp 200.000 ke Bank Muamalat 1360012405 a.n SMP IT Al Afiyah.
                     </p>
                   </div>
 
@@ -740,7 +740,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                       3
                     </span>
                     <p className="text-xs text-slate-700 leading-relaxed">
-                      <strong>Observasi &amp; Wawancara:</strong> Menghadiri jadwal tes observasi dasar membaca Al-Qur&apos;an dan wawancara orang tua di sekolah.
+                      <strong>Observasi &amp; Wawancara:</strong> Menghadiri jadwal tes observasi dasar membaca Al-Qur&apos;an dan wawancara di sekolah.
                     </p>
                   </div>
                 </div>
@@ -770,10 +770,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
         </div>
       </section>
 
-      {/* SECTION 2: PROGRAM UNGGULAN (Deep Navy #030164 & Gold #ffd51e) */}
+      {/* SECTION 2: 6 PROGRAM UNGGULAN (High Contrast White Cards on Deep Navy Background) */}
       <section id="programs" className="py-16 sm:py-20 bg-[#030164] text-white scroll-mt-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#ffd51e]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#ffd51e]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-14">
@@ -785,65 +785,59 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               6 Program Unggulan SMP IT Al-Afiyah
             </h2>
             <p className="mt-2 text-sm text-slate-200 leading-relaxed">
-              Memadukan kurikulum nasional, pendalaman ilmu diniyyah, kecakapan bahasa Arab aktif, serta pembinaan karakter kepemimpinan remaja.
+              Memadukan kurikulum nasional, penguatan tahfidz mutqin, kecakapan bahasa Arab aktif, serta pembinaan karakter kepemimpinan murid.
             </p>
           </ScrollReveal>
 
-          {/* Programs Grid */}
+          {/* Programs Grid: Pure Crisp White Cards with High Contrast */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SMP_PROGRAMS.map((prog, idx) => {
-              const IconComp = prog.icon;
-              return (
-                <ScrollReveal
-                  key={prog.number}
-                  delay={idx * 0.1}
-                  yOffset={24}
-                  duration={500}
-                  className="h-full"
-                >
-                  <div className="h-full p-6 sm:p-7 rounded-3xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#ffd51e]/60 transition-all duration-300 flex flex-col justify-between group shadow-sm">
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-black tracking-widest text-[#ffd51e] font-mono">
-                          {prog.number}
-                        </span>
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/10 text-white border border-white/20">
-                          {prog.category}
-                        </span>
-                      </div>
-
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 text-[#ffd51e] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-300 border border-white/20">
-                        <IconComp className="w-6 h-6" />
-                      </div>
-
-                      <h3 className="text-lg font-black text-white mb-2 leading-snug group-hover:text-[#ffd51e] transition-colors">
-                        {prog.title}
-                      </h3>
-
-                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        {prog.desc}
-                      </p>
+            {SMP_PROGRAMS.map((prog, idx) => (
+              <ScrollReveal
+                key={prog.number}
+                delay={idx * 0.08}
+                yOffset={24}
+                duration={500}
+                className="h-full"
+              >
+                <div className="h-full p-6 sm:p-7 rounded-3xl bg-white text-slate-900 border-2 border-slate-200/90 shadow-xl hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+                  <div>
+                    {/* Header bar: Number & Category Badge */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs font-black tracking-widest text-[#030164] font-mono bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
+                        {prog.number}
+                      </span>
+                      <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#030164] text-[#ffd51e]">
+                        {prog.category}
+                      </span>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                      <Link
-                        href={prog.href}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ffd51e] hover:underline"
-                      >
-                        <span>Selengkapnya</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
+                    <h3 className="text-lg font-black text-slate-900 mb-2 leading-snug group-hover:text-[#030164] transition-colors">
+                      {prog.title}
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                      {prog.desc}
+                    </p>
                   </div>
-                </ScrollReveal>
-              );
-            })}
+
+                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <Link
+                      href={prog.href}
+                      className="inline-flex items-center gap-1.5 text-xs font-black text-[#030164] group-hover:text-[#07038c] group-hover:underline"
+                    >
+                      <span>Pelajari Program</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
 
           <div className="mt-12 text-center">
             <Link
               href="/smp/program"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95"
             >
               <span>Buka Halaman Seluruh Kurikulum SMP IT</span>
               <ArrowRight className="w-4 h-4" />
@@ -864,7 +858,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 SCD (Student Character Development) &amp; Mutaba&apos;ah Digital
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Di SMP IT Al-Afiyah, adab ditanamkan sebelum ilmu. Santri dibimbing secara konsisten agar memiliki akidah yang lurus, adab islami, kemandirian aqil-baligh, serta kedisiplinan ibadah harian.
+                Di SMP IT Al-Afiyah, adab ditanamkan sebelum ilmu. Murid dibimbing secara konsisten agar memiliki akidah yang lurus, adab islami, kemandirian aqil-baligh, serta kedisiplinan ibadah harian.
               </p>
 
               <div className="space-y-4 pt-2">
@@ -875,7 +869,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">Pembiasaan Shalat 5 Waktu &amp; Dzikir Ma&apos;tsurat</h4>
                     <p className="text-xs text-slate-600 mt-0.5">
-                      Shalat fardhu berjamaah di masjid sekolah dan dzikir pagi petang sebagai benteng ruhiyah santri remaja.
+                      Shalat fardhu berjamaah di masjid sekolah dan dzikir pagi petang sebagai benteng ruhiyah murid remaja.
                     </p>
                   </div>
                 </div>
@@ -887,7 +881,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">Aplikasi Mutaba&apos;ah Digital Terintegrasi</h4>
                     <p className="text-xs text-slate-600 mt-0.5">
-                      Kolaborasi transparan antara santri, orang tua di rumah, dan dewan asatidz dalam memantau amalan yaumiyah.
+                      Kolaborasi transparan antara murid, orang tua di rumah, dan dewan guru di sekolah dalam memantau amalan yaumiyah.
                     </p>
                   </div>
                 </div>
@@ -929,10 +923,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                     Pembiasaan Ibadah
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-white">
-                    Halaqah Tahfidz &amp; Keteladanan Asatidz
+                    Halaqah Tahfidz &amp; Keteladanan Guru
                   </h3>
                   <p className="text-xs text-slate-200 mt-1 max-w-md">
-                    Mencetak generasi santri yang mandiri, beradab santun, dan mencintai Al-Qur&apos;an di lingkungan Giri Asih.
+                    Mencetak generasi murid yang mandiri, beradab santun, dan mencintai Al-Qur&apos;an di lingkungan Giri Asih.
                   </p>
                 </div>
               </div>
@@ -952,7 +946,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               Fasilitas Pembelajaran SMP IT Al-Afiyah
             </h2>
             <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-              Berlokasi di Lingkungan Giri Asih (Jl. Gerakan Koperasi No. 110, Majalengka Wetan) dengan sarana representatif, bersih, dan asri demi kenyamanan belajar santri.
+              Berlokasi di Lingkungan Giri Asih (Jl. Gerakan Koperasi No. 110, Majalengka Wetan) dengan sarana representatif, bersih, dan asri demi kenyamanan belajar murid.
             </p>
           </ScrollReveal>
 
@@ -1021,19 +1015,19 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
         </div>
       </section>
 
-      {/* SECTION 5: OUTING CLASS & KEGIATAN SANTRI */}
+      {/* SECTION 5: OUTING CLASS & KEGIATAN MURID */}
       <section id="dokumentasi" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-100/70 px-3.5 py-1.5 rounded-full border border-blue-200 inline-block mb-2">
-                Dokumentasi Nyata Santri
+                Dokumentasi Nyata Murid
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Aktivitas Rihlah, Outing &amp; Kejuaraan Futsal
+                Aktivitas Rihlah, Outing &amp; Kejuaraan Futsal Murid
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Potret kegiatan tadabbur alam, river tubing, mabit, dan latihan intensif atlet futsal santri SMP IT Al-Afiyah.
+                Potret kegiatan tadabbur alam, river tubing, mabit, dan latihan intensif atlet futsal murid SMP IT Al-Afiyah.
               </p>
             </div>
             <Link
@@ -1047,23 +1041,23 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-tubing-1.jpg')}>
-              <img src="/images/smp-tubing-1.jpg" alt="Outing Santri SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <img src="/images/smp-tubing-1.jpg" alt="Outing Murid SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent flex items-end p-4 text-white">
                 <p className="text-xs font-bold">Rihlah River Tubing &amp; Tadabbur Alam</p>
               </div>
             </div>
 
             <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-tubing-2.jpg')}>
-              <img src="/images/smp-tubing-2.jpg" alt="Kebersamaan Santri SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <img src="/images/smp-tubing-2.jpg" alt="Kebersamaan Murid SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent flex items-end p-4 text-white">
                 <p className="text-xs font-bold">Ukhuwah &amp; Pembentukan Mental Juara</p>
               </div>
             </div>
 
             <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-tubing-3.jpg')}>
-              <img src="/images/smp-tubing-3.jpg" alt="Keceriaan Santri SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <img src="/images/smp-tubing-3.jpg" alt="Keceriaan Murid SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent flex items-end p-4 text-white">
-                <p className="text-xs font-bold">Kemandirian &amp; Leadership Santri</p>
+                <p className="text-xs font-bold">Kemandirian &amp; Leadership Murid</p>
               </div>
             </div>
           </div>
@@ -1127,7 +1121,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             KUOTA GELOMBANG 1 TERBATAS
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-            Wujudkan Masa Depan Santri yang <br />
+            Wujudkan Masa Depan Murid yang <br />
             <span className="text-[#ffd51e]">Smart &amp; Religious</span> Bersama Kami
           </h2>
           <p className="text-sm sm:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">

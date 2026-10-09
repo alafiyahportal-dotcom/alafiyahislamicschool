@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
@@ -18,7 +18,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Agenda & Kalender Akademik SMP IT Al-Afiyah',
-  description: 'Jadwal resmi SPMB Gelombang 1 & 2, ujian observasi calon santri, jadwal tasmi\' akbar tahfidz, mabit karakter, dan agenda akademik SMP IT Al-Afiyah Majalengka.',
+  description: 'Jadwal resmi SPMB Gelombang 1 & 2, ujian observasi calon murid, jadwal tasmi\' akbar tahfidz, mabit karakter, dan agenda akademik SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Agenda & Kalender Kegiatan SMP IT Al-Afiyah',
-    description: 'Jadwal resmi kegiatan dan penerimaan santri baru SMP IT Al-Afiyah.',
+    description: 'Jadwal resmi kegiatan dan penerimaan murid baru SMP IT Al-Afiyah.',
     images: ['/images/smp-spmb-poster.png'],
   },
 };
@@ -51,7 +51,7 @@ const SMP_EVENTS = [
     date: '1 Maret 2027 – 30 Juni 2027',
     category: 'SPMB',
     badge: 'Gelombang 2',
-    desc: 'Penerimaan santri baru gelombang reguler tanpa diskon potongan uang bangunan hingga kuota rombel terpenuhi.',
+    desc: 'Penerimaan murid baru gelombang reguler tanpa diskon potongan uang bangunan hingga kuota rombel terpenuhi.',
     location: 'Sekretariat SPMB / Online',
     isHighlight: false
   },
@@ -60,7 +60,7 @@ const SMP_EVENTS = [
     date: '15 November 2026',
     category: 'Tahfidz Qur\'an',
     badge: 'Akademik Diniyyah',
-    desc: 'Ujian pembacaan hafalan 1 juz dan 3 juz sekali duduk oleh santri di hadapan dewan asatidz dan disaksikan oleh orang tua.',
+    desc: 'Ujian pembacaan hafalan 1 juz dan 3 juz sekali duduk oleh murid di hadapan dewan asatidz dan disaksikan oleh orang tua.',
     location: 'Masjid SMP IT Al-Afiyah',
     isHighlight: false
   },
@@ -78,12 +78,12 @@ const SMP_EVENTS = [
     date: '23 – 24 Januari 2027',
     category: 'Karakter (SCD)',
     badge: 'Pembinaan Karakter',
-    desc: 'Malam bina iman dan takwa santri remaja, shalat tahajjud berjamaah, dan pendalaman adab birrul walidain.',
+    desc: 'Malam bina iman dan takwa murid remaja, shalat tahajjud berjamaah, dan pendalaman adab birrul walidain.',
     location: 'SMP IT Al-Afiyah (Lingkungan Giri Asih)',
     isHighlight: false
   },
   {
-    title: 'Rihlah & Outing Class Tadabbur Alam Santri',
+    title: 'Rihlah & Outing Class Tadabbur Alam Murid',
     date: '20 Februari 2027',
     category: 'Rihlah & Outing',
     badge: 'Eksplorasi Alam',
@@ -124,7 +124,7 @@ export default function SmpAgendaPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Informasi lengkap linimasa kegiatan akademik, gelombang SPMB 2027/2028, ujian tasmi' tahfidz Al-Qur'an, agenda mabit karakter SCD, dan turnamen olahraga santri.
+              Informasi lengkap linimasa kegiatan akademik, gelombang SPMB 2027/2028, ujian tasmi' tahfidz Al-Qur'an, agenda mabit karakter SCD, dan turnamen olahraga murid.
             </p>
           </div>
         </div>

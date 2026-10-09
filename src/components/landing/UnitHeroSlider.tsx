@@ -177,7 +177,7 @@ export default function UnitHeroSlider({
 }: UnitHeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const ppdbUrl = slug === 'sd' ? '/sd/spmb/daftar' : `/ppdb/daftar?school=${slug}`;
+  const ppdbUrl = slug === 'sd' ? '/sd/spmb/daftar' : slug === 'smp' ? '/smp/spmb/daftar' : `/ppdb/daftar?school=${slug}`;
   const waUrl = `https://wa.me/${waCenterPhone}?text=${encodeURIComponent(
     `Assalamu'alaikum Panitia SPMB ${schoolName}, saya ingin bertanya perihal informasi pendaftaran murid baru TP 2027/2028.`
   )}`;

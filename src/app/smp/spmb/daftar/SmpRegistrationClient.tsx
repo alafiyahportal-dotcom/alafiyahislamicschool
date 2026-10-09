@@ -21,7 +21,10 @@ import {
   BookOpen,
   Trophy,
   Percent,
-  Sparkles
+  Sparkles,
+  MapPin,
+  School,
+  MessageCircle
 } from 'lucide-react';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
 
@@ -30,7 +33,6 @@ export default function SmpRegistrationClient() {
   const searchParams = useSearchParams();
   const initialRef = searchParams.get('ref') || '';
 
-  const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -42,20 +44,16 @@ export default function SmpRegistrationClient() {
     admissionTrack: 'GELOMBANG_1_SDIT', // 'GELOMBANG_1_SDIT' | 'GELOMBANG_1_UMUM' | 'GELOMBANG_2'
     referralCode: initialRef,
     
-    // Data Calon Santri
+    // Data Calon Murid (Hanya Pokok)
     studentName: '',
-    nik: '',
     gender: 'LAKI_LAKI',
-    pob: 'Majalengka',
-    dob: '2014-01-01',
+    nik: '',
     previousSchool: 'SDIT Al-Afiyah',
-    tahfidzLevel: 'Juz 30 (1 Juz)',
-    futsalInterest: 'Ya, Tertarik Futsal Development Program',
+    programInterest: 'Tahfidz Al-Qur\'an (Target 3 - 5+ Juz)',
 
-    // Data Orang Tua / Wali
+    // Data Orang Tua / Kontak (Hanya Pokok)
     parentName: '',
     parentPhone: '',
-    parentJob: '',
     address: '',
   });
 
@@ -79,29 +77,42 @@ export default function SmpRegistrationClient() {
     setIsLoading(true);
     setErrorMessage('');
 
+    // Validasi sederhana
+    if (!formData.studentName.trim()) {
+      setErrorMessage('Mohon isi nama lengkap calon murid.');
+      setIsLoading(false);
+      return;
+    }
+    if (!formData.parentPhone.trim()) {
+      setErrorMessage('Mohon isi nomor WhatsApp orang tua/wali untuk konfirmasi panitia.');
+      setIsLoading(false);
+      return;
+    }
+
+    // Auto-generate fallback NIK if user didn't fill it
+    const effectiveNik = formData.nik.trim() || `3210${Math.floor(100000000000 + Math.random() * 900000000000)}`;
+
     try {
       const res = await fetch('/api/ppdb/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           schoolSlug: 'smp',
-          studentName: formData.studentName,
-          nik: formData.nik,
-          gender: formData.gender,
-          pob: formData.pob,
-          dob: formData.dob,
-          address: formData.address,
+          studentName: formData.studentName.trim(),
+          nik: effectiveNik,
+          gender: formData.gender === 'LAKI_LAKI' ? 'L' : 'P',
+          pob: 'Majalengka',
+          dob: '2014-01-01',
+          address: formData.address.trim() || 'Majalengka',
           referralCode: formData.referralCode || undefined,
           schoolSpecificData: {
             admissionTrack: formData.admissionTrack,
-            previousSchool: formData.previousSchool,
-            tahfidzLevel: formData.tahfidzLevel,
-            futsalInterest: formData.futsalInterest,
+            previousSchool: formData.previousSchool.trim(),
+            programInterest: formData.programInterest,
           },
           parentData: {
-            fatherName: formData.parentName,
-            fatherPhone: formData.parentPhone,
-            fatherJob: formData.parentJob,
+            fatherName: formData.parentName.trim() || 'Orang Tua Murid',
+            fatherPhone: formData.parentPhone.trim(),
           },
         }),
       });
@@ -113,8 +124,8 @@ export default function SmpRegistrationClient() {
 
       setIsSuccess(true);
       setRegResult({
-        registrationNo: data.registrationNo || 'SMP-2027-OK',
-        studentName: formData.studentName,
+        registrationNo: data.registrationNo || 'REG-SMP-2027-OK',
+        studentName: formData.studentName.trim(),
       });
 
       confetti({
@@ -130,33 +141,33 @@ export default function SmpRegistrationClient() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
-      {/* Header Breadcrumb */}
+    <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+      {/* Breadcrumb Nav */}
       <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6">
-        <Link href="/smp" className="hover:text-[#030164] transition-colors">SMP IT</Link>
+        <Link href="/smp" className="hover:text-[#030164] transition-colors">Beranda SMP IT</Link>
         <ChevronRight className="w-3 h-3 text-slate-400" />
         <Link href="/smp/spmb" className="hover:text-[#030164] transition-colors">SPMB 2027/2028</Link>
         <ChevronRight className="w-3 h-3 text-slate-400" />
-        <span className="font-bold text-[#030164]">Formulir Pendaftaran</span>
+        <span className="font-bold text-[#030164]">Formulir Pendaftaran Murid Baru</span>
       </nav>
 
-      {/* Title Box */}
+      {/* Header Banner */}
       <div className="mb-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#030164] via-[#090580] to-[#0c0879] text-white shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
-        <span className="text-xs font-bold text-[#ffd51e] uppercase tracking-widest block mb-1">
-          Formulir Resmi SPMB Online
+        <span className="text-xs font-black text-[#ffd51e] uppercase tracking-widest block mb-1">
+          FORMULIR RESMI SPMB ONLINE
         </span>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-          Pendaftaran Santri Baru SMP IT Al-Afiyah
+        <h1 className="text-2xl sm:text-3xl font-black text-white">
+          Pendaftaran Murid Baru SMP IT Al-Afiyah
         </h1>
-        <p className="text-xs sm:text-sm text-blue-200 mt-2 max-w-2xl">
-          Tahun Ajaran 2027/2028 • Terakreditasi A BAN-S/M • Tagline: <em className="text-[#ffd51e]">Be Smart &amp; Religious</em>
+        <p className="text-xs sm:text-sm text-slate-200 mt-2 max-w-xl">
+          Tahun Ajaran 2027/2028 • Terakreditasi A • Tagline: <em className="text-[#ffd51e] font-semibold">Be Smart &amp; Religious</em>
         </p>
       </div>
 
       {isSuccess && regResult ? (
         /* Success Screen */
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl text-center space-y-6 animate-fade-in">
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl text-center space-y-6">
           <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
             <Check className="w-8 h-8 stroke-[3]" />
           </div>
@@ -166,16 +177,16 @@ export default function SmpRegistrationClient() {
               Pendaftaran Berhasil Diterima
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              Ahlan wa Sahlan, Calon Santri!
+              Selamat Datang, Calon Murid!
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
-              Biodata ananda <strong>{regResult.studentName}</strong> telah tercatat di basis data SPMB SMP IT Al-Afiyah.
+              Biodata calon murid <strong>{regResult.studentName}</strong> telah berhasil dicatat dalam sistem penerimaan murid baru SMP IT Al-Afiyah.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 max-w-sm mx-auto text-left space-y-2">
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 max-w-sm mx-auto text-left space-y-1.5">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-              Nomor Registrasi Santri:
+              Nomor Registrasi Murid:
             </span>
             <div className="text-xl font-mono font-extrabold text-[#030164]">
               {regResult.registrationNo}
@@ -192,14 +203,14 @@ export default function SmpRegistrationClient() {
             </span>
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs text-blue-200">Bank Muamalat:</span>
+                <span className="text-xs text-slate-300">Bank Muamalat:</span>
                 <p className="text-lg font-mono font-bold text-white">1360012405</p>
-                <span className="text-[11px] text-blue-200">a.n SMP IT Al Afiyah</span>
+                <span className="text-[11px] text-slate-300">a.n SMP IT Al Afiyah</span>
               </div>
               <button
                 type="button"
                 onClick={handleCopyBank}
-                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-[#ffd51e] text-xs font-bold transition-all flex items-center gap-1"
+                className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-[#ffd51e] text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
               >
                 {copiedBank ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedBank ? 'Tersalin' : 'Salin'}</span>
@@ -209,24 +220,24 @@ export default function SmpRegistrationClient() {
 
           <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
             <a
-              href={`https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20sudah%20mendaftar%20dengan%20No%20Registrasi%20${regResult.registrationNo}%20atas%20nama%20${encodeURIComponent(regResult.studentName)}`}
+              href={`https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20sudah%20mendaftar%20dengan%20No%20Registrasi%20${regResult.registrationNo}%20atas%20nama%20calon%20murid%20${encodeURIComponent(regResult.studentName)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2"
+              className="px-6 py-3 rounded-xl bg-[#030164] hover:bg-[#07038c] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2"
             >
-              <span>Konfirmasi via WhatsApp</span>
-              <ArrowRight className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
+              <span>Konfirmasi via WhatsApp Panitia</span>
             </a>
             <Link
-              href="/smp/spmb/cek-status"
+              href="/smp"
               className="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider transition-all"
             >
-              Cek Status Pendaftaran
+              Kembali ke Beranda SMP
             </Link>
           </div>
         </div>
       ) : (
-        /* Form Card */
+        /* Form Card - Simple & Clean */
         <form onSubmit={handleSubmit} className="p-6 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-8">
           {errorMessage && (
             <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
@@ -235,18 +246,18 @@ export default function SmpRegistrationClient() {
             </div>
           )}
 
-          {/* Jalur Pendaftaran */}
-          <div className="space-y-4">
-            <span className="text-xs font-bold text-[#030164] uppercase tracking-wider block">
-              1. Pilih Jalur &amp; Gelombang Pendaftaran
+          {/* 1. Pilih Jalur & Gelombang */}
+          <div className="space-y-3">
+            <span className="text-xs font-black text-[#030164] uppercase tracking-wider block">
+              1. Pilih Jalur Gelombang Pendaftaran
             </span>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <label 
                 className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
                   formData.admissionTrack === 'GELOMBANG_1_SDIT'
-                    ? 'border-[#030164] bg-blue-50/70 ring-2 ring-[#030164]/20'
-                    : 'border-slate-200 hover:border-slate-300'
+                    ? 'border-[#030164] bg-blue-50/80 ring-2 ring-[#030164]/20'
+                    : 'border-slate-200 hover:border-slate-300 bg-slate-50'
                 }`}
               >
                 <input
@@ -254,24 +265,24 @@ export default function SmpRegistrationClient() {
                   name="track"
                   value="GELOMBANG_1_SDIT"
                   checked={formData.admissionTrack === 'GELOMBANG_1_SDIT'}
-                  onChange={() => setFormData((p) => ({ ...p, admissionTrack: 'GELOMBANG_1_SDIT' }))}
+                  onChange={() => setFormData((p) => ({ ...p, admissionTrack: 'GELOMBANG_1_SDIT', previousSchool: 'SDIT Al-Afiyah' }))}
                   className="sr-only"
                 />
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#030164] text-[#ffd51e]">
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-[#030164] text-[#ffd51e]">
                     Diskon 70%
                   </span>
-                  <h4 className="text-sm font-bold text-slate-900 mt-2">Gel 1: Siswa SDIT</h4>
-                  <p className="text-[11px] text-slate-500 mt-1">Khusus lulusan SDIT Al-Afiyah Majalengka.</p>
+                  <h4 className="text-sm font-black text-slate-900 mt-2">Lulusan SDIT Al-Afiyah</h4>
+                  <p className="text-[11px] text-slate-600 mt-1">Khusus murid lulusan SDIT Al-Afiyah Majalengka.</p>
                 </div>
-                <span className="text-xs font-bold text-[#030164] mt-3">Bangunan: Rp 750.000</span>
+                <span className="text-xs font-black text-[#030164] mt-3">Hemat Rp 1.750.000</span>
               </label>
 
               <label 
                 className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
                   formData.admissionTrack === 'GELOMBANG_1_UMUM'
-                    ? 'border-[#030164] bg-blue-50/70 ring-2 ring-[#030164]/20'
-                    : 'border-slate-200 hover:border-slate-300'
+                    ? 'border-[#030164] bg-blue-50/80 ring-2 ring-[#030164]/20'
+                    : 'border-slate-200 hover:border-slate-300 bg-slate-50'
                 }`}
               >
                 <input
@@ -279,24 +290,24 @@ export default function SmpRegistrationClient() {
                   name="track"
                   value="GELOMBANG_1_UMUM"
                   checked={formData.admissionTrack === 'GELOMBANG_1_UMUM'}
-                  onChange={() => setFormData((p) => ({ ...p, admissionTrack: 'GELOMBANG_1_UMUM' }))}
+                  onChange={() => setFormData((p) => ({ ...p, admissionTrack: 'GELOMBANG_1_UMUM', previousSchool: '' }))}
                   className="sr-only"
                 />
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-900">
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500 text-slate-950">
                     Diskon 50%
                   </span>
-                  <h4 className="text-sm font-bold text-slate-900 mt-2">Gel 1: Siswa Luar / Umum</h4>
-                  <p className="text-[11px] text-slate-500 mt-1">Lulusan SD/MI luar SDIT Al-Afiyah.</p>
+                  <h4 className="text-sm font-black text-slate-900 mt-2">Pendaftar Luar SDIT / Umum</h4>
+                  <p className="text-[11px] text-slate-600 mt-1">Lulusan SD/MI dari luar SDIT Al-Afiyah.</p>
                 </div>
-                <span className="text-xs font-bold text-slate-800 mt-3">Bangunan: Rp 1.250.000</span>
+                <span className="text-xs font-black text-amber-900 mt-3">Hemat Rp 1.250.000</span>
               </label>
 
               <label 
                 className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
                   formData.admissionTrack === 'GELOMBANG_2'
-                    ? 'border-[#030164] bg-blue-50/70 ring-2 ring-[#030164]/20'
-                    : 'border-slate-200 hover:border-slate-300'
+                    ? 'border-[#030164] bg-blue-50/80 ring-2 ring-[#030164]/20'
+                    : 'border-slate-200 hover:border-slate-300 bg-slate-50'
                 }`}
               >
                 <input
@@ -308,189 +319,217 @@ export default function SmpRegistrationClient() {
                   className="sr-only"
                 />
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700">
-                    Reguler
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-200 text-slate-700">
+                    Gelombang 2
                   </span>
-                  <h4 className="text-sm font-bold text-slate-900 mt-2">Gelombang 2</h4>
-                  <p className="text-[11px] text-slate-500 mt-1">Tarif normal tanpa potongan diskon.</p>
+                  <h4 className="text-sm font-bold text-slate-900 mt-2">Tarif Normal</h4>
+                  <p className="text-[11px] text-slate-500 mt-1">Biaya standar tanpa diskon gelombang.</p>
                 </div>
-                <span className="text-xs font-bold text-slate-800 mt-3">Bangunan: Rp 2.500.000</span>
+                <span className="text-xs font-bold text-slate-700 mt-3">Mulai 1 Maret 2027</span>
               </label>
             </div>
           </div>
 
-          {/* Data Calon Santri */}
-          <div className="space-y-4 pt-6 border-t border-slate-100">
-            <span className="text-xs font-bold text-[#030164] uppercase tracking-wider block">
-              2. Biodata Calon Santri
+          {/* 2. Data Pokok Calon Murid */}
+          <div className="space-y-4 pt-4 border-t border-slate-200">
+            <span className="text-xs font-black text-[#030164] uppercase tracking-wider block">
+              2. Data Pokok Calon Murid
             </span>
 
+            {/* Nama Lengkap */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Nama Lengkap Calon Murid <span className="text-rose-500">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                value={formData.studentName}
+                onChange={(e) => setFormData((p) => ({ ...p, studentName: e.target.value }))}
+                placeholder="Contoh: Muhammad Fatih Al-Afiyah"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
+              />
+            </div>
+
+            {/* Jenis Kelamin (Clean, No Emojis) */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1.5">
+                Jenis Kelamin <span className="text-rose-500">*</span>
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setFormData((p) => ({ ...p, gender: 'LAKI_LAKI' }))}
+                  className={`py-3 px-4 rounded-xl text-xs font-bold border transition-all cursor-pointer text-center ${
+                    formData.gender === 'LAKI_LAKI'
+                      ? 'bg-[#030164] text-white border-[#030164] shadow-sm'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  Murid Ikhwan (Putra)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFormData((p) => ({ ...p, gender: 'PEREMPUAN' }))}
+                  className={`py-3 px-4 rounded-xl text-xs font-bold border transition-all cursor-pointer text-center ${
+                    formData.gender === 'PEREMPUAN'
+                      ? 'bg-[#030164] text-white border-[#030164] shadow-sm'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  Murid Akhwat (Putri)
+                </button>
+              </div>
+            </div>
+
+            {/* Asal Sekolah & NISN/NIK */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Nama Lengkap Santri *</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">
+                  Nama Asal SD / MI <span className="text-rose-500">*</span>
+                </label>
                 <input
                   type="text"
                   required
-                  placeholder="Contoh: Muhammad Fatih Al-Ayyubi"
-                  value={formData.studentName}
-                  onChange={(e) => setFormData((p) => ({ ...p, studentName: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">NIK Calon Santri (16 Digit) *</label>
-                <input
-                  type="text"
-                  required
-                  maxLength={16}
-                  placeholder="3210..."
-                  value={formData.nik}
-                  onChange={(e) => setFormData((p) => ({ ...p, nik: e.target.value.replace(/\D/g, '') }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Jenis Kelamin *</label>
-                <select
-                  value={formData.gender}
-                  onChange={(e) => setFormData((p) => ({ ...p, gender: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
-                >
-                  <option value="LAKI_LAKI">Ikhwan (Laki-laki)</option>
-                  <option value="PEREMPUAN">Akhwat (Perempuan)</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Asal Sekolah SD / MI *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Contoh: SDIT Al-Afiyah Majalengka"
                   value={formData.previousSchool}
                   onChange={(e) => setFormData((p) => ({ ...p, previousSchool: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
+                  placeholder="Contoh: SDIT Al-Afiyah / SDN 1 Majalengka"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Tempat Lahir</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">
+                  NISN / NIK Murid (Opsional)
+                </label>
                 <input
                   type="text"
-                  value={formData.pob}
-                  onChange={(e) => setFormData((p) => ({ ...p, pob: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
+                  value={formData.nik}
+                  onChange={(e) => setFormData((p) => ({ ...p, nik: e.target.value }))}
+                  placeholder="Bisa disusulkan kemudian"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
                 />
               </div>
+            </div>
 
-              <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Tanggal Lahir</label>
-                <input
-                  type="date"
-                  value={formData.dob}
-                  onChange={(e) => setFormData((p) => ({ ...p, dob: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Capaian Hafalan Qur'an Saat Ini</label>
-                <select
-                  value={formData.tahfidzLevel}
-                  onChange={(e) => setFormData((p) => ({ ...p, tahfidzLevel: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
-                >
-                  <option value="Juz 30 (1 Juz)">Juz 30 (1 Juz)</option>
-                  <option value="Juz 29 - 30 (2 Juz)">Juz 29 - 30 (2 Juz)</option>
-                  <option value="3 Juz atau lebih">3 Juz atau lebih</option>
-                  <option value="Belum ada juz penuh (surat pendek)">Belum ada juz penuh (surat pendek)</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Minat Futsal Development Program</label>
-                <select
-                  value={formData.futsalInterest}
-                  onChange={(e) => setFormData((p) => ({ ...p, futsalInterest: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
-                >
-                  <option value="Ya, Tertarik Futsal Development Program">Ya, Tertarik Futsal Development Program</option>
-                  <option value="Tertarik Olahraga Lain / Ekskul Lain">Tertarik Olahraga Lain / Ekskul Lain</option>
-                </select>
-              </div>
+            {/* Peminatan Program */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Peminatan Program Unggulan
+              </label>
+              <select
+                value={formData.programInterest}
+                onChange={(e) => setFormData((p) => ({ ...p, programInterest: e.target.value }))}
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] bg-white cursor-pointer"
+              >
+                <option value="Tahfidz Al-Qur'an (Target 3 - 5+ Juz)">Tahfidz Al-Qur&apos;an (Target 3 - 5+ Juz Mutqin)</option>
+                <option value="Futsal Development Program">Futsal Development Program (Olahraga Prestasi)</option>
+                <option value="Kelas Bahasa Arab Intensif">Kelas Bahasa Arab Intensif</option>
+                <option value="Program Reguler Terpadu">Program Reguler Terpadu</option>
+              </select>
             </div>
           </div>
 
-          {/* Data Orang Tua */}
-          <div className="space-y-4 pt-6 border-t border-slate-100">
-            <span className="text-xs font-bold text-[#030164] uppercase tracking-wider block">
-              3. Data Orang Tua / Wali Santri
+          {/* 3. Data Orang Tua & Kontak */}
+          <div className="space-y-4 pt-4 border-t border-slate-200">
+            <span className="text-xs font-black text-[#030164] uppercase tracking-wider block">
+              3. Data Kontak Orang Tua / Wali
             </span>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Nama Ayah / Ibu / Wali *</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">
+                  Nama Orang Tua / Wali (Ayah / Ibu) <span className="text-rose-500">*</span>
+                </label>
                 <input
                   type="text"
                   required
-                  placeholder="Nama orang tua/wali"
                   value={formData.parentName}
                   onChange={(e) => setFormData((p) => ({ ...p, parentName: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
+                  placeholder="Contoh: H. Agus Supriyadi"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-700 block mb-1">No. WhatsApp Aktif Orang Tua *</label>
+                <label className="text-xs font-bold text-slate-800 block mb-1">
+                  Nomor WhatsApp Aktif <span className="text-rose-500">*</span>
+                </label>
                 <input
                   type="tel"
                   required
-                  placeholder="08xxxxxxxxxx"
                   value={formData.parentPhone}
                   onChange={(e) => setFormData((p) => ({ ...p, parentPhone: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
+                  placeholder="Contoh: 081234567890"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
                 />
+                <span className="text-[11px] text-slate-500 mt-1 block">
+                  Nomor ini akan digunakan panitia untuk mengirimkan info observasi &amp; verifikasi.
+                </span>
               </div>
+            </div>
 
-              <div className="sm:col-span-2">
-                <label className="text-xs font-semibold text-slate-700 block mb-1">Alamat Tempat Tinggal Lengkap *</label>
-                <textarea
-                  required
-                  rows={2}
-                  placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kabupaten"
-                  value={formData.address}
-                  onChange={(e) => setFormData((p) => ({ ...p, address: e.target.value }))}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-hidden focus:border-[#030164]"
-                />
-              </div>
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Alamat Rumah Singkat
+              </label>
+              <input
+                type="text"
+                value={formData.address}
+                onChange={(e) => setFormData((p) => ({ ...p, address: e.target.value }))}
+                placeholder="Contoh: Jl. Gerakan Koperasi, Majalengka Wetan"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
+              />
             </div>
           </div>
 
-          {/* Submit Action Button */}
-          <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-xs text-slate-500">
-              Biaya formulir pendaftaran: <strong>Rp 200.000</strong>
-            </span>
+          {/* 4. Rekening Pembayaran Infaq */}
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                  Infaq Formulir &amp; Pendaftaran
+                </span>
+                <p className="text-base font-black text-slate-900">
+                  Rp 200.000 • Bank Muamalat
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleCopyBank}
+                className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-bold text-[#030164] hover:bg-slate-100 transition-all flex items-center gap-1 cursor-pointer"
+              >
+                {copiedBank ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedBank ? 'Tersalin' : 'Salin Rekening'}</span>
+              </button>
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              No. Rekening: <strong className="font-mono text-slate-900 font-bold">1360012405</strong> a.n <strong className="text-slate-900">SMP IT Al Afiyah</strong>. Infaq pendaftaran dapat ditransfer atau diserahkan saat observasi.
+            </p>
+          </div>
 
+          {/* Submit Button */}
+          <div className="pt-2">
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#030164] hover:bg-blue-900 text-[#ffd51e] font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 rounded-2xl bg-[#030164] hover:bg-[#07038c] text-white font-black text-sm uppercase tracking-wider transition-all shadow-lg active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Memproses Pendaftaran...</span>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>Mengirim Data Pendaftaran...</span>
                 </>
               ) : (
                 <>
-                  <span>Kirim Formulir Pendaftaran</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Kirim Formulir Pendaftaran SMP IT</span>
+                  <ArrowRight className="w-4 h-4 text-[#ffd51e] stroke-[3]" />
                 </>
               )}
             </button>
+            <p className="text-[11px] text-slate-400 text-center mt-3">
+              Dengan mengirimkan formulir ini, data pendaftaran akan diverifikasi oleh panitia SPMB SMP IT Al-Afiyah Majalengka.
+            </p>
           </div>
         </form>
       )}

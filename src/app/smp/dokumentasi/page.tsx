@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -19,8 +19,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Dokumentasi & Kegiatan Santri SMP IT Al-Afiyah',
-  description: 'Galeri foto kegiatan santri SMP IT Al-Afiyah Majalengka: Rihlah River Tubing Cikadongdong, mabit tahfidz, latihan Futsal Development Program, dan outing class edukatif.',
+  title: 'Dokumentasi & Kegiatan Murid SMP IT Al-Afiyah',
+  description: 'Galeri foto kegiatan murid SMP IT Al-Afiyah Majalengka: Rihlah River Tubing Cikadongdong, mabit tahfidz, latihan Futsal Development Program, dan outing class edukatif.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     apple: '/images/smp-logo.png',
   },
   openGraph: {
-    title: 'Dokumentasi & Rihlah Santri SMP IT Al-Afiyah',
-    description: 'Petualangan seru, pembiasaan ibadah, dan prestasi santri SMP IT Al-Afiyah.',
+    title: 'Dokumentasi & Rihlah Murid SMP IT Al-Afiyah',
+    description: 'Petualangan seru, pembiasaan ibadah, dan prestasi murid SMP IT Al-Afiyah.',
     images: ['/images/smp-tubing-1.jpg'],
   },
 };
@@ -44,7 +44,7 @@ const GALLERIES = [
     title: 'Petualangan Seru River Tubing Cikadongdong Majalengka',
     category: 'Rihlah & Outing Class',
     image: '/images/smp-tubing-1.jpg',
-    desc: 'Menumbuhkan keberanian, jiwa kepemimpinan, kemandirian, dan ukhuwah islamiyah santri menyusuri aliran sungai Cikadongdong yang menantang.',
+    desc: 'Menumbuhkan keberanian, jiwa kepemimpinan, kemandirian, dan ukhuwah islamiyah murid menyusuri aliran sungai Cikadongdong yang menantang.',
     date: 'Oktober 2026',
     location: 'Cikadongdong River Tubing, Majalengka'
   },
@@ -53,7 +53,7 @@ const GALLERIES = [
     title: 'Halaqah Tahfidz & Ujian Tasmi\' Sekali Duduk',
     category: 'Tahfidz Qur\'an',
     image: '/images/smp-outing-3.jpg',
-    desc: 'Santri membacakan hafalan 1 juz Al-Qur\'an sekali duduk di hadapan dewan asatidz dan disaksikan oleh kedua orang tua secara khidmat.',
+    desc: 'Murid membacakan hafalan 1 juz Al-Qur\'an sekali duduk di hadapan dewan asatidz dan disaksikan oleh kedua orang tua secara khidmat.',
     date: 'September 2026',
     location: 'Masjid SMP IT Al-Afiyah'
   },
@@ -71,7 +71,7 @@ const GALLERIES = [
     title: 'Praktik Muhadatsah & Hari Wajib Bahasa Arab (Yaumul Lughah)',
     category: 'Bahasa Arab',
     image: '/images/smp-hero-bilingual.jpg',
-    desc: 'Santri mempraktikkan percakapan bahasa Arab aktif dalam pergaulan harian dan orasi khitabah di hadapan teman sebaya.',
+    desc: 'Murid mempraktikkan percakapan bahasa Arab aktif dalam pergaulan harian dan orasi khitabah di hadapan teman sebaya.',
     date: 'Agustus 2026',
     location: 'Gedung Pembelajaran SMP IT'
   },
@@ -80,7 +80,7 @@ const GALLERIES = [
     title: 'Pembelajaran Sains Eksperimental di Lab Komputer & Sains',
     category: 'Akademik & Sains',
     image: '/images/smp-hero-fullday.jpg',
-    desc: 'Eksplorasi literasi digital, pengolahan data sederhana, dan simulasi asesmen berbasis teknologi untuk mengasah nalar kritis santri.',
+    desc: 'Eksplorasi literasi digital, pengolahan data sederhana, dan simulasi asesmen berbasis teknologi untuk mengasah nalar kritis murid.',
     date: 'Juli 2026',
     location: 'Laboratorium Komputer SMP IT'
   },
@@ -89,7 +89,7 @@ const GALLERIES = [
     title: 'Mabit Ruhiyah & Muhasabah Karakter Remaja (SCD)',
     category: 'Karakter & Ibadah',
     image: '/images/smp-spmb-poster.png',
-    desc: 'Malam bina iman dan takwa santri remaja, shalat tahajjud berjamaah, dan muhasabah adab berbakti kepada orang tua.',
+    desc: 'Malam bina iman dan takwa murid remaja, shalat tahajjud berjamaah, dan muhasabah adab berbakti kepada orang tua.',
     date: 'Juli 2026',
     location: 'SMP IT Al-Afiyah (Lingkungan Giri Asih)'
   }
@@ -118,15 +118,15 @@ export default function SmpDokumentasiPage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-xs font-bold tracking-wider uppercase mb-4 backdrop-blur-xs">
               <Camera className="w-3.5 h-3.5" />
-              <span>GALERI NYATA KEGIATAN &amp; RIHLAH SANTRI</span>
+              <span>GALERI NYATA KEGIATAN &amp; RIHLAH MURID</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dokumentasi Kegiatan Santri
+              Dokumentasi Kegiatan Murid
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Potret dinamika kehidupan santri SMP IT Al-Afiyah Majalengka: Dari keseruan tadabbur alam dan rihlah river tubing, syahdunya halaqah tahfidz, hingga disiplin kompetisi di lapangan futsal.
+              Potret dinamika kehidupan murid SMP IT Al-Afiyah Majalengka: Dari keseruan tadabbur alam dan rihlah river tubing, syahdunya halaqah tahfidz, hingga disiplin kompetisi di lapangan futsal.
             </p>
           </div>
         </div>

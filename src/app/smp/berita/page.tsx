@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
 import Navbar from '@/components/layout/Navbar';
@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SMP IT Al-Afiyah',
-  description: 'Berita kegiatan santri, prestasi kejuaraan futsal, capaian tasmi\' tahfidz, dan khazanah artikel remaja SMP IT Al-Afiyah Majalengka.',
+  description: 'Berita kegiatan murid, prestasi kejuaraan futsal, capaian tasmi\' tahfidz, dan khazanah artikel remaja SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Warta & Prestasi SMP IT Al-Afiyah Majalengka',
-    description: 'Liputan kegiatan, prestasi olahraga dan tahfidz santri SMP IT Al-Afiyah.',
+    description: 'Liputan kegiatan, prestasi olahraga dan tahfidz murid SMP IT Al-Afiyah.',
     images: ['/images/smp-spmb-poster.png'],
   },
 };
@@ -46,7 +46,7 @@ const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
     title: 'Petualangan Seru River Tubing Cikadongdong: Membangun Ukhuwah & Ketangkasan Remaja',
     slug: 'rihlah-river-tubing-cikadongdong-smp-it',
     category: 'Kegiatan',
-    excerpt: 'Santri diajak bertadabbur alam menaklukkan arus sungai Cikadongdong. Melatih keberanian, kerja sama tim, dan kepedulian terhadap kelestarian lingkungan.',
+    excerpt: 'Murid diajak bertadabbur alam menaklukkan arus sungai Cikadongdong. Melatih keberanian, kerja sama tim, dan kepedulian terhadap kelestarian lingkungan.',
     author: 'Kordinator Kesiswaan',
     date: '2 Okt 2026',
     schoolName: 'SMP IT Al-Afiyah',
@@ -55,10 +55,10 @@ const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
   },
   {
     id: 'smp-warta-3',
-    title: 'Ujian Tasmi\' 3 Juz Sekali Duduk: Santri Buktikan Hafalan Qur\'an Mutqin & Tartil',
+    title: 'Ujian Tasmi\' 3 Juz Sekali Duduk: Murid Buktikan Hafalan Qur\'an Mutqin & Tartil',
     slug: 'ujian-tasmi-3-juz-mutqin-smp-it',
     category: 'Tahfidz',
-    excerpt: 'Sesi tasmi\' akbar dihadiri oleh dewan asatidz dan para orang tua santri. Capaian hafalan mutqin menjadi bukti kesungguhan bimbingan Al-Qur\'an setiap pagi.',
+    excerpt: 'Sesi tasmi\' akbar dihadiri oleh dewan asatidz dan para orang tua murid. Capaian hafalan mutqin menjadi bukti kesungguhan bimbingan Al-Qur\'an setiap pagi.',
     author: 'Kordinator Tahfidz',
     date: '25 Sep 2026',
     schoolName: 'SMP IT Al-Afiyah',
@@ -145,7 +145,7 @@ export default async function SmpBeritaPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Ikuti kabar kegiatan santri, prestasi kejuaraan, liputan outing class, dan informasi resmi dari SMP IT Al-Afiyah Majalengka.
+              Ikuti kabar kegiatan murid, prestasi kejuaraan, liputan outing class, dan informasi resmi dari SMP IT Al-Afiyah Majalengka.
             </p>
           </div>
         </div>

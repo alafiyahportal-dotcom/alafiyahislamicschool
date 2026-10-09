@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Dewan Asatidz & Pendidik SMP IT Al-Afiyah',
-    description: 'Pendidik berakhlak Qur\'ani, kompeten di bidangnya, dan berdedikasi membina santri.',
+    description: 'Pendidik berakhlak Qur\'ani, kompeten di bidangnya, dan berdedikasi membina murid.',
     images: ['/images/smp-program-unggulan.png'],
   },
 };
@@ -61,7 +61,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
     name: 'Ustadz Ahmad Fauzi, Lc., Al-Hafizh',
     role: 'Koordinator Tahfidz & Diniyyah',
     specialization: 'Tahfidz 30 Juz Bersanad & Ulumul Qur\'an',
-    bio: 'Alumnus Timur Tengah pemegang sanad qira\'ah Hafs \'an \'Ashim, pembina halaqah tahfidz mutqin dan bimbingan tasmi\' santri.',
+    bio: 'Alumnus Timur Tengah pemegang sanad qira\'ah Hafs \'an \'Ashim, pembina halaqah tahfidz mutqin dan bimbingan tasmi\' murid.',
     category: 'Tahfidz & Diniyyah'
   },
   {
@@ -69,7 +69,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
     name: 'Ustadz Muhammad Wildan, S.Pd.I.',
     role: 'Pengampu Bahasa Arab & Adab',
     specialization: 'Kaidah Nahwu-Sharaf & Muhadatsah Aktif',
-    bio: 'Mengembangkan metode bi\'ah lughawiyyah interaktif agar santri fasih berkomunikasi lisan dan mendalami literatur kitab turats.',
+    bio: 'Mengembangkan metode bi\'ah lughawiyyah interaktif agar murid fasih berkomunikasi lisan dan mendalami literatur kitab turats.',
     category: 'Bahasa & Karakter'
   },
   {
@@ -77,7 +77,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
     name: 'Ustadzah Siti Maryam, S.Pd., M.Si.',
     role: 'Pendidik IPA Terpadu & Sains',
     specialization: 'Sains Eksperimental & Laboratorium Komputer',
-    bio: 'Membimbing literasi sains, riset terapan, dan persiapan olimpiade akademik santri tingkat kabupaten dan provinsi.',
+    bio: 'Membimbing literasi sains, riset terapan, dan persiapan olimpiade akademik murid tingkat kabupaten dan provinsi.',
     category: 'Akademik & Sains'
   },
   {
@@ -85,7 +85,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
     name: 'Coach Hendra Kusuma, S.Or.',
     role: 'Pelatih Kepala Futsal Development Program',
     specialization: 'Pelatih Futsal Berlisensi & Kebugaran Fisik',
-    bio: 'Mengarahkan pembinaan olahraga futsal terstruktur, disiplin taktik tim, dan penanaman sportivitas juara bagi santri.',
+    bio: 'Mengarahkan pembinaan olahraga futsal terstruktur, disiplin taktik tim, dan penanaman sportivitas juara bagi murid.',
     category: 'Olahraga & Prestasi'
   },
   {
@@ -93,7 +93,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
     name: 'Ustadzah Nabila Zahra, S.Sos.',
     role: 'Koordinator SCD (Student Character Development)',
     specialization: 'Konseling Remaja & Adab Islami',
-    bio: 'Mendampingi perkembangan psikologis santri remaja, pembinaan etika pergaulan syar\'i, dan pendampingan Mutaba\'ah Digital.',
+    bio: 'Mendampingi perkembangan psikologis murid remaja, pembinaan etika pergaulan syar\'i, dan pendampingan Mutaba\'ah Digital.',
     category: 'Bahasa & Karakter'
   }
 ];
@@ -162,7 +162,7 @@ export default async function SmpGuruPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Para asatidz pembina tahfidz bersanad, sarjana lulusan universitas terkemuka, dan praktisi kepemudaan yang mendampingi tumbuh kembang santri secara personal dan penuh keteladanan.
+              Para asatidz pembina tahfidz bersanad, sarjana lulusan universitas terkemuka, dan praktisi kepemudaan yang mendampingi tumbuh kembang murid secara personal dan penuh keteladanan.
             </p>
           </div>
         </div>

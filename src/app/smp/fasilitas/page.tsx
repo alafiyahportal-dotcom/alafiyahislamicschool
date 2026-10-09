@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Fasilitas SMP IT Al-Afiyah Majalengka',
-    description: 'Sarana belajar modern dan representatif untuk mendukung kenyamanan belajar santri.',
+    description: 'Sarana belajar modern dan representatif untuk mendukung kenyamanan belajar murid.',
     images: ['/images/smp-program-unggulan.png'],
   },
 };
@@ -45,21 +45,21 @@ const FACILITIES_LIST = [
     name: 'Ruang Kelas Ber-AC & Nyaman',
     category: 'Ruang Belajar',
     image: '/images/smp-hero-fullday.jpg',
-    desc: 'Ruang kelas kondusif yang dilengkapi fasilitas pendingin udara (AC), pencahayaan optimal, proyektor multimedia, serta tata letak meja ergonomis untuk kenyamanan interaksi santri dan asatidz.',
+    desc: 'Ruang kelas kondusif yang dilengkapi fasilitas pendingin udara (AC), pencahayaan optimal, proyektor multimedia, serta tata letak meja ergonomis untuk kenyamanan interaksi murid dan asatidz.',
     features: ['Pendingin Ruangan (AC) di Setiap Kelas', 'Proyektor Multimedia & Sound System', 'Kapasitas Siswa Terukur & Personal']
   },
   {
     name: 'Laboratorium Komputer Modern',
     category: 'Teknologi & Sains',
     image: '/images/smp-hero-bilingual.jpg',
-    desc: 'Laboratorium komputer lengkap dengan perangkat PC modern dan jaringan internet fiber optik kecepatan tinggi untuk pembelajaran informatika, ujian berbasis CBT, dan literasi digital santri.',
+    desc: 'Laboratorium komputer lengkap dengan perangkat PC modern dan jaringan internet fiber optik kecepatan tinggi untuk pembelajaran informatika, ujian berbasis CBT, dan literasi digital murid.',
     features: ['Puluhan Unit Komputer Spesifikasi Terkini', 'Koneksi Internet High-Speed Fiber Optic', 'Dukungan Asesmen Nasional & CBT']
   },
   {
     name: 'Lapangan Olahraga & Futsal',
     category: 'Olahraga & Kebugaran',
     image: '/images/smp-hero-pesantren.jpg',
-    desc: 'Sarana olahraga representatif di lingkungan sekolah yang digunakan untuk latihan intensif Futsal Development Program, bola voli, senam pagi santri, dan kejuaraan antarkelas.',
+    desc: 'Sarana olahraga representatif di lingkungan sekolah yang digunakan untuk latihan intensif Futsal Development Program, bola voli, senam pagi murid, dan kejuaraan antarkelas.',
     features: ['Lapangan Futsal Standar Kompetisi Sekolah', 'Peralatan Latihan Olahraga Lengkap', 'Area Terbuka Hijau & Aman']
   },
   {
@@ -67,14 +67,14 @@ const FACILITIES_LIST = [
     category: 'Pusat Ibadah & Tahfidz',
     image: '/images/smp-outing-3.jpg',
     desc: 'Pusat peradaban spiritual sekolah untuk shalat fardhu berjamaah, pembinaan dzikir Al-Ma\'tsurat pagi petang, serta halaqah talaqqi tahfidz Al-Qur\'an bersama para asatidz.',
-    features: ['Kapasitas Ratusan Jamaah Santri & Guru', 'Tempat Wudhu Bersih & Terpisah Ikhwan/Akhwat', 'Suasana Tenang untuk Muraja\'ah Qur\'an']
+    features: ['Kapasitas Ratusan Jamaah Murid & Guru', 'Tempat Wudhu Bersih & Terpisah Ikhwan/Akhwat', 'Suasana Tenang untuk Muraja\'ah Qur\'an']
   },
   {
     name: 'Akses Internet & Jaringan Wi-Fi Sekolah',
     category: 'Infrastruktur Digital',
     image: '/images/smp-tubing-1.jpg',
     desc: 'Jaringan koneksi internet terintegrasi di lingkungan sekolah guna menunjang sistem Mutaba\'ah Digital, absensi presensi siswa, dan materi pembelajaran berbasis e-learning.',
-    features: ['Akses Wi-Fi Terproteksi Filter Edukatif', 'Integrasi Sistem Mutaba\'ah Digital', 'Portal SIAKAD Santri Real-Time']
+    features: ['Akses Wi-Fi Terproteksi Filter Edukatif', 'Integrasi Sistem Mutaba\'ah Digital', 'Portal SIAKAD Murid Real-Time']
   }
 ];
 
@@ -109,7 +109,7 @@ export default function SmpFasilitasPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Kami menyediakan lingkungan belajar yang aman, kondusif, dan berteknologi modern untuk mendukung perkembangan akademik, tahfidz, dan bakat jasmani seluruh santri.
+              Kami menyediakan lingkungan belajar yang aman, kondusif, dan berteknologi modern untuk mendukung perkembangan akademik, tahfidz, dan bakat jasmani seluruh murid.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">

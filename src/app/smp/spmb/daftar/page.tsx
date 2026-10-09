@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Formulir Pendaftaran SPMB Online SMP IT Al-Afiyah Majalengka',
-  description: 'Formulir resmi pendaftaran calon santri baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028. Pengisian biodata calon santri dan orang tua secara digital.',
+  description: 'Formulir resmi pendaftaran calon murid baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028. Pengisian biodata calon murid dan orang tua secara digital.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },

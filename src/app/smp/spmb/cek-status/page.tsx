@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
@@ -53,7 +53,7 @@ function CheckStatusSmpContent() {
     const searchQuery = (customQuery !== undefined ? customQuery : query).trim();
 
     if (!searchQuery || searchQuery.length < 3) {
-      setErrorMessage('Silakan masukkan minimal 3 karakter (Nomor Registrasi, Nama Santri, atau No. WA).');
+      setErrorMessage('Silakan masukkan minimal 3 karakter (Nomor Registrasi, Nama Murid, atau No. WA).');
       return;
     }
 
@@ -143,7 +143,7 @@ function CheckStatusSmpContent() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-xs font-bold tracking-wider uppercase mb-4 backdrop-blur-xs">
               <Search className="w-3.5 h-3.5" />
-              <span>LACAK PENDAFTARAN SANTRI SMP IT</span>
+              <span>LACAK PENDAFTARAN MURID SMP IT</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -151,7 +151,7 @@ function CheckStatusSmpContent() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Pantau verifikasi berkas, konfirmasi infaq pendaftaran, serta pengumuman observasi calon santri SMP IT Al-Afiyah Tahun Ajaran 2027/2028 secara transparan.
+              Pantau verifikasi berkas, konfirmasi infaq pendaftaran, serta pengumuman observasi calon murid SMP IT Al-Afiyah Tahun Ajaran 2027/2028 secara transparan.
             </p>
           </div>
         </div>
@@ -164,7 +164,7 @@ function CheckStatusSmpContent() {
         <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4">
           <form onSubmit={handleSearch} className="space-y-4">
             <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
-              Masukkan Nomor Registrasi / Nama Santri / No. WhatsApp:
+              Masukkan Nomor Registrasi / Nama Murid / No. WhatsApp:
             </label>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -174,7 +174,7 @@ function CheckStatusSmpContent() {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Contoh: REG-SMP-2027-0001 atau nama santri"
+                  placeholder="Contoh: REG-SMP-2027-0001 atau nama murid"
                   className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-300 text-sm focus:outline-hidden focus:border-[#030164] shadow-xs"
                 />
               </div>
@@ -295,7 +295,7 @@ function CheckStatusSmpContent() {
                   Data Pendaftaran Tidak Ditemukan
                 </h4>
                 <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                  Pastikan nomor registrasi atau nama santri yang Anda masukkan sesuai saat mengisi formulir SPMB.
+                  Pastikan nomor registrasi atau nama murid yang Anda masukkan sesuai saat mengisi formulir SPMB.
                 </p>
                 <div className="pt-2">
                   <Link
