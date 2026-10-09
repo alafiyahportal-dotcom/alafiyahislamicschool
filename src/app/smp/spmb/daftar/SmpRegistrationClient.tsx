@@ -238,7 +238,7 @@ export default function SmpRegistrationClient() {
         </div>
       ) : (
         /* Form Card - Simple & Clean */
-        <form onSubmit={handleSubmit} className="p-6 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-8">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6 sm:space-y-8">
           {errorMessage && (
             <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />

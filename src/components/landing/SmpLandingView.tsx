@@ -309,27 +309,27 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
 
           {/* Banner Gelombang 1 & 2 Cards */}
           <ScrollReveal delay={0.1} yOffset={24} duration={500} className="mb-10">
-            <div className="bg-gradient-to-br from-[#030164] via-[#080554] to-[#01002e] rounded-3xl border border-[#ffd51e]/40 p-6 sm:p-8 lg:p-10 text-white shadow-xl relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#030164] via-[#080554] to-[#01002e] rounded-2xl sm:rounded-3xl border border-[#ffd51e]/40 p-5 sm:p-8 lg:p-10 text-white shadow-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffd51e]/10 rounded-full blur-3xl pointer-events-none" />
               
-              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/15">
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 pb-6 border-b border-white/15">
                 <div>
                   <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black bg-[#ffd51e] text-[#030164] mb-3">
                     <Award className="w-3.5 h-3.5" />
                     <span>SMP IT AL-AFIYAH • TERAKREDITASI A RESMI</span>
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
                     Jadwal &amp; Ketentuan Gelombang SPMB
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
                     Segera daftarkan ananda di Gelombang 1 untuk mengamankan kuota kelas terbatas dan potongan uang bangunan maksimal.
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-xs font-bold text-white">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  <span className="px-3.5 py-1.5 rounded-xl bg-white/10 border border-white/20 text-xs font-bold text-white">
                     Infaq Formulir: Rp 200.000
                   </span>
-                  <span className="px-4 py-2 rounded-xl bg-[#ffd51e]/20 border border-[#ffd51e]/50 text-xs font-black text-[#ffd51e]">
+                  <span className="px-3.5 py-1.5 rounded-xl bg-[#ffd51e]/20 border border-[#ffd51e]/50 text-xs font-black text-[#ffd51e]">
                     Bank Muamalat: 1360012405
                   </span>
                 </div>
@@ -338,58 +338,74 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               {/* Grid Gelombang 1 vs 2 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-6 relative z-10">
                 {/* Gelombang 1 */}
-                <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md border-2 border-[#ffd51e] shadow-lg relative overflow-hidden">
-                  <div className="absolute top-0 right-0 bg-[#ffd51e] text-[#030164] text-[10px] font-black uppercase tracking-wider px-3.5 py-1 rounded-bl-xl flex items-center gap-1 shadow-sm">
-                    <Check className="w-3 h-3 stroke-[3]" />
-                    <span>SEDANG DIBUKA</span>
-                  </div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#ffd51e] animate-pulse" />
-                    <h4 className="text-lg font-black text-white">SPMB Gelombang 1</h4>
-                  </div>
-                  <p className="text-xs font-bold text-[#ffd51e] bg-black/40 inline-block px-3 py-1 rounded-lg border border-[#ffd51e]/30 mb-4">
-                    📅 1 Oktober 2026 – 28 Februari 2027
-                  </p>
-
-                  <div className="space-y-3 pt-3 border-t border-white/15">
-                    <div className="p-3 rounded-xl bg-white/10 border border-[#ffd51e]/40">
-                      <p className="text-xs font-black text-[#ffd51e] uppercase tracking-wider">
-                        DISKON 70% UANG BANGUNAN*
-                      </p>
-                      <p className="text-xs text-white font-medium mt-0.5">
-                        Khusus untuk murid lulusan SDIT Al Afiyah (Hemat Rp 1.750.000)
-                      </p>
+                <div className="p-5 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border-2 border-[#ffd51e] shadow-lg relative overflow-hidden flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#ffd51e] animate-pulse" />
+                        <h4 className="text-base sm:text-lg font-black text-white">SPMB Gelombang 1</h4>
+                      </div>
+                      <span className="bg-[#ffd51e] text-[#030164] text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-xs">
+                        <Check className="w-3 h-3 stroke-[3]" />
+                        <span>DIBUKA</span>
+                      </span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-white/10 border border-white/20">
-                      <p className="text-xs font-black text-amber-300 uppercase tracking-wider">
-                        DISKON 50% UANG BANGUNAN**
-                      </p>
-                      <p className="text-xs text-white font-medium mt-0.5">
-                        Untuk murid pendaftar dari luar SDIT / Umum (Hemat Rp 1.250.000)
-                      </p>
+                    <div className="inline-block px-3 py-1 rounded-lg bg-black/40 border border-[#ffd51e]/30 text-xs font-bold text-[#ffd51e] mb-4">
+                      1 Oktober 2026 – 28 Februari 2027
                     </div>
+
+                    <div className="space-y-3 pt-3 border-t border-white/15">
+                      <div className="p-3 rounded-xl bg-white/10 border border-[#ffd51e]/40">
+                        <p className="text-xs font-black text-[#ffd51e] uppercase tracking-wider">
+                          DISKON 70% UANG BANGUNAN*
+                        </p>
+                        <p className="text-xs text-white font-medium mt-0.5">
+                          Khusus untuk murid lulusan SDIT Al Afiyah (Hemat Rp 1.750.000)
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-white/10 border border-white/20">
+                        <p className="text-xs font-black text-amber-300 uppercase tracking-wider">
+                          DISKON 50% UANG BANGUNAN**
+                        </p>
+                        <p className="text-xs text-white font-medium mt-0.5">
+                          Untuk murid pendaftar dari luar SDIT / Umum (Hemat Rp 1.250.000)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 pt-3 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <span className="text-xs text-blue-200">Biaya Formulir: <strong className="text-white">Rp 200.000</strong></span>
+                    <Link
+                      href={ppdbUrl}
+                      className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all text-center inline-flex items-center justify-center gap-1.5 shadow-xs"
+                    >
+                      <span>Daftar Sekarang</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
                 </div>
 
                 {/* Gelombang 2 */}
-                <div className="p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/20 shadow-sm flex flex-col justify-between">
+                <div className="p-5 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/20 shadow-sm flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <h4 className="text-lg font-bold text-white">SPMB Gelombang 2</h4>
-                      <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/15 text-slate-300">
+                      <h4 className="text-base sm:text-lg font-bold text-white">SPMB Gelombang 2</h4>
+                      <span className="text-[10px] font-bold px-3 py-0.5 rounded-full bg-white/15 text-slate-300">
                         Tahap Lanjutan
                       </span>
                     </div>
                     <p className="text-xs text-slate-300 font-medium mb-4">
-                      📅 1 Maret 2027 – 30 Juni 2027
+                      1 Maret 2027 – 30 Juni 2027
                     </p>
-                    <div className="p-4 rounded-xl bg-black/30 text-slate-300 text-xs border border-white/10 flex items-center justify-between">
+                    <div className="p-3.5 rounded-xl bg-black/30 text-slate-300 text-xs border border-white/10 flex items-center justify-between">
                       <span>Ketentuan Diskon:</span>
-                      <strong className="text-white font-black text-sm">Biaya Normal (No Diskon)</strong>
+                      <strong className="text-white font-black text-xs sm:text-sm">Biaya Normal (No Diskon)</strong>
                     </div>
                   </div>
-                  <div className="mt-6 pt-3 border-t border-white/10 text-xs text-slate-300 leading-relaxed">
+                  <div className="mt-5 pt-3 border-t border-white/10 text-xs text-slate-300 leading-relaxed">
                     💡 <em>Sangat disarankan mendaftar di Gelombang 1 untuk memastikan ketersediaan kuota rombel dan memperoleh keringanan biaya pendidikan terbaik.</em>
                   </div>
                 </div>
@@ -398,7 +414,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
           </ScrollReveal>
 
           {/* Interactive Fee Simulator & Breakdown */}
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-md p-6 sm:p-8 lg:p-10 mb-12">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-md p-4 sm:p-8 lg:p-10 mb-12">
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-slate-200">
               <div>
                 <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200 inline-flex items-center gap-1.5">
@@ -413,12 +429,12 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 </p>
               </div>
 
-              {/* Gender Switch (Clean Text Only, No Emojis) */}
-              <div className="flex items-center gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200 self-start lg:self-auto">
+              {/* Gender Switch (Clean Text Only, Responsive Grid on Mobile) */}
+              <div className="grid grid-cols-2 sm:flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl sm:rounded-2xl border border-slate-200 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => setSmpGender('ikhwan')}
-                  className={`px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                  className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
                     smpGender === 'ikhwan'
                       ? 'bg-[#030164] text-white shadow-sm'
                       : 'text-slate-600 hover:text-slate-900'
@@ -429,7 +445,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 <button
                   type="button"
                   onClick={() => setSmpGender('akhwat')}
-                  className={`px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                  className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
                     smpGender === 'akhwat'
                       ? 'bg-[#030164] text-white shadow-sm'
                       : 'text-slate-600 hover:text-slate-900'
@@ -561,7 +577,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 </div>
 
                 {/* Grand Total Bar */}
-                <div className="flex items-center justify-between p-4 sm:p-6 bg-gradient-to-r from-[#030164] to-[#0d077e] text-white">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-6 bg-gradient-to-r from-[#030164] to-[#0d077e] text-white">
                   <div>
                     <span className="text-xs uppercase tracking-wider text-[#ffd51e] font-black block">
                       Total Biaya Pendidikan ({smpGender === 'ikhwan' ? 'Murid Ikhwan' : 'Murid Akhwat'})
@@ -570,7 +586,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                       {discountBangunan > 0 ? `Hemat Rp ${discountBangunan.toLocaleString('id-ID')} pada Gelombang 1` : 'Tarif Biaya Normal Gelombang 2'}
                     </span>
                   </div>
-                  <div className="text-right">
+                  <div className="text-left sm:text-right">
                     {discountBangunan > 0 && (
                       <span className="text-xs line-through text-slate-400 font-mono block">
                         Rp {baseTotal.toLocaleString('id-ID')}
