@@ -40,8 +40,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.alafiyah.id';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "SDIT Al-Afiyah Majalengka | Yayasan Pendidikan Imam Bonjol",
-    template: "%s | SDIT Al-Afiyah",
+    default: "Ekosistem Pendidikan Al-Afiyah Majalengka | YPIB",
+    template: "%s | Al-Afiyah Majalengka",
   },
   description: "Portal Resmi SPMB SDIT Al-Afiyah Majalengka. Sekolah Dasar Islam Terpadu berakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin di Lingkungan Giri Asih.",
   keywords: [

@@ -31,6 +31,25 @@ export function proxy(request: NextRequest) {
       return response;
     }
 
+    // Rewrite favicon and icons based on subdomain
+    if (subdomain === 'smp') {
+      if (pathname === '/favicon.ico') {
+        const url = request.nextUrl.clone();
+        url.pathname = '/smp-favicon.ico';
+        return NextResponse.rewrite(url);
+      }
+      if (pathname === '/icon.png') {
+        const url = request.nextUrl.clone();
+        url.pathname = '/images/smp-icon-192.png';
+        return NextResponse.rewrite(url);
+      }
+      if (pathname === '/apple-icon.png') {
+        const url = request.nextUrl.clone();
+        url.pathname = '/images/smp-logo.png';
+        return NextResponse.rewrite(url);
+      }
+    }
+
     // If visitor lands on /tk while already on tk subdomain, clean up URL to /
     if (pathname === `/${subdomain}`) {
       const url = request.nextUrl.clone();

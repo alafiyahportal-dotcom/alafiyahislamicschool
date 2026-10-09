@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/smp-favicon.ico', sizes: 'any' },
     ],
     shortcut: '/images/smp-logo.png',
     apple: '/images/smp-logo.png',
