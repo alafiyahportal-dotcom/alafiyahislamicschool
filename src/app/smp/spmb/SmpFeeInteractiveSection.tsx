@@ -315,12 +315,96 @@ export default function SmpFeeInteractiveSection() {
           </button>
         </div>
 
-        {/* DESKTOP TABLE VIEW (& Mobile Collapsible View) */}
-        <div className={`${showFullTableMobile ? 'block' : 'hidden md:block'} space-y-2`}>
-          <div className="flex items-center justify-between text-[11px] text-blue-900 bg-blue-50/90 px-3.5 py-2 rounded-xl border border-blue-200 md:hidden">
-            <span className="font-semibold">💡 Geser tabel ke kanan untuk melihat rincian Akhwat (Putri) &amp; Keterangan</span>
-          </div>
+        {/* TABLE VIEW: Mobile-tailored Full-Width View (< md) & Desktop 5-Column View (>= md) */}
+        {showFullTableMobile && (
+          <div className="md:hidden space-y-3">
+            <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-xs bg-white">
+              <div className="px-3.5 py-2.5 bg-blue-50/90 border-b border-blue-100 flex items-center justify-between text-xs">
+                <span className="font-extrabold text-[#030164] uppercase tracking-wide text-[11px]">
+                  Format Tabel Lengkap SPMB
+                </span>
+                <span className="text-[10px] font-bold text-blue-800 bg-white px-2 py-0.5 rounded-md border border-blue-200">
+                  Putra vs Putri
+                </span>
+              </div>
 
+              <table className="w-full table-fixed text-left text-xs">
+                <thead>
+                  <tr className="bg-slate-100/90 border-b border-slate-200 text-slate-700 font-extrabold text-[11px]">
+                    <th className="py-2.5 px-3 w-[46%]">Komponen Biaya</th>
+                    <th className="py-2.5 px-2 w-[27%] text-right font-bold text-[#030164]">Putra</th>
+                    <th className="py-2.5 px-2.5 w-[27%] text-right font-bold text-[#030164]">Putri</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {BIAYA_ITEMS.map((b, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="py-2 px-3 align-top">
+                        <span className="font-bold text-slate-900 block leading-tight text-[11px]">
+                          {idx + 1}. {b.item}
+                        </span>
+                        <span className="text-[10px] text-slate-500 block mt-0.5 leading-snug">
+                          {b.note}
+                        </span>
+                      </td>
+                      <td className={`py-2 px-2 text-right align-top font-mono font-bold text-[11px] whitespace-nowrap ${activeGender === 'ikhwan' ? 'text-[#030164] bg-blue-50/30' : 'text-slate-800'}`}>
+                        Rp {b.ikhwan.toLocaleString('id-ID')}
+                      </td>
+                      <td className={`py-2 px-2.5 text-right align-top font-mono font-bold text-[11px] whitespace-nowrap ${activeGender === 'akhwat' ? 'text-[#030164] bg-blue-50/30' : 'text-slate-800'}`}>
+                        Rp {b.akhwat.toLocaleString('id-ID')}
+                      </td>
+                    </tr>
+                  ))}
+
+                  {/* Total Baris Normal */}
+                  <tr className="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-300">
+                    <td className="py-2.5 px-3 align-middle text-[11px]">
+                      <span className="font-extrabold text-slate-900 block leading-tight">Total Normal</span>
+                      <span className="text-[10px] text-slate-500 font-normal">Gelombang 2</span>
+                    </td>
+                    <td className="py-2.5 px-2 text-right font-mono font-black text-slate-900 text-[11px] whitespace-nowrap">
+                      Rp 7.300.000
+                    </td>
+                    <td className="py-2.5 px-2.5 text-right font-mono font-black text-slate-900 text-[11px] whitespace-nowrap">
+                      Rp 7.600.000
+                    </td>
+                  </tr>
+
+                  {/* Total Gelombang 1 Diskon Umum (50%) */}
+                  <tr className="bg-amber-50/90 font-bold text-amber-950 border-t border-amber-200">
+                    <td className="py-2.5 px-3 align-middle text-[11px]">
+                      <span className="font-extrabold text-amber-950 block leading-tight">Gel. 1 Umum</span>
+                      <span className="text-[10px] text-amber-800 font-semibold">Diskon 50%</span>
+                    </td>
+                    <td className="py-2.5 px-2 text-right font-mono font-black text-amber-950 text-[11px] whitespace-nowrap">
+                      Rp 6.050.000
+                    </td>
+                    <td className="py-2.5 px-2.5 text-right font-mono font-black text-amber-950 text-[11px] whitespace-nowrap">
+                      Rp 6.350.000
+                    </td>
+                  </tr>
+
+                  {/* Total Gelombang 1 Diskon SDIT (70%) */}
+                  <tr className="bg-[#030164] font-bold text-white border-t border-[#ffd51e]">
+                    <td className="py-2.5 px-3 align-middle text-[11px]">
+                      <span className="font-black text-[#ffd51e] block leading-tight">★ Gel. 1 SDIT</span>
+                      <span className="text-[10px] text-blue-200 font-medium">Diskon 70%</span>
+                    </td>
+                    <td className="py-2.5 px-2 text-right font-mono font-black text-[#ffd51e] text-[11px] whitespace-nowrap">
+                      Rp 5.550.000
+                    </td>
+                    <td className="py-2.5 px-2.5 text-right font-mono font-black text-[#ffd51e] text-[11px] whitespace-nowrap">
+                      Rp 5.850.000
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* DESKTOP TABLE VIEW (Always visible on desktop screen >= md) */}
+        <div className="hidden md:block space-y-2">
           <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-inner">
             <table className="w-full min-w-[660px] text-left text-xs sm:text-sm">
               <thead>
