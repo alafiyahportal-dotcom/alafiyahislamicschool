@@ -165,13 +165,13 @@ export default function Navbar({
       case 'smp':
         return {
           code: 'SMP',
-          arabic: 'المدرسة المتوسطة الإسلامية العافية',
-          title: schoolName || 'SMP IT Al-Afiyah',
-          subtitle: 'Sekolah Menengah Pertama Islam Terpadu',
+          arabic: '',
+          title: 'SMP IT AL-AFIYAH',
+          subtitle: 'BE SMART & RELIGIOUS',
           homeUrl: getUnitHomeUrl('smp'),
-          ppdbLink: '/ppdb/daftar?school=smp',
+          ppdbLink: '/smp/spmb',
           ctaText: 'Info SPMB SMP IT',
-          logoUrl: undefined,
+          logoUrl: '/images/smp-logo.png',
         };
       default:
         return {
@@ -196,7 +196,7 @@ export default function Navbar({
     },
     {
       name: 'Profil',
-      href: activeSlug === 'sd' ? '/sd/profil' : '/profil',
+      href: activeSlug === 'sd' ? '/sd/profil' : activeSlug === 'smp' ? '/smp/profil' : '/profil',
       hasDropdown: true,
       items: activeSlug === 'sd'
         ? [
@@ -204,6 +204,14 @@ export default function Navbar({
             { label: 'Dewan Guru & Asatidzah', href: '/sd/guru', desc: 'Pendidik tahfidz, sains & pembina karakter' },
             { label: 'Dokumentasi & Belajar SDIT', href: '/sd/dokumentasi', desc: 'Galeri nyata kegiatan belajar & agro-sains' },
             { label: 'Layanan Tata Usaha & Lokasi', href: '/sd/kontak', desc: 'Alamat sekolah & rute Google Maps' },
+          ]
+        : activeSlug === 'smp'
+        ? [
+            { label: 'Profil Lengkap SMP IT', href: '/smp/profil', desc: 'Visi, misi & legalitas Terakreditasi A' },
+            { label: 'Dewan Asatidz & Pendidik', href: '/smp/guru', desc: 'Pendidik tahfidz, bahasa Arab & pembina santri' },
+            { label: 'Sarana & Fasilitas Kampus', href: '/smp/fasilitas', desc: 'Kelas ber-AC, lab komputer & lapangan futsal' },
+            { label: 'Dokumentasi & Outing Santri', href: '/smp/dokumentasi', desc: 'Dokumentasi rihlah tubing, mabit & kegiatan' },
+            { label: 'Layanan Tata Usaha & Lokasi', href: '/smp/kontak', desc: 'Alamat resmi Jl. Gerakan Koperasi & rute Maps' },
           ]
         : activeSlug
         ? [
@@ -256,7 +264,7 @@ export default function Navbar({
       : [
           {
             name: 'Program & Keunggulan',
-            href: activeSlug === 'sd' ? '/sd/program' : `${brandConfig.homeUrl}#programs`,
+            href: activeSlug === 'sd' ? '/sd/program' : activeSlug === 'smp' ? '/smp/program' : `${brandConfig.homeUrl}#programs`,
             hasDropdown: true,
             items: activeSlug === 'sd'
               ? [
@@ -264,6 +272,13 @@ export default function Navbar({
                   { label: 'Pilar Karakter & Nilai Islami', href: '/sd/karakter', desc: 'Tauhid, 7 pilar adab & kemandirian murid' },
                   { label: 'Kurikulum Smart Akhlak Fitrah', href: '/sd#values', desc: 'Fondasi iman sebelum Qur’an & adab harian' },
                   { label: 'Testimoni Wali Murid', href: '/sd/testimoni', desc: 'Pengalaman & apresiasi orang tua siswa' },
+                ]
+              : activeSlug === 'smp'
+              ? [
+                  { label: '6 Program Unggulan SMP IT', href: '/smp/program', desc: 'Tahfidz 3-5+ Juz, Bahasa Arab aktif & Futsal' },
+                  { label: 'SCD & Mutaba\'ah Digital', href: '/smp/karakter', desc: 'Student Character Development & adab remaja' },
+                  { label: 'Fasilitas & Sarana Belajar', href: '/smp/fasilitas', desc: 'Ruang kelas ber-AC, lab komputer & lapangan' },
+                  { label: 'Testimoni Wali Santri', href: '/smp/testimoni', desc: 'Pengalaman & apresiasi orang tua santri' },
                 ]
               : [
                   { label: 'Kurikulum & Program Unggulan', href: `${brandConfig.homeUrl}#programs`, desc: 'Pembelajaran terintegrasi & adab harian' },
@@ -274,25 +289,25 @@ export default function Navbar({
         ]),
     {
       name: 'Berita & Artikel',
-      href: activeSlug === 'sd' ? '/sd/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'),
+      href: activeSlug === 'sd' ? '/sd/berita' : activeSlug === 'smp' ? '/smp/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'),
       hasDropdown: true,
       items: [
-        { label: activeSlug === 'sd' ? 'Warta SDIT Terbaru' : 'Warta Sekolah Terbaru', href: activeSlug === 'sd' ? '/sd/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'), desc: 'Liputan kegiatan & informasi terkini' },
-        { label: 'Artikel & Kajian Islam', href: activeSlug === 'sd' ? '/sd/berita?cat=kajian' : (activeSlug ? `/berita?cat=kajian&school=${activeSlug}` : '/berita?cat=kajian'), desc: 'Tausiyah, adab & wawasan keislaman' },
-        { label: activeSlug === 'sd' ? 'Prestasi Murid SDIT' : 'Prestasi Murid Al-Afiyah', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi'), desc: 'Juara olimpiade & musabaqah hifdzil Qur’an' },
-        { label: 'Agenda & Kalender Akademik', href: activeSlug === 'sd' ? '/sd/agenda' : (activeSlug ? `/agenda?school=${activeSlug}` : '/agenda'), desc: 'Jadwal ujian, libur & kegiatan resmi' },
+        { label: activeSlug === 'sd' ? 'Warta SDIT Terbaru' : activeSlug === 'smp' ? 'Warta SMP IT Terbaru' : 'Warta Sekolah Terbaru', href: activeSlug === 'sd' ? '/sd/berita' : activeSlug === 'smp' ? '/smp/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'), desc: 'Liputan kegiatan & informasi terkini' },
+        { label: 'Artikel & Kajian Islam', href: activeSlug === 'sd' ? '/sd/berita?cat=kajian' : activeSlug === 'smp' ? '/smp/berita?cat=kajian' : (activeSlug ? `/berita?cat=kajian&school=${activeSlug}` : '/berita?cat=kajian'), desc: 'Tausiyah, adab & wawasan keislaman' },
+        { label: activeSlug === 'sd' ? 'Prestasi Murid SDIT' : activeSlug === 'smp' ? 'Prestasi Santri SMP IT' : 'Prestasi Murid Al-Afiyah', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : activeSlug === 'smp' ? '/smp/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi'), desc: 'Juara olimpiade & musabaqah hifdzil Qur’an' },
+        { label: 'Agenda & Kalender Akademik', href: activeSlug === 'sd' ? '/sd/agenda' : activeSlug === 'smp' ? '/smp/agenda' : (activeSlug ? `/agenda?school=${activeSlug}` : '/agenda'), desc: 'Jadwal ujian, libur & kegiatan resmi' },
       ],
     },
     {
       name: 'SPMB Online',
-      href: activeSlug === 'sd' ? '/sd/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'),
+      href: activeSlug === 'sd' ? '/sd/spmb' : activeSlug === 'smp' ? '/smp/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'),
       hasDropdown: true,
       items: [
-        { label: `Informasi & Alur SPMB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug === 'sd' ? '/sd/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Syarat berkas, tes observasi & kuota' },
-        { label: 'Formulir SPMB Online', href: activeSlug === 'sd' ? '/sd/spmb/daftar' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Isi formulir biodata calon murid' },
-        { label: 'Cek Status SPMB', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : (activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status'), desc: 'Pantau verifikasi berkas & nomor registrasi' },
-        { label: 'Pengumuman SPMB', href: activeSlug === 'sd' ? '/sd/spmb/pengumuman' : (activeSlug ? `/ppdb/pengumuman?school=${activeSlug}` : '/ppdb/pengumuman'), desc: 'SK kelulusan murid gelombang 1 & 2' },
-        { label: 'Daftar Ulang & Seragam', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : (activeSlug ? `/portal/ppdb/REG-SD-2026-0001/daftar-ulang?school=${activeSlug}` : '/portal/ppdb/REG-SD-2026-0001/daftar-ulang'), desc: 'Fitting seragam & pelunasan biaya' },
+        { label: `Informasi & Alur SPMB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug === 'sd' ? '/sd/spmb' : activeSlug === 'smp' ? '/smp/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Syarat berkas, tes observasi & kuota' },
+        { label: 'Formulir SPMB Online', href: activeSlug === 'sd' ? '/sd/spmb/daftar' : activeSlug === 'smp' ? '/smp/spmb/daftar' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Isi formulir biodata calon murid' },
+        { label: 'Cek Status SPMB', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : activeSlug === 'smp' ? '/smp/spmb/cek-status' : (activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status'), desc: 'Pantau verifikasi berkas & nomor registrasi' },
+        { label: 'Pengumuman SPMB', href: activeSlug === 'sd' ? '/sd/spmb/pengumuman' : activeSlug === 'smp' ? '/smp/spmb/pengumuman' : (activeSlug ? `/ppdb/pengumuman?school=${activeSlug}` : '/ppdb/pengumuman'), desc: 'SK kelulusan murid gelombang 1 & 2' },
+        { label: 'Daftar Ulang & Biaya', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : activeSlug === 'smp' ? '/smp/spmb' : (activeSlug ? `/portal/ppdb/REG-SD-2026-0001/daftar-ulang?school=${activeSlug}` : '/portal/ppdb/REG-SD-2026-0001/daftar-ulang'), desc: 'Rincian biaya & rekening resmi' },
       ],
     },
     {
@@ -300,20 +315,22 @@ export default function Navbar({
       href: '#',
       hasDropdown: true,
       items: [
-        { label: 'SIAKAD Mobile Murid (iOS)', href: activeSlug === 'sd' ? '/sd/siakad' : (activeSlug ? `/portal/siakad?school=${activeSlug}` : '/portal/siakad'), desc: 'Portal presensi QR, capaian tahfidz & rapor digital' },
+        { label: activeSlug === 'smp' ? 'SIAKAD & Mutaba\'ah Santri' : 'SIAKAD Mobile Murid (iOS)', href: activeSlug === 'sd' ? '/sd/siakad' : activeSlug === 'smp' ? '/smp/siakad' : (activeSlug ? `/portal/siakad?school=${activeSlug}` : '/portal/siakad'), desc: 'Portal presensi QR, capaian tahfidz & rapor digital' },
         { label: 'Kemitraan Mitra Afiliasi', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
-        { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir'), desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
+        { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir'), desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
         { 
-          label: 'Tanya Ustadz & Konsultasi', 
+          label: activeSlug === 'smp' ? 'Konsultasi Panitia SMP IT' : 'Tanya Ustadz & Konsultasi', 
           href: activeSlug === 'sd' 
             ? 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Ustadz%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi' 
+            : activeSlug === 'smp'
+            ? 'https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi'
             : 'https://wa.me/6281223344552?text=Assalamu%27alaikum%20Ustadz%2C%20saya%20ingin%20bertanya%20seputar%20pendidikan%20Al-Afiyah', 
-          desc: 'Konsultasi kurikulum adab & syar’i langsung dengan asatidzah', 
+          desc: activeSlug === 'smp' ? 'Hotline resmi WhatsApp Panitia 0822-4935-7893' : 'Konsultasi kurikulum adab & syar’i langsung dengan asatidzah', 
           openInNewTab: true 
         },
         { 
-          label: activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : 'Pusat Bantuan WhatsApp', 
-          href: activeSlug === 'sd' ? 'https://wa.me/6281310139001' : 'https://wa.me/6281223344552', 
+          label: activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : activeSlug === 'smp' ? 'Pusat Bantuan WA SMP IT' : 'Pusat Bantuan WhatsApp', 
+          href: activeSlug === 'sd' ? 'https://wa.me/6281310139001' : activeSlug === 'smp' ? 'https://wa.me/6282249357893' : 'https://wa.me/6281223344552', 
           desc: 'Respon cepat tim panitia',
           openInNewTab: true 
         },
@@ -425,6 +442,8 @@ export default function Navbar({
                           className={`text-xs xs:text-sm sm:text-base font-extrabold uppercase tracking-wider transition-colors truncate block leading-tight ${
                             shouldBeTransparent
                               ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
+                              : activeSlug === 'smp'
+                              ? 'text-slate-900 group-hover:text-[#030164]'
                               : 'text-slate-900 group-hover:text-[#00A651]'
                           }`}
                         >
@@ -432,13 +451,17 @@ export default function Navbar({
                         </span>
                       </div>
 
-                      {/* Subtitle Below (e.g. SMART AKHLAK FITRAH - smaller size) */}
+                      {/* Subtitle Below */}
                       {brandConfig.subtitle && (
                         <div className="mt-0.5">
                           <span
                             className={`text-[9px] xs:text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-colors truncate block ${
                               shouldBeTransparent
-                                ? 'text-emerald-300 drop-shadow-xs'
+                                ? activeSlug === 'smp'
+                                  ? 'text-[#ffd51e] drop-shadow-xs'
+                                  : 'text-emerald-300 drop-shadow-xs'
+                                : activeSlug === 'smp'
+                                ? 'text-[#030164]'
                                 : 'text-[#007638]'
                             }`}
                           >
@@ -793,7 +816,9 @@ export default function Navbar({
                       {brandConfig.title}
                     </div>
                     {brandConfig.subtitle && (
-                      <div className="text-[10px] font-bold uppercase tracking-wider text-[#007638] mt-0.5">
+                      <div className={`text-[10px] font-bold uppercase tracking-wider mt-0.5 ${
+                        activeSlug === 'smp' ? 'text-[#030164]' : 'text-[#007638]'
+                      }`}>
                         {brandConfig.subtitle}
                       </div>
                     )}

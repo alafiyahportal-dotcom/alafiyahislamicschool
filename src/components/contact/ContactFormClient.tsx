@@ -3,11 +3,22 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2, MessageSquare, User, Phone, Mail, HelpCircle } from 'lucide-react';
 
-export default function ContactFormClient() {
+interface ContactFormClientProps {
+  initialUnit?: string;
+  defaultPhone?: string;
+  defaultSchoolSlug?: string;
+}
+
+export default function ContactFormClient({
+  initialUnit = 'Semua Unit / Yayasan',
+  defaultPhone,
+  defaultSchoolSlug,
+}: ContactFormClientProps = {}) {
+  const effectiveUnit = defaultSchoolSlug === 'smp' ? 'SMP IT Al-Afiyah' : initialUnit;
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    unit: 'Semua Unit / Yayasan',
+    unit: effectiveUnit,
     subject: 'Informasi Pendaftaran PPDB',
     message: '',
   });
@@ -19,8 +30,10 @@ export default function ContactFormClient() {
     if (!formData.name || !formData.phone) return;
 
     // Direct routing based on unit selection
-    let targetPhone = '6281223344552';
-    if (formData.unit.includes('SDIT') || formData.unit.includes('SDIT')) {
+    let targetPhone = defaultPhone || '6281223344552';
+    if (formData.unit.includes('SMP')) {
+      targetPhone = '6282249357893';
+    } else if (formData.unit.includes('SDIT')) {
       targetPhone = '6281310139001';
     }
 

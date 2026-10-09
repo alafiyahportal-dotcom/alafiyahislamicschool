@@ -48,38 +48,46 @@ export default function StickyMobileBar({
         href={waHref}
         target="_blank"
         rel="noreferrer"
-        className="w-10 h-10 flex flex-col items-center justify-center rounded-xl bg-softwater-light text-softwater border border-softwater/30 hover:bg-[#D4EBE7] transition-colors flex-shrink-0"
+        className={`w-10 h-10 flex flex-col items-center justify-center rounded-xl transition-colors flex-shrink-0 ${
+          schoolSlug === 'smp'
+            ? 'bg-blue-50 text-[#030164] border border-[#030164]/20 hover:bg-blue-100'
+            : 'bg-softwater-light text-softwater border border-softwater/30 hover:bg-[#D4EBE7]'
+        }`}
         aria-label="Konsultasi WhatsApp"
         title="WhatsApp CS"
       >
         <MessageCircle className="w-4 h-4" />
-        <span className="text-[9px] font-bold text-softwater leading-none mt-0.5">Tanya</span>
+        <span className={`text-[9px] font-bold leading-none mt-0.5 ${schoolSlug === 'smp' ? 'text-[#030164]' : 'text-softwater'}`}>Tanya</span>
       </a>
 
       <Link
         href={lacakHref}
-        className={`w-10 h-10 flex flex-col items-center justify-center rounded-xl ${
+        className={`w-10 h-10 flex flex-col items-center justify-center rounded-xl transition-colors flex-shrink-0 ${
           schoolSlug === 'sd'
             ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+            : schoolSlug === 'smp'
+            ? 'bg-amber-50 text-slate-800 border border-amber-200 hover:bg-amber-100'
             : 'bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200'
-        } transition-colors flex-shrink-0`}
+        }`}
         aria-label="Cek Status Pendaftaran SPMB"
         title="Lacak Pendaftaran SPMB"
       >
-        <Search className={`w-4 h-4 ${schoolSlug === 'sd' ? 'text-[#00A651]' : 'text-softwater'}`} />
-        <span className={`text-[9px] font-bold ${schoolSlug === 'sd' ? 'text-[#00A651]' : 'text-softwater-dark'} leading-none mt-0.5`}>Lacak</span>
+        <Search className={`w-4 h-4 ${schoolSlug === 'sd' ? 'text-[#00A651]' : schoolSlug === 'smp' ? 'text-amber-600' : 'text-softwater'}`} />
+        <span className={`text-[9px] font-bold ${schoolSlug === 'sd' ? 'text-[#00A651]' : schoolSlug === 'smp' ? 'text-slate-800' : 'text-softwater-dark'} leading-none mt-0.5`}>Lacak</span>
       </Link>
       
       <Link
         href={targetHref}
         className={`min-w-0 flex-1 py-2.5 px-3 rounded-full ${
           schoolSlug === 'sd'
-            ? 'bg-[#00A651] hover:bg-[#008f45] shadow-[#00A651]/30'
-            : 'bg-gradient-to-r from-softwater-dark to-softwater'
-        } text-white text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5 transition-all active:scale-95`}
+            ? 'bg-[#00A651] hover:bg-[#008f45] shadow-[#00A651]/30 text-white'
+            : schoolSlug === 'smp'
+            ? 'bg-[#030164] hover:bg-[#02004d] text-white border border-[#ffd51e]/40 shadow-[#030164]/40'
+            : 'bg-gradient-to-r from-softwater-dark to-softwater text-white'
+        } text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5 transition-all active:scale-95`}
       >
         <span className="truncate">{btnLabel}</span>
-        <ArrowRight className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" />
+        <ArrowRight className={`w-3.5 h-3.5 flex-shrink-0 ${schoolSlug === 'smp' ? 'text-[#ffd51e]' : 'text-amber-300'}`} />
       </Link>
     </div>
   );

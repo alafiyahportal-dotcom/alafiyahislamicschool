@@ -33,7 +33,8 @@ import {
   Percent,
   Tag,
   CreditCard,
-  Search
+  Search,
+  MapPin
 } from 'lucide-react';
 
 import { getStoredReferralCode } from '@/lib/referral';
@@ -108,7 +109,7 @@ export interface EnhancedStatItem {
   subtext: string;
   iconType: 'users' | 'compass' | 'award' | 'quran';
   badge: string;
-  color: 'emerald' | 'amber' | 'teal';
+  color: 'emerald' | 'amber' | 'teal' | 'blue';
 }
 
 export function sanitizeAdabText(text?: string | null): string {
@@ -143,16 +144,30 @@ const SPMB_POSTERS = [
   { src: '/images/sd-spmb-poster-2027.jpg', label: 'Poster Kuota Terbatas', file: 'Poster-Kuota-SPMB-SDIT-Al-Afiyah-2027-2028.jpg', width: 723, height: 1024 },
 ];
 
+/** Official SPMB SMP IT Al-Afiyah T.A. 2027/2028 materials */
+const SMP_POSTERS = [
+  { src: '/images/smp-spmb-poster.png', label: 'Poster Resmi SPMB', file: 'Poster-Resmi-SPMB-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
+  { src: '/images/smp-spmb-biaya.png', label: 'Biaya Pendidikan & Diskon', file: 'Poster-Biaya-Pendidikan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
+  { src: '/images/smp-program-unggulan.png', label: 'Program Unggulan & Fasilitas', file: 'Poster-Program-Unggulan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
+];
+
 export default function SchoolLandingTemplate({ school }: { school: SchoolData }) {
   const [selectedNews, setSelectedNews] = useState<NewsData | null>(null);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
-  const [activePoster, setActivePoster] = useState(SPMB_POSTERS[0]);
+  const unitPosters = useMemo(() => (school.slug === 'smp' ? SMP_POSTERS : SPMB_POSTERS), [school.slug]);
+  const [activePoster, setActivePoster] = useState(unitPosters[0]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FacilityItem | null>(null);
   const [galleryCategory, setGalleryCategory] = useState<string>('all');
   const [newsFilter, setNewsFilter] = useState<'all' | 'Pengumuman' | 'Kegiatan'>('all');
   const [copiedBankAcc, setCopiedBankAcc] = useState(false);
   const [refCode, setRefCode] = useState<string | null>(null);
   const [isOpeningSpmb, setIsOpeningSpmb] = useState(false);
+  const [smpGender, setSmpGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
+  const [smpDiscountType, setSmpDiscountType] = useState<'sdit' | 'umum' | 'normal'>('sdit');
+
+  useEffect(() => {
+    setActivePoster(unitPosters[0]);
+  }, [unitPosters]);
 
   useEffect(() => {
     setRefCode(getStoredReferralCode());
@@ -220,6 +235,39 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       iconType: 'quran',
       badge: 'Target Mutqin',
       color: 'emerald',
+    },
+  ] : school.slug === 'smp' ? [
+    { 
+      label: 'Akreditasi Sekolah', 
+      value: 'Terakreditasi A', 
+      subtext: 'BAN-S/M Unggul Resmi',
+      iconType: 'award',
+      badge: 'Akreditasi A',
+      color: 'blue',
+    },
+    { 
+      label: 'Target Tahfidz', 
+      value: '3 - 5+ Juz', 
+      subtext: 'Juz 28, 29, 30 & Unggulan',
+      iconType: 'quran',
+      badge: 'Tahfidz Qur’an',
+      color: 'blue',
+    },
+    { 
+      label: 'Diskon Gelombang 1', 
+      value: 's.d. 70%', 
+      subtext: 'Uang Bangunan 1 Okt - 28 Feb',
+      iconType: 'compass',
+      badge: 'SPMB Gel. 1',
+      color: 'amber',
+    },
+    { 
+      label: 'Tagline & Keunggulan', 
+      value: 'Smart & Religious', 
+      subtext: 'Bahasa Arab & Futsal Program',
+      iconType: 'users',
+      badge: 'Be Smart',
+      color: 'blue',
     },
   ] : [
     { 
@@ -499,11 +547,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         registrationFee={school.registrationFee}
         waCenterPhone={school.waCenterPhone}
         customSlides={school.heroSlides}
-        statsCards={school.slug === 'sd' ? <Hero3DStatCards stats={displayStats} /> : undefined}
+        statsCards={school.slug === 'sd' || school.slug === 'smp' ? <Hero3DStatCards stats={displayStats} unitSlug={school.slug} /> : undefined}
       />
 
-      {/* Stats: for non-SD units, show the standard fallback bar */}
-      {school.slug !== 'sd' && (
+      {/* Stats: for units without hero 3D stat cards (e.g. TK), show the standard fallback bar */}
+      {school.slug !== 'sd' && school.slug !== 'smp' && (
         <section className="relative z-10 bg-neutral-50 border-b border-neutral-200/70 py-4 sm:py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* No-op touchstart (delegated to all cards) makes iOS Safari apply :active immediately on tap */}
@@ -561,123 +609,398 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
           <ScrollReveal delay={0.15} yOffset={24} duration={500}>
           {school.slug === 'smp' ? (
-            <div className="bg-slate-50/90 rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:border-slate-300 transition-all p-6 sm:p-8 lg:p-10">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                {/* Left Column: Gelombang 1 & 2 Schedules & Building Discounts */}
-                <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-8">
+              {/* 1. Header Banner & Wave Cards */}
+              <div className="bg-gradient-to-br from-[#030164] via-[#080554] to-[#01002e] rounded-3xl border border-[#ffd51e]/40 p-6 sm:p-8 lg:p-10 text-white shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffd51e]/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/15">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100/80 text-emerald-900 border border-emerald-200 mb-3">
-                      <Tag className="w-3.5 h-3.5 text-emerald-800" />
-                      <span>SPMB TP 2027/2028 • Gelombang 1 &amp; 2</span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#ffd51e] text-slate-950 mb-3 shadow-xs">
+                      <Tag className="w-3.5 h-3.5 text-slate-950" />
+                      <span>SPMB T.A. 2027/2028 • SMP IT AL-AFIYAH</span>
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
-                      Jadwal Gelombang &amp; Program Diskon Uang Bangunan
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-snug">
+                      Sistem Penerimaan Murid Baru
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                      Daftarkan ananda pada Gelombang 1 untuk memperoleh keringanan investasi sarana prasarana pendidikan (uang bangunan) dengan kuota rombel terbatas.
+                    <p className="text-xs sm:text-sm text-neutral-200 mt-1.5 max-w-xl">
+                      Membentuk generasi <em>Be Smart &amp; Religious</em>. Dapatkan keringanan investasi pendidikan hingga 70% pada Gelombang 1.
                     </p>
                   </div>
-
-                  {/* Wave 1 Card */}
-                  <div className="p-5 rounded-2xl bg-white border-2 border-emerald-500 shadow-sm relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-bl-xl shadow-xs flex items-center gap-1">
-                      <Check className="w-3 h-3" />
-                      <span>Sedang Dibuka</span>
-                    </div>
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <h4 className="text-base font-extrabold text-slate-900">SPMB Gelombang 1</h4>
-                    </div>
-                    <p className="text-xs font-bold text-emerald-800 bg-emerald-50 inline-block px-2.5 py-1 rounded-lg border border-emerald-200 mb-3.5">
-                      📅 1 Oktober 2026 &ndash; 28 Februari 2027
-                    </p>
-
-                    <div className="space-y-2.5 pt-1 border-t border-slate-100">
-                      <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-200/70">
-                        <Tag className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-xs font-extrabold text-emerald-950">
-                            Diskon 70% Uang Bangunan
-                          </p>
-                          <p className="text-[11px] text-emerald-800">
-                            Khusus untuk siswa lulusan SDIT AL Afiyah
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/70">
-                        <Percent className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-xs font-extrabold text-amber-950">
-                            Diskon 50% Uang Bangunan
-                          </p>
-                          <p className="text-[11px] text-amber-800">
-                            Untuk siswa pendaftar dari luar SDIT
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Wave 2 Card */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <h4 className="text-sm font-bold text-slate-800">SPMB Gelombang 2</h4>
-                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                        Tahap Lanjutan
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-600 font-medium mb-2">
-                      📅 1 Maret 2027 &ndash; 30 Juni 2027
-                    </p>
-                    <div className="p-2.5 rounded-xl bg-slate-50 text-slate-600 text-[11px] flex items-center justify-between border border-slate-100">
-                      <span>Ketentuan Biaya:</span>
-                      <strong className="text-slate-800 font-bold">No Diskon (Tarif Biaya Normal)</strong>
-                    </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-[#ffd51e]/50 text-xs font-extrabold text-[#ffd51e] flex items-center gap-1.5 shadow-xs">
+                      <Award className="w-4 h-4 text-[#ffd51e]" />
+                      <span>Terakreditasi A Resmi</span>
+                    </span>
+                    <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-white">
+                      Infaq Pendaftaran: Rp 200.000
+                    </span>
                   </div>
                 </div>
 
-                {/* Right Column: Official Bank Account Card & Direct Actions */}
+                {/* Gelombang 1 vs Gelombang 2 Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-6 relative z-10">
+                  {/* Wave 1 */}
+                  <div className="p-5 rounded-2xl bg-white/10 backdrop-blur-md border-2 border-[#ffd51e] shadow-lg relative overflow-hidden">
+                    <div className="absolute top-0 right-0 bg-[#ffd51e] text-slate-950 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-bl-xl shadow-xs flex items-center gap-1">
+                      <Check className="w-3 h-3" />
+                      <span>Sedang Dibuka</span>
+                    </div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#ffd51e] animate-pulse" />
+                      <h4 className="text-base sm:text-lg font-black text-white">SPMB Gelombang 1</h4>
+                    </div>
+                    <p className="text-xs font-bold text-[#ffd51e] bg-black/30 inline-block px-2.5 py-1 rounded-lg border border-[#ffd51e]/40 mb-3.5">
+                      📅 1 Oktober 2026 &ndash; 28 Februari 2027
+                    </p>
+
+                    <div className="space-y-2.5 pt-2 border-t border-white/15">
+                      <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-400/40">
+                        <Tag className="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-xs font-extrabold text-white">
+                            FREE 70% Uang Bangunan*
+                          </p>
+                          <p className="text-[11px] text-emerald-200">
+                            Khusus untuk siswa lulusan SDIT Al Afiyah (Hemat Rp 1.750.000)
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-[#ffd51e]/20 border border-[#ffd51e]/40">
+                        <Percent className="w-4 h-4 text-[#ffd51e] shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-xs font-extrabold text-white">
+                            FREE 50% Uang Bangunan**
+                          </p>
+                          <p className="text-[11px] text-amber-200">
+                            Untuk siswa pendaftar dari luar SDIT / Umum (Hemat Rp 1.250.000)
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Wave 2 */}
+                  <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/20 shadow-xs flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <h4 className="text-base font-bold text-white">SPMB Gelombang 2</h4>
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/15 text-neutral-300">
+                          Tahap Lanjutan
+                        </span>
+                      </div>
+                      <p className="text-xs text-neutral-300 font-medium mb-3">
+                        📅 1 Maret 2027 &ndash; 30 Juni 2027
+                      </p>
+                      <div className="p-3 rounded-xl bg-black/25 text-neutral-300 text-xs border border-white/10 flex items-center justify-between">
+                        <span>Ketentuan Diskon:</span>
+                        <strong className="text-white font-bold">Biaya Normal (No Diskon)</strong>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-white/10 text-[11px] text-neutral-300 leading-relaxed">
+                      💡 <em>Disarankan mendaftar di Gelombang 1 untuk memastikan kuota rombel dan mendapatkan potongan biaya maksimal.</em>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Rincian Biaya Pendidikan & Interactive Simulator */}
+              <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-6 sm:p-8 lg:p-10">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-slate-100">
+                  <div>
+                    <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200 inline-flex items-center gap-1.5">
+                      <CreditCard className="w-3.5 h-3.5 text-[#030164]" />
+                      <span>Rincian Investasi Pendidikan</span>
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-2">
+                      Rincian Biaya Masuk &amp; Simulasi Diskon
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                      Transparansi penuh biaya pendidikan SMP IT Al-Afiyah T.A. 2027/2028 sesuai tabel resmi yayasan.
+                    </p>
+                  </div>
+
+                  {/* Switch Ikhwan / Akhwat */}
+                  <div className="flex items-center gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200 self-start lg:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => setSmpGender('ikhwan')}
+                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        smpGender === 'ikhwan'
+                          ? 'bg-[#030164] text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      👦 Biaya Ikhwan (Putra)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSmpGender('akhwat')}
+                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        smpGender === 'akhwat'
+                          ? 'bg-[#030164] text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      🧕 Biaya Akhwat (Putri)
+                    </button>
+                  </div>
+                </div>
+
+                {/* Filter Status Pendaftar (Simulasi Diskon) */}
+                <div className="mt-6">
+                  <label className="text-xs font-bold text-slate-700 block mb-2 uppercase tracking-wider">
+                    Pilih Kategori Pendaftaran (Simulasi Gelombang 1):
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => setSmpDiscountType('sdit')}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                        smpDiscountType === 'sdit'
+                          ? 'bg-emerald-50/80 border-emerald-500 shadow-xs ring-1 ring-emerald-500'
+                          : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-black text-emerald-950">Lulusan SDIT Al Afiyah</span>
+                        <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-600 text-white">Diskon 70%</span>
+                      </div>
+                      <p className="text-[11px] text-emerald-800">Hemat Rp 1.750.000 Uang Bangunan</p>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setSmpDiscountType('umum')}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                        smpDiscountType === 'umum'
+                          ? 'bg-amber-50/80 border-amber-500 shadow-xs ring-1 ring-amber-500'
+                          : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-black text-amber-950">Pendaftar Luar SDIT (Umum)</span>
+                        <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-slate-950">Diskon 50%</span>
+                      </div>
+                      <p className="text-[11px] text-amber-800">Hemat Rp 1.250.000 Uang Bangunan</p>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setSmpDiscountType('normal')}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                        smpDiscountType === 'normal'
+                          ? 'bg-slate-100 border-slate-500 shadow-xs ring-1 ring-slate-400'
+                          : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-bold text-slate-800">Biaya Normal (Gelombang 2)</span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">No Diskon</span>
+                      </div>
+                      <p className="text-[11px] text-slate-600">Tarif standar tanpa potongan</p>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Table Breakdown */}
+                {(() => {
+                  const baseBangunan = 2500000;
+                  const discountBangunan =
+                    smpDiscountType === 'sdit' ? 1750000 : smpDiscountType === 'umum' ? 1250000 : 0;
+                  const finalBangunan = baseBangunan - discountBangunan;
+                  const seragamFee = smpGender === 'ikhwan' ? 1100000 : 1400000;
+                  const sppFee = 300000;
+                  const baseTotal = 200000 + baseBangunan + 500000 + seragamFee + 1000000 + 1700000 + sppFee;
+                  const finalTotal = baseTotal - discountBangunan;
+
+                  return (
+                    <div className="mt-6 border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+                      <div className="divide-y divide-slate-100 text-xs sm:text-sm">
+                        <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50/70">
+                          <span className="font-semibold text-slate-700">1. Infaq Formulir Pendaftaran</span>
+                          <span className="font-mono font-bold text-slate-900">Rp 200.000</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 sm:px-5 bg-white">
+                          <div>
+                            <span className="font-semibold text-slate-700">2. Infaq Pengembangan Sarana (Uang Bangunan)</span>
+                            {discountBangunan > 0 && (
+                              <span className="block text-[11px] text-emerald-700 font-medium">
+                                Potongan {smpDiscountType === 'sdit' ? '70% (SDIT)' : '50% (Umum)'}: -Rp {discountBangunan.toLocaleString('id-ID')}
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-right">
+                            {discountBangunan > 0 && (
+                              <span className="line-through text-slate-400 text-xs mr-2 font-mono">
+                                Rp {baseBangunan.toLocaleString('id-ID')}
+                              </span>
+                            )}
+                            <span className="font-mono font-bold text-emerald-800">
+                              Rp {finalBangunan.toLocaleString('id-ID')}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50/70">
+                          <span className="font-semibold text-slate-700">3. Fasilitas Pembelajaran Modern</span>
+                          <span className="font-mono font-bold text-slate-900">Rp 500.000</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 sm:px-5 bg-white">
+                          <span className="font-semibold text-slate-700">
+                            4. Paket Seragam Sekolah Lengkap ({smpGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat Syar\'i'})
+                          </span>
+                          <span className="font-mono font-bold text-slate-900">
+                            Rp {seragamFee.toLocaleString('id-ID')}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50/70">
+                          <span className="font-semibold text-slate-700">5. Paket Buku Pelajaran &amp; Modul</span>
+                          <span className="font-mono font-bold text-slate-900">Rp 1.000.000</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 sm:px-5 bg-white">
+                          <span className="font-semibold text-slate-700">6. Program Kegiatan Siswa (SCD, Outing, Mutaba&apos;ah)</span>
+                          <span className="font-mono font-bold text-slate-900">Rp 1.700.000</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50/70">
+                          <span className="font-semibold text-slate-700">7. SPP Pendidikan (Bulan Pertama)</span>
+                          <span className="font-mono font-bold text-slate-900">Rp {sppFee.toLocaleString('id-ID')}</span>
+                        </div>
+
+                        {/* Grand Total Bar */}
+                        <div className="flex items-center justify-between p-4 sm:p-5 bg-gradient-to-r from-[#030164] to-[#0a055c] text-white">
+                          <div>
+                            <span className="text-xs uppercase tracking-wider text-[#ffd51e] font-bold block">
+                              Total Biaya Pendidikan ({smpGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat'})
+                            </span>
+                            <span className="text-xs text-neutral-300">
+                              {discountBangunan > 0 ? `Hemat Rp ${discountBangunan.toLocaleString('id-ID')} pada Gelombang 1` : 'Tarif Biaya Normal Gelombang 2'}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            {discountBangunan > 0 && (
+                              <span className="text-xs line-through text-neutral-400 font-mono block">
+                                Rp {baseTotal.toLocaleString('id-ID')}
+                              </span>
+                            )}
+                            <span className="text-xl sm:text-2xl font-black font-mono text-[#ffd51e]">
+                              Rp {finalTotal.toLocaleString('id-ID')}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* 3. Official Posters Preview & Bank Card Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                {/* Left Column: Official Poster Tabs & Lightbox trigger */}
+                <div className="lg:col-span-6 bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-7 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-base font-black text-slate-900">Dokumen Brosur &amp; Poster Resmi</h4>
+                      <p className="text-xs text-slate-500">Klik untuk memperbesar dan simpan gambar.</p>
+                    </div>
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-100 text-[#030164]">
+                      Resolusi Tinggi
+                    </span>
+                  </div>
+
+                  {/* Poster Tabs */}
+                  <div className="flex items-center gap-1.5 p-1 bg-white rounded-xl border border-slate-200">
+                    {unitPosters.map((p) => {
+                      const isActive = activePoster.src === p.src;
+                      return (
+                        <button
+                          key={p.src}
+                          type="button"
+                          onClick={() => setActivePoster(p)}
+                          className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all cursor-pointer truncate ${
+                            isActive
+                              ? 'bg-[#030164] text-white shadow-xs'
+                              : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          {p.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Active Poster Preview Card */}
+                  <div
+                    onClick={() => setIsPosterModalOpen(true)}
+                    className="relative group rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md bg-white cursor-pointer"
+                  >
+                    <img
+                      src={activePoster.src}
+                      alt={activePoster.label}
+                      className="w-full max-h-[420px] object-contain mx-auto group-hover:scale-[1.02] transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white">
+                      <span className="px-4 py-2 rounded-xl bg-slate-900/90 text-xs font-bold flex items-center gap-1.5 shadow-lg border border-white/20">
+                        <ZoomIn className="w-4 h-4 text-[#ffd51e]" />
+                        <span>Klik untuk Memperbesar</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Action Download */}
+                  <div className="flex items-center justify-between pt-2">
+                    <span className="text-xs text-slate-500">{activePoster.label}</span>
+                    <a
+                      href={activePoster.src}
+                      download={activePoster.file}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#030164] hover:bg-[#02004d] text-white font-bold text-xs shadow-xs transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5 text-[#ffd51e]" />
+                      <span>Unduh File (PNG)</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Right Column: Bank Card & Consultation */}
                 <div className="lg:col-span-6 space-y-6">
-                  {/* Visual Bank Card */}
-                  <div className="rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 border border-emerald-600/40">
+                  {/* Visual Bank Muamalat Card */}
+                  <div className="rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden bg-gradient-to-br from-[#030164] via-[#090666] to-[#01002e] border border-[#ffd51e]/40">
                     <div className="flex items-center justify-between pb-4 border-b border-white/15">
                       <div className="flex items-center gap-2">
-                        <CreditCard className="w-5 h-5 text-amber-300" />
-                        <span className="text-xs font-bold tracking-wider uppercase text-emerald-100">
+                        <CreditCard className="w-5 h-5 text-[#ffd51e]" />
+                        <span className="text-xs font-bold tracking-wider uppercase text-neutral-100">
                           Rekening Resmi Pembayaran SPMB
                         </span>
                       </div>
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-400 text-slate-950 uppercase">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-[#ffd51e] text-slate-950 uppercase shadow-xs">
                         Terverifikasi
                       </span>
                     </div>
 
                     <div className="py-6 space-y-4">
                       <div>
-                        <span className="text-[11px] text-emerald-200 block uppercase font-medium">Bank Penerima:</span>
+                        <span className="text-[11px] text-neutral-300 block uppercase font-medium">Bank Penerima:</span>
                         <h4 className="text-xl sm:text-2xl font-black text-white tracking-wide">
                           Bank Muamalat
                         </h4>
                       </div>
 
-                      <div className="bg-black/25 p-4 rounded-2xl border border-white/15 flex items-center justify-between gap-3">
+                      <div className="bg-black/35 p-4 rounded-2xl border border-white/15 flex items-center justify-between gap-3">
                         <div>
-                          <span className="text-[10px] text-emerald-200 block font-medium uppercase">Nomor Rekening Resmi:</span>
-                          <span className="text-xl sm:text-2xl font-black font-mono tracking-wider text-amber-300">
+                          <span className="text-[10px] text-neutral-300 block font-medium uppercase">Nomor Rekening Resmi:</span>
+                          <span className="text-xl sm:text-2xl font-black font-mono tracking-wider text-[#ffd51e]">
                             1360012405
                           </span>
                         </div>
                         <button
                           type="button"
                           onClick={() => handleCopyAccount('1360012405')}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-emerald-50 text-slate-900 font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer shrink-0"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-neutral-100 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer shrink-0"
                           title="Salin Nomor Rekening"
                         >
                           {copiedBankAcc ? (
                             <>
-                              <Check className="w-3.5 h-3.5 text-emerald-700" />
-                              <span className="text-emerald-800">Tersalin!</span>
+                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                              <span className="text-emerald-700">Tersalin!</span>
                             </>
                           ) : (
                             <>
@@ -689,38 +1012,48 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       </div>
 
                       <div>
-                        <span className="text-[11px] text-emerald-200 block uppercase font-medium">Atas Nama Rekening:</span>
+                        <span className="text-[11px] text-neutral-300 block uppercase font-medium">Atas Nama Rekening:</span>
                         <p className="text-base font-bold text-white tracking-wide">
                           SMP IT Al Afiyah
                         </p>
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-white/15 text-[11px] text-emerald-100/90 leading-relaxed flex items-start gap-2">
-                      <ShieldCheck className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
+                    <div className="pt-3 border-t border-white/15 text-[11px] text-neutral-200 leading-relaxed flex items-start gap-2">
+                      <ShieldCheck className="w-4 h-4 text-[#ffd51e] shrink-0 mt-0.5" />
                       <span>
-                        Seluruh pembayaran formulir pendaftaran dan daftar ulang SPMB SMP IT hanya disalurkan melalui rekening resmi di atas.
+                        Seluruh infaq formulir pendaftaran dan daftar ulang SPMB SMP IT hanya disalurkan melalui rekening Bank Muamalat resmi di atas.
                       </span>
                     </div>
                   </div>
 
-                  {/* Highlights SMP IT */}
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="p-3 rounded-xl bg-white border border-slate-200">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase block mb-0.5">Target Qur&apos;an</span>
-                      <strong className="text-slate-900 block">3-5 Juz Mutqin</strong>
+                  {/* Lokasi & Media Sosial Card */}
+                  <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#030164] flex items-center justify-center shrink-0 mt-0.5">
+                        <MapPin className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h5 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Lokasi Pendaftaran Offline:</h5>
+                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+                          Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411
+                        </p>
+                      </div>
                     </div>
-                    <div className="p-3 rounded-xl bg-white border border-slate-200">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase block mb-0.5">Bahasa Aktif</span>
-                      <strong className="text-slate-900 block">Bilingual Immersion</strong>
+
+                    <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                      <div>
+                        <span className="text-[10px] text-slate-400 uppercase font-semibold block">Media Sosial Resmi:</span>
+                        <span className="font-bold text-slate-800">IG: @smpitalafiyahmjl • FB/YT: SMP IT Al Afiyah</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Direct Action Buttons */}
-                  <div className="pt-2 flex flex-wrap items-center gap-3">
+                  <div className="pt-1 flex flex-wrap items-center gap-3">
                     <Link
                       href={`/ppdb/daftar?school=smp${refCode ? `&ref=${encodeURIComponent(refCode)}` : ''}`}
-                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#030164] hover:bg-[#02004d] text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 border border-[#ffd51e]/30"
                     >
                       {isOpeningSpmb ? (
                         <>
@@ -730,19 +1063,21 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       ) : (
                         <>
                           <span>Daftar SPMB SMP IT Online</span>
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
                         </>
                       )}
                     </Link>
 
                     <a
-                      href={`https://wa.me/${school.waCenterPhone}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran%20Gelombang%201.`}
+                      href={`https://wa.me/6282249357893?text=${encodeURIComponent(
+                        "Assalamu'alaikum Panitia SPMB SMP IT Al-Afiyah, saya ingin konsultasi pendaftaran murid baru Gelombang 1."
+                      )}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs sm:text-sm transition-colors shadow-2xs"
                     >
                       <MessageCircle className="w-4 h-4 text-emerald-600" />
-                      <span>WhatsApp Panitia SPMB</span>
+                      <span>WhatsApp (0822-4935-7893)</span>
                     </a>
                   </div>
                 </div>
@@ -1690,9 +2025,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             {/* Header with prominent Kembali button */}
             <div className="flex-shrink-0 flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-white">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                <span className={`w-2 h-2 rounded-full ${school.slug === 'smp' ? 'bg-[#030164]' : 'bg-emerald-600'}`} />
                 <h3 className="font-extrabold text-xs sm:text-sm text-slate-900 truncate">
-                  Poster Resmi SPMB {school.name} T.A. 2027/2028
+                  {activePoster.label} • {school.name} T.A. 2027/2028
                 </h3>
               </div>
               <button
@@ -1708,25 +2043,29 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             {/* Poster Image: Comfortably fits on any screen */}
             <div className="overflow-y-auto p-3 sm:p-4 bg-slate-100/90 flex items-center justify-center flex-1">
               <img
-                src={school.slug === 'smp' ? (school.heroImage || '/images/smp-hero-fullday.jpg') : activePoster.src}
-                alt={`Poster SPMB ${school.name}`}
-                className="max-h-[50vh] sm:max-h-[55vh] w-auto max-w-full object-contain rounded-xl shadow-md border border-slate-200/80"
+                src={activePoster.src}
+                alt={`${activePoster.label} ${school.name}`}
+                className="max-h-[55vh] sm:max-h-[60vh] w-auto max-w-full object-contain rounded-xl shadow-md border border-slate-200/80"
               />
             </div>
 
             {/* Footer with Download and Kembali action */}
             <div className="flex-shrink-0 p-3 sm:p-4 bg-white border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
               <span className="text-[11px] sm:text-xs text-slate-500 font-medium">
-                JPG Resolusi Tinggi • Siap Cetak &amp; Disimpan
+                Format Resolusi Tinggi • Siap Cetak &amp; Disimpan
               </span>
               <div className="flex items-center gap-2">
                 <a
-                  href={school.slug === 'smp' ? (school.heroImage || '/images/smp-hero-fullday.jpg') : activePoster.src}
-                  download={school.slug === 'smp' ? `Poster-Resmi-SPMB-SMP-Al-Afiyah-2027-2028.jpg` : activePoster.file}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs shadow-xs transition-colors"
+                  href={activePoster.src}
+                  download={activePoster.file}
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white font-bold text-xs shadow-xs transition-colors ${
+                    school.slug === 'smp'
+                      ? 'bg-[#030164] hover:bg-[#02004d]'
+                      : 'bg-emerald-800 hover:bg-emerald-900'
+                  }`}
                 >
-                  <Download className="w-3.5 h-3.5 text-emerald-300" />
-                  <span>Unduh Poster (JPG)</span>
+                  <Download className={`w-3.5 h-3.5 ${school.slug === 'smp' ? 'text-[#ffd51e]' : 'text-emerald-300'}`} />
+                  <span>Unduh Dokumen</span>
                 </a>
                 <button
                   type="button"

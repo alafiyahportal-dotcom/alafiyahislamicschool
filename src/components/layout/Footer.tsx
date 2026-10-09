@@ -96,23 +96,26 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
     smp: {
       name: 'SMP IT Al-Afiyah',
       subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
-      logoUrl: null,
+      logoUrl: '/images/smp-logo.png',
       badgeLetter: 'SMP',
       description:
-        'Sekolah Menengah Pertama Islam Terpadu unggulan dengan target tahfidz Al-Qur\'an mutqin, bilingual immersion, kepemimpinan islami, serta penguatan sains dan teknologi.',
-      accreditation: 'Terakreditasi Resmi',
-      permit: 'Izin Kemenag & Kemdikbud',
+        'SMP IT Al-Afiyah — Be Smart & Religious. Sekolah Menengah Pertama Islam Terpadu Terakreditasi A dengan target tahfidz 3-5+ juz mutqin, fasih Bahasa Arab aktif, SCD & Mutaba\'ah Digital, serta Futsal Development Program.',
+      accreditation: 'Terakreditasi A (BAN-S/M)',
+      permit: 'YPIB • Majalengka',
       address:
-        'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
-      hotline: '+62 812-2334-4552',
-      hotlineWa: 'https://wa.me/6281223344552',
+        'Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
+      hotline: '+62 822-4935-7893',
+      hotlineWa: 'https://wa.me/6282249357893',
       email: 'smpit@alafiyah.sch.id',
+      instagramUrl: 'https://instagram.com/smpitalafiyahmjl',
+      facebookUrl: 'https://facebook.com/smpitalafiyah',
+      youtubeUrl: 'https://youtube.com/@smpitalafiyah',
       navTitle: 'Navigasi SMP IT',
       navLinks: [
         { label: 'Profil & Nilai Keunggulan', href: '/smp#values' },
-        { label: 'Program Tahfidz & Sains', href: '/smp#programs' },
-        { label: 'Dewan Guru & Asatidzah', href: '/smp#teachers' },
-        { label: 'Fasilitas & Sarana Belajar', href: '/smp#facilities' },
+        { label: 'Program Unggulan 5+ Juz & Futsal', href: '/smp#programs' },
+        { label: 'Jadwal Gelombang & Diskon SPMB', href: '/smp#pengumuman' },
+        { label: 'Fasilitas & Lab Komputer', href: '/smp#facilities' },
         { label: 'Formulir SPMB SMP IT Online', href: '/ppdb/daftar?school=smp', isHighlighted: true },
       ],
       bottomCopyright: '© 2026 SMP IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
@@ -120,7 +123,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Login Portal', href: '/login', isGold: true },
         { label: 'Doa & Dzikir', href: '/doa-dzikir' },
         { label: 'Info SPMB SMP IT', href: '/ppdb/daftar?school=smp' },
-        { label: 'Hotline Panitia', href: 'https://wa.me/6281223344552', isExternal: true },
+        { label: 'Hotline Panitia', href: 'https://wa.me/6282249357893', isExternal: true },
       ],
     },
     foundation: {
@@ -204,11 +207,11 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
               <div className="flex items-center space-x-2.5 text-slate-300">
                 {/* Instagram */}
                 <a
-                  href="https://instagram.com/alafiyah_majalengka"
+                  href={(current as any).instagramUrl || "https://instagram.com/alafiyah_majalengka"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Instagram Resmi Al-Afiyah"
-                  title="Instagram Resmi @alafiyah_majalengka"
+                  aria-label={`Instagram Resmi ${current.name}`}
+                  title={`Instagram Resmi ${(current as any).instagramUrl ? '@smpitalafiyahmjl' : '@alafiyah_majalengka'}`}
                   className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-pink-600/20 text-slate-400 hover:text-pink-400 border border-slate-700/70 flex items-center justify-center transition-all"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -217,11 +220,11 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
                 </a>
                 {/* Facebook */}
                 <a
-                  href="https://facebook.com/alafiyah.official"
+                  href={(current as any).facebookUrl || "https://facebook.com/alafiyah.official"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Facebook Resmi Al-Afiyah"
-                  title="Facebook Al-Afiyah Official"
+                  aria-label={`Facebook Resmi ${current.name}`}
+                  title={`Facebook ${current.name}`}
                   className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-blue-600/20 text-slate-400 hover:text-blue-400 border border-slate-700/70 flex items-center justify-center transition-all"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -230,11 +233,11 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
                 </a>
                 {/* YouTube */}
                 <a
-                  href="https://youtube.com/@alafiyah_school"
+                  href={(current as any).youtubeUrl || "https://youtube.com/@alafiyah_school"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="YouTube Al-Afiyah Official"
-                  title="YouTube Channel Al-Afiyah"
+                  aria-label={`YouTube ${current.name}`}
+                  title={`YouTube Channel ${current.name}`}
                   className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-red-600/20 text-slate-400 hover:text-red-400 border border-slate-700/70 flex items-center justify-center transition-all"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">

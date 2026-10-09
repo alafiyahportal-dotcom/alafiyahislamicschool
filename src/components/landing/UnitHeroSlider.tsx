@@ -282,28 +282,28 @@ export default function UnitHeroSlider({
 
     // Default SMP IT
     const baseSmpSlide = {
-      badge: 'SMP IT AL-AFIYAH MAJALENGKA',
-      titlePart1: 'Mencetak Pemimpin ',
-      titleHighlight: 'Qur’ani Berakhlak',
-      titlePart2: ' & Berwawasan Global',
+      badge: 'SPMB T.A. 2027/2028 • BE SMART & RELIGIOUS',
+      titlePart1: 'Mencetak Generasi ',
+      titleHighlight: 'Smart & Religious',
+      titlePart2: ' Berakhlak Qur’ani',
       description:
-        'Sekolah Menengah Pertama Islam Terpadu dengan sistem fullday school unggulan. Target hafalan 3-5 juz mutqin & tartil, adab islami, SCD, Mutaba\'ah Digital, serta Futsal Development Program.',
+        'Sekolah Menengah Pertama Islam Terpadu Terakreditasi A. Target hafalan 3-5+ juz mutqin, fasih Bahasa Arab aktif, SCD & Mutaba\'ah Digital, serta Futsal Development Program.',
       primaryCtaText: 'Daftar SPMB SMP IT',
       primaryCtaLink: ppdbUrl,
-      secondaryCtaText: 'Konsultasi Panitia SPMB',
+      secondaryCtaText: 'Konsultasi Panitia (0822-4935-7893)',
       secondaryCtaLink: waUrl,
       trustItems: [
         { icon: 'shield' as const, text: 'Terakreditasi A Resmi' },
-        { icon: 'award' as const, text: 'Target Tahfidz 3-5 Juz Mutqin' },
-        { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
+        { icon: 'award' as const, text: 'Target Tahfidz 3-5+ Juz Mutqin' },
+        { icon: 'calendar' as const, text: 'Diskon Uang Bangunan s.d. 70%' },
         { icon: 'check' as const, text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
       ]
     };
 
     return [
-      { id: 1, ...baseSmpSlide, image: '/images/smp-tubing-1.jpg' },
-      { id: 2, ...baseSmpSlide, image: '/images/smp-outing-3.jpg' },
-      { id: 3, ...baseSmpSlide, image: '/images/smp-tubing-2.jpg' },
+      { id: 1, ...baseSmpSlide, image: '/images/smp-spmb-poster.png' },
+      { id: 2, ...baseSmpSlide, image: '/images/smp-tubing-1.jpg' },
+      { id: 3, ...baseSmpSlide, image: '/images/smp-outing-3.jpg' },
     ];
   }, [slug, ppdbUrl, waUrl, registrationFee, customSlides]);
 
@@ -327,10 +327,10 @@ export default function UnitHeroSlider({
       case 'smp':
       default:
         return {
-          glowColor: 'bg-emerald-700/25',
-          badgeText: 'text-teal-200/90',
-          highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-300 to-emerald-300',
-          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-teal-700 to-emerald-800 hover:from-emerald-500 hover:to-teal-600 shadow-teal-900/40'
+          glowColor: 'bg-[#030164]/40',
+          badgeText: 'text-[#ffd51e] border-[#ffd51e]/30 bg-[#030164]/60',
+          highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-[#ffd51e] via-amber-200 to-yellow-300',
+          primaryBtn: 'bg-[#030164] hover:bg-[#02004d] text-white border border-[#ffd51e]/40 shadow-lg shadow-[#030164]/50 font-bold'
         };
     }
   }, [slug]);

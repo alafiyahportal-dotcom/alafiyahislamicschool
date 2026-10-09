@@ -38,6 +38,30 @@ export function proxy(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
+    // Rewrite clean school subpaths on subdomain (e.g. smpit.alafiyah.id/profil -> /smp/profil)
+    const schoolSubpaths = [
+      '/profil',
+      '/program',
+      '/fasilitas',
+      '/guru',
+      '/kontak',
+      '/karakter',
+      '/dokumentasi',
+      '/testimoni',
+      '/agenda',
+      '/berita',
+      '/doa-dzikir',
+      '/siakad',
+      '/spmb',
+    ];
+    if (schoolSubpaths.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${subdomain}${pathname}`;
+      const response = NextResponse.rewrite(url);
+      response.headers.set('x-school-subdomain', subdomain);
+      return response;
+    }
+
     // Cross-school navigation (e.g. on tkit subdomain clicking /sd or /smp)
     if (pathname === '/tk' || pathname === '/sd' || pathname === '/smp') {
       const targetSlug = pathname.slice(1) as SchoolSlug;
