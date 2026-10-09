@@ -457,19 +457,21 @@ export default function UnitHeroSlider({
         )}
       </div>
 
-      {/* Hero Bottom Highlight Cards nested inside the banner, with Primary CTA button beneath cards */}
+      {/* Hero Bottom Highlight Cards nested inside the banner, with Primary CTA button beneath cards (omitted for SMP as it has a dedicated yellow promo CTA bar right below) */}
       {statsCards && (
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-1 sm:pt-2 flex flex-col items-start gap-4 sm:gap-5">
           {statsCards}
-          <div className="w-full flex justify-start">
-            <Link
-              href={effectiveBottomCtaLink}
-              className={`inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-6 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${themeConfig.primaryBtn}`}
-            >
-              <span>{slides[currentSlide]?.primaryCtaText || slides[0]?.primaryCtaText || 'Daftar SPMB Online'}</span>
-              <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
+          {slug !== 'smp' && (
+            <div className="w-full flex justify-start">
+              <Link
+                href={effectiveBottomCtaLink}
+                className={`inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-6 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${themeConfig.primaryBtn}`}
+              >
+                <span>{slides[currentSlide]?.primaryCtaText || slides[0]?.primaryCtaText || 'Daftar SPMB Online'}</span>
+                <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </section>

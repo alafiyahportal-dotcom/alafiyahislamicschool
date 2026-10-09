@@ -275,7 +275,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               href={ppdbUrl}
               className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95 inline-flex items-center justify-center gap-1.5 text-center"
             >
-              <span>Daftar Online</span>
+              <span>Daftar Formulir Online</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <a

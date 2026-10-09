@@ -424,43 +424,11 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0 text-center sm:text-left">
+        <div className="pt-8 text-center text-xs text-slate-500">
           <p className="leading-relaxed">
             <span>{current.bottomCopyright.replace(/Seluruh Hak Cipta Dilindungi\./, '').trim()}</span>{' '}
             <span className="block sm:inline whitespace-nowrap">Seluruh Hak Cipta Dilindungi.</span>
           </p>
-          {'bottomLinks' in current && current.bottomLinks && current.bottomLinks.length > 0 && (
-          <div className="flex items-center space-x-4">
-            {current.bottomLinks.map((item, idx) => (
-              <React.Fragment key={idx}>
-                {idx > 0 && <span>•</span>}
-                {(item as any).isExternal ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${activeSlug === 'smp' ? 'hover:text-[#ffd51e]' : 'hover:text-emerald-400'} text-slate-400`}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className={
-                      (item as any).isGold
-                        ? 'hover:text-amber-300 text-slate-400 font-medium'
-                        : activeSlug === 'smp'
-                        ? 'hover:text-[#ffd51e] text-slate-400'
-                        : 'hover:text-slate-300'
-                    }
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-          )}
         </div>
       </div>
     </footer>
