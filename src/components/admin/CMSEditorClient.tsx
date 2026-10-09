@@ -438,8 +438,8 @@ export default function CMSEditorClient({
       secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
       image: '/images/sd-hero-greenhouse.jpg',
       trustItems: [
-        { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
-        { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+        { icon: 'shield' as const, text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
+        { icon: 'check' as const, text: 'Lingkungan Asri & Ramah Anak' },
         { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
         { icon: 'calendar' as const, text: 'Formulir: Rp 250.000' }
       ]
@@ -457,8 +457,8 @@ export default function CMSEditorClient({
       secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
       image: '/images/sd-hero-garden.jpg',
       trustItems: [
-        { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
-        { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+        { icon: 'shield' as const, text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
+        { icon: 'check' as const, text: 'Lingkungan Asri & Ramah Anak' },
         { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
         { icon: 'calendar' as const, text: 'Formulir: Rp 250.000' }
       ]
@@ -476,8 +476,8 @@ export default function CMSEditorClient({
       secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber || '6281310139001'}`,
       image: '/images/sd-hero-greenhouse.jpg',
       trustItems: [
-        { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
-        { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
+        { icon: 'shield' as const, text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
+        { icon: 'check' as const, text: 'Lingkungan Asri & Ramah Anak' },
         { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
         { icon: 'calendar' as const, text: 'Formulir: Rp 250.000' }
       ]

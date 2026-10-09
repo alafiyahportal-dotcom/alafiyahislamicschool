@@ -88,7 +88,6 @@ interface HeroContentProps {
   highlightClass: string;
   primaryBtnClass: string;
   badgeClass: string;
-  hideTrustItems?: boolean;
 }
 
 /** Badge, headline, description, CTA and trust points — shared by static and sliding modes. */
@@ -98,7 +97,6 @@ function HeroContent({
   highlightClass,
   primaryBtnClass,
   badgeClass,
-  hideTrustItems = false,
 }: HeroContentProps) {
   const [refCode, setRefCode] = useState<string | null>(null);
   const [isOpening, setIsOpening] = useState(false);
@@ -151,8 +149,8 @@ function HeroContent({
         <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
       </Link>
 
-      {/* Trust Points - suppressed when statsCards are displayed to eliminate duplicate information */}
-      {!hideTrustItems && slide.trustItems && slide.trustItems.length > 0 && (
+      {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
+      {slide.trustItems && slide.trustItems.length > 0 && (
         <ul className="mt-6 sm:mt-8 w-full flex flex-col gap-2.5 text-left text-xs sm:text-sm font-medium text-neutral-200 space-y-1 sm:space-y-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:font-semibold">
           {slide.trustItems.map((item, tIdx) => (
             <li
@@ -186,6 +184,28 @@ export default function UnitHeroSlider({
 
   // Default unit-tailored slides if no custom slides provided
   const slides: UnitSlideData[] = useMemo(() => {
+    const sanitizeSdTrustItems = (items?: UnitSlideData['trustItems']): UnitSlideData['trustItems'] => {
+      const defaultSdItems: NonNullable<UnitSlideData['trustItems']> = [
+        { icon: 'shield', text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
+        { icon: 'check', text: 'Lingkungan Asri & Ramah Anak' },
+        { icon: 'award', text: 'Iman Sebelum Qur’an & Tahfidz' },
+        { icon: 'calendar', text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` },
+      ];
+
+      if (!items || items.length === 0) return defaultSdItems;
+
+      return items.map((item) => {
+        const textLower = item.text.toLowerCase();
+        if (textLower.includes('kuota') || textLower.includes('rombel')) {
+          return { icon: item.icon || 'shield', text: 'Kurikulum Terpadu & Karakter Nabawiyah' };
+        }
+        if (textLower.includes('smart')) {
+          return { icon: item.icon || 'check', text: 'Lingkungan Asri & Ramah Anak' };
+        }
+        return item;
+      });
+    };
+
     if (customSlides && customSlides.length > 0) {
       const first = customSlides[0];
       const slidesToUse = customSlides.slice(0, 3);
@@ -201,7 +221,7 @@ export default function UnitHeroSlider({
         primaryCtaLink: first.primaryCtaLink,
         secondaryCtaText: first.secondaryCtaText,
         secondaryCtaLink: first.secondaryCtaLink,
-        trustItems: first.trustItems,
+        trustItems: slug === 'sd' ? sanitizeSdTrustItems(first.trustItems) : first.trustItems,
         image: s.image,
       }));
     }
@@ -246,9 +266,10 @@ export default function UnitHeroSlider({
         secondaryCtaText: 'WhatsApp (0813-1013-9001)',
         secondaryCtaLink: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran',
         trustItems: [
-          { icon: 'shield' as const, text: 'Kuota Terbatas: Hanya 2 Rombel' },
-          { icon: 'check' as const, text: 'Smart Akhlaq Fitrah' },
-          { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' }
+          { icon: 'shield' as const, text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
+          { icon: 'check' as const, text: 'Lingkungan Asri & Ramah Anak' },
+          { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
+          { icon: 'calendar' as const, text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
         ]
       };
 
@@ -392,7 +413,6 @@ export default function UnitHeroSlider({
               highlightClass={themeConfig.highlight}
               primaryBtnClass={themeConfig.primaryBtn}
               badgeClass={themeConfig.badgeText}
-              hideTrustItems={!!statsCards}
             />
           </div>
         ) : (
@@ -415,7 +435,6 @@ export default function UnitHeroSlider({
                     highlightClass={themeConfig.highlight}
                     primaryBtnClass={themeConfig.primaryBtn}
                     badgeClass={themeConfig.badgeText}
-                    hideTrustItems={!!statsCards}
                   />
                 </div>
               );
