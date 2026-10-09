@@ -145,7 +145,7 @@ export default async function SmpBeritaPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Ikuti kabar kegiatan santri, prestasi kejuaraan, liputan outing class, dan informasi resmi dari kampus SMP IT Al-Afiyah Majalengka.
+              Ikuti kabar kegiatan santri, prestasi kejuaraan, liputan outing class, dan informasi resmi dari SMP IT Al-Afiyah Majalengka.
             </p>
           </div>
         </div>

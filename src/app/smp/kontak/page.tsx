@@ -25,8 +25,8 @@ import Link from 'next/link';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Kontak Resmi & Lokasi Kampus SMP IT Al-Afiyah',
-  description: 'Alamat resmi kampus, WhatsApp panitia SPMB 0822-4935-7893, rekening Bank Muamalat 1360012405, dan petunjuk rute Google Maps SMP IT Al-Afiyah Majalengka.',
+  title: 'Kontak Resmi & Lokasi SMP IT Al-Afiyah Majalengka',
+  description: 'Alamat resmi sekolah di Lingkungan Giri Asih, WhatsApp panitia SPMB 0822-4935-7893, rekening Bank Muamalat 1360012405, dan petunjuk rute Google Maps SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -78,7 +78,7 @@ export default function SmpKontakPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Panitia SPMB dan Tata Usaha siap melayani konsultasi pendaftaran, jadwal observasi calon santri, informasi kurikulum, maupun kunjungan langsung ke kampus kami.
+              Panitia SPMB dan Tata Usaha siap melayani konsultasi pendaftaran, jadwal observasi calon santri, informasi kurikulum, maupun kunjungan langsung ke sekolah kami di Lingkungan Giri Asih.
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function SmpKontakPage() {
                   Informasi Resmi
                 </span>
                 <h3 className="text-2xl font-bold text-slate-900 mt-1">
-                  Saluran Komunikasi Kampus
+                  Saluran Komunikasi Sekolah
                 </h3>
               </div>
 
@@ -134,7 +134,7 @@ export default function SmpKontakPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                    Alamat Kampus SMP IT
+                    Alamat Sekolah SMP IT (Lingkungan Giri Asih)
                   </span>
                   <p className="text-sm font-bold text-slate-900 mt-0.5 leading-snug">
                     {address}
@@ -231,7 +231,7 @@ export default function SmpKontakPage() {
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-[#030164]" />
               <h4 className="text-base font-bold text-slate-900">
-                Peta Lokasi Kampus SMP IT Al-Afiyah Majalengka
+                Peta Lokasi SMP IT Al-Afiyah Majalengka (Lingkungan Giri Asih)
               </h4>
             </div>
             <a

@@ -55,7 +55,7 @@ const GALLERIES = [
     image: '/images/smp-outing-3.jpg',
     desc: 'Santri membacakan hafalan 1 juz Al-Qur\'an sekali duduk di hadapan dewan asatidz dan disaksikan oleh kedua orang tua secara khidmat.',
     date: 'September 2026',
-    location: 'Masjid Kampus SMP IT'
+    location: 'Masjid SMP IT Al-Afiyah'
   },
   {
     id: 'dok-3',
@@ -91,7 +91,7 @@ const GALLERIES = [
     image: '/images/smp-spmb-poster.png',
     desc: 'Malam bina iman dan takwa santri remaja, shalat tahajjud berjamaah, dan muhasabah adab berbakti kepada orang tua.',
     date: 'Juli 2026',
-    location: 'Kampus SMP IT Al-Afiyah'
+    location: 'SMP IT Al-Afiyah (Lingkungan Giri Asih)'
   }
 ];
 

@@ -57,7 +57,7 @@ export default async function SmpProfilPage() {
     { label: 'Kurikulum Utama', value: 'Integrasi Kurikulum Nasional & Kurikulum Pesantren Terpadu Al-Afiyah' },
     { label: 'Target Capaian Tahfidz', value: '3 Juz Dasar (Juz 28, 29, 30) & Kelas Unggulan 5+ Juz Mutqin' },
     { label: 'Penguasaan Bahasa', value: 'Bahasa Arab Aktif (Lisan & Tulisan) & Penguatan Bahasa Inggris' },
-    { label: 'Alamat Kampus', value: 'Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka 45411' },
+    { label: 'Alamat Sekolah', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka 45411' },
     { label: 'Hotline Resmi / WhatsApp', value: '0822-4935-7893 (Layanan Informasi SPMB & Tata Usaha)' },
     { label: 'Rekening Resmi SPMB', value: 'Bank Muamalat 1360012405 a.n SMP IT Al Afiyah' },
     { label: 'Media Sosial', value: 'IG: @smpitalafiyahmjl • FB & YouTube: SMP IT Al Afiyah' },

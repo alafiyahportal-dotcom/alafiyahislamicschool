@@ -61,7 +61,7 @@ const SMP_EVENTS = [
     category: 'Tahfidz Qur\'an',
     badge: 'Akademik Diniyyah',
     desc: 'Ujian pembacaan hafalan 1 juz dan 3 juz sekali duduk oleh santri di hadapan dewan asatidz dan disaksikan oleh orang tua.',
-    location: 'Masjid Kampus SMP IT',
+    location: 'Masjid SMP IT Al-Afiyah',
     isHighlight: false
   },
   {
@@ -79,7 +79,7 @@ const SMP_EVENTS = [
     category: 'Karakter (SCD)',
     badge: 'Pembinaan Karakter',
     desc: 'Malam bina iman dan takwa santri remaja, shalat tahajjud berjamaah, dan pendalaman adab birrul walidain.',
-    location: 'Kampus SMP IT Al-Afiyah',
+    location: 'SMP IT Al-Afiyah (Lingkungan Giri Asih)',
     isHighlight: false
   },
   {

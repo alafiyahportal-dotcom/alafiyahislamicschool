@@ -49,7 +49,7 @@ const SCD_PILLARS = [
     subtitle: 'Shalat Berjamaah • Dzikir Pagi Petang • Mutaba\'ah Digital',
     desc: 'Menancapkan keyakinan tauhid yang murni serta membiasakan shalat fardhu 5 waktu tepat waktu berjamaah. Setiap santri mencatat dan merefleksikan ibadah harian mereka melalui aplikasi Mutaba\'ah Digital yang terpantau langsung oleh wali santri dan asatidz.',
     points: [
-      'Pembiasaan shalat berjamaah di masjid kampus',
+      'Pembiasaan shalat berjamaah di masjid sekolah',
       'Dzikir pagi dan petang Al-Ma\'tsurat sebagai benteng ruhiyah',
       'Target tilawah mandiri One Day Half/One Juz',
       'Pemantauan digital terintegrasi antara rumah dan sekolah'

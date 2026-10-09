@@ -35,7 +35,7 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
       ? 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Wetan, Kec. Majalengka, Jawa Barat 45411'
       : isTk
       ? 'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419'
-      : 'Jl. Gerakan Koperasi No. 110, Kel. Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411';
+      : 'Lingkungan Giri Asih - Jl. Gerakan Koperasi No. 110, Kel. Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411';
 
   const mapQuery = isFoundation || isSd
     ? '-6.8367783,108.237785'
@@ -49,8 +49,10 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
     ? '+62 813-1013-9001 / +62 812-2334-4552'
     : isSd
     ? '+62 813-1013-9001'
+    : isSmp
+    ? '+62 822-4935-7893'
     : '+62 812-2334-4552';
-  const phoneRaw = isFoundation || isSd ? '6281310139001' : '6281223344552';
+  const phoneRaw = isFoundation || isSd ? '6281310139001' : isSmp ? '6282249357893' : '6281223344552';
 
   const hours = isFoundation
     ? 'Senin – Jum\'at: 07.00 – 15.00 WIB'

@@ -119,7 +119,7 @@ const SMP_PROGRAMS = [
     accent: 'gold',
     highlights: [
       'Pelatihan intensif teknik dasar, taktik, dan fisik terprogram',
-      'Lapangan olahraga representatif di lingkungan kampus',
+      'Lapangan olahraga representatif di lingkungan sekolah',
       'Keikutsertaan dalam turnamen antar-sekolah tingkat regional & kabupaten',
       'Penanaman karakter sportivitas, mental juara, dan ukhuwah islamiyah'
     ]

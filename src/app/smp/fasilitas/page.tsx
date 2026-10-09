@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Sarana & Fasilitas Kampus SMP IT Al-Afiyah',
+  title: 'Sarana & Fasilitas Sekolah SMP IT Al-Afiyah',
   description: 'Fasilitas modern SMP IT Al-Afiyah Majalengka: Ruang kelas ber-AC, laboratorium komputer, lapangan olahraga/futsal, masjid sekolah, dan akses internet Wi-Fi.',
   icons: {
     icon: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     apple: '/images/smp-logo.png',
   },
   openGraph: {
-    title: 'Fasilitas Kampus SMP IT Al-Afiyah Majalengka',
+    title: 'Fasilitas SMP IT Al-Afiyah Majalengka',
     description: 'Sarana belajar modern dan representatif untuk mendukung kenyamanan belajar santri.',
     images: ['/images/smp-program-unggulan.png'],
   },
@@ -59,11 +59,11 @@ const FACILITIES_LIST = [
     name: 'Lapangan Olahraga & Futsal',
     category: 'Olahraga & Kebugaran',
     image: '/images/smp-hero-pesantren.jpg',
-    desc: 'Sarana olahraga representatif di lingkungan kampus yang digunakan untuk latihan intensif Futsal Development Program, bola voli, senam pagi santri, dan kejuaraan antarkelas.',
+    desc: 'Sarana olahraga representatif di lingkungan sekolah yang digunakan untuk latihan intensif Futsal Development Program, bola voli, senam pagi santri, dan kejuaraan antarkelas.',
     features: ['Lapangan Futsal Standar Kompetisi Sekolah', 'Peralatan Latihan Olahraga Lengkap', 'Area Terbuka Hijau & Aman']
   },
   {
-    name: 'Masjid & Mushola Kampus',
+    name: 'Masjid & Sarana Ibadah Sekolah',
     category: 'Pusat Ibadah & Tahfidz',
     image: '/images/smp-outing-3.jpg',
     desc: 'Pusat peradaban spiritual sekolah untuk shalat fardhu berjamaah, pembinaan dzikir Al-Ma\'tsurat pagi petang, serta halaqah talaqqi tahfidz Al-Qur\'an bersama para asatidz.',
@@ -73,7 +73,7 @@ const FACILITIES_LIST = [
     name: 'Akses Internet & Jaringan Wi-Fi Sekolah',
     category: 'Infrastruktur Digital',
     image: '/images/smp-tubing-1.jpg',
-    desc: 'Jaringan koneksi internet terintegrasi di seluruh area kampus guna menunjang sistem Mutaba\'ah Digital, absensi presensi siswa, dan materi pembelajaran berbasis e-learning.',
+    desc: 'Jaringan koneksi internet terintegrasi di lingkungan sekolah guna menunjang sistem Mutaba\'ah Digital, absensi presensi siswa, dan materi pembelajaran berbasis e-learning.',
     features: ['Akses Wi-Fi Terproteksi Filter Edukatif', 'Integrasi Sistem Mutaba\'ah Digital', 'Portal SIAKAD Santri Real-Time']
   }
 ];
@@ -105,7 +105,7 @@ export default function SmpFasilitasPage() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Fasilitas Kampus SMP IT Al-Afiyah
+              Fasilitas SMP IT Al-Afiyah
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
@@ -124,7 +124,7 @@ export default function SmpFasilitasPage() {
                 href="/smp/kontak"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all"
               >
-                <span>Kunjungi Kampus (Maps)</span>
+                <span>Kunjungi Sekolah (Maps)</span>
               </Link>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function SmpFasilitasPage() {
                 </div>
 
                 <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs text-slate-500 font-semibold">Kampus SMP IT Al-Afiyah</span>
+                  <span className="text-xs text-slate-500 font-semibold">SMP IT Al-Afiyah (Lingkungan Giri Asih)</span>
                   <Link
                     href="/smp/kontak"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#030164] hover:text-blue-800"
@@ -202,17 +202,17 @@ export default function SmpFasilitasPage() {
           ))}
         </div>
 
-        {/* Info Lokasi Kampus */}
+        {/* Info Lokasi Sekolah */}
         <section className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-[#030164] to-[#0c0879] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-2 text-center md:text-left">
             <span className="text-xs text-[#ffd51e] font-bold uppercase tracking-widest block">
-              Kunjungan Kampus &amp; Observasi Fasilitas
+              Kunjungan &amp; Observasi Fasilitas Sekolah
             </span>
             <h4 className="text-2xl font-extrabold text-white">
               Ingin Meninjau Langsung Fasilitas Kami?
             </h4>
             <p className="text-xs sm:text-sm text-blue-200 max-w-xl">
-              Ayah Bunda dipersilakan berkunjung ke kampus SMP IT Al-Afiyah di Jl. Gerakan Koperasi No. 110, Majalengka Wetan pada jam kerja (Senin - Sabtu). Tim panitia siap menyambut dan mendampingi tour sekolah.
+              Ayah Bunda dipersilakan berkunjung ke sekolah SMP IT Al-Afiyah di Lingkungan Giri Asih (Jl. Gerakan Koperasi No. 110, Majalengka Wetan) pada jam kerja (Senin - Sabtu). Tim panitia siap menyambut dan mendampingi tour sekolah.
             </p>
           </div>
 
