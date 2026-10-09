@@ -1040,20 +1040,20 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
         </div>
       </section>
 
-      {/* SECTION 5: OUTING CLASS & KEGIATAN MURID */}
+      {/* SECTION 5: DOKUMENTASI NYATA & HAFLAH KELULUSAN */}
       <section id="dokumentasi" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
                 <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                <span>Dokumentasi Nyata Murid</span>
+                <span>Dokumentasi Nyata SMP IT Al-Afiyah</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Aktivitas Rihlah, Outing &amp; Kejuaraan Futsal Murid
+                Haflah Kelulusan, Prestasi &amp; Dokumentasi Santri
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Potret kegiatan tadabbur alam, river tubing, mabit, dan latihan intensif atlet futsal murid SMP IT Al-Afiyah.
+                Potret nyata kelulusan angkatan ke-3, penyematan medali tahfidz, sinergi wali murid, hingga petualangan river tubing santri SMP IT Al-Afiyah.
               </p>
             </div>
             <Link
@@ -1065,25 +1065,76 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-kelulusan-angkatan-3.jpg')}>
+              <img src="/images/smp-kelulusan-angkatan-3.jpg" alt="Haflah Kelulusan SMP IT Al-Afiyah Angkatan 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
+                  Kelulusan &amp; Prestasi
+                </span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
+                <p className="text-xs sm:text-sm font-bold">Haflah Kelulusan Angkatan ke-3 (2025/2026)</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-wisuda-akhwat.jpg')}>
+              <img src="/images/smp-wisuda-akhwat.jpg" alt="Penyematan Medali Wisudawati SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
+                  Wisuda &amp; Tahfidz
+                </span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
+                <p className="text-xs sm:text-sm font-bold">Penyematan Medali &amp; Apresiasi Santriwati</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-santri-ikhwan-wisuda.jpg')}>
+              <img src="/images/smp-santri-ikhwan-wisuda.jpg" alt="Santri Ikhwan SMP IT Al-Afiyah" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
+                  Karakter &amp; Disiplin
+                </span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
+                <p className="text-xs sm:text-sm font-bold">Generasi Pemimpin Berakhlak Qur&apos;ani</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-haflah-aula.jpg')}>
+              <img src="/images/smp-haflah-aula.jpg" alt="Suasana Haflah di Aula SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
+                  Sinergi Orang Tua
+                </span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
+                <p className="text-xs sm:text-sm font-bold">Khidmat Kebersamaan Asatidz &amp; Wali Murid</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-kelulusan-konsultasi.jpg')}>
+              <img src="/images/smp-kelulusan-konsultasi.jpg" alt="Konsultasi Raport & Capaian Murid" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
+                  Akademik &amp; Bimbingan
+                </span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
+                <p className="text-xs sm:text-sm font-bold">Evaluasi Capaian &amp; Konsultasi Orang Tua</p>
+              </div>
+            </div>
+
             <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-tubing-1.jpg')}>
-              <img src="/images/smp-tubing-1.jpg" alt="Outing Murid SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent flex items-end p-4 text-white">
-                <p className="text-xs font-bold">Rihlah River Tubing &amp; Tadabbur Alam</p>
+              <img src="/images/smp-tubing-1.jpg" alt="Rihlah River Tubing Santri SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
+                  Rihlah &amp; Outing
+                </span>
               </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-tubing-2.jpg')}>
-              <img src="/images/smp-tubing-2.jpg" alt="Kebersamaan Murid SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent flex items-end p-4 text-white">
-                <p className="text-xs font-bold">Ukhuwah &amp; Pembentukan Mental Juara</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-tubing-3.jpg')}>
-              <img src="/images/smp-tubing-3.jpg" alt="Keceriaan Murid SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent flex items-end p-4 text-white">
-                <p className="text-xs font-bold">Kemandirian &amp; Leadership Murid</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
+                <p className="text-xs sm:text-sm font-bold">Rihlah River Tubing &amp; Tadabbur Alam</p>
               </div>
             </div>
           </div>
@@ -1236,7 +1287,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
           >
             <div className="flex items-center justify-between pb-2 border-b border-slate-200">
               <h4 className="text-xs sm:text-sm font-bold text-slate-900">
-                Dokumentasi Fasilitas &amp; Kegiatan SMP IT Al-Afiyah
+                Dokumentasi Kegiatan &amp; Haflah Kelulusan SMP IT Al-Afiyah
               </h4>
               <button
                 type="button"
@@ -1247,7 +1298,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               </button>
             </div>
             <div className="flex-1 overflow-auto my-2 max-h-[75vh] flex items-center justify-center">
-              <img src={selectedPhoto} alt="Foto Fasilitas" className="max-h-[72vh] w-auto object-contain rounded-xl" />
+              <img src={selectedPhoto} alt="Dokumentasi SMP IT Al-Afiyah" className="max-h-[72vh] w-auto object-contain rounded-xl" />
             </div>
           </div>
         </div>
