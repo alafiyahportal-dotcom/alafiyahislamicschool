@@ -142,29 +142,43 @@ export default function SmpRegistrationClient() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 pt-24 sm:pt-28 pb-12 sm:pb-16">
-      {/* Breadcrumb Nav */}
-      <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap" aria-label="Breadcrumb">
-        <Link href="/smp" className="hover:text-[#030164] transition-colors">Beranda SMP IT</Link>
-        <ChevronRight className="w-3 h-3 text-slate-400" />
-        <Link href="/smp/spmb" className="hover:text-[#030164] transition-colors">SPMB 2027/2028</Link>
-        <ChevronRight className="w-3 h-3 text-slate-400" />
-        <span className="font-bold text-[#030164]">Formulir Pendaftaran Murid Baru</span>
-      </nav>
+    <div>
+      {/* 1. Top Full-Bleed Blue Hero Section (Restores blue at top browser area & behind transparent Navbar) */}
+      <section className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white pt-24 sm:pt-28 pb-12 sm:pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffd51e_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Header Banner */}
-      <div className="mb-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#030164] via-[#090580] to-[#0c0879] text-white shadow-lg relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
-        <span className="text-xs font-black text-[#ffd51e] uppercase tracking-widest block mb-1">
-          FORMULIR RESMI SPMB ONLINE
-        </span>
-        <h1 className="text-2xl sm:text-3xl font-black text-white">
-          Pendaftaran Murid Baru SMP IT Al-Afiyah
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-200 mt-2 max-w-xl">
-          Tahun Ajaran 2027/2028 • Terakreditasi A • Tagline: <em className="text-[#ffd51e] font-semibold">Be Smart &amp; Religious</em>
-        </p>
-      </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <nav className="flex items-center gap-1.5 text-xs text-blue-200/90 mb-4 sm:mb-5 flex-wrap" aria-label="Breadcrumb">
+            <Link href="/smp" className="hover:text-white transition-colors inline-flex items-center gap-1">
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Beranda SMP IT</span>
+            </Link>
+            <ChevronRight className="w-3 h-3 text-blue-300/50" />
+            <Link href="/smp/spmb" className="hover:text-white transition-colors">SPMB 2027/2028</Link>
+            <ChevronRight className="w-3 h-3 text-blue-300/50" />
+            <span className="text-[#ffd51e] font-semibold">Formulir Pendaftaran Murid Baru</span>
+          </nav>
+
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-2 sm:mb-3">
+              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+              <span>Formulir Resmi SPMB Online</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              Pendaftaran Murid Baru SMP IT Al-Afiyah
+            </h1>
+
+            <p className="mt-2.5 sm:mt-3 text-sm sm:text-base text-slate-200 leading-relaxed font-normal">
+              Tahun Ajaran 2027/2028 • Terakreditasi A • Tagline: <em className="text-[#ffd51e] font-semibold not-italic">Be Smart &amp; Religious</em>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Main Form Container (Directly on Slate-50, no redundant inner blue card) */}
+      <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
 
       {isSuccess && regResult ? (
         /* Success Screen */
@@ -543,6 +557,7 @@ export default function SmpRegistrationClient() {
           </div>
         </form>
       )}
+      </div>
     </div>
   );
 }
