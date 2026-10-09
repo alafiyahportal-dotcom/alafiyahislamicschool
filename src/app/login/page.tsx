@@ -127,8 +127,8 @@ export default function LoginPage() {
           <ArrowLeft className="w-4 h-4 text-emerald-600" />
           <span>Kembali ke Beranda</span>
         </Link>
-        <span className="text-[11px] font-bold text-emerald-800/80 bg-emerald-100/60 px-2.5 py-1 rounded-full border border-emerald-200/50">
-          Portal Resmi Al-Afiyah
+        <span className="text-[11px] font-bold text-emerald-900/80 bg-emerald-100/70 px-2.5 py-1 rounded-full border border-emerald-200">
+          Yayasan Pendidikan Imam Bonjol
         </span>
       </header>
 
@@ -136,23 +136,44 @@ export default function LoginPage() {
       <main className="max-w-md mx-auto w-full my-auto">
         <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-xl shadow-emerald-950/5 border border-emerald-100/80 relative">
           
-          {/* Header Brand Section (No Logo - Clean, Bold Unit Identification) */}
-          <div className="mb-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-900 text-[11px] sm:text-xs font-black uppercase tracking-wider mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#00A651] ring-2 ring-emerald-300" />
-              <span>{currentInfo.badge}</span>
+          {/* Header Brand Section (No Logo - Clean & Authoritative Brand Hierarchy) */}
+          <div className="mb-6 pb-5 border-b border-slate-100">
+            {/* Foundation & Portal Identity */}
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="text-lg sm:text-xl font-black text-emerald-950 tracking-tight leading-tight">
+                  Portal Al-Afiyah
+                </div>
+                <div className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-0.5">
+                  Yayasan Pendidikan Imam Bonjol
+                </div>
+              </div>
+
+              {/* Unit Badge Indicator */}
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider shrink-0">
+                <span className="w-2 h-2 rounded-full bg-[#00A651] ring-2 ring-emerald-300" />
+                <span>{currentInfo.badge}</span>
+              </div>
             </div>
 
-            <h1 className="text-2xl sm:text-[28px] font-black text-slate-900 tracking-tight leading-tight">
+            {/* Target Unit Subtitle */}
+            <div className="mt-3 pt-3 border-t border-dashed border-emerald-100 flex items-center justify-between text-xs">
+              <span className="font-extrabold text-emerald-800">
+                {currentInfo.unitName}
+              </span>
+              <span className="font-bold text-slate-400">
+                {currentInfo.motto}
+              </span>
+            </div>
+          </div>
+
+          {/* Form Headline */}
+          <div className="mb-6">
+            <h1 className="text-2xl sm:text-[26px] font-black text-slate-900 tracking-tight leading-tight">
               Masuk ke Akun
             </h1>
-            
-            <p className="text-sm font-bold text-emerald-800 mt-1.5">
-              {currentInfo.unitName}
-            </p>
-            
-            <p className="text-xs font-medium text-slate-500 mt-0.5">
-              {currentInfo.tagline} • <span className="font-bold text-emerald-700">{currentInfo.motto}</span>
+            <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 leading-relaxed">
+              Selamat datang di Portal Al-Afiyah • {currentInfo.tagline}
             </p>
           </div>
 
