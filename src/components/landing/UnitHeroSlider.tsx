@@ -88,6 +88,7 @@ interface HeroContentProps {
   highlightClass: string;
   primaryBtnClass: string;
   badgeClass: string;
+  hideTrustItems?: boolean;
 }
 
 /** Badge, headline, description, CTA and trust points — shared by static and sliding modes. */
@@ -96,7 +97,8 @@ function HeroContent({
   fallbackPrimaryLink,
   highlightClass,
   primaryBtnClass,
-  badgeClass
+  badgeClass,
+  hideTrustItems = false,
 }: HeroContentProps) {
   const [refCode, setRefCode] = useState<string | null>(null);
   const [isOpening, setIsOpening] = useState(false);
@@ -149,8 +151,8 @@ function HeroContent({
         <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
       </Link>
 
-      {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
-      {slide.trustItems && slide.trustItems.length > 0 && (
+      {/* Trust Points - suppressed when statsCards are displayed to eliminate duplicate information */}
+      {!hideTrustItems && slide.trustItems && slide.trustItems.length > 0 && (
         <ul className="mt-6 sm:mt-8 w-full flex flex-col gap-2.5 text-left text-xs sm:text-sm font-medium text-neutral-200 space-y-1 sm:space-y-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:font-semibold">
           {slide.trustItems.map((item, tIdx) => (
             <li
@@ -390,6 +392,7 @@ export default function UnitHeroSlider({
               highlightClass={themeConfig.highlight}
               primaryBtnClass={themeConfig.primaryBtn}
               badgeClass={themeConfig.badgeText}
+              hideTrustItems={!!statsCards}
             />
           </div>
         ) : (
@@ -412,6 +415,7 @@ export default function UnitHeroSlider({
                     highlightClass={themeConfig.highlight}
                     primaryBtnClass={themeConfig.primaryBtn}
                     badgeClass={themeConfig.badgeText}
+                    hideTrustItems={!!statsCards}
                   />
                 </div>
               );
