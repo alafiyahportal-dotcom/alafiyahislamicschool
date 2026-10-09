@@ -291,10 +291,6 @@ export default function PPDBHubPage() {
         <div className="absolute bottom-0 left-10 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-3 tracking-wide drop-shadow-xs">
-            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ • مَرْحَبًا بِكُمْ
-          </p>
-
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-100 text-xs font-bold uppercase tracking-wider mb-5">
             <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
             <span>Penerimaan Peserta Didik Baru (PPDB) TP 2026 / 2027</span>

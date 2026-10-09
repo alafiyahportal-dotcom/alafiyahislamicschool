@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SdSpmbInfoPage() {
-  let quotaText = '60 Murid (2 Rombel)';
+  let quotaText = '56 Murid (2 Rombel)';
   let regFeeText = 'Rp 250.000';
   let waveName = 'Gelombang 1';
   let waNumber = '0813-1013-9001';

@@ -57,7 +57,7 @@ export default async function SdAnnouncementPage() {
           slug: 'sd',
           name: 'SDIT Al-Afiyah',
           badgeText: 'SDIT UNGGULAN',
-          quota: 60,
+          quota: 56,
           waveName: 'Gelombang 1',
           primaryColor: '#00A651',
           accentColor: '#E8F5E9',
@@ -84,9 +84,6 @@ export default async function SdAnnouncementPage() {
       // ignore
     }
 
-    const jalur = (parsedSpecific.track as string) || 
-      (parsedSpecific.hafalanQuran ? 'Tahfidz & Prestasi' : 'Reguler');
-
     return {
       id: reg.id,
       registrationNo: reg.registrationNo,
@@ -97,7 +94,7 @@ export default async function SdAnnouncementPage() {
       schoolName: reg.school.name,
       schoolBadge: reg.school.badgeText,
       waveName: reg.school.waveName,
-      track: jalur,
+      track: 'Reguler',
       programType: (parsedSpecific.programType as string) || null,
       acceptedDate: reg.updatedAt.toISOString(),
     };
@@ -114,15 +111,13 @@ export default async function SdAnnouncementPage() {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Navbar schoolSlug="sd" />
 
-      <main className="flex-1 pt-24 pb-16">
-        <ScrollReveal yOffset={24} duration={500}>
-          <AnnouncementBoardClient
-            initialData={formattedData}
-            initialStats={stats}
-            schools={schoolsFormatted}
-            schoolSlug="sd"
-          />
-        </ScrollReveal>
+      <main className="flex-1">
+        <AnnouncementBoardClient
+          initialData={formattedData}
+          initialStats={stats}
+          schools={schoolsFormatted}
+          schoolSlug="sd"
+        />
       </main>
 
       <Footer schoolSlug="sd" />

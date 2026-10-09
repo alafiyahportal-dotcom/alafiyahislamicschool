@@ -38,9 +38,6 @@ export default async function DoaDzikirPage({
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-3 tracking-wide drop-shadow-sm">
-            {isSd ? 'مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ' : 'أَذْكَارُ الصَّبَاحِ وَالمَسَاءِ وَالأَدْعِيَةُ اليَوْمِيَّةُ'}
-          </p>
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-200 text-xs font-semibold uppercase tracking-wider mb-5">
             <BookHeart className="w-3.5 h-3.5 text-amber-300" />
             <span>{isSd ? 'Pustaka Ruhani Murid SDIT Al-Afiyah' : 'Pustaka Ruhani &amp; Wirid Harian'}</span>

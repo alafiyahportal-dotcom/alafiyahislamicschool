@@ -114,7 +114,7 @@ export default function AnnouncementBoardClient({
         isSd
           ? 'bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651]'
           : 'bg-gradient-to-br from-[#184F48] via-[#1E5D55] to-[#2D7A70]'
-      } text-white pt-12 pb-20 px-4 sm:px-6 lg:px-8`}>
+      } text-white pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8`}>
         {/* Subtle Decorative Background Texture */}
         {isSd ? (
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
@@ -149,11 +149,6 @@ export default function AnnouncementBoardClient({
             </div>
           ) : null}
 
-          {isSd && (
-            <p className="font-arabic text-xl sm:text-2xl text-amber-300 mb-2 drop-shadow-sm">
-              مَدْرَسَةُ العَافِيَةِ الإبْتِدَائِيَّةِ الإسْلَامِيَّةِ
-            </p>
-          )}
           <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-amber-300 mb-4">
             <span>{isSd ? 'Pengumuman Kelulusan SPMB SDIT Al-Afiyah TA 2027/2028' : 'Pengumuman Kelulusan Resmi TA 2027/2028'}</span>
           </div>
@@ -227,7 +222,7 @@ export default function AnnouncementBoardClient({
                   Target Kuota SDIT
                 </p>
                 <p className="text-xl sm:text-2xl font-black text-slate-900">
-                  60 Kuota <span className="text-xs font-medium text-emerald-600">(2 Rombel)</span>
+                  56 Kuota <span className="text-xs font-medium text-emerald-600">(2 Rombel)</span>
                 </p>
               </div>
             </motion.div>
@@ -391,23 +386,25 @@ export default function AnnouncementBoardClient({
             </div>
           </div>
 
-          {/* Secondary Track Filter Pills */}
-          <div className="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-slate-500 font-medium">Jalur Masuk:</span>
-            {['all', 'Reguler', 'Tahfidz', 'Beasiswa'].map((t) => (
-              <button
-                key={t}
-                onClick={() => setActiveTrack(t)}
-                className={`px-2.5 py-1 rounded-full text-xs font-medium transition ${
-                  activeTrack === t
-                    ? 'bg-[#184F48] text-white shadow-2xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {t === 'all' ? 'Semua Jalur' : t}
-              </button>
-            ))}
-          </div>
+          {/* Secondary Track Filter Pills — hidden for SD because all admissions are strictly Reguler */}
+          {!isSd && (
+            <div className="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+              <span className="text-xs text-slate-500 font-medium">Jalur Masuk:</span>
+              {['all', 'Reguler'].map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTrack(t)}
+                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition ${
+                    activeTrack === t
+                      ? 'bg-[#184F48] text-white shadow-2xs'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  {t === 'all' ? 'Semua Jalur' : t}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Results List Section */}
