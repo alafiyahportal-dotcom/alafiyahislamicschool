@@ -44,11 +44,11 @@ const archItems: ArchItem[] = [
   },
   {
     id: 4,
-    title: 'Fullday School SMP IT',
-    role: 'Sistem Pembelajaran Terpadu',
+    title: 'Haflah Kelulusan SMP IT',
+    role: 'Melangkah Pasti Meraih Prestasi',
     unit: 'SMP IT Al-Afiyah',
-    image: '/images/smp-hero-fullday.jpg',
-    quote: 'Sistem fullday school dengan integrasi tahfidz, sains, dan bahasa Arab-Inggris yang menyenangkan.'
+    image: '/images/smp-kelulusan-angkatan-3.jpg',
+    quote: 'Sistem sekolah terpadu dengan integrasi tahfidz, sains, bahasa Arab aktif, dan pembinaan karakter.'
   },
   {
     id: 5,

@@ -27,6 +27,9 @@ import {
   MapPin,
   ChevronDown,
   Flame,
+  Building2,
+  Monitor,
+  Wifi,
   Trophy,
   BookOpen,
   Languages,
@@ -103,40 +106,45 @@ const SMP_PROGRAMS = [
 
 const SMP_FACILITIES = [
   {
-    title: 'Ruang Kelas Ber-AC & Nyaman',
-    category: 'Ruang Belajar',
-    image: '/images/smp-hero-fullday.jpg',
-    desc: 'Ruang kelas kondusif dengan pendingin udara (AC), proyektor multimedia, pencahayaan alami optimal, dan penataan ergonomis.',
+    title: 'Aula Pertemuan & Ruang Serbaguna Utama',
+    category: 'Aula & Pertemuan',
+    image: '/images/smp-haflah-aula.jpg',
+    desc: 'Aula representatif ber-AC untuk pertemuan akbar wali murid, haflah kelulusan santri, dan pembinaan karakter sekolah.',
   },
   {
-    title: 'Laboratorium Komputer & CBT',
-    category: 'Teknologi',
-    image: '/images/smp-hero-bilingual.jpg',
-    desc: 'Fasilitas komputer modern dengan koneksi internet fiber optik untuk pembelajaran literasi sains, informatika, dan tes CBT.',
+    title: 'Ruang Bimbingan & Konsultasi Belajar',
+    category: 'Konseling & Akademik',
+    image: '/images/smp-kelulusan-konsultasi.jpg',
+    desc: 'Ruang tatap muka kondusif untuk evaluasi capaian santri, konsultasi raport personal bersama asatidz dan orang tua.',
   },
   {
-    title: 'Lapangan Olahraga & Futsal',
-    category: 'Olahraga',
-    image: '/images/smp-hero-pesantren.jpg',
-    desc: 'Sarana olahraga representatif untuk latihan Futsal Development Program, bola voli, senam pagi, dan turnamen internal murid.',
-  },
-  {
-    title: 'Masjid & Sarana Ibadah Sekolah',
-    category: 'Pusat Ibadah',
+    title: 'Masjid & Pusat Halaqah Tahfidz Qur\'an',
+    category: 'Pusat Ibadah & Tahfidz',
     image: '/images/smp-outing-3.jpg',
-    desc: 'Pusat pembinaan shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, dan halaqah talaqqi tahfidz murid.',
+    desc: 'Pusat peradaban ruhiyah untuk shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, dan halaqah talaqqi tahfidz mutqin.',
+  },
+];
+
+const SMP_SUPPORTING_FACILITIES = [
+  {
+    icon: Building2,
+    title: 'Ruang Kelas Nyaman & Ber-AC',
+    desc: 'Pendingin ruangan (AC) di setiap kelas, proyektor multimedia, pencahayaan optimal, dan penataan ergonomis.',
   },
   {
-    title: 'Outing Class & Tadabbur Alam',
-    category: 'Eksplorasi Murid',
-    image: '/images/smp-tubing-1.jpg',
-    desc: 'Kegiatan edukasi luar kelas, eksplorasi alam terbuka, dan river tubing untuk melatih keberanian, kerjasama tim, dan tadabbur ciptaan Allah.',
+    icon: Monitor,
+    title: 'Laboratorium Komputer & CBT',
+    desc: 'Perangkat PC spesifikasi modern dan koneksi internet fiber optik untuk literasi sains & asesmen digital CBT.',
   },
   {
-    title: 'Akses Internet & Mutaba\'ah Digital',
-    category: 'Sistem Terpadu',
-    image: '/images/smp-tubing-2.jpg',
-    desc: 'Infrastruktur digital sekolah yang mendukung absensi presensi digital murid dan integrasi laporan ibadah harian kepada wali murid.',
+    icon: Trophy,
+    title: 'Lapangan Olahraga & Futsal',
+    desc: 'Sarana olahraga representatif untuk Futsal Development Program, bola voli, senam pagi, dan turnamen murid.',
+  },
+  {
+    icon: Wifi,
+    title: 'Akses Wi-Fi & Mutaba\'ah Digital',
+    desc: 'Infrastruktur jaringan terintegrasi untuk absensi presensi digital murid dan pelaporan ibadah harian.',
   },
 ];
 
@@ -975,8 +983,8 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             </p>
           </ScrollReveal>
 
-          {/* Facilities Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Facilities Grid (3 Authentic Photos) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {SMP_FACILITIES.map((fac, idx) => (
               <ScrollReveal
                 key={idx}
@@ -1028,6 +1036,29 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             ))}
           </div>
 
+          {/* Supporting Facilities Grid (Clean Icons, No AI Slop) */}
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {SMP_SUPPORTING_FACILITIES.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#030164]/30 hover:shadow-xs transition-all space-y-2.5"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-blue-100 text-[#030164] flex items-center justify-center">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug">
+                    {item.title}
+                  </h4>
+                  <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
           <div className="mt-10 text-center">
             <Link
               href="/smp/fasilitas"
@@ -1050,10 +1081,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 <span>Dokumentasi Nyata SMP IT Al-Afiyah</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Haflah Kelulusan, Prestasi &amp; Dokumentasi Santri
+                Haflah Kelulusan, Karakter &amp; Outing Murid
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Potret nyata kelulusan angkatan ke-3, penyematan medali tahfidz, sinergi wali murid, hingga petualangan river tubing santri SMP IT Al-Afiyah.
+                Potret nyata kelulusan angkatan ke-3, pembinaan karakter santri ikhwan, dan petualangan river tubing murid SMP IT Al-Afiyah.
               </p>
             </div>
             <Link
@@ -1065,7 +1096,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-kelulusan-angkatan-3.jpg')}>
               <img src="/images/smp-kelulusan-angkatan-3.jpg" alt="Haflah Kelulusan SMP IT Al-Afiyah Angkatan 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute top-3 left-3">
@@ -1078,18 +1109,6 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               </div>
             </div>
 
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-outing-3.jpg')}>
-              <img src="/images/smp-outing-3.jpg" alt="Halaqah Tahfidz Qur'an SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Tahfidz &amp; Ibadah
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Halaqah Tahfidz &amp; Ujian Tasmi&apos; Al-Qur&apos;an</p>
-              </div>
-            </div>
-
             <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-santri-ikhwan-wisuda.jpg')}>
               <img src="/images/smp-santri-ikhwan-wisuda.jpg" alt="Santri Ikhwan SMP IT Al-Afiyah" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute top-3 left-3">
@@ -1099,30 +1118,6 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
                 <p className="text-xs sm:text-sm font-bold">Generasi Pemimpin Berakhlak Qur&apos;ani</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-haflah-aula.jpg')}>
-              <img src="/images/smp-haflah-aula.jpg" alt="Suasana Haflah di Aula SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Sinergi Orang Tua
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Khidmat Kebersamaan Asatidz &amp; Wali Murid</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-kelulusan-konsultasi.jpg')}>
-              <img src="/images/smp-kelulusan-konsultasi.jpg" alt="Konsultasi Raport & Capaian Murid" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Akademik &amp; Bimbingan
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Evaluasi Capaian &amp; Konsultasi Orang Tua</p>
               </div>
             </div>
 

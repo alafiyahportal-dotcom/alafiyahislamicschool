@@ -84,8 +84,8 @@ const unitCards: UnitCardData[] = [
   {
     id: 'smp',
     name: 'SMP IT Al-Afiyah',
-    hashtag: '# SMPIT Fullday & Asrama',
-    image: '/images/smp-hero-fullday.jpg',
+    hashtag: '# SMPIT Terakreditasi A',
+    image: '/images/smp-kelulusan-angkatan-3.jpg',
     features: [
       {
         icon: Award,
