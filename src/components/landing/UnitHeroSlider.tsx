@@ -143,14 +143,16 @@ function HeroContent({
         )}
       </div>
 
-      {/* Single Primary CTA — slim, fit-content, left-aligned with the text margin */}
-      <Link
-        href={rawLink}
-        className={`mt-6 inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${primaryBtnClass}`}
-      >
-        <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
-        <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
-      </Link>
+      {/* Single Primary CTA — hidden when hasStatsCards is true so it can be placed below statsCards */}
+      {!hasStatsCards && (
+        <Link
+          href={rawLink}
+          className={`mt-6 inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${primaryBtnClass}`}
+        >
+          <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
+          <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      )}
 
       {/* Trust Points - hidden when statsCards is active to prevent duplicate information */}
       {!hasStatsCards && slide.trustItems && slide.trustItems.length > 0 && (
@@ -356,10 +358,23 @@ export default function UnitHeroSlider({
     return () => clearInterval(interval);
   }, [currentSlide, slides.length]);
 
+  const targetCtaLink = slides[currentSlide]?.primaryCtaLink || slides[0]?.primaryCtaLink || ppdbUrl;
+  const [effectiveBottomCtaLink, setEffectiveBottomCtaLink] = useState(targetCtaLink);
+
+  useEffect(() => {
+    const refCode = getStoredReferralCode();
+    if (refCode && targetCtaLink.startsWith('/')) {
+      const separator = targetCtaLink.includes('?') ? '&' : '?';
+      setEffectiveBottomCtaLink(`${targetCtaLink}${separator}ref=${refCode}`);
+    } else {
+      setEffectiveBottomCtaLink(targetCtaLink);
+    }
+  }, [targetCtaLink]);
+
   return (
     <section
       className="relative bg-slate-950 text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-start"
-      style={{ minHeight: '680px' }}
+      style={{ minHeight: statsCards ? 'auto' : '680px' }}
     >
       {/* Background Slides with Ken Burns Zoom & Smooth Seamless Crossfade */}
       {slides.map((s, idx) => {
@@ -398,7 +413,7 @@ export default function UnitHeroSlider({
       {/* Main Content Container with Zero-Jeda Smooth Crossfade & Header Clearance */}
       <div
         className={`relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-start ${
-          statsCards ? 'pb-3 sm:pb-5' : 'pb-16 sm:pb-20 lg:pb-24'
+          statsCards ? 'pb-2 sm:pb-3' : 'pb-16 sm:pb-20 lg:pb-24'
         }`}
         style={{ paddingTop: 'clamp(96px, 12vh, 128px)' }}
       >
@@ -414,7 +429,7 @@ export default function UnitHeroSlider({
             />
           </div>
         ) : (
-          <div className="relative max-w-3xl lg:max-w-5xl min-h-[480px] sm:min-h-[500px] lg:min-h-[530px]">
+          <div className={`relative max-w-3xl lg:max-w-5xl ${statsCards ? 'min-h-[220px] sm:min-h-[200px]' : 'min-h-[480px] sm:min-h-[500px] lg:min-h-[530px]'}`}>
             {slides.map((s, idx) => {
               const isTextActive = idx === currentSlide;
 
@@ -442,10 +457,19 @@ export default function UnitHeroSlider({
         )}
       </div>
 
-      {/* Hero Bottom Highlight Cards nested inside the banner */}
+      {/* Hero Bottom Highlight Cards nested inside the banner, with Primary CTA button beneath cards */}
       {statsCards && (
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-1 sm:pt-2">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-1 sm:pt-2 flex flex-col items-start gap-4 sm:gap-5">
           {statsCards}
+          <div className="w-full flex justify-start">
+            <Link
+              href={effectiveBottomCtaLink}
+              className={`inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-6 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${themeConfig.primaryBtn}`}
+            >
+              <span>{slides[currentSlide]?.primaryCtaText || slides[0]?.primaryCtaText || 'Daftar SPMB Online'}</span>
+              <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
       )}
     </section>

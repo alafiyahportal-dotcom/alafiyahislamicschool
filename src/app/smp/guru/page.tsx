@@ -169,43 +169,43 @@ export default async function SmpGuruPage() {
 
       {/* Teachers Grid */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-10 sm:space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {teachers.map((teacher) => (
             <div 
               key={teacher.id}
-              className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#030164]/30 transition-all duration-300 flex flex-col justify-between"
+              className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#030164]/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-blue-50 text-[#030164] border border-blue-100">
-                    {teacher.category}
+                <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <span className="text-[11px] font-semibold text-[#030164] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/60 inline-flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#030164]" />
+                    {teacher.role}
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-slate-100 text-[#030164] flex items-center justify-center">
-                    <GraduationCap className="w-4 h-4" />
-                  </div>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 leading-snug">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
                   {teacher.name}
                 </h3>
-                <p className="text-xs font-semibold text-[#030164] mt-0.5 mb-2">
-                  {teacher.role}
-                </p>
 
                 {teacher.specialization && (
-                  <div className="inline-block text-[11px] font-medium text-slate-600 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100 mb-3">
-                    Bidang: <strong className="text-slate-800">{teacher.specialization}</strong>
+                  <div className="mt-3 pt-3 border-t border-slate-100">
+                    <p className="text-xs text-slate-600">
+                      <span className="text-slate-400 font-normal">Amanah / Bidang: </span>
+                      <span className="font-semibold text-slate-800">{teacher.specialization}</span>
+                    </p>
                   </div>
                 )}
 
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {teacher.bio}
-                </p>
+                {teacher.bio && (
+                  <p className="mt-2.5 text-xs text-slate-500 italic leading-relaxed">
+                    &ldquo;{teacher.bio}&rdquo;
+                  </p>
+                )}
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
-                <span>SMP IT Al-Afiyah Majalengka</span>
-                <span className="text-[#ffd51e] font-bold">★ Teladan</span>
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
+                <span className="text-[#030164] font-semibold">SMP IT Al-Afiyah</span>
+                <span>Majalengka</span>
               </div>
             </div>
           ))}

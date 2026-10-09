@@ -1,19 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
-  Users, 
   ArrowLeft, 
   ChevronRight, 
-  Award, 
-  BookOpen, 
-  GraduationCap, 
-  CheckCircle2, 
-  HeartHandshake, 
-  ArrowRight,
-  UserCheck
+  ArrowRight
 } from 'lucide-react';
 
 export interface TeacherItem {
@@ -27,13 +20,6 @@ export interface TeacherItem {
   category?: string;
 }
 
-function getInitials(name: string): string {
-  const clean = name.split(',')[0].trim();
-  const words = clean.split(/\s+/).filter(Boolean);
-  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
-  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
-}
-
 const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-1',
@@ -43,7 +29,6 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Manajemen Kelembagaan & Kebijakan Yayasan',
     bio: 'Mengarahkan visi pendidikan terpadu berlandaskan tauhid dan akhlak mulia demi masa depan generasi Qur\'ani.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Pimpinan & Komite'
   },
   {
     id: 't-sd-2',
@@ -53,7 +38,6 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Kepemimpinan Sekolah & Mutu Pendidikan',
     bio: 'Mendidik dengan keteladanan dan menanamkan adab sebelum ilmu agar proses belajar anak senantiasa berkah dan membahagiakan.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Pimpinan & Komite'
   },
   {
     id: 't-sd-3',
@@ -63,7 +47,6 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Kemitraan Sekolah & Paguyuban Orang Tua',
     bio: 'Menjembatani komunikasi sinergis antara pihak sekolah dan orang tua murid demi tercapainya lingkungan belajar yang ideal.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Pimpinan & Komite'
   },
   {
     id: 't-sd-4',
@@ -73,7 +56,6 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Kurikulum Merdeka & Integrasi Karakter Adab',
     bio: 'Mengembangkan kurikulum kontekstual yang memadukan capaian akademis nasional dengan penguatan karakter islami.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Kurikulum & Tahfidz'
   },
   {
     id: 't-sd-5',
@@ -83,7 +65,6 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Talaqqi, Tartil & Tahfidz Al-Qur\'an',
     bio: 'Membimbing hafalan Al-Qur\'an dengan metode yang ramah, tartil sesuai tajwid, dan menumbuhkan kecintaan pada Al-Qur\'an sejak dini.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Kurikulum & Tahfidz'
   },
   {
     id: 't-sd-6',
@@ -93,7 +74,6 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Pembinaan Karakter & Pengembangan Minat Murid',
     bio: 'Membimbing pembiasaan disiplin, adab harian, dan keaktifan murid dalam berbagai kegiatan ekstrakurikuler positif.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Kesiswaan & Operasional'
   },
   {
     id: 't-sd-7',
@@ -103,7 +83,6 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Administrasi Sekolah & Sistem Informasi Akademik',
     bio: 'Memberikan pelayanan administrasi, kearsipan data pokok, dan operasional layanan sekolah yang tertib serta terpercaya.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Kesiswaan & Operasional'
   },
   {
     id: 't-sd-8',
@@ -113,27 +92,13 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Tata Kelola Keuangan & Akuntabilitas Anggaran',
     bio: 'Menyelenggarakan pencatatan anggaran dan tata kelola keuangan sekolah yang transparan, amanah, dan akuntabel.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
-    category: 'Kesiswaan & Operasional'
   }
 ];
 
-const CATEGORIES = [
-  'Semua Pendidik & Staf',
-  'Pimpinan & Komite',
-  'Kurikulum & Tahfidz',
-  'Kesiswaan & Operasional'
-];
-
 export default function SdGuruClient({ initialTeachers }: { initialTeachers: TeacherItem[] }) {
-  const [activeCategory, setActiveCategory] = useState<string>('Semua Pendidik & Staf');
-
   const teachersList = initialTeachers && initialTeachers.length > 0
     ? initialTeachers
     : DEFAULT_SD_TEACHERS;
-
-  const filteredTeachers = activeCategory === 'Semua Pendidik & Staf'
-    ? teachersList
-    : teachersList.filter((t) => t.category === activeCategory);
 
   return (
     <div className="w-full">
@@ -142,7 +107,6 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb & Back */}
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
             <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
@@ -171,86 +135,46 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
         </div>
       </section>
 
-      {/* Filter Tabs & Teachers Grid */}
-      <section className="py-12 sm:py-16">
+      {/* Minimalist Teachers Grid — No category filters, no photo avatar boxes */}
+      <section className="py-12 sm:py-16 bg-slate-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Category Tabs */}
-          <ScrollReveal yOffset={20} duration={500} className="flex flex-wrap items-center justify-center gap-2 mb-10">
-            {CATEGORIES.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
-                    isActive
-                      ? 'bg-[#00A651] text-white shadow-md scale-105'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </ScrollReveal>
-
-          {/* Cards Grid */}
-          <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredTeachers.map((teacher) => (
+          <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {teachersList.map((teacher) => (
               <div
                 key={teacher.id}
-                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:shadow-lg hover:border-emerald-400/60 transition-all flex flex-col justify-between"
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-emerald-400/60 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200/90 border border-emerald-300/70 flex items-center justify-center text-emerald-800 font-extrabold text-base tracking-wider shrink-0 overflow-hidden shadow-inner">
-                      {teacher.imageUrl && teacher.imageUrl.includes('/') && !teacher.imageUrl.includes('placeholder') ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={teacher.imageUrl}
-                          alt={teacher.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <span>{getInitials(teacher.name)}</span>
-                      )}
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 inline-block mb-1">
-                        {teacher.role}
-                      </span>
-                      <h3 className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
-                        {teacher.name}
-                      </h3>
-                      <p className="text-[11px] text-slate-500 font-medium">
-                        {teacher.degrees}
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60 inline-flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                      {teacher.role}
+                    </span>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
+                    {teacher.name}
+                  </h3>
+
+                  {teacher.specialization && (
+                    <div className="mt-3 pt-3 border-t border-slate-100">
+                      <p className="text-xs text-slate-600">
+                        <span className="text-slate-400 font-normal">Amanah / Bidang: </span>
+                        <span className="font-semibold text-slate-800">{teacher.specialization}</span>
                       </p>
                     </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-100">
-                    <span className="text-[11px] font-semibold text-slate-700 block mb-1">
-                      Keahlian &amp; Bidang:
-                    </span>
-                    <p className="text-xs font-medium text-emerald-800 bg-emerald-50/70 px-2.5 py-1 rounded-lg border border-emerald-100 inline-block">
-                      {teacher.specialization}
-                    </p>
-                  </div>
+                  )}
 
                   {teacher.bio && (
-                    <p className="mt-3 text-xs text-slate-600 italic leading-relaxed">
+                    <p className="mt-2.5 text-xs text-slate-500 italic leading-relaxed">
                       &ldquo;{teacher.bio}&rdquo;
                     </p>
                   )}
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700">
-                  <span className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>SDIT Al-Afiyah</span>
-                  </span>
-                  <span className="text-slate-400 font-normal">Majalengka</span>
+                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
+                  <span className="text-emerald-700 font-semibold">SDIT Al-Afiyah</span>
+                  <span>Majalengka</span>
                 </div>
               </div>
             ))}
