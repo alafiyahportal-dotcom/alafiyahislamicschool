@@ -24,7 +24,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-1',
     name: 'Jejen Nurbayan, S.Sos',
-    role: 'Ketua Yayasan',
+    role: 'Ketua Yayasan Pendidikan Imam Bonjol',
     degrees: 'S.Sos',
     specialization: 'Manajemen Kelembagaan & Kebijakan Yayasan',
     bio: 'Mengarahkan visi pendidikan terpadu berlandaskan tauhid dan akhlak mulia demi masa depan generasi Qur\'ani.',
@@ -33,7 +33,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-2',
     name: 'Febrian Fauzi, S.Pd',
-    role: 'Kepala Sekolah',
+    role: 'Kepala Sekolah SDIT Al-Afiyah Majalengka',
     degrees: 'S.Pd',
     specialization: 'Kepemimpinan Sekolah & Mutu Pendidikan',
     bio: 'Mendidik dengan keteladanan dan menanamkan adab sebelum ilmu agar proses belajar anak senantiasa berkah dan membahagiakan.',
@@ -42,7 +42,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-3',
     name: 'Yayan Herdianto, S.Pd',
-    role: 'Komite Sekolah',
+    role: 'Komite Sekolah SDIT Al-Afiyah',
     degrees: 'S.Pd',
     specialization: 'Kemitraan Sekolah & Paguyuban Orang Tua',
     bio: 'Menjembatani komunikasi sinergis antara pihak sekolah dan orang tua murid demi tercapainya lingkungan belajar yang ideal.',
@@ -51,7 +51,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-4',
     name: 'Windi Widayanti, S.Pd',
-    role: 'Kasie Kurikulum',
+    role: 'Kasie Kurikulum SDIT Al-Afiyah',
     degrees: 'S.Pd',
     specialization: 'Kurikulum Merdeka & Integrasi Karakter Adab',
     bio: 'Mengembangkan kurikulum kontekstual yang memadukan capaian akademis nasional dengan penguatan karakter islami.',
@@ -60,7 +60,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-5',
     name: 'Muhammad Rizki, S.Pd',
-    role: 'Koordinator Tahfidz',
+    role: 'Koordinator Tahfidz SDIT Al-Afiyah',
     degrees: 'S.Pd',
     specialization: 'Talaqqi, Tartil & Tahfidz Al-Qur\'an',
     bio: 'Membimbing hafalan Al-Qur\'an dengan metode yang ramah, tartil sesuai tajwid, dan menumbuhkan kecintaan pada Al-Qur\'an sejak dini.',
@@ -69,7 +69,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-6',
     name: 'Iyan Kusdiana, S.Pd',
-    role: 'Wakasek Kesiswaan',
+    role: 'Wakasek Kesiswaan SDIT Al-Afiyah',
     degrees: 'S.Pd',
     specialization: 'Pembinaan Karakter & Pengembangan Minat Murid',
     bio: 'Membimbing pembiasaan disiplin, adab harian, dan keaktifan murid dalam berbagai kegiatan ekstrakurikuler positif.',
@@ -78,7 +78,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-7',
     name: 'Moch. Ajat Nurhidayat, S.T',
-    role: 'Tata Usaha Sekolah',
+    role: 'Tata Usaha SDIT Al-Afiyah',
     degrees: 'S.T',
     specialization: 'Administrasi Sekolah & Sistem Informasi Akademik',
     bio: 'Memberikan pelayanan administrasi, kearsipan data pokok, dan operasional layanan sekolah yang tertib serta terpercaya.',
@@ -87,7 +87,7 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   {
     id: 't-sd-8',
     name: 'Aditya Rahadian, S.TP',
-    role: 'Bendahara',
+    role: 'Bendahara SDIT Al-Afiyah',
     degrees: 'S.TP',
     specialization: 'Tata Kelola Keuangan & Akuntabilitas Anggaran',
     bio: 'Menyelenggarakan pencatatan anggaran dan tata kelola keuangan sekolah yang transparan, amanah, dan akuntabel.',
@@ -96,9 +96,22 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
 ];
 
 export default function SdGuruClient({ initialTeachers }: { initialTeachers: TeacherItem[] }) {
-  const teachersList = initialTeachers && initialTeachers.length > 0
+  const rawList = initialTeachers && initialTeachers.length > 0
     ? initialTeachers
     : DEFAULT_SD_TEACHERS;
+
+  const teachersList = rawList.map((t) => {
+    let cleanRole = t.role;
+    if (cleanRole === 'Ketua Yayasan') cleanRole = 'Ketua Yayasan Pendidikan Imam Bonjol';
+    else if (cleanRole === 'Kepala Sekolah') cleanRole = 'Kepala Sekolah SDIT Al-Afiyah Majalengka';
+    else if (cleanRole === 'Komite Sekolah') cleanRole = 'Komite Sekolah SDIT Al-Afiyah';
+    else if (cleanRole === 'Kasie Kurikulum') cleanRole = 'Kasie Kurikulum SDIT Al-Afiyah';
+    else if (cleanRole === 'Koordinator Tahfidz') cleanRole = 'Koordinator Tahfidz SDIT Al-Afiyah';
+    else if (cleanRole === 'Wakasek Kesiswaan') cleanRole = 'Wakasek Kesiswaan SDIT Al-Afiyah';
+    else if (cleanRole === 'Tata Usaha Sekolah') cleanRole = 'Tata Usaha SDIT Al-Afiyah';
+    else if (cleanRole === 'Bendahara') cleanRole = 'Bendahara SDIT Al-Afiyah';
+    return { ...t, role: cleanRole };
+  });
 
   return (
     <div className="w-full">
@@ -135,7 +148,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
         </div>
       </section>
 
-      {/* Minimalist Teachers Grid — No category filters, no photo avatar boxes */}
+      {/* Minimalist Teachers Grid — No category filters, no photo avatar boxes, clean cards */}
       <section className="py-12 sm:py-16 bg-slate-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
@@ -167,11 +180,6 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                       &ldquo;{teacher.bio}&rdquo;
                     </p>
                   )}
-                </div>
-
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
-                  <span className="text-emerald-700 font-semibold">SDIT Al-Afiyah</span>
-                  <span>Majalengka</span>
                 </div>
               </div>
             ))}

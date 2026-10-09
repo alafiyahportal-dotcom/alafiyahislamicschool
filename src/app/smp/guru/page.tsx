@@ -199,11 +199,6 @@ export default async function SmpGuruPage() {
                   </p>
                 )}
               </div>
-
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-medium text-slate-400">
-                <span className="text-[#030164] font-semibold">SMP IT Al-Afiyah</span>
-                <span>Majalengka</span>
-              </div>
             </div>
           ))}
         </div>
