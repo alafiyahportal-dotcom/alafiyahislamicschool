@@ -902,35 +902,60 @@ export default function Navbar({
               </div>
             </div>
 
-            {/* Drawer Bottom CTAs */}
-            <div className="p-4 border-t border-slate-100 bg-slate-50 space-y-2">
+            {/* Drawer Bottom Actions: Minimalist, Clear & Left-Aligned */}
+            <div className="p-3.5 border-t border-slate-100 bg-white space-y-2">
+              {/* Primary Action Button (Rata Kiri) */}
               <Link
                 href={brandConfig.ppdbLink}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`w-full py-3 px-4 rounded-full ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl ${
                   activeSlug === 'sd'
                     ? 'bg-[#00A651] hover:bg-[#008f45]'
                     : 'bg-softwater-dark hover:bg-softwater-deep'
-                } text-white text-xs font-bold text-center block shadow-md transition-all`}
+                } text-white font-extrabold text-xs shadow-sm hover:shadow transition-all group`}
               >
-                {brandConfig.ctaText}
+                <div className="text-left">
+                  <div className="tracking-wide uppercase leading-tight">
+                    {brandConfig.ctaText}
+                  </div>
+                  <div className="text-[10px] text-emerald-100 font-medium normal-case mt-0.5 opacity-90">
+                    Tahun Ajaran 2027/2028
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-white shrink-0 group-hover:translate-x-1 transition-transform" />
               </Link>
+
+              {/* Login Portal Link (Rata Kiri) */}
               <Link
-                href="/login"
+                href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-2.5 px-4 rounded-full border border-slate-300 text-slate-700 text-xs font-bold text-center flex items-center justify-center space-x-2 hover:bg-white transition-all"
+                className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-200 hover:border-emerald-300 bg-slate-50/80 hover:bg-emerald-50/50 text-slate-800 transition-all group"
               >
-                <LogIn className="w-4 h-4 text-amber-600" />
-                <span>Login Portal Layanan &amp; Akademik</span>
+                <div className="flex items-center gap-2.5 text-left">
+                  <LogIn className="w-4 h-4 text-[#00A651] shrink-0" />
+                  <div className="text-left">
+                    <div className="text-xs font-bold text-slate-800 leading-tight">
+                      Login Portal Layanan &amp; Akademik
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-medium mt-0.5">
+                      Akses akun murid &amp; orang tua
+                    </div>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 group-hover:text-emerald-600 transition-all shrink-0" />
               </Link>
+
+              {/* WhatsApp Helpdesk (Rata Kiri) */}
               <a
                 href={activeSlug === 'sd' ? 'https://wa.me/6281310139001' : 'https://wa.me/6281223344552'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2 px-4 rounded-full text-slate-600 text-xs font-medium text-center flex items-center justify-center space-x-2 hover:text-softwater-dark transition-all"
+                className="w-full flex items-center gap-2.5 px-4 py-2 rounded-xl text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50 transition-all text-left"
               >
-                <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                <span>{activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SD IT' : 'Pusat Bantuan WhatsApp'}</span>
+                <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span className="text-xs font-semibold">
+                  {activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SD IT' : 'Pusat Bantuan WhatsApp'}
+                </span>
               </a>
             </div>
           </div>
