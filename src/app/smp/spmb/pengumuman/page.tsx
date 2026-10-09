@@ -61,9 +61,9 @@ export default function SmpPengumumanPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 backdrop-blur-xs">
-              <Award className="w-3.5 h-3.5" />
-              <span>PENGUMUMAN RESMI SPMB T.A. 2027/2028</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
+              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+              <span>Pengumuman Resmi SPMB T.A. 2027/2028</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -91,9 +91,10 @@ export default function SmpPengumumanPage() {
                 Jadwal Rilis SK Kelulusan Murid
               </h3>
             </div>
-            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 self-start sm:self-auto">
-              Gelombang 1 Aktif
-            </span>
+            <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 self-start sm:self-auto">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Gelombang 1 Aktif</span>
+            </div>
           </div>
 
           <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/60 border border-blue-100 flex items-start gap-3 sm:gap-4">

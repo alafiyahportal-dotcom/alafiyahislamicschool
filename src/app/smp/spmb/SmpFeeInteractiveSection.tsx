@@ -14,7 +14,8 @@ import {
   ChevronUp, 
   Table,
   CheckCircle2,
-  HelpCircle
+  HelpCircle,
+  Calendar
 } from 'lucide-react';
 
 const BIAYA_ITEMS = [
@@ -66,17 +67,19 @@ export default function SmpFeeInteractiveSection() {
             
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-[#ffd51e] text-[#030164] shadow-xs">
-                  Sedang Berlangsung
-                </span>
+                <div className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#ffd51e]">
+                  <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
+                  <span>Sedang Berlangsung</span>
+                </div>
                 <span className="text-xs text-blue-200 font-medium">Kuota Terbatas</span>
               </div>
 
               <h4 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                 Gelombang 1 (Promo Diskon)
               </h4>
-              <div className="inline-block mt-1 mb-4 px-3 py-1 rounded-lg bg-white/10 border border-[#ffd51e]/30 text-xs font-bold text-[#ffd51e]">
-                1 Oktober 2026 – 28 Februari 2027
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#ffd51e] mt-1.5 mb-4">
+                <Calendar className="w-3.5 h-3.5 text-[#ffd51e] shrink-0" />
+                <span>1 Oktober 2026 – 28 Februari 2027</span>
               </div>
 
               <div className="space-y-3 pt-3 border-t border-white/15">
@@ -128,18 +131,20 @@ export default function SmpFeeInteractiveSection() {
           <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-100 text-slate-700">
-                  Akan Datang
-                </span>
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <span className="w-2 h-2 rounded-full bg-slate-400" />
+                  <span>Akan Datang</span>
+                </div>
                 <span className="text-xs text-slate-400 font-medium">Tarif Normal</span>
               </div>
 
               <h4 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                 Gelombang 2 (Reguler)
               </h4>
-              <p className="text-xs font-semibold text-slate-500 mt-1 mb-4">
-                1 Maret 2027 – 30 Juni 2027
-              </p>
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500 mt-1.5 mb-4">
+                <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <span>1 Maret 2027 – 30 Juni 2027</span>
+              </div>
 
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
                 Pendaftaran gelombang reguler dibuka apabila kuota murid baru belum terpenuhi. Pada Gelombang 2 berlaku tarif normal (tanpa potongan diskon uang bangunan).

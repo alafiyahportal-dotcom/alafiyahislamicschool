@@ -163,9 +163,9 @@ export default function SmpProgramPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 backdrop-blur-xs">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>KURIKULUM UNGGULAN BERKUALITAS AKREDITASI A</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
+              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+              <span>Kurikulum Unggulan Terakreditasi A</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -215,7 +215,7 @@ export default function SmpProgramPage() {
                     <span className="w-10 h-10 rounded-2xl bg-blue-50 text-[#030164] font-extrabold text-sm flex items-center justify-center border border-blue-100 group-hover:scale-105 transition-transform">
                       {prog.number}
                     </span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-100 text-slate-700">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700">
                       {prog.badge}
                     </span>
                   </div>
@@ -263,9 +263,11 @@ export default function SmpProgramPage() {
         {/* Struktur Integrasi Kurikulum */}
         <section className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-8 lg:p-12 space-y-6 sm:space-y-8">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-[#030164] uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-              Sinergi Kurikulum
-            </span>
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              <span>Sinergi Kurikulum</span>
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+            </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
               Perpaduan Kurikulum Nasional &amp; Kepesantrenan
             </h3>

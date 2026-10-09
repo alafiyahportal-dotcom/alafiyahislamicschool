@@ -152,9 +152,9 @@ export default async function SmpGuruPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 backdrop-blur-xs">
-              <Users className="w-3.5 h-3.5" />
-              <span>PENDIDIK KOMPETEN, BERKARAKTER &amp; BERDEDIKASI</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
+              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+              <span>Pendidik Kompeten, Berkarakter &amp; Berdedikasi</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -178,7 +178,7 @@ export default async function SmpGuruPage() {
             >
               <div>
                 <div className="flex items-center justify-between gap-3 mb-4">
-                  <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 text-[#030164] border border-blue-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-blue-50 text-[#030164] border border-blue-100">
                     {teacher.category}
                   </span>
                   <div className="w-8 h-8 rounded-full bg-slate-100 text-[#030164] flex items-center justify-center">

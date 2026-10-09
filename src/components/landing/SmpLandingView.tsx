@@ -295,9 +295,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
       <section id="spmb" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#030164]/10 border border-[#030164]/20 text-[#030164] text-xs font-black tracking-wider uppercase mb-3">
-              <Tag className="w-3.5 h-3.5 text-[#030164]" />
-              <span>SISTEM PENERIMAAN MURID BARU T.A. 2027/2028</span>
+            <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#030164] mb-2">
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              <span>Sistem Penerimaan Murid Baru T.A. 2027/2028</span>
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
               Informasi Gelombang &amp; Rincian Investasi Pendidikan
@@ -314,10 +315,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               
               <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 pb-6 border-b border-white/15">
                 <div>
-                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black bg-[#ffd51e] text-[#030164] mb-3">
-                    <Award className="w-3.5 h-3.5" />
-                    <span>SMP IT AL-AFIYAH • TERAKREDITASI A RESMI</span>
-                  </span>
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#ffd51e] mb-2">
+                    <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+                    <span>SMP IT Al-Afiyah • Terakreditasi A BAN-S/M</span>
+                  </div>
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
                     Jadwal &amp; Ketentuan Gelombang SPMB
                   </h3>
@@ -325,13 +326,16 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                     Segera daftarkan ananda di Gelombang 1 untuk mengamankan kuota kelas terbatas dan potongan uang bangunan maksimal.
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                  <span className="px-3.5 py-1.5 rounded-xl bg-white/10 border border-white/20 text-xs font-bold text-white">
-                    Infaq Formulir: Rp 200.000
-                  </span>
-                  <span className="px-3.5 py-1.5 rounded-xl bg-[#ffd51e]/20 border border-[#ffd51e]/50 text-xs font-black text-[#ffd51e]">
-                    Bank Muamalat: 1360012405
-                  </span>
+                <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-xs text-blue-100 bg-white/5 border border-white/10 px-4 py-2.5 rounded-2xl">
+                  <div>
+                    <span className="text-blue-300">Biaya Formulir:</span>{' '}
+                    <strong className="text-white font-bold">Rp 200.000</strong>
+                  </div>
+                  <span className="text-white/20 hidden sm:inline">•</span>
+                  <div>
+                    <span className="text-blue-300">Bank Muamalat:</span>{' '}
+                    <strong className="text-[#ffd51e] font-mono font-bold tracking-wider">1360012405</strong>
+                  </div>
                 </div>
               </div>
 
@@ -345,14 +349,15 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                         <span className="w-2.5 h-2.5 rounded-full bg-[#ffd51e] animate-pulse" />
                         <h4 className="text-base sm:text-lg font-black text-white">SPMB Gelombang 1</h4>
                       </div>
-                      <span className="bg-[#ffd51e] text-[#030164] text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-xs">
-                        <Check className="w-3 h-3 stroke-[3]" />
-                        <span>DIBUKA</span>
+                      <span className="text-[#ffd51e] text-xs font-bold flex items-center gap-1">
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        <span>Sedang Dibuka</span>
                       </span>
                     </div>
 
-                    <div className="inline-block px-3 py-1 rounded-lg bg-black/40 border border-[#ffd51e]/30 text-xs font-bold text-[#ffd51e] mb-4">
-                      1 Oktober 2026 – 28 Februari 2027
+                    <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#ffd51e] mb-4">
+                      <Calendar className="w-3.5 h-3.5 text-[#ffd51e] shrink-0" />
+                      <span>1 Oktober 2026 – 28 Februari 2027</span>
                     </div>
 
                     <div className="space-y-3 pt-3 border-t border-white/15">
@@ -417,10 +422,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
           <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-md p-4 sm:p-8 lg:p-10 mb-12">
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-slate-200">
               <div>
-                <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200 inline-flex items-center gap-1.5">
-                  <CreditCard className="w-3.5 h-3.5 text-[#030164]" />
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+                  <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
                   <span>Simulasi Transparansi Biaya</span>
-                </span>
+                </div>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-2">
                   Tabel Rincian Biaya Masuk &amp; Kalkulator Diskon
                 </h3>
@@ -793,9 +798,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-xs font-black tracking-wider uppercase mb-3">
-              <Award className="w-3.5 h-3.5" />
-              <span>KURIKULUM UNGGULAN &amp; KARAKTER</span>
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
+              <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+              <span>Kurikulum Unggulan &amp; Karakter</span>
+              <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-snug">
               6 Program Unggulan SMP IT Al-Afiyah
@@ -867,9 +873,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-100/70 px-3.5 py-1.5 rounded-full border border-blue-200 inline-block">
-                Pondasi Karakter &amp; Adab
-              </span>
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+                <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+                <span>Pondasi Karakter &amp; Adab</span>
+              </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                 SCD (Student Character Development) &amp; Mutaba&apos;ah Digital
               </h2>
@@ -955,9 +962,11 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
       <section id="fasilitas" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200 inline-block mb-3">
-              Sarana Prasarana Sekolah
-            </span>
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-3">
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              <span>Sarana Prasarana Sekolah</span>
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
               Fasilitas Pembelajaran SMP IT Al-Afiyah
             </h2>
@@ -1036,9 +1045,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-              <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-100/70 px-3.5 py-1.5 rounded-full border border-blue-200 inline-block mb-2">
-                Dokumentasi Nyata Murid
-              </span>
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+                <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+                <span>Dokumentasi Nyata Murid</span>
+              </div>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 Aktivitas Rihlah, Outing &amp; Kejuaraan Futsal Murid
               </h2>
@@ -1084,9 +1094,11 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
       <section id="faq" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal yOffset={24} duration={500} className="text-center mb-12">
-            <span className="text-xs font-bold text-[#030164] uppercase tracking-wider bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200 inline-block mb-3">
-              Tanya Jawab Seputar SPMB
-            </span>
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-3">
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              <span>Tanya Jawab Seputar SPMB</span>
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+            </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
               Pertanyaan yang Sering Diajukan (FAQ)
             </h2>
@@ -1133,9 +1145,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
       {/* SECTION 8: BOTTOM CTA BANNER */}
       <section className="py-16 sm:py-20 bg-gradient-to-r from-[#030164] via-[#090580] to-[#01003d] text-white text-center relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
-          <span className="px-3.5 py-1.5 rounded-full bg-[#ffd51e] text-[#030164] text-xs font-black uppercase tracking-wider inline-block">
-            KUOTA GELOMBANG 1 TERBATAS
-          </span>
+          <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e]">
+            <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
+            <span>Pendaftaran Gelombang 1 Terbatas</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
             Wujudkan Masa Depan Murid yang <br />
             <span className="text-[#ffd51e]">Smart &amp; Religious</span> Bersama Kami

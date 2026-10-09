@@ -114,9 +114,9 @@ export default function SmpKarakterPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 backdrop-blur-xs">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>STUDENT CHARACTER DEVELOPMENT &amp; DIGITAL MONITORING</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
+              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+              <span>Student Character Development &amp; Digital Monitoring</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -196,9 +196,10 @@ export default function SmpKarakterPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
             <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-bold text-[#ffd51e] uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full border border-white/20 inline-block">
-                Sistem Terpadu Tiga Pihak
-              </span>
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-2">
+                <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+                <span>Sistem Terpadu Tiga Pihak</span>
+              </div>
               <h3 className="text-xl sm:text-3xl font-extrabold text-white">
                 Bagaimana Mutaba'ah Digital Bekerja?
               </h3>

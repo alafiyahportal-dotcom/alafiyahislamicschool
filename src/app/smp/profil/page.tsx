@@ -136,9 +136,9 @@ export default async function SmpProfilPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 backdrop-blur-xs">
-              <Award className="w-3.5 h-3.5" />
-              <span>TERAKREDITASI A RESMI BAN-S/M</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
+              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+              <span>Terakreditasi A Resmi BAN-S/M</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -229,9 +229,11 @@ export default async function SmpProfilPage() {
         {/* 4 Pilar Keunggulan SMP IT */}
         <section className="space-y-6">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-[#030164] uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-              Keunggulan Kompetitif
-            </span>
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              <span>Keunggulan Kompetitif</span>
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+            </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
               Mengapa Memilih SMP IT Al-Afiyah?
             </h3>
@@ -269,9 +271,13 @@ export default async function SmpProfilPage() {
                 Identitas SMP IT Al-Afiyah Majalengka
               </h3>
             </div>
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold w-fit">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Status Legalitas: Aktif &amp; Terverifikasi</span>
+            <div className="flex items-center gap-2.5 text-xs text-slate-700 bg-slate-50 border border-slate-200 px-3.5 py-1.5 rounded-xl w-fit">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-slate-500 font-medium">Status Legalitas:</span>
+              <span className="font-bold text-emerald-700">Aktif &amp; Terverifikasi Resmi</span>
             </div>
           </div>
 
