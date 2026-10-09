@@ -210,7 +210,7 @@ export default function Navbar({
             { label: 'Profil Lengkap SMP IT', href: '/smp/profil', desc: 'Visi, misi & legalitas Terakreditasi A' },
             { label: 'Dewan Asatidz & Pendidik', href: '/smp/guru', desc: 'Pendidik tahfidz, bahasa Arab & pembina murid' },
             { label: 'Sarana & Fasilitas Sekolah', href: '/smp/fasilitas', desc: 'Kelas ber-AC, lab komputer & lapangan futsal' },
-            { label: 'Dokumentasi & Outing Murid', href: '/smp/dokumentasi', desc: 'Dokumentasi rihlah tubing, mabit & kegiatan' },
+            { label: 'Dokumentasi & Galeri Murid', href: '/smp/dokumentasi', desc: 'Haflah kelulusan, wisuda tahfidz & rihlah murid' },
             { label: 'Layanan Tata Usaha & Lokasi', href: '/smp/kontak', desc: 'Alamat resmi Jl. Gerakan Koperasi & rute Maps' },
           ]
         : activeSlug
