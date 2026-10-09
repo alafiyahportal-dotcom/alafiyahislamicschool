@@ -8,8 +8,7 @@ export const metadata: Metadata = {
   description: 'PPDB SMP IT Al-Afiyah Majalengka. Sekolah Menengah Pertama Islam Terpadu dengan target hafalan 3-5 Juz Al-Qur\'an tartil, sains modern, bilingual, dan kepemimpinan islami.',
 };
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default async function SmpLandingPage() {
   let dbSchool = null;

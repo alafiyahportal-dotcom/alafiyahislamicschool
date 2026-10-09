@@ -84,8 +84,19 @@ export default function LoginPage() {
       } else {
         setHomeLink(`/${resolved}`);
       }
+
+      // Preload target routes in browser cache for instant transition
+      try {
+        router.prefetch('/portal');
+        router.prefetch('/admin');
+        router.prefetch('/sd/siakad');
+        router.prefetch('/sd');
+        router.prefetch('/sd/spmb/daftar');
+      } catch {
+        // Safe fallback
+      }
     }
-  }, []);
+  }, [router]);
 
   const currentInfo = UNIT_MAP[activeUnit] || DEFAULT_PORTAL;
 
@@ -123,6 +134,7 @@ export default function LoginPage() {
       <header className="max-w-md mx-auto w-full flex items-center justify-between pb-3">
         <Link
           href={homeLink}
+          prefetch={true}
           className="inline-flex items-center space-x-1.5 text-xs font-bold text-white bg-white/15 hover:bg-white/25 backdrop-blur-md py-1.5 px-3 rounded-full border border-white/25 transition-all shadow-xs"
         >
           <ArrowLeft className="w-4 h-4 text-white" />
@@ -288,6 +300,7 @@ export default function LoginPage() {
               <span>Belum punya akun pendaftaran? </span>
               <Link
                 href={currentInfo.registerUrl}
+                prefetch={true}
                 className="font-black text-white hover:text-emerald-100 underline underline-offset-2 ml-1 inline-block"
               >
                 Daftar sekarang

@@ -25,7 +25,7 @@ import {
 import ScrollReveal from '@/components/landing/ScrollReveal';
 import { prisma } from '@/lib/prisma';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'SPMB SD IT Al-Afiyah Majalengka - Pendaftaran Murid Baru TA 2027/2028',

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 0; // Selalu ambil data terbaru saat admin mengubah profil guru
+export const revalidate = 60; // Cache 60 detik untuk navigasi kilat & otomatis revalidasi latar belakang
 
 function inferCategory(role: string = '', specialization: string = ''): string {
   const text = `${role} ${specialization}`.toLowerCase();

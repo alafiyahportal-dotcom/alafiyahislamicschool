@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
 
     // Check hashed password
     if (user.passwordHash.startsWith('$2a$') || user.passwordHash.startsWith('$2b$')) {
-      isValidPassword = bcrypt.compareSync(password, user.passwordHash);
+      isValidPassword = await bcrypt.compare(password, user.passwordHash);
     } else {
       // Legacy plaintext migration check: if matches plain text, upgrade hash immediately
       if (user.passwordHash === password) {

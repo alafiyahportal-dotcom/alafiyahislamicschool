@@ -22,7 +22,7 @@ import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
 import { prisma } from '@/lib/prisma';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Kontak Tata Usaha & Lokasi SD IT Al-Afiyah Majalengka',

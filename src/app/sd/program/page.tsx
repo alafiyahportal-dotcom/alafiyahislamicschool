@@ -108,7 +108,7 @@ const SD_PROGRAMS = [
   },
 ];
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default async function SdProgramPage() {
   let displayPrograms = SD_PROGRAMS;

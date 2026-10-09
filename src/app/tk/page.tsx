@@ -8,8 +8,7 @@ export const metadata: Metadata = {
   description: 'Penerimaan Peserta Didik Baru (PPDB) TK IT Al-Afiyah Majalengka. Membentuk generasi cerdas, mandiri, dan berakhlakul karimah sejak usia dini.',
 };
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default async function TkLandingPage() {
   let dbSchool = null;

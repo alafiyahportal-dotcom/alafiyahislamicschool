@@ -8,7 +8,7 @@ import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { prisma } from '@/lib/prisma';
 import { Newspaper } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Warta & Kajian Islam Al-Afiyah | Berita, Prestasi & Artikel Edukasi',

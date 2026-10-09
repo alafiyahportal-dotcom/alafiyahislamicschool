@@ -633,6 +633,7 @@ export default function Navbar({
                 {/* Login Link (Clean Text Only) */}
                 <Link
                   href="/login"
+                  prefetch={true}
                   title="Masuk ke Portal Layanan & Sistem Akademik"
                   className={`px-3 py-1.5 xl:py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 ${
                     shouldBeTransparent
@@ -907,6 +908,7 @@ export default function Navbar({
               {/* Primary Action Button (Rata Kiri) */}
               <Link
                 href={brandConfig.ppdbLink}
+                prefetch={true}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl ${
                   activeSlug === 'sd'
@@ -928,6 +930,7 @@ export default function Navbar({
               {/* Login Portal Link (Rata Kiri) */}
               <Link
                 href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
+                prefetch={true}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-200 hover:border-emerald-300 bg-slate-50/80 hover:bg-emerald-50/50 text-slate-800 transition-all group"
               >
