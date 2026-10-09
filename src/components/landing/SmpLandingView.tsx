@@ -1078,15 +1078,15 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               </div>
             </div>
 
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-wisuda-akhwat.jpg')}>
-              <img src="/images/smp-wisuda-akhwat.jpg" alt="Penyematan Medali Wisudawati SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-outing-3.jpg')}>
+              <img src="/images/smp-outing-3.jpg" alt="Halaqah Tahfidz Qur'an SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute top-3 left-3">
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Wisuda &amp; Tahfidz
+                  Tahfidz &amp; Ibadah
                 </span>
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Penyematan Medali &amp; Apresiasi Santriwati</p>
+                <p className="text-xs sm:text-sm font-bold">Halaqah Tahfidz &amp; Ujian Tasmi&apos; Al-Qur&apos;an</p>
               </div>
             </div>
 

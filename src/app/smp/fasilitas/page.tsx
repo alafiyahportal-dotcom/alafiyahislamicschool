@@ -10,18 +10,19 @@ import {
   ArrowLeft, 
   ChevronRight, 
   CheckCircle2, 
-  ShieldCheck, 
   Wifi, 
   Monitor, 
   Trophy, 
-  BookOpen,
+  BookOpen, 
   ArrowRight,
-  MapPin
+  ShieldCheck,
+  Sparkles
 } from 'lucide-react';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
-  title: 'Sarana & Fasilitas Sekolah SMP IT Al-Afiyah',
-  description: 'Fasilitas modern SMP IT Al-Afiyah Majalengka: Ruang kelas ber-AC, laboratorium komputer, lapangan olahraga/futsal, masjid sekolah, dan akses internet Wi-Fi.',
+  title: 'Sarana & Fasilitas Sekolah SMP IT Al-Afiyah Majalengka',
+  description: 'Fasilitas representatif SMP IT Al-Afiyah Majalengka: Aula pertemuan sekolah, ruang bimbingan konsultasi murid, masjid ibadah & tahfidz, panggung apresiasi, kelas ber-AC, lab komputer, dan lapangan olahraga.',
   icons: {
     icon: [
       { url: '/images/smp-logo.png', type: 'image/png' },
@@ -32,52 +33,100 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Fasilitas SMP IT Al-Afiyah Majalengka',
-    description: 'Sarana belajar modern dan representatif untuk mendukung kenyamanan belajar murid.',
-    images: ['/images/smp-program-unggulan.png'],
+    description: 'Sarana belajar representatif, bersih, dan nyaman mendukung perkembangan tahfidz & akademik murid.',
+    images: ['/images/smp-haflah-aula.jpg'],
   },
 };
 
 export const revalidate = 60;
 
-const FACILITIES_LIST = [
+interface FacilityItem {
+  name: string;
+  category: string;
+  image: string;
+  desc: string;
+  features: string[];
+}
+
+const DEFAULT_FACILITIES: FacilityItem[] = [
   {
-    name: 'Ruang Kelas Ber-AC & Nyaman',
-    category: 'Ruang Belajar',
-    image: '/images/smp-hero-fullday.jpg',
-    desc: 'Ruang kelas kondusif yang dilengkapi fasilitas pendingin udara (AC), pencahayaan optimal, proyektor multimedia, serta tata letak meja ergonomis untuk kenyamanan interaksi murid dan asatidz.',
-    features: ['Pendingin Ruangan (AC) di Setiap Kelas', 'Proyektor Multimedia & Sound System', 'Kapasitas Siswa Terukur & Personal']
+    name: 'Aula Pertemuan & Ruang Serbaguna Utama',
+    category: 'Aula & Pertemuan',
+    image: '/images/smp-haflah-aula.jpg',
+    desc: 'Aula representatif sekolah yang luas dan berpendingin udara untuk pertemuan akbar wali murid, prosesi haflah kelulusan, pembekalan santri, serta agenda kebersamaan sekolah.',
+    features: ['Kapasitas Ratusan Jamaah & Kursi Nyaman', 'Sistem Audio Multimedia & Pendingin Ruangan', 'Pusat Agenda Haflah & Pertemuan Wali Murid']
   },
   {
-    name: 'Laboratorium Komputer Modern',
-    category: 'Teknologi & Sains',
-    image: '/images/smp-hero-bilingual.jpg',
-    desc: 'Laboratorium komputer lengkap dengan perangkat PC modern dan jaringan internet fiber optik kecepatan tinggi untuk pembelajaran informatika, ujian berbasis CBT, dan literasi digital murid.',
-    features: ['Puluhan Unit Komputer Spesifikasi Terkini', 'Koneksi Internet High-Speed Fiber Optic', 'Dukungan Asesmen Nasional & CBT']
+    name: 'Ruang Konsultasi & Bimbingan Belajar Personal',
+    category: 'Konseling & Akademik',
+    image: '/images/smp-kelulusan-konsultasi.jpg',
+    desc: 'Ruang tatap muka edukatif yang tenang dan kondusif untuk evaluasi capaian belajar murid, konsultasi raport secara personal antara asatidz dengan orang tua, serta pendampingan adab santri.',
+    features: ['Kenyamanan & Privasi Sesi Tatap Muka', 'Bimbingan Langsung Bersama Dewan Asatidz', 'Evaluasi Capaian Akademik & Tahfidz Terpadu']
   },
   {
-    name: 'Lapangan Olahraga & Futsal',
-    category: 'Olahraga & Kebugaran',
-    image: '/images/smp-hero-pesantren.jpg',
-    desc: 'Sarana olahraga representatif di lingkungan sekolah yang digunakan untuk latihan intensif Futsal Development Program, bola voli, senam pagi murid, dan kejuaraan antarkelas.',
-    features: ['Lapangan Futsal Standar Kompetisi Sekolah', 'Peralatan Latihan Olahraga Lengkap', 'Area Terbuka Hijau & Aman']
-  },
-  {
-    name: 'Masjid & Sarana Ibadah Sekolah',
+    name: 'Masjid & Pusat Halaqah Tahfidz Al-Qur\'an',
     category: 'Pusat Ibadah & Tahfidz',
     image: '/images/smp-outing-3.jpg',
-    desc: 'Pusat peradaban spiritual sekolah untuk shalat fardhu berjamaah, pembinaan dzikir Al-Ma\'tsurat pagi petang, serta halaqah talaqqi tahfidz Al-Qur\'an bersama para asatidz.',
-    features: ['Kapasitas Ratusan Jamaah Murid & Guru', 'Tempat Wudhu Bersih & Terpisah Ikhwan/Akhwat', 'Suasana Tenang untuk Muraja\'ah Qur\'an']
+    desc: 'Pusat pembinaan ruhiyah dan pembiasaan ibadah harian santri: shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, serta halaqah talaqqi & muraja\'ah Al-Qur\'an intensif.',
+    features: ['Area Ibadah Bersih, Suci & Nyaman', 'Tempat Wudhu Higienis Terpisah Ikhwan/Akhwat', 'Suasana Tenang Menunjang Kekhusyukan']
   },
   {
-    name: 'Akses Internet & Jaringan Wi-Fi Sekolah',
-    category: 'Infrastruktur Digital',
-    image: '/images/smp-tubing-1.jpg',
-    desc: 'Jaringan koneksi internet terintegrasi di lingkungan sekolah guna menunjang sistem Mutaba\'ah Digital, absensi presensi siswa, dan materi pembelajaran berbasis e-learning.',
-    features: ['Akses Wi-Fi Terproteksi Filter Edukatif', 'Integrasi Sistem Mutaba\'ah Digital', 'Portal SIAKAD Murid Real-Time']
+    name: 'Panggung Acara & Apresiasi Prestasi Murid',
+    category: 'Panggung Prestasi',
+    image: '/images/smp-kelulusan-angkatan-3.jpg',
+    desc: 'Sarana panggung pementasan dan apresiasi murid untuk mengasah keberanian public speaking, orasi khitabah dwibahasa (Arab-Inggris), serta seremonial wisuda penghargaan prestasi.',
+    features: ['Panggung Representatif Berlatar Resmi', 'Peralatan Tata Suara & Presentasi Lengkap', 'Wadah Pengembangan Percaya Diri Murid']
   }
 ];
 
-export default function SmpFasilitasPage() {
+const ADDITIONAL_FACILITIES = [
+  {
+    icon: Building2,
+    name: 'Ruang Kelas Nyaman & Ber-AC',
+    desc: 'Ruang kelas kondusif berpendingin udara (AC) dengan pencahayaan alami optimal, tata letak meja ergonomis, dan fasilitas proyektor multimedia.'
+  },
+  {
+    icon: Monitor,
+    name: 'Laboratorium Komputer Modern',
+    desc: 'Perangkat PC terkini dan jaringan internet kecepatan tinggi untuk pembelajaran informatika, literasi digital, dan simulasi asesmen berbasis komputer.'
+  },
+  {
+    icon: Trophy,
+    name: 'Lapangan Olahraga & Futsal',
+    desc: 'Sarana olahraga representatif di lingkungan sekolah untuk latihan Futsal Development Program, bola voli, senam pagi, dan kejuaraan antarkelas.'
+  },
+  {
+    icon: Wifi,
+    name: 'Akses Internet & Mutaba\'ah Digital',
+    desc: 'Infrastruktur jaringan sekolah terintegrasi untuk menunjang pencatatan presensi siswa, capaian tahfidz, dan portal akademik SIAKAD real-time.'
+  }
+];
+
+export default async function SmpFasilitasPage() {
+  let facilities: FacilityItem[] = DEFAULT_FACILITIES;
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'smp' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'facilities');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        facilities = parsed.map((item: any) => ({
+          name: item.name || item.title || 'Fasilitas SMP IT',
+          category: item.category || 'Fasilitas Sekolah',
+          image: item.image || '/images/smp-haflah-aula.jpg',
+          desc: item.desc || item.description || '',
+          features: Array.isArray(item.features) ? item.features : ['Fasilitas Nyaman & Representatif', 'Dukungan Pembelajaran Terpadu']
+        }));
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SMP facilities from CMS, using default list:', err);
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
       <Navbar schoolSlug="smp" />
@@ -100,15 +149,15 @@ export default function SmpFasilitasPage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
               <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Sarana Pembelajaran Representatif &amp; Bersih</span>
+              <span>Sarana Pembelajaran Nyata &amp; Representatif</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Fasilitas SMP IT Al-Afiyah
             </h1>
 
-            <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Kami menyediakan lingkungan belajar yang aman, kondusif, dan berteknologi modern untuk mendukung perkembangan akademik, tahfidz, dan bakat jasmani seluruh murid.
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm lg:text-base text-slate-200 leading-relaxed font-normal">
+              Kami menyediakan lingkungan belajar yang aman, asri, dan representatif di Majalengka untuk mendukung optimalisasi pembinaan adab nabawi, capaian tahfidz, akademik terpadu, dan potensi jasmani murid.
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
@@ -130,17 +179,17 @@ export default function SmpFasilitasPage() {
         </div>
       </section>
 
-      {/* Facilities Grid */}
+      {/* Facilities Grid (100% Authentic Photos) */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 sm:space-y-16">
         <div className="space-y-10 sm:space-y-12">
-          {FACILITIES_LIST.map((fac, idx) => (
+          {facilities.map((fac, idx) => (
             <div 
               key={idx}
               className={`rounded-2xl sm:rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all grid grid-cols-1 lg:grid-cols-12 gap-0 ${
                 idx % 2 === 1 ? 'lg:flex-row-reverse' : ''
               }`}
             >
-              {/* Media Preview */}
+              {/* Media Preview (Authentic Photos Only) */}
               <div className={`lg:col-span-6 relative min-h-[260px] sm:min-h-[340px] bg-slate-900 overflow-hidden ${
                 idx % 2 === 1 ? 'lg:order-2' : ''
               }`}>
@@ -148,6 +197,7 @@ export default function SmpFasilitasPage() {
                   src={fac.image}
                   alt={fac.name}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
@@ -200,6 +250,37 @@ export default function SmpFasilitasPage() {
             </div>
           ))}
         </div>
+
+        {/* Additional Facility Features (Clean Icon-Based, No AI Slop) */}
+        <section className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-6 sm:p-10 space-y-6">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              <span>Sarana Penunjang Lainnya</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              Infrastruktur &amp; Kenyamanan Belajar Terpadu
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              Fasilitas penunjang harian yang terus dirawat dan diperbarui untuk kenyamanan seluruh civitas akademika.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {ADDITIONAL_FACILITIES.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-[#030164]/30 hover:shadow-md transition-all space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-100/80 text-[#030164] flex items-center justify-center">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h4 className="font-bold text-sm text-slate-900">{item.name}</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
 
         {/* Info Lokasi Sekolah */}
         <section className="p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#030164] to-[#0c0879] text-white flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 shadow-xl border border-[#ffd51e]/30">

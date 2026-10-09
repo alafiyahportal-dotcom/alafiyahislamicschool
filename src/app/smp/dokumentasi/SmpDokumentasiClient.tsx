@@ -34,21 +34,12 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     title: 'Haflah Kelulusan & Kenaikan Kelas SMP IT Al-Afiyah Angkatan ke-3',
     category: 'Wisuda & Kelulusan',
     image: '/images/smp-kelulusan-angkatan-3.jpg',
-    desc: 'Momen khidmat pelepasan santriwati angkatan ke-3 Tahun Ajaran 2025/2026 bertema "Melangkah Pasti Meraih Prestasi, Berakhlak Islami, Siap Berkompetisi - Be Smart & Religious".',
+    desc: 'Momen khidmat pelepasan santri angkatan ke-3 Tahun Ajaran 2025/2026 bertema "Melangkah Pasti Meraih Prestasi, Berakhlak Islami, Siap Berkompetisi - Be Smart & Religious".',
     date: 'Tahun Ajaran 2025/2026',
     location: 'Aula Utama SMP IT Al-Afiyah'
   },
   {
     id: 'smp-gal-2',
-    title: 'Penyematan Medali Kelulusan & Apresiasi Santriwati Angkatan 2026',
-    category: 'Wisuda & Kelulusan',
-    image: '/images/smp-wisuda-akhwat.jpg',
-    desc: 'Rasa syukur dan keceriaan para santriwati berkalung medali kelulusan SMP IT Al-Afiyah setelah tuntas menempuh kurikulum terpadu dan target capaian tahfidz Al-Qur\'an.',
-    date: 'Juni 2026',
-    location: 'Panggung Wisuda SMP IT'
-  },
-  {
-    id: 'smp-gal-3',
     title: 'Generasi Pemimpin Berakhlak Islami, Mandiri & Siap Berkompetisi',
     category: 'Prestasi & Karakter',
     image: '/images/smp-santri-ikhwan-wisuda.jpg',
@@ -57,7 +48,7 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     location: 'Haflah Akhirussanah SMP IT'
   },
   {
-    id: 'smp-gal-4',
+    id: 'smp-gal-3',
     title: 'Khidmat Sinergi Dewan Asatidz, Wali Murid & Santri di Aula Sekolah',
     category: 'Sinergi Orang Tua',
     image: '/images/smp-haflah-aula.jpg',
@@ -66,7 +57,7 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     location: 'Aula Pertemuan SMP IT Al-Afiyah'
   },
   {
-    id: 'smp-gal-5',
+    id: 'smp-gal-4',
     title: 'Sesi Penyerahan Laporan Pendidikan & Evaluasi Capaian Murid',
     category: 'Sinergi Orang Tua',
     image: '/images/smp-kelulusan-konsultasi.jpg',
@@ -75,7 +66,7 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     location: 'Ruang Edukasi & Konsultasi'
   },
   {
-    id: 'smp-gal-6',
+    id: 'smp-gal-5',
     title: 'Petualangan Seru River Tubing Cikadongdong & Tadabbur Alam',
     category: 'Rihlah & Outing Class',
     image: '/images/smp-tubing-1.jpg',
@@ -84,16 +75,7 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     location: 'Cikadongdong River Tubing, Majalengka'
   },
   {
-    id: 'smp-gal-7',
-    title: 'Kekompakan Tim Santri Mengarungi Arus Jeram Sungai',
-    category: 'Rihlah & Outing Class',
-    image: '/images/smp-tubing-2.jpg',
-    desc: 'Membangun rasa saling percaya antar teman sebaya dan bimbingan keselamatan dari asatidz pendamping dalam aktivitas outdoor edukatif.',
-    date: 'Mei 2026',
-    location: 'Cikadongdong River Tubing'
-  },
-  {
-    id: 'smp-gal-8',
+    id: 'smp-gal-6',
     title: 'Halaqah Tahfidz & Ujian Tasmi\' Al-Qur\'an Sekali Duduk',
     category: 'Tahfidz & Ibadah',
     image: '/images/smp-outing-3.jpg',
