@@ -88,6 +88,7 @@ interface HeroContentProps {
   highlightClass: string;
   primaryBtnClass: string;
   badgeClass: string;
+  hasStatsCards?: boolean;
 }
 
 /** Badge, headline, description, CTA and trust points — shared by static and sliding modes. */
@@ -97,6 +98,7 @@ function HeroContent({
   highlightClass,
   primaryBtnClass,
   badgeClass,
+  hasStatsCards,
 }: HeroContentProps) {
   const [refCode, setRefCode] = useState<string | null>(null);
   const [isOpening, setIsOpening] = useState(false);
@@ -150,8 +152,8 @@ function HeroContent({
         <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
       </Link>
 
-      {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
-      {slide.trustItems && slide.trustItems.length > 0 && (
+      {/* Trust Points - hidden when statsCards is active to prevent duplicate information */}
+      {!hasStatsCards && slide.trustItems && slide.trustItems.length > 0 && (
         <ul className="mt-5 sm:mt-8 w-full flex flex-col gap-2.5 text-left text-xs sm:text-sm font-medium text-neutral-200 space-y-1 sm:space-y-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:font-semibold">
           {slide.trustItems.map((item, tIdx) => (
             <li
@@ -293,12 +295,6 @@ export default function UnitHeroSlider({
       primaryCtaLink: ppdbUrl,
       secondaryCtaText: 'Konsultasi Panitia (0822-4935-7893)',
       secondaryCtaLink: waUrl,
-      trustItems: [
-        { icon: 'shield' as const, text: 'Terakreditasi A Resmi' },
-        { icon: 'award' as const, text: 'Target Tahfidz 3-5+ Juz Mutqin' },
-        { icon: 'calendar' as const, text: 'Diskon Uang Bangunan s.d. 70%' },
-        { icon: 'check' as const, text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
-      ]
     };
 
     return [
@@ -414,6 +410,7 @@ export default function UnitHeroSlider({
               highlightClass={themeConfig.highlight}
               primaryBtnClass={themeConfig.primaryBtn}
               badgeClass={themeConfig.badgeText}
+              hasStatsCards={Boolean(statsCards)}
             />
           </div>
         ) : (
@@ -436,6 +433,7 @@ export default function UnitHeroSlider({
                     highlightClass={themeConfig.highlight}
                     primaryBtnClass={themeConfig.primaryBtn}
                     badgeClass={themeConfig.badgeText}
+                    hasStatsCards={Boolean(statsCards)}
                   />
                 </div>
               );
