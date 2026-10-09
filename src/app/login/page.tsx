@@ -125,11 +125,11 @@ export default function LoginPage() {
           href={homeLink}
           className="inline-flex items-center space-x-1.5 text-xs font-bold text-white bg-white/15 hover:bg-white/25 backdrop-blur-md py-1.5 px-3 rounded-full border border-white/25 transition-all shadow-xs"
         >
-          <ArrowLeft className="w-4 h-4 text-emerald-100" />
-          <span>Kembali ke Beranda SD IT</span>
+          <ArrowLeft className="w-4 h-4 text-white" />
+          <span>Kembali ke Beranda</span>
         </Link>
-        <span className="text-[11px] font-bold text-emerald-50 bg-emerald-950/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-          Yayasan Pendidikan Imam Bonjol
+        <span className="text-[11px] font-bold text-white bg-emerald-950/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+          SD IT Al-Afiyah
         </span>
       </header>
 
@@ -137,11 +137,11 @@ export default function LoginPage() {
       <main className="max-w-md mx-auto w-full my-auto">
         <div className="bg-gradient-to-b from-[#10b981] via-[#059669] to-[#046246] rounded-[38px] sm:rounded-[44px] p-7 sm:p-9 shadow-2xl shadow-emerald-950/40 border border-white/25 relative overflow-hidden">
           
-          {/* Top Layered Organic Wave SVGs (Exact Reference ATM) */}
+          {/* Top Layered Organic Wave SVGs */}
           <div className="absolute top-0 inset-x-0 h-44 overflow-hidden pointer-events-none">
             <svg viewBox="0 0 400 180" className="w-full h-full object-cover" preserveAspectRatio="none">
               <path d="M0,0 L400,0 L400,85 C310,140 230,55 130,115 C65,155 20,135 0,120 Z" fill="rgba(255,255,255,0.18)" />
-              <path d="M0,0 L400,0 L400,55 C270,125 170,35 0,90 Z" fill="rgba(255,255,255,0.12)" />
+              <path d="M0,0 L400,0 L400,55 C270,125 170,35 0,90 Z" fill="rgba(255,255,255,0.10)" />
             </svg>
           </div>
 
@@ -155,31 +155,26 @@ export default function LoginPage() {
           {/* Content Wrapper (Relative for Z-Index) */}
           <div className="relative z-10">
 
-            {/* Header Brand Section (No Logo - Clean White Typography & Unit Pill) */}
-            <div className="text-center pt-2 mb-6">
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/35 text-white text-[11px] font-black uppercase tracking-wider shadow-xs mb-3">
+            {/* Header Brand Section: Rata Kanan (Right Aligned), Minimalis & Non-Repetitive */}
+            <div className="text-right pt-1 mb-6">
+              {/* Badge Pill */}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white text-[11px] font-black uppercase tracking-wider shadow-sm mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                <span>{currentInfo.badge}</span>
+                <span>Portal Al-Afiyah</span>
               </div>
 
-              <div className="text-xl sm:text-2xl font-black text-white tracking-wide uppercase drop-shadow-sm">
-                Portal Al-Afiyah
-              </div>
-              <div className="text-[11px] sm:text-xs font-bold text-emerald-100 tracking-widest uppercase mt-0.5 opacity-90">
-                Yayasan Pendidikan Imam Bonjol Majalengka
-              </div>
-            </div>
-
-            {/* Headline & Welcome Message */}
-            <div className="text-center mb-6">
-              <h1 className="text-2xl sm:text-[28px] font-black text-white tracking-tight drop-shadow-sm">
+              {/* Headline */}
+              <h1 className="text-2xl sm:text-[28px] font-black text-white tracking-tight leading-tight drop-shadow-md">
                 Selamat Datang!
               </h1>
-              <p className="text-xs sm:text-sm font-semibold text-emerald-100 mt-1">
-                Portal Masuk SD IT Al-Afiyah Majalengka
+
+              {/* Sub-identity: Clear & Non-repetitive */}
+              <p className="text-sm font-extrabold text-white mt-1 drop-shadow-sm">
+                SD IT Al-Afiyah Majalengka
               </p>
-              <p className="text-[11px] font-medium text-emerald-200 mt-0.5">
-                Portal Layanan Akademik & SPMB • <span className="font-extrabold text-white">Smart • Akhlaq • Fitrah</span>
+              
+              <p className="text-xs font-bold text-white/90 mt-0.5 tracking-wide">
+                Smart • Akhlaq • Fitrah
               </p>
             </div>
 
@@ -220,7 +215,7 @@ export default function LoginPage() {
                   </label>
                   <Link
                     href="/ppdb/cek-status"
-                    className="text-xs font-bold text-emerald-100 hover:text-white underline underline-offset-2 transition-colors"
+                    className="text-xs font-bold text-white hover:text-emerald-100 underline underline-offset-2 transition-colors drop-shadow-xs"
                   >
                     Lupa sandi?
                   </Link>
@@ -289,11 +284,11 @@ export default function LoginPage() {
             {/* Divider & Registration Prompt */}
             <div className="border-t border-white/20 my-6" />
 
-            <div className="text-center text-xs sm:text-sm font-semibold text-emerald-100">
+            <div className="text-center text-xs sm:text-sm font-semibold text-white/95 drop-shadow-xs">
               <span>Belum punya akun pendaftaran? </span>
               <Link
                 href={currentInfo.registerUrl}
-                className="font-black text-white hover:text-emerald-200 underline underline-offset-2 ml-1 inline-block"
+                className="font-black text-white hover:text-emerald-100 underline underline-offset-2 ml-1 inline-block"
               >
                 Daftar sekarang
               </Link>
