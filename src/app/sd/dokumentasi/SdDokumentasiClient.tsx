@@ -175,9 +175,9 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
           </nav>
 
           <div className="max-w-3xl">
-            <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
-              <Camera className="w-3.5 h-3.5 text-emerald-300" />
-              <span>DOKUMENTASI &amp; SARANA BELAJAR SDIT</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-200 mb-3">
+              <span className="w-5 h-[2px] bg-emerald-300 rounded-full inline-block" />
+              <span>Dokumentasi &amp; Sarana Belajar SDIT</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -220,7 +220,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
                     key={cat}
                     type="button"
                     onClick={() => setActiveCategory(cat)}
-                    className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
+                    className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
                       isActive
                         ? 'bg-[#00A651] text-white shadow-md scale-105'
                         : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
@@ -251,7 +251,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
                       loading="lazy"
                     />
                     <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
+                      <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
                         {item.category}
                       </span>
                     </div>
@@ -301,10 +301,11 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
       <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16 border-t border-emerald-800">
         <ScrollReveal yOffset={24} duration={500}>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="px-3.5 py-1.5 rounded-full bg-emerald-800/80 border border-emerald-600/40 text-emerald-200 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 mb-3">
-              <HeartHandshake className="w-3.5 h-3.5 text-amber-300" />
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-200 mb-2">
+              <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
               <span>Penerimaan Murid Baru T.A. 2027/2028</span>
-            </span>
+              <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
+            </div>
 
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
               Ingin Ananda Bertumbuh &amp; Belajar di SDIT Al-Afiyah?
@@ -372,7 +373,7 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
 
             <div className="p-5 sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <span className="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
                   {selectedPhoto.category}
                 </span>
                 {selectedPhoto.location && (

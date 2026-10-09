@@ -204,9 +204,11 @@ export default async function SdKarakterPage() {
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                Fondasi Pendidikan
-              </span>
+              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                <span>Fondasi Pendidikan</span>
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+              </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
                 Tiga Pilar Utama Smart Akhlak Fitrah
               </h2>
@@ -223,7 +225,7 @@ export default async function SdKarakterPage() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
+                      <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
                         Pilar {pilar.number}
                       </span>
                       <span className="text-xs font-black text-[#00A651] font-mono">{pilar.number}</span>
@@ -263,9 +265,11 @@ export default async function SdKarakterPage() {
         <section className="py-12 sm:py-16 bg-white border-t border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                Target Capaian Pribadi Murid
-              </span>
+              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                <span>Target Capaian Pribadi Murid</span>
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+              </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5 text-balance leading-snug">
                 7 Karakter Profil Murid <br className="hidden sm:inline" />
                 SD&nbsp;IT Al-Afiyah

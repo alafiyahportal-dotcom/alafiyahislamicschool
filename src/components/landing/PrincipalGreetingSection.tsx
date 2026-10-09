@@ -18,10 +18,11 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200/80 inline-flex items-center gap-1.5 shadow-xs">
-            <HeartHandshake className="w-3.5 h-3.5 text-emerald-600" />
+          <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
             <span>Sambutan Kepala Sekolah</span>
-          </span>
+            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+          </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mt-3">
             Mendidik dengan Keteladanan, <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800">

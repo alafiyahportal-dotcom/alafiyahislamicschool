@@ -177,9 +177,10 @@ export default async function SdProgramPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={20} duration={500} className="p-6 sm:p-8 rounded-3xl bg-emerald-50/80 border border-emerald-200 flex flex-col lg:flex-row items-center justify-between gap-6">
               <div className="space-y-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#00A651] bg-white px-3 py-1 rounded-full border border-emerald-200 inline-block shadow-2xs">
-                  Landasan Kurikulum &amp; Program Unggulan
-                </span>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-1">
+                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                  <span>Landasan Kurikulum &amp; Program Unggulan</span>
+                </div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
                   Perpaduan Kurikulum Diknas &amp; Kurikulum Yayasan
                 </h2>
@@ -205,9 +206,11 @@ export default async function SdProgramPage() {
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-8 text-center max-w-2xl mx-auto">
-              <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
-                Pilar Karakter &amp; Pembelajaran
-              </span>
+              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                <span>Pilar Karakter &amp; Pembelajaran</span>
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+              </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 text-balance leading-snug">
                 10 Program Unggulan <br className="hidden sm:inline" />
                 SD&nbsp;IT Al-Afiyah
@@ -224,7 +227,7 @@ export default async function SdProgramPage() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3.5">
-                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
+                      <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
                         {item.badge}
                       </span>
                       <span className="text-xs font-black text-[#00A651] font-mono">{item.number}</span>

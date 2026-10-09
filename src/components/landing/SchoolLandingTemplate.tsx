@@ -594,10 +594,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       <section id="pengumuman" className="py-16 sm:py-20 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
-              <Download className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+              <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
               <span>Pengumuman &amp; Unduh Dokumen Resmi</span>
-            </span>
+              <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
               Poster &amp; Brosur Resmi SPMB <br />
               <span className="text-[#007638] inline-block">{school.name}</span>
@@ -1154,10 +1155,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 {/* Right Column: Key Details & Direct Enrollment Steps */}
                 <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100/70 text-emerald-900 border border-emerald-200 mb-3">
-                      <span>Kuota Sangat Terbatas</span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                      <span>Hanya 2 Rombel</span>
+                    <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 mb-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="uppercase tracking-widest text-[11px] font-black">Kuota Terbatas:</span>
+                      <span className="text-slate-600 font-medium">Hanya 2 Rombongan Belajar</span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
                       Penerimaan Murid Baru SDIT Al-Afiyah T.A. 2027/2028
@@ -1278,9 +1279,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       <section id="values" className="relative py-20 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-block shadow-2xs mb-3">
-              Nilai Utama &amp; Character Building
-            </span>
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-3">
+              <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+              <span>Nilai Utama &amp; Character Building</span>
+              <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+            </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
               {school.slug === 'sd' ? (
                 <>
@@ -1383,9 +1386,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
-            <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
-              Kurikulum Terintegrasi
-            </span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-300 mb-2">
+              <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
+              <span>Kurikulum Terintegrasi</span>
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3 leading-snug">
               Program Unggulan <br />
               <span className="text-amber-400 inline-block">{school.name}</span>
@@ -1460,10 +1464,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
-                <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
                   <span>Kompetensi &amp; Dedikasi</span>
-                </span>
+                </div>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
                   {school.slug === 'sd' ? (
                     <>
@@ -1480,7 +1484,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               </div>
 
               <div className="mt-4 md:mt-0 flex items-center gap-2">
-                <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+                <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-xl">
                   {school.teachers.length} Tenaga Pendidik Aktif
                 </span>
               </div>
@@ -1564,10 +1568,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       <section id="facilities" className="py-16 sm:py-20 bg-slate-50/50 border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-            <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-2xs">
-              <Camera className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+              <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
               <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Belajar SDIT Al-Afiyah' : 'Sarana Prasarana'}</span>
-            </span>
+              <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
               {school.slug === 'sd' ? (
                 <>
@@ -1688,10 +1693,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
-                <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
-                  <Newspaper className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
                   <span>Kabar Al-Afiyah</span>
-                </span>
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
                   Dokumentasi &amp; Agenda Kegiatan Terkini
                 </h2>
@@ -1842,9 +1847,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
-              Kata Mereka
-            </span>
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-300 mb-2">
+              <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
+              <span>Kata Mereka</span>
+              <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
               Testimoni <span className="text-amber-300">Orang Tua Murid</span>
             </h2>
@@ -2161,10 +2168,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           duration={500}
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
         >
-          <div className="inline-flex items-center justify-center mb-3">
-            <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
-              Penerimaan Murid Baru (SPMB) 2027/2028
-            </span>
+          <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-300 mb-2">
+            <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
+            <span>Penerimaan Murid Baru (SPMB) 2027/2028</span>
+            <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight max-w-3xl mx-auto">
             Kuota Terbatas! Amankan Kursi Belajar <span className="text-amber-400">Sekarang</span>

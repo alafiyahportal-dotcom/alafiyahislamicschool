@@ -70,9 +70,10 @@ export default function SpmbRoadmapSection({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header - Balanced line-break with full SDIT Al-Afiyah Majalengka */}
         <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
-          <span className="text-xs font-bold text-white uppercase tracking-widest bg-[#00A651] px-3.5 py-1.5 rounded-full border border-emerald-400/30 inline-block shadow-sm">
-            Tahapan SPMB T.A. 2027/2028
-          </span>
+          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-300 mb-2">
+            <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
+            <span>Tahapan SPMB T.A. 2027/2028</span>
+          </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3 leading-snug">
             4 Langkah Mudah Pendaftaran <br />
             <span className="text-amber-400 inline-block">SDIT Al-Afiyah Majalengka</span>

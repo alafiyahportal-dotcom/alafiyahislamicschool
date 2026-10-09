@@ -152,7 +152,7 @@ export default async function SdKontakPage() {
                   {contactChannels.map((channel, idx) => (
                     <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-300 transition-colors">
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                        <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md uppercase tracking-wider">
                           {channel.badge}
                         </span>
                       </div>
@@ -212,9 +212,10 @@ export default async function SdKontakPage() {
               <div className="space-y-6">
                 <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-slate-200/80">
                   <div className="mb-6">
-                    <span className="text-[11px] font-bold text-[#00A651] uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                      Formulir Konsultasi & Pengaduan
-                    </span>
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-1">
+                      <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                      <span>Formulir Konsultasi &amp; Pengaduan</span>
+                    </div>
                     <h2 className="text-xl font-bold text-slate-900 mt-2">Kirim Pesan ke Tata Usaha SDIT</h2>
                     <p className="text-xs text-slate-500 mt-1">
                       Pesan Anda akan langsung diteruskan ke tim sekretariat dan dibalas via email atau WhatsApp.

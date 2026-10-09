@@ -251,19 +251,19 @@ function CheckStatusSdContent() {
                     {/* Status Badge */}
                     <div className="self-start sm:self-center">
                       {isAccepted && (
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
                           <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                           <span>LULUS SELEKSI</span>
                         </div>
                       )}
                       {isVerifying && (
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
                           <Clock className="w-4 h-4 text-amber-600" />
                           <span>DALAM PROSES VERIFIKASI</span>
                         </div>
                       )}
                       {isRejected && (
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300">
                           <AlertCircle className="w-4 h-4 text-rose-600" />
                           <span>BELUM DAPAT DITERIMA</span>
                         </div>
@@ -363,9 +363,10 @@ function CheckStatusSdContent() {
         {/* Bantuan CS Panitia SDIT */}
         <div className="mt-12 p-6 rounded-3xl bg-gradient-to-r from-emerald-900 to-[#00A651] text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
           <div>
-            <span className="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/20 text-emerald-100">
-              Hotline Panitia SPMB SDIT
-            </span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-200 mb-1">
+              <span className="w-5 h-[2px] bg-emerald-300 rounded-full inline-block" />
+              <span>Hotline Panitia SPMB SDIT</span>
+            </div>
             <h4 className="text-base sm:text-lg font-bold mt-2">
               Butuh bantuan verifikasi berkas atau jadwal observasi?
             </h4>

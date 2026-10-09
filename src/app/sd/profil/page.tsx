@@ -159,11 +159,11 @@ export default async function SdProfilPage() {
                 
                 <div className="relative z-10">
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-                    <span className="px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 border border-emerald-200">
-                      <GraduationCap className="w-4 h-4 text-emerald-700" />
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651]">
+                      <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
                       <span>Sambutan Kepala Sekolah SDIT Al-Afiyah</span>
-                    </span>
-                    <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+                    </div>
+                    <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-xl border border-emerald-200/80">
                       🌱 Tempat Bertumbuh
                     </span>
                   </div>
@@ -217,9 +217,10 @@ export default async function SdProfilPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-4">
-                <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
-                  Selayang Pandang &amp; Naungan
-                </span>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                  <span>Selayang Pandang &amp; Naungan</span>
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight text-balance leading-snug">
                   Mengenal Lebih Dekat <br className="hidden sm:inline" />
                   SD&nbsp;IT Al-Afiyah Majalengka
@@ -248,9 +249,10 @@ export default async function SdProfilPage() {
 
               <div className="lg:col-span-5 bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-2xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
                 <div className="relative z-10">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 bg-white/10 px-3 py-1 rounded-full inline-block mb-3">
-                    MUTU PENDIDIKAN BERPIJAK IMTAK
-                  </span>
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-amber-300 mb-3">
+                    <span className="w-5 h-[2px] bg-amber-400 rounded-full inline-block" />
+                    <span>Mutu Pendidikan Berpijak Imtak</span>
+                  </div>
                   <h3 className="text-xl sm:text-2xl font-bold leading-snug">
                     Perpaduan Kurikulum Diknas &amp; Religi Yayasan
                   </h3>
@@ -275,7 +277,7 @@ export default async function SdProfilPage() {
               <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
                 <div>
                   <div className="mb-5">
-                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
+                    <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
                       Visi SDIT Al-Afiyah
                     </span>
                     <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
@@ -297,7 +299,7 @@ export default async function SdProfilPage() {
               <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
                 <div>
                   <div className="mb-5">
-                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
+                    <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
                       Misi Pendidikan Sekolah
                     </span>
                     <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
@@ -325,9 +327,11 @@ export default async function SdProfilPage() {
         <section className="py-12 sm:py-16 bg-white border-t border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                Data Satuan Pendidikan
-              </span>
+              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                <span>Data Satuan Pendidikan</span>
+                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+              </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
                 Identitas Resmi SDIT Al-Afiyah
               </h2>

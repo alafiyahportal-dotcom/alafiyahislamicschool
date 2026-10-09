@@ -113,14 +113,15 @@ function HeroContent({
 
   return (
     <>
-      {/* Minimal Floating Badge — outer layer floats, inner layer handles tactile press so transforms never fight */}
+      {/* Minimal Editorial Overline */}
       {slide.badge && (
-        <div className="mb-4 sm:mb-5 animate-hero-float">
+        <div className="mb-3 sm:mb-4">
           <Link
             href={rawLink}
-            className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs font-medium tracking-wider backdrop-blur-md transition-transform duration-200 hover:scale-[1.03] active:scale-95 ${badgeClass}`}
+            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] transition-transform duration-200 hover:scale-[1.02] active:scale-95 drop-shadow-md"
           >
-            {slide.badge}
+            <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
+            <span>{slide.badge}</span>
           </Link>
         </div>
       )}

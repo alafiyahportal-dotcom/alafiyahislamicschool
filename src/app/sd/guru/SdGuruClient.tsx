@@ -154,9 +154,9 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
           </nav>
 
           <div className="max-w-3xl">
-            <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
-              <UserCheck className="w-3.5 h-3.5 text-emerald-300" />
-              <span>STRUKTUR PIMPINAN &amp; TENAGA KEPENDIDIKAN</span>
+            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-200 mb-3">
+              <span className="w-5 h-[2px] bg-emerald-300 rounded-full inline-block" />
+              <span>Struktur Pimpinan &amp; Tenaga Kependidikan</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
@@ -183,7 +183,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                   key={cat}
                   type="button"
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
+                  className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
                     isActive
                       ? 'bg-[#00A651] text-white shadow-md scale-105'
                       : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'

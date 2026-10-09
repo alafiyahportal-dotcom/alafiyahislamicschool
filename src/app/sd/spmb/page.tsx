@@ -179,9 +179,11 @@ export default async function SdSpmbInfoPage() {
       <section className="py-14 sm:py-20 max-w-5xl mx-auto px-4 sm:px-6 w-full">
         <ScrollReveal yOffset={24} duration={500}>
           <div className="text-center max-w-xl mx-auto mb-12">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#00A651] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-            Tahapan Pendaftaran
-          </span>
+          <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+            <span>Tahapan Pendaftaran</span>
+            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+          </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 text-balance leading-snug">
             4 Langkah Mudah Menjadi Murid <br className="hidden sm:inline" />
             SD&nbsp;IT Al-Afiyah
@@ -199,7 +201,7 @@ export default async function SdSpmbInfoPage() {
                 <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
                   01
                 </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
                   Langkah 1
                 </span>
               </div>
@@ -223,7 +225,7 @@ export default async function SdSpmbInfoPage() {
                 <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
                   02
                 </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
                   Langkah 2
                 </span>
               </div>
@@ -247,7 +249,7 @@ export default async function SdSpmbInfoPage() {
                 <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
                   03
                 </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
                   Langkah 3
                 </span>
               </div>
@@ -271,7 +273,7 @@ export default async function SdSpmbInfoPage() {
                 <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
                   04
                 </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
                   Langkah 4
                 </span>
               </div>
@@ -297,9 +299,10 @@ export default async function SdSpmbInfoPage() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#00A651] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-                  Persyaratan Calon Murid
-                </span>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
+                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+                  <span>Persyaratan Calon Murid</span>
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 text-balance leading-snug">
                   Syarat Masuk SD&nbsp;IT Al-Afiyah
                 </h2>
@@ -337,9 +340,10 @@ export default async function SdSpmbInfoPage() {
               {/* Kotak Rekapitulasi Rombel & Lokasi */}
               <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
                 <div className="relative z-10">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 bg-white/10 px-3 py-1 rounded-full">
-                    Fasilitas & Lingkungan SDIT
-                  </span>
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-300 mb-3">
+                    <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
+                    <span>Fasilitas &amp; Lingkungan SDIT</span>
+                  </div>
                   <h3 className="text-xl sm:text-2xl font-bold mt-4">
                     Lingkungan Giri Asih Majalengka
                   </h3>
