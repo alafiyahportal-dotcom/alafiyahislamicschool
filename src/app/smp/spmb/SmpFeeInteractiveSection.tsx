@@ -239,12 +239,12 @@ export default function SmpFeeInteractiveSection() {
             {BIAYA_ITEMS.map((b, idx) => {
               const val = activeGender === 'ikhwan' ? b.ikhwan : b.akhwat;
               return (
-                <div key={idx} className="flex items-start justify-between gap-2 text-xs py-1">
-                  <div>
-                    <span className="font-semibold text-slate-900 block">{idx + 1}. {b.item}</span>
-                    <span className="text-[10px] text-slate-500">{b.note}</span>
+                <div key={idx} className="flex items-start justify-between gap-2 text-xs py-1.5 border-b border-slate-200/50 last:border-b-0">
+                  <div className="min-w-0 pr-2">
+                    <span className="font-semibold text-slate-900 block leading-snug">{idx + 1}. {b.item}</span>
+                    <span className="text-[10px] text-slate-500 block leading-tight">{b.note}</span>
                   </div>
-                  <span className="font-mono font-bold text-slate-800 shrink-0">
+                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">
                     Rp {val.toLocaleString('id-ID')}
                   </span>
                 </div>
@@ -317,30 +317,30 @@ export default function SmpFeeInteractiveSection() {
 
         {/* DESKTOP TABLE VIEW (& Mobile Collapsible View) */}
         <div className={`${showFullTableMobile ? 'block' : 'hidden md:block'} space-y-2`}>
-          <div className="flex items-center justify-between text-[11px] text-blue-900 bg-blue-50/80 px-3 py-1.5 rounded-lg border border-blue-200 md:hidden">
-            <span>👉 Geser tabel ke kanan/kiri untuk melihat seluruh kolom</span>
+          <div className="flex items-center justify-between text-[11px] text-blue-900 bg-blue-50/90 px-3.5 py-2 rounded-xl border border-blue-200 md:hidden">
+            <span className="font-semibold">💡 Geser tabel ke kanan untuk melihat rincian Akhwat (Putri) &amp; Keterangan</span>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-slate-200">
-            <table className="w-full min-w-[620px] text-left text-xs sm:text-sm">
+          <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-inner">
+            <table className="w-full min-w-[660px] text-left text-xs sm:text-sm">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
-                  <th className="py-3 px-4 w-12">No</th>
-                  <th className="py-3 px-4">Komponen Biaya</th>
-                  <th className="py-3 px-4 text-right">Ikhwan (Putra)</th>
-                  <th className="py-3 px-4 text-right">Akhwat (Putri)</th>
-                  <th className="py-3 px-4">Keterangan</th>
+                  <th className="py-3 px-4 w-12 text-center whitespace-nowrap">No</th>
+                  <th className="py-3 px-4 min-w-[180px]">Komponen Biaya</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[130px]">Ikhwan (Putra)</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[130px]">Akhwat (Putri)</th>
+                  <th className="py-3 px-4 min-w-[170px]">Keterangan</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {BIAYA_ITEMS.map((b, idx) => (
                   <tr key={idx} className="hover:bg-slate-50/60 transition-colors">
-                    <td className="py-3 px-4 font-semibold text-slate-400">{idx + 1}</td>
+                    <td className="py-3 px-4 font-semibold text-slate-400 text-center whitespace-nowrap">{idx + 1}</td>
                     <td className="py-3 px-4 font-bold text-slate-900">{b.item}</td>
-                    <td className={`py-3 px-4 text-right font-medium ${activeGender === 'ikhwan' ? 'text-[#030164] font-bold bg-blue-50/40' : ''}`}>
+                    <td className={`py-3 px-4 text-right whitespace-nowrap font-mono font-medium ${activeGender === 'ikhwan' ? 'text-[#030164] font-bold bg-blue-50/40' : ''}`}>
                       Rp {b.ikhwan.toLocaleString('id-ID')}
                     </td>
-                    <td className={`py-3 px-4 text-right font-medium ${activeGender === 'akhwat' ? 'text-[#030164] font-bold bg-blue-50/40' : ''}`}>
+                    <td className={`py-3 px-4 text-right whitespace-nowrap font-mono font-medium ${activeGender === 'akhwat' ? 'text-[#030164] font-bold bg-blue-50/40' : ''}`}>
                       Rp {b.akhwat.toLocaleString('id-ID')}
                     </td>
                     <td className="py-3 px-4 text-slate-500 text-xs">{b.note}</td>
@@ -348,31 +348,31 @@ export default function SmpFeeInteractiveSection() {
                 ))}
                 
                 {/* Total Baris Normal */}
-                <tr className="bg-slate-100/80 font-bold text-slate-800 border-t-2 border-slate-300">
-                  <td className="py-3.5 px-4" colSpan={2}>Total Tarif Normal (Gelombang 2)</td>
-                  <td className="py-3.5 px-4 text-right text-base font-extrabold text-slate-900">Rp 7.300.000</td>
-                  <td className="py-3.5 px-4 text-right text-base font-extrabold text-slate-900">Rp 7.600.000</td>
-                  <td className="py-3.5 px-4 text-xs font-normal text-slate-600">Tarif Standar</td>
+                <tr className="bg-slate-100/90 font-bold text-slate-800 border-t-2 border-slate-300">
+                  <td className="py-3.5 px-4 font-bold text-slate-800" colSpan={2}>Total Tarif Normal (Gelombang 2)</td>
+                  <td className="py-3.5 px-4 text-right text-sm sm:text-base font-extrabold text-slate-900 whitespace-nowrap font-mono">Rp 7.300.000</td>
+                  <td className="py-3.5 px-4 text-right text-sm sm:text-base font-extrabold text-slate-900 whitespace-nowrap font-mono">Rp 7.600.000</td>
+                  <td className="py-3.5 px-4 text-xs font-normal text-slate-600 whitespace-nowrap">Tarif Standar</td>
                 </tr>
 
                 {/* Total Baris Gelombang 1 Diskon Umum (50%) */}
-                <tr className="bg-amber-50/70 font-bold text-amber-950">
-                  <td className="py-3.5 px-4" colSpan={2}>Total Gelombang 1 (Siswa Luar SDIT / Umum - Diskon 50%)</td>
-                  <td className="py-3.5 px-4 text-right text-base font-extrabold text-amber-950">Rp 6.050.000</td>
-                  <td className="py-3.5 px-4 text-right text-base font-extrabold text-amber-950">Rp 6.350.000</td>
-                  <td className="py-3.5 px-4 text-xs font-semibold text-amber-800">Hemat Rp 1.250.000</td>
+                <tr className="bg-amber-50/80 font-bold text-amber-950">
+                  <td className="py-3.5 px-4 font-bold text-amber-950" colSpan={2}>Total Gelombang 1 (Siswa Luar SDIT / Umum - Diskon 50%)</td>
+                  <td className="py-3.5 px-4 text-right text-sm sm:text-base font-extrabold text-amber-950 whitespace-nowrap font-mono">Rp 6.050.000</td>
+                  <td className="py-3.5 px-4 text-right text-sm sm:text-base font-extrabold text-amber-950 whitespace-nowrap font-mono">Rp 6.350.000</td>
+                  <td className="py-3.5 px-4 text-xs font-semibold text-amber-800 whitespace-nowrap">Hemat Rp 1.250.000</td>
                 </tr>
 
                 {/* Total Baris Gelombang 1 Diskon SDIT (70%) */}
                 <tr className="bg-[#030164] font-bold text-white">
-                  <td className="py-4 px-4" colSpan={2}>
+                  <td className="py-4 px-4 font-bold" colSpan={2}>
                     <span className="text-[#ffd51e] font-extrabold uppercase tracking-wide">
                       ★ Total Gelombang 1 (Khusus Alumni SDIT Al-Afiyah - Diskon 70%)
                     </span>
                   </td>
-                  <td className="py-4 px-4 text-right text-lg font-black text-[#ffd51e]">Rp 5.550.000</td>
-                  <td className="py-4 px-4 text-right text-lg font-black text-[#ffd51e]">Rp 5.850.000</td>
-                  <td className="py-4 px-4 text-xs font-semibold text-blue-200">Hemat Rp 1.750.000</td>
+                  <td className="py-4 px-4 text-right text-base sm:text-lg font-black text-[#ffd51e] whitespace-nowrap font-mono">Rp 5.550.000</td>
+                  <td className="py-4 px-4 text-right text-base sm:text-lg font-black text-[#ffd51e] whitespace-nowrap font-mono">Rp 5.850.000</td>
+                  <td className="py-4 px-4 text-xs font-semibold text-blue-200 whitespace-nowrap">Hemat Rp 1.750.000</td>
                 </tr>
               </tbody>
             </table>

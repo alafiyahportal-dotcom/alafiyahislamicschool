@@ -526,59 +526,59 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             {/* Table Breakdown */}
             <div className="mt-6 border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
               <div className="divide-y divide-slate-100 text-xs sm:text-sm">
-                <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
                   <span className="font-semibold text-slate-800">1. Infaq Formulir Pendaftaran</span>
-                  <span className="font-mono font-bold text-slate-900">Rp 200.000</span>
+                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 200.000</span>
                 </div>
                 
-                <div className="flex items-center justify-between p-3.5 sm:px-5 bg-white">
-                  <div>
-                    <span className="font-semibold text-slate-800">2. Infaq Pengembangan Sarana (Uang Bangunan)</span>
+                <div className="flex items-start sm:items-center justify-between gap-3 p-3.5 sm:px-5 bg-white">
+                  <div className="min-w-0 pr-2">
+                    <span className="font-semibold text-slate-800 block text-xs sm:text-sm">2. Infaq Pengembangan Sarana (Uang Bangunan)</span>
                     {discountBangunan > 0 && (
-                      <span className="block text-[11px] text-[#030164] font-bold">
+                      <span className="block text-[11px] text-[#030164] font-bold mt-0.5 leading-snug">
                         Potongan {smpDiscountType === 'sdit' ? '70% (SDIT Al-Afiyah)' : '50% (Pendaftar Umum)'}: -Rp {discountBangunan.toLocaleString('id-ID')}
                       </span>
                     )}
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0 flex flex-col sm:flex-row items-end sm:items-center gap-0.5 sm:gap-2 whitespace-nowrap pl-2">
                     {discountBangunan > 0 && (
-                      <span className="line-through text-slate-400 text-xs mr-2 font-mono">
+                      <span className="line-through text-slate-400 text-[11px] sm:text-xs font-mono whitespace-nowrap">
                         Rp {baseBangunan.toLocaleString('id-ID')}
                       </span>
                     )}
-                    <span className="font-mono font-bold text-[#030164]">
+                    <span className="font-mono font-bold text-[#030164] text-xs sm:text-sm whitespace-nowrap">
                       Rp {finalBangunan.toLocaleString('id-ID')}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
                   <span className="font-semibold text-slate-800">3. Fasilitas Pembelajaran Modern</span>
-                  <span className="font-mono font-bold text-slate-900">Rp 500.000</span>
+                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 500.000</span>
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 sm:px-5 bg-white">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-white">
                   <span className="font-semibold text-slate-800">
                     4. Paket Seragam Sekolah Lengkap ({smpGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat Syar\'i'})
                   </span>
-                  <span className="font-mono font-bold text-slate-900">
+                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">
                     Rp {seragamFee.toLocaleString('id-ID')}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
                   <span className="font-semibold text-slate-800">5. Paket Buku Pelajaran &amp; Modul</span>
-                  <span className="font-mono font-bold text-slate-900">Rp 1.000.000</span>
+                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 1.000.000</span>
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 sm:px-5 bg-white">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-white">
                   <span className="font-semibold text-slate-800">6. Program Kegiatan Murid (SCD, Outing, Mutaba&apos;ah)</span>
-                  <span className="font-mono font-bold text-slate-900">Rp 1.700.000</span>
+                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 1.700.000</span>
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 sm:px-5 bg-slate-50">
+                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
                   <span className="font-semibold text-slate-800">7. SPP Pendidikan (Bulan Pertama)</span>
-                  <span className="font-mono font-bold text-slate-900">Rp {sppFee.toLocaleString('id-ID')}</span>
+                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp {sppFee.toLocaleString('id-ID')}</span>
                 </div>
 
                 {/* Grand Total Bar */}
@@ -591,13 +591,13 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                       {discountBangunan > 0 ? `Hemat Rp ${discountBangunan.toLocaleString('id-ID')} pada Gelombang 1` : 'Tarif Biaya Normal Gelombang 2'}
                     </span>
                   </div>
-                  <div className="text-left sm:text-right">
+                  <div className="text-left sm:text-right shrink-0 whitespace-nowrap">
                     {discountBangunan > 0 && (
-                      <span className="text-xs line-through text-slate-400 font-mono block">
+                      <span className="text-xs line-through text-slate-400 font-mono block whitespace-nowrap">
                         Rp {baseTotal.toLocaleString('id-ID')}
                       </span>
                     )}
-                    <span className="text-2xl sm:text-3xl font-black font-mono text-[#ffd51e]">
+                    <span className="text-2xl sm:text-3xl font-black font-mono text-[#ffd51e] whitespace-nowrap">
                       Rp {finalTotal.toLocaleString('id-ID')}
                     </span>
                   </div>

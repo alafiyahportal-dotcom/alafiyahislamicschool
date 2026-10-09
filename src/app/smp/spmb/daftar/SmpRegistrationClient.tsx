@@ -49,7 +49,7 @@ export default function SmpRegistrationClient() {
     gender: 'LAKI_LAKI',
     nik: '',
     previousSchool: 'SDIT Al-Afiyah',
-    programInterest: 'Tahfidz Al-Qur\'an (Target 3 - 5+ Juz)',
+    extracurricularInterest: 'Futsal Club (Olahraga Prestasi)',
 
     // Data Orang Tua / Kontak (Hanya Pokok)
     parentName: '',
@@ -108,7 +108,8 @@ export default function SmpRegistrationClient() {
           schoolSpecificData: {
             admissionTrack: formData.admissionTrack,
             previousSchool: formData.previousSchool.trim(),
-            programInterest: formData.programInterest,
+            extracurricularInterest: formData.extracurricularInterest,
+            programInterest: 'Kurikulum Terpadu Al-Afiyah (Tahfidz, Sains, Diniyyah)',
           },
           parentData: {
             fatherName: formData.parentName.trim() || 'Orang Tua Murid',
@@ -141,9 +142,9 @@ export default function SmpRegistrationClient() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+    <div className="max-w-3xl mx-auto px-4 pt-24 sm:pt-28 pb-12 sm:pb-16">
       {/* Breadcrumb Nav */}
-      <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap">
+      <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap" aria-label="Breadcrumb">
         <Link href="/smp" className="hover:text-[#030164] transition-colors">Beranda SMP IT</Link>
         <ChevronRight className="w-3 h-3 text-slate-400" />
         <Link href="/smp/spmb" className="hover:text-[#030164] transition-colors">SPMB 2027/2028</Link>
@@ -412,21 +413,30 @@ export default function SmpRegistrationClient() {
               </div>
             </div>
 
-            {/* Peminatan Program */}
+            {/* Pilihan Ekstrakurikuler yang Diminati */}
             <div>
-              <label className="text-xs font-bold text-slate-800 block mb-1">
-                Peminatan Program Unggulan
-              </label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-bold text-slate-800 block">
+                  Pilihan Ekstrakurikuler yang Diminati <span className="text-rose-500">*</span>
+                </label>
+                <span className="text-[11px] text-slate-400">Pilih 1 ekskul utama</span>
+              </div>
               <select
-                value={formData.programInterest}
-                onChange={(e) => setFormData((p) => ({ ...p, programInterest: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] bg-white cursor-pointer"
+                value={formData.extracurricularInterest}
+                onChange={(e) => setFormData((p) => ({ ...p, extracurricularInterest: e.target.value }))}
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] bg-white cursor-pointer font-medium text-slate-800"
               >
-                <option value="Tahfidz Al-Qur'an (Target 3 - 5+ Juz)">Tahfidz Al-Qur&apos;an (Target 3 - 5+ Juz Mutqin)</option>
-                <option value="Futsal Development Program">Futsal Development Program (Olahraga Prestasi)</option>
-                <option value="Kelas Bahasa Arab Intensif">Kelas Bahasa Arab Intensif</option>
-                <option value="Program Reguler Terpadu">Program Reguler Terpadu</option>
+                <option value="Futsal Club (Olahraga Prestasi)">Futsal Club (Olahraga Prestasi)</option>
+                <option value="Pramuka SIT (Kepanduan Islam Terpadu)">Pramuka SIT (Kepanduan Islam Terpadu)</option>
+                <option value="Panahan & Olahraga Sunnah">Panahan &amp; Olahraga Sunnah</option>
+                <option value="English & Arabic Club (Klub Bahasa)">English &amp; Arabic Club (Klub Bahasa)</option>
+                <option value="Tata Boga & Cooking Class (Kewirausahaan)">Tata Boga &amp; Cooking Class (Kewirausahaan Murid)</option>
+                <option value="Kaligrafi & Seni Islami">Kaligrafi &amp; Seni Islami</option>
+                <option value="Palang Merah Remaja (PMR / UKS)">Palang Merah Remaja (PMR / UKS)</option>
               </select>
+              <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                *Seluruh program inti (Tahfidz Al-Qur&apos;an 3–5+ Juz, Bahasa Arab harian, sains &amp; pembiasaan adab) otomatis diperoleh semua murid secara terpadu.
+              </p>
             </div>
           </div>
 
