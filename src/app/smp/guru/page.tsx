@@ -176,12 +176,9 @@ export default async function SmpGuruPage() {
               className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#030164]/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between gap-2 mb-2.5">
-                  <span className="text-[11px] font-semibold text-[#030164] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/60 inline-flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#030164]" />
-                    {teacher.role}
-                  </span>
-                </div>
+                <p className="text-xs font-semibold text-[#030164] mb-1">
+                  {teacher.role}
+                </p>
 
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
                   {teacher.name}
