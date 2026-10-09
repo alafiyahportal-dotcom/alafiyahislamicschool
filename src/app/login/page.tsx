@@ -1,17 +1,58 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  ShieldCheck, 
   ArrowLeft,
-  ArrowRight, 
-  CheckCircle2, 
   Loader2,
   Eye,
-  EyeOff
+  EyeOff,
+  AlertCircle
 } from 'lucide-react';
+import { extractSubdomain } from '@/lib/domain';
+
+type UnitKey = 'sd' | 'tk' | 'smp';
+
+interface UnitInfo {
+  badge: string;
+  unitName: string;
+  tagline: string;
+  motto: string;
+  registerUrl: string;
+}
+
+const UNIT_MAP: Record<UnitKey, UnitInfo> = {
+  sd: {
+    badge: 'SD IT AL-AFIYAH MAJALENGKA',
+    unitName: 'SD IT Al-Afiyah Majalengka',
+    tagline: 'Portal Layanan Akademik & SPMB',
+    motto: 'Smart • Akhlaq • Fitrah',
+    registerUrl: '/ppdb/daftar?unit=sd',
+  },
+  tk: {
+    badge: 'TK IT AL-AFIYAH MAJALENGKA',
+    unitName: 'TK IT Al-Afiyah Majalengka',
+    tagline: 'Portal Layanan Akademik & SPMB',
+    motto: 'Pondasi Iman & Karakter Usia Dini',
+    registerUrl: '/ppdb/daftar?unit=tk',
+  },
+  smp: {
+    badge: 'SMP IT AL-AFIYAH MAJALENGKA',
+    unitName: 'SMP IT Al-Afiyah Majalengka',
+    tagline: 'Portal Layanan Akademik & SPMB',
+    motto: 'Generasi Qur\'ani, Mandiri & Berprestasi',
+    registerUrl: '/ppdb/daftar?unit=smp',
+  },
+};
+
+const DEFAULT_PORTAL: UnitInfo = {
+  badge: 'PORTAL AL-AFIYAH TERPADU',
+  unitName: 'Yayasan Pendidikan Imam Bonjol',
+  tagline: 'Portal Layanan Akademik & SPMB',
+  motto: 'TK IT • SD IT • SMP IT Al-Afiyah',
+  registerUrl: '/ppdb/daftar',
+};
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,6 +62,31 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  // Unit context detection (from subdomain or URL search param)
+  const [activeUnit, setActiveUnit] = useState<UnitKey | null>(null);
+  const [homeLink, setHomeLink] = useState('/');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const paramUnit = params.get('unit') as UnitKey | null;
+      const sub = extractSubdomain(window.location.host) as UnitKey | null;
+      const resolved = (paramUnit && ['sd', 'tk', 'smp'].includes(paramUnit)) ? paramUnit : sub;
+
+      if (resolved && ['sd', 'tk', 'smp'].includes(resolved)) {
+        setActiveUnit(resolved);
+        // If accessed via subdomain (e.g. sdit.alafiyah.id), '/' returns to that unit's home
+        if (sub === resolved) {
+          setHomeLink('/');
+        } else {
+          setHomeLink(`/${resolved}`);
+        }
+      }
+    }
+  }, []);
+
+  const currentInfo = activeUnit ? UNIT_MAP[activeUnit] : DEFAULT_PORTAL;
 
   const handleLogin = async (targetEmail = email, targetPass = password) => {
     setIsLoading(true);
@@ -44,94 +110,56 @@ export default function LoginPage() {
       // Success redirect
       router.push(data.redirectUrl);
     } catch {
-      setErrorMsg('Terjadi gangguan jaringan');
+      setErrorMsg('Terjadi gangguan jaringan, silakan coba lagi');
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#EEF2F6] flex flex-col justify-between py-10 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#F2FBF5] via-[#F8FCF9] to-[#EDF8F1] flex flex-col justify-between py-8 px-4 sm:px-6 lg:px-8 font-sans antialiased">
       
-      {/* Top Navigation Bar: Clean Back Link */}
-      <div className="max-w-md mx-auto w-full flex items-center justify-between pb-4">
+      {/* Top Navigation Bar */}
+      <header className="max-w-md mx-auto w-full flex items-center justify-between pb-4">
         <Link
-          href="/"
-          className="inline-flex items-center space-x-1.5 text-xs font-semibold text-slate-500 hover:text-[#0C368A] transition-colors"
+          href={homeLink}
+          className="inline-flex items-center space-x-1.5 text-xs font-bold text-slate-600 hover:text-emerald-700 transition-colors py-1.5 px-2.5 rounded-lg hover:bg-emerald-50"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-emerald-600" />
           <span>Kembali ke Beranda</span>
         </Link>
-        <span className="text-[11px] font-medium text-slate-400">
-          Portal Al-Afiyah • Yayasan Pendidikan Imam Bonjol
+        <span className="text-[11px] font-bold text-emerald-800/80 bg-emerald-100/60 px-2.5 py-1 rounded-full border border-emerald-200/50">
+          Portal Resmi Al-Afiyah
         </span>
-      </div>
+      </header>
 
-      {/* Main Container: Exact YPIB Floating Card */}
-      <div className="max-w-md mx-auto w-full my-auto">
-        <div className="bg-white rounded-[28px] p-8 sm:p-10 shadow-xl shadow-slate-200/70 border border-slate-100 relative">
+      {/* Main Container: High-Contrast Bold Emerald Card */}
+      <main className="max-w-md mx-auto w-full my-auto">
+        <div className="bg-white rounded-3xl p-7 sm:p-9 shadow-xl shadow-emerald-950/5 border border-emerald-100/80 relative">
           
-          {/* Header Brand Logo & Name */}
-          <div className="flex items-center space-x-3.5 mb-8">
-            {/* YPIB Official-Style Shield Crest SVG */}
-            <div className="w-12 h-14 relative flex-shrink-0 flex items-center justify-center">
-              <svg viewBox="0 0 100 120" className="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Outer Shield Navy */}
-                <path
-                  d="M50 5 L88 20 C88 65 50 112 50 112 C50 112 12 65 12 20 Z"
-                  fill="#0C368A"
-                  stroke="#F59E0B"
-                  strokeWidth="4"
-                />
-                {/* Inner Shield Yellow */}
-                <path
-                  d="M50 16 L80 28 C80 62 50 100 50 100 C50 100 20 62 20 28 Z"
-                  fill="#FBBF24"
-                />
-                {/* Open Book in White */}
-                <path
-                  d="M32 60 C40 56 46 58 50 63 C54 58 60 56 68 60 L68 76 C60 72 54 74 50 78 C46 74 40 72 32 76 Z"
-                  fill="#FFFFFF"
-                  stroke="#0C368A"
-                  strokeWidth="2.5"
-                />
-                {/* Central Flame / Torch */}
-                <path
-                  d="M50 36 C54 44 56 48 50 56 C44 48 46 44 50 36 Z"
-                  fill="#DC2626"
-                />
-                <circle cx="50" cy="46" r="3" fill="#F59E0B" />
-                {/* Base Ribbon */}
-                <rect x="25" y="86" width="50" height="8" rx="2" fill="#0C368A" />
-                <text x="50" y="93" fill="#F59E0B" fontSize="6" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">
-                  YPIB
-                </text>
-              </svg>
+          {/* Header Brand Section (No Logo - Clean, Bold Unit Identification) */}
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-900 text-[11px] sm:text-xs font-black uppercase tracking-wider mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#00A651] ring-2 ring-emerald-300" />
+              <span>{currentInfo.badge}</span>
             </div>
 
-            {/* Brand Text with Clean Vertical Divider */}
-            <div className="border-l-2 border-slate-200 pl-3.5">
-              <div className="text-base sm:text-lg font-black text-[#0C368A] tracking-tight leading-tight">
-                Portal Al-Afiyah
-              </div>
-              <div className="text-xs sm:text-sm font-extrabold text-[#0C368A] tracking-normal leading-tight mt-0.5">
-                Yayasan Pendidikan Imam Bonjol
-              </div>
-            </div>
-          </div>
-
-          {/* Headline & Subtitle */}
-          <div className="mb-7">
-            <h1 className="text-2xl sm:text-[26px] font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-[28px] font-black text-slate-900 tracking-tight leading-tight">
               Masuk ke Akun
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
-              Selamat datang di Portal Al-Afiyah Yayasan Pendidikan Imam Bonjol
+            
+            <p className="text-sm font-bold text-emerald-800 mt-1.5">
+              {currentInfo.unitName}
+            </p>
+            
+            <p className="text-xs font-medium text-slate-500 mt-0.5">
+              {currentInfo.tagline} • <span className="font-bold text-emerald-700">{currentInfo.motto}</span>
             </p>
           </div>
 
           {/* Error Message Box */}
           {errorMsg && (
-            <div className="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700">
+            <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs font-bold text-rose-700 flex items-start gap-2.5" role="alert">
+              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
@@ -141,80 +169,82 @@ export default function LoginPage() {
             
             {/* Alamat Email Field */}
             <div>
-              <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-bold text-slate-800 mb-1.5">
                 Alamat Email
               </label>
               <input
+                id="email"
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@email.com"
-                className="w-full px-4 py-3 text-sm bg-white border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0C368A] focus:ring-4 focus:ring-[#0C368A]/10 transition-all shadow-2xs"
+                className="w-full px-4 py-3 text-sm font-medium bg-slate-50/60 border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-[#00A651] focus:ring-4 focus:ring-[#00A651]/15 transition-all shadow-2xs"
               />
             </div>
 
             {/* Kata Sandi Field with Forgot Password Link */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs sm:text-sm font-semibold text-slate-700">
+                <label htmlFor="password" className="block text-xs sm:text-sm font-bold text-slate-800">
                   Kata Sandi
                 </label>
                 <Link
                   href="/ppdb/cek-status"
-                  className="text-xs font-semibold text-[#0C368A] hover:underline"
+                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Lupa sandi?
                 </Link>
               </div>
               <div className="relative">
                 <input
+                  id="password"
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Masukkan kata sandi"
-                  className="w-full pl-4 pr-11 py-3 text-sm bg-white border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0C368A] focus:ring-4 focus:ring-[#0C368A]/10 transition-all shadow-2xs"
+                  className="w-full pl-4 pr-11 py-3 text-sm font-medium bg-slate-50/60 border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-[#00A651] focus:ring-4 focus:ring-[#00A651]/15 transition-all shadow-2xs"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-emerald-700 cursor-pointer"
                   tabIndex={-1}
                   aria-label="Tampilkan atau sembunyikan kata sandi"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5 text-slate-400" /> : <Eye className="w-5 h-5 text-slate-400" />}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
 
             {/* Ingat Saya Checkbox */}
-            <div className="flex items-center space-x-2 pt-0.5">
+            <div className="flex items-center space-x-2 pt-1">
               <input
                 type="checkbox"
                 id="remember"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-300 text-[#0C368A] focus:ring-[#0C368A] cursor-pointer"
+                className="w-4 h-4 rounded border-slate-300 text-[#00A651] focus:ring-[#00A651] cursor-pointer accent-[#00A651]"
               />
-              <label htmlFor="remember" className="text-xs sm:text-sm text-slate-600 select-none cursor-pointer">
-                Ingat saya
+              <label htmlFor="remember" className="text-xs sm:text-sm font-semibold text-slate-700 select-none cursor-pointer">
+                Ingat saya di perangkat ini
               </label>
             </div>
 
-            {/* Primary Submit Button (Solid Deep Blue like YPIB in image) */}
+            {/* Primary Submit Button (Solid Bold Islamic Emerald Green) */}
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 py-3.5 px-6 rounded-full bg-[#0C368A] hover:bg-[#092b6e] text-white font-bold text-sm sm:text-base shadow-md shadow-[#0C368A]/25 hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.99]"
+              className="w-full mt-2 py-3.5 px-6 rounded-xl bg-[#00A651] hover:bg-[#008f45] active:bg-[#007a3b] text-white font-extrabold text-sm sm:text-base tracking-wide shadow-md shadow-emerald-700/25 hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.99]"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin text-white" />
-                  <span>Memverifikasi...</span>
+                  <span>Memverifikasi akun...</span>
                 </>
               ) : (
-                <span>Masuk</span>
+                <span>Masuk Sekarang</span>
               )}
             </button>
           </form>
@@ -222,11 +252,11 @@ export default function LoginPage() {
           {/* Divider & Registration Prompt */}
           <div className="border-t border-slate-100 my-6" />
 
-          <div className="text-center text-xs sm:text-sm text-slate-600">
-            <span>Belum punya akun? </span>
+          <div className="text-center text-xs sm:text-sm font-medium text-slate-600">
+            <span>Belum memiliki akun pendaftaran? </span>
             <Link
-              href="/ppdb/daftar"
-              className="font-bold text-[#0C368A] hover:underline"
+              href={currentInfo.registerUrl}
+              className="font-extrabold text-emerald-700 hover:text-emerald-800 hover:underline inline-block mt-0.5"
             >
               Daftar sekarang
             </Link>
@@ -234,13 +264,14 @@ export default function LoginPage() {
 
         </div>
 
-      </div>
+      </main>
 
-      {/* Footer copyright */}
-      <div className="max-w-md mx-auto w-full text-center text-xs text-slate-400 pt-6">
+      {/* Footer Copyright */}
+      <footer className="max-w-md mx-auto w-full text-center text-xs font-medium text-slate-500 pt-6">
         © 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Hak Cipta Dilindungi.
-      </div>
+      </footer>
 
     </div>
   );
 }
+
