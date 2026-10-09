@@ -14,8 +14,7 @@ import {
   ArrowRight,
   Calendar,
   MessageCircle,
-  ShieldCheck,
-  Sparkles
+  ShieldCheck
 } from 'lucide-react';
 
 export const metadata: Metadata = {

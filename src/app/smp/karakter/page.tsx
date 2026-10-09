@@ -17,7 +17,6 @@ import {
   Users, 
   ArrowRight,
   Smartphone,
-  Sparkles,
   Trophy,
   Flame
 } from 'lucide-react';

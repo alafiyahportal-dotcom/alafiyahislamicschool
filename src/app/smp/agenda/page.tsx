@@ -12,7 +12,6 @@ import {
   MapPin, 
   CheckCircle2, 
   Tag,
-  Sparkles,
   ArrowRight
 } from 'lucide-react';
 

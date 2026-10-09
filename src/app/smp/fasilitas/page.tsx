@@ -11,7 +11,6 @@ import {
   ChevronRight, 
   CheckCircle2, 
   ShieldCheck, 
-  Sparkles, 
   Wifi, 
   Monitor, 
   Trophy, 

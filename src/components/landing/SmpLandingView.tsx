@@ -26,7 +26,7 @@ import {
   CreditCard, 
   MapPin,
   ChevronDown,
-  Sparkles,
+  Flame,
   Trophy,
   BookOpen,
   Languages,
@@ -97,7 +97,7 @@ const SMP_PROGRAMS = [
     category: 'Bakat & Minat',
     desc: 'Wadah eksplorasi potensi murid: Pramuka SIT, Tata Boga (Cooking Class), Panahan, Kaligrafi, dan English Club untuk bekal kecakapan hidup modern.',
     href: '/smp/program',
-    icon: Sparkles,
+    icon: Flame,
   },
 ];
 

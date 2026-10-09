@@ -12,8 +12,7 @@ import {
   Quote, 
   CheckCircle2, 
   ArrowRight,
-  MessageSquareHeart,
-  Sparkles
+  MessageSquareHeart
 } from 'lucide-react';
 
 export const metadata: Metadata = {

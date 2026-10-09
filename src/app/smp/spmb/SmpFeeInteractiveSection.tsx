@@ -9,7 +9,7 @@ import {
   Check, 
   Copy, 
   CreditCard, 
-  Sparkles, 
+  Compass, 
   ChevronDown, 
   ChevronUp, 
   Table,
@@ -538,7 +538,7 @@ export default function SmpFeeInteractiveSection() {
         <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200 text-[#030164] flex items-center justify-center">
-              <Sparkles className="w-4 h-4" />
+              <Compass className="w-4 h-4" />
             </div>
             <h4 className="text-base sm:text-lg font-bold text-slate-900">
               Alur Seleksi &amp; Observasi Murid

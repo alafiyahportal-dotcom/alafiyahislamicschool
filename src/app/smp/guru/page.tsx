@@ -14,8 +14,7 @@ import {
   GraduationCap, 
   HeartHandshake, 
   Trophy,
-  Languages,
-  Sparkles
+  Languages
 } from 'lucide-react';
 
 export const metadata: Metadata = {

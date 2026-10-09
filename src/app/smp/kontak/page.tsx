@@ -17,8 +17,7 @@ import {
   ArrowLeft,
   Navigation,
   CreditCard,
-  Copy,
-  Sparkles
+  Copy
 } from 'lucide-react';
 import Link from 'next/link';
 

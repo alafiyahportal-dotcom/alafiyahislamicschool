@@ -11,7 +11,6 @@ import {
   ChevronRight, 
   Calendar, 
   MapPin, 
-  Sparkles,
   ArrowRight,
   Trophy,
   BookOpen,

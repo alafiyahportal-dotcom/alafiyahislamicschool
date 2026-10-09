@@ -19,7 +19,6 @@ import {
   Trophy,
   Languages,
   Smartphone,
-  Sparkles,
   Flame
 } from 'lucide-react';
 

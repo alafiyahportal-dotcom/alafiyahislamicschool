@@ -19,8 +19,7 @@ import {
   Check,
   ExternalLink,
   ChevronRight,
-  ArrowLeft,
-  Sparkles
+  ArrowLeft
 } from 'lucide-react';
 
 interface SearchResultItem {

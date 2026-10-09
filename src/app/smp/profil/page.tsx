@@ -20,7 +20,7 @@ import {
   Phone, 
   Clock, 
   ArrowRight,
-  Sparkles,
+  Target,
   Users,
   Compass,
   Trophy,
@@ -176,7 +176,7 @@ export default async function SmpProfilPage() {
           <div className="lg:col-span-5 bg-gradient-to-br from-[#030164] to-[#0d0a7a] text-white p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-xl relative overflow-hidden border border-blue-900/50">
             <div className="absolute top-0 right-0 w-48 h-48 bg-[#ffd51e]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="text-xs font-bold text-[#ffd51e] uppercase tracking-widest mb-2 flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
+              <Target className="w-4 h-4" />
               <span>Visi Utama Sekolah</span>
             </div>
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-snug">

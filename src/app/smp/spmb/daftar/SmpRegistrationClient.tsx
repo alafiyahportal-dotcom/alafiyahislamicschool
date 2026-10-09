@@ -21,7 +21,6 @@ import {
   BookOpen,
   Trophy,
   Percent,
-  Sparkles,
   MapPin,
   School,
   MessageCircle
