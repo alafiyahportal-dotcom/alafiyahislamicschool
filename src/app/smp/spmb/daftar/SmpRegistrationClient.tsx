@@ -143,7 +143,7 @@ export default function SmpRegistrationClient() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 sm:py-12">
       {/* Breadcrumb Nav */}
-      <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6">
+      <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap">
         <Link href="/smp" className="hover:text-[#030164] transition-colors">Beranda SMP IT</Link>
         <ChevronRight className="w-3 h-3 text-slate-400" />
         <Link href="/smp/spmb" className="hover:text-[#030164] transition-colors">SPMB 2027/2028</Link>

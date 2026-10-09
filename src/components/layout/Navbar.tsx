@@ -278,7 +278,7 @@ export default function Navbar({
                   { label: '6 Program Unggulan SMP IT', href: '/smp/program', desc: 'Tahfidz 3-5+ Juz, Bahasa Arab aktif & Futsal' },
                   { label: 'SCD & Mutaba\'ah Digital', href: '/smp/karakter', desc: 'Student Character Development & adab remaja' },
                   { label: 'Fasilitas & Sarana Belajar', href: '/smp/fasilitas', desc: 'Ruang kelas ber-AC, lab komputer & lapangan' },
-                  { label: 'Testimoni Wali Santri', href: '/smp/testimoni', desc: 'Pengalaman & apresiasi orang tua santri' },
+                  { label: 'Testimoni Wali Murid', href: '/smp/testimoni', desc: 'Pengalaman & apresiasi orang tua murid' },
                 ]
               : [
                   { label: 'Kurikulum & Program Unggulan', href: `${brandConfig.homeUrl}#programs`, desc: 'Pembelajaran terintegrasi & adab harian' },
@@ -294,7 +294,7 @@ export default function Navbar({
       items: [
         { label: activeSlug === 'sd' ? 'Warta SDIT Terbaru' : activeSlug === 'smp' ? 'Warta SMP IT Terbaru' : 'Warta Sekolah Terbaru', href: activeSlug === 'sd' ? '/sd/berita' : activeSlug === 'smp' ? '/smp/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'), desc: 'Liputan kegiatan & informasi terkini' },
         { label: 'Artikel & Kajian Islam', href: activeSlug === 'sd' ? '/sd/berita?cat=kajian' : activeSlug === 'smp' ? '/smp/berita?cat=kajian' : (activeSlug ? `/berita?cat=kajian&school=${activeSlug}` : '/berita?cat=kajian'), desc: 'Tausiyah, adab & wawasan keislaman' },
-        { label: activeSlug === 'sd' ? 'Prestasi Murid SDIT' : activeSlug === 'smp' ? 'Prestasi Santri SMP IT' : 'Prestasi Murid Al-Afiyah', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : activeSlug === 'smp' ? '/smp/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi'), desc: 'Juara olimpiade & musabaqah hifdzil Qur’an' },
+        { label: activeSlug === 'sd' ? 'Prestasi Murid SDIT' : activeSlug === 'smp' ? 'Prestasi Murid SMP IT' : 'Prestasi Murid Al-Afiyah', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : activeSlug === 'smp' ? '/smp/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi'), desc: 'Juara turnamen futsal, tahfidz & sains' },
         { label: 'Agenda & Kalender Akademik', href: activeSlug === 'sd' ? '/sd/agenda' : activeSlug === 'smp' ? '/smp/agenda' : (activeSlug ? `/agenda?school=${activeSlug}` : '/agenda'), desc: 'Jadwal ujian, libur & kegiatan resmi' },
       ],
     },
@@ -315,7 +315,7 @@ export default function Navbar({
       href: '#',
       hasDropdown: true,
       items: [
-        { label: activeSlug === 'smp' ? 'SIAKAD & Mutaba\'ah Santri' : 'SIAKAD Mobile Murid (iOS)', href: activeSlug === 'sd' ? '/sd/siakad' : activeSlug === 'smp' ? '/smp/siakad' : (activeSlug ? `/portal/siakad?school=${activeSlug}` : '/portal/siakad'), desc: 'Portal presensi QR, capaian tahfidz & rapor digital' },
+        { label: activeSlug === 'smp' ? 'SIAKAD & Mutaba\'ah Murid' : 'SIAKAD Mobile Murid (iOS)', href: activeSlug === 'sd' ? '/sd/siakad' : activeSlug === 'smp' ? '/smp/siakad' : (activeSlug ? `/portal/siakad?school=${activeSlug}` : '/portal/siakad'), desc: 'Portal presensi QR, capaian tahfidz & rapor digital' },
         { label: 'Kemitraan Mitra Afiliasi', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
         { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir'), desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
         { 
@@ -938,18 +938,20 @@ export default function Navbar({
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl ${
                   activeSlug === 'sd'
                     ? 'bg-[#00A651] hover:bg-[#008f45]'
+                    : activeSlug === 'smp'
+                    ? 'bg-[#030164] hover:bg-blue-900 border border-[#ffd51e]/40'
                     : 'bg-softwater-dark hover:bg-softwater-deep'
                 } text-white font-extrabold text-xs shadow-sm hover:shadow transition-all group`}
               >
                 <div className="text-left">
-                  <div className="tracking-wide uppercase leading-tight">
+                  <div className={`tracking-wide uppercase leading-tight ${activeSlug === 'smp' ? 'text-[#ffd51e]' : ''}`}>
                     {brandConfig.ctaText}
                   </div>
-                  <div className="text-[10px] text-emerald-100 font-medium normal-case mt-0.5 opacity-90">
+                  <div className={`text-[10px] font-medium normal-case mt-0.5 opacity-90 ${activeSlug === 'smp' ? 'text-blue-200' : 'text-emerald-100'}`}>
                     Tahun Ajaran 2027/2028
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-white shrink-0 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className={`w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform ${activeSlug === 'smp' ? 'text-[#ffd51e]' : 'text-white'}`} />
               </Link>
 
               {/* Login Portal Link (Rata Kiri) */}
@@ -957,10 +959,14 @@ export default function Navbar({
                 href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
                 prefetch={true}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-200 hover:border-emerald-300 bg-slate-50/80 hover:bg-emerald-50/50 text-slate-800 transition-all group"
+                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 transition-all group ${
+                  activeSlug === 'smp'
+                    ? 'hover:border-blue-300 bg-slate-50/80 hover:bg-blue-50/50'
+                    : 'hover:border-emerald-300 bg-slate-50/80 hover:bg-emerald-50/50'
+                }`}
               >
                 <div className="flex items-center gap-2.5 text-left">
-                  <LogIn className="w-4 h-4 text-[#00A651] shrink-0" />
+                  <LogIn className={`w-4 h-4 shrink-0 ${activeSlug === 'smp' ? 'text-[#030164]' : 'text-[#00A651]'}`} />
                   <div className="text-left">
                     <div className="text-xs font-bold text-slate-800 leading-tight">
                       Login Portal Layanan &amp; Akademik
@@ -970,19 +976,31 @@ export default function Navbar({
                     </div>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 group-hover:text-emerald-600 transition-all shrink-0" />
+                <ChevronRight className={`w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-all shrink-0 ${
+                  activeSlug === 'smp' ? 'group-hover:text-[#030164]' : 'group-hover:text-emerald-600'
+                }`} />
               </Link>
 
               {/* WhatsApp Helpdesk (Rata Kiri) */}
               <a
-                href={activeSlug === 'sd' ? 'https://wa.me/6281310139001' : 'https://wa.me/6281223344552'}
+                href={
+                  activeSlug === 'sd' 
+                    ? 'https://wa.me/6281310139001' 
+                    : activeSlug === 'smp'
+                    ? 'https://wa.me/6282249357893'
+                    : 'https://wa.me/6281223344552'
+                }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center gap-2.5 px-4 py-2 rounded-xl text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50 transition-all text-left"
+                className={`w-full flex items-center gap-2.5 px-4 py-2 rounded-xl text-slate-600 transition-all text-left ${
+                  activeSlug === 'smp'
+                    ? 'hover:text-[#030164] hover:bg-blue-50/50'
+                    : 'hover:text-emerald-700 hover:bg-emerald-50/50'
+                }`}
               >
-                <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <MessageCircle className={`w-4 h-4 shrink-0 ${activeSlug === 'smp' ? 'text-[#030164]' : 'text-emerald-600'}`} />
                 <span className="text-xs font-semibold">
-                  {activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : 'Pusat Bantuan WhatsApp'}
+                  {activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : activeSlug === 'smp' ? 'Pusat Bantuan WhatsApp SMP IT' : 'Pusat Bantuan WhatsApp'}
                 </span>
               </a>
             </div>

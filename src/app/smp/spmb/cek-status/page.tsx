@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
@@ -120,16 +120,16 @@ function CheckStatusSmpContent() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#ffd51e] selection:text-[#030164]">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
       <Navbar schoolSlug="smp" />
 
       {/* Hero Header */}
-      <section className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white pt-24 sm:pt-28 pb-16 sm:pb-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white pt-24 sm:pt-28 pb-14 sm:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffd51e_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <nav className="flex items-center gap-1.5 text-xs text-blue-200/90 mb-5" aria-label="Breadcrumb">
+          <nav className="flex items-center gap-1.5 text-xs text-blue-200/90 mb-5 flex-wrap" aria-label="Breadcrumb">
             <Link href="/smp" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Beranda SMP IT</span>
@@ -141,16 +141,16 @@ function CheckStatusSmpContent() {
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-xs font-bold tracking-wider uppercase mb-4 backdrop-blur-xs">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-3 backdrop-blur-xs">
               <Search className="w-3.5 h-3.5" />
               <span>LACAK PENDAFTARAN MURID SMP IT</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Cek Status Pendaftaran SPMB
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
               Pantau verifikasi berkas, konfirmasi infaq pendaftaran, serta pengumuman observasi calon murid SMP IT Al-Afiyah Tahun Ajaran 2027/2028 secara transparan.
             </p>
           </div>
@@ -158,10 +158,10 @@ function CheckStatusSmpContent() {
       </section>
 
       {/* Main Search Interface */}
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 pb-16 w-full space-y-8">
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20 pb-16 w-full space-y-6 sm:space-y-8">
         
         {/* Search Input Box */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4">
+        <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4">
           <form onSubmit={handleSearch} className="space-y-4">
             <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
               Masukkan Nomor Registrasi / Nama Murid / No. WhatsApp:
@@ -175,14 +175,14 @@ function CheckStatusSmpContent() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Contoh: REG-SMP-2027-0001 atau nama murid"
-                  className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-300 text-sm focus:outline-hidden focus:border-[#030164] shadow-xs"
+                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 rounded-2xl border border-slate-300 text-sm focus:outline-hidden focus:border-[#030164] shadow-xs"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-8 py-3.5 rounded-2xl bg-[#030164] hover:bg-blue-900 text-[#ffd51e] font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 shrink-0 disabled:opacity-50"
+                className="w-full sm:w-auto px-8 py-3 sm:py-3.5 rounded-2xl bg-[#030164] hover:bg-blue-900 text-[#ffd51e] font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 shrink-0 disabled:opacity-50 cursor-pointer active:scale-95"
               >
                 {isLoading ? (
                   <>
@@ -227,7 +227,7 @@ function CheckStatusSmpContent() {
               results.map((item) => (
                 <div 
                   key={item.id}
-                  className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all space-y-5"
+                  className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all space-y-4 sm:space-y-5"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-100">
                     <div>

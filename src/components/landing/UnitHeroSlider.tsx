@@ -143,7 +143,7 @@ function HeroContent({
       {/* Single Primary CTA — slim, fit-content, left-aligned with the text margin */}
       <Link
         href={rawLink}
-        className={`mt-6 inline-flex h-11 items-center justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group ${primaryBtnClass}`}
+        className={`mt-6 inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${primaryBtnClass}`}
       >
         <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
         <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
@@ -151,11 +151,11 @@ function HeroContent({
 
       {/* Trust Points - mobile: left-aligned stacked list with hairline dividers; sm+: plain inline row */}
       {slide.trustItems && slide.trustItems.length > 0 && (
-        <ul className="mt-6 sm:mt-8 w-full flex flex-col gap-2.5 text-left text-xs sm:text-sm font-medium text-neutral-200 space-y-1 sm:space-y-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:font-semibold">
+        <ul className="mt-5 sm:mt-8 w-full flex flex-col gap-2.5 text-left text-xs sm:text-sm font-medium text-neutral-200 space-y-1 sm:space-y-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:font-semibold">
           {slide.trustItems.map((item, tIdx) => (
             <li
               key={tIdx}
-              className="border-l-2 border-emerald-500/60 pl-2.5 leading-snug tracking-wide sm:border-l sm:border-white/20 sm:pl-0 sm:whitespace-nowrap font-medium text-neutral-200"
+              className={`border-l-2 ${badgeClass.includes('ffd51e') ? 'border-[#ffd51e]' : 'border-emerald-500/60'} pl-2.5 leading-snug tracking-wide sm:border-l sm:border-white/20 sm:pl-0 sm:whitespace-nowrap font-medium text-neutral-200`}
             >
               {item.text}
             </li>

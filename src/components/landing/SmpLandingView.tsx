@@ -270,10 +270,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 shrink-0 w-full md:w-auto">
             <Link
               href={ppdbUrl}
-              className="px-5 py-2.5 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95 inline-flex items-center gap-1.5"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95 inline-flex items-center justify-center gap-1.5 text-center"
             >
               <span>Daftar Online</span>
               <ArrowRight className="w-4 h-4" />
@@ -282,7 +282,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all inline-flex items-center gap-1.5"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all inline-flex items-center justify-center gap-1.5 text-center"
             >
               <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
               <span>Tanya Admin WA</span>
@@ -761,10 +761,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-slate-200 flex flex-wrap gap-2.5">
+                <div className="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                   <Link
                     href={ppdbUrl}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#030164] hover:bg-[#07038c] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm active:scale-95"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#030164] hover:bg-[#07038c] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm active:scale-95 text-center"
                   >
                     <span>Daftar Sekarang Online</span>
                     <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
@@ -774,7 +774,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                     href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-bold text-xs transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-bold text-xs transition-all text-center"
                   >
                     <MessageCircle className="w-4 h-4 text-[#030164]" />
                     <span>WhatsApp Panitia (0822-4935-7893)</span>
@@ -1144,10 +1144,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             Daftarkan putra-putri tercinta sekarang juga. Dapatkan potongan biaya uang bangunan hingga 70% sebelum 28 Februari 2027.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-4">
             <Link
               href={ppdbUrl}
-              className="px-8 py-4 rounded-2xl bg-[#ffd51e] text-[#030164] font-black text-sm uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-lg active:scale-95 inline-flex items-center gap-2"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#ffd51e] text-[#030164] font-black text-xs sm:text-sm uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-lg active:scale-95 inline-flex items-center justify-center gap-2 text-center"
             >
               <span>Daftar SPMB Online Sekarang</span>
               <ArrowRight className="w-4 h-4 stroke-[3]" />
@@ -1156,9 +1156,9 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
               href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-sm uppercase tracking-wider transition-all inline-flex items-center gap-2"
+              className="w-full sm:w-auto px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 text-center"
             >
-              <MessageCircle className="w-5 h-5 text-[#ffd51e]" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffd51e]" />
               <span>Konsultasi WhatsApp Admin</span>
             </a>
           </div>
