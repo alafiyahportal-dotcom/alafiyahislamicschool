@@ -135,6 +135,51 @@ export default function LoginPage() {
 
   const currentTheme = UNIT_THEMES[activeUnit] || UNIT_THEMES.sd;
 
+  // Dynamically synchronize browser tab title & favicon based on active unit
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    // 1. Update Document Title
+    document.title = `Masuk ke Akun | ${currentTheme.name}`;
+
+    // 2. Select matching favicon icon
+    const iconHref = activeUnit === 'smp' 
+      ? '/images/smp-logo.png' 
+      : activeUnit === 'sd' || activeUnit === 'tk' 
+      ? '/images/sd-logo.png' 
+      : '/favicon.ico';
+    const iconType = activeUnit === 'yayasan' ? 'image/x-icon' : 'image/png';
+
+    // 3. Update existing icon link elements in head
+    const existingIcons = document.querySelectorAll<HTMLLinkElement>(
+      "link[rel*='icon'], link[rel='shortcut icon'], link[rel='apple-touch-icon']"
+    );
+
+    if (existingIcons.length === 0) {
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = iconType;
+      link.href = iconHref;
+      document.head.appendChild(link);
+    } else {
+      existingIcons.forEach((el) => {
+        el.type = iconType;
+        el.href = iconHref;
+      });
+    }
+
+    // 4. Force browser tab to refresh icon by appending clean icon element
+    const freshIcon = document.createElement('link');
+    freshIcon.rel = 'icon';
+    freshIcon.type = iconType;
+    freshIcon.href = `${iconHref}?unit=${activeUnit}`;
+    document.head.appendChild(freshIcon);
+
+    return () => {
+      freshIcon.remove();
+    };
+  }, [activeUnit, currentTheme]);
+
   const handleLogin = async (targetEmail = email, targetPass = password) => {
     setIsLoading(true);
     setErrorMsg('');

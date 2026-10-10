@@ -235,6 +235,9 @@ export default proxy;
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|images|icons|uploads|favicon\\.ico|manifest\\.json|siakad-manifest\\.json|.*\\.(?:png|jpg|jpeg|gif|svg|webp|avif|ico|woff2?|ttf|eot|mp4|pdf|json)).*)',
+    '/((?!_next/static|_next/image|images|icons|uploads|manifest\\.json|siakad-manifest\\.json|.*\\.(?:jpg|jpeg|gif|svg|webp|avif|woff2?|ttf|eot|mp4|pdf|json)).*)',
+    '/favicon.ico',
+    '/icon.png',
+    '/apple-icon.png',
   ],
 };

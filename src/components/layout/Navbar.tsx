@@ -655,7 +655,7 @@ export default function Navbar({
 
                 {/* Login Link (Clean Text Only) */}
                 <Link
-                  href="/login"
+                  href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
                   prefetch={true}
                   title="Masuk ke Portal Layanan & Sistem Akademik"
                   className={`px-3 py-1.5 xl:py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 ${
