@@ -175,30 +175,9 @@ export default function LoginPage() {
           <span>Kembali ke Beranda</span>
         </Link>
 
-        {/* Minimal Unit Switcher Pills */}
-        <div className="inline-flex items-center bg-white p-1 rounded-full border border-slate-200 shadow-xs">
-          {(['yayasan', 'sd', 'smp', 'tk'] as UnitKey[]).map((key) => {
-            const isSelected = activeUnit === key;
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => {
-                  setActiveUnit(key);
-                  setErrorMsg('');
-                }}
-                className={`px-2.5 py-1 text-[11px] font-bold rounded-full transition-all cursor-pointer ${
-                  isSelected
-                    ? 'text-white shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-                style={isSelected ? { backgroundColor: UNIT_THEMES[key].primaryColor } : undefined}
-              >
-                {UNIT_THEMES[key].label}
-              </button>
-            );
-          })}
-        </div>
+        <span className="text-xs font-semibold text-slate-600 bg-white py-1.5 px-3 rounded-full border border-slate-200 shadow-xs">
+          {currentTheme.name}
+        </span>
       </header>
 
       {/* Main Container: Modern Mobile Card Layout */}
