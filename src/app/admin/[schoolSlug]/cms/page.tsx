@@ -459,12 +459,28 @@ export default async function SchoolCMSEditorPage({
     ? sectionsMap.testimonials
     : defaultTestimonialsForSchool;
 
-  const tuitionPayload = sectionsMap.tuition || {
-    registrationFee: school.registrationFee || (schoolSlug === 'tk' ? 150000 : 250000),
-    monthlyTuition: schoolSlug === 'tk' ? 250000 : schoolSlug === 'sd' ? 400000 : 650000,
-    developmentFee: schoolSlug === 'tk' ? 2500000 : schoolSlug === 'sd' ? 3500000 : 7000000,
-    quota: school.quota || 60,
-    waveName: school.waveName || (schoolSlug === 'sd' ? 'Gelombang 1 (T.A. 2027/2028)' : 'Gelombang 1 (2027/2028)')
+  const rawTuition = (sectionsMap.tuition as any) || {};
+  const tuitionPayload = {
+    ...rawTuition,
+    registrationFee: rawTuition.registrationFee ?? school.registrationFee ?? (schoolSlug === 'tk' ? 150000 : schoolSlug === 'smp' ? 200000 : 250000),
+    monthlyTuition: rawTuition.monthlyTuition ?? (schoolSlug === 'tk' ? 250000 : schoolSlug === 'sd' ? 450000 : 300000),
+    developmentFee: rawTuition.developmentFee ?? rawTuition.buildingFee ?? (schoolSlug === 'tk' ? 2500000 : schoolSlug === 'sd' ? 3500000 : 2500000),
+    buildingFee: rawTuition.buildingFee ?? rawTuition.developmentFee ?? (schoolSlug === 'tk' ? 2500000 : schoolSlug === 'sd' ? 3500000 : 2500000),
+    learningFacilities: rawTuition.learningFacilities ?? (schoolSlug === 'smp' ? 500000 : undefined),
+    uniformIkhwan: rawTuition.uniformIkhwan ?? (schoolSlug === 'smp' ? 1100000 : undefined),
+    uniformAkhwat: rawTuition.uniformAkhwat ?? (schoolSlug === 'smp' ? 1400000 : undefined),
+    bookPackage: rawTuition.bookPackage ?? (schoolSlug === 'smp' ? 1000000 : undefined),
+    studentActivities: rawTuition.studentActivities ?? (schoolSlug === 'smp' ? 1700000 : undefined),
+    quota: rawTuition.quota ?? school.quota ?? (schoolSlug === 'tk' ? 30 : 60),
+    waveName: rawTuition.waveName ?? school.waveName ?? (schoolSlug === 'sd' ? 'Gelombang 1 (T.A. 2027/2028)' : 'Gelombang 1 (2027/2028)'),
+    discounts: rawTuition.discounts ?? (schoolSlug === 'smp' ? [
+      { title: 'FREE 70% Uang Bangunan', target: 'Khusus Siswa Lulusan SDIT Al Afiyah', saving: 1750000, finalBuildingFee: 750000 },
+      { title: 'FREE 50% Uang Bangunan', target: 'Untuk Siswa dari Luar SDIT (Umum)', saving: 1250000, finalBuildingFee: 1250000 }
+    ] : undefined),
+    waves: rawTuition.waves ?? (schoolSlug === 'smp' ? [
+      { name: 'SPMB Gelombang 1', period: '1 Oktober 2026 – 28 Februari 2027', status: 'Sedang Dibuka' },
+      { name: 'SPMB Gelombang 2', period: '1 Maret 2027 – 30 Juni 2027', status: 'Tahap Lanjutan' }
+    ] : undefined)
   };
 
   // Ensure SDIT slides adhere strictly to the universal headline (no 'Ananda' and identical text across slides)

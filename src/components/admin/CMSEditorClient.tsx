@@ -44,7 +44,10 @@ import {
   Tag,
   Percent,
   MessageCircle,
-  FileText
+  FileText,
+  Download,
+  ZoomIn,
+  Copy
 } from 'lucide-react';
 import { UnitSlideData } from '@/components/landing/UnitHeroSlider';
 import { compressImageClient } from '@/lib/image-compress';
@@ -105,8 +108,27 @@ export interface CMSInitialData {
     registrationFee: number;
     monthlyTuition: number;
     developmentFee: number;
+    buildingFee?: number;
+    learningFacilities?: number;
+    uniformIkhwan?: number;
+    uniformAkhwat?: number;
+    bookPackage?: number;
+    studentActivities?: number;
+    totalIkhwan?: number;
+    totalAkhwat?: number;
     quota?: number;
     waveName?: string;
+    discounts?: Array<{
+      title: string;
+      target: string;
+      saving: number;
+      finalBuildingFee?: number;
+    }>;
+    waves?: Array<{
+      name: string;
+      period: string;
+      status: string;
+    }>;
   };
   affiliate?: AffiliateCMSData;
   presetImages?: PresetImage[];
@@ -423,6 +445,12 @@ export default function CMSEditorClient({
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Simulator state for SMP tuition preview
+  const [smpPreviewGender, setSmpPreviewGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
+  const [smpPreviewDiscount, setSmpPreviewDiscount] = useState<'sdit' | 'umum' | 'normal'>('sdit');
+  const [smpActivePoster, setSmpActivePoster] = useState<string>('/images/smp-spmb-biaya.png');
+  const [copiedBankAcc, setCopiedBankAcc] = useState<boolean>(false);
+
   // Fallback slides if empty
   const defaultSdSlides: UnitSlideData[] = [
     {
@@ -618,7 +646,12 @@ export default function CMSEditorClient({
       } else if (activeTab === 'testimonials') {
         payloadToSave = formData.testimonials;
       } else if (activeTab === 'tuition') {
-        payloadToSave = formData.tuition;
+        const devFee = formData.tuition.buildingFee || formData.tuition.developmentFee || 2500000;
+        payloadToSave = {
+          ...formData.tuition,
+          developmentFee: devFee,
+          buildingFee: devFee,
+        };
       } else if (activeTab === 'affiliate') {
         payloadToSave = formData.affiliate || DEFAULT_AFFILIATE_CONTENT;
       } else if (activeTab === 'sd_karakter') {
@@ -1486,6 +1519,307 @@ export default function CMSEditorClient({
                   </div>
                 </div>
               </div>
+            ) : schoolSlug === 'smp' ? (
+              <div className="p-6 sm:p-10 bg-slate-50 min-h-[400px]">
+                <div className="max-w-5xl mx-auto space-y-6">
+                  <div className="text-center">
+                    <span className="text-xs font-bold text-[#030164] uppercase tracking-widest bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200 inline-flex items-center gap-1.5 shadow-2xs">
+                      <CreditCard className="w-3.5 h-3.5 text-[#030164]" />
+                      <span>Rincian Investasi Pendidikan &amp; Brosur Resmi SPMB SMP IT 2027/2028</span>
+                    </span>
+                  </div>
+
+                  {/* Simulator Container */}
+                  <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-7 space-y-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                      <div>
+                        <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#030164]">
+                          <span className="w-4 h-[2px] bg-[#030164] rounded-full inline-block" />
+                          <span>Simulasi Biaya Masuk &amp; Diskon Gelombang 1</span>
+                        </div>
+                        <h4 className="text-lg font-black text-slate-900 mt-1">
+                          Tabel Biaya Pendidikan SPMB SMP IT Al-Afiyah
+                        </h4>
+                      </div>
+
+                      {/* Gender Selector */}
+                      <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 self-start sm:self-auto">
+                        <button
+                          type="button"
+                          onClick={() => setSmpPreviewGender('ikhwan')}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            smpPreviewGender === 'ikhwan'
+                              ? 'bg-[#030164] text-white shadow-xs'
+                              : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          Ikhwan (Putra)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setSmpPreviewGender('akhwat')}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            smpPreviewGender === 'akhwat'
+                              ? 'bg-[#030164] text-white shadow-xs'
+                              : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          Akhwat (Putri)
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Discount Category Selector */}
+                    <div>
+                      <label className="text-[11px] font-bold text-slate-700 block mb-2 uppercase tracking-wider">
+                        Kategori Pendaftar (Simulasi Diskon Uang Bangunan):
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setSmpPreviewDiscount('sdit')}
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                            smpPreviewDiscount === 'sdit'
+                              ? 'bg-blue-50/90 border-[#030164] ring-2 ring-[#030164]/20'
+                              : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs font-bold text-[#030164]">Alumni SDIT Al Afiyah</span>
+                            <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-[#030164] text-[#ffd51e]">
+                              Diskon 70%
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-blue-900 font-semibold">Hemat Rp 1.750.000 Uang Bangunan</p>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setSmpPreviewDiscount('umum')}
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                            smpPreviewDiscount === 'umum'
+                              ? 'bg-amber-50/90 border-amber-500 ring-2 ring-amber-500/20'
+                              : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs font-bold text-amber-950">Luar SDIT / Umum</span>
+                            <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-amber-500 text-slate-950">
+                              Diskon 50%
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-amber-900 font-semibold">Hemat Rp 1.250.000 Uang Bangunan</p>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setSmpPreviewDiscount('normal')}
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                            smpPreviewDiscount === 'normal'
+                              ? 'bg-slate-200 border-slate-600 ring-2 ring-slate-400'
+                              : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs font-bold text-slate-800">Biaya Normal (Gelombang 2)</span>
+                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-slate-300 text-slate-800">
+                              No Diskon
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-600">Tarif standar tanpa potongan</p>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Table Breakdown */}
+                    {(() => {
+                      const regFee = formData.tuition.registrationFee || 200000;
+                      const baseBuilding = formData.tuition.buildingFee || formData.tuition.developmentFee || 2500000;
+                      const discount = smpPreviewDiscount === 'sdit' ? Math.round(baseBuilding * 0.7) : smpPreviewDiscount === 'umum' ? Math.round(baseBuilding * 0.5) : 0;
+                      const finalBuilding = baseBuilding - discount;
+                      const facilitiesFee = formData.tuition.learningFacilities || 500000;
+                      const uniformFee = smpPreviewGender === 'ikhwan' ? (formData.tuition.uniformIkhwan || 1100000) : (formData.tuition.uniformAkhwat || 1400000);
+                      const bookFee = formData.tuition.bookPackage || 1000000;
+                      const activityFee = formData.tuition.studentActivities || 1700000;
+                      const sppFee = formData.tuition.monthlyTuition || 300000;
+                      const baseTotal = regFee + baseBuilding + facilitiesFee + uniformFee + bookFee + activityFee + sppFee;
+                      const finalTotal = baseTotal - discount;
+
+                      return (
+                        <div className="border border-slate-200 rounded-2xl overflow-hidden text-xs">
+                          <div className="divide-y divide-slate-100">
+                            <div className="flex items-center justify-between p-3 bg-slate-50">
+                              <span className="font-semibold text-slate-700">1. Infaq Formulir Pendaftaran</span>
+                              <span className="font-mono font-bold text-slate-900">Rp {regFee.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-white">
+                              <div>
+                                <span className="font-semibold text-slate-700 block">2. Infaq Pengembangan Sarana (Uang Bangunan)</span>
+                                {discount > 0 && (
+                                  <span className="text-[10px] text-[#030164] font-bold">
+                                    Potongan {smpPreviewDiscount === 'sdit' ? '70% (SDIT)' : '50% (Umum)'}: -Rp {discount.toLocaleString('id-ID')}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-right flex items-center gap-2">
+                                {discount > 0 && (
+                                  <span className="line-through text-slate-400 font-mono text-[11px]">Rp {baseBuilding.toLocaleString('id-ID')}</span>
+                                )}
+                                <span className="font-mono font-bold text-[#030164]">Rp {finalBuilding.toLocaleString('id-ID')}</span>
+                              </div>
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-slate-50">
+                              <span className="font-semibold text-slate-700">3. Fasilitas Pembelajaran Modern</span>
+                              <span className="font-mono font-bold text-slate-900">Rp {facilitiesFee.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-white">
+                              <span className="font-semibold text-slate-700">4. Paket Seragam Sekolah Lengkap ({smpPreviewGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat Syar\'i'})</span>
+                              <span className="font-mono font-bold text-slate-900">Rp {uniformFee.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-slate-50">
+                              <span className="font-semibold text-slate-700">5. Paket Buku Pelajaran &amp; Modul</span>
+                              <span className="font-mono font-bold text-slate-900">Rp {bookFee.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-white">
+                              <span className="font-semibold text-slate-700">6. Program Kegiatan Murid (SCD, Outing, Mutaba&apos;ah)</span>
+                              <span className="font-mono font-bold text-slate-900">Rp {activityFee.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-slate-50">
+                              <span className="font-semibold text-slate-700">7. SPP Pendidikan (Bulan Pertama)</span>
+                              <span className="font-mono font-bold text-slate-900">Rp {sppFee.toLocaleString('id-ID')}</span>
+                            </div>
+                            {/* Grand Total Bar */}
+                            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-[#030164] to-[#090566] text-white">
+                              <div>
+                                <span className="text-[11px] uppercase tracking-wider text-[#ffd51e] font-black block">
+                                  Total Biaya Masuk ({smpPreviewGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat'})
+                                </span>
+                                <span className="text-[10px] text-slate-300">
+                                  {discount > 0 ? `Hemat Rp ${discount.toLocaleString('id-ID')} pada Gelombang 1` : 'Tarif Biaya Normal'}
+                                </span>
+                              </div>
+                              <div className="text-right">
+                                {discount > 0 && (
+                                  <span className="text-[11px] line-through text-slate-400 font-mono block">
+                                    Rp {baseTotal.toLocaleString('id-ID')}
+                                  </span>
+                                )}
+                                <span className="text-xl font-black font-mono text-[#ffd51e]">
+                                  Rp {finalTotal.toLocaleString('id-ID')}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Grid: Bank Muamalat Card & Poster SPMB SMP */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+                    {/* Bank Muamalat Card */}
+                    <div className="rounded-2xl p-5 text-white shadow-md relative overflow-hidden bg-gradient-to-br from-[#030164] via-[#080554] to-[#01002e] border border-[#ffd51e]/30 space-y-3">
+                      <div className="flex items-center justify-between pb-3 border-b border-white/15">
+                        <div className="flex items-center gap-2">
+                          <CreditCard className="w-4 h-4 text-[#ffd51e]" />
+                          <span className="text-[11px] font-bold tracking-wider uppercase text-slate-200">
+                            Rekening Resmi Pembayaran SPMB
+                          </span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-[#ffd51e] text-slate-950 uppercase">
+                          Terverifikasi
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        <span className="text-[10px] text-slate-300 block uppercase font-medium">Bank Penerima:</span>
+                        <h4 className="text-lg font-black text-white">Bank Muamalat Indonesia</h4>
+                        <div className="bg-black/35 p-3 rounded-xl border border-white/15 flex items-center justify-between">
+                          <div>
+                            <span className="text-[9px] text-slate-300 block font-medium uppercase">Nomor Rekening:</span>
+                            <span className="text-xl font-black font-mono text-[#ffd51e]">1360012405</span>
+                          </div>
+                          <span className="text-xs font-bold text-white/90">A.n SMP IT Al Afiyah</span>
+                        </div>
+                      </div>
+                      <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[10px] text-slate-300">
+                        <span>Sisa Kuota: <strong>{formData.tuition.quota ?? 60} murid</strong></span>
+                        <span className="text-[#ffd51e] font-bold">{formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}</span>
+                      </div>
+                    </div>
+
+                    {/* Poster Brosur SMP IT */}
+                    <div className="rounded-2xl p-4 bg-white border border-slate-200 shadow-xs flex items-center gap-4">
+                      <div className="w-24 shrink-0 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 aspect-[3/4] flex items-center justify-center">
+                        <img
+                          src={smpActivePoster}
+                          alt="Poster Brosur SMP IT"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="space-y-2 flex-1 min-w-0">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-50 text-[#030164] border border-blue-200 inline-block uppercase">
+                          Brosur Resmi SMP IT
+                        </span>
+                        <h5 className="text-xs font-bold text-slate-900 truncate">
+                          {smpActivePoster.includes('biaya') ? 'Poster Biaya & Diskon Gelombang 1' : 'Poster Resmi SPMB SMP IT'}
+                        </h5>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setSmpActivePoster('/images/smp-spmb-biaya.png')}
+                            className={`px-2 py-1 rounded text-[10px] font-bold cursor-pointer transition-colors ${
+                              smpActivePoster === '/images/smp-spmb-biaya.png'
+                                ? 'bg-[#030164] text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            }`}
+                          >
+                            Biaya &amp; Diskon
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSmpActivePoster('/images/smp-spmb-poster.png')}
+                            className={`px-2 py-1 rounded text-[10px] font-bold cursor-pointer transition-colors ${
+                              smpActivePoster === '/images/smp-spmb-poster.png'
+                                ? 'bg-[#030164] text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            }`}
+                          >
+                            Poster Utama
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : schoolSlug === 'tk' ? (
+              <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px] flex items-center justify-center">
+                <div className="w-full max-w-md bg-white rounded-2xl border border-sky-200 shadow-sm overflow-hidden">
+                  <div className="bg-gradient-to-r from-sky-700 to-sky-900 text-white p-4 text-center">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-sky-200">{formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}</p>
+                    <p className="text-lg font-black mt-0.5">Rincian Investasi Pendidikan TK IT</p>
+                    <p className="text-xs text-sky-100">{schoolName}</p>
+                  </div>
+                  <div className="p-5 space-y-3 text-sm">
+                    {[
+                      { label: 'Infaq Formulir Pendaftaran', value: formData.tuition.registrationFee || 150000 },
+                      { label: 'SPP Bulanan', value: formData.tuition.monthlyTuition || 250000 },
+                      { label: 'Uang Pengembangan (Pangkal)', value: formData.tuition.developmentFee || 2500000 },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                        <span className="text-xs text-slate-600">{item.label}</span>
+                        <span className="text-xs font-black text-sky-900">
+                          Rp {(item.value || 0).toLocaleString('id-ID')}
+                        </span>
+                      </div>
+                    ))}
+                    <div className="bg-sky-50 border border-sky-200 rounded-xl p-3 flex items-center justify-between mt-2">
+                      <span className="text-xs font-bold text-sky-900">Sisa Kuota Penerimaan</span>
+                      <span className="text-xl font-black text-sky-900">{formData.tuition.quota ?? 30} murid</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="p-6 sm:p-10 bg-slate-50 min-h-[360px] flex items-center justify-center">
                 <div className="w-full max-w-sm bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
@@ -1498,7 +1832,7 @@ export default function CMSEditorClient({
                     {[
                       { label: 'Biaya Formulir Pendaftaran', value: formData.tuition.registrationFee },
                       { label: 'SPP Bulanan', value: formData.tuition.monthlyTuition },
-                      { label: 'Uang Pengembangan (Pangkal)', value: formData.tuition.developmentFee },
+                      { label: 'Uang Pengembangan (Pangkal)', value: formData.tuition.developmentFee || formData.tuition.buildingFee || 0 },
                     ].map((item, i) => (
                       <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
                         <span className="text-xs text-slate-600">{item.label}</span>
@@ -2720,111 +3054,366 @@ export default function CMSEditorClient({
 
           {/* TAB 8: TUITION */}
           {activeTab === 'tuition' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                    Biaya Formulir PPDB (Rp)
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.tuition.registrationFee}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        tuition: {
-                          ...formData.tuition,
-                          registrationFee: parseInt(e.target.value) || 0
-                        }
-                      })
-                    }
-                    className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                  />
-                  <span className="text-[10px] text-slate-400 mt-1 block">
-                    Diperbarui langsung ke invoice PPDB online.
-                  </span>
+            schoolSlug === 'smp' ? (
+              <div className="space-y-6">
+                {/* Notice banner */}
+                <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200 flex items-start gap-3">
+                  <CreditCard className="w-5 h-5 text-[#030164] shrink-0 mt-0.5" />
+                  <div className="text-xs space-y-1">
+                    <p className="font-bold text-slate-900">
+                      Rincian Biaya SPMB Terpadu SMP IT Al-Afiyah
+                    </p>
+                    <p className="text-slate-600 leading-relaxed">
+                      Komponen di bawah ini tampil transparan di tabel biaya publik dan simulator kalkulator pendaftaran. Nominal uang bangunan otomatis menjadi acuan diskon 70% alumni SDIT dan 50% pendaftar umum.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                    SPP Bulanan (Rp)
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.tuition.monthlyTuition}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        tuition: {
-                          ...formData.tuition,
-                          monthlyTuition: parseInt(e.target.value) || 0
-                        }
-                      })
-                    }
-                    className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                    Uang Pengembangan / Pangkal (Rp)
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.tuition.developmentFee}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        tuition: {
-                          ...formData.tuition,
-                          developmentFee: parseInt(e.target.value) || 0
-                        }
-                      })
-                    }
-                    className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                  />
-                </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                    Sisa Kuota Penerimaan
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.tuition.quota ?? 60}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        tuition: {
-                          ...formData.tuition,
-                          quota: parseInt(e.target.value) || 0
+                {/* Section 1: Biaya Formulir, Sarana & SPP */}
+                <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-[#030164] flex items-center gap-1.5 pb-2 border-b border-slate-100">
+                    <Tag className="w-3.5 h-3.5" />
+                    <span>1. Biaya Pendaftaran, Sarana &amp; SPP Bulanan</span>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Infaq Formulir PPDB (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.registrationFee}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              registrationFee: parseInt(e.target.value) || 0
+                            }
+                          })
                         }
-                      })
-                    }
-                    className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                  />
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 200.000</span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Uang Bangunan / Sarana (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.buildingFee || formData.tuition.developmentFee || 2500000}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value) || 0;
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              buildingFee: val,
+                              developmentFee: val
+                            }
+                          });
+                        }}
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 2.500.000 (tarif normal)</span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        SPP Bulanan (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.monthlyTuition}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              monthlyTuition: parseInt(e.target.value) || 0
+                            }
+                          })
+                        }
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 300.000 / bulan</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                    Nama Gelombang PPDB
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        tuition: {
-                          ...formData.tuition,
-                          waveName: e.target.value
+
+                {/* Section 2: Perlengkapan, Fasilitas & Kegiatan */}
+                <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-[#030164] flex items-center gap-1.5 pb-2 border-b border-slate-100">
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>2. Fasilitas, Perlengkapan, Seragam &amp; Kegiatan</span>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Fasilitas Pembelajaran Modern (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.learningFacilities ?? 500000}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              learningFacilities: parseInt(e.target.value) || 0
+                            }
+                          })
                         }
-                      })
-                    }
-                    className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                  />
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 500.000</span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Paket Seragam Ikhwan / Putra (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.uniformIkhwan ?? 1100000}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              uniformIkhwan: parseInt(e.target.value) || 0
+                            }
+                          })
+                        }
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 1.100.000</span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Paket Seragam Akhwat / Putri Syar&apos;i (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.uniformAkhwat ?? 1400000}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              uniformAkhwat: parseInt(e.target.value) || 0
+                            }
+                          })
+                        }
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 1.400.000</span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Paket Buku Pelajaran &amp; Modul (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.bookPackage ?? 1000000}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              bookPackage: parseInt(e.target.value) || 0
+                            }
+                          })
+                        }
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 1.000.000</span>
+                    </div>
+
+                    <div className="sm:col-span-2 lg:col-span-2">
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Program Kegiatan Murid (SCD, Outing, Mutaba&apos;ah) (Rp)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.studentActivities ?? 1700000}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              studentActivities: parseInt(e.target.value) || 0
+                            }
+                          })
+                        }
+                        className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">Default: Rp 1.700.000</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 3: Kuota & Periode Gelombang */}
+                <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-[#030164] flex items-center gap-1.5 pb-2 border-b border-slate-100">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>3. Kuota Penerimaan &amp; Gelombang PPDB</span>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Sisa Kuota Penerimaan Murid
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.tuition.quota ?? 60}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              quota: parseInt(e.target.value) || 0
+                            }
+                          })
+                        }
+                        className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Nama Gelombang PPDB Aktif
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            tuition: {
+                              ...formData.tuition,
+                              waveName: e.target.value
+                            }
+                          })
+                        }
+                        className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#030164]/30"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Biaya Formulir PPDB (Rp)
+                    </label>
+                    <input
+                      type="number"
+                      value={formData.tuition.registrationFee}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          tuition: {
+                            ...formData.tuition,
+                            registrationFee: parseInt(e.target.value) || 0
+                          }
+                        })
+                      }
+                      className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                    <span className="text-[10px] text-slate-400 mt-1 block">
+                      Diperbarui langsung ke invoice PPDB online.
+                    </span>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      SPP Bulanan (Rp)
+                    </label>
+                    <input
+                      type="number"
+                      value={formData.tuition.monthlyTuition}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          tuition: {
+                            ...formData.tuition,
+                            monthlyTuition: parseInt(e.target.value) || 0
+                          }
+                        })
+                      }
+                      className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Uang Pengembangan / Pangkal (Rp)
+                    </label>
+                    <input
+                      type="number"
+                      value={formData.tuition.developmentFee || formData.tuition.buildingFee || 0}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || 0;
+                        setFormData({
+                          ...formData,
+                          tuition: {
+                            ...formData.tuition,
+                            developmentFee: val,
+                            buildingFee: val
+                          }
+                        });
+                      }}
+                      className="w-full text-xs font-mono font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Sisa Kuota Penerimaan
+                    </label>
+                    <input
+                      type="number"
+                      value={formData.tuition.quota ?? 60}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          tuition: {
+                            ...formData.tuition,
+                            quota: parseInt(e.target.value) || 0
+                          }
+                        })
+                      }
+                      className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Nama Gelombang PPDB
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.tuition.waveName || 'Gelombang 1 (2027/2028)'}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          tuition: {
+                            ...formData.tuition,
+                            waveName: e.target.value
+                          }
+                        })
+                      }
+                      className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
+                    />
+                  </div>
+                </div>
+              </div>
+            )
           )}
 
           {/* TAB 9: AFFILIATE LANDING PAGE EDITOR (FOUNDATION ONLY) */}
