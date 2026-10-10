@@ -2,7 +2,13 @@ import React from 'react';
 import { prisma } from '@/lib/prisma';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
-import CMSEditorClient, { CMSInitialData, DEFAULT_SD_KARAKTER, DEFAULT_SD_PROFIL } from '@/components/admin/CMSEditorClient';
+import CMSEditorClient, {
+  CMSInitialData,
+  DEFAULT_SD_KARAKTER,
+  DEFAULT_SD_PROFIL,
+  DEFAULT_SMP_KARAKTER,
+  DEFAULT_SMP_PROFIL
+} from '@/components/admin/CMSEditorClient';
 import { notFound } from 'next/navigation';
 import { getSession } from '@/lib/session';
 
@@ -270,11 +276,21 @@ export default async function SchoolCMSEditorPage({
     { label: 'Pilar Pendidikan', value: 'Smart Akhlak Fitrah' },
     { label: 'Akreditasi Sekolah', value: 'Terakreditasi B' },
     { label: 'Bimbingan Tahfidz', value: 'Juz 30 Mutqin' }
+  ] : schoolSlug === 'smp' ? [
+    { label: 'Akreditasi Lembaga', value: 'Terakreditasi A', subtext: 'BAN-S/M Resmi', badge: 'RESMI' },
+    { label: 'Target Capaian Tahfidz', value: '3-5+ Juz', subtext: 'Metode Talaqqi Mutqin & Tartil', badge: 'PROGRAM UNGGULAN' },
+    { label: 'Diskon Uang Bangunan', value: 'Hingga 70%', subtext: 'Alumni SDIT Al Afiyah & Umum', badge: 'SPMB GELOMBANG 1' },
+    { label: 'Karakter & Bahasa', value: 'Smart & Religious', subtext: 'Bahasa Arab Aktif & Mutaba\'ah Digital', badge: 'SCD' }
+  ] : schoolSlug === 'tk' ? [
+    { label: 'Metode Pembelajaran', value: 'Sentra Bermain', subtext: 'Ramah Anak & Eksploratif', badge: 'GOLDEN AGE' },
+    { label: 'Karakter & Adab', value: 'Adab Nabawiyah', subtext: 'Doa Harian & Toilet Training', badge: 'AKHLAQ' },
+    { label: 'Rasio Kelas', value: '1 : 8 Murid', subtext: 'Pendampingan Penuh Kasih', badge: 'INTENSIF' },
+    { label: 'Target Tahfidz', value: 'Juz 30 Ceria', subtext: 'Lagu & Dongeng Hijaiyah', badge: 'TAHFIDZ' }
   ] : [
-    { label: 'Murid Aktif', value: schoolSlug === 'foundation' ? '850+' : schoolSlug === 'tk' ? '120+' : '280+' },
-    { label: 'Dewan Guru Berpengalaman', value: schoolSlug === 'foundation' ? '75+ Pendidik' : schoolSlug === 'tk' ? '14 Guru' : '25 Pendidik' },
-    { label: 'Akreditasi Lembaga', value: 'Terakreditasi B' },
-    { label: 'Target Tahfidz', value: schoolSlug === 'tk' ? 'Juz 30 Ceria' : '3-5 Juz Tartil' }
+    { label: 'Murid Aktif', value: '850+' },
+    { label: 'Dewan Guru Berpengalaman', value: '75+ Pendidik' },
+    { label: 'Akreditasi Lembaga', value: 'Terakreditasi A / B' },
+    { label: 'Target Tahfidz', value: 'Hafidz 30 Juz' }
   ];
   const statsPayload = sectionsMap.stats || heroPayload.stats || defaultStatsForSchool;
 
@@ -290,6 +306,43 @@ export default async function SchoolCMSEditorPage({
     {
       title: 'Outdoor Learning & Pelatihan Aqil-Baligh',
       description: 'Eksplorasi kontekstual di alam dan kebun pertanian terbuka, pelatihan kemandirian aqil-baligh, serta pemetaan potensi bakat dan skill murid.'
+    }
+  ] : schoolSlug === 'smp' ? [
+    {
+      title: 'Tahfidz Al-Qur\'an Mutqin 3-5+ Juz',
+      description: 'Pembelajaran Al-Qur\'an harian dengan target hafalan minimal 3 juz hingga 5+ juz dengan kaidah tajwid dan makharijul huruf yang kokoh serta tartil.',
+      icon: 'BookOpen'
+    },
+    {
+      title: 'Bi\'ah Lughawiyyah (Lingkungan Bahasa Arab)',
+      description: 'Membiasakan murid berkomunikasi menggunakan bahasa Arab dalam keseharian untuk memperkuat pemahaman terhadap literatur Islam dan Al-Qur\'an.',
+      icon: 'Languages'
+    },
+    {
+      title: 'SCD & Mutaba\'ah Digital',
+      description: 'Student Character Development untuk membentuk adab islami, kemandirian, kepemimpinan, dan monitoring ibadah harian yang terpantau real-time.',
+      icon: 'Award'
+    },
+    {
+      title: 'Futsal Development & Minat Bakat',
+      description: 'Program pembinaan bakat olahraga futsal berjenjang, kepanduan pramuka SIT, pembinaan minat sains, dan ragam karya kreatif murid remaja.',
+      icon: 'Users'
+    }
+  ] : schoolSlug === 'tk' ? [
+    {
+      title: 'Sentra Belajar Islami & Ceria',
+      description: 'Metode sentra belajar berbasis eksplorasi sensorik, motorik, dan pembiasaan adab nabawiyah sejak usia dini.',
+      icon: 'HeartHandshake'
+    },
+    {
+      title: 'Tahfidz & Doa Harian Ceria',
+      description: 'Mengenal huruf hijaiyah, surat pendek Juz 30, dan doa-doa harian lewat metode bernyanyi dan cerita islami tanpa paksaan.',
+      icon: 'BookOpen'
+    },
+    {
+      title: 'Kemandirian & Toilet Training',
+      description: 'Pembiasaan kemandirian makan sendiri, merapikan mainan, dan toilet training dengan pendampingan penuh kasih sayang.',
+      icon: 'Award'
     }
   ] : [
     { title: 'Akidah & Akhlakul Karimah', description: 'Penanaman adab nabawiyah, pembiasaan shalat berjamaah, dan birrul walidain.' },
@@ -349,8 +402,50 @@ export default async function SchoolCMSEditorPage({
       desc: 'Menghargai proses belajar tiap anak, bukan sekadar hasil akhir.',
       badge: 'Proses Belajar',
     },
+  ] : schoolSlug === 'smp' ? [
+    {
+      title: 'Tahfidz Al-Qur\'an 3-5+ Juz',
+      desc: 'Halaqah tahfidz intensif setiap pagi dengan target kelulusan minimal 3 juz mutqin dan kelas takhassus 5+ juz.',
+      badge: 'Program Unggulan',
+      image: '/images/arc-tahfidz.jpg'
+    },
+    {
+      title: 'Bi\'ah Lughawiyyah (Bahasa Arab)',
+      desc: 'Penerapan lingkungan berbahasa Arab aktif untuk muhadatsah harian dan penguasaan kosa kata syar\'i.',
+      badge: 'Bahasa Asing',
+      image: '/images/smp-hero-bilingual.jpg'
+    },
+    {
+      title: 'Student Character Development (SCD)',
+      desc: 'Pembinaan kepemimpinan, adab pergaulan islami, kedisiplinan, dan tanggung jawab sosial murid remaja.',
+      badge: 'Karakter & Adab',
+      image: '/images/smp-outing-2.jpg'
+    },
+    {
+      title: 'Mutaba\'ah Ibadah Digital',
+      desc: 'Monitoring shalat berjamaah, tilawah mandiri, dan kebiasaan baik harian yang terhubung antara wali murid dan asatidz.',
+      badge: 'Sistem Digital',
+      image: '/images/smp-activity-multimedia.jpg'
+    },
+    {
+      title: 'Futsal Development Program',
+      desc: 'Latihan intensif fisik dan taktik futsal oleh pelatih berkompeten untuk mencetak atlet pelajar berprestasi.',
+      badge: 'Minat & Olahraga',
+      image: '/images/smp-hero-fullday.jpg'
+    },
+    {
+      title: 'Kepanduan Pramuka SIT & Sains Remaja',
+      desc: 'Kegiatan kepanduan islami, survival alam, tadabbur ciptaan Allah, serta eksplorasi karya ilmiah remaja.',
+      badge: 'Eksplorasi & Bakat',
+      image: '/images/smp-tubing-1.jpg'
+    }
+  ] : schoolSlug === 'tk' ? [
+    { title: 'Sentra Bahan Alam & Main Peran', desc: 'Stimulasi sensorik dan imajinasi anak usia dini melalui media alam sekitar.', badge: 'Sentra Bermain' },
+    { title: 'Tahfidz Ceria & Kisah Teladan Nabawi', desc: 'Mengenal Al-Qur\'an dan teladan Rasulullah ﷺ dengan metode dongeng dan keceriaan.', badge: 'Karakter Qur\'ani' },
+    { title: 'Toilet Training & Kemandirian Anak', desc: 'Melatih anak terbiasa mandiri mengurus diri dan beradab bersih secara islami.', badge: 'Adab Mandiri' },
+    { title: 'Parenting Edukasi Ramah Keluarga', desc: 'Sinergi berkala bunda guru dan orang tua dalam mendampingi masa emas golden age.', badge: 'Sinergi Orang Tua' }
   ] : [
-    { title: 'Tahfidz Al-Qur\'an Intensif', desc: 'Bimbingan bimbingan talaqqi tartil bersama dewan guru setiap pagi.', badge: 'Utama' },
+    { title: 'Tahfidz Al-Qur\'an Intensif', desc: 'Bimbingan talaqqi tartil bersama dewan guru setiap pagi.', badge: 'Utama' },
     { title: 'Bilingual & Digital Literacy', desc: 'Pengenalan teknologi edukasi dan pembiasaan percakapan bahasa Arab & Inggris praktis.', badge: 'Modern' },
     { title: 'Pramuka SIT & Olahraga Sunnah', desc: 'Pembentukan karakter ksatria muslim melalui kepanduan dan panahan.', badge: 'Karakter' },
     { title: 'Parenting Qur\'ani Berkala', desc: 'Sinergi erat antara dewan guru dan wali murid demi pembiasaan anak di rumah.', badge: 'Sinergi' }
@@ -426,11 +521,19 @@ export default async function SchoolCMSEditorPage({
         category: 'Ibadah & Karakter',
       },
     ] : schoolSlug === 'smp' ? [
-      { name: 'Keseruan River Tubing Cikadongdong', image: '/images/smp-tubing-1.jpg', desc: 'Outing class peserta didik mengarungi arus sungai Cikadongdong Majalengka.', category: 'Outing Class' },
-      { name: 'Kekompakan Tim Peserta Didik Mengarungi Arus', image: '/images/smp-tubing-2.jpg', desc: 'Pembentukan karakter kepemimpinan & ukhuwah islamiyah peserta didik.', category: 'Rihlah' },
-      { name: 'Foto Bersama Usai Pengarungan', image: '/images/smp-outing-3.jpg', desc: 'Dokumentasi kebersamaan peserta didik & dewan asatidz SMP IT Al-Afiyah.', category: 'Dokumentasi' },
-      { name: 'Persiapan Outing Class River Tubing', image: '/images/smp-outing-1.jpg', desc: 'Foto bersama di spanduk selamat datang River Tubing Cikadongdong.', category: 'Persiapan' },
-      { name: 'Pengarahan Keselamatan Dewan Asatidz', image: '/images/smp-outing-2.jpg', desc: 'Pembekalan adab tadabbur alam dan briefing keselamatan dari asatidz.', category: 'Pembekalan' },
+      { name: 'Ruang Kelas Nyaman & Literasi Digital', image: '/images/smp-kelas-literasi.jpg', desc: 'Ruang kelas representatif ber-AC, proyektor interaktif, dan pencahayaan alami yang mendukung kenyamanan belajar seharian.', category: 'Kelas & Akademik' },
+      { name: 'Laboratorium Multimedia & Komputer', image: '/images/smp-activity-multimedia.jpg', desc: 'Fasilitas komputer modern untuk pembelajaran literasi digital, riset sains, dan simulasi asesmen berbasis komputer.', category: 'Teknologi & Riset' },
+      { name: 'Masjid Sekolah & Pusat Halaqah Qur\'an', image: '/images/arc-tahfidz.jpg', desc: 'Pusat pembinaan shalat berjamaah tepat waktu, dzikir ma\'tsurat, serta setoran halaqah tahfidz 3-5+ juz mutqin.', category: 'Ibadah & Ruhiyah' },
+      { name: 'Sarana Futsal & Lapangan Olahraga', image: '/images/smp-hero-fullday.jpg', desc: 'Lapangan olahraga representatif untuk Futsal Development Program, kepanduan Pramuka SIT, dan kebugaran murid.', category: 'Olahraga & Bakat' },
+      { name: 'Outing Class River Tubing Cikadongdong', image: '/images/smp-tubing-1.jpg', desc: 'Kegiatan tadabbur alam dan uji ketangkasan fisik peserta didik mengarungi arus sungai Cikadongdong Majalengka.', category: 'Tadabbur Alam' },
+      { name: 'Ukhuwah & Team Building di Alam', image: '/images/smp-tubing-2.jpg', desc: 'Membangun kekompakan, keberanian, dan persaudaraan islami yang kokoh antar murid dan asatidz pembina.', category: 'Outing Class' },
+      { name: 'Briefing Adab & Pengarahan Keselamatan', image: '/images/smp-outing-2.jpg', desc: 'Penanaman adab safar, doa harian, serta pembekalan keselamatan oleh dewan asatidz sebelum kegiatan lapangan.', category: 'Pembekalan' },
+      { name: 'Dokumentasi & Kebersamaan Peserta Didik', image: '/images/smp-outing-3.jpg', desc: 'Momen kebersamaan ceria santriwan-santriwati SMP IT Al-Afiyah dalam membentuk kenangan bermakna.', category: 'Dokumentasi' }
+    ] : schoolSlug === 'tk' ? [
+      { name: 'Sentra Main Peran & Kreativitas Anak', image: '/images/tk-hero-kids.jpg', desc: 'Area stimulasi imajinasi sosial anak dengan miniatur profesi, pasar islami, dan tata cara bertamu santun.', category: 'Sentra Bermain' },
+      { name: 'Area Bermain Outdoor & Sensorik Alami', image: '/images/tk-hero-garden.jpg', desc: 'Taman bermain asri dan aman untuk melatih motorik kasar anak, ayunan, perosotan, dan titian keseimbangan.', category: 'Motorik & Alam' },
+      { name: 'Ruang Kelas Warna-Warni Ber-AC', image: '/images/tk-hero-kids.jpg', desc: 'Ruang sentra berpendingin udara yang bersih, steril, dan dirancang khusus sesuai ergonomi anak usia dini.', category: 'Sentra Kelas' },
+      { name: 'Pojok Baca & Dongeng Kisah Teladan', image: '/images/arc-tahfidz.jpg', desc: 'Pojok literasi ramah anak yang dilengkapi ragam buku cerita bergambar sirah nabawiyah dan akhlak terpuji.', category: 'Literasi Usia Dini' }
     ] : [
       { name: 'Masjid & Pusat Halaqah Qur\'an', image: '/images/arc-tahfidz.jpg', desc: 'Pusat ibadah harian dan bimbingan tahfidz bersama dewan guru.', category: 'Ibadah & Karakter' },
       { name: 'Ruang Kelas Nyaman Ber-AC', image: '/images/arc-ustadz.jpg', desc: 'Dilengkapi pendingin udara, proyektor interaktif, dan pencahayaan alami sehat.', category: 'Aktivitas Kelas' },
@@ -449,6 +552,38 @@ export default async function SchoolCMSEditorPage({
       name: 'Orang Tua Murid Al-Afiyah',
       role: 'Wali Murid Kelas 2 SDIT',
       quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.'
+    }
+  ] : schoolSlug === 'smp' ? [
+    {
+      name: 'dr. H. Hendra Lesmana, Sp.PD.',
+      role: 'Orang Tua dari Fatih (Alumni & Murid SMP IT)',
+      quote: 'Pilihan terbaik untuk jenjang menengah pertama di Majalengka. Target hafalan Qur\'annya terukur dengan metode mutqin yang sangat baik, dan ananda sangat mandiri serta santun kepada orang tua.'
+    },
+    {
+      name: 'Ibu Hj. Siti Sarah Fauziyyah, M.Pd.',
+      role: 'Wali Murid Kelas VIII SMP IT',
+      quote: 'Perkembangan karakter dan kedisiplinan shalat berjamaah ananda luar biasa berkat Mutaba\'ah Digital dan SCD. Lingkungan pergaulannya sangat terjaga dari pengaruh negatif luar.'
+    },
+    {
+      name: 'Bapak Ahmad Junaedi, S.T.',
+      role: 'Wali Murid Siswi Kelas IX SMP IT',
+      quote: 'Guru-guru asatidz mendampingi murid dengan penuh kesabaran seperti anak sendiri. Fasilitas kelasnya sangat nyaman dan program bahasanya terbukti aktif.'
+    },
+    {
+      name: 'Ibu Nurul Aini, S.Farm., Apt.',
+      role: 'Wali Murid Kelas VII SMP IT',
+      quote: 'Sistem fullday terintegrasi dengan baik antara kurikulum nasional dan nilai pesantren. Anak kami selalu semangat ke sekolah dan prestasinya membanggakan.'
+    }
+  ] : schoolSlug === 'tk' ? [
+    {
+      name: 'Ibu Ratna Dewi, S.Pd',
+      role: 'Wali Murid Kelompok B TK IT',
+      quote: 'Alhamdulillah ananda senang sekali sekolah di TK IT Al-Afiyah. Metode sentranya membuat anak ceria, hafal doa harian, dan mandiri tanpa rewel.'
+    },
+    {
+      name: 'Bapak Dedi Suhendar',
+      role: 'Wali Murid Kelompok A TK IT',
+      quote: 'Bunda gurunya sangat telaten dan sabar. Toilet training dan adab makannya berhasil diterapkan di rumah.'
     }
   ] : [
     { name: 'dr. H. Asep Irawan Sp.A', role: `Wali Murid ${school.name}`, quote: 'Alhamdulillah, semenjak sekolah di Al-Afiyah, ananda menjadi sangat mandiri, disiplin shalat, dan bacaan Qur\'annya sangat tartil.' },
@@ -534,7 +669,9 @@ export default async function SchoolCMSEditorPage({
     affiliate: (sectionsMap.affiliate as any) || undefined,
     presetImages: (sectionsMap.preset_images as any) || undefined,
     sdKarakter: (sectionsMap.sd_karakter as any) || (schoolSlug === 'sd' ? DEFAULT_SD_KARAKTER : undefined),
-    sdProfil: (sectionsMap.sd_profil as any) || (schoolSlug === 'sd' ? DEFAULT_SD_PROFIL : undefined)
+    sdProfil: (sectionsMap.sd_profil as any) || (schoolSlug === 'sd' ? DEFAULT_SD_PROFIL : undefined),
+    smpKarakter: (sectionsMap.smp_karakter as any) || (schoolSlug === 'smp' ? DEFAULT_SMP_KARAKTER : undefined),
+    smpProfil: (sectionsMap.smp_profil as any) || (schoolSlug === 'smp' ? DEFAULT_SMP_PROFIL : undefined)
   };
 
   const session = await getSession();
