@@ -373,20 +373,11 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
               </li>
               <li>
                 <Link 
-                  href={activeSlug === 'sd' ? '/sd/siakad' : activeSlug === 'smp' ? '/smp/siakad' : '/portal/siakad'} 
-                  className={`${activeSlug === 'smp' ? 'hover:text-[#ffd51e]' : 'hover:text-emerald-400'} transition-colors flex items-center space-x-2`}
-                >
-                  <span>•</span>
-                  <span>SIAKAD Mobile Murid</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
                   href={activeSlug ? `/login?unit=${activeSlug}` : '/login'} 
                   className="hover:text-amber-300 transition-colors flex items-center space-x-2 text-amber-300 font-medium"
                 >
                   <span>•</span>
-                  <span>Login Portal Layanan &amp; Akademik</span>
+                  <span>Login Portal Administrasi &amp; Staf</span>
                 </Link>
               </li>
             </ul>

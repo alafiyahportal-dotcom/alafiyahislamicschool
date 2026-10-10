@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Masuk ke Akun | Portal SPMB & Siakad Al-Afiyah',
+  title: 'Masuk ke Akun | Portal SPMB & Administrasi Al-Afiyah',
   description: 'Masuk ke Akun. Selamat datang kembali di Portal Resmi SPMB & Sistem Informasi SDIT Al-Afiyah Majalengka. Cek status formulir pendaftaran, pengumuman hasil observasi, dan administrasi murid.',
   alternates: {
     canonical: '/login',

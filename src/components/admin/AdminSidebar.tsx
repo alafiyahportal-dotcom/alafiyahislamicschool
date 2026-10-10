@@ -218,9 +218,10 @@ export default function AdminSidebar({
       icon: MessageSquare,
       active: pathname.endsWith('/notifications')
     },
-    ...(isFoundation
-      ? []
-      : [
+    // SIAKAD Features (Presensi, Nilai & Rapor, Tahfidz) disembunyikan sementara sesuai instruksi.
+    // Ubah flag di bawah ke true sewaktu-waktu siap diaktifkan kembali / dipisah ke sistem terpisah.
+    ...((!isFoundation && false)
+      ? [
           {
             name: 'Presensi Murid',
             href: `/admin/${schoolSlug}/attendance`,
@@ -240,7 +241,8 @@ export default function AdminSidebar({
             icon: ScrollText,
             active: pathname.endsWith('/tahfidz')
           }
-        ]),
+        ]
+      : []),
     {
       name: 'Editor Konten CMS',
       href: schoolSlug === 'foundation' ? '/admin/foundation/cms' : `/admin/${schoolSlug}/cms`,

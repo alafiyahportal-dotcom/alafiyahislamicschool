@@ -131,8 +131,6 @@ export default function LoginPage() {
       try {
         router.prefetch('/portal');
         router.prefetch('/admin');
-        router.prefetch('/sd/siakad');
-        router.prefetch('/smp/siakad');
       } catch {
         // Safe fallback
       }

@@ -315,7 +315,6 @@ export default function Navbar({
       href: '#',
       hasDropdown: true,
       items: [
-        { label: activeSlug === 'smp' ? 'SIAKAD & Mutaba\'ah Murid' : 'SIAKAD Mobile Murid (iOS)', href: activeSlug === 'sd' ? '/sd/siakad' : activeSlug === 'smp' ? '/smp/siakad' : (activeSlug ? `/portal/siakad?school=${activeSlug}` : '/portal/siakad'), desc: 'Portal presensi QR, capaian tahfidz & rapor digital' },
         { label: 'Kemitraan Mitra Afiliasi', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
         { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir'), desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
         { 
@@ -334,7 +333,6 @@ export default function Navbar({
 
   // Quick search items for modal
   const searchablePages = [
-    { title: 'SIAKAD Mobile Murid & Presensi QR', url: '/portal/siakad', cat: 'Akademik' },
     { title: `Pendaftaran PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, url: brandConfig.ppdbLink, cat: 'PPDB' },
     { title: 'Cek Status Berkas Pendaftar', url: activeSlug === 'sd' ? '/sd/spmb/cek-status' : activeSlug === 'smp' ? '/smp/spmb/cek-status' : (activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status'), cat: 'PPDB' },
     { title: 'Pengumuman Kelulusan Murid', url: '/ppdb/pengumuman', cat: 'PPDB' },
@@ -963,10 +961,10 @@ export default function Navbar({
                   <LogIn className={`w-4 h-4 shrink-0 ${activeSlug === 'smp' ? 'text-[#030164]' : 'text-[#00A651]'}`} />
                   <div className="text-left">
                     <div className="text-xs font-bold text-slate-800 leading-tight">
-                      Login Portal Layanan &amp; Akademik
+                      Login Portal Administrasi &amp; Staf
                     </div>
                     <div className="text-[10px] text-slate-400 font-medium mt-0.5">
-                      Akses akun murid &amp; orang tua
+                      Akses akun asatidz &amp; panitia
                     </div>
                   </div>
                 </div>

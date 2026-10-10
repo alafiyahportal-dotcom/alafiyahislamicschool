@@ -111,8 +111,8 @@ const ADDITIONAL_FACILITIES = [
   },
   {
     icon: Wifi,
-    name: 'Akses Internet & Mutaba\'ah Digital',
-    desc: 'Infrastruktur jaringan sekolah terintegrasi untuk menunjang pencatatan presensi siswa, capaian tahfidz, dan portal akademik SIAKAD real-time.'
+    name: 'Akses Internet & Pembelajaran Digital',
+    desc: 'Infrastruktur jaringan sekolah terintegrasi untuk menunjang kegiatan pembelajaran, literasi digital siswa, dan administrasi sekolah terpadu.'
   }
 ];
 

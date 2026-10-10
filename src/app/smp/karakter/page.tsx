@@ -135,10 +135,10 @@ export default function SmpKarakterPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href="/smp/siakad"
+                href="/smp/program"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all text-center"
               >
-                <span>Lihat Fitur Mutaba'ah Digital</span>
+                <span>Lihat Kurikulum &amp; Program</span>
               </Link>
             </div>
           </div>
@@ -252,10 +252,10 @@ export default function SmpKarakterPage() {
                 </div>
 
                 <Link
-                  href="/smp/siakad"
+                  href="/smp/spmb"
                   className="block text-center w-full py-2.5 rounded-xl bg-[#030164] hover:bg-[#090580] text-[#ffd51e] font-bold text-xs uppercase tracking-wider transition-all shadow-sm active:scale-95"
                 >
-                  Buka Portal Mutaba'ah
+                  Daftar SPMB SMP IT
                 </Link>
               </div>
             </div>
