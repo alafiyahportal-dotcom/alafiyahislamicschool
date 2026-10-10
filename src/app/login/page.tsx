@@ -29,6 +29,7 @@ interface UnitTheme {
   focusRing: string;
   homeUrl: string;
   registerUrl: string;
+  checkStatusUrl: string;
 }
 
 const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
@@ -46,6 +47,7 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     focusRing: 'focus:ring-[#00A651]/20 focus:border-[#00A651]',
     homeUrl: '/sd',
     registerUrl: '/sd/spmb/daftar',
+    checkStatusUrl: '/sd/spmb/cek-status',
   },
   smp: {
     key: 'smp',
@@ -61,6 +63,7 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     focusRing: 'focus:ring-[#030164]/20 focus:border-[#030164]',
     homeUrl: '/smp',
     registerUrl: '/smp/spmb/daftar',
+    checkStatusUrl: '/smp/spmb/cek-status',
   },
   tk: {
     key: 'tk',
@@ -76,6 +79,7 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     focusRing: 'focus:ring-[#0d9488]/20 focus:border-[#0d9488]',
     homeUrl: '/tk',
     registerUrl: '/ppdb/daftar?unit=tk',
+    checkStatusUrl: '/ppdb/cek-status?school=tk',
   },
   yayasan: {
     key: 'yayasan',
@@ -91,6 +95,7 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     focusRing: 'focus:ring-[#184F48]/20 focus:border-[#184F48]',
     homeUrl: '/',
     registerUrl: '/ppdb/daftar',
+    checkStatusUrl: '/ppdb/cek-status',
   },
 };
 
@@ -300,7 +305,7 @@ export default function LoginPage() {
                     Kata Sandi
                   </label>
                   <Link
-                    href="/ppdb/cek-status"
+                    href={currentTheme.checkStatusUrl}
                     className="text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors"
                   >
                     Lupa sandi?
@@ -377,7 +382,7 @@ export default function LoginPage() {
               <div className="text-slate-400 text-[11px]">
                 <span>Sudah mendaftar? </span>
                 <Link
-                  href="/ppdb/cek-status"
+                  href={currentTheme.checkStatusUrl}
                   className="font-semibold text-slate-600 hover:text-slate-900 underline underline-offset-2 ml-1"
                 >
                   Cek Status Pendaftaran Murid

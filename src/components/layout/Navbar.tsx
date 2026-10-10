@@ -342,7 +342,7 @@ export default function Navbar({
   const searchablePages = [
     { title: 'SIAKAD Mobile Murid & Presensi QR', url: '/portal/siakad', cat: 'Akademik' },
     { title: `Pendaftaran PPDB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, url: brandConfig.ppdbLink, cat: 'PPDB' },
-    { title: 'Cek Status Berkas Pendaftar', url: activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status', cat: 'PPDB' },
+    { title: 'Cek Status Berkas Pendaftar', url: activeSlug === 'sd' ? '/sd/spmb/cek-status' : activeSlug === 'smp' ? '/smp/spmb/cek-status' : (activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status'), cat: 'PPDB' },
     { title: 'Pengumuman Kelulusan Murid', url: '/ppdb/pengumuman', cat: 'PPDB' },
     { title: 'Profil Yayasan Pendidikan Imam Bonjol', url: '/profil', cat: 'Profil' },
     ...(!activeSlug

@@ -116,11 +116,12 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Program Unggulan 5+ Juz & Futsal', href: '/smp/program' },
         { label: 'Jadwal Gelombang & Diskon SPMB', href: '/smp/spmb' },
         { label: 'Sarana & Fasilitas Sekolah', href: '/smp/fasilitas' },
+        { label: 'Cek Status SPMB SMP IT', href: '/smp/spmb/cek-status' },
         { label: 'Formulir SPMB SMP IT Online', href: '/smp/spmb/daftar', isHighlighted: true },
       ],
       bottomCopyright: '© 2026 SMP IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
       bottomLinks: [
-        { label: 'Login Portal', href: '/login', isGold: true },
+        { label: 'Login Portal', href: '/login?unit=smp', isGold: true },
         { label: 'Doa & Dzikir', href: '/smp/doa-dzikir' },
         { label: 'Info SPMB SMP IT', href: '/smp/spmb/daftar' },
         { label: 'Hotline Panitia', href: 'https://wa.me/6282249357893', isExternal: true },

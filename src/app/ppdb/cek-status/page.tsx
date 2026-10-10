@@ -51,6 +51,17 @@ function CheckStatusContent() {
   const [hasSearched, setHasSearched] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const p = (searchParams.get('school') || searchParams.get('unit') || '').toLowerCase();
+      if (p === 'smp') {
+        window.location.replace('/smp/spmb/cek-status');
+      } else if (p === 'sd') {
+        window.location.replace('/sd/spmb/cek-status');
+      }
+    }
+  }, [searchParams]);
+
   const handleSearch = async (e?: React.FormEvent, customQuery?: string) => {
     if (e) e.preventDefault();
     const searchQuery = (customQuery !== undefined ? customQuery : query).trim();
