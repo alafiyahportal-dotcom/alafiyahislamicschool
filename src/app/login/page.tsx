@@ -363,15 +363,26 @@ export default function LoginPage() {
             {/* Divider & Registration Prompt */}
             <div className="border-t border-slate-100 my-6" />
 
-            <div className="text-center text-xs font-medium text-slate-600">
-              <span>Belum punya akun pendaftaran? </span>
-              <Link
-                href={currentTheme.registerUrl}
-                className="font-bold underline underline-offset-2 ml-1 transition-opacity hover:opacity-80"
-                style={{ color: currentTheme.primaryColor }}
-              >
-                Daftar sekarang
-              </Link>
+            <div className="text-center text-xs font-medium text-slate-600 space-y-2">
+              <div>
+                <span>Ingin mendaftar murid baru? </span>
+                <Link
+                  href={currentTheme.registerUrl}
+                  className="font-bold underline underline-offset-2 ml-1 transition-opacity hover:opacity-80"
+                  style={{ color: currentTheme.primaryColor }}
+                >
+                  Formulir SPMB Online
+                </Link>
+              </div>
+              <div className="text-slate-400 text-[11px]">
+                <span>Sudah mendaftar? </span>
+                <Link
+                  href="/ppdb/cek-status"
+                  className="font-semibold text-slate-600 hover:text-slate-900 underline underline-offset-2 ml-1"
+                >
+                  Cek Status Pendaftaran Murid
+                </Link>
+              </div>
             </div>
 
           </div>
