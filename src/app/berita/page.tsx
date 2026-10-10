@@ -139,7 +139,7 @@ const DEFAULT_ARTICLES: NewsArticle[] = [
     ],
     keyHighlights: [
       'Menjadikan adab sebagai kurikulum prioritas sebelum transfer wawasan sains.',
-      'Program mutaba’ah adab harian terpantau langsung oleh wali murid di SIAKAD.',
+      'Program mutaba’ah adab harian terpantau secara berkala melalui komunikasi intensif dengan wali kelas.',
       'Kajian parenting berkala untuk menyelaraskan bimbingan di rumah.'
     ]
   },
