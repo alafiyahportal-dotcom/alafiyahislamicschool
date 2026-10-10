@@ -22,11 +22,11 @@ export const metadata: Metadata = {
   description: 'Profil dewan asatidz pembina tahfidz Al-Qur\'an bersanad, guru bahasa Arab, pengajar sains akademik, dan pelatih Futsal Development Program SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Dewan Asatidz & Pendidik SMP IT Al-Afiyah',

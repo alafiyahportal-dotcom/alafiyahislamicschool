@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   description: 'Portal Sistem Informasi Akademik (SIAKAD) & Mutaba\'ah Digital SMP IT Al-Afiyah Majalengka. Pantau presensi murid, capaian tahfidz 3-5+ juz mutqin, evaluasi karakter SCD, dan status administrasi.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'SIAKAD & Mutaba\'ah Murid SMP IT Al-Afiyah',

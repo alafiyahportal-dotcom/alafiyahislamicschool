@@ -25,11 +25,11 @@ export const metadata: Metadata = {
   description: 'Fasilitas representatif SMP IT Al-Afiyah Majalengka: Aula pertemuan sekolah, ruang bimbingan konsultasi murid, masjid ibadah & tahfidz, panggung apresiasi, kelas ber-AC, lab komputer, dan lapangan olahraga.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Fasilitas SMP IT Al-Afiyah Majalengka',

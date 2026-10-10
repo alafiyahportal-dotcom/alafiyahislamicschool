@@ -32,11 +32,11 @@ export const metadata: Metadata = {
   description: 'Profil resmi Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka. Terakreditasi A BAN-S/M, visi Smart & Religious, kurikulum terpadu, tahfidz 3-5+ juz mutqin, dan bahasa Arab aktif.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Profil Lengkap SMP IT Al-Afiyah Majalengka',

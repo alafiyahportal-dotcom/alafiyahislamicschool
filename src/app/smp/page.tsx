@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description: 'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka T.A. 2027/2028. Terakreditasi A BAN-S/M, target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD, Mutaba\'ah Digital, & Futsal Development Program. Diskon uang bangunan s.d. 70%.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',

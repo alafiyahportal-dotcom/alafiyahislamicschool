@@ -26,11 +26,11 @@ export const metadata: Metadata = {
   description: 'Program pembinaan karakter murid remaja SMP IT Al-Afiyah: Penanaman adab nabawiyah, kepemimpinan (leadership), kemandirian, dan monitoring ibadah harian berbasis Mutaba\'ah Digital.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'SCD & Mutaba\'ah Digital SMP IT Al-Afiyah',

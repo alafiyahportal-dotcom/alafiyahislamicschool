@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   description: 'Berita kegiatan murid, prestasi kejuaraan futsal, capaian tasmi\' tahfidz, dan khazanah artikel remaja SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Warta & Prestasi SMP IT Al-Afiyah Majalengka',

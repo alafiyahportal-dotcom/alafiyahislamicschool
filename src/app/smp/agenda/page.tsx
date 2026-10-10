@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   description: 'Jadwal resmi SPMB Gelombang 1 & 2, ujian observasi calon murid, jadwal tasmi\' akbar tahfidz, mabit karakter, dan agenda akademik SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Agenda & Kalender Kegiatan SMP IT Al-Afiyah',

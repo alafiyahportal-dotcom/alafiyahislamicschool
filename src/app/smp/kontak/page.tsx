@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   description: 'Alamat resmi sekolah di Lingkungan Giri Asih, WhatsApp panitia SPMB 0822-4935-7893, rekening Bank Muamalat 1360012405, dan petunjuk rute Google Maps SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Kontak & Lokasi SMP IT Al-Afiyah Majalengka',

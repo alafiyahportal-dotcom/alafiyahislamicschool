@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description: 'Kumpulan dzikir pagi dan petang shahih (Al-Ma’tsurat) serta doa harian penuntut ilmu murid SMP IT Al-Afiyah Majalengka lengkap dengan counter digital dan audio pelafalan.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Dzikir Pagi Petang Murid SMP IT Al-Afiyah',

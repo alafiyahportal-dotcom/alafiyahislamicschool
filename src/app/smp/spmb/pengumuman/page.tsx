@@ -22,11 +22,11 @@ export const metadata: Metadata = {
   description: 'Pengumuman resmi kelulusan hasil seleksi observasi murid baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028 Gelombang 1 dan Gelombang 2.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Pengumuman Kelulusan SPMB SMP IT Al-Afiyah',

@@ -27,11 +27,11 @@ export const metadata: Metadata = {
   description: 'Program Unggulan SMP IT Al-Afiyah Majalengka: Tahfidz 3-5+ Juz Mutqin, Fasih Berbahasa Arab Aktif, SCD (Student Character Development), Mutaba\'ah Digital, & Futsal Development Program.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: '6 Program Unggulan SMP IT Al-Afiyah Majalengka',

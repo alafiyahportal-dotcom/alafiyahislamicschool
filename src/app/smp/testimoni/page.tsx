@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   description: 'Pengalaman tulus, ulasan, dan testimoni orang tua murid menyekolahkan ananda di SMP IT Al-Afiyah Majalengka: Target tahfidz, bahasa Arab, karakter remaja, dan futsal.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Testimoni Wali Murid SMP IT Al-Afiyah',

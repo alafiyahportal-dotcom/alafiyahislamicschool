@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   description: 'Galeri foto dokumentasi resmi SMP IT Al-Afiyah Majalengka: Haflah Kelulusan Angkatan ke-3, penyematan medali tahfidz, kebersamaan sinergi wali murid, dan rihlah river tubing.',
   icons: {
     icon: [
-      { url: '/images/smp-logo.png', type: 'image/png' },
+      { url: '/images/smp-icon-192.png', type: 'image/png' },
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/images/smp-logo.png',
-    apple: '/images/smp-logo.png',
+    shortcut: '/images/smp-icon-192.png',
+    apple: '/images/smp-icon-192.png',
   },
   openGraph: {
     title: 'Dokumentasi & Haflah Kelulusan SMP IT Al-Afiyah Majalengka',
