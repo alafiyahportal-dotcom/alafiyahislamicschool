@@ -50,6 +50,20 @@ interface FacilityItem {
 
 const DEFAULT_FACILITIES: FacilityItem[] = [
   {
+    name: 'Ruang Kelas Pembelajaran Interaktif & Nyaman',
+    category: 'Ruang Belajar',
+    image: '/images/smp-kelas-literasi.jpg',
+    desc: 'Ruang kelas kondusif berpendingin udara (AC) dengan fasilitas proyektor multimedia, pencahayaan optimal, dan tata meja ergonomis yang menunjang interaksi aktif murid.',
+    features: ['Pendingin Ruangan (AC) di Setiap Kelas', 'Proyektor Multimedia & Sound System', 'Kapasitas Siswa Terukur & Personal']
+  },
+  {
+    name: 'Perpustakaan & Pojok Literasi Sekolah',
+    category: 'Perpustakaan & Literasi',
+    image: '/images/smp-perpustakaan-literasi.jpg',
+    desc: 'Pusat literasi sekolah dengan ribuan judul koleksi buku keislaman, ensiklopedia sains, dan literatur umum penunjang nalar kritis serta budaya membaca murid.',
+    features: ['Koleksi Buku & Kitab Lengkap', 'Area Membaca Nyaman & Tenang', 'Mendukung Budaya Literasi Harian']
+  },
+  {
     name: 'Aula Pertemuan & Ruang Serbaguna Utama',
     category: 'Aula & Pertemuan',
     image: '/images/smp-haflah-aula.jpg',

@@ -40,15 +40,42 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
   },
   {
     id: 'smp-gal-2',
+    title: 'Pramuka SIT & Kepanduan Karakter Outdoor di Alam Terbuka',
+    category: 'Kepanduan & Karakter',
+    image: '/images/smp-pramuka-outdoor.jpg',
+    desc: 'Latihan kepanduan Pramuka SIT untuk mengasah ketangguhan fisik, kedisiplinan, kemandirian mental, kepemimpinan (qiyadah), dan kerja sama tim santri di alam terbuka Majalengka.',
+    date: 'Agustus 2026',
+    location: 'Bumi Perkemahan & Alam Terbuka Majalengka'
+  },
+  {
+    id: 'smp-gal-3',
+    title: 'Pembelajaran Aktif di Ruang Kelas & Wawasan Geografi Global',
+    category: 'Akademik & Literasi',
+    image: '/images/smp-kelas-literasi.jpg',
+    desc: 'Santri ikhwan aktif mengkaji literatur dan peta kawasan regional ASEAN di ruang kelas yang nyaman, representatif, dan mendorong wawasan keilmuan yang luas.',
+    date: 'September 2026',
+    location: 'Ruang Kelas SMP IT Al-Afiyah'
+  },
+  {
+    id: 'smp-gal-4',
+    title: 'Budaya Literasi & Riset Mandiri di Perpustakaan Sekolah',
+    category: 'Akademik & Literasi',
+    image: '/images/smp-perpustakaan-literasi.jpg',
+    desc: 'Santri tekun mencatat riset dan membaca buku-buku referensi di pojok baca perpustakaan sekolah untuk memperluas cakrawala ilmu pengetahuan, adab, dan sains.',
+    date: 'Agustus 2026',
+    location: 'Perpustakaan & Reading Corner SMP IT'
+  },
+  {
+    id: 'smp-gal-5',
     title: 'Generasi Pemimpin Berakhlak Islami, Mandiri & Siap Berkompetisi',
-    category: 'Prestasi & Karakter',
+    category: 'Kepanduan & Karakter',
     image: '/images/smp-santri-ikhwan-wisuda.jpg',
     desc: 'Santri ikhwan berbusana formal rapi melambangkan kedewasaan, kemandirian adab, dan kesiapan melangkah ke jenjang pendidikan lanjutan dengan pondasi tauhid yang kokoh.',
     date: 'Juni 2026',
     location: 'Haflah Akhirussanah SMP IT'
   },
   {
-    id: 'smp-gal-3',
+    id: 'smp-gal-6',
     title: 'Khidmat Sinergi Dewan Asatidz, Wali Murid & Santri di Aula Sekolah',
     category: 'Sinergi Orang Tua',
     image: '/images/smp-haflah-aula.jpg',
@@ -57,7 +84,7 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     location: 'Aula Pertemuan SMP IT Al-Afiyah'
   },
   {
-    id: 'smp-gal-4',
+    id: 'smp-gal-7',
     title: 'Sesi Penyerahan Laporan Pendidikan & Evaluasi Capaian Murid',
     category: 'Sinergi Orang Tua',
     image: '/images/smp-kelulusan-konsultasi.jpg',
@@ -66,7 +93,7 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     location: 'Ruang Edukasi & Konsultasi'
   },
   {
-    id: 'smp-gal-5',
+    id: 'smp-gal-8',
     title: 'Petualangan Seru River Tubing Cikadongdong & Tadabbur Alam',
     category: 'Rihlah & Outing Class',
     image: '/images/smp-tubing-1.jpg',
@@ -75,7 +102,7 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
     location: 'Cikadongdong River Tubing, Majalengka'
   },
   {
-    id: 'smp-gal-6',
+    id: 'smp-gal-9',
     title: 'Halaqah Tahfidz & Ujian Tasmi\' Al-Qur\'an Sekali Duduk',
     category: 'Tahfidz & Ibadah',
     image: '/images/smp-outing-3.jpg',
@@ -88,7 +115,8 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
 const CATEGORIES = [
   'Semua',
   'Wisuda & Kelulusan',
-  'Prestasi & Karakter',
+  'Kepanduan & Karakter',
+  'Akademik & Literasi',
   'Sinergi Orang Tua',
   'Rihlah & Outing Class',
   'Tahfidz & Ibadah'

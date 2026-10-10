@@ -106,6 +106,18 @@ const SMP_PROGRAMS = [
 
 const SMP_FACILITIES = [
   {
+    title: 'Ruang Kelas Pembelajaran & Literasi',
+    category: 'Ruang Belajar',
+    image: '/images/smp-kelas-literasi.jpg',
+    desc: 'Ruang kelas kondusif ber-AC dengan proyektor multimedia, pencahayaan optimal, dan tata letak ergonomis untuk kenyamanan belajar murid.',
+  },
+  {
+    title: 'Perpustakaan & Pojok Literasi Sekolah',
+    category: 'Perpustakaan',
+    image: '/images/smp-perpustakaan-literasi.jpg',
+    desc: 'Ruang baca dan literasi yang tenang dengan koleksi kitab keislaman, ensiklopedia sains, dan buku umum penunjang nalar kritis murid.',
+  },
+  {
     title: 'Aula Pertemuan & Ruang Serbaguna Utama',
     category: 'Aula & Pertemuan',
     image: '/images/smp-haflah-aula.jpg',
@@ -119,9 +131,15 @@ const SMP_FACILITIES = [
   },
   {
     title: 'Masjid & Pusat Halaqah Tahfidz Qur\'an',
-    category: 'Pusat Ibadah & Tahfidz',
+    category: 'Pusat Ibadah',
     image: '/images/smp-outing-3.jpg',
     desc: 'Pusat peradaban ruhiyah untuk shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, dan halaqah talaqqi tahfidz mutqin.',
+  },
+  {
+    title: 'Panggung Prestasi & Ekspresi Santri',
+    category: 'Panggung Prestasi',
+    image: '/images/smp-kelulusan-angkatan-3.jpg',
+    desc: 'Sarana panggung acara representatif untuk mengasah keberanian public speaking, orasi khitabah dwibahasa, dan apresiasi prestasi murid.',
   },
 ];
 
@@ -1097,15 +1115,15 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-kelulusan-angkatan-3.jpg')}>
-              <img src="/images/smp-kelulusan-angkatan-3.jpg" alt="Haflah Kelulusan SMP IT Al-Afiyah Angkatan 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-pramuka-outdoor.jpg')}>
+              <img src="/images/smp-pramuka-outdoor.jpg" alt="Pramuka SIT SMP IT Al-Afiyah" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div className="absolute top-3 left-3">
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Kelulusan &amp; Prestasi
+                  Kepanduan &amp; Karakter
                 </span>
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Haflah Kelulusan Angkatan ke-3 (2025/2026)</p>
+                <p className="text-xs sm:text-sm font-bold">Pramuka SIT &amp; Pembinaan Karakter Santri</p>
               </div>
             </div>
 
