@@ -165,7 +165,7 @@ export default function AgendaCalendarClient({ initialEvents, schoolSlug }: Agen
     const datesParam = `${startIso}/${endIso}`;
     const text = encodeURIComponent(`[${evt.schoolName}] ${evt.title}`);
     const details = encodeURIComponent(
-      `${evt.description}\n\nUnit: ${evt.schoolName}\nInformasi Resmi: https://alafiyah.sch.id/agenda`
+      `${evt.description}\n\nUnit: ${evt.schoolName}\nInformasi Resmi: https://alafiyah.id/agenda`
     );
     const location = encodeURIComponent(evt.location);
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${datesParam}&details=${details}&location=${location}`;

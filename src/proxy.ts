@@ -5,7 +5,7 @@ import type { SchoolSlug } from '@/lib/domain';
 import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
 
 // Allowed root domains for redirection protection
-const ALLOWED_ROOT_HOSTS = ['alafiyah.id', 'alafiyah.sch.id', 'sditalafiyah.sch.id', 'localhost', '127.0.0.1', 'vercel.app'];
+const ALLOWED_ROOT_HOSTS = ['alafiyah.id', 'sdit.alafiyah.id', 'smpit.alafiyah.id', 'tkit.alafiyah.id', 'localhost', '127.0.0.1', 'vercel.app'];
 
 function isAllowedHost(host: string): boolean {
   const hostname = host.split(':')[0].toLowerCase();
@@ -22,7 +22,7 @@ export function proxy(request: NextRequest) {
 
   // ─── 1. Subdomain Multi-Tenant Routing ─────────────────────────────────────
   if (subdomain) {
-    // When visiting root of school subdomain (e.g. tk.alafiyah.sch.id/), rewrite internally to /tk
+    // When visiting root of school subdomain (e.g. smpit.alafiyah.id/), rewrite internally to /smp
     if (pathname === '/') {
       const url = request.nextUrl.clone();
       url.pathname = `/${subdomain}`;

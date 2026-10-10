@@ -25,7 +25,7 @@ export const ACADEMIC_EVENTS: AcademicEvent[] = [
     startDate: '2026-09-01',
     endDate: '2026-09-30',
     time: '24 Jam Online',
-    location: 'Portal Resmi https://alafiyah.sch.id/ppdb/daftar',
+    location: 'Portal Resmi https://alafiyah.id/ppdb/daftar',
     description: 'Pendaftaran calon murid baru secara online untuk jenjang TK IT, SDIT, dan SMP IT Al-Afiyah.',
     badgeText: 'PPDB Gelombang 1',
     isImportant: true,
@@ -90,7 +90,7 @@ export const ACADEMIC_EVENTS: AcademicEvent[] = [
     schoolName: 'Semua Unit (TK, SD, SMP)',
     startDate: '2026-09-30',
     time: '13:00 WIB',
-    location: 'Papan Pengumuman Online https://alafiyah.sch.id/ppdb/pengumuman',
+    location: 'Papan Pengumuman Online https://alafiyah.id/ppdb/pengumuman',
     description: 'Pengumuman resmi hasil seleksi murid baru dan penerbitan Surat Keputusan (SK) Kelulusan Mudir Yayasan.',
     badgeText: 'Pengumuman Lulus',
     isImportant: true,
@@ -213,7 +213,7 @@ export async function GET(request: NextRequest) {
 
         icsLines.push(
           'BEGIN:VEVENT',
-          `UID:${ev.id}@alafiyah.sch.id`,
+          `UID:${ev.id}@alafiyah.id`,
           `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
           `DTSTART;VALUE=DATE:${startClean}`,
           `DTEND;VALUE=DATE:${endClean}`,

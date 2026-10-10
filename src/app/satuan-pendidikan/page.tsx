@@ -29,7 +29,7 @@ export default function SatuanPendidikanPage() {
     {
       id: 'tk',
       name: 'TK IT Al-Afiyah',
-      subdomainLabel: 'tk.alafiyah.sch.id',
+      subdomainLabel: 'tkit.alafiyah.id',
       arabic: 'رَوْضَةُ الأَطْفَالِ الإِسْلَامِيَّةِ',
       level: 'Pendidikan Anak Usia Dini (Usia 4 - 6 Tahun)',
       badge: 'PAUD / TK IT',
@@ -50,7 +50,7 @@ export default function SatuanPendidikanPage() {
     {
       id: 'sd',
       name: 'SDIT Al-Afiyah',
-      subdomainLabel: 'sd.alafiyah.sch.id',
+      subdomainLabel: 'sdit.alafiyah.id',
       arabic: 'المَدْرَسَةُ الابْتِدَائِيَّةُ الإِسْلَامِيَّةِ',
       level: 'Pendidikan Dasar (Kelas 1 - 6)',
       badge: 'Sekolah Dasar Islam Terpadu',
@@ -71,7 +71,7 @@ export default function SatuanPendidikanPage() {
     {
       id: 'smp',
       name: 'SMP IT Al-Afiyah',
-      subdomainLabel: 'smp.alafiyah.sch.id',
+      subdomainLabel: 'smpit.alafiyah.id',
       arabic: 'المَعْهَدُ المُتَوَسِّطُ الإِسْلَامِيِّ',
       level: 'Pendidikan Menengah Pertama Full Day (Kelas 7 - 9)',
       badge: 'Full Day School',

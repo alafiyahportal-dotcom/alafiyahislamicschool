@@ -159,7 +159,7 @@ export default function AffiliateGuidePage() {
                 <div>
                   <h4 className="text-xs font-bold text-slate-900">Buka Link Pendaftaran</h4>
                   <p className="text-[11px] text-slate-600 mt-0.5">
-                    Kunjungi <strong>alafiyah.sch.id/affiliate</strong> atau klik menu <em>&quot;Mitra Afiliasi&quot;</em> di bagian footer website sekolah.
+                    Kunjungi <strong>alafiyah.id/affiliate</strong> atau klik menu <em>&quot;Mitra Afiliasi&quot;</em> di bagian footer website sekolah.
                   </p>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function AffiliateGuidePage() {
                   ✓
                 </span>
                 <p className="text-xs text-slate-700 leading-relaxed">
-                  <strong>Langkah 1:</strong> Buka halaman login di <strong>alafiyah.sch.id/login</strong>.
+                  <strong>Langkah 1:</strong> Buka halaman login di <strong>alafiyah.id/login</strong>.
                 </p>
               </div>
               <div className="flex items-start gap-3">

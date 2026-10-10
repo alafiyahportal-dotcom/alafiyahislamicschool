@@ -107,7 +107,7 @@ Yth. Mitra Afiliasi {nama_murid},
 Alhamdulillah, antusiasme pendaftaran murid baru Yayasan Imam Bonjol Majalengka terus meningkat.
 
 Terima kasih atas syiar dan rekomendasi yang telah Anda bagikan. Pantau perolehan komisi dan riwayat pencairan saldo referral Anda melalui tautan:
-🔗 https://alafiyah.sch.id/affiliate/dashboard
+🔗 https://alafiyah.id/affiliate/dashboard
 
 Mari terus perluas keberkahan dakwah pendidikan Al-Qur'an bersama Al-Afiyah!
 _Tim Kemitraan Yayasan Pendidikan Imam Bonjol_`,
@@ -215,7 +215,7 @@ export default function BroadcastManagerClient({
     .replace(/{nama_sekolah}/g, sampleRecipient.schoolName)
     .replace(
       /{link_portal}/g,
-      `https://alafiyah.sch.id/portal/ppdb/${sampleRecipient.registrationNo}`
+      `https://alafiyah.id/portal/ppdb/${sampleRecipient.registrationNo}`
     );
 
   const handleExecuteBroadcast = async () => {

@@ -241,7 +241,7 @@ export async function POST(request: NextRequest) {
         .replace(/{nama_wali}/g, r.parentName)
         .replace(/{no_registrasi}/g, r.registrationNo)
         .replace(/{nama_sekolah}/g, r.schoolName)
-        .replace(/{link_portal}/g, `https://alafiyah.sch.id/portal/ppdb/${r.registrationNo}`);
+        .replace(/{link_portal}/g, `https://alafiyah.id/portal/ppdb/${r.registrationNo}`);
 
       const log = await WhatsAppService.sendNotification({
         schoolId: r.schoolId || null,

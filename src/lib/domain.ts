@@ -1,10 +1,10 @@
 /**
  * Domain and Multi-Tenant Subdomain Utilities for Ekosistem Al-Afiyah
  * Handles routing between:
- * - Foundation / Central: alafiyah.sch.id (dev: localhost:3000)
- * - TK IT Unit:           tk.alafiyah.sch.id (dev: tk.localhost:3000)
- * - SDIT Unit:           sd.alafiyah.sch.id (dev: sd.localhost:3000)
- * - SMP IT Unit:          smp.alafiyah.sch.id (dev: smp.localhost:3000)
+ * - Foundation / Central: alafiyah.id (dev: localhost:3000)
+ * - TK IT Unit:           tkit.alafiyah.id (dev: tk.localhost:3000)
+ * - SDIT Unit:            sdit.alafiyah.id (dev: sd.localhost:3000)
+ * - SMP IT Unit:          smpit.alafiyah.id (dev: smp.localhost:3000)
  */
 
 export type SchoolSlug = 'tk' | 'sd' | 'smp';

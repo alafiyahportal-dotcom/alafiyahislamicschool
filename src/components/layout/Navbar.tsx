@@ -578,7 +578,7 @@ export default function Navbar({
                                 item.href.includes('smp.');
                               const isExternalUrl =
                                 item.href.startsWith('http') &&
-                                !item.href.includes('alafiyah.sch.id') &&
+                                !item.href.includes('alafiyah.id') &&
                                 !item.href.includes('localhost');
                               const shouldOpenNewTab = Boolean((item as any).openInNewTab) || isSubdomainUrl || isExternalUrl;
 
@@ -872,7 +872,7 @@ export default function Navbar({
                           {nav.items?.map((item) => {
                             const isItemExt =
                               item.href.startsWith('http') &&
-                              !item.href.includes('alafiyah.sch.id') &&
+                              !item.href.includes('alafiyah.id') &&
                               !item.href.includes('localhost');
                             const isSubdomain =
                               item.href.includes('tk.') ||

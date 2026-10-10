@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
           recipientPhone: parentPhone,
           recipientName: parentName,
           eventType: 'RE_REGISTRATION_CONFIRMED',
-          messageContent: `Bismillah. Konfirmasi Daftar Ulang & Pemesanan Seragam ananda *${reg.studentName}* (${reg.registrationNo}) di *${reg.school.name}* telah BERHASIL kami catat dengan rincian ukuran: *${uniformSize}* (${reReg.uniformType || 'Standar'}). Bukti tanda terima resmi dapat diunduh di portal: https://alafiyah.sch.id/portal/ppdb/${reg.registrationNo}`,
+          messageContent: `Bismillah. Konfirmasi Daftar Ulang & Pemesanan Seragam ananda *${reg.studentName}* (${reg.registrationNo}) di *${reg.school.name}* telah BERHASIL kami catat dengan rincian ukuran: *${uniformSize}* (${reReg.uniformType || 'Standar'}). Bukti tanda terima resmi dapat diunduh di portal: https://alafiyah.id/portal/ppdb/${reg.registrationNo}`,
           metadata: {
             registrationNo: reg.registrationNo,
             uniformSize,

@@ -547,7 +547,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
                     required
                     value={addForm.email}
                     onChange={(e) => setAddForm({ ...addForm, email: e.target.value })}
-                    placeholder="nama@alafiyah.sch.id"
+                    placeholder="nama@alafiyah.id"
                     className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#2D7A70] focus:outline-hidden"
                   />
                 </div>

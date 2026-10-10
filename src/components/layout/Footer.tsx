@@ -76,7 +76,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
       hotline: '+62 812-2334-4552',
       hotlineWa: 'https://wa.me/6281223344552',
-      email: 'tkit@alafiyah.sch.id',
+      email: 'tkit@alafiyah.id',
       navTitle: 'Navigasi TK IT',
       navLinks: [
         { label: 'Profil Sentra Ceria', href: '/tk#values' },
@@ -106,7 +106,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         'Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
       hotline: '+62 822-4935-7893',
       hotlineWa: 'https://wa.me/6282249357893',
-      email: 'smpit@alafiyah.sch.id',
+      email: 'smpit@alafiyah.id',
       instagramUrl: 'https://instagram.com/smpitalafiyahmjl',
       facebookUrl: 'https://facebook.com/smpitalafiyah',
       youtubeUrl: 'https://youtube.com/@smpitalafiyah',
@@ -140,7 +140,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
       hotline: '+62 812-2334-4552',
       hotlineWa: 'https://wa.me/6281223344552',
-      email: 'info@alafiyah.sch.id',
+      email: 'info@alafiyah.id',
       navTitle: 'Unit Pendidikan',
       navLinks: [
         { label: 'TK IT Al-Afiyah', href: getSchoolUrl('tk') },

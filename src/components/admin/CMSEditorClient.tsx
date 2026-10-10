@@ -1181,7 +1181,7 @@ export default function CMSEditorClient({
                   </div>
                   <div className="flex items-start gap-2">
                     <Mail className="w-4 h-4 text-[#2D7A70] flex-shrink-0 mt-0.5" />
-                    <div><p className="font-bold text-slate-700">Email Resmi</p><p className="text-slate-500">{formData.identity.email || 'info@alafiyah.sch.id'}</p></div>
+                    <div><p className="font-bold text-slate-700">Email Resmi</p><p className="text-slate-500">{formData.identity.email || 'info@alafiyah.id'}</p></div>
                   </div>
                   <div className="flex items-start gap-2">
                     <Clock className="w-4 h-4 text-[#2D7A70] flex-shrink-0 mt-0.5" />
@@ -2195,7 +2195,7 @@ export default function CMSEditorClient({
                   </label>
                   <input
                     type="email"
-                    value={formData.identity.email || 'info@alafiyah.sch.id'}
+                    value={formData.identity.email || 'info@alafiyah.id'}
                     onChange={(e) =>
                       setFormData({
                         ...formData,

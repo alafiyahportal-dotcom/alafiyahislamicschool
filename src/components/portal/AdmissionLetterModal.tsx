@@ -96,7 +96,7 @@ export default function AdmissionLetterModal({
                   Kompleks Pendidikan Islam Terpadu Al-Afiyah, Majalengka, Jawa Barat 45411
                 </p>
                 <p className="text-[10px] font-sans text-slate-500">
-                  Telp: 0812-2334-4552 | Email: sekretariat@alafiyah.sch.id | Web: https://alafiyah.sch.id
+                  Telp: 0812-2334-4552 | Email: sekretariat@alafiyah.id | Web: https://alafiyah.id
                 </p>
               </div>
             </div>

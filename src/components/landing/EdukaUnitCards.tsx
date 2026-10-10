@@ -34,7 +34,7 @@ const units: SchoolUnitItem[] = [
   {
     slug: 'tk',
     name: 'TK IT Al-Afiyah Majalengka',
-    subdomainLabel: 'tk.alafiyah.sch.id',
+    subdomainLabel: 'tkit.alafiyah.id',
     levelBadge: 'Pendidikan Anak Usia Dini (PAUD/TK)',
     badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-300',
     image: '/images/tk-hero-kids.jpg',
@@ -52,7 +52,7 @@ const units: SchoolUnitItem[] = [
   {
     slug: 'sd',
     name: 'SDIT Al-Afiyah Majalengka',
-    subdomainLabel: 'sd.alafiyah.sch.id',
+    subdomainLabel: 'sdit.alafiyah.id',
     levelBadge: 'Smart Akhlak Fitrah • SDIT',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
     image: '/images/sd-spmb-poster-2027.jpg',
@@ -66,12 +66,12 @@ const units: SchoolUnitItem[] = [
       'Pelatihan Aqil-Baligh, Skill & Kemandirian'
     ],
     quota: 'Kuota Terbatas: Hanya 2 Rombel',
-    ppdbHref: '/ppdb/daftar?school=sd'
+    ppdbHref: '/sd/spmb/daftar'
   },
   {
     slug: 'smp',
     name: 'SMP IT Al-Afiyah Majalengka',
-    subdomainLabel: 'smp.alafiyah.sch.id',
+    subdomainLabel: 'smpit.alafiyah.id',
     levelBadge: 'Sekolah Menengah Pertama Islam Terpadu',
     badgeBg: 'bg-teal-100 text-teal-900 border-teal-300',
     image: '/images/eduka-about-portrait.jpg',
@@ -84,7 +84,7 @@ const units: SchoolUnitItem[] = [
       'Leadership Murid & Kesiapan Menuju SMA Unggulan'
     ],
     quota: 'Tersedia 60 Kursi',
-    ppdbHref: '/ppdb/daftar?school=smp'
+    ppdbHref: '/smp/spmb/daftar'
   }
 ];
 

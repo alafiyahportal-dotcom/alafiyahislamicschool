@@ -506,7 +506,7 @@ export default async function SchoolCMSEditorPage({
       mapsUrl: identityPayload.mapsUrl || 'https://maps.google.com/?q=Majalengka',
       whatsappNumber: identityPayload.whatsappNumber || identityPayload.waCenterPhone || school.waCenterPhone,
       officerName: identityPayload.officerName || 'Panitia PPDB Al-Afiyah',
-      email: identityPayload.email || 'info@alafiyah.sch.id',
+      email: identityPayload.email || 'info@alafiyah.id',
       consultationHours: identityPayload.consultationHours || 'Senin - Sabtu: 07.30 - 15.00 WIB'
     },
     stats: statsPayload,

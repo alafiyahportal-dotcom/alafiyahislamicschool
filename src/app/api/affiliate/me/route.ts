@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
 
     // 4. If still absolutely no affiliate profile exists, create a fresh one with unique email
     if (!affiliateProfile) {
-      const defaultEmail = `mitra-${Date.now()}@alafiyah.sch.id`;
+      const defaultEmail = `mitra-${Date.now()}@alafiyah.id`;
       const newUser = await prisma.user.create({
         data: {
           email: defaultEmail,
@@ -138,7 +138,7 @@ export async function GET(request: NextRequest) {
       profile: {
         id: affiliateProfile.id,
         fullName: affiliateProfile.user?.fullName || affiliateProfile.bankAccountHolder,
-        email: affiliateProfile.user?.email || 'mitra@alafiyah.sch.id',
+        email: affiliateProfile.user?.email || 'mitra@alafiyah.id',
         phone: affiliateProfile.user?.phone || null,
         referralCode: affiliateProfile.referralCode,
         customSlug: affiliateProfile.customSlug,

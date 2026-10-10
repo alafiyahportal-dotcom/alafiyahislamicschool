@@ -110,7 +110,7 @@ async function main() {
   // A. Pimpinan Yayasan
   await prisma.user.create({
     data: {
-      email: 'superadmin@alafiyah.sch.id',
+      email: 'admin@alafiyah.id',
       phone: '628111222333',
       passwordHash: defaultPassword,
       fullName: 'Super Admin',
@@ -122,7 +122,7 @@ async function main() {
   // B. Unit TK IT Al-Afiyah
   await prisma.user.create({
     data: {
-      email: 'admin.tk@alafiyah.sch.id',
+      email: 'tk@alafiyah.id',
       phone: '6281223344551',
       passwordHash: defaultPassword,
       fullName: 'Admin TK IT',
@@ -133,7 +133,7 @@ async function main() {
 
   await prisma.user.create({
     data: {
-      email: 'bendahara.tk@alafiyah.sch.id',
+      email: 'keuangan.tk@alafiyah.id',
       phone: '6281223344554',
       passwordHash: defaultPassword,
       fullName: 'Bendahara TK IT',
@@ -145,7 +145,7 @@ async function main() {
   // C. Unit SDIT Al-Afiyah
   await prisma.user.create({
     data: {
-      email: 'admin.sd@alafiyah.sch.id',
+      email: 'sd@alafiyah.id',
       phone: '6281223344552',
       passwordHash: defaultPassword,
       fullName: 'Admin SDIT',
@@ -156,7 +156,7 @@ async function main() {
 
   await prisma.user.create({
     data: {
-      email: 'ppdb@alafiyah.sch.id',
+      email: 'ppdb@alafiyah.id',
       phone: '6285722334455',
       passwordHash: defaultPassword,
       fullName: 'Panitia PPDB SD',
@@ -167,7 +167,7 @@ async function main() {
 
   await prisma.user.create({
     data: {
-      email: 'bendahara.sd@alafiyah.sch.id',
+      email: 'keuangan.sd@alafiyah.id',
       phone: '6281223344555',
       passwordHash: defaultPassword,
       fullName: 'Bendahara SDIT',
@@ -179,7 +179,7 @@ async function main() {
   // D. Unit SMP IT Al-Afiyah
   await prisma.user.create({
     data: {
-      email: 'admin.smp@alafiyah.sch.id',
+      email: 'smp@alafiyah.id',
       phone: '6281223344553',
       passwordHash: defaultPassword,
       fullName: 'Admin SMP IT',
@@ -190,7 +190,7 @@ async function main() {
 
   await prisma.user.create({
     data: {
-      email: 'bendahara.smp@alafiyah.sch.id',
+      email: 'keuangan@alafiyah.id',
       phone: '6281223344556',
       passwordHash: defaultPassword,
       fullName: 'Bendahara SMP IT',
@@ -202,7 +202,7 @@ async function main() {
   // E. Mitra Afiliasi
   const affiliateAhmad = await prisma.user.create({
     data: {
-      email: 'afiliasi@alafiyah.sch.id',
+      email: 'afiliasi@alafiyah.id',
       phone: '6281322446688',
       passwordHash: defaultPassword,
       fullName: 'Mitra Afiliasi',
@@ -213,7 +213,7 @@ async function main() {
 
   const affiliateFatimah = await prisma.user.create({
     data: {
-      email: 'mitra.alafiyah@alafiyah.sch.id',
+      email: 'mitra@alafiyah.id',
       phone: '6281399887766',
       passwordHash: defaultPassword,
       fullName: 'Mitra Berkah',

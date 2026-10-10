@@ -62,7 +62,7 @@ Alhamdulillah, pendaftaran calon murid baru di *${params.schoolName}* telah berh
 🏛️ *Status:* MENUNGGU PEMBAYARAN
 
 Silakan selesaikan pembayaran formulir melalui Virtual Account atau QRIS di portal pendaftaran murid:
-🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}
+🔗 https://alafiyah.id/portal/ppdb/${params.regNo}
 
 Jazakumullah Khairan Katsiran.
 _Panitia PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`;
@@ -103,7 +103,7 @@ Alhamdulillah, pembayaran biaya formulir PPDB *${params.schoolName}* telah *LUNA
 ✅ *Status Berkas:* TERVERIFIKASI
 
 Silakan unduh Kartu Ujian Observasi dan Bukti Kuitansi Lunas melalui tautan berikut:
-🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}
+🔗 https://alafiyah.id/portal/ppdb/${params.regNo}
 
 Grup WhatsApp Resmi Wali Murid:
 👉 https://chat.whatsapp.com/alafiyah-ppdb-2026
@@ -141,7 +141,7 @@ Kabar gembira! Murid rujukan Anda atas nama *${params.studentName}* telah meluna
 📊 *Status:* DIVERIFIKASI & SIAP DICAIRKAN
 
 Pantau akumulasi saldo komisi dan ajukan pencairan ke rekening bank melalui Dasbor Mitra:
-🔗 https://alafiyah.sch.id/affiliate/dashboard
+🔗 https://alafiyah.id/affiliate/dashboard
 
 Terima kasih atas kontribusi dakwah dan syiar bersama Al-Afiyah!
 _Tim Kemitraan Yayasan Pendidikan Imam Bonjol Majalengka_`;
@@ -180,7 +180,7 @@ Berikut kami sampaikan jadwal tes observasi & wawancara calon murid baru *${para
 📍 *Tempat:* ${params.testLocation}
 
 Mohon hadir 15 menit sebelum jadwal dengan membawa cetak Kartu Ujian dari portal murid:
-🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}
+🔗 https://alafiyah.id/portal/ppdb/${params.regNo}
 
 Wassalamu'alaikum Wr. Wb.
 _Panitia Seleksi PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`;
@@ -213,8 +213,8 @@ _Panitia Seleksi PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`;
       : '📋 *BELUM MEMENUHI KUOTA / CADANGAN*';
 
     const infoText = params.isAccepted
-      ? `Selamat kepada Ananda *${params.studentName}* yang telah dinyatakan lolos observasi dan diterima sebagai murid baru di *${params.schoolName}* Tahun Ajaran 2027/2028.\n\nSilakan unduh Surat Keputusan Kelulusan dan petunjuk daftar ulang melalui portal murid:\n🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}`
-      : `Terima kasih atas partisipasi Ananda *${params.studentName}* dalam rangkaian seleksi *${params.schoolName}*. Saat ini kuota utama telah terisi penuh. Ananda kami masukkan ke dalam daftar murid cadangan gelombang berikutnya.\n\nInformasi lebih lanjut dapat dicek di portal:\n🔗 https://alafiyah.sch.id/portal/ppdb/${params.regNo}`;
+      ? `Selamat kepada Ananda *${params.studentName}* yang telah dinyatakan lolos observasi dan diterima sebagai murid baru di *${params.schoolName}* Tahun Ajaran 2027/2028.\n\nSilakan unduh Surat Keputusan Kelulusan dan petunjuk daftar ulang melalui portal murid:\n🔗 https://alafiyah.id/portal/ppdb/${params.regNo}`
+      : `Terima kasih atas partisipasi Ananda *${params.studentName}* dalam rangkaian seleksi *${params.schoolName}*. Saat ini kuota utama telah terisi penuh. Ananda kami masukkan ke dalam daftar murid cadangan gelombang berikutnya.\n\nInformasi lebih lanjut dapat dicek di portal:\n🔗 https://alafiyah.id/portal/ppdb/${params.regNo}`;
 
     const content = 
 `Assalamu'alaikum Warahmatullahi Wabarakatuh.
@@ -264,7 +264,7 @@ Dana komisi kemitraan rujukan murid Anda telah *BERHASIL DITRANSFER* oleh Bagian
 ✅ *Status:* LUNAS & BERHASIL
 
 Silakan cek mutasi rekening Anda dan pantau riwayat pencairan melalui Dasbor Mitra:
-🔗 https://alafiyah.sch.id/affiliate/dashboard
+🔗 https://alafiyah.id/affiliate/dashboard
 
 Jazakumullah Khairan Katsiran atas kebersamaan dan kemitraan dakwah.
 _Bagian Keuangan Yayasan Pendidikan Imam Bonjol Majalengka_`;

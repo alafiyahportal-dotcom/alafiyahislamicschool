@@ -173,7 +173,7 @@ export default function AffiliatePublicPage() {
   // State: Referral Link Copy
   const [heroCopied, setHeroCopied] = useState(false);
   const handleHeroCopy = () => {
-    navigator.clipboard.writeText('https://alafiyah.sch.id/ref/MITRA-BERKAH');
+    navigator.clipboard.writeText('https://alafiyah.id/ref/MITRA-BERKAH');
     setHeroCopied(true);
     setTimeout(() => setHeroCopied(false), 2500);
   };
@@ -331,7 +331,7 @@ export default function AffiliatePublicPage() {
       why: 'Sebagai orang tua yang merasakan langsung lingkungan islami, tahfidz mutqin, dan kenyamanan belajar di Al-Afiyah, cerita Anda sangat dipercaya oleh sanak kerabat.',
       earningExample: 'Rekomendasikan 3 kerabat masuk SDIT = Rp 450.000 (bisa menutup biaya seragam atau SPP peserta didik).',
       template:
-        "Assalamu'alaikum wr. wb. Ayah/Bunda, bagi yang sedang mencari sekolah Islam berkualitas dengan bimbingan tahfidz intensif dan karakter qurani di Majalengka, PPDB Al-Afiyah (TK, SD, SMP) kini sudah dibuka. Informasi dan pendaftaran resmi: https://alafiyah.sch.id/ref/KODE-MITRA",
+        "Assalamu'alaikum wr. wb. Ayah/Bunda, bagi yang sedang mencari sekolah Islam berkualitas dengan bimbingan tahfidz intensif dan karakter qurani di Majalengka, PPDB Al-Afiyah (TK, SD, SMP) kini sudah dibuka. Informasi dan pendaftaran resmi: https://alafiyah.id/ref/KODE-MITRA",
     },
     guru: {
       badge: 'Dewan Guru & Asatidz',
@@ -344,7 +344,7 @@ export default function AffiliatePublicPage() {
       why: 'Guru dan asatidz memiliki peran sentral dalam mengarahkan masa depan peserta didik. Setiap peserta didik yang Anda bimbing diapresiasi dengan hak komisi yang halal.',
       earningExample: 'Rekomendasikan 5 peserta didik lulusan melanjutkan ke SMP IT = Rp 2.750.000 langsung cair ke rekening pendidik.',
       template:
-        "Bismillah. Untuk wali murid dan adik-adik peserta didik yang mencari kelanjutan sekolah terpadu dengan kurikulum unggul, hafalan Al-Qur'an, dan adab harian, kami merekomendasikan Ma'had Al-Afiyah. Pendaftaran: https://alafiyah.sch.id/ref/KODE-MITRA",
+        "Bismillah. Untuk wali murid dan adik-adik peserta didik yang mencari kelanjutan sekolah terpadu dengan kurikulum unggul, hafalan Al-Qur'an, dan adab harian, kami merekomendasikan Ma'had Al-Afiyah. Pendaftaran: https://alafiyah.id/ref/KODE-MITRA",
     },
     alumni: {
       badge: 'Alumni Peserta Didik',
@@ -357,7 +357,7 @@ export default function AffiliatePublicPage() {
       why: 'Anda adalah bukti hidup kualitas pendidikan karakter Al-Afiyah. Ajak adik kandung, sepupu, atau rekan di majelis untuk merasakan manfaat belajar di Al-Afiyah.',
       earningExample: "Ajak 3 sanak famili bergabung di Ma'had Al-Afiyah = Rp 1.150.000 siap ditransfer ke rekening mahasiswa Anda.",
       template:
-        'Hai semuanya! Buat yang nanya sekolah Islam favorit di Majalengka yang lingkungan belajarnya asik dan fokus tahfidz, aku sangat rekomendasikan Al-Afiyah: https://alafiyah.sch.id/ref/KODE-MITRA',
+        'Hai semuanya! Buat yang nanya sekolah Islam favorit di Majalengka yang lingkungan belajarnya asik dan fokus tahfidz, aku sangat rekomendasikan Al-Afiyah: https://alafiyah.id/ref/KODE-MITRA',
     },
     relawan: {
       badge: 'Penggiat Dakwah',
@@ -370,7 +370,7 @@ export default function AffiliatePublicPage() {
       why: 'Bagi Anda yang aktif di majelis taklim atau media sosial dakwah, program kemitraan ini adalah sarana menyebarkan kebaikan tanpa biaya modal sepeser pun.',
       earningExample: 'Sebar tautan di majelis & jaring 8 peserta didik baru = Rp 3.200.000 dana operasional dakwah berkah.',
       template:
-        "Alhamdulillah, pendaftaran peserta didik baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SDIT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Informasi lengkap: https://alafiyah.sch.id/ref/KODE-MITRA",
+        "Alhamdulillah, pendaftaran peserta didik baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SDIT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Informasi lengkap: https://alafiyah.id/ref/KODE-MITRA",
     },
   };
 
@@ -571,7 +571,7 @@ export default function AffiliatePublicPage() {
                         </span>
                       </div>
                       <p className="font-mono text-xs sm:text-sm font-bold text-slate-900 truncate">
-                        alafiyah.sch.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80 font-bold">KODE-ANDA</span>
+                        alafiyah.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80 font-bold">KODE-ANDA</span>
                       </p>
                       <p className="text-[10px] text-slate-500 mt-0.5">
                         Otomatis aktif dengan nama/kode Anda setelah mendaftar

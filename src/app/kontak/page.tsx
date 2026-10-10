@@ -194,7 +194,7 @@ export default async function KontakPage({
               <div className="space-y-3 text-xs text-slate-600 pt-2 border-t border-slate-100">
                 <div className="flex items-center space-x-3">
                   <Mail className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>Email: <strong className="text-slate-800">info@alafiyah.sch.id</strong></span>
+                  <span>Email: <strong className="text-slate-800">info@alafiyah.id</strong></span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Building2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
