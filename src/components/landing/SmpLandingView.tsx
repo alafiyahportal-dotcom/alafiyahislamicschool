@@ -166,6 +166,45 @@ const SMP_SUPPORTING_FACILITIES = [
   },
 ];
 
+const SMP_DOKUMENTASI_CARDS = [
+  {
+    image: '/images/smp-pramuka-outdoor.jpg',
+    category: 'Kepanduan SIT',
+    title: 'Pramuka SIT & Kepanduan Karakter Outdoor di Alam Terbuka',
+    badge: 'Kepanduan & Karakter',
+  },
+  {
+    image: '/images/smp-kelas-literasi.jpg',
+    category: 'Akademik & Literasi',
+    title: 'Pembelajaran Aktif di Ruang Kelas Berwawasan Global',
+    badge: 'Kelas Interaktif',
+  },
+  {
+    image: '/images/smp-perpustakaan-literasi.jpg',
+    category: 'Akademik & Literasi',
+    title: 'Budaya Literasi & Riset Mandiri di Perpustakaan Sekolah',
+    badge: 'Pojok Literasi',
+  },
+  {
+    image: '/images/smp-kelulusan-angkatan-3.jpg',
+    category: 'Wisuda & Prestasi',
+    title: 'Haflah Kelulusan & Kenaikan Santri Angkatan ke-3 (2025/2026)',
+    badge: 'Kelulusan Santri',
+  },
+  {
+    image: '/images/smp-santri-ikhwan-wisuda.jpg',
+    category: 'Karakter & Adab',
+    title: 'Generasi Pemimpin Berakhlak Qur\'ani, Mandiri & Siap Berkompetisi',
+    badge: 'Karakter & Disiplin',
+  },
+  {
+    image: '/images/smp-tubing-1.jpg',
+    category: 'Rihlah & Outing',
+    title: 'Petualangan River Tubing Cikadongdong & Tadabbur Alam',
+    badge: 'Rihlah & Outing',
+  },
+];
+
 const SMP_FAQS = [
   {
     q: 'Kapan pendaftaran SPMB SMP IT Al-Afiyah dibuka?',
@@ -1089,7 +1128,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
         </div>
       </section>
 
-      {/* SECTION 5: DOKUMENTASI NYATA & HAFLAH KELULUSAN */}
+      {/* SECTION 5: DOKUMENTASI NYATA & AKTIVITAS SANTRI */}
       <section id="dokumentasi" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
@@ -1099,57 +1138,53 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 <span>Dokumentasi Nyata SMP IT Al-Afiyah</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Haflah Kelulusan, Karakter &amp; Outing Murid
+                Galeri Aktivitas Santri, Belajar &amp; Haflah Kelulusan
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Potret nyata kelulusan angkatan ke-3, pembinaan karakter santri ikhwan, dan petualangan river tubing murid SMP IT Al-Afiyah.
+              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+                Potret nyata kegiatan pramuka SIT di alam terbuka, suasana kelas aktif, literasi perpustakaan, petualangan river tubing, dan khidmat kelulusan santri.
               </p>
             </div>
             <Link
               href="/smp/dokumentasi"
-              className="inline-flex items-center gap-2 text-xs font-bold text-[#030164] hover:underline shrink-0"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#030164] text-white hover:bg-[#030164]/90 text-xs font-bold transition-all shadow-sm shrink-0"
             >
               <span>Lihat Seluruh Galeri Dokumentasi</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-pramuka-outdoor.jpg')}>
-              <img src="/images/smp-pramuka-outdoor.jpg" alt="Pramuka SIT SMP IT Al-Afiyah" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Kepanduan &amp; Karakter
-                </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SMP_DOKUMENTASI_CARDS.map((item, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md aspect-[4/3] group relative cursor-pointer transition-all duration-300"
+                onClick={() => setSelectedPhoto(item.image)}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#030164]/90 backdrop-blur-sm text-[#ffd51e] border border-white/20 shadow-sm">
+                    {item.badge}
+                  </span>
+                </div>
+                <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="p-2 rounded-full bg-white/90 backdrop-blur-sm text-slate-800 shadow-md inline-flex items-center justify-center">
+                    <ZoomIn className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent flex flex-col justify-end p-4 text-white">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#ffd51e] mb-1">
+                    {item.category}
+                  </span>
+                  <p className="text-xs sm:text-sm font-bold line-clamp-2 leading-snug">
+                    {item.title}
+                  </p>
+                </div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Pramuka SIT &amp; Pembinaan Karakter Santri</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-santri-ikhwan-wisuda.jpg')}>
-              <img src="/images/smp-santri-ikhwan-wisuda.jpg" alt="Santri Ikhwan SMP IT Al-Afiyah" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Karakter &amp; Disiplin
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Generasi Pemimpin Berakhlak Qur&apos;ani</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] group relative cursor-pointer" onClick={() => setSelectedPhoto('/images/smp-tubing-1.jpg')}>
-              <img src="/images/smp-tubing-1.jpg" alt="Rihlah River Tubing Santri SMP IT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              <div className="absolute top-3 left-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#030164] text-[#ffd51e] border border-white/20">
-                  Rihlah &amp; Outing
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4 text-white">
-                <p className="text-xs sm:text-sm font-bold">Rihlah River Tubing &amp; Tadabbur Alam</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
