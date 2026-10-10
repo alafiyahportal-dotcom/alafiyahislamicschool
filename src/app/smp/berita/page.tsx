@@ -30,32 +30,92 @@ export const revalidate = 60;
 
 const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
   {
-    id: 'smp-warta-1',
-    title: 'Alhamdulillah! SMP IT Al-Afiyah Resmi Raih Nilai Akreditasi A (Unggul) dari BAN-S/M',
-    slug: 'smp-it-al-afiyah-raih-akreditasi-a',
-    category: 'Akademik',
-    excerpt: 'Prestasi membanggakan bagi seluruh civitas akademika. Standar mutu pembelajaran, sarana ber-AC, dan pembinaan tahfidz resmi diakui dengan predikat A Unggul.',
-    author: 'Humas SMP IT Al-Afiyah',
-    date: '6 Okt 2026',
+    id: 'smp-prestasi-1',
+    title: 'Tim Futsal SMP IT Al-Afiyah Raih Juara & Trofi Kejuaraan Pelajar Kabupaten Majalengka',
+    slug: 'prestasi-futsal-development-program-smp-it',
+    category: 'Prestasi',
+    excerpt: 'Program pembinaan Futsal Development Program membuahkan hasil membanggakan. Tim futsal sekolah sukses meraih trofi dan menjunjung tinggi sportivitas di lapangan.',
+    author: 'Pelatih & Pembina Futsal',
+    date: '8 Okt 2026',
     schoolName: 'SMP IT Al-Afiyah',
     readingTime: '3 menit baca',
-    imageUrl: '/images/smp-spmb-poster.png',
+    imageUrl: '/images/smp-hero-pesantren.jpg',
+    paragraphs: [
+      'Alhamdulillah, tim futsal SMP IT Al-Afiyah berhasil menorehkan prestasi gemilang pada turnamen pelajar tingkat Kabupaten Majalengka. Melalui perjuangan gigih dan kekompakan tim, santri berhasil membawa pulang trofi kejuaraan.',
+      'Kepala SMP IT Al-Afiyah menyampaikan rasa syukur dan bangga atas kerja keras para pemain serta pelatih. Prestasi ini membuktikan bahwa pendidikan Islam terpadu mampu mencetak generasi yang seimbang antara ketajaman hafalan Qur’an, ketangguhan fisik, dan akhlak sportivitas.'
+    ],
+    keyHighlights: [
+      'Meraih trofi juara turnamen futsal pelajar tingkat kabupaten',
+      'Didukung fasilitas lapangan futsal berstandar di lingkungan kampus',
+      'Mengedepankan akhlak sportivitas dan adab islami di dalam dan luar lapangan'
+    ]
   },
   {
-    id: 'smp-warta-2',
+    id: 'smp-kajian-1',
+    title: 'Menjaga Fitrah & Karakter Remaja Islami: Menjawab Tantangan Gadget di Era Digital',
+    slug: 'kajian-karakter-remaja-fitrah-gadget-smp-it',
+    category: 'Kajian Islam',
+    excerpt: 'Kajian parenting dan adab remaja bersama dewan asatidz mengupas kiat mendampingi generasi Z agar bijak berteknologi dan istiqamah dalam shalat serta tilawah.',
+    author: 'Dewan Asatidz SMP IT',
+    date: '5 Okt 2026',
+    schoolName: 'SMP IT Al-Afiyah',
+    readingTime: '4 menit baca',
+    imageUrl: '/images/smp-spmb-poster.png',
+    paragraphs: [
+      'Masa remaja (aqil baligh) merupakan fase emas pembentukan identitas diri seorang muslim. Di era gempuran media sosial dan gadget saat ini, benteng terkuat yang harus ditanamkan adalah tauhid, muraqabatullah (merasa diawasi Allah), dan kebiasaan adab nabawiyah.',
+      'Melalui program Student Character Development (SCD) dan bimbingan wali kelas, SMP IT Al-Afiyah mendidik para santri agar menjadikan teknologi sebagai sarana dakwah dan belajar, bukan pelarian yang melalaikan dari kewajiban ibadah.'
+    ],
+    keyHighlights: [
+      'Pentingnya pendampingan orang tua dalam penggunaan gawai di rumah',
+      'Integrasi buku pantau mutaba’ah ibadah harian santri',
+      'Pendidikan adab pergaulan dan batasan syar’i usia remaja'
+    ]
+  },
+  {
+    id: 'smp-pengumuman-1',
+    title: 'Alhamdulillah! SMP IT Al-Afiyah Resmi Raih Nilai Akreditasi A (Unggul) dari BAN-S/M',
+    slug: 'smp-it-al-afiyah-raih-akreditasi-a',
+    category: 'Pengumuman',
+    excerpt: 'Prestasi membanggakan bagi seluruh civitas akademika. Standar mutu pembelajaran, sarana ber-AC, dan pembinaan tahfidz resmi diakui dengan predikat A Unggul.',
+    author: 'Humas SMP IT Al-Afiyah',
+    date: '3 Okt 2026',
+    schoolName: 'SMP IT Al-Afiyah',
+    readingTime: '3 menit baca',
+    imageUrl: '/images/smp-spmb-biaya.png',
+    paragraphs: [
+      'Berdasarkan Surat Keputusan resmi Badan Akreditasi Nasional Sekolah/Madrasah (BAN-S/M), SMP IT Al-Afiyah Majalengka resmi memperoleh predikat Akreditasi A (Unggul).',
+      'Pencapaian ini mencerminkan komitmen yayasan dan sekolah dalam menyediakan kurikulum berkualitas, asatidz berkualifikasi, lingkungan belajar kondusif, dan sistem monitoring karakter modern.'
+    ],
+    keyHighlights: [
+      'Akreditasi A Unggul resmi dari BAN-S/M',
+      'Legalitas lengkap dan terverifikasi di Kemendikbudristek',
+      'Komitmen peningkatan mutu berkelanjutan menyambut T.A. 2027/2028'
+    ]
+  },
+  {
+    id: 'smp-kegiatan-1',
     title: 'Petualangan Seru River Tubing Cikadongdong: Membangun Ukhuwah & Ketangkasan Remaja',
     slug: 'rihlah-river-tubing-cikadongdong-smp-it',
-    category: 'Kegiatan',
+    category: 'Kabar Sekolah',
     excerpt: 'Murid diajak bertadabbur alam menaklukkan arus sungai Cikadongdong. Melatih keberanian, kerja sama tim, dan kepedulian terhadap kelestarian lingkungan.',
     author: 'Kordinator Kesiswaan',
     date: '2 Okt 2026',
     schoolName: 'SMP IT Al-Afiyah',
     readingTime: '4 menit baca',
     imageUrl: '/images/smp-tubing-1.jpg',
+    paragraphs: [
+      'Kegiatan tahunan tadabbur alam dan rihlah santri SMP IT Al-Afiyah diselenggarakan di wisata sungai Cikadongdong Majalengka. Santri diajak mempraktikkan doa safar, dzikir alam, dan ketangkasan fisik menyusuri arus air dengan pengawasan instruktur profesional.',
+      'Suasana riang dan penuh keakraban tampak di wajah para santri. Kegiatan ini sekaligus mempererat ukhuwah islamiyah antar santri dan para pembina asrama/sekolah.'
+    ],
+    keyHighlights: [
+      'Pelatihan kepemimpinan dan ketangkasan alam terbuka',
+      'Penguatan adab safar dan tadabbur ciptaan Allah Ta’ala',
+      'Standar keselamatan lengkap dengan pelampung dan instruktur terlatih'
+    ]
   },
   {
-    id: 'smp-warta-3',
-    title: 'Ujian Tasmi\' 3 Juz Sekali Duduk: Murid Buktikan Hafalan Qur\'an Mutqin & Tartil',
+    id: 'smp-tahfidz-1',
+    title: 'Ujian Tasmi\' 3 Juz Sekali Duduk: Santri Buktikan Hafalan Qur\'an Mutqin & Tartil',
     slug: 'ujian-tasmi-3-juz-mutqin-smp-it',
     category: 'Tahfidz',
     excerpt: 'Sesi tasmi\' akbar dihadiri oleh dewan asatidz dan para orang tua murid. Capaian hafalan mutqin menjadi bukti kesungguhan bimbingan Al-Qur\'an setiap pagi.',
@@ -64,18 +124,15 @@ const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
     schoolName: 'SMP IT Al-Afiyah',
     readingTime: '5 menit baca',
     imageUrl: '/images/smp-outing-3.jpg',
-  },
-  {
-    id: 'smp-warta-4',
-    title: 'Tim Futsal SMP IT Al-Afiyah Tampil Memukau di Kejuaraan Pelajar Kabupaten Majalengka',
-    slug: 'prestasi-futsal-development-program-smp-it',
-    category: 'Prestasi',
-    excerpt: 'Program pembinaan Futsal Development Program membuahkan hasil. Tim futsal sekolah meraih trofi dan menjunjung tinggi sportivitas di lapangan.',
-    author: 'Pelatih Olahraga',
-    date: '18 Sep 2026',
-    schoolName: 'SMP IT Al-Afiyah',
-    readingTime: '3 menit baca',
-    imageUrl: '/images/smp-hero-pesantren.jpg',
+    paragraphs: [
+      'Suasana haru dan khidmat menyelimuti masjid SMP IT Al-Afiyah saat para santri melantunkan ayat-ayat suci Al-Qur’an dalam ujian tasmi’ sekali duduk tanpa membuka mushaf.',
+      'Orang tua santri yang hadir turut menyimak dan meneteskan air mata bahagia menyaksikan buah hati mereka mampu menjaga kalam Ilahi di usia muda.'
+    ],
+    keyHighlights: [
+      'Ujian tasmi’ hafalan 1 juz hingga 3 juz sekali duduk',
+      'Bimbingan talaqqi bersanad oleh para penghafal Al-Qur’an 30 Juz',
+      'Pemberian syahadah tahfidz resmi bagi santri yang lulus ujian'
+    ]
   }
 ];
 
@@ -97,7 +154,7 @@ export default async function SmpBeritaPage() {
         id: post.id,
         title: post.title,
         slug: post.slug,
-        category: post.category || 'Berita',
+        category: post.category || 'Kabar Sekolah',
         excerpt: post.excerpt,
         content: post.content,
         author: post.author || 'Humas SMP IT',
@@ -145,15 +202,15 @@ export default async function SmpBeritaPage() {
             </h1>
 
             <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Ikuti kabar kegiatan murid, prestasi kejuaraan, liputan outing class, dan informasi resmi dari SMP IT Al-Afiyah Majalengka.
+              Ikuti kabar kegiatan santri, prestasi kejuaraan, liputan outing class, dan informasi resmi dari SMP IT Al-Afiyah Majalengka.
             </p>
           </div>
         </div>
       </section>
 
       {/* News Content */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-        <NewsListClient initialArticles={articles} />
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 pb-28 sm:pb-24 w-full">
+        <NewsListClient initialArticles={articles} schoolSlug="smp" />
       </main>
 
       <Footer schoolSlug="smp" />

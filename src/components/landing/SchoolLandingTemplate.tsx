@@ -139,8 +139,8 @@ export const renderStatIcon = (type: EnhancedStatItem['iconType']) => {
 
 /** Official SPMB SDIT T.A. 2027/2028 materials (index 0 = default active). width/height = intrinsic px, used to size the preview frame. */
 const SPMB_POSTERS = [
-  { src: '/images/sd-spmb-story.jpg', label: 'Story Telah Dibuka', file: 'Story-SPMB-SDIT-Al-Afiyah-2027-2028.jpg', width: 575, height: 1024 },
   { src: '/images/sd-spmb-brosur.jpg', label: 'Brosur Biaya & Syarat', file: 'Brosur-SPMB-SDIT-Al-Afiyah-2027-2028.jpg', width: 723, height: 1024 },
+  { src: '/images/sd-spmb-story.jpg', label: 'Story Telah Dibuka', file: 'Story-SPMB-SDIT-Al-Afiyah-2027-2028.jpg', width: 723, height: 1024 },
   { src: '/images/sd-spmb-poster-2027.jpg', label: 'Poster Kuota Terbatas', file: 'Poster-Kuota-SPMB-SDIT-Al-Afiyah-2027-2028.jpg', width: 723, height: 1024 },
 ];
 
@@ -1091,14 +1091,12 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 <div className="lg:col-span-5 flex flex-col items-center">
                   <div 
                     onClick={() => setIsPosterModalOpen(true)}
-                    className="relative group rounded-2xl overflow-hidden border-2 border-slate-200/80 shadow-md bg-white cursor-pointer max-w-sm w-full"
+                    className="relative group rounded-2xl overflow-hidden border-2 border-slate-200/80 shadow-md bg-white cursor-pointer max-w-sm w-full aspect-[723/1024]"
                   >
                     <img
                       src={activePoster.src}
                       alt={`${activePoster.label} SPMB ${school.name} 2027/2028`}
-                      width={activePoster.width}
-                      height={activePoster.height}
-                      className="block w-full h-auto group-hover:scale-105 transition-transform duration-500"
+                      className="block w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-2xs">
                       <span className="px-4 py-2 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-lg flex items-center gap-2">

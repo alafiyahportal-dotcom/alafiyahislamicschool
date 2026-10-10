@@ -261,6 +261,51 @@ export default function AdminSidebar({
     }
   ];
 
+  // Dynamic color palette per school unit for active links, hover states, and indicators
+  const isSmp = schoolSlug === 'smp';
+  const isTk = schoolSlug === 'tk';
+  const isSd = schoolSlug === 'sd';
+
+  const sidebarTheme = isSmp
+    ? {
+        activeText: 'text-[#030164] font-bold',
+        activeBg: 'bg-blue-50/90 shadow-2xs shadow-blue-900/5',
+        activeBar: 'bg-[#030164]',
+        activeIcon: 'text-[#030164]',
+        hoverClass: 'hover:text-[#030164] hover:bg-blue-50/50',
+        badgeClass: 'bg-[#030164] text-[#ffd51e] shadow-2xs',
+        selectFocus: 'focus:border-[#030164]',
+      }
+    : isTk
+    ? {
+        activeText: 'text-[#0284c7] font-bold',
+        activeBg: 'bg-sky-50/90 shadow-2xs shadow-sky-900/5',
+        activeBar: 'bg-[#0284c7]',
+        activeIcon: 'text-[#0284c7]',
+        hoverClass: 'hover:text-[#0284c7] hover:bg-sky-50/50',
+        badgeClass: 'bg-[#0284c7] text-white shadow-2xs',
+        selectFocus: 'focus:border-[#0284c7]',
+      }
+    : isSd
+    ? {
+        activeText: 'text-[#00A651] font-bold',
+        activeBg: 'bg-emerald-50/80 shadow-2xs shadow-emerald-900/5',
+        activeBar: 'bg-[#00A651]',
+        activeIcon: 'text-[#00A651]',
+        hoverClass: 'hover:text-[#00A651] hover:bg-emerald-50/50',
+        badgeClass: 'bg-[#00A651] text-white shadow-2xs',
+        selectFocus: 'focus:border-emerald-500',
+      }
+    : {
+        activeText: 'text-[#184F48] font-bold',
+        activeBg: 'bg-emerald-50/60 shadow-2xs shadow-teal-900/5',
+        activeBar: 'bg-[#184F48]',
+        activeIcon: 'text-[#184F48]',
+        hoverClass: 'hover:text-[#184F48] hover:bg-slate-50',
+        badgeClass: 'bg-[#184F48] text-white shadow-2xs',
+        selectFocus: 'focus:border-emerald-500',
+      };
+
   const renderSidebarContent = (isMobileDrawer: boolean) => (
     <div className="flex flex-col h-full justify-between min-h-0 bg-white">
       <div className="flex flex-col flex-1 min-h-0">
@@ -332,7 +377,7 @@ export default function AdminSidebar({
                   if (isMobileDrawer) setIsMobileOpen(false);
                 }}
                 aria-label="Pilih Unit Sekolah"
-                className="w-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none focus:border-emerald-500 cursor-pointer shadow-2xs"
+                className={`w-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none ${sidebarTheme.selectFocus} cursor-pointer shadow-2xs`}
               >
                 <option value="foundation">Yayasan Pusat</option>
                 <option value="tk">TK IT Al-Afiyah</option>
@@ -366,19 +411,19 @@ export default function AdminSidebar({
                   }}
                   className={`relative flex items-center justify-between px-4 py-2.5 rounded-xl text-xs transition-all duration-200 ${
                     item.active
-                      ? 'text-[#059669] font-semibold bg-emerald-50/70 shadow-2xs'
-                      : 'text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50'
+                      ? `${sidebarTheme.activeText} ${sidebarTheme.activeBg}`
+                      : `text-slate-600 font-medium ${sidebarTheme.hoverClass}`
                   }`}
                 >
-                  {/* Eduka Active Indicator: Vertical Green Bar on far-left */}
+                  {/* Eduka Active Indicator: Vertical Bar on far-left */}
                   {item.active && (
-                    <span className="absolute left-0 top-2 bottom-2 w-1 bg-[#10B981] rounded-r-full" />
+                    <span className={`absolute left-0 top-2 bottom-2 w-1 ${sidebarTheme.activeBar} rounded-r-full`} />
                   )}
 
                   <div className="flex items-center space-x-3 truncate">
                     <Icon
                       className={`w-4 h-4 flex-shrink-0 transition-colors ${
-                        item.active ? 'text-[#10B981]' : 'text-slate-400'
+                        item.active ? sidebarTheme.activeIcon : 'text-slate-400'
                       }`}
                     />
                     <span className="truncate">{item.name}</span>
@@ -386,7 +431,7 @@ export default function AdminSidebar({
 
                   {/* Badge if any */}
                   {'badge' in item && item.badge && (
-                    <span className="px-2 py-0.2 rounded-full text-[10px] font-bold bg-[#10B981] text-white flex-shrink-0">
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex-shrink-0 ${sidebarTheme.badgeClass}`}>
                       {item.badge}
                     </span>
                   )}

@@ -328,12 +328,6 @@ export default function Navbar({
           desc: activeSlug === 'smp' ? 'Hotline resmi WhatsApp Panitia 0822-4935-7893' : 'Konsultasi kurikulum adab & syar’i langsung dengan asatidzah', 
           openInNewTab: true 
         },
-        { 
-          label: activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : activeSlug === 'smp' ? 'Pusat Bantuan WA SMP IT' : 'Pusat Bantuan WhatsApp', 
-          href: activeSlug === 'sd' ? 'https://wa.me/6281310139001' : activeSlug === 'smp' ? 'https://wa.me/6282249357893' : 'https://wa.me/6281223344552', 
-          desc: 'Respon cepat tim panitia',
-          openInNewTab: true 
-        },
       ],
     },
   ];
