@@ -647,15 +647,108 @@ export default function CMSEditorClient({
 
   const currentSlide = slides[selectedSlideIndex] || slides[0];
 
-  // Helper to update current slide
+  const isSmp = schoolSlug === 'smp';
+  const isTk = schoolSlug === 'tk';
+  const isSd = schoolSlug === 'sd';
+
+  // Unit-specific accent color tokens for CMS Editor
+  const unitTheme = isSmp
+    ? {
+        primaryBg: 'bg-[#030164]',
+        primaryBgHover: 'hover:bg-[#080554]',
+        primaryText: 'text-[#030164]',
+        borderActive: 'border-[#030164]',
+        ringFocus: 'focus:ring-[#030164]/30',
+        activeTabClass: 'bg-[#030164] text-white shadow-xs',
+        saveBtnClass: 'bg-[#030164] hover:bg-[#080554] text-white shadow-sm',
+        slideBtnActive: 'bg-[#030164] text-[#ffd51e] shadow-xs ring-2 ring-[#ffd51e]/40 font-black',
+        badgePill: 'bg-blue-50 text-[#030164] border border-blue-200 font-extrabold',
+        infoBox: 'bg-blue-50/70 border border-blue-200 text-blue-950',
+        infoIcon: 'text-[#030164]',
+        presetActive: 'border-[#030164] bg-blue-50/50 ring-2 ring-[#030164]/40',
+        uploadBorder: 'border-[#030164]/40 bg-blue-50/20 hover:bg-blue-50/60 hover:border-[#030164]',
+        uploadIcon: 'text-[#030164]',
+        uploadText: 'text-[#030164]',
+        cta2Text: 'text-[#030164]',
+        manageBtn: 'bg-blue-50 text-[#030164] hover:bg-blue-100 border border-blue-200',
+        manageIcon: 'text-[#030164]',
+        unitTitle: 'SMP IT Al-Afiyah',
+      }
+    : isTk
+    ? {
+        primaryBg: 'bg-[#0284c7]',
+        primaryBgHover: 'hover:bg-[#0369a1]',
+        primaryText: 'text-[#0284c7]',
+        borderActive: 'border-[#0284c7]',
+        ringFocus: 'focus:ring-[#0284c7]/30',
+        activeTabClass: 'bg-[#0284c7] text-white shadow-xs',
+        saveBtnClass: 'bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-sm',
+        slideBtnActive: 'bg-[#0284c7] text-white shadow-xs ring-2 ring-sky-300 font-black',
+        badgePill: 'bg-sky-50 text-sky-800 border border-sky-200 font-extrabold',
+        infoBox: 'bg-sky-50/70 border border-sky-200 text-sky-950',
+        infoIcon: 'text-[#0284c7]',
+        presetActive: 'border-[#0284c7] bg-sky-50/50 ring-2 ring-[#0284c7]/40',
+        uploadBorder: 'border-[#0284c7]/40 bg-sky-50/20 hover:bg-sky-50/60 hover:border-[#0284c7]',
+        uploadIcon: 'text-[#0284c7]',
+        uploadText: 'text-[#0284c7]',
+        cta2Text: 'text-[#0284c7]',
+        manageBtn: 'bg-sky-50 text-sky-800 hover:bg-sky-100 border border-sky-200',
+        manageIcon: 'text-[#0284c7]',
+        unitTitle: 'TK IT Al-Afiyah',
+      }
+    : isSd
+    ? {
+        primaryBg: 'bg-[#00A651]',
+        primaryBgHover: 'hover:bg-[#059669]',
+        primaryText: 'text-[#00A651]',
+        borderActive: 'border-[#00A651]',
+        ringFocus: 'focus:ring-[#00A651]/30',
+        activeTabClass: 'bg-[#00A651] text-white shadow-xs',
+        saveBtnClass: 'bg-[#00A651] hover:bg-[#059669] text-white shadow-sm',
+        slideBtnActive: 'bg-[#00A651] text-white shadow-xs ring-2 ring-emerald-300 font-black',
+        badgePill: 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-extrabold',
+        infoBox: 'bg-emerald-50/70 border border-emerald-200 text-emerald-950',
+        infoIcon: 'text-[#00A651]',
+        presetActive: 'border-[#00A651] bg-emerald-50/50 ring-2 ring-[#00A651]/40',
+        uploadBorder: 'border-[#00A651]/40 bg-emerald-50/20 hover:bg-emerald-50/60 hover:border-[#00A651]',
+        uploadIcon: 'text-[#00A651]',
+        uploadText: 'text-[#00A651]',
+        cta2Text: 'text-[#00A651]',
+        manageBtn: 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200',
+        manageIcon: 'text-[#00A651]',
+        unitTitle: 'SDIT Al-Afiyah',
+      }
+    : {
+        primaryBg: 'bg-[#184F48]',
+        primaryBgHover: 'hover:bg-[#123E38]',
+        primaryText: 'text-[#184F48]',
+        borderActive: 'border-[#184F48]',
+        ringFocus: 'focus:ring-[#2D7A70]/30',
+        activeTabClass: 'bg-[#184F48] text-white shadow-xs',
+        saveBtnClass: 'bg-[#184F48] hover:bg-[#123E38] text-white shadow-sm',
+        slideBtnActive: 'bg-[#184F48] text-white shadow-xs ring-2 ring-[#2D7A70]/30 font-black',
+        badgePill: 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-extrabold',
+        infoBox: 'bg-slate-50 border border-slate-200 text-slate-800',
+        infoIcon: 'text-[#184F48]',
+        presetActive: 'border-[#184F48] bg-[#E8F3F1] ring-2 ring-[#2D7A70]/20',
+        uploadBorder: 'border-[#2D7A70]/40 bg-[#F0FAF8] hover:bg-[#E0F5F0] hover:border-[#2D7A70]',
+        uploadIcon: 'text-[#2D7A70]',
+        uploadText: 'text-[#2D7A70]',
+        cta2Text: 'text-[#184F48]',
+        manageBtn: 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-300',
+        manageIcon: 'text-emerald-700',
+        unitTitle: 'Yayasan Pendidikan Al-Afiyah',
+      };
+
+  // Helper to update current slide (universal copy sync across all slides)
   const updateCurrentSlide = (field: keyof UnitSlideData, value: any) => {
     let cleanVal = value;
     if (field === 'titlePart2' && typeof cleanVal === 'string') {
       cleanVal = cleanVal.replace(/ananda/gi, '').trim();
     }
     const newSlides = [...slides];
-    if (schoolSlug === 'sd' && field !== 'image' && field !== 'id') {
-      // For SDIT, headline, badge, subtitle, and CTA are universal across all carousel slides
+    if (field !== 'image' && field !== 'id') {
+      // Headline, badge, subtitle, and CTA are universal across all carousel slides for all units
       newSlides.forEach((s, idx) => {
         newSlides[idx] = {
           ...newSlides[idx],
@@ -680,19 +773,20 @@ export default function CMSEditorClient({
   // Helper to add slide
   const handleAddSlide = () => {
     const newId = slides.length + 1;
+    const base = slides[0] || {};
     const newSlide: UnitSlideData = {
       id: newId,
-      badge: `${badgeText} - SLIDE ${newId}`,
-      titlePart1: 'Judul Bagian Awal ',
-      titleHighlight: 'Teks Highlight',
-      titlePart2: ' Bagian Penutup',
-      description: 'Deskripsi pengantar slide banner yang menerangkan keunggulan atau agenda terbaru.',
-      primaryCtaText: 'Daftar Online',
-      primaryCtaLink: schoolSlug === 'foundation' ? '/ppdb/daftar' : `/ppdb/daftar?school=${schoolSlug}`,
-      secondaryCtaText: 'Hubungi Panitia',
-      secondaryCtaLink: `https://wa.me/${formData.identity.whatsappNumber}`,
-      image: '/images/eduka-hero-campus.jpg',
-      trustItems: [
+      badge: base.badge || `${badgeText} - SLIDE ${newId}`,
+      titlePart1: base.titlePart1 || 'Judul Bagian Awal ',
+      titleHighlight: base.titleHighlight || 'Teks Highlight',
+      titlePart2: base.titlePart2 || ' Bagian Penutup',
+      description: base.description || 'Deskripsi pengantar banner yang menerangkan keunggulan atau agenda terbaru.',
+      primaryCtaText: base.primaryCtaText || 'Daftar Online',
+      primaryCtaLink: base.primaryCtaLink || (schoolSlug === 'foundation' ? '/ppdb/daftar' : `/ppdb/daftar?school=${schoolSlug}`),
+      secondaryCtaText: base.secondaryCtaText || 'Hubungi Panitia',
+      secondaryCtaLink: base.secondaryCtaLink || `https://wa.me/${formData.identity.whatsappNumber}`,
+      image: availablePresetImages?.[0]?.url || '/images/eduka-hero-campus.jpg',
+      trustItems: base.trustItems || [
         { icon: 'shield', text: 'Terakreditasi A' },
         { icon: 'award', text: 'Target Prestasi' },
         { icon: 'calendar', text: 'T.A. 2027/2028' },
@@ -1089,7 +1183,7 @@ export default function CMSEditorClient({
             type="button"
             onClick={handleSave}
             disabled={isSaving}
-            className="inline-flex items-center space-x-2 px-5 py-2 text-xs font-bold text-white bg-[#184F48] hover:bg-[#123E38] disabled:opacity-50 rounded-xl transition-all shadow-sm cursor-pointer"
+            className={`inline-flex items-center space-x-2 px-5 py-2 text-xs font-bold text-white ${unitTheme.saveBtnClass} disabled:opacity-50 rounded-xl transition-all shadow-sm cursor-pointer`}
           >
             <Save className="w-3.5 h-3.5" />
             <span>{isSaving ? 'Menyimpan...' : 'Simpan Perubahan'}</span>
@@ -1147,7 +1241,7 @@ export default function CMSEditorClient({
               onClick={() => setActiveTab(tab.id as TabType)}
               className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
                 isActive
-                  ? 'bg-[#184F48] text-white shadow-2xs'
+                  ? unitTheme.activeTabClass
                   : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
               }`}
             >
@@ -1160,10 +1254,10 @@ export default function CMSEditorClient({
         <div className="flex items-center gap-1.5 ml-auto pl-2 border-l border-slate-200">
           <Link
             href={schoolSlug === 'foundation' ? '/admin/foundation/users' : `/admin/${schoolSlug}/teachers`}
-            className="flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-300 shadow-2xs cursor-pointer"
+            className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors ${unitTheme.manageBtn} shadow-2xs cursor-pointer`}
             title="Kelola Daftar Dewan Guru & Tenaga Kependidikan"
           >
-            <GraduationCap className="w-3.5 h-3.5 text-emerald-700" />
+            <GraduationCap className={`w-3.5 h-3.5 ${unitTheme.manageIcon}`} />
             <span>Kelola Guru ↗</span>
           </Link>
           <Link
@@ -2672,174 +2766,316 @@ export default function CMSEditorClient({
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-10 min-h-[550px]">
           {/* TAB 1: HERO BANNER & SLIDES */}
           {activeTab === 'hero' && (
-            <div className="space-y-8">
-              {/* Slide Selector Header */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200">
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900">
-                    Kelola Slide Banner Carousel
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    Pilih slide yang ingin disunting atau tambahkan slide baru untuk banner beranda.
-                  </p>
+            <div className="space-y-10">
+              {/* BAGIAN 1: KONTEN TEKS & HEADLINE UTAMA (TETAP / SATU JUDUL) */}
+              <div className="space-y-6">
+                <div className="pb-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">
+                        Konten &amp; Judul Utama Banner Hero
+                      </h3>
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${unitTheme.badgePill}`}>
+                        Teks Statis (Tetap)
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">
+                      Teks judul, badge, deskripsi, dan tombol CTA bersifat tetap (satu kesatuan teks). Foto di latar belakang akan berputar otomatis di carousel.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  {slides.map((s, idx) => (
-                    <button
-                      key={s.id || idx}
-                      type="button"
-                      onClick={() => setSelectedSlideIndex(idx)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                        selectedSlideIndex === idx
-                          ? 'bg-[#184F48] text-white shadow-xs'
-                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                      }`}
-                    >
-                      Slide {idx + 1}
-                    </button>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={handleAddSlide}
-                    className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    <span>Tambah Slide</span>
-                  </button>
-                  {slides.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveSlide(selectedSlideIndex)}
-                      className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100"
-                      title="Hapus Slide Ini"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  )}
+                {/* Info Callout */}
+                <div className={`p-4 rounded-2xl border text-xs flex items-start gap-3 ${unitTheme.infoBox}`}>
+                  <span className="text-lg shrink-0 mt-0.5">💡</span>
+                  <div className="leading-relaxed">
+                    <strong className="font-bold block mb-0.5">
+                      Struktur Hero Banner {unitTheme.unitTitle}:
+                    </strong>
+                    Semua slide foto carousel di beranda menggunakan <strong>1 judul, 1 deskripsi, dan tombol CTA yang sama</strong>. Anda cukup mengubah teks di bagian ini satu kali, dan perubahannya akan otomatis diterapkan ke seluruh tampilan banner beranda publik.
+                  </div>
+                </div>
+
+                {/* Form Teks Utama */}
+                <div className="space-y-6 bg-slate-50/70 p-6 rounded-2xl border border-slate-200">
+                  {/* Badge Text */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Label Badge Atas (Sub-heading Kecil)
+                    </label>
+                    <input
+                      type="text"
+                      value={currentSlide.badge}
+                      onChange={(e) => updateCurrentSlide('badge', e.target.value)}
+                      placeholder={schoolSlug === 'smp' ? 'SMP IT AL-AFIYAH MAJALENGKA' : schoolSlug === 'sd' ? 'SDIT AL-AFIYAH MAJALENGKA' : 'TK IT AL-AFIYAH MAJALENGKA'}
+                      className={`w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 ${unitTheme.ringFocus}`}
+                    />
+                    <span className="text-[11px] text-slate-400 mt-1 block">
+                      Teks kecil berbingkai di atas judul utama (muncul di seluruh slide banner).
+                    </span>
+                  </div>
+
+                  {/* 3-Part Title Editor */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Judul Bagian 1 (Awal)
+                      </label>
+                      <input
+                        type="text"
+                        value={currentSlide.titlePart1}
+                        onChange={(e) => updateCurrentSlide('titlePart1', e.target.value)}
+                        placeholder={schoolSlug === 'smp' ? 'Membentuk Karakter ' : schoolSlug === 'sd' ? 'Bukan Sekedar Tempat Belajar, Namun Juga ' : 'Membina Generasi '}
+                        className={`w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 ${unitTheme.ringFocus}`}
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">
+                        Beri spasi di akhir agar tidak dempet dengan teks highlight.
+                      </span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-amber-800 uppercase tracking-wide mb-1.5">
+                        Teks Highlight (Warna Kuning Emas/Aksen)
+                      </label>
+                      <input
+                        type="text"
+                        value={currentSlide.titleHighlight}
+                        onChange={(e) => updateCurrentSlide('titleHighlight', e.target.value)}
+                        placeholder={schoolSlug === 'smp' ? 'Pemimpin Mandiri' : schoolSlug === 'sd' ? 'Tempat Bertumbuh' : 'Ceria & Berkarakter'}
+                        className="w-full text-xs font-bold text-amber-900 border-2 border-amber-400 rounded-xl p-3 bg-amber-50/70 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
+                      />
+                      <span className="text-[10px] text-amber-700/80 mt-1 block">
+                        Kata kunci utama yang dicetak tebal dengan aksen warna emas/kuning.
+                      </span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                        Judul Bagian 2 (Penutup)
+                      </label>
+                      <input
+                        type="text"
+                        value={currentSlide.titlePart2}
+                        onChange={(e) => updateCurrentSlide('titlePart2', e.target.value)}
+                        placeholder={schoolSlug === 'sd' ? '(Dikosongkan untuk SDIT)' : ' & Berwawasan Global'}
+                        className={`w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 ${unitTheme.ringFocus}`}
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">
+                        {schoolSlug === 'sd' ? 'Untuk SDIT dikosongkan (tanpa kata Ananda).' : 'Teks penutup setelah highlight (opsional).'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Deskripsi Lengkap Banner
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={currentSlide.description}
+                      onChange={(e) => updateCurrentSlide('description', e.target.value)}
+                      placeholder="Tuliskan narasi keunggulan, visi, atau kemudahan pendaftaran..."
+                      className={`w-full text-xs text-slate-800 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 ${unitTheme.ringFocus} leading-relaxed`}
+                    />
+                    <span className="text-[11px] text-slate-400 mt-1 block">
+                      Paragraf pengantar yang tampil di bawah judul utama pada seluruh slide banner.
+                    </span>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                    <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black text-amber-700">
+                          Tombol Utama (CTA 1)
+                        </span>
+                        <span className="text-[10px] font-bold text-slate-400">Aksen Kuning Emas</span>
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">Teks Tombol</label>
+                        <input
+                          type="text"
+                          value={currentSlide.primaryCtaText}
+                          onChange={(e) => updateCurrentSlide('primaryCtaText', e.target.value)}
+                          className="w-full text-xs font-bold text-slate-800 border border-slate-200 rounded-lg p-2.5 bg-slate-50 focus:bg-white focus:border-amber-400 focus:outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">Link Tujuan</label>
+                        <input
+                          type="text"
+                          value={currentSlide.primaryCtaLink}
+                          onChange={(e) => updateCurrentSlide('primaryCtaLink', e.target.value)}
+                          className="w-full text-xs font-mono text-slate-800 border border-slate-200 rounded-lg p-2.5 bg-slate-50 focus:bg-white focus:border-amber-400 focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className={`text-xs font-black ${unitTheme.cta2Text}`}>
+                          Tombol Sekunder (CTA 2)
+                        </span>
+                        <span className="text-[10px] font-bold text-slate-400">Tombol Outline</span>
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">Teks Tombol</label>
+                        <input
+                          type="text"
+                          value={currentSlide.secondaryCtaText}
+                          onChange={(e) => updateCurrentSlide('secondaryCtaText', e.target.value)}
+                          className="w-full text-xs font-bold text-slate-800 border border-slate-200 rounded-lg p-2.5 bg-slate-50 focus:bg-white focus:outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">Link Tujuan</label>
+                        <input
+                          type="text"
+                          value={currentSlide.secondaryCtaLink}
+                          onChange={(e) => updateCurrentSlide('secondaryCtaLink', e.target.value)}
+                          className="w-full text-xs font-mono text-slate-800 border border-slate-200 rounded-lg p-2.5 bg-slate-50 focus:bg-white focus:outline-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Trust Badges Editor */}
+                  <div className="pt-2">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">
+                      4 Badge Penjamin Mutu (Trust Items di Bawah Tombol)
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                      {(currentSlide.trustItems || [
+                        { icon: 'shield', text: 'Terakreditasi A' },
+                        { icon: 'award', text: 'Target Prestasi' },
+                        { icon: 'calendar', text: 'T.A. 2027/2028' },
+                        { icon: 'check', text: 'Formulir Resmi' }
+                      ]).map((tItem, tIdx) => (
+                        <div key={tIdx} className="p-2.5 rounded-xl bg-white border border-slate-200 flex items-center space-x-2">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                          <input
+                            type="text"
+                            value={tItem.text}
+                            onChange={(e) => {
+                              const newTrust = [...(currentSlide.trustItems || [])];
+                              newTrust[tIdx] = { ...newTrust[tIdx], text: e.target.value };
+                              updateCurrentSlide('trustItems', newTrust);
+                            }}
+                            placeholder={`Badge ${tIdx + 1}`}
+                            className="w-full text-xs font-semibold text-slate-800 border-none bg-transparent focus:outline-none"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Editing Form for Selected Slide */}
-              <div className="space-y-6 bg-slate-50/70 p-6 rounded-2xl border border-slate-200">
-                <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-extrabold">
-                    Mengedit: Slide {selectedSlideIndex + 1} dari {slides.length}
-                  </span>
-                  <span className="text-xs text-slate-400 font-mono">ID: {currentSlide.id}</span>
+              {/* BAGIAN 2: KELOLA SLIDE FOTO BACKGROUND CAROUSEL (FOTO BERGANTI OTOMATIS) */}
+              <div className="space-y-6 pt-4 border-t-2 border-dashed border-slate-200">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-2">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
+                        <ImageIcon className={`w-5 h-5 ${unitTheme.infoIcon}`} />
+                        <span>Kelola Foto Background Carousel</span>
+                      </h3>
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">
+                        {slides.length} Slide Foto
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">
+                      Pilih nomor slide di bawah untuk mengganti foto latarnya. Foto-foto ini akan berputar otomatis secara halus di latar belakang banner.
+                    </p>
+                  </div>
+
+                  {/* Slide Selector Buttons */}
+                  <div className="flex items-center space-x-2">
+                    {slides.map((s, idx) => (
+                      <button
+                        key={s.id || idx}
+                        type="button"
+                        onClick={() => setSelectedSlideIndex(idx)}
+                        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          selectedSlideIndex === idx
+                            ? unitTheme.slideBtnActive
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        }`}
+                      >
+                        Foto Slide {idx + 1}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={handleAddSlide}
+                      className="inline-flex items-center space-x-1 px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Tambah Slide Foto</span>
+                    </button>
+                    {slides.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSlide(selectedSlideIndex)}
+                        className="inline-flex items-center space-x-1 px-3 py-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 cursor-pointer"
+                        title="Hapus Slide Foto Ini"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
 
-                {/* Badge Text */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                    Label Badge Atas
-                  </label>
-                  <input
-                    type="text"
-                    value={currentSlide.badge}
-                    onChange={(e) => updateCurrentSlide('badge', e.target.value)}
-                    placeholder="Contoh: SMP IT AL-AFIYAH MAJALENGKA"
-                    className="w-full text-xs font-bold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                  />
-                  <span className="text-[11px] text-slate-400 mt-1 block">
-                    Teks kecil berbingkai di atas judul utama.
-                  </span>
-                </div>
+                {/* Container Pengaturan Foto Slide Aktif */}
+                <div className="space-y-6 bg-slate-50/70 p-6 rounded-2xl border border-slate-200">
+                  <div className="flex items-center justify-between">
+                    <span className={`px-3 py-1 rounded-full text-xs font-black ${unitTheme.badgePill}`}>
+                      Mengatur Foto: Slide {selectedSlideIndex + 1} dari {slides.length}
+                    </span>
+                    <span className="text-xs text-slate-400 font-mono">Slide ID: {currentSlide.id}</span>
+                  </div>
 
-                {/* 3-Part Title Editor */}
-                {schoolSlug === 'sd' && (
-                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-950 flex items-start gap-2.5">
-                    <span className="text-base flex-shrink-0">💡</span>
-                    <div className="leading-relaxed">
-                      <strong className="font-bold text-emerald-900 block mb-0.5">Konsep Carousel Hero SDIT:</strong>
-                      Teks headline, subjudul, badge, dan tombol bersifat <strong>universal</strong> untuk seluruh carousel. Mengubah teks di sini akan diterapkan seragam ke seluruh slide, dan carousel di halaman publik hanya akan memutar 3 foto latar belakang (Slide 1, Slide 2, Slide 3) secara halus.
+                  {/* Foto Pratinjau Slide Aktif */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2 flex items-center justify-between">
+                      <span>Pratinjau Foto Slide {selectedSlideIndex + 1}:</span>
+                      <span className="text-[11px] text-slate-400 font-normal">Rasio optimal 16:9 atau foto beresolusi tinggi</span>
+                    </label>
+                    <div className="relative w-full h-48 sm:h-64 rounded-2xl overflow-hidden border-2 border-slate-200 bg-slate-900 shadow-inner group">
+                      <Image
+                        src={currentSlide.image}
+                        alt={`Slide ${selectedSlideIndex + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        unoptimized={currentSlide.image.startsWith('data:')}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-4">
+                        <div className="text-white">
+                          <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${unitTheme.badgePill} inline-block mb-1`}>
+                            Foto Slide {selectedSlideIndex + 1} Aktif
+                          </span>
+                          <p className="text-xs font-mono text-slate-200 truncate max-w-lg">
+                            {currentSlide.image}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                )}
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Preset quick selector & upload */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                      Judul Bagian 1 (Awal)
-                    </label>
-                    <input
-                      type="text"
-                      value={currentSlide.titlePart1}
-                      onChange={(e) => updateCurrentSlide('titlePart1', e.target.value)}
-                      placeholder={schoolSlug === 'sd' ? 'Bukan Sekedar Tempat Belajar, Namun Juga ' : 'Mencetak Pemimpin '}
-                      className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                    />
-                    <span className="text-[10px] text-slate-400 mt-1 block">
-                      {schoolSlug === 'sd' ? 'Contoh: Bukan Sekedar Tempat Belajar, Namun Juga ' : 'Beri spasi di akhir agar tidak dempet dengan teks highlight.'}
+                    <span className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
+                      Pilih dari Galeri Foto Sekolah atau Unggah Foto Baru:
                     </span>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-amber-800 uppercase tracking-wide mb-1.5">
-                      Teks Highlight (Warna Kuning/Aksen)
-                    </label>
-                    <input
-                      type="text"
-                      value={currentSlide.titleHighlight}
-                      onChange={(e) => updateCurrentSlide('titleHighlight', e.target.value)}
-                      placeholder={schoolSlug === 'sd' ? 'Tempat Bertumbuh' : 'Qur’ani Berakhlak'}
-                      className="w-full text-xs font-bold text-amber-900 border-2 border-amber-400 rounded-xl p-3 bg-amber-50/50 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
-                    />
-                    <span className="text-[10px] text-amber-700/80 mt-1 block">
-                      Kata kunci utama yang ingin ditonjolkan.
-                    </span>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                      Judul Bagian 2 (Penutup)
-                    </label>
-                    <input
-                      type="text"
-                      value={currentSlide.titlePart2}
-                      onChange={(e) => updateCurrentSlide('titlePart2', e.target.value)}
-                      placeholder={schoolSlug === 'sd' ? '(Kosongkan untuk SDIT)' : ' & Berwawasan Global'}
-                      className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                    />
-                    <span className="text-[10px] text-slate-400 mt-1 block">
-                      {schoolSlug === 'sd' ? 'Untuk SDIT dikosongkan (tanpa kata Ananda).' : 'Teks penutup setelah highlight (opsional).'}
-                    </span>
-                  </div>
-                </div>
 
-                {/* Description */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                    Deskripsi Lengkap Slide
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={currentSlide.description}
-                    onChange={(e) => updateCurrentSlide('description', e.target.value)}
-                    placeholder="Tuliskan penjelasan keunggulan, visi, atau kemudahan pendaftaran..."
-                    className="w-full text-xs text-slate-800 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30 leading-relaxed"
-                  />
-                </div>
-
-                {/* Banner Image URL & Presets */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5 flex items-center space-x-1.5">
-                    <ImageIcon className="w-3.5 h-3.5 text-[#2D7A70]" />
-                    <span>Gambar Latar Banner</span>
-                  </label>
-
-                  {/* Preset quick selector */}
-                  <div className="mb-3">
-                    <span className="text-[11px] font-bold text-slate-500 block mb-1.5">
-                      Pilih dari Galeri Foto Sekolah:
-                      <span className="ml-2 text-slate-400 font-normal">(klik ✕ untuk hapus dari daftar)</span>
-                    </span>
-                    {/* Upload button — unggah foto baru langsung */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2.5">
                       {availablePresetImages.map((preset) => (
                         <div
                           key={preset.url}
-                          className={`relative p-1.5 rounded-xl border text-left transition-all group ${
+                          className={`relative p-1.5 rounded-xl border text-left transition-all group cursor-pointer ${
                             currentSlide.image === preset.url
-                              ? 'border-[#184F48] bg-[#E8F3F1] ring-2 ring-[#2D7A70]/20'
+                              ? unitTheme.presetActive
                               : 'border-slate-200 bg-white hover:bg-slate-100'
                           }`}
                         >
@@ -2860,7 +3096,7 @@ export default function CMSEditorClient({
                             onClick={() => updateCurrentSlide('image', preset.url)}
                             className="cursor-pointer"
                           >
-                            <div className="h-14 rounded-lg overflow-hidden relative mb-1">
+                            <div className="h-16 rounded-lg overflow-hidden relative mb-1.5">
                               <Image
                                 src={preset.url}
                                 alt={preset.label}
@@ -2879,19 +3115,19 @@ export default function CMSEditorClient({
 
                       {/* Tombol Unggah Foto Baru */}
                       <div
-                        className="relative p-1.5 rounded-xl border-2 border-dashed border-[#2D7A70]/40 bg-[#F0FAF8] hover:bg-[#E0F5F0] hover:border-[#2D7A70] transition-all cursor-pointer flex flex-col items-center justify-center gap-1 min-h-[82px] group"
+                        className={`relative p-2 rounded-xl border-2 border-dashed ${unitTheme.uploadBorder} transition-all cursor-pointer flex flex-col items-center justify-center gap-1 min-h-[96px] group`}
                         onClick={() => !isUploading && fileInputRef.current?.click()}
                         title="Klik untuk unggah foto dari komputer"
                       >
                         {isUploading ? (
                           <>
-                            <div className="w-5 h-5 border-2 border-[#2D7A70] border-t-transparent rounded-full animate-spin" />
-                            <span className="text-[9px] font-bold text-[#2D7A70] text-center">Mengupload...</span>
+                            <div className={`w-5 h-5 border-2 ${unitTheme.uploadIcon} border-t-transparent rounded-full animate-spin`} />
+                            <span className={`text-[9px] font-bold ${unitTheme.uploadText} text-center`}>Mengupload...</span>
                           </>
                         ) : (
                           <>
-                            <Upload className="w-4 h-4 text-[#2D7A70] group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] font-bold text-[#2D7A70] text-center leading-tight">Unggah<br/>Foto Baru</span>
+                            <Upload className={`w-4 h-4 ${unitTheme.uploadIcon} group-hover:scale-110 transition-transform`} />
+                            <span className={`text-[10px] font-bold ${unitTheme.uploadText} text-center leading-tight`}>Unggah<br/>Foto Baru</span>
                             <span className="text-[9px] text-slate-400 text-center">JPG/PNG/WebP<br/>maks 5MB</span>
                           </>
                         )}
@@ -2936,96 +3172,20 @@ export default function CMSEditorClient({
                         </button>
                       </div>
                     )}
-
-                  </div>{/* end preset quick selector */}
-
-                  <input
-                    type="text"
-                    value={currentSlide.image}
-                    onChange={(e) => updateCurrentSlide('image', e.target.value)}
-                    placeholder="Contoh: /images/smp-hero-fullday.jpg atau URL HTTPS..."
-                    className="w-full text-xs font-mono text-slate-900 border border-slate-300 rounded-xl p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
-                  />
-                </div>
-
-                {/* CTA Buttons */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-2">
-                    <span className="text-xs font-extrabold text-amber-700 block">
-                      Tombol Utama (CTA 1)
-                    </span>
-                    <div>
-                      <label className="block text-[11px] font-semibold text-slate-500 mb-1">Teks Tombol</label>
-                      <input
-                        type="text"
-                        value={currentSlide.primaryCtaText}
-                        onChange={(e) => updateCurrentSlide('primaryCtaText', e.target.value)}
-                        className="w-full text-xs font-bold text-slate-800 border border-slate-200 rounded-lg p-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-semibold text-slate-500 mb-1">Link Tujuan</label>
-                      <input
-                        type="text"
-                        value={currentSlide.primaryCtaLink}
-                        onChange={(e) => updateCurrentSlide('primaryCtaLink', e.target.value)}
-                        className="w-full text-xs font-mono text-slate-800 border border-slate-200 rounded-lg p-2"
-                      />
-                    </div>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-2">
-                    <span className="text-xs font-extrabold text-[#184F48] block">
-                      Tombol Sekunder (CTA 2)
-                    </span>
-                    <div>
-                      <label className="block text-[11px] font-semibold text-slate-500 mb-1">Teks Tombol</label>
-                      <input
-                        type="text"
-                        value={currentSlide.secondaryCtaText}
-                        onChange={(e) => updateCurrentSlide('secondaryCtaText', e.target.value)}
-                        className="w-full text-xs font-bold text-slate-800 border border-slate-200 rounded-lg p-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-semibold text-slate-500 mb-1">Link Tujuan</label>
-                      <input
-                        type="text"
-                        value={currentSlide.secondaryCtaLink}
-                        onChange={(e) => updateCurrentSlide('secondaryCtaLink', e.target.value)}
-                        className="w-full text-xs font-mono text-slate-800 border border-slate-200 rounded-lg p-2"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Trust Badges Editor */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">
-                    4 Badge Penjamin Mutu (Trust Items di Bawah Deskripsi)
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-                    {(currentSlide.trustItems || [
-                      { icon: 'shield', text: 'Terakreditasi A' },
-                      { icon: 'award', text: 'Target Prestasi' },
-                      { icon: 'calendar', text: 'T.A. 2027/2028' },
-                      { icon: 'check', text: 'Formulir Resmi' }
-                    ]).map((tItem, tIdx) => (
-                      <div key={tIdx} className="p-2.5 rounded-xl bg-white border border-slate-200 flex items-center space-x-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                        <input
-                          type="text"
-                          value={tItem.text}
-                          onChange={(e) => {
-                            const newTrust = [...(currentSlide.trustItems || [])];
-                            newTrust[tIdx] = { ...newTrust[tIdx], text: e.target.value };
-                            updateCurrentSlide('trustItems', newTrust);
-                          }}
-                          placeholder={`Badge ${tIdx + 1}`}
-                          className="w-full text-xs font-semibold text-slate-800 border-none bg-transparent focus:outline-none"
-                        />
-                      </div>
-                    ))}
+                  {/* Manual URL Input */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
+                      Atau Masukkan Path / URL Foto Manual:
+                    </label>
+                    <input
+                      type="text"
+                      value={currentSlide.image}
+                      onChange={(e) => updateCurrentSlide('image', e.target.value)}
+                      placeholder="Contoh: /images/smp-hero-fullday.jpg atau URL HTTPS..."
+                      className={`w-full text-xs font-mono text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 ${unitTheme.ringFocus}`}
+                    />
                   </div>
                 </div>
               </div>

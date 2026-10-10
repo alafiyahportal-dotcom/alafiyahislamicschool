@@ -1,4 +1,29 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+
+export async function generateViewport({
+  params,
+}: {
+  params: Promise<{ schoolSlug: string }>;
+}): Promise<Viewport> {
+  const resolvedParams = await params;
+  const { schoolSlug } = resolvedParams;
+
+  const color =
+    schoolSlug === 'smp'
+      ? '#030164'
+      : schoolSlug === 'tk'
+      ? '#0284c7'
+      : schoolSlug === 'sd'
+      ? '#00A651'
+      : '#184F48';
+
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    themeColor: color,
+  };
+}
 
 export async function generateMetadata({
   params,

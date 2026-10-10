@@ -291,7 +291,15 @@ export default function FoundationDashboardClient({
                   ? 'Basis Data & Verifikasi Murid PPDB (Semua Unit)'
                   : `Basis Data & Verifikasi Murid PPDB - ${schoolName || currentSchoolSlug.toUpperCase() + ' IT Al-Afiyah'}`}
               </h3>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">
+              <span
+                className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                  currentSchoolSlug === 'smp'
+                    ? 'bg-blue-100 text-[#030164] border border-blue-200'
+                    : currentSchoolSlug === 'tk'
+                    ? 'bg-sky-100 text-sky-800 border border-sky-200'
+                    : 'bg-emerald-100 text-emerald-800'
+                }`}
+              >
                 Live Data
               </span>
             </div>
@@ -313,7 +321,13 @@ export default function FoundationDashboardClient({
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Cari nama murid, no. registrasi, atau orang tua..."
-                className="w-full bg-slate-50 text-xs text-slate-800 placeholder-slate-400 rounded-xl pl-10 pr-3 py-2.5 border border-slate-200 focus:bg-white focus:border-[#10B981] focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition-all font-medium"
+                className={`w-full bg-slate-50 text-xs text-slate-800 placeholder-slate-400 rounded-xl pl-10 pr-3 py-2.5 border border-slate-200 focus:bg-white ${
+                  currentSchoolSlug === 'smp'
+                    ? 'focus:border-[#030164] focus:ring-2 focus:ring-[#030164]/20'
+                    : currentSchoolSlug === 'tk'
+                    ? 'focus:border-[#0284c7] focus:ring-2 focus:ring-[#0284c7]/20'
+                    : 'focus:border-[#10B981] focus:ring-2 focus:ring-emerald-500/20'
+                } focus:outline-none transition-all font-medium`}
               />
             </div>
           </div>

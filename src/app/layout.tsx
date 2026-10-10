@@ -23,6 +23,7 @@ import { Suspense } from "react";
 import Script from "next/script";
 import HelpdeskChatWidget from "@/components/shared/HelpdeskChatWidget";
 import ReferralTracker from "@/components/shared/ReferralTracker";
+import DynamicUnitThemeColorSync from "@/components/shared/DynamicUnitThemeColorSync";
 import GoogleStructuredData from "@/components/seo/GoogleStructuredData";
 
 export const viewport: Viewport = {
@@ -146,6 +147,7 @@ export default function RootLayout({
         />
         <Suspense fallback={null}>
           <ReferralTracker />
+          <DynamicUnitThemeColorSync />
         </Suspense>
         {children}
         <HelpdeskChatWidget />

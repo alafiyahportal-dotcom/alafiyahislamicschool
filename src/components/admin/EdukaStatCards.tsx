@@ -48,36 +48,69 @@ export default function EdukaStatCards({
   const isFoundation = schoolSlug === 'foundation';
   const unitLabel = schoolSlug.toUpperCase();
 
+  const card1Config =
+    schoolSlug === 'smp'
+      ? {
+          bg: 'bg-gradient-to-br from-[#030164] via-[#080554] to-[#01002e] border border-[#ffd51e]/30 shadow-xl shadow-blue-950/30',
+          textColor: 'text-blue-100',
+          badgeStyle: 'bg-[#ffd51e] text-[#030164] font-black',
+          iconBg: 'bg-white/15',
+        }
+      : schoolSlug === 'tk'
+      ? {
+          bg: 'bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#075985] shadow-xl shadow-sky-600/20',
+          textColor: 'text-sky-100',
+          badgeStyle: 'bg-white/20 text-white font-semibold',
+          iconBg: 'bg-white/20',
+        }
+      : schoolSlug === 'sd'
+      ? {
+          bg: 'bg-gradient-to-br from-[#00A651] via-[#059669] to-[#047857] shadow-xl shadow-emerald-600/20',
+          textColor: 'text-emerald-100',
+          badgeStyle: 'bg-white/20 text-white font-semibold',
+          iconBg: 'bg-white/20',
+        }
+      : {
+          bg: 'bg-gradient-to-br from-[#184F48] via-[#123E38] to-[#071D1A] shadow-xl shadow-[#184F48]/20',
+          textColor: 'text-emerald-100',
+          badgeStyle: 'bg-white/20 text-white font-semibold',
+          iconBg: 'bg-white/20',
+        };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       
-      {/* CARD 1: TOTAL STUDENTS (Vibrant Emerald Gradient) */}
-      <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] text-white p-6 shadow-xl shadow-emerald-600/20 transition-all duration-300 transform hover:-translate-y-1 group">
+      {/* CARD 1: TOTAL STUDENTS (Unit Identity Gradient) */}
+      <div className={`relative overflow-hidden rounded-[24px] ${card1Config.bg} text-white p-6 transition-all duration-300 transform hover:-translate-y-1 group`}>
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <span className="text-xs font-medium text-emerald-100 uppercase tracking-wider">
+            <span className={`text-xs font-medium ${card1Config.textColor} uppercase tracking-wider`}>
               {isFoundation ? 'Total Murid Pendaftar' : `Pendaftar ${unitLabel} IT`}
             </span>
             <div className="text-3xl sm:text-4xl font-bold tracking-tight text-white tabular-nums">
               {stats.totalStudents || 0}
             </div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+          <div className={`w-12 h-12 rounded-2xl ${card1Config.iconBg} backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
             <BookOpen className="w-6 h-6 text-white" />
           </div>
         </div>
 
         {/* Footer Sub-Metric */}
-        <div className="mt-5 pt-3.5 border-t border-white/20 flex items-center justify-between text-xs text-emerald-100">
+        <div className="mt-5 pt-3.5 border-t border-white/20 flex items-center justify-between text-xs text-white/90">
           <span>Terverifikasi Berkas</span>
-          <span className="font-semibold text-white bg-white/20 px-2.5 py-0.5 rounded-full text-[11px]">
+          <span className={`px-2.5 py-0.5 rounded-full text-[11px] ${card1Config.badgeStyle}`}>
             {stats.totalStudents > 0 ? `${verifiedPercentage}% Sah` : '0 Pendaftar'}
           </span>
         </div>
       </div>
 
-      {/* CARD 2: TOTAL TEACHERS / GURU (Vibrant Sky Blue Gradient) */}
-      <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#0EA5E9] via-[#0284C7] to-[#0369A1] text-white p-6 shadow-xl shadow-sky-600/20 transition-all duration-300 transform hover:-translate-y-1 group">
+      {/* CARD 2: TOTAL TEACHERS / GURU (Vibrant Blue/Sky Gradient) */}
+      <div className={`relative overflow-hidden rounded-[24px] ${
+        schoolSlug === 'smp'
+          ? 'bg-gradient-to-br from-[#1E40AF] via-[#1D4ED8] to-[#172554] shadow-xl shadow-blue-900/20'
+          : 'bg-gradient-to-br from-[#0EA5E9] via-[#0284C7] to-[#0369A1] shadow-xl shadow-sky-600/20'
+      } text-white p-6 transition-all duration-300 transform hover:-translate-y-1 group`}>
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <span className="text-xs font-medium text-sky-100 uppercase tracking-wider">

@@ -12,6 +12,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { extractSubdomain } from '@/lib/domain';
+import { applyThemeColorToDocument } from '@/components/shared/DynamicUnitThemeColorSync';
 
 type UnitKey = 'yayasan' | 'sd' | 'smp' | 'tk';
 
@@ -72,11 +73,11 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     name: 'TK IT Al-Afiyah',
     subtitle: 'Pondasi Karakter Usia Dini',
     logo: '/images/sd-logo.png',
-    primaryColor: '#0d9488',
+    primaryColor: '#0284c7',
     accentColor: '#FBBF24',
-    headerBg: 'from-[#0f766e] via-[#0d9488] to-[#115e59]',
-    buttonBg: 'bg-[#0d9488] hover:bg-[#0f766e]',
-    focusRing: 'focus:ring-[#0d9488]/20 focus:border-[#0d9488]',
+    headerBg: 'from-[#0369a1] via-[#0284c7] to-[#075985]',
+    buttonBg: 'bg-[#0284c7] hover:bg-[#0369a1]',
+    focusRing: 'focus:ring-[#0284c7]/20 focus:border-[#0284c7]',
     homeUrl: '/tk',
     registerUrl: '/ppdb/daftar?unit=tk',
     checkStatusUrl: '/ppdb/cek-status?school=tk',
@@ -179,6 +180,9 @@ export default function LoginPage() {
     freshIcon.type = iconType;
     freshIcon.href = `${iconHref}?unit=${activeUnit}`;
     document.head.appendChild(freshIcon);
+
+    // 5. Update browser mobile address bar / status bar (theme-color) to unit identity
+    applyThemeColorToDocument(currentTheme.primaryColor);
 
     return () => {
       freshIcon.remove();
