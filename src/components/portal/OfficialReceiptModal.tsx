@@ -89,7 +89,15 @@ export default function OfficialReceiptModal({
             {/* Header Kop Kuitansi */}
             <div className="flex items-center justify-between border-b-2 border-slate-800 pb-4 mb-4">
               <div className="flex items-center gap-3">
-                {schoolSlug === 'sd' || schoolName.toLowerCase().includes('sd') || schoolName.toLowerCase().includes('sekolah dasar') ? (
+                {schoolSlug === 'smp' || schoolName.toLowerCase().includes('smp') ? (
+                  <div className="w-12 h-12 flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/smp-logo.png"
+                      alt="Logo SMP IT Al-Afiyah"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                ) : schoolSlug === 'sd' || schoolName.toLowerCase().includes('sd') || schoolName.toLowerCase().includes('sekolah dasar') ? (
                   <div className="w-12 h-12 flex items-center justify-center shrink-0">
                     <img
                       src="/images/sd-logo.png"
@@ -98,8 +106,12 @@ export default function OfficialReceiptModal({
                     />
                   </div>
                 ) : (
-                  <div className="w-12 h-12 rounded-xl bg-[#184F48] text-white font-extrabold flex items-center justify-center text-lg shadow-xs">
-                    IB
+                  <div className="w-12 h-12 flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/sd-logo.png"
+                      alt="Logo Al-Afiyah"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 )}
                 <div>

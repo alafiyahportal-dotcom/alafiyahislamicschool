@@ -75,6 +75,13 @@ export default async function ApplicantPortalPage({
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#184F48] uppercase tracking-wide bg-[#E8F3F1] px-3 py-1 rounded-full border border-[#2D7A70]/30">
+                {reg.school.slug === 'smp' && (
+                  <img
+                    src="/images/smp-logo.png"
+                    alt="Logo SMP IT Al-Afiyah"
+                    className="w-4 h-4 object-contain shrink-0"
+                  />
+                )}
                 {reg.school.slug === 'sd' && (
                   <img
                     src="/images/sd-logo.png"
@@ -236,6 +243,13 @@ export default async function ApplicantPortalPage({
                 <div className="flex justify-between items-center">
                   <span className="text-slate-500">Unit Sekolah:</span>
                   <span className="font-bold text-slate-900 inline-flex items-center gap-1.5">
+                    {reg.school.slug === 'smp' && (
+                      <img
+                        src="/images/smp-logo.png"
+                        alt="Logo SMP IT Al-Afiyah"
+                        className="w-4 h-4 object-contain inline-block"
+                      />
+                    )}
                     {reg.school.slug === 'sd' && (
                       <img
                         src="/images/sd-logo.png"

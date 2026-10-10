@@ -42,12 +42,20 @@ interface AdminSidebarProps {
 export default function AdminSidebar({
   currentRole = 'SUPERADMIN',
   userName = 'Administrator',
-  schoolSlug = 'foundation',
+  schoolSlug: initialSchoolSlug = 'foundation',
   schoolName = 'Yayasan Pendidikan Imam Bonjol'
 }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  // Auto-detect schoolSlug from route pathname to ensure 100% accurate branding
+  const schoolSlug = (() => {
+    if (pathname.startsWith('/admin/smp')) return 'smp';
+    if (pathname.startsWith('/admin/sd')) return 'sd';
+    if (pathname.startsWith('/admin/tk')) return 'tk';
+    return initialSchoolSlug;
+  })();
 
   useEffect(() => {
     const handleToggle = () => setIsMobileOpen((prev) => !prev);
@@ -97,7 +105,12 @@ export default function AdminSidebar({
 
       document.title = pageContext ? `${pageContext} | ${unitTitle}` : `${unitTitle} Majalengka`;
 
-      const iconHref = schoolSlug === 'sd' ? '/images/sd-logo.png?v=2' : '/favicon.ico';
+      const iconHref =
+        schoolSlug === 'smp'
+          ? '/images/smp-logo.png?v=2'
+          : schoolSlug === 'sd'
+          ? '/images/sd-logo.png?v=2'
+          : '/favicon.ico';
       const iconLinks = document.querySelectorAll<HTMLLinkElement>("link[rel*='icon']");
       if (iconLinks.length === 0) {
         const newLink = document.createElement('link');
@@ -254,24 +267,24 @@ export default function AdminSidebar({
         {/* Clean Unified Unit Header - No redundant alafiyah YPIB or repeated words */}
         <div className="h-16 sm:h-20 flex-shrink-0 flex items-center justify-between px-5 border-b border-slate-100 bg-white gap-3">
           <div className="flex items-center space-x-3 min-w-0">
-            {schoolSlug === 'sd' ? (
+            {schoolSlug === 'smp' ? (
+              <img
+                src="/images/smp-logo.png"
+                alt="Logo SMP IT Al-Afiyah"
+                className="w-10 h-10 object-contain shrink-0"
+              />
+            ) : schoolSlug === 'sd' ? (
               <img
                 src="/images/sd-logo.png"
                 alt="Logo SDIT Al-Afiyah"
                 className="w-10 h-10 object-contain shrink-0"
               />
             ) : (
-              <div
-                className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-2xs ${
-                  schoolSlug === 'tk'
-                    ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                    : schoolSlug === 'smp'
-                    ? 'bg-[#064E3B]/10 text-[#064E3B] border border-[#064E3B]/20'
-                    : 'bg-slate-100 text-slate-800 border border-slate-200'
-                }`}
-              >
-                {schoolSlug === 'tk' ? 'TK' : schoolSlug === 'smp' ? 'SMP' : 'YP'}
-              </div>
+              <img
+                src="/images/sd-logo.png"
+                alt="Logo Yayasan Al-Afiyah"
+                className="w-10 h-10 object-contain shrink-0"
+              />
             )}
 
             <div className="min-w-0">

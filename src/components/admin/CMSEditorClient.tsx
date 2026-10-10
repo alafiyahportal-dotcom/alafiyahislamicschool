@@ -810,7 +810,13 @@ export default function CMSEditorClient({
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs flex flex-wrap items-center justify-between gap-4">
         {/* Unit Selector / Tenant Badge */}
         <div className="flex items-center space-x-3">
-          {schoolSlug === 'sd' ? (
+          {schoolSlug === 'smp' ? (
+            <img
+              src="/images/smp-logo.png"
+              alt="Logo SMP IT Al-Afiyah"
+              className="w-10 h-10 object-contain shrink-0"
+            />
+          ) : schoolSlug === 'sd' ? (
             <img
               src="/images/sd-logo.png"
               alt="Logo SDIT Al-Afiyah"
@@ -1153,7 +1159,13 @@ export default function CMSEditorClient({
             <div className="p-6 sm:p-10 bg-slate-50 min-h-[400px] space-y-6">
               <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs max-w-2xl mx-auto space-y-4">
                 <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-                  {schoolSlug === 'sd' ? (
+                  {schoolSlug === 'smp' ? (
+                    <img
+                      src="/images/smp-logo.png"
+                      alt="Logo SMP IT Al-Afiyah"
+                      className="w-12 h-12 object-contain shrink-0"
+                    />
+                  ) : schoolSlug === 'sd' ? (
                     <img
                       src="/images/sd-logo.png"
                       alt="Logo SDIT Al-Afiyah"

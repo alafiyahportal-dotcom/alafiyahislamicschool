@@ -75,7 +75,15 @@ export default function ExamCardModal({
             {/* Header */}
             <div className="flex items-center justify-between border-b-2 border-slate-200 pb-4 mb-4">
               <div className="flex items-center gap-3">
-                {schoolSlug === 'sd' ? (
+                {schoolSlug === 'smp' ? (
+                  <div className="w-11 h-11 flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/smp-logo.png"
+                      alt="Logo SMP IT Al-Afiyah"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                ) : schoolSlug === 'sd' ? (
                   <div className="w-11 h-11 flex items-center justify-center shrink-0">
                     <img
                       src="/images/sd-logo.png"
@@ -84,8 +92,12 @@ export default function ExamCardModal({
                     />
                   </div>
                 ) : (
-                  <div className="w-11 h-11 rounded-xl bg-[#184F48] text-white font-extrabold flex items-center justify-center text-base shadow-xs">
-                    IB
+                  <div className="w-11 h-11 flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/sd-logo.png"
+                      alt="Logo Al-Afiyah"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 )}
                 <div>

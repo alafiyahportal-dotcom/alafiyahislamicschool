@@ -864,7 +864,15 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
             <div className="pt-4 text-slate-900 font-sans text-xs">
               {/* Kop Surat */}
               <div className="flex items-center justify-between pb-3 border-b-2 border-slate-900">
-                {registration.school.slug === 'sd' ? (
+                {registration.school.slug === 'smp' ? (
+                  <div className="w-14 h-14 flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/smp-logo.png"
+                      alt="Logo SMP IT Al-Afiyah"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                ) : registration.school.slug === 'sd' ? (
                   <div className="w-14 h-14 flex items-center justify-center shrink-0">
                     <img
                       src="/images/sd-logo.png"
@@ -873,8 +881,12 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
                     />
                   </div>
                 ) : (
-                  <div className="w-14 h-14 rounded-xl bg-[#184F48] text-white flex items-center justify-center font-extrabold text-xl flex-shrink-0">
-                    IB
+                  <div className="w-14 h-14 flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/sd-logo.png"
+                      alt="Logo Al-Afiyah"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 )}
                 <div className="text-center flex-1 px-4">

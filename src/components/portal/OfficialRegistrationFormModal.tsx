@@ -145,9 +145,19 @@ export default function OfficialRegistrationFormModal({
             ) : (
               <div className="border-b-2 border-slate-900 pb-3 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-16 h-16 rounded-xl bg-[#184F48] text-white font-extrabold text-2xl flex items-center justify-center flex-shrink-0 border-2 border-amber-400">
-                    IB
-                  </div>
+                  {schoolSlug === 'smp' ? (
+                    <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                      <img
+                        src="/images/smp-logo.png"
+                        alt="Logo SMP IT Al-Afiyah"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 rounded-xl bg-[#184F48] text-white font-extrabold text-2xl flex items-center justify-center flex-shrink-0 border-2 border-amber-400">
+                      IB
+                    </div>
+                  )}
                   <div>
                     <h2 className="text-xs font-bold tracking-widest text-slate-600 uppercase">
                       Yayasan Pendidikan Imam Bonjol Majalengka

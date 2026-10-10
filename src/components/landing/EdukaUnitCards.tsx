@@ -180,6 +180,13 @@ export default function EdukaUnitCards() {
                               className="w-7 h-7 object-contain shrink-0"
                             />
                           )}
+                          {unit.slug === 'smp' && (
+                            <img
+                              src="/images/smp-logo.png"
+                              alt="Logo SMP IT Al-Afiyah"
+                              className="w-7 h-7 object-contain shrink-0"
+                            />
+                          )}
                           <span>{unit.name}</span>
                         </div>
                         <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-[#184F48] shrink-0 ml-2" />

@@ -28,6 +28,44 @@ export default function AlAfiyahLogo({
 }: AlAfiyahLogoProps) {
   const sizeConfig = SIZES[size] || SIZES.md;
 
+  // Render official SMP IT Al-Afiyah emblem when schoolSlug is 'smp'
+  if (schoolSlug === 'smp') {
+    if (variant === 'emblem') {
+      return (
+        <div className={`inline-flex items-center justify-center ${sizeConfig.box} ${className}`}>
+          <img
+            src="/images/smp-logo.png"
+            alt="Logo SMP IT Al-Afiyah"
+            className="w-full h-full object-contain drop-shadow-sm"
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className={`inline-flex items-center gap-3 ${className}`}>
+        <div className={`relative flex items-center justify-center ${sizeConfig.box} shrink-0`}>
+          <img
+            src="/images/smp-logo.png"
+            alt="Logo SMP IT Al-Afiyah"
+            className="w-full h-full object-contain drop-shadow-sm"
+          />
+        </div>
+
+        {withText && (
+          <div className="flex flex-col">
+            <span className="font-extrabold tracking-tight text-[#030164] leading-none">
+              SMP IT AL-AFIYAH
+            </span>
+            <span className="text-[10px] font-semibold text-[#ffd51e] tracking-wider uppercase mt-0.5">
+              Sekolah Menengah Pertama Islam Terpadu
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // Render official SDIT Al-Afiyah emblem when schoolSlug is 'sd'
   if (schoolSlug === 'sd') {
     if (variant === 'emblem') {

@@ -291,16 +291,24 @@ function FrontCardDesign({
       {/* Top Header */}
       <div className="flex items-start justify-between relative z-10">
         <div className="flex items-center gap-2.5">
-          {theme.code === 'SDIT' ? (
+          {theme.code === 'SMP IT' || schoolName.toLowerCase().includes('smp') ? (
+            <img
+              src="/images/smp-logo.png"
+              alt="Logo SMP IT Al-Afiyah"
+              className="w-9 h-9 object-contain shrink-0 drop-shadow-sm"
+            />
+          ) : theme.code === 'SDIT' ? (
             <img
               src="/images/sd-logo.png"
               alt="Logo SDIT Al-Afiyah"
               className="w-9 h-9 object-contain shrink-0 drop-shadow-sm"
             />
           ) : (
-            <div className="w-8 h-8 rounded-lg bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center font-black text-amber-300 text-xs shadow-inner">
-              IB
-            </div>
+            <img
+              src="/images/sd-logo.png"
+              alt="Logo Al-Afiyah"
+              className="w-9 h-9 object-contain shrink-0 drop-shadow-sm"
+            />
           )}
           <div>
             <h4 className="text-[8px] font-bold text-white/80 tracking-widest uppercase leading-tight">

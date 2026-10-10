@@ -72,7 +72,15 @@ export default function AdmissionLetterModal({
           {/* KOP SURAT YAYASAN */}
           <div className="text-center pb-4 border-b-4 border-double border-slate-900">
             <div className="flex items-center justify-center gap-4 mb-2">
-              {schoolSlug === 'sd' ? (
+              {schoolSlug === 'smp' ? (
+                <div className="w-14 h-14 flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/smp-logo.png"
+                    alt="Logo SMP IT Al-Afiyah"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : schoolSlug === 'sd' ? (
                 <div className="w-14 h-14 flex items-center justify-center shrink-0">
                   <img
                     src="/images/sd-logo.png"
@@ -81,8 +89,12 @@ export default function AdmissionLetterModal({
                   />
                 </div>
               ) : (
-                <div className="w-14 h-14 rounded-full bg-[#184F48] flex items-center justify-center text-white font-sans font-extrabold text-xl shadow-xs border-2 border-emerald-500">
-                  IB
+                <div className="w-14 h-14 flex items-center justify-center shrink-0">
+                  <img
+                    src="/images/sd-logo.png"
+                    alt="Logo Al-Afiyah"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               )}
               <div>
