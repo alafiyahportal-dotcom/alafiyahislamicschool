@@ -110,7 +110,7 @@ function PPDBFormContent() {
 
   // Form State - Permanently Dedicated to SDIT Al-Afiyah
   const [formData, setFormData] = useState({
-    schoolSlug: 'sd' as 'sd',
+    schoolSlug: 'sd' as const,
     admissionTrack: 'REGULER',
     referralCode: initialRef,
 
