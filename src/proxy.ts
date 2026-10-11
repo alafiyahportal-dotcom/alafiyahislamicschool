@@ -57,6 +57,19 @@ export function proxy(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
+    // Redirect /ppdb routes on school subdomains to proper /spmb paths
+    // Prevents falling back to root /ppdb/daftar which is SDIT-specific
+    if (pathname === '/ppdb' || pathname.startsWith('/ppdb/')) {
+      const url = request.nextUrl.clone();
+      const subpath = pathname.replace(/^\/ppdb/, '');
+      if (subdomain === 'tk') {
+        url.pathname = '/';
+      } else {
+        url.pathname = `/spmb${subpath}`;
+      }
+      return NextResponse.redirect(url);
+    }
+
     // Rewrite clean school subpaths on subdomain (e.g. smpit.alafiyah.id/profil -> /smp/profil)
     const schoolSubpaths = [
       '/profil',
@@ -103,15 +116,49 @@ export function proxy(request: NextRequest) {
     const isIp = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
     const isVercel = hostname.endsWith('.vercel.app');
     const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
-    if (!isIp && !isVercel && !isLocalhost && (pathname === '/tk' || pathname === '/sd' || pathname === '/smp')) {
-      const targetSlug = pathname.slice(1) as SchoolSlug;
-      const targetSub = SLUG_TO_SUBDOMAIN[targetSlug] || targetSlug;
-      const url = request.nextUrl.clone();
-      const [hostNameOnly, port] = host.split(':');
-      const portSuffix = port ? `:${port}` : '';
-      url.host = `${targetSub}.${hostNameOnly}${portSuffix}`;
-      url.pathname = '/';
-      return NextResponse.redirect(url);
+
+    // Route /ppdb/daftar?school=smp to dedicated SMP registration form
+    if (pathname === '/ppdb/daftar') {
+      const schoolParam = request.nextUrl.searchParams.get('school')?.toLowerCase();
+      if (schoolParam === 'smp') {
+        const url = request.nextUrl.clone();
+        url.searchParams.delete('school');
+        if (!isIp && !isVercel && !isLocalhost) {
+          const [hostNameOnly, port] = host.split(':');
+          const portSuffix = port ? `:${port}` : '';
+          url.host = `smpit.${hostNameOnly}${portSuffix}`;
+          url.pathname = '/spmb/daftar';
+          return NextResponse.redirect(url);
+        } else {
+          url.pathname = '/smp/spmb/daftar';
+          return NextResponse.redirect(url);
+        }
+      }
+    }
+
+    if (!isIp && !isVercel && !isLocalhost) {
+      if (pathname === '/tk' || pathname === '/sd' || pathname === '/smp') {
+        const targetSlug = pathname.slice(1) as SchoolSlug;
+        const targetSub = SLUG_TO_SUBDOMAIN[targetSlug] || targetSlug;
+        const url = request.nextUrl.clone();
+        const [hostNameOnly, port] = host.split(':');
+        const portSuffix = port ? `:${port}` : '';
+        url.host = `${targetSub}.${hostNameOnly}${portSuffix}`;
+        url.pathname = '/';
+        return NextResponse.redirect(url);
+      }
+
+      if (pathname.startsWith('/tk/') || pathname.startsWith('/sd/') || pathname.startsWith('/smp/')) {
+        const targetSlug = pathname.split('/')[1] as SchoolSlug;
+        const targetSub = SLUG_TO_SUBDOMAIN[targetSlug] || targetSlug;
+        const restPath = pathname.replace(`/${targetSlug}`, '') || '/';
+        const url = request.nextUrl.clone();
+        const [hostNameOnly, port] = host.split(':');
+        const portSuffix = port ? `:${port}` : '';
+        url.host = `${targetSub}.${hostNameOnly}${portSuffix}`;
+        url.pathname = restPath;
+        return NextResponse.redirect(url);
+      }
     }
   }
 

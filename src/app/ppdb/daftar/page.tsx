@@ -77,6 +77,27 @@ function PPDBFormContent() {
   const initialRef = searchParams.get('ref') || '';
 
   const [autoDetectedRef, setAutoDetectedRef] = useState<string>('');
+  const [isRedirectingToSmp, setIsRedirectingToSmp] = useState(false);
+
+  // Safety Guard: Instantly redirect to SMP IT registration if school=smp or on SMP subdomain
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const schoolParam = searchParams.get('school')?.toLowerCase();
+      const host = window.location.host;
+      const sub = extractSubdomain(host);
+
+      if (schoolParam === 'smp' || sub === 'smp') {
+        setIsRedirectingToSmp(true);
+        const qRef = searchParams.get('ref') || searchParams.get('referral') || initialRef;
+        const refQuery = qRef ? `?ref=${encodeURIComponent(qRef)}` : '';
+        const targetUrl = sub === 'smp'
+          ? `/spmb/daftar${refQuery}`
+          : `/smp/spmb/daftar${refQuery}`;
+        router.replace(targetUrl);
+        return;
+      }
+    }
+  }, [searchParams, router, initialRef]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -582,6 +603,18 @@ function PPDBFormContent() {
       setIsPaying(false);
     }
   };
+
+  if (isRedirectingToSmp || searchParams.get('school')?.toLowerCase() === 'smp') {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-sans">
+        <div className="text-center space-y-3 p-8 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-md mx-4">
+          <Loader2 className="w-8 h-8 animate-spin text-[#030164] mx-auto" />
+          <h3 className="text-base font-bold text-slate-900">Mengalihkan ke Formulir SPMB SMP IT...</h3>
+          <p className="text-xs text-slate-500">Anda sedang diarahkan ke formulir pendaftaran resmi SMP IT Al-Afiyah Majalengka.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">

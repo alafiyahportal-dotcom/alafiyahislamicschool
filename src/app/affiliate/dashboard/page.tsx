@@ -106,14 +106,24 @@ export default function AffiliateDashboardPage() {
     fetchAffiliateProfile();
   }, []);
 
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+  const host = typeof window !== 'undefined' ? window.location.host : '';
+  const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
+  // Strip school subdomain so affiliate central links resolve cleanly
+  const rootDomain = host ? host.replace(/^(sdit|smpit|tkit|sd|smp|tk)\./i, '') : 'localhost:3000';
+  const rootOrigin = typeof window !== 'undefined' ? `${protocol}//${rootDomain}` : 'http://localhost:3000';
   const customSlug = profile?.customSlug || 'mitra-ahmad';
   const referralCode = profile?.referralCode || 'MITRA-AHMAD';
 
-  const tkLink = `${origin}/ref/tk/${customSlug}`;
-  const sdLink = `${origin}/ref/sd/${customSlug}`;
-  const smpLink = `${origin}/ref/smp/${customSlug}`;
-  const generalLink = `${origin}/ppdb/daftar?ref=${referralCode}`;
+  // Landing page links (unit-specific profiles)
+  const tkLink = `${rootOrigin}/ref/tk/${customSlug}`;
+  const sdLink = `${rootOrigin}/ref/sd/${customSlug}`;
+  const smpLink = `${rootOrigin}/ref/smp/${customSlug}`;
+
+  // Direct registration form links
+  const smpFormLink = `${rootOrigin}/smp/spmb/daftar?ref=${referralCode}`;
+  const sdFormLink = `${rootOrigin}/sd/spmb/daftar?ref=${referralCode}`;
+  // General hub link (multi-unit: parents choose TK, SD, or SMP)
+  const generalLink = `${rootOrigin}/ppdb?ref=${referralCode}`;
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -175,11 +185,11 @@ export default function AffiliateDashboardPage() {
     window.location.href = '/login';
   };
 
-  // WhatsApp Canned Promotional Texts
+  // WhatsApp Canned Promotional Texts (Unit-separated & dedicated)
   const cannedMessages = [
     {
       id: 'general',
-      title: 'Pendaftaran PPDB 2027/2028 Dibuka (Semua Unit)',
+      title: 'Pendaftaran PPDB 2027/2028 Dibuka (Semua Unit: TK, SDIT, SMP IT)',
       summary: 'Cocok untuk disebarkan di grup keluarga, alumni, dan majelis taklim.',
       text: `*Assalamu'alaikum Warahmatullahi Wabarakatuh,*
 
@@ -197,8 +207,32 @@ Dapatkan kemudahan pendaftaran melalui tautan resmi rujukan saya:
 Informasi kuota dan konsultasi pendaftaran online dapat langsung diakses pada tautan di atas. Semoga putra-putri kita menjadi generasi shalih dan mushlih. Aamiin!`,
     },
     {
+      id: 'smpit',
+      title: 'Fokus SMP IT Al-Afiyah (Fullday, 3-5+ Juz & Diskon s.d. 70%)',
+      summary: 'Khusus calon wali murid lulusan SD/MI yang mencari SMP Islam Terpadu unggulan.',
+      text: `*Mencari SMP Islam Unggulan & Berkarakter di Majalengka?*
+
+Alhamdulillah pendaftaran murid baru (*SPMB 2027/2028*) di *SMP IT Al-Afiyah Majalengka* resmi dibuka!
+
+Keunggulan & Program SMP IT Al-Afiyah:
+ Terakreditasi A (BAN-S/M)
+ Target Tahfidz 3 - 5+ Juz Mutqin (Bimbingan Asatidz Bersanad)
+ Bahasa Arab & Inggris Aktif (Daily Communication)
+ Smart Classroom & Mutaba'ah Ibadah Digital
+ Program Futsal & Olahraga Prestasi
+ *Diskon Uang Bangunan s.d. 70%* (Gelombang 1 Terbatas)
+
+Informasi lengkap profil sekolah:
+👉 ${smpLink}
+
+Formulir pendaftaran online langsung:
+👉 ${smpFormLink}
+
+Mohon bantu teruskan informasi kebaikan ini kepada kerabat atau rekan yang memiliki putra-putri kelas 6 SD/MI. Jazakumullahu khairan!`,
+    },
+    {
       id: 'sdit',
-      title: 'Fokus SDIT Al-Afiyah (Target 5-10 Juz Mutqin)',
+      title: 'Fokus SDIT Al-Afiyah (Target 5-10 Juz Mutqin & Karakter Sunnah)',
       summary: 'Khusus calon wali murid yang mencari sekolah dasar Islam unggulan.',
       text: `*Mencari SD Islam Terbaik di Majalengka?*
 
@@ -206,14 +240,18 @@ Alhamdulillah *SDIT Al-Afiyah Majalengka* kini membuka pendaftaran murid baru T.
 
 Fasilitas & Program Unggulan:
  Target 5 - 10 Juz Hafalan Al-Qur'an Bersanad
- Pembiasaan Shalat Berjamaah & Adab Harian
+ Pembiasaan Shalat Berjamaah & Adab Harian Sunnah
  Kelas Ber-AC, Smart Classroom & Lab Komputer
  Ekstrakurikuler Panahan, Renang, Futsal, & Robotik
+ Kuota Terbatas hanya 2 Rombel (Maksimal 60 Murid)
 
-Silakan amankan kursi dan nomor registrasi ananda sekarang melalui tautan resmi ini:
+Informasi profil lengkap:
 👉 ${sdLink}
 
-Kuota rombel sangat terbatas (hanya 2 rombel per-angkatan)!`,
+Formulir pendaftaran online langsung:
+👉 ${sdFormLink}
+
+Silakan amankan kursi dan nomor registrasi ananda sekarang!`,
     },
     {
       id: 'beasiswa',
@@ -221,7 +259,7 @@ Kuota rombel sangat terbatas (hanya 2 rombel per-angkatan)!`,
       summary: 'Informasi jalur prestasi tahfidz dan beasiswa dhuafa berprestasi.',
       text: `*Informasi Beasiswa Tahfidz Al-Qur'an Al-Afiyah Majalengka*
 
-Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka menyediakan kuota khusus *Jalur Beasiswa Tahfidz* untuk calon murid baru yang memiliki hafalan Al-Qur'an.
+Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka menyediakan kuota khusus *Jalur Beasiswa Tahfidz* untuk calon murid baru (SDIT & SMP IT) yang memiliki hafalan Al-Qur'an.
 
 Daftarkan putra-putri Anda melalui portal resmi berikut:
 👉 ${generalLink}
@@ -500,36 +538,66 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 50rb) + Daftar Ulang Awal 1 Jt (Rp 100rb). Target tahfidz juz 30.</p>
-                <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2.5 rounded-xl border border-slate-200 select-all">
-                  {sdLink}
-                </p>
+                
+                <div className="space-y-1 mt-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">1. Tautan Landing &amp; Profil:</span>
+                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-slate-200 select-all">
+                    {sdLink}
+                  </p>
+                </div>
+
+                <div className="space-y-1 mt-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#064E3B] block">2. Tautan Formulir Langsung SD:</span>
+                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-emerald-200 bg-emerald-50/30 select-all">
+                    {sdFormLink}
+                  </p>
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(sdLink, 'SD')}
-                  className="py-2 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                >
-                  {copiedLink === 'SD' ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold">Tersalin!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Salin Link</span>
-                    </>
-                  )}
-                </button>
+              <div className="space-y-1.5 pt-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(sdLink, 'SD')}
+                    className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  >
+                    {copiedLink === 'SD' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="text-[11px]">Salin Landing</span>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(sdFormLink, 'SD_FORM')}
+                    className="py-2 px-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  >
+                    {copiedLink === 'SD_FORM' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="text-[11px]">Salin Form</span>
+                      </>
+                    )}
+                  </button>
+                </div>
                 <button
                   type="button"
                   onClick={() => handleOpenQr('SDIT Al-Afiyah', sdLink)}
-                  className="py-2 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="w-full py-1.5 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span>QR Code</span>
+                  <span className="text-[11px]">QR Code Affiliate SD</span>
                 </button>
               </div>
             </div>
@@ -544,36 +612,66 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 60rb) + Daftar Ulang (Rp 140rb). Fullday &amp; tahfidz intensif.</p>
-                <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2.5 rounded-xl border border-slate-200 select-all">
-                  {smpLink}
-                </p>
+                
+                <div className="space-y-1 mt-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">1. Tautan Landing &amp; Profil:</span>
+                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-slate-200 select-all">
+                    {smpLink}
+                  </p>
+                </div>
+
+                <div className="space-y-1 mt-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#030164] block">2. Tautan Formulir Langsung SMP:</span>
+                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-blue-200 bg-blue-50/30 select-all">
+                    {smpFormLink}
+                  </p>
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(smpLink, 'SMP')}
-                  className="py-2 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                >
-                  {copiedLink === 'SMP' ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold">Tersalin!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Salin Link</span>
-                    </>
-                  )}
-                </button>
+              <div className="space-y-1.5 pt-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(smpLink, 'SMP')}
+                    className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  >
+                    {copiedLink === 'SMP' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="text-[11px]">Salin Landing</span>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(smpFormLink, 'SMP_FORM')}
+                    className="py-2 px-2.5 rounded-xl bg-blue-50/80 border border-blue-200 text-xs font-semibold text-[#030164] hover:bg-blue-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  >
+                    {copiedLink === 'SMP_FORM' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="text-[11px]">Salin Form</span>
+                      </>
+                    )}
+                  </button>
+                </div>
                 <button
                   type="button"
                   onClick={() => handleOpenQr('SMP IT Al-Afiyah', smpLink)}
-                  className="py-2 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="w-full py-1.5 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span>QR Code</span>
+                  <span className="text-[11px]">QR Code Affiliate SMP</span>
                 </button>
               </div>
             </div>

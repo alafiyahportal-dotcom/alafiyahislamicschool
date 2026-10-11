@@ -424,7 +424,7 @@ export default function PPDBHubPage() {
                 {/* Direct Registration CTA with Unit Lock */}
                 <div className="space-y-2 pt-2 border-t border-slate-100">
                   <Link
-                    href={`/ppdb/daftar?school=${u.slug}`}
+                    href={u.slug === 'smp' ? '/smp/spmb/daftar' : u.slug === 'sd' ? '/sd/spmb/daftar' : '/tk'}
                     className="w-full text-center py-3.5 px-4 rounded-2xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs sm:text-sm font-bold transition-all shadow-xs flex items-center justify-center space-x-2 cursor-pointer tactile-press"
                   >
                     <span>Daftar {u.name}</span>

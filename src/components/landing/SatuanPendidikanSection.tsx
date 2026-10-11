@@ -79,7 +79,7 @@ const unitCards: UnitCardData[] = [
     primaryBtnText: 'Profil SDIT',
     primaryBtnLink: getSchoolUrl('sd'),
     secondaryBtnText: 'Daftar SPMB SD',
-    secondaryBtnLink: '/ppdb/daftar?school=sd',
+    secondaryBtnLink: '/sd/spmb/daftar',
   },
   {
     id: 'smp',
@@ -103,7 +103,7 @@ const unitCards: UnitCardData[] = [
     primaryBtnText: 'Profil SMP IT',
     primaryBtnLink: getSchoolUrl('smp'),
     secondaryBtnText: 'Daftar SPMB SMP',
-    secondaryBtnLink: '/ppdb/daftar?school=smp',
+    secondaryBtnLink: '/smp/spmb/daftar',
   },
 ];
 
