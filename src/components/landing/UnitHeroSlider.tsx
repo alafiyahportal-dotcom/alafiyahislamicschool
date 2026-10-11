@@ -248,10 +248,6 @@ export default function UnitHeroSlider({
 
   return (
     <section className={`relative text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-between min-h-screen min-h-[100dvh] ${theme.bgClass} pb-8 sm:pb-12 lg:pb-16`}>
-      {/* Signature Dot Grid Pattern for SD identical to program tab */}
-      {slug === 'sd' && (
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-      )}
       {/* Subtle top ambient glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-2xl pointer-events-none" />

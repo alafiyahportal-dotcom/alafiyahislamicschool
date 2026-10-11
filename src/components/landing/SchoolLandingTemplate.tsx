@@ -1384,8 +1384,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         id="programs" 
         className="py-16 sm:py-20 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] scroll-mt-16 sm:scroll-mt-20 w-full text-white relative overflow-hidden"
       >
-        {/* Signature Dot Grid Pattern */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+        {/* Ambient background glows like SMP */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#ffd51e]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
@@ -1848,8 +1849,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         id="testimonials"
         className="py-16 sm:py-20 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white w-full scroll-mt-16 sm:scroll-mt-20 relative overflow-hidden"
       >
-        {/* Signature Dot Grid Pattern */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+        {/* Ambient background glows like SMP */}
+        <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-[#ffd51e]/5 rounded-full blur-2xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-12">
@@ -2169,8 +2171,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
       {/* High-Converting Bottom CTA Banner: Full-width Solid Green Above Footer */}
       <section id="contact" className="py-16 sm:py-20 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white w-full scroll-mt-16 relative overflow-hidden">
-        {/* Signature Dot Grid Pattern */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+        {/* Ambient background glows like SMP */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#ffd51e]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <ScrollReveal
           yOffset={24}

@@ -67,8 +67,9 @@ export default function SpmbRoadmapSection({
       id="spmb-roadmap" 
       className="py-16 sm:py-20 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] scroll-mt-16 sm:scroll-mt-20 w-full text-white relative overflow-hidden"
     >
-      {/* Signature Dot Grid Pattern */}
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+      {/* Ambient background glows like SMP */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#ffd51e]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header - Balanced line-break with full SDIT Al-Afiyah Majalengka */}
