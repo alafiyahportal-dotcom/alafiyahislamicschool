@@ -315,7 +315,7 @@ export default function Navbar({
       href: '#',
       hasDropdown: true,
       items: [
-        { label: 'Kemitraan Mitra Afiliasi', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
+        { label: 'Affiliate Al-Afiyah', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
         { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir'), desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
         { 
           label: activeSlug === 'smp' ? 'Konsultasi Panitia SMP IT' : 'Tanya Ustadz & Konsultasi', 
@@ -348,7 +348,7 @@ export default function Navbar({
     { title: 'Berita & Kajian Artikel Islam', url: '/berita', cat: 'Artikel' },
     { title: 'Doa & Dzikir Harian Murid', url: '/doa-dzikir', cat: 'Ibadah' },
     { title: 'Tanya Ustadz & Konsultasi Syar’i', url: 'https://wa.me/6281223344552', cat: 'Konsultasi' },
-    { title: 'Program Kemitraan Mitra Afiliasi', url: '/affiliate', cat: 'Kemitraan' },
+    { title: 'Affiliate Al-Afiyah', url: '/affiliate', cat: 'Affiliate' },
     { title: 'Kontak & Lokasi Sekolah Terpadu', url: '/kontak', cat: 'Kontak' },
     { title: 'Login Portal Admin & Panitia', url: '/login', cat: 'Portal' },
   ];
