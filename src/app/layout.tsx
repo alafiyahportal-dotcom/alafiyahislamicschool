@@ -21,7 +21,6 @@ const playfairDisplay = Playfair_Display({
 
 import { Suspense } from "react";
 import Script from "next/script";
-import HelpdeskChatWidget from "@/components/shared/HelpdeskChatWidget";
 import ReferralTracker from "@/components/shared/ReferralTracker";
 import DynamicUnitThemeColorSync from "@/components/shared/DynamicUnitThemeColorSync";
 import GoogleStructuredData from "@/components/seo/GoogleStructuredData";
@@ -150,7 +149,6 @@ export default function RootLayout({
           <DynamicUnitThemeColorSync />
         </Suspense>
         {children}
-        <HelpdeskChatWidget />
       </body>
     </html>
   );
