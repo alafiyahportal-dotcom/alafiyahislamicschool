@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
@@ -1783,7 +1782,6 @@ export default function AffiliatePublicPage() {
       )}
 
       <Footer schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} />
-      <StickyMobileBar schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} />
     </div>
   );
 }
