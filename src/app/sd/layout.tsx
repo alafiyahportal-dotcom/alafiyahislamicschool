@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SD_OG_IMAGE } from '@/lib/og-images';
+import LaunchSplash from '@/components/shared/LaunchSplash';
 
 export const metadata: Metadata = {
   title: {
@@ -69,6 +70,7 @@ export default function SdLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(sdWebSiteSchema) }}
         />
       </head>
+      <LaunchSplash background="#00A651" logoSrc="/icons/sd-512.png" logoAlt="SDIT Al-Afiyah" />
       {children}
     </>
   );

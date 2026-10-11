@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import SmpThemeColorSync from '@/components/shared/SmpThemeColorSync';
 import { SMP_OG_IMAGE } from '@/lib/og-images';
+import LaunchSplash from '@/components/shared/LaunchSplash';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -81,6 +82,7 @@ export default function SmpLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(smpWebSiteSchema) }}
         />
       </head>
+      <LaunchSplash background="#030164" logoSrc="/icons/smp-512.png" logoAlt="SMP IT Al-Afiyah" />
       <SmpThemeColorSync />
       {children}
     </>

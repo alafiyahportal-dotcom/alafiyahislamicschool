@@ -2,7 +2,7 @@
   "id": "/",
   "name": "SMP IT Al-Afiyah Majalengka",
   "short_name": "SMP IT Al-Afiyah",
-  "description": "Sekolah Menengah Pertama Islam Terpadu Al-Afiyah Majalengka — Be Smart & Religious.",
+  "description": "Sekolah Menengah Pertama Islam Terpadu Al-Afiyah Majalengka - Be Smart & Religious.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,17 +10,8 @@
   "theme_color": "#030164",
   "lang": "id",
   "icons": [
-    {
-      "src": "/images/smp-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/images/smp-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    { "src": "/icons/smp-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/smp-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/smp-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
