@@ -183,7 +183,7 @@ export default function AffiliateGuidePage() {
                 <div>
                   <h4 className="text-xs font-bold text-slate-900">Masukkan Rekening Bank</h4>
                   <p className="text-[11px] text-slate-600 mt-0.5">
-                    Pilih nama bank (contoh: <em>BSI / Bank Syariah Indonesia</em>) dan nomor rekening atas nama mitra untuk transfer ujrah.
+                    Pilih nama bank (contoh: <em>BSI / Bank Syariah Indonesia</em>) dan nomor rekening atas nama Anda untuk transfer komisi.
                   </p>
                 </div>
               </div>
@@ -193,9 +193,9 @@ export default function AffiliateGuidePage() {
                   4
                 </span>
                 <div>
-                  <h4 className="text-xs font-bold text-slate-900">Klik &quot;Daftar Sebagai Mitra&quot;</h4>
+                  <h4 className="text-xs font-bold text-slate-900">Klik &quot;Daftar Jadi Affiliate&quot;</h4>
                   <p className="text-[11px] text-slate-600 mt-0.5">
-                    Akun langsung aktif seketika! Sistem langsung mengarahkan Anda ke <strong>Dasbor Mitra Pribadi</strong> di HP.
+                    Akun langsung aktif seketika! Sistem langsung mengarahkan Anda ke <strong>Dashboard Affiliate Pribadi</strong> di HP.
                   </p>
                 </div>
               </div>
@@ -294,7 +294,7 @@ export default function AffiliateGuidePage() {
             <div className="flex items-center space-x-2 pb-2 border-b border-slate-200">
               <Wallet className="w-5 h-5 text-emerald-700" />
               <h3 className="text-base font-extrabold text-[#064E3B]">
-                D. Struktur Resmi &amp; Estimasi Potensi Komisi / Ujrah Mitra
+                D. Struktur Resmi &amp; Estimasi Potensi Komisi Affiliate
               </h3>
             </div>
 
@@ -422,10 +422,10 @@ export default function AffiliateGuidePage() {
           {/* KOTAK KETENTUAN SYAR'I */}
           <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
             <h4 className="text-xs font-bold text-[#064E3B] uppercase tracking-wider">
-              Prinsip Syar&apos;i Kemitraan Dakwah Al-Afiyah:
+              Prinsip Program Affiliate Al-Afiyah:
             </h4>
             <p className="text-[11px] text-slate-600 leading-relaxed">
-              Program ini bukan Multi-Level Marketing (MLM) dan tanpa skema piramida. Ini adalah akad murni <em>Ju&apos;alah / Ujrah</em> atas jasa merekomendasikan kebaikan pendidikan Islam. 100% bebas biaya pendaftaran, transparan, dan bertujuan utama mempercepat terpenuhinya kuota eksklusif SDIT Al-Afiyah (<strong>Hanya 2 Rombel</strong>) dengan murid yang satu visi akhlak nabawiyah.
+              Program ini bukan Multi-Level Marketing (MLM) dan tanpa skema piramida. Ini adalah komisi rujukan resmi atas jasa merekomendasikan kebaikan pendidikan Islam. 100% bebas biaya pendaftaran, transparan, dan bertujuan utama mempercepat terpenuhinya kuota murid yang satu visi akhlak nabawiyah.
             </p>
           </div>
 

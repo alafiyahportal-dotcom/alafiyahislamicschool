@@ -28,7 +28,7 @@ export default function AffiliateRegisterPage() {
   const router = useRouter();
 
   useEffect(() => {
-    document.title = 'Daftar Mitra Affiliate Al-Afiyah | Sekolah IT Al-Afiyah';
+    document.title = 'Daftar Akun Affiliate Al-Afiyah | Sekolah IT Al-Afiyah';
   }, []);
 
   const [formData, setFormData] = useState({
@@ -129,7 +129,7 @@ export default function AffiliateRegisterPage() {
             href="/affiliate"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#064E3B] transition-colors"
           >
-            <span>&larr; Kembali ke Info Program Kemitraan</span>
+            <span>&larr; Kembali ke Info Affiliate</span>
           </Link>
           <div className="text-right">
             <span className="text-xs text-slate-500">Sudah terdaftar? </span>
@@ -137,7 +137,7 @@ export default function AffiliateRegisterPage() {
               href="/affiliate/dashboard"
               className="text-xs font-bold text-[#064E3B] hover:underline"
             >
-              Masuk ke Dasbor &rarr;
+              Masuk ke Dashboard &rarr;
             </Link>
           </div>
         </div>
@@ -153,11 +153,11 @@ export default function AffiliateRegisterPage() {
               <div className="relative z-10 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 text-xs font-bold">
                   <Award className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Program Mitra Afiliasi 2027/2028</span>
+                  <span>Program Affiliate Al-Afiyah 2027/2028</span>
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug">
-                  Gabung Menjadi Mitra Afiliasi Al-Afiyah
+                  Daftar Menjadi Affiliate Al-Afiyah
                 </h1>
 
                 <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
@@ -267,7 +267,7 @@ export default function AffiliateRegisterPage() {
             <div className="rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-700" />
-                <span>Keuntungan &amp; Fasilitas Mitra</span>
+                <span>Keuntungan &amp; Fasilitas Affiliate</span>
               </h3>
 
               <div className="space-y-3.5 text-xs text-slate-700">
@@ -329,7 +329,7 @@ export default function AffiliateRegisterPage() {
                 </div>
                 <div>
                   <strong className="block font-bold">Ustadz Ahmad Al-Hafidz</strong>
-                  <span className="text-[10px] text-amber-800">Mitra Afiliasi Tier Gold • 12 Murid Rujukan</span>
+                  <span className="text-[10px] text-amber-800">Affiliate Tier Gold • 12 Murid Rujukan</span>
                 </div>
               </div>
               <p className="italic text-slate-700">
@@ -343,10 +343,10 @@ export default function AffiliateRegisterPage() {
             <div className="bg-white rounded-3xl p-7 sm:p-10 border border-slate-200/90 shadow-md">
               <div className="border-b border-slate-100 pb-5 mb-6">
                 <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                  Formulir Pendaftaran Mitra
+                  Formulir Pendaftaran Affiliate
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-2">
-                  Lengkapi Data Mitra Afiliasi Anda
+                  Lengkapi Data Akun Affiliate Anda
                 </h2>
                 <p className="text-xs text-slate-500 mt-1">
                   Pendaftaran gratis, langsung aktif tanpa menunggu verifikasi berhari-hari.
@@ -560,7 +560,7 @@ export default function AffiliateRegisterPage() {
                         type="text"
                         value={formData.referralCode}
                         onChange={(e) => setFormData({ ...formData, referralCode: e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '') })}
-                        placeholder="Contoh: MITRA-HENDRA atau MITRA-ALFI"
+                        placeholder="Contoh: REF-HENDRA atau KODE-ALFI"
                         className="w-full px-4 py-3 text-xs sm:text-sm uppercase font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
                       />
                     </div>
@@ -580,7 +580,7 @@ export default function AffiliateRegisterPage() {
                     {isLoading ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Mendaftarkan Mitra Afiliasi...</span>
+                        <span>Mendaftarkan Akun Affiliate...</span>
                       </>
                     ) : (
                       <>
@@ -591,7 +591,7 @@ export default function AffiliateRegisterPage() {
                   </button>
 
                   <p className="text-[11px] text-center text-slate-400 mt-3 leading-relaxed">
-                    Dengan mendaftar, Anda menyetujui ketentuan dan pembagian komisi kemitraan Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka.
+                    Dengan mendaftar, Anda menyetujui ketentuan dan apresiasi komisi program Affiliate Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka.
                   </p>
                 </div>
               </form>

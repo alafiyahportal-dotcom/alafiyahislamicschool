@@ -57,11 +57,18 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Fasilitas & Greenhouse', href: '/sd#facilities' },
         { label: 'Kabar & Artikel SDIT', href: '/sd/berita' },
         { label: 'Agenda & Kalender Akademik', href: '/sd/agenda' },
+        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=sd', isGold: true },
         { label: 'Cek Status SPMB SDIT', href: '/sd/spmb/cek-status' },
         { label: 'Formulir SPMB SDIT Online', href: '/sd/spmb/daftar', isHighlighted: true },
       ],
       bottomCopyright: '© 2026 SDIT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
-      bottomLinks: [],
+      bottomLinks: [
+        { label: 'Login Portal', href: '/login?unit=sd', isGold: true },
+        { label: 'Doa & Dzikir', href: '/sd/doa-dzikir' },
+        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=sd', isGold: true },
+        { label: 'Info SPMB SDIT', href: '/sd/spmb/daftar' },
+        { label: 'Hotline Panitia', href: 'https://wa.me/6281310139001', isExternal: true },
+      ],
     },
     tk: {
       name: 'TK IT Al-Afiyah',
@@ -83,12 +90,14 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Program Usia Dini & Adab', href: '/tk#programs' },
         { label: 'Dewan Guru & Bunda Asatidzah', href: '/tk#teachers' },
         { label: 'Fasilitas & Arena Bermain', href: '/tk#facilities' },
+        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=tk', isGold: true },
         { label: 'Formulir SPMB TK IT Online', href: '/ppdb/daftar?school=tk', isHighlighted: true },
       ],
       bottomCopyright: '© 2026 TK IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
       bottomLinks: [
         { label: 'Login Portal', href: '/login', isGold: true },
         { label: 'Doa & Dzikir', href: '/doa-dzikir' },
+        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=tk', isGold: true },
         { label: 'Info SPMB TK IT', href: '/ppdb/daftar?school=tk' },
         { label: 'Hotline Panitia', href: 'https://wa.me/6281223344552', isExternal: true },
       ],
@@ -116,6 +125,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Program Unggulan 5+ Juz & Futsal', href: '/smp/program' },
         { label: 'Jadwal Gelombang & Diskon SPMB', href: '/smp/spmb' },
         { label: 'Sarana & Fasilitas Sekolah', href: '/smp/fasilitas' },
+        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=smp', isGold: true },
         { label: 'Cek Status SPMB SMP IT', href: '/smp/spmb/cek-status' },
         { label: 'Formulir SPMB SMP IT Online', href: '/smp/spmb/daftar', isHighlighted: true },
       ],
@@ -123,6 +133,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       bottomLinks: [
         { label: 'Login Portal', href: '/login?unit=smp', isGold: true },
         { label: 'Doa & Dzikir', href: '/smp/doa-dzikir' },
+        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=smp', isGold: true },
         { label: 'Info SPMB SMP IT', href: '/smp/spmb/daftar' },
         { label: 'Hotline Panitia', href: 'https://wa.me/6282249357893', isExternal: true },
       ],
@@ -352,6 +363,15 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
                 >
                   <span>•</span>
                   <span>Agenda &amp; Kalender Akademik</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href={activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate'} 
+                  className="text-amber-400 hover:text-amber-300 font-medium transition-colors flex items-center space-x-2"
+                >
+                  <span>•</span>
+                  <span>Affiliate Al-Afiyah</span>
                 </Link>
               </li>
               <li>

@@ -28,29 +28,29 @@ export interface AffiliateCMSData {
 }
 
 export const DEFAULT_AFFILIATE_CONTENT: Required<AffiliateCMSData> = {
-  heroBadge: 'Program Kemitraan Dakwah & Kebaikan',
+  heroBadge: 'Program Affiliate Al-Afiyah',
   heroHeadline: 'Sebar Kebaikan Pendidikan,',
   heroHighlight: 'Raih Apresiasi Berkah Nyata',
   heroDescription:
-    'Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.',
+    'Program rujukan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan komisi apresiasi yang transparan, mudah, dan terpercaya cukup dengan membagikan link rekomendasi pendaftaran sekolah.',
   // Real school photos only
   heroPhoto1: '/images/sd-activity-halaqah-tahfidz.jpg',
   heroPhoto2: '/images/sd-activity-classroom-6b.jpg',
   heroPhoto3: '/images/smp-outing-1.jpg',
   marqueeKeywords: [
-    'Akad Syariah Wakalah bil Ujrah',
+    'Komisi Transparan & Jelas',
     'Komisi Hingga Rp 150.000 / Peserta Didik',
-    'Tanpa Biaya Pendaftaran',
-    'Pencairan Cepat Bank BSI',
+    '100% Gratis Tanpa Biaya Pendaftaran',
+    'Pencairan Cepat ke Rekening Bank',
     'Dashboard Real-Time 24/7',
     'Multi-Unit TK, SD, SMP IT',
     'Materi Promosi Resmi Disediakan',
     'Transparan Tanpa Potongan',
   ],
-  aboutBadge: 'Mengenal Program Kemitraan',
+  aboutBadge: 'Mengenal Program Affiliate',
   aboutTitle: 'Membangun Generasi Qurani Melalui Sinergi & Amanah',
   aboutDescription:
-    'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program kemitraan dakwah resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga penggiat majelis taklim—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.',
+    'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program affiliate resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga simpatisan pendidikan—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.',
   aboutPhotoTop: '/images/sd-planting-guidance.jpg',
   aboutPhotoBottom: '/images/sd-field-fish-feeding.jpg',
   // SDIT: Formulir Rp 50.000 + Daftar Ulang Rp 100.000 = Rp 150.000

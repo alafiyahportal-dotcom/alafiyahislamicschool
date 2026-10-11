@@ -61,7 +61,7 @@ function DoublePillBadge({ label, isLight = false }: { label: string; isLight?: 
 /**
  * Rotating Circular Stamp Emblem from reference
  */
-function CircularBadgeStamp({ text = "MITRA RESMI • AL-AFIYAH • SYARIAH • AMANAH • " }: { text?: string }) {
+function CircularBadgeStamp({ text = "AFFILIATE RESMI • AL-AFIYAH • TERPERCAYA • AMANAH • " }: { text?: string }) {
   return (
     <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#153424] text-white flex items-center justify-center p-1 shadow-xl border-2 border-white/20 select-none">
       <svg className="w-full h-full animate-[spin_14s_linear_infinite]" viewBox="0 0 100 100">
@@ -167,7 +167,7 @@ export default function AffiliatePublicPage() {
 
   // Set browser tab title
   useEffect(() => {
-    document.title = 'Affiliate Al-Afiyah | Program Kemitraan Dakwah & Kebaikan';
+    document.title = 'Affiliate Al-Afiyah | Program Rekomendasi Resmi';
   }, []);
 
   // State: Referral Link Copy
@@ -193,7 +193,7 @@ export default function AffiliatePublicPage() {
   const [activePersonaTab, setActivePersonaTab] = useState<'wali' | 'guru' | 'alumni' | 'relawan'>('wali');
   const [copiedTemplate, setCopiedTemplate] = useState<string | null>(null);
 
-  // State: Syirkah Calculator
+  // State: Commission Calculator
   const [calcStudents, setCalcStudents] = useState<number>(5);
   const [calcUnit, setCalcUnit] = useState<'all' | 'tk' | 'sd' | 'smp'>('sd');
 
@@ -223,9 +223,9 @@ export default function AffiliatePublicPage() {
 
   const currentFormFee = FORM_FEES[calcUnit];
   const currentRegFee = REG_FEES[calcUnit];
-  const formUjrahTotal = calcStudents * currentFormFee;
-  const regUjrahTotal = calcStudents * currentRegFee;
-  const totalCalcCommission = formUjrahTotal + regUjrahTotal;
+  const formCommissionTotal = calcStudents * currentFormFee;
+  const regCommissionTotal = calcStudents * currentRegFee;
+  const totalCalcCommission = formCommissionTotal + regCommissionTotal;
 
   // State: Registration Form
   const [formData, setFormData] = useState({
@@ -364,36 +364,36 @@ export default function AffiliatePublicPage() {
       title: 'Penggiat Dakwah, Majelis & Relawan Sosial',
       subtitle: 'Syiarkan nilai pendidikan qurani sembari membangun sumber rezeki yang barakah.',
       icon: HeartHandshake,
-      advantageTitle: 'Dana Operasional Dakwah & Syiar Pendidikan Islam',
+      advantageTitle: 'Dana Operasional & Insentif Kebaikan Pendidikan',
       advantageText:
-        'Jadikan program kemitraan ini sebagai sumber pendanaan mandiri untuk kas majelis taklim, logistik dakwah, atau kegiatan sosial tanpa membebani jamaah.',
-      why: 'Bagi Anda yang aktif di majelis taklim atau media sosial dakwah, program kemitraan ini adalah sarana menyebarkan kebaikan tanpa biaya modal sepeser pun.',
-      earningExample: 'Sebar tautan di majelis & jaring 8 peserta didik baru = Rp 3.200.000 dana operasional dakwah berkah.',
+        'Jadikan program affiliate ini sebagai sumber pendanaan mandiri untuk kas majelis, kegiatan sosial, atau insentif pribadi tanpa membebani jamaah.',
+      why: 'Bagi Anda yang aktif di majelis taklim atau media sosial, program affiliate ini adalah sarana menyebarkan kebaikan tanpa modal sepeser pun.',
+      earningExample: 'Sebar tautan rekomendasi & ajak 8 peserta didik baru = Rp 3.200.000 komisi apresiasi berkah.',
       template:
-        "Alhamdulillah, pendaftaran peserta didik baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SDIT, SMP IT) tahun ajaran 2027/2028 telah dibuka. Informasi lengkap: https://alafiyah.id/ref/KODE-MITRA",
+        "Alhamdulillah, pendaftaran peserta didik baru Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka (TK IT, SDIT, SMP IT) telah dibuka. Informasi lengkap: https://alafiyah.id/ref/KODE-ANDA",
     },
   };
 
   const faqs = [
     {
-      q: 'Bagaimana hukum syariah komisi afiliasi di Al-Afiyah?',
-      a: 'Program kemitraan ini menggunakan akad syariah Wakalah bil Ujrah (perwakilan berbayar atas jasa). Mitra bertindak sebagai wakil yang menyosialisasikan informasi sekolah dan berhak menerima ujrah (upah komisi) yang jelas, pasti, halal, tanpa riba ataupun skema piramida/MLM tersembunyi.',
+      q: 'Apakah program affiliate Al-Afiyah aman, halal, dan bebas riba?',
+      a: 'Ya, program Affiliate Al-Afiyah 100% aman, halal, dan transparan. Anda berperan menyebarkan info kebaikan pendidikan Islam dan berhak mendapatkan apresiasi komisi resmi yang jelas, pasti, tanpa potongan sepihak, dan bukan sistem MLM ataupun skema piramida.',
     },
     {
       q: 'Kapan komisi dicairkan ke rekening bank saya?',
-      a: 'Komisi pendaftaran formulir (Rp 50.000) diverifikasi dan dicairkan seketika saat calon wali murid melunasi biaya formulir. Sedangkan komisi registrasi ulang dicairkan ke rekening bank mitra (BSI, BRI, BCA, Mandiri, dll.) saat peserta didik menyelesaikan daftar ulang.',
+      a: 'Komisi pendaftaran formulir diverifikasi dan dicairkan segera saat calon wali murid melunasi biaya formulir. Sedangkan komisi registrasi ulang dicairkan ke rekening bank affiliate (BSI, BRI, BCA, Mandiri, dll.) saat peserta didik menyelesaikan daftar ulang.',
     },
     {
-      q: 'Apakah pendaftaran mitra afiliasi ini dipungut biaya?',
+      q: 'Apakah pendaftaran Affiliate Al-Afiyah ini dipungut biaya?',
       a: '100% Gratis tanpa biaya pendaftaran, tanpa modal awal, dan tanpa target kuota wajib. Anda bebas menyebarkan tautan kapan saja sesuai keluangan waktu Anda.',
     },
     {
       q: 'Bagaimana saya memantau siapa saja yang mendaftar lewat link saya?',
-      a: 'Setiap mitra mendapatkan akses ke Dasbor Afiliasi Pribadi secara real-time. Anda dapat melihat daftar nama calon peserta didik, status verifikasi berkas, konfirmasi pembayaran, dan total saldo komisi yang siap dicairkan.',
+      a: 'Setiap anggota affiliate mendapatkan akses ke Dashboard Affiliate pribadi secara real-time. Anda dapat melihat daftar nama calon peserta didik, status verifikasi berkas, konfirmasi pembayaran, dan total saldo komisi yang siap dicairkan.',
     },
     {
       q: 'Apakah sekolah menyediakan materi promosi dan brosur?',
-      a: 'Ya, di dalam Dasbor Mitra tersedia materi grafis resmi siap sebar, brosur digital interaktif, caption WhatsApp/Instagram, serta template pesan yang bisa langsung Anda bagikan.',
+      a: 'Ya, di dalam Dashboard Affiliate tersedia materi grafis resmi siap sebar, brosur digital interaktif, teks pesan WhatsApp/Instagram, serta template yang bisa langsung Anda bagikan.',
     },
   ];
 
@@ -433,7 +433,7 @@ export default function AffiliatePublicPage() {
                   </Link>
                 </div>
               )}
-              <DoublePillBadge label={cmsContent.heroBadge || "Program Kemitraan Dakwah & Kebaikan"} />
+              <DoublePillBadge label={cmsContent.heroBadge || "Program Affiliate Al-Afiyah"} />
 
               <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-slate-950 leading-[1.12]">
                 {cmsContent.heroHeadline || 'Sebar Kebaikan Pendidikan,'}{' '}
@@ -443,7 +443,7 @@ export default function AffiliatePublicPage() {
               </h1>
 
               <p className="text-slate-600 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed">
-                {cmsContent.heroDescription || 'Program kemitraan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan hak ujrah halal, transparan, dan terpercaya berbasis akad syariah Wakalah bil Ujrah cukup dengan berbagi rekomendasi.'}
+                {cmsContent.heroDescription || 'Program rujukan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan komisi apresiasi yang transparan, mudah, dan terpercaya cukup dengan membagikan link rekomendasi pendaftaran sekolah.'}
               </p>
 
               {/* CTAs: Harmonious Dual-Pill Architecture (Primary Emerald + Secondary White Outline) */}
@@ -453,7 +453,7 @@ export default function AffiliatePublicPage() {
                   onClick={() => openRegisterWithPersona()}
                   className="px-7 py-3.5 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-sm sm:text-base transition-all duration-200 shadow-md shadow-emerald-950/20 hover:shadow-lg hover:shadow-emerald-950/30 flex items-center justify-center gap-2.5 group cursor-pointer active:scale-[0.98] border border-emerald-900/60"
                 >
-                  <span>Daftar Jadi Mitra</span>
+                  <span>Daftar Jadi Affiliate</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </button>
 
@@ -461,7 +461,7 @@ export default function AffiliatePublicPage() {
                   href="#kalkulator"
                   className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 hover:text-slate-950 font-bold text-sm sm:text-base transition-all duration-200 border border-slate-300/90 hover:border-slate-400 shadow-xs hover:shadow-sm flex items-center justify-center gap-2 group active:scale-[0.98]"
                 >
-                  <span>Pelajari Skema &amp; Simulasi</span>
+                  <span>Pelajari Cara Kerja &amp; Komisi</span>
                   <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 group-hover:translate-x-1" />
                 </a>
               </div>
@@ -472,7 +472,7 @@ export default function AffiliatePublicPage() {
                   <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
                     <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
                   </span>
-                  <span>100% Akad Syariah</span>
+                  <span>100% Gratis &amp; Halal</span>
                 </div>
 
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs text-xs font-semibold text-slate-700">
@@ -486,7 +486,7 @@ export default function AffiliatePublicPage() {
                   <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
                     <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
                   </span>
-                  <span>Pencairan Cepat Rekening</span>
+                  <span>Pencairan Cepat ke Rekening</span>
                 </div>
               </div>
             </motion.div>
@@ -642,7 +642,7 @@ export default function AffiliatePublicPage() {
             variants={scrollFadeVariant}
             className="text-center max-w-3xl mx-auto mb-14"
           >
-            <DoublePillBadge label="Mengenal Program Kemitraan" />
+            <DoublePillBadge label="Mengenal Program Affiliate" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
               {cmsContent.aboutTitle || 'Membangun Generasi Qurani Melalui Sinergi & Amanah'}
             </h2>
@@ -696,7 +696,7 @@ export default function AffiliatePublicPage() {
                 
                 {/* Circular Stamp Overlay at Left Middle */}
                 <div className="absolute top-1/2 -right-5 sm:-right-8 -translate-y-1/2 z-10">
-                  <CircularBadgeStamp text="AMANAH • SYARIAH • HALAL • RESMI • " />
+                  <CircularBadgeStamp text="AMANAH • TRANSPARAN • HALAL • RESMI • " />
                 </div>
               </div>
             </div>
@@ -704,13 +704,13 @@ export default function AffiliatePublicPage() {
             {/* Right Column: Narrative Copy & Metric Progress Bars (Exact Reference Match) */}
             <div className="lg:col-span-7 space-y-6 text-left lg:pl-6">
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                {cmsContent.aboutDescription || 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program kemitraan dakwah resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga penggiat majelis taklim—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.'}
+                {cmsContent.aboutDescription || 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program affiliate resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga simpatisan pendidikan—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.'}
               </p>
 
               {/* Progress Metric Bars with Lime Dots (From Reference Image) */}
               <div className="space-y-4 pt-2">
                 {[
-                  { label: 'Transparansi & Kepastian Akad Syariah', pct: 100, barWidth: 'w-full' },
+                  { label: 'Transparansi Komisi & Bebas Biaya', pct: 100, barWidth: 'w-full' },
                   { label: 'Kecepatan Validasi & Pencairan Rekening', pct: 98, barWidth: 'w-[98%]' },
                   { label: 'Dukungan Materi Promosi & Brosur Digital', pct: 95, barWidth: 'w-[95%]' },
                 ].map((item, idx) => (
@@ -735,7 +735,7 @@ export default function AffiliatePublicPage() {
                   onClick={() => openRegisterWithPersona()}
                   className="px-6 py-3 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-xs sm:text-sm transition-all shadow-sm flex items-center space-x-2 cursor-pointer"
                 >
-                  <span>Gabung Kemitraan Sekarang</span>
+                  <span>Gabung Affiliate Sekarang</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -753,10 +753,10 @@ export default function AffiliatePublicPage() {
           >
             {[
               { val: 'Rp 0', label: 'Modal Awal Pendaftaran' },
-              { val: '100%', label: 'Akad Syariah Wakalah' },
+              { val: '100%', label: 'Transparan & Bebas Riba' },
               {
                 val: `Rp ${Math.round(Math.max(FORM_FEES.sd + REG_FEES.sd, FORM_FEES.tk + REG_FEES.tk, FORM_FEES.smp + REG_FEES.smp) / 1000)}rb`,
-                label: 'Ujrah Tertinggi / Peserta Didik',
+                label: 'Komisi Tertinggi / Siswa',
               },
               { val: '3 Unit', label: 'TK IT, SDIT, & SMP IT' },
             ].map((stat, i) => (
@@ -780,7 +780,7 @@ export default function AffiliatePublicPage() {
       </section>
 
       {/* =========================================================================
-          4. SERVICES & SYIRKAH CALCULATOR SECTION: Deep Forest Green Canvas
+          4. SERVICES & COMMISSION CALCULATOR SECTION: Deep Forest Green Canvas
              with High-Contrast Chartreuse / Lime Center Highlight Card
              (Adopting Section 3 from Reference Image)
          ========================================================================= */}
@@ -798,10 +798,10 @@ export default function AffiliatePublicPage() {
             <div>
               <DoublePillBadge label="Skema & Simulasi Komisi" isLight={true} />
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Skema Bagi Hasil &amp; Kalkulator Syirkah
+                Simulasi Komisi &amp; Estimasi Pendapatan
               </h2>
               <p className="text-sm text-emerald-200/80 mt-1 max-w-xl">
-                Kalkulasi transparan berbasis akad Wakalah bil Ujrah. Tanpa modal awal, tanpa target kuota wajib.
+                Kalkulasi transparan dan mudah dipahami. Tanpa modal awal, tanpa biaya pendaftaran, dan tanpa target kuota wajib.
               </p>
             </div>
 
@@ -810,7 +810,7 @@ export default function AffiliatePublicPage() {
               onClick={() => openRegisterWithPersona()}
               className="px-6 py-3 rounded-full bg-white hover:bg-slate-100 text-[#153424] font-extrabold text-xs sm:text-sm transition-all shadow-md flex items-center space-x-2 cursor-pointer self-start md:self-auto shrink-0"
             >
-              <span>Daftar Jadi Mitra</span>
+              <span>Daftar Jadi Affiliate</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </motion.div>
@@ -902,7 +902,7 @@ export default function AffiliatePublicPage() {
                     Hitung Estimasi Komisi
                   </h3>
                   <p className="text-xs text-slate-800 mt-1">
-                    Geser slider kuota calon peserta didik untuk menghitung hak ujrah Anda:
+                    Geser jumlah calon siswa yang mendaftar untuk menghitung estimasi komisi Anda:
                   </p>
                 </div>
 
@@ -956,13 +956,13 @@ export default function AffiliatePublicPage() {
                 {/* Total Counter Box */}
                 <div className="p-4 rounded-2xl bg-slate-950 text-white space-y-1 shadow-md">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#cbf738] block">
-                    Total Estimasi Hak Komisi
+                    Total Estimasi Komisi Anda
                   </span>
                   <p className="text-3xl font-black text-white font-mono tracking-tight">
                     <AnimatedRupiah value={totalCalcCommission} />
                   </p>
                   <p className="text-[10px] text-slate-300">
-                    Formulir: Rp {(formUjrahTotal).toLocaleString('id-ID')} + Registrasi: Rp {(regUjrahTotal).toLocaleString('id-ID')}
+                    Komisi Formulir: Rp {(formCommissionTotal).toLocaleString('id-ID')} + Registrasi: Rp {(regCommissionTotal).toLocaleString('id-ID')}
                   </p>
                 </div>
               </div>
@@ -1056,12 +1056,12 @@ export default function AffiliatePublicPage() {
             variants={scrollFadeVariant}
             className="text-center max-w-3xl mx-auto mb-12"
           >
-            <DoublePillBadge label="Persona Kemitraan" />
+            <DoublePillBadge label="Peluang Kolaborasi" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
-              Siapa Saja yang Bisa Bergabung Menjadi Mitra?
+              Siapa Saja yang Bisa Bergabung Menjadi Affiliate?
             </h2>
             <p className="text-sm sm:text-base text-slate-500 mt-2">
-              Pilih peran Anda dan lihat bagaimana program kemitraan dakwah ini memberikan nilai nyata.
+              Pilih peran Anda dan lihat bagaimana program affiliate Al-Afiyah memberikan manfaat nyata.
             </p>
           </motion.div>
 
@@ -1240,7 +1240,7 @@ export default function AffiliatePublicPage() {
           >
             <DoublePillBadge label="Alur Kerja Sederhana" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
-              5 Langkah Mudah Menjadi Mitra Afiliasi
+              5 Langkah Mudah Memulai Affiliate Al-Afiyah
             </h2>
             <p className="text-sm sm:text-base text-slate-500 mt-2">
               Proses registrasi dan pembagian tautan berlangsung singkat, tanpa instalasi aplikasi tambahan.
@@ -1328,9 +1328,9 @@ export default function AffiliatePublicPage() {
             >
               <div className="bg-white rounded-3xl p-6 sm:p-9 shadow-2xl text-slate-900 border border-slate-100 max-w-md mx-auto lg:max-w-none text-left">
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-extrabold text-slate-950">Formulir Pendaftaran Mitra</h3>
+                  <h3 className="text-2xl font-extrabold text-slate-950">Formulir Pendaftaran Affiliate</h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    Isi data diri Anda di bawah ini untuk mengaktifkan akun afiliasi resmi.
+                    Isi data diri Anda di bawah ini untuk mengaktifkan akun affiliate resmi.
                   </p>
                 </div>
 
@@ -1527,7 +1527,7 @@ export default function AffiliatePublicPage() {
                         <span>Mendaftarkan Akun Anda...</span>
                       </>
                     ) : (
-                      <span>Daftar Jadi Mitra Afiliasi — Gratis</span>
+                      <span>Daftar Jadi Affiliate — Gratis</span>
                     )}
                   </button>
 
@@ -1535,7 +1535,7 @@ export default function AffiliatePublicPage() {
                     <p className="text-xs text-slate-500">
                       Sudah pernah mendaftar?{' '}
                       <Link href="/affiliate/dashboard" className="text-[#153424] font-bold hover:underline">
-                        Masuk ke Dasbor Mitra &rarr;
+                        Masuk ke Dashboard Affiliate &rarr;
                       </Link>
                     </p>
                   </div>
@@ -1564,7 +1564,7 @@ export default function AffiliatePublicPage() {
               Pertanyaan yang Sering Diajukan
             </h2>
             <p className="text-sm text-slate-500 mt-2">
-              Segala hal yang perlu Anda ketahui tentang kemitraan syariah Ma&apos;had Al-Afiyah.
+              Segala hal yang perlu Anda ketahui tentang program Affiliate Al-Afiyah.
             </p>
           </motion.div>
 
@@ -1618,9 +1618,9 @@ export default function AffiliatePublicPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-slate-900">
-                    Daftar Mitra Afiliasi
+                    Daftar Akun Affiliate Al-Afiyah
                   </h3>
-                  <p className="text-[11px] text-slate-500">Gratis • Langsung Aktif • Akad Syariah</p>
+                  <p className="text-[11px] text-slate-500">Gratis • Langsung Aktif • 100% Halal</p>
                 </div>
               </div>
               <button
@@ -1637,7 +1637,7 @@ export default function AffiliatePublicPage() {
                 <div className="flex items-center space-x-2">
                   <BadgeCheck className="w-4 h-4 text-emerald-700 shrink-0" />
                   <span className="text-slate-700">
-                    Jalur Kemitraan:{' '}
+                    Kategori Affiliate:{' '}
                     <strong className="text-emerald-900">{tabTitleMap(selectedPersonaRole)}</strong>
                   </span>
                 </div>
@@ -1773,7 +1773,7 @@ export default function AffiliatePublicPage() {
                       <span>Memproses Pendaftaran...</span>
                     </>
                   ) : (
-                    <span>Aktifkan Akun Mitra Sekarang &rarr;</span>
+                    <span>Aktifkan Akun Affiliate Sekarang &rarr;</span>
                   )}
                 </button>
               </div>
@@ -1799,6 +1799,6 @@ function tabTitleMap(key: string): string {
     case 'relawan':
       return 'Penggiat Dakwah';
     default:
-      return 'Mitra';
+      return 'Affiliate';
   }
 }

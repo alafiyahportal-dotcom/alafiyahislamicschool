@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Program Afiliasi | Kemitraan Dakwah & Syariah Al-Afiyah',
+  title: 'Affiliate Al-Afiyah | Program Rekomendasi Resmi TK IT, SDIT, SMP IT',
   description:
-    'Program Afiliasi Al-Afiyah terbuka untuk siapa saja — wali murid, asatidzah, alumni, dan masyarakat umum. Dapatkan komisi berkah berbasis akad syariah Wakalah bil Ujrah.',
+    'Program Affiliate Al-Afiyah terbuka untuk siapa saja — wali murid, asatidzah, alumni, dan masyarakat umum. Dapatkan komisi apresiasi resmi dan transparan cukup dengan berbagi link rekomendasi.',
   alternates: {
     canonical: '/affiliate',
   },
   openGraph: {
-    title: 'Program Afiliasi Al-Afiyah Majalengka',
-    description: 'Raih komisi syariah berkah dengan menjadi mitra affiliator SPMB SDIT Al-Afiyah.',
+    title: 'Program Affiliate Al-Afiyah Majalengka',
+    description: 'Raih komisi apresiasi resmi dengan menjadi affiliate SPMB Al-Afiyah.',
     url: '/affiliate',
     siteName: 'Al-Afiyah Islamic School',
     locale: 'id_ID',

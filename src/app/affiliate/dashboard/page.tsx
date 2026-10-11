@@ -67,7 +67,7 @@ export default function AffiliateDashboardPage() {
   const [copiedTemplate, setCopiedTemplate] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = 'Dasbor Mitra Affiliate Al-Afiyah';
+    document.title = 'Dashboard Affiliate Al-Afiyah';
   }, []);
 
   // Conversion filter & search states
@@ -235,7 +235,7 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
       <div className="min-h-screen bg-slate-50 flex items-center justify-center font-sans">
         <div className="text-center space-y-3">
           <Loader2 className="w-8 h-8 animate-spin text-emerald-700 mx-auto" />
-          <p className="text-xs text-slate-500 font-medium">Memuat Dasbor Mitra Afiliasi...</p>
+          <p className="text-xs text-slate-500 font-medium">Memuat Dashboard Affiliate Al-Afiyah...</p>
         </div>
       </div>
     );
@@ -256,10 +256,10 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-sm font-bold text-slate-900 leading-tight">
-                  Dasbor Mitra Afiliasi
+                  Dashboard Affiliate Al-Afiyah
                 </h1>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                  {profile?.tier || '🥉 Mitra Bronze'}
+                  {profile?.tier?.replace(/Mitra\s*/i, 'Affiliate ') || '🥉 Affiliate Bronze'}
                 </span>
               </div>
               <p className="text-[11px] text-slate-500">Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka</p>
@@ -298,21 +298,21 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
             <div className="lg:col-span-8 space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-bold border border-white/15">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Status Kemitraan Aktif • TP 2027/2028</span>
+                <span>Status Akun Affiliate Aktif • TP 2027/2028</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black tracking-tight leading-tight">
                 Ahlan wa Sahlan, {profile?.fullName || 'Bapak Ahmad'}!
               </h2>
               <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed max-w-2xl">
-                Setiap calon murid yang mendaftar dan lunas melalui tautan referral Anda akan otomatis menghasilkan bagi hasil komisi berkah yang cair langsung ke rekening {profile?.bankName || 'BSI'} Anda.
+                Setiap calon murid yang mendaftar dan lunas melalui tautan referral Anda akan otomatis menghasilkan komisi resmi yang cair langsung ke rekening {profile?.bankName || 'BSI'} Anda.
               </p>
             </div>
 
             {/* Tier Progress Badge */}
             <div className="lg:col-span-4 bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/20 text-right space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-emerald-200 font-medium">Tingkat Mitra:</span>
-                <strong className="text-amber-300 font-bold">{profile?.tier || '🥉 Mitra Bronze'}</strong>
+                <span className="text-emerald-200 font-medium">Level Affiliate:</span>
+                <strong className="text-amber-300 font-bold">{profile?.tier?.replace(/Mitra\s*/i, 'Affiliate ') || '🥉 Affiliate Bronze'}</strong>
               </div>
               
               <div className="w-full bg-black/20 rounded-full h-2 overflow-hidden">
@@ -440,7 +440,7 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
                 className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <QrCode className="w-4 h-4 text-[#064E3B]" />
-                <span>QR Code Mitra Afiliasi</span>
+                <span>QR Code Affiliate</span>
               </button>
             </div>
           </div>
