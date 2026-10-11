@@ -121,15 +121,17 @@ export default function HelpdeskChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'CHAT' | 'FAQ'>('CHAT');
 
-  // Auto-detect unit from current pathname
+  // Auto-detect unit from current pathname with robust substring matching
   const activeSlug = useMemo<'tk' | 'sd' | 'smp' | 'foundation'>(() => {
-    if (pathname?.startsWith('/smp')) return 'smp';
-    if (pathname?.startsWith('/sd')) return 'sd';
-    if (pathname?.startsWith('/tk')) return 'tk';
+    const p = (pathname || '').toLowerCase();
+    if (p.includes('/smp')) return 'smp';
+    if (p.includes('/sd')) return 'sd';
+    if (p.includes('/tk')) return 'tk';
     return 'foundation';
   }, [pathname]);
 
-  const [selectedUnitSlug, setSelectedUnitSlug] = useState<'tk' | 'sd' | 'smp' | 'foundation'>('sd');
+  // Synchronize selected unit initial state with active route (prevents SSR/hydration defaulting to 'sd')
+  const [selectedUnitSlug, setSelectedUnitSlug] = useState<'tk' | 'sd' | 'smp' | 'foundation'>(activeSlug);
   const [faqSearch, setFaqSearch] = useState('');
   const [expandedFaq, setExpandedFaq] = useState<string | null>('faq-1');
   const [refCode, setRefCode] = useState<string | null>(null);
@@ -141,10 +143,8 @@ export default function HelpdeskChatWidget() {
 
   // Synchronize selected unit with active route on mount and navigation
   useEffect(() => {
-    if (pathname?.startsWith('/smp')) setSelectedUnitSlug('smp');
-    else if (pathname?.startsWith('/sd')) setSelectedUnitSlug('sd');
-    else if (pathname?.startsWith('/tk')) setSelectedUnitSlug('tk');
-  }, [pathname]);
+    setSelectedUnitSlug(activeSlug);
+  }, [activeSlug]);
 
   const unitTheme = useMemo(() => {
     const slug = isOpen ? selectedUnitSlug : activeSlug;
@@ -152,7 +152,7 @@ export default function HelpdeskChatWidget() {
       return {
         pillBorder: 'border-[#030164] sm:border-[1.5px]',
         pillText: 'text-[#030164]',
-        pillHover: 'hover:bg-[#030164] hover:text-[#ffd51e]',
+        pillHover: 'hover:bg-[#030164] hover:text-[#ffd51e] active:bg-[#030164] active:text-[#ffd51e] focus:bg-[#030164] focus:text-[#ffd51e]',
         pillBg: 'bg-white/95',
         headerBg: 'bg-gradient-to-r from-[#030164] via-[#0C368A] to-[#030164]',
         headerSubtitle: 'text-blue-200',
@@ -161,7 +161,7 @@ export default function HelpdeskChatWidget() {
         bannerDot: 'bg-[#ffd51e]',
         bannerLink: 'text-[#030164] hover:text-blue-900',
         btnAction: 'bg-[#030164] hover:bg-blue-950 text-[#ffd51e]',
-        selectedUnitClass: 'border-[#030164] bg-blue-50 text-[#030164] shadow-2xs',
+        selectedUnitClass: 'border-[#030164] bg-blue-50 text-[#030164] shadow-2xs ring-2 ring-[#030164]/20',
         accentText: 'text-[#030164]',
         ringColor: 'focus:ring-[#030164]',
       };
@@ -170,7 +170,7 @@ export default function HelpdeskChatWidget() {
       return {
         pillBorder: 'border-[#0284c7] sm:border-[1.5px]',
         pillText: 'text-[#0284c7]',
-        pillHover: 'hover:bg-[#0284c7] hover:text-white',
+        pillHover: 'hover:bg-[#0284c7] hover:text-white active:bg-[#0284c7] active:text-white focus:bg-[#0284c7] focus:text-white',
         pillBg: 'bg-white/95',
         headerBg: 'bg-gradient-to-r from-[#0284c7] to-[#0369a1]',
         headerSubtitle: 'text-sky-200',
@@ -179,7 +179,7 @@ export default function HelpdeskChatWidget() {
         bannerDot: 'bg-sky-500',
         bannerLink: 'text-[#0284c7] hover:text-sky-800',
         btnAction: 'bg-[#0284c7] hover:bg-sky-700 text-white',
-        selectedUnitClass: 'border-[#0284c7] bg-sky-50 text-[#0284c7] shadow-2xs',
+        selectedUnitClass: 'border-[#0284c7] bg-sky-50 text-[#0284c7] shadow-2xs ring-2 ring-[#0284c7]/20',
         accentText: 'text-[#0284c7]',
         ringColor: 'focus:ring-[#0284c7]',
       };
@@ -188,7 +188,7 @@ export default function HelpdeskChatWidget() {
       return {
         pillBorder: 'border-[#00A651] sm:border-[1.5px]',
         pillText: 'text-[#00A651]',
-        pillHover: 'hover:bg-[#00A651] hover:text-white',
+        pillHover: 'hover:bg-[#00A651] hover:text-white active:bg-[#00A651] active:text-white focus:bg-[#00A651] focus:text-white',
         pillBg: 'bg-white/95',
         headerBg: 'bg-gradient-to-r from-[#00A651] to-[#008741]',
         headerSubtitle: 'text-emerald-200',
@@ -197,15 +197,15 @@ export default function HelpdeskChatWidget() {
         bannerDot: 'bg-emerald-500',
         bannerLink: 'text-[#00A651] hover:text-emerald-800',
         btnAction: 'bg-[#00A651] hover:bg-[#008741] text-white',
-        selectedUnitClass: 'border-[#00A651] bg-emerald-50 text-[#00A651] shadow-2xs',
+        selectedUnitClass: 'border-[#00A651] bg-emerald-50 text-[#00A651] shadow-2xs ring-2 ring-[#00A651]/20',
         accentText: 'text-[#00A651]',
         ringColor: 'focus:ring-[#00A651]',
       };
     }
     return {
-      pillBorder: 'border-[#2D7A70] sm:border-[1.5px]',
-      pillText: 'text-[#0D5C54]',
-      pillHover: 'hover:bg-[#0D5C54] hover:text-white',
+      pillBorder: 'border-[#184F48] sm:border-[1.5px]',
+      pillText: 'text-[#184F48]',
+      pillHover: 'hover:bg-[#184F48] hover:text-white active:bg-[#184F48] active:text-white focus:bg-[#184F48] focus:text-white',
       pillBg: 'bg-white/95',
       headerBg: 'bg-gradient-to-r from-[#2D7A70] to-[#184F48]',
       headerSubtitle: 'text-emerald-200',
@@ -213,15 +213,15 @@ export default function HelpdeskChatWidget() {
       bannerText: 'text-[#184F48]',
       bannerDot: 'bg-emerald-500',
       bannerLink: 'text-[#2D7A70] hover:text-[#0D5C54]',
-      btnAction: 'bg-emerald-600 hover:bg-emerald-700 text-white',
-      selectedUnitClass: 'border-[#2D7A70] bg-[#E8F3F1] text-[#184F48] shadow-2xs',
-      accentText: 'text-[#2D7A70]',
-      ringColor: 'focus:ring-[#2D7A70]',
+      btnAction: 'bg-[#184F48] hover:bg-[#133F3A] text-white',
+      selectedUnitClass: 'border-[#184F48] bg-[#E8F3F1] text-[#184F48] shadow-2xs ring-2 ring-[#184F48]/20',
+      accentText: 'text-[#184F48]',
+      ringColor: 'focus:ring-[#184F48]',
     };
   }, [activeSlug, isOpen, selectedUnitSlug]);
 
   let spmbUrl = selectedUnitSlug && selectedUnitSlug !== 'foundation'
-    ? `/ppdb/daftar?school=${selectedUnitSlug}`
+    ? (selectedUnitSlug === 'sd' ? '/sd/spmb/daftar' : selectedUnitSlug === 'smp' ? '/smp/spmb/daftar' : `/ppdb/daftar?school=${selectedUnitSlug}`)
     : '/ppdb/daftar';
   if (refCode) {
     spmbUrl += `${spmbUrl.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
@@ -280,7 +280,10 @@ export default function HelpdeskChatWidget() {
       {!isOpen ? (
         <button
           type="button"
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setSelectedUnitSlug(activeSlug);
+            setIsOpen(true);
+          }}
           className={`group relative flex items-center justify-center px-5 sm:px-6 py-2.5 sm:py-3 rounded-full ${unitTheme.pillBg} ${unitTheme.pillBorder} ${unitTheme.pillText} ${unitTheme.pillHover} shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md`}
           aria-label="Informasi Pendaftaran PPDB & Konsultasi"
         >
@@ -446,7 +449,7 @@ export default function HelpdeskChatWidget() {
                   value={faqSearch}
                   onChange={(e) => setFaqSearch(e.target.value)}
                   placeholder="Cari pertanyaan (usia, tahfidz, biaya)..."
-                  className="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-[#2D7A70] focus:outline-hidden"
+                  className={`w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-2 ${unitTheme.ringColor} focus:outline-hidden`}
                 />
               </div>
 
@@ -468,7 +471,7 @@ export default function HelpdeskChatWidget() {
                           <span>{faq.question}</span>
                           <ChevronDown
                             className={`w-4 h-4 text-slate-400 flex-shrink-0 transition-transform duration-200 ${
-                              isExp ? 'rotate-180 text-[#2D7A70]' : ''
+                              isExp ? `rotate-180 ${unitTheme.accentText}` : ''
                             }`}
                           />
                         </button>
