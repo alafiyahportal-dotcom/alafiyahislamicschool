@@ -57,30 +57,6 @@ function DoublePillBadge({ label, isLight = false }: { label: string; isLight?: 
   );
 }
 
-/**
- * Rotating Circular Stamp Emblem from reference
- */
-function CircularBadgeStamp({ text = "AFFILIATE RESMI • AL-AFIYAH • TERPERCAYA • AMANAH • " }: { text?: string }) {
-  return (
-    <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#153424] text-white flex items-center justify-center p-1 shadow-xl border-2 border-white/20 select-none">
-      <svg className="w-full h-full animate-[spin_14s_linear_infinite]" viewBox="0 0 100 100">
-        <path
-          id="circlePath"
-          d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-          fill="none"
-        />
-        <text className="text-[7.5px] font-extrabold uppercase tracking-[0.18em] fill-white">
-          <textPath href="#circlePath" startOffset="0%">
-            {text}
-          </textPath>
-        </text>
-      </svg>
-      <div className="absolute inset-0 m-auto w-10 h-10 rounded-full bg-[#0a1d13] text-emerald-200 flex items-center justify-center shadow-inner border border-emerald-500/30">
-        <ShieldCheck className="w-5 h-5" />
-      </div>
-    </div>
-  );
-}
 
 /**
  * Scroll fade animation variant (triggers both when scrolling down and up)
@@ -409,241 +385,94 @@ export default function AffiliatePublicPage() {
           1. HERO SECTION: Clean Crisp White Background with Bento Photo Grid
              (Adopting Layout & Editorial Typo from Reference Image Top)
          ========================================================================= */}
-      <section className="pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 bg-[#FAFAFA] border-b border-slate-200/80 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
-            {/* Left Column: Headline, Badge, Copy & Pill Buttons */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
-              variants={scrollFadeVariant}
-              className="lg:col-span-6 space-y-6 text-left"
-            >
-              {schoolSlug === 'sd' && (
-                <div className="mb-2">
-                  <Link
-                    href="/sd"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all active:scale-95"
-                  >
-                    <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Kembali ke Beranda SDIT</span>
-                  </Link>
-                </div>
-              )}
-              <DoublePillBadge label={cmsContent.heroBadge || "Program Affiliate Al-Afiyah"} />
-
-              <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-slate-950 leading-[1.12]">
-                {cmsContent.heroHeadline || 'Sebar Kebaikan Pendidikan,'}{' '}
-                <span className="text-[#153424] block sm:inline">
-                  {cmsContent.heroHighlight || 'Raih Apresiasi Berkah Nyata'}
-                </span>
-              </h1>
-
-              <p className="text-slate-600 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed">
-                {cmsContent.heroDescription || 'Program rujukan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan komisi apresiasi yang transparan, mudah, dan terpercaya cukup dengan membagikan link rekomendasi pendaftaran sekolah.'}
-              </p>
-
-              {/* CTAs: Harmonious Dual-Pill Architecture (Primary Emerald + Secondary White Outline) */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-                <button
-                  type="button"
-                  onClick={() => openRegisterWithPersona()}
-                  className="px-7 py-3.5 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-sm sm:text-base transition-all duration-200 shadow-md shadow-emerald-950/20 hover:shadow-lg hover:shadow-emerald-950/30 flex items-center justify-center gap-2.5 group cursor-pointer active:scale-[0.98] border border-emerald-900/60"
+      <section className="pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 bg-[#FAFAFA] border-b border-slate-200/80 relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.15 }}
+            variants={scrollFadeVariant}
+            className="space-y-6"
+          >
+            {schoolSlug === 'sd' && (
+              <div className="mb-2">
+                <Link
+                  href="/sd"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all active:scale-95"
                 >
-                  <span>Daftar Jadi Affiliate</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </button>
-
-                <a
-                  href="#kalkulator"
-                  className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 hover:text-slate-950 font-bold text-sm sm:text-base transition-all duration-200 border border-slate-300/90 hover:border-slate-400 shadow-xs hover:shadow-sm flex items-center justify-center gap-2 group active:scale-[0.98]"
-                >
-                  <span>Pelajari Cara Kerja &amp; Komisi</span>
-                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 group-hover:translate-x-1" />
-                </a>
+                  <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Kembali ke Beranda SDIT</span>
+                </Link>
               </div>
+            )}
 
-              {/* Micro Trust Indicators: Tactile Capsule Badges */}
-              <div className="pt-3 flex flex-wrap items-center gap-2 sm:gap-2.5">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs text-xs font-semibold text-slate-700">
-                  <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                    <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
-                  </span>
-                  <span>100% Gratis &amp; Halal</span>
-                </div>
+            <DoublePillBadge label={cmsContent.heroBadge || "Program Affiliate Al-Afiyah"} />
 
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs text-xs font-semibold text-slate-700">
-                  <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                    <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
-                  </span>
-                  <span>Tanpa Biaya Pendaftaran</span>
-                </div>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.15]">
+              Ajak Keluarga &amp; Sahabat,{' '}
+              <span className="text-[#153424] block sm:inline">
+                Dapatkan Komisi Hingga Rp 150.000 / Siswa
+              </span>
+            </h1>
 
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs text-xs font-semibold text-slate-700">
-                  <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                    <Check className="w-2.5 h-2.5 text-emerald-800 stroke-[3]" />
-                  </span>
-                  <span>Pencairan Cepat ke Rekening</span>
-                </div>
+            <p className="text-slate-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+              Program rujukan resmi TK IT, SDIT, dan SMP IT Al-Afiyah Majalengka. Cukup bagikan tautan pendaftaran, komisi langsung ditransfer ke rekening bank Anda setelah calon siswa terdaftar.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+              <button
+                type="button"
+                onClick={() => openRegisterWithPersona()}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-sm sm:text-base transition-all duration-200 shadow-md flex items-center justify-center gap-2.5 cursor-pointer active:scale-98"
+              >
+                <span>Daftar Jadi Affiliate</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <a
+                href="#kalkulator"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 hover:text-slate-950 font-bold text-sm sm:text-base transition-all duration-200 border border-slate-300 shadow-xs flex items-center justify-center gap-2 active:scale-98"
+              >
+                <span>Hitung Estimasi Komisi</span>
+              </a>
+            </div>
+
+            {/* Micro Trust Indicators */}
+            <div className="pt-3 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs font-semibold text-slate-600">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs">
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                100% Gratis &amp; Tanpa Modal
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs">
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                Komisi Jelas s.d. Rp 150.000/Siswa
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs">
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                Transfer Langsung ke Rekening
+              </span>
+            </div>
+
+            {/* 3 Unit Simple Commission Highlights */}
+            <div className="pt-4 max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 text-left sm:text-center">
+              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">TK IT Al-Afiyah</span>
+                <p className="text-xl font-black text-slate-900 font-mono mt-0.5">Rp 75.000</p>
+                <span className="text-[11px] text-slate-400">per calon siswa</span>
               </div>
-            </motion.div>
-
-            {/* Right Column: Bento Photo Collage with Rotating Seal Stamp (Reference Match) */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
-              variants={scrollFadeVariant}
-              className="lg:col-span-6 relative"
-            >
-              <div className="relative mx-auto max-w-lg lg:max-w-none">
-                
-                {/* Modern Dashboard Live Preview Card (No Documentation Photos) */}
-                <div className="bg-[#153424] rounded-3xl p-5 sm:p-7 shadow-2xl border-2 border-emerald-900/80 text-white relative overflow-hidden">
-                  
-                  {/* Subtle Background Glows */}
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#a3e635]/10 rounded-full blur-3xl pointer-events-none" />
-
-                  {/* Header Bar of Dashboard Preview */}
-                  <div className="relative z-10 flex items-center justify-between pb-4 border-b border-white/10 mb-5">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex space-x-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
-                      </div>
-                      <span className="text-[11px] font-mono font-semibold text-emerald-200/90 pl-1.5">
-                        Live Affiliate Dashboard
-                      </span>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-[#a3e635] text-[10px] font-bold border border-emerald-500/30">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#a3e635] animate-pulse" />
-                      <span>Pelacakan Aktif</span>
-                    </span>
-                  </div>
-
-                  {/* Top Stats Cards: Saldo & Konversi */}
-                  <div className="relative z-10 grid grid-cols-2 gap-3 mb-5">
-                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs text-left">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-200/70">
-                          Estimasi Komisi
-                        </span>
-                        <TrendingUp className="w-3.5 h-3.5 text-[#a3e635]" />
-                      </div>
-                      <p className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight">
-                        Rp 2.450.000
-                      </p>
-                      <span className="text-[10px] text-[#a3e635] font-semibold mt-1 inline-block">
-                        +Rp 150rb minggu ini
-                      </span>
-                    </div>
-
-                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs text-left">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-200/70">
-                          Siswa Rujukan
-                        </span>
-                        <Users className="w-3.5 h-3.5 text-amber-300" />
-                      </div>
-                      <p className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight">
-                        16 <span className="text-xs font-normal text-emerald-200/70">Siswa</span>
-                      </p>
-                      <span className="text-[10px] text-emerald-200/80 font-medium mt-1 inline-block">
-                        12 Formulir • 4 Daftar Ulang
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Activity Feed: Live Simulation */}
-                  <div className="relative z-10 space-y-2 mb-5 text-left">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/60 block px-1">
-                      Aktivitas Rujukan Terverifikasi
-                    </span>
-
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
-                      <div className="flex items-center space-x-2.5 min-w-0">
-                        <span className="px-2 py-0.5 rounded-md bg-emerald-500/20 text-[#a3e635] font-mono text-[10px] font-bold shrink-0">
-                          SDIT
-                        </span>
-                        <div className="truncate">
-                          <p className="font-bold text-white truncate text-[11px]">Formulir SPMB Terverifikasi</p>
-                          <p className="text-[10px] text-emerald-200/60">Ananda Fatih • Baru saja</p>
-                        </div>
-                      </div>
-                      <span className="font-mono font-bold text-[#a3e635] text-xs shrink-0 pl-2">
-                        +Rp 50.000
-                      </span>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
-                      <div className="flex items-center space-x-2.5 min-w-0">
-                        <span className="px-2 py-0.5 rounded-md bg-blue-500/20 text-blue-300 font-mono text-[10px] font-bold shrink-0">
-                          SMP IT
-                        </span>
-                        <div className="truncate">
-                          <p className="font-bold text-white truncate text-[11px]">Daftar Ulang Selesai</p>
-                          <p className="text-[10px] text-emerald-200/60">Ananda Zaid • 1 jam lalu</p>
-                        </div>
-                      </div>
-                      <span className="font-mono font-bold text-[#a3e635] text-xs shrink-0 pl-2">
-                        +Rp 65.000
-                      </span>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
-                      <div className="flex items-center space-x-2.5 min-w-0">
-                        <span className="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold shrink-0">
-                          TK IT
-                        </span>
-                        <div className="truncate">
-                          <p className="font-bold text-white truncate text-[11px]">Formulir SPMB Terverifikasi</p>
-                          <p className="text-[10px] text-emerald-200/60">Ananda Maryam • Hari ini</p>
-                        </div>
-                      </div>
-                      <span className="font-mono font-bold text-[#a3e635] text-xs shrink-0 pl-2">
-                        +Rp 25.000
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Dedicated Referral Link Box */}
-                  <div className="relative z-10 bg-white rounded-2xl p-4 shadow-sm border border-slate-200 text-left flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-slate-900">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-1.5 mb-0.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-900">
-                          Tautan Personal Anda
-                        </span>
-                      </div>
-                      <p className="font-mono text-xs sm:text-sm font-bold text-slate-900 truncate">
-                        alafiyah.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-bold">KODE-ANDA</span>
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => openRegisterWithPersona()}
-                      className="px-4 py-2.5 rounded-xl bg-[#153424] hover:bg-[#0f271b] text-white text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer shrink-0 flex items-center justify-center space-x-1.5 active:scale-95 border border-emerald-900/60"
-                    >
-                      <span>Dapatkan Link</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#a3e635]" />
-                    </button>
-                  </div>
-
-                </div>
-
-                {/* Overlapping Rotating Circular Seal Stamp (Reference Signature) */}
-                <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 z-20">
-                  <CircularBadgeStamp />
-                </div>
-
+              <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 shadow-2xs">
+                <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">SDIT Al-Afiyah</span>
+                <p className="text-xl font-black text-emerald-950 font-mono mt-0.5">Rp 150.000</p>
+                <span className="text-[11px] text-emerald-700 font-medium">per calon siswa</span>
               </div>
-            </motion.div>
-
-          </div>
+              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">SMP IT Al-Afiyah</span>
+                <p className="text-xl font-black text-slate-900 font-mono mt-0.5">Rp 100.000</p>
+                <span className="text-[11px] text-slate-400">per calon siswa</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -686,163 +515,85 @@ export default function AffiliatePublicPage() {
             whileInView="visible"
             viewport={{ once: false, amount: 0.15 }}
             variants={scrollFadeVariant}
-            className="text-center max-w-3xl mx-auto mb-14"
+            className="text-center max-w-2xl mx-auto mb-12"
           >
-            <DoublePillBadge label="Mengenal Program Affiliate" />
+            <DoublePillBadge label="Keunggulan Program" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
-              {cmsContent.aboutTitle || 'Membangun Generasi Qurani Melalui Sinergi & Amanah'}
+              Mengapa Bergabung Affiliate Al-Afiyah?
             </h2>
+            <p className="text-sm sm:text-base text-slate-600 mt-2">
+              Sistem rujukan resmi yang amanah, transparan, dan saling memberi manfaat.
+            </p>
           </motion.div>
 
+          {/* 4 Clean Feature Cards */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.15 }}
             variants={scrollFadeVariant}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14"
           >
-            
-            {/* Left Column: Modern System Highlights (No Documentation Photos) */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative space-y-4">
-                
-                {/* Bento Card 1: Transparent System Architecture */}
-                <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-[#153424] via-[#1a3f2c] to-[#0f271b] text-white shadow-lg border border-emerald-900/60 relative overflow-hidden text-left">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-[#a3e635] flex items-center justify-center border border-white/10 shadow-xs">
-                      <ShieldCheck className="w-6 h-6" />
-                    </div>
-                    <span className="px-3 py-1 rounded-full bg-[#a3e635]/15 text-[#a3e635] text-[10px] font-mono font-bold border border-[#a3e635]/30">
-                      Sistem Resmi Terpusat
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-extrabold text-white tracking-tight">
-                    Ekosistem Afiliasi Berbasis Kejujuran &amp; Teknologi
-                  </h3>
-                  <p className="text-xs sm:text-sm text-emerald-100/80 leading-relaxed mt-2">
-                    Didukung pelacakan referral otomatis 24/7 dan pencatatan komisi transparan tanpa potongan tersembunyi.
-                  </p>
-
-                  <div className="mt-5 pt-4 border-t border-white/10 grid grid-cols-2 gap-3 text-[11px] text-emerald-100">
-                    <div className="flex items-center space-x-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#a3e635] shrink-0" />
-                      <span>Pelacakan Cookie 30 Hari</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#a3e635] shrink-0" />
-                      <span>Notifikasi WhatsApp Real-Time</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bento Card 2: 3-Unit Structure Matrix */}
-                <div className="rounded-3xl p-5 bg-[#FAFAFA] border border-slate-200/90 shadow-sm text-left space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                      Mendukung 3 Jenjang Pendidikan
-                    </span>
-                    <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                      Multi-Unit Terpadu
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2.5 text-center">
-                    <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                      <span className="text-[10px] text-slate-500 block font-bold">TK IT</span>
-                      <strong className="text-sm font-black text-slate-900 font-mono">Rp 75.000</strong>
-                      <span className="text-[9px] text-slate-400 block mt-0.5">/ Peserta Didik</span>
-                    </div>
-                    <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 shadow-2xs">
-                      <span className="text-[10px] text-emerald-800 block font-bold">SDIT</span>
-                      <strong className="text-sm font-black text-emerald-950 font-mono">Rp 150.000</strong>
-                      <span className="text-[9px] text-emerald-700 block mt-0.5">/ Peserta Didik</span>
-                    </div>
-                    <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                      <span className="text-[10px] text-slate-500 block font-bold">SMP IT</span>
-                      <strong className="text-sm font-black text-slate-900 font-mono">Rp 100.000</strong>
-                      <span className="text-[9px] text-slate-400 block mt-0.5">/ Peserta Didik</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Circular Stamp Overlay at Left Middle */}
-                <div className="absolute top-1/2 -right-5 sm:-right-8 -translate-y-1/2 z-10">
-                  <CircularBadgeStamp text="AMANAH • TRANSPARAN • HALAL • RESMI • " />
-                </div>
+            <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-slate-200/80 text-left space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#153424] text-[#a3e635] flex items-center justify-center">
+                <Wallet className="w-5 h-5" />
               </div>
-            </div>
-
-            {/* Right Column: Narrative Copy & Metric Progress Bars (Exact Reference Match) */}
-            <div className="lg:col-span-7 space-y-6 text-left lg:pl-6">
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                {cmsContent.aboutDescription || 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka membuka program affiliate resmi untuk mengajak seluruh elemen masyarakat—mulai dari wali murid, dewan guru, alumni peserta didik, hingga simpatisan pendidikan—menjadi bagian dari syiar pendidikan Islam terpadu yang berkualitas.'}
+              <h3 className="text-base font-bold text-slate-950">Komisi Pasti &amp; Transparan</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Besaran komisi jelas hingga Rp 150.000 per siswa tanpa potongan dan tanpa sistem piramida.
               </p>
-
-              {/* Progress Metric Bars with Lime Dots (From Reference Image) */}
-              <div className="space-y-4 pt-2">
-                {[
-                  { label: 'Transparansi Komisi & Bebas Biaya', pct: 100, barWidth: 'w-full' },
-                  { label: 'Kecepatan Validasi & Pencairan Rekening', pct: 98, barWidth: 'w-[98%]' },
-                  { label: 'Dukungan Materi Promosi & Brosur Digital', pct: 95, barWidth: 'w-[95%]' },
-                ].map((item, idx) => (
-                  <div key={idx} className="space-y-1.5">
-                    <div className="flex justify-between text-xs font-bold text-slate-800">
-                      <span>{item.label}</span>
-                      <span className="font-mono text-slate-900">{item.pct}%</span>
-                    </div>
-                    <div className="w-full h-2.5 bg-slate-100 rounded-full relative overflow-visible">
-                      <div className={`h-full bg-[#153424] rounded-full ${item.barWidth} relative`}>
-                        {/* Lime Accent Dot Indicator at edge (From Reference) */}
-                        <span className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#a3e635] border-2 border-white shadow-xs" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => openRegisterWithPersona()}
-                  className="px-6 py-3 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-xs sm:text-sm transition-all shadow-sm flex items-center space-x-2 cursor-pointer"
-                >
-                  <span>Gabung Affiliate Sekarang</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
             </div>
 
+            <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-slate-200/80 text-left space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#153424] text-[#a3e635] flex items-center justify-center">
+                <CreditCard className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-bold text-slate-950">Transfer Rutin ke Rekening</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Komisi langsung ditransfer ke rekening bank Anda setelah proses pendaftaran selesai.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-slate-200/80 text-left space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#153424] text-[#a3e635] flex items-center justify-center">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-bold text-slate-950">Pantau Data Real-Time</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Cek perkembangan calon siswa dan saldo komisi yang terkumpul kapan saja melalui dashboard.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-slate-200/80 text-left space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#153424] text-[#a3e635] flex items-center justify-center">
+                <MessageCircle className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-bold text-slate-950">Materi Informasi Siap Pakai</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Tersedia teks pesan dan brosur informasi resmi yang siap langsung Anda sebarkan ke WhatsApp.
+              </p>
+            </div>
           </motion.div>
 
-          {/* Bottom Stats Counter Row with Scroll Fade */}
+          {/* Bottom Stats Counter Row */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.15 }}
             variants={scrollFadeVariant}
-            className="pt-10 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+            className="pt-8 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
           >
             {[
               { val: 'Rp 0', label: 'Modal Awal Pendaftaran' },
               { val: '100%', label: 'Transparan & Bebas Riba' },
-              {
-                val: `Rp ${Math.round(Math.max(FORM_FEES.sd + REG_FEES.sd, FORM_FEES.tk + REG_FEES.tk, FORM_FEES.smp + REG_FEES.smp) / 1000)}rb`,
-                label: 'Komisi Tertinggi / Siswa',
-              },
-              { val: '3 Unit', label: 'TK IT, SDIT, & SMP IT' },
+              { val: 's.d. Rp 150rb', label: 'Komisi per Peserta Didik' },
+              { val: '3 Jenjang', label: 'TK IT, SDIT, & SMP IT' },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center">
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
-                    {stat.val}
-                  </span>
-                  {i < 3 && (
-                    <span className="hidden md:inline-flex items-center space-x-0.5 ml-4 text-slate-300">
-                      <span className="w-1.5 h-3 rounded-full bg-[#a3e635]" />
-                      <span className="w-1.5 h-3 rounded-full bg-[#153424]" />
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-slate-500 font-medium">{stat.label}</p>
+                <span className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+                  {stat.val}
+                </span>
+                <p className="text-xs text-slate-500 font-medium mt-1">{stat.label}</p>
               </div>
             ))}
           </motion.div>
@@ -896,63 +647,52 @@ export default function AffiliatePublicPage() {
           >
             
             {/* Card 1: Dark Green Card (Tahap 1 - Formulir) */}
-            <div className="bg-[#1c432f] rounded-3xl p-6 border border-white/10 flex flex-col justify-between text-left space-y-5">
+            <div className="bg-[#1c432f] rounded-3xl p-6 sm:p-7 border border-white/10 flex flex-col justify-between text-left space-y-6">
               <div className="space-y-4">
-                <div className="h-36 rounded-2xl border border-white/10 bg-gradient-to-br from-[#153424] via-[#1c432f] to-[#0f271b] p-4 flex flex-col justify-between relative overflow-hidden shadow-inner">
-                  <div className="flex items-center justify-between">
-                    <span className="w-10 h-10 rounded-xl bg-[#a3e635]/15 border border-[#a3e635]/30 text-[#a3e635] flex items-center justify-center shadow-xs">
-                      <FileText className="w-5 h-5" />
-                    </span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 text-emerald-200 border border-white/10">
-                      Tahap 01
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#a3e635] block">
-                      Aktivasi Formulir SPMB
-                    </span>
-                    <p className="text-[11px] text-emerald-100/75 leading-tight mt-0.5">
-                      Komisi otomatis tercatat saat calon wali murid melunasi biaya formulir via link Anda.
-                    </p>
-                  </div>
-                </div>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-[#a3e635] text-[11px] font-mono font-bold border border-white/10 inline-block">
+                  Tahap 1: Formulir
+                </span>
+
                 <div>
-                  <span className="text-[10px] font-mono tracking-widest text-[#a3e635] uppercase font-bold">
-                    Tahap 1
-                  </span>
-                  <h3 className="text-xl font-bold text-white mt-0.5">Komisi Formulir</h3>
-                  <p className="text-2xl font-extrabold text-white mt-1">
-                    s.d. Rp {Math.max(FORM_FEES.sd, FORM_FEES.smp, FORM_FEES.tk).toLocaleString('id-ID')}{' '}
-                    <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span>
+                  <h3 className="text-2xl font-bold text-white tracking-tight">Komisi Formulir</h3>
+                  <p className="text-xs text-emerald-200/80 mt-1">
+                    Cair saat calon wali murid melunasi biaya formulir SPMB via tautan Anda.
                   </p>
-                  <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
-                    <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>SDIT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">
-                        Rp {FORM_FEES.sd.toLocaleString('id-ID')}
-                      </strong>
-                    </p>
-                    <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>SMP IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">
-                        Rp {FORM_FEES.smp.toLocaleString('id-ID')}
-                      </strong>
-                    </p>
-                    <p className="flex justify-between pt-0.5">
-                      <span>TK IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">
-                        Rp {FORM_FEES.tk.toLocaleString('id-ID')}
-                      </strong>
-                    </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#153424] border border-white/10">
+                  <span className="text-[11px] text-emerald-200/70 block">Komisi Maksimal</span>
+                  <p className="text-2xl font-black text-white font-mono mt-0.5">
+                    s.d. Rp {Math.max(FORM_FEES.sd, FORM_FEES.smp, FORM_FEES.tk).toLocaleString('id-ID')}
+                    <span className="text-xs font-normal text-slate-300 font-sans ml-1">/ siswa</span>
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-xs text-emerald-100/90 pt-1">
+                  <div className="flex justify-between border-b border-white/10 pb-2">
+                    <span>SDIT Al-Afiyah:</span>
+                    <strong className="text-white font-mono font-bold">
+                      Rp {FORM_FEES.sd.toLocaleString('id-ID')}
+                    </strong>
+                  </div>
+                  <div className="flex justify-between border-b border-white/10 pb-2">
+                    <span>SMP IT Al-Afiyah:</span>
+                    <strong className="text-white font-mono font-bold">
+                      Rp {FORM_FEES.smp.toLocaleString('id-ID')}
+                    </strong>
+                  </div>
+                  <div className="flex justify-between pt-0.5">
+                    <span>TK IT Al-Afiyah:</span>
+                    <strong className="text-white font-mono font-bold">
+                      Rp {FORM_FEES.tk.toLocaleString('id-ID')}
+                    </strong>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-white/10">
-                <span className="text-[11px] text-[#a3e635] font-semibold flex items-center space-x-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Verifikasi Cepat &amp; Real-Time</span>
-                </span>
+              <div className="pt-4 border-t border-white/10 text-[11px] text-emerald-200/80 flex items-center space-x-1.5">
+                <Check className="w-3.5 h-3.5 text-[#a3e635]" />
+                <span>Verifikasi otomatis tercatat di sistem</span>
               </div>
             </div>
 
@@ -1050,63 +790,52 @@ export default function AffiliatePublicPage() {
             </div>
 
             {/* Card 3: Dark Green Card (Tahap 2 - Kelulusan & Registrasi) */}
-            <div className="bg-[#1c432f] rounded-3xl p-6 border border-white/10 flex flex-col justify-between text-left space-y-5">
+            <div className="bg-[#1c432f] rounded-3xl p-6 sm:p-7 border border-white/10 flex flex-col justify-between text-left space-y-6">
               <div className="space-y-4">
-                <div className="h-36 rounded-2xl border border-white/10 bg-gradient-to-br from-[#153424] via-[#1c432f] to-[#0f271b] p-4 flex flex-col justify-between relative overflow-hidden shadow-inner">
-                  <div className="flex items-center justify-between">
-                    <span className="w-10 h-10 rounded-xl bg-[#a3e635]/15 border border-[#a3e635]/30 text-[#a3e635] flex items-center justify-center shadow-xs">
-                      <GraduationCap className="w-5 h-5" />
-                    </span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 text-emerald-200 border border-white/10">
-                      Tahap 02
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#a3e635] block">
-                      Daftar Ulang Selesai
-                    </span>
-                    <p className="text-[11px] text-emerald-100/75 leading-tight mt-0.5">
-                      Komisi utama cair saat calon siswa dinyatakan lulus dan menyelesaikan daftar ulang.
-                    </p>
-                  </div>
-                </div>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-[#a3e635] text-[11px] font-mono font-bold border border-white/10 inline-block">
+                  Tahap 2: Daftar Ulang
+                </span>
+
                 <div>
-                  <span className="text-[10px] font-mono tracking-widest text-[#a3e635] uppercase font-bold">
-                    Tahap 2
-                  </span>
-                  <h3 className="text-xl font-bold text-white mt-0.5">Komisi Daftar Ulang</h3>
-                  <p className="text-2xl font-extrabold text-white mt-1">
-                    s.d. Rp {Math.max(REG_FEES.sd, REG_FEES.smp, REG_FEES.tk).toLocaleString('id-ID')}{' '}
-                    <span className="text-xs text-slate-300 font-normal">/ Peserta Didik</span>
+                  <h3 className="text-2xl font-bold text-white tracking-tight">Komisi Daftar Ulang</h3>
+                  <p className="text-xs text-emerald-200/80 mt-1">
+                    Komisi utama cair setelah calon siswa lulus dan menyelesaikan daftar ulang.
                   </p>
-                  <div className="mt-2 space-y-1 text-xs text-emerald-100/70">
-                    <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>SDIT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">
-                        Rp {REG_FEES.sd.toLocaleString('id-ID')}
-                      </strong>
-                    </p>
-                    <p className="flex justify-between border-b border-white/5 pb-1">
-                      <span>SMP IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">
-                        Rp {REG_FEES.smp.toLocaleString('id-ID')}
-                      </strong>
-                    </p>
-                    <p className="flex justify-between pt-0.5">
-                      <span>TK IT Al-Afiyah:</span>
-                      <strong className="text-white font-mono">
-                        Rp {REG_FEES.tk.toLocaleString('id-ID')}
-                      </strong>
-                    </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#153424] border border-white/10">
+                  <span className="text-[11px] text-emerald-200/70 block">Komisi Maksimal</span>
+                  <p className="text-2xl font-black text-white font-mono mt-0.5">
+                    s.d. Rp {Math.max(REG_FEES.sd, REG_FEES.smp, REG_FEES.tk).toLocaleString('id-ID')}
+                    <span className="text-xs font-normal text-slate-300 font-sans ml-1">/ siswa</span>
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-xs text-emerald-100/90 pt-1">
+                  <div className="flex justify-between border-b border-white/10 pb-2">
+                    <span>SDIT Al-Afiyah:</span>
+                    <strong className="text-white font-mono font-bold">
+                      Rp {REG_FEES.sd.toLocaleString('id-ID')}
+                    </strong>
+                  </div>
+                  <div className="flex justify-between border-b border-white/10 pb-2">
+                    <span>SMP IT Al-Afiyah:</span>
+                    <strong className="text-white font-mono font-bold">
+                      Rp {REG_FEES.smp.toLocaleString('id-ID')}
+                    </strong>
+                  </div>
+                  <div className="flex justify-between pt-0.5">
+                    <span>TK IT Al-Afiyah:</span>
+                    <strong className="text-white font-mono font-bold">
+                      Rp {REG_FEES.tk.toLocaleString('id-ID')}
+                    </strong>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-white/10">
-                <span className="text-[11px] text-[#a3e635] font-semibold flex items-center space-x-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Transfer Rutin Setiap Bulan</span>
-                </span>
+              <div className="pt-4 border-t border-white/10 text-[11px] text-emerald-200/80 flex items-center space-x-1.5">
+                <Check className="w-3.5 h-3.5 text-[#a3e635]" />
+                <span>Ditransfer rutin ke rekening bank Anda</span>
               </div>
             </div>
 
@@ -1195,20 +924,14 @@ export default function AffiliatePublicPage() {
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200/80 gap-3">
                       <div className="flex items-center space-x-3.5">
-                        <div className="w-12 h-12 rounded-2xl bg-[#153424] text-[#a3e635] flex items-center justify-center shadow-xs">
-                          <Icon className="w-6 h-6" />
+                        <div className="w-11 h-11 rounded-xl bg-[#153424] text-[#a3e635] flex items-center justify-center shrink-0 shadow-xs">
+                          <Icon className="w-5 h-5" />
                         </div>
                         <div>
-                          <div className="flex items-center space-x-2">
-                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                              {item.badge}
-                            </span>
-                            <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-100 text-[10px] font-semibold text-emerald-900">
-                              <BadgeCheck className="w-3 h-3 text-emerald-700" />
-                              <span>Jalur Terbuka</span>
-                            </span>
-                          </div>
-                          <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950 mt-0.5">
+                          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                            {item.badge}
+                          </span>
+                          <h3 className="text-xl font-bold text-slate-950 mt-0.5">
                             {item.title}
                           </h3>
                         </div>
@@ -1223,28 +946,9 @@ export default function AffiliatePublicPage() {
                       </button>
                     </div>
 
-                    <p className="text-sm sm:text-base font-semibold text-slate-800 leading-snug">
+                    <p className="text-sm text-slate-700 leading-relaxed">
                       {item.subtitle}
                     </p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
-                        <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-                          <Wallet className="w-3.5 h-3.5 text-emerald-700" />
-                          <span>Keuntungan Spesifik:</span>
-                        </h4>
-                        <p className="text-xs font-bold text-emerald-900">{item.advantageTitle}</p>
-                        <p className="text-xs text-slate-600 leading-relaxed">{item.advantageText}</p>
-                      </div>
-
-                      <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5">
-                        <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-                          <Target className="w-3.5 h-3.5 text-emerald-700" />
-                          <span>Mengapa Ini Tepat?</span>
-                        </h4>
-                        <p className="text-xs text-slate-600 leading-relaxed">{item.why}</p>
-                      </div>
-                    </div>
 
                     {/* Simulation Result */}
                     <div className="p-4 rounded-2xl bg-[#153424] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
