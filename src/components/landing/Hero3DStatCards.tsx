@@ -16,48 +16,32 @@ interface Hero3DStatCardsProps {
   unitSlug?: 'sd' | 'smp' | 'tk';
 }
 
-function StatCard({ stat, index, unitSlug }: { stat: StatItemData; index: number; unitSlug?: 'sd' | 'smp' | 'tk' }) {
+function StatCard({ stat, unitSlug }: { stat: StatItemData; unitSlug?: 'sd' | 'smp' | 'tk' }) {
   const isSmp = unitSlug === 'smp';
 
   return (
     <div
-      style={{
-        animation: `subtleHeroFloat ${3.8 + (index % 2) * 0.7}s ease-in-out infinite`,
-        animationDelay: `${index * 0.45}s`,
-      }}
-      className={`group relative overflow-hidden rounded-2xl p-4 sm:p-5 select-none transition-all duration-300 backdrop-blur-md shadow-xl shadow-black/30 ${
+      className={`group relative overflow-hidden rounded-xl sm:rounded-2xl p-3.5 sm:p-4 lg:p-5 select-none transition-all duration-200 backdrop-blur-md shadow-md border ${
         isSmp
-          ? 'bg-gradient-to-br from-[#030164]/95 via-[#080554]/90 to-[#01002e]/95 border border-[#ffd51e]/40 hover:border-[#ffd51e] hover:shadow-[#030164]/50'
-          : 'bg-gradient-to-br from-[#064e3b]/95 via-[#065f46]/90 to-[#022c22]/95 border border-[#00A651]/40 hover:border-[#00A651] hover:shadow-emerald-950/40'
+          ? 'bg-white/[0.08] hover:bg-white/[0.14] border-white/20 hover:border-[#ffd51e]/60'
+          : 'bg-white/[0.08] hover:bg-white/[0.14] border-white/20 hover:border-[#ffd51e]/60'
       }`}
     >
       {/* Brand Accent Line */}
-      <div
-        className={`w-8 h-1 rounded-full mb-3 sm:mb-3.5 opacity-90 group-hover:w-12 transition-all duration-300 ${
-          isSmp ? 'bg-gradient-to-r from-[#ffd51e] to-amber-200' : 'bg-gradient-to-r from-[#00A651] to-emerald-300'
-        }`}
-      />
+      <div className="w-6 sm:w-8 h-1 rounded-full mb-2 sm:mb-2.5 bg-[#ffd51e]" />
 
       {/* Label */}
-      <p
-        className={`text-[10px] sm:text-xs font-black uppercase tracking-wider line-clamp-1 ${
-          isSmp ? 'text-[#ffd51e]' : 'text-emerald-300'
-        }`}
-      >
+      <p className="text-[10px] sm:text-xs font-black uppercase tracking-wider line-clamp-1 text-[#ffd51e]">
         {stat.label}
       </p>
 
-      {/* Primary Value / Content */}
-      <h4 className="text-base sm:text-lg lg:text-xl font-black text-white tracking-tight mt-1 leading-snug">
+      {/* Primary Value */}
+      <h4 className="text-sm sm:text-base lg:text-lg font-black text-white tracking-tight mt-0.5 leading-snug">
         {stat.value}
       </h4>
 
       {/* Subtext */}
-      <p
-        className={`text-[11px] sm:text-xs font-medium mt-1.5 leading-relaxed line-clamp-2 ${
-          isSmp ? 'text-slate-200' : 'text-emerald-100/85'
-        }`}
-      >
+      <p className="text-[11px] sm:text-xs font-normal mt-1 leading-relaxed line-clamp-2 text-white/80">
         {stat.subtext}
       </p>
     </div>
@@ -69,26 +53,9 @@ export default function Hero3DStatCards({ stats, unitSlug }: Hero3DStatCardsProp
 
   return (
     <div className="w-full">
-      {/* Scoped CSS Keyframes for Subtle Floating Animation */}
-      <style>{`
-        @keyframes subtleHeroFloat {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-6px);
-          }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .group {
-            animation: none !important;
-          }
-        }
-      `}</style>
-
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 lg:gap-4">
         {stats.map((stat, idx) => (
-          <StatCard key={stat.label + idx} stat={stat} index={idx} unitSlug={unitSlug} />
+          <StatCard key={stat.label + idx} stat={stat} unitSlug={unitSlug} />
         ))}
       </div>
     </div>

@@ -1248,9 +1248,12 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
             <span>Pendaftaran Gelombang 1 Terbatas</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-            Wujudkan Masa Depan Murid yang <br />
-            <span className="text-[#ffd51e]">Smart &amp; Religious</span> Bersama Kami
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+            <span className="block">Wujudkan Masa Depan</span>
+            <span className="block mt-1">
+              Murid yang <span className="text-[#ffd51e]">Smart &amp; Religious</span>
+            </span>
+            <span className="block mt-1">Bersama Kami</span>
           </h2>
           <p className="text-sm sm:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed">
             Daftarkan putra-putri tercinta sekarang juga. Dapatkan potongan biaya uang bangunan hingga 70% sebelum 28 Februari 2027.

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 import { getStoredReferralCode } from '@/lib/referral';
 
 export interface UnitSlideData {
@@ -46,128 +46,32 @@ function renderHeroHeadline(
 
   // If this is SDIT's headline ("Bukan Sekedar / Sekadar")
   if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
-    const boldLine = 'block text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15] tracking-tight';
     return (
-      <>
-        <span className="font-hero-accent block text-2xl sm:text-3xl lg:text-4xl italic font-normal tracking-wide leading-tight text-neutral-100 mb-1.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+      <div className="flex flex-col gap-0.5">
+        <span className="font-hero-accent text-xl sm:text-2xl lg:text-3xl italic font-normal tracking-wide text-[#ffd51e] drop-shadow-sm">
           Bukan Sekedar
         </span>
-        {/* Heading: 3 bold lines */}
-        <span className={boldLine}>Tempat Belajar,</span>
-        <span className={boldLine}>Namun Juga</span>
-        <span className={`${boldLine} ${highlightClass} mb-4`}>Tempat Bertumbuh</span>
-      </>
+        <span className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+          Tempat Belajar,
+        </span>
+        <span className={`text-2xl sm:text-4xl lg:text-5xl font-black ${highlightClass} leading-tight`}>
+          Tempat Bertumbuh
+        </span>
+      </div>
     );
   }
 
-  // Standard fallback renderer for other units (TK, SMP, etc.)
-  const renderLines = (text: string) =>
-    text.split(/\n|<br\s*\/?>/i).map((seg, sIdx) => (
-      <React.Fragment key={sIdx}>
-        {sIdx > 0 && <br />}
-        {seg}
-      </React.Fragment>
-    ));
-
+  // SMP / General headline
   return (
-    <>
-      {renderLines(p1)}{' '}
+    <div className="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight text-white tracking-tight">
+      <span>{p1}</span>{' '}
       {ph && (
         <span className={`${highlightClass} inline`}>
-          {renderLines(ph)}
+          {ph}
         </span>
-      )}
-      {p2 && (p2.startsWith(',') || p2.startsWith('.') ? p2 : ` ${p2}`)}
-    </>
-  );
-}
-
-interface HeroContentProps {
-  slide: UnitSlideData;
-  fallbackPrimaryLink: string;
-  highlightClass: string;
-  primaryBtnClass: string;
-  badgeClass: string;
-  hasStatsCards?: boolean;
-}
-
-/** Badge, headline, description, CTA and trust points — shared by static and sliding modes. */
-function HeroContent({
-  slide,
-  fallbackPrimaryLink,
-  highlightClass,
-  primaryBtnClass,
-  badgeClass,
-  hasStatsCards,
-}: HeroContentProps) {
-  const [refCode, setRefCode] = useState<string | null>(null);
-  const [isOpening, setIsOpening] = useState(false);
-
-  useEffect(() => {
-    setRefCode(getStoredReferralCode());
-  }, []);
-
-  let rawLink = slide.primaryCtaLink || fallbackPrimaryLink;
-  if (refCode && rawLink.includes('/ppdb/daftar')) {
-    rawLink += `${rawLink.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
-  }
-  const isSpmbLink = rawLink.includes('/ppdb/daftar');
-
-  return (
-    <>
-      {/* Minimal Editorial Overline */}
-      {slide.badge && (
-        <div className="mb-3 sm:mb-4">
-          <Link
-            href={rawLink}
-            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] transition-transform duration-200 hover:scale-[1.02] active:scale-95 drop-shadow-md"
-          >
-            <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-            <span>{slide.badge}</span>
-          </Link>
-        </div>
-      )}
-
-      {/* Text block capped so copy never runs into the subject of the background photo */}
-      <div className="w-full max-w-xl lg:max-w-2xl text-left">
-        {/* Main Headline — large & dominant */}
-        <h1 className="w-full text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.15] tracking-tight text-left text-white drop-shadow-lg break-words">
-          {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, highlightClass)}
-        </h1>
-
-        {/* Subtitle Description — constrained measure to balance with the CTA below */}
-        {slide.description && (
-          <p className="mt-3.5 sm:mt-5 max-w-sm sm:max-w-md lg:max-w-xl text-sm sm:text-base lg:text-lg leading-relaxed text-left text-neutral-200 font-normal drop-shadow-sm">
-            {slide.description}
-          </p>
-        )}
-      </div>
-
-      {/* Single Primary CTA — hidden when hasStatsCards is true so it can be placed below statsCards */}
-      {!hasStatsCards && (
-        <Link
-          href={rawLink}
-          className={`mt-6 inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-5 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${primaryBtnClass}`}
-        >
-          <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
-          <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
-        </Link>
-      )}
-
-      {/* Trust Points - hidden when statsCards is active to prevent duplicate information */}
-      {!hasStatsCards && slide.trustItems && slide.trustItems.length > 0 && (
-        <ul className="mt-5 sm:mt-8 w-full flex flex-col gap-2.5 text-left text-xs sm:text-sm font-medium text-neutral-200 space-y-1 sm:space-y-0 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-2 sm:font-semibold">
-          {slide.trustItems.map((item, tIdx) => (
-            <li
-              key={tIdx}
-              className={`border-l-2 ${badgeClass.includes('ffd51e') ? 'border-[#ffd51e]' : 'border-emerald-500/60'} pl-2.5 leading-snug tracking-wide sm:border-l sm:border-white/20 sm:pl-0 sm:whitespace-nowrap font-medium text-neutral-200`}
-            >
-              {item.text}
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+      )}{' '}
+      {p2 && <span>{p2}</span>}
+    </div>
   );
 }
 
@@ -180,298 +84,234 @@ export default function UnitHeroSlider({
   customSlides,
   statsCards
 }: UnitHeroSliderProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [refCode, setRefCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRefCode(getStoredReferralCode());
+  }, []);
 
   const ppdbUrl = slug === 'sd' ? '/sd/spmb/daftar' : slug === 'smp' ? '/smp/spmb/daftar' : `/ppdb/daftar?school=${slug}`;
   const waUrl = `https://wa.me/${waCenterPhone}?text=${encodeURIComponent(
     `Assalamu'alaikum Panitia SPMB ${schoolName}, saya ingin bertanya perihal informasi pendaftaran murid baru TP 2027/2028.`
   )}`;
 
-  // Default unit-tailored slides if no custom slides provided
-  const slides: UnitSlideData[] = useMemo(() => {
-    const sanitizeSdTrustItems = (items?: UnitSlideData['trustItems']): UnitSlideData['trustItems'] => {
-      const defaultSdItems: NonNullable<UnitSlideData['trustItems']> = [
-        { icon: 'shield', text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
-        { icon: 'check', text: 'Lingkungan Asri & Ramah Anak' },
-        { icon: 'award', text: 'Iman Sebelum Qur’an & Tahfidz' },
-        { icon: 'calendar', text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` },
-      ];
-
-      if (!items || items.length === 0) return defaultSdItems;
-
-      return items.map((item) => {
-        const textLower = item.text.toLowerCase();
-        if (textLower.includes('kuota') || textLower.includes('rombel')) {
-          return { icon: item.icon || 'shield', text: 'Kurikulum Terpadu & Karakter Nabawiyah' };
-        }
-        if (textLower.includes('smart')) {
-          return { icon: item.icon || 'check', text: 'Lingkungan Asri & Ramah Anak' };
-        }
-        return item;
-      });
-    };
-
+  // Default unit-tailored slide data
+  const slide = useMemo<UnitSlideData>(() => {
     if (customSlides && customSlides.length > 0) {
-      const first = customSlides[0];
-      const slidesToUse = customSlides.slice(0, 3);
-      return slidesToUse.map((s, idx) => ({
-        ...s,
-        id: s.id ?? idx + 1,
-        badge: first.badge,
-        titlePart1: first.titlePart1,
-        titleHighlight: first.titleHighlight,
-        titlePart2: (first.titlePart2 || '').replace(/ananda/gi, '').trim(),
-        description: first.description,
-        primaryCtaText: first.primaryCtaText,
-        primaryCtaLink: first.primaryCtaLink,
-        secondaryCtaText: first.secondaryCtaText,
-        secondaryCtaLink: first.secondaryCtaLink,
-        trustItems: slug === 'sd' ? sanitizeSdTrustItems(first.trustItems) : first.trustItems,
-        image: s.image,
-      }));
-    }
-
-    if (slug === 'tk') {
-      const baseTkSlide = {
-        badge: 'PAUD & TK IT AL-AFIYAH MAJALENGKA',
-        titlePart1: 'Tumbuh Ceria, Mandiri & ',
-        titleHighlight: 'Berakhlak Shalih',
-        titlePart2: ' Sejak Usia Emas',
-        description:
-          'Pendidikan anak usia dini berbasis sentra bermain bermakna, pembiasaan adab nabawiyah, serta stimulasi motorik ramah anak dengan bimbingan guru pendidik penuh kasih sayang.',
-        primaryCtaText: 'Daftar Murid Baru TK',
-        primaryCtaLink: ppdbUrl,
-        secondaryCtaText: 'Konsultasi WhatsApp',
-        secondaryCtaLink: waUrl,
-        trustItems: [
-          { icon: 'shield' as const, text: 'Terakreditasi Resmi' },
-          { icon: 'users' as const, text: 'Rasio Kelas Ramah 1:8' },
-          { icon: 'calendar' as const, text: 'T.A. 2027/2028' },
-          { icon: 'check' as const, text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
-        ]
-      };
-
-      return [
-        { id: 1, ...baseTkSlide, image: '/images/tk-hero-kids.jpg' },
-        { id: 2, ...baseTkSlide, image: '/images/tk-hero-garden.jpg' },
-        { id: 3, ...baseTkSlide, image: '/images/eduka-study-group.jpg' },
-      ];
+      return customSlides[0];
     }
 
     if (slug === 'sd') {
-      const baseSdSlide = {
+      return {
+        id: 1,
         badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
         titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
         titleHighlight: 'Tempat Bertumbuh',
         titlePart2: '',
-        description:
-          'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
+        description: 'Mencetak generasi sholeh, mandiri, dan berakhlak mulia dengan prinsip Smart Akhlak Fitrah serta bimbingan karakter nabawiyah.',
         primaryCtaText: 'Daftar SPMB SDIT',
         primaryCtaLink: ppdbUrl,
-        secondaryCtaText: 'WhatsApp (0813-1013-9001)',
-        secondaryCtaLink: 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran',
+        secondaryCtaText: 'Tanya Admin WA',
+        secondaryCtaLink: waUrl,
+        image: '/images/hero/sd-cutout.webp',
         trustItems: [
-          { icon: 'shield' as const, text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
-          { icon: 'check' as const, text: 'Lingkungan Asri & Ramah Anak' },
-          { icon: 'award' as const, text: 'Iman Sebelum Qur’an & Tahfidz' },
-          { icon: 'calendar' as const, text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
+          { icon: 'shield', text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
+          { icon: 'check', text: 'Lingkungan Asri & Ramah Anak' },
+          { icon: 'award', text: 'Tahfidz Juz 30 Mutqin' },
+          { icon: 'calendar', text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` },
         ]
       };
-
-      return [
-        { id: 1, ...baseSdSlide, image: '/images/sd-hero-greenhouse.jpg' },
-        { id: 2, ...baseSdSlide, image: '/images/sd-hero-garden.jpg' },
-        { id: 3, ...baseSdSlide, image: '/images/sd-hero-activity.jpg' },
-      ];
     }
 
-    // Default SMP IT
-    const baseSmpSlide = {
+    if (slug === 'tk') {
+      return {
+        id: 1,
+        badge: 'PAUD & TK IT AL-AFIYAH MAJALENGKA',
+        titlePart1: 'Tumbuh Ceria, Mandiri & ',
+        titleHighlight: 'Berakhlak Shalih',
+        titlePart2: 'Sejak Usia Emas',
+        description: 'Pendidikan usia dini berbasis sentra bermain bermakna dan pembiasaan adab nabawiyah dengan bimbingan guru penuh kasih sayang.',
+        primaryCtaText: 'Daftar Murid Baru TK',
+        primaryCtaLink: ppdbUrl,
+        secondaryCtaText: 'Konsultasi WhatsApp',
+        secondaryCtaLink: waUrl,
+        image: '/images/hero/sd-cutout.webp',
+        trustItems: [
+          { icon: 'shield', text: 'Terakreditasi Resmi' },
+          { icon: 'users', text: 'Rasio Kelas Ramah 1:8' },
+          { icon: 'calendar', text: 'T.A. 2027/2028' },
+          { icon: 'check', text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
+        ]
+      };
+    }
+
+    // Default SMP
+    return {
+      id: 1,
       badge: 'SPMB T.A. 2027/2028 • BE SMART & RELIGIOUS',
-      titlePart1: 'Mencetak Generasi ',
+      titlePart1: 'Mencetak Generasi',
       titleHighlight: 'Smart & Religious',
-      titlePart2: ' Berakhlak Qur’ani',
-      description:
-        'Sekolah Menengah Pertama Islam Terpadu Terakreditasi A. Target hafalan 3-5+ juz mutqin, fasih Bahasa Arab aktif, SCD & Mutaba\'ah Digital, serta Futsal Development Program.',
+      titlePart2: 'Berakhlak Qur’ani',
+      description: 'Sekolah Menengah Pertama Islam Terpadu Terakreditasi A dengan target tahfidz 3-5+ juz mutqin, fasih bahasa Arab, dan pembinaan karakter mandiri.',
       primaryCtaText: 'Daftar SPMB SMP IT',
       primaryCtaLink: ppdbUrl,
-      secondaryCtaText: 'Konsultasi Panitia (0822-4935-7893)',
+      secondaryCtaText: 'Konsultasi WhatsApp',
       secondaryCtaLink: waUrl,
+      image: '/images/hero/smp-cutout.webp',
+      trustItems: [
+        { icon: 'award', text: 'Terakreditasi A BAN-S/M' },
+        { icon: 'check', text: 'Target Tahfidz 3-5+ Juz' },
+        { icon: 'calendar', text: 'Diskon Gelombang 1 s.d. 70%' },
+        { icon: 'shield', text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }
+      ]
     };
+  }, [slug, customSlides, ppdbUrl, waUrl, registrationFee]);
 
-    return [
-      { id: 1, ...baseSmpSlide, image: '/images/smp-spmb-poster.png' },
-      { id: 2, ...baseSmpSlide, image: '/images/smp-tubing-1.jpg' },
-      { id: 3, ...baseSmpSlide, image: '/images/smp-outing-3.jpg' },
-    ];
-  }, [slug, ppdbUrl, waUrl, registrationFee, customSlides]);
-
-  // Unit theme configuration
-  const themeConfig = useMemo(() => {
+  // Unit theme styles - Bright, solid identity color (YPIB style) with NO dark/black gradient overlays
+  const theme = useMemo(() => {
     switch (slug) {
-      case 'tk':
-        return {
-          glowColor: 'bg-emerald-500/20',
-          badgeText: 'text-emerald-300/90',
-          highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-300 to-yellow-300',
-          primaryBtn: 'bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-500 hover:to-teal-700 shadow-emerald-900/40'
-        };
       case 'sd':
         return {
-          glowColor: 'bg-[#00A651]/20',
-          badgeText: 'text-[#00A651]',
-          highlight: 'text-[#00A651]',
-          primaryBtn: 'bg-[#00A651] hover:bg-[#008f45] shadow-[#00A651]/40 text-white font-bold'
+          bgClass: 'bg-[#008a43] bg-gradient-to-b from-[#009b4b] via-[#008a43] to-[#007538]',
+          highlightText: 'text-[#ffd51e]',
+          badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
+          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#00602e] font-black shadow-lg shadow-black/15',
+          circleBackdrop: 'bg-white/10 border-white/20',
+          badgePillText: 'Terakreditasi B • BAN-S/M',
+          cutoutSrc: '/images/hero/sd-cutout.webp',
+        };
+      case 'tk':
+        return {
+          bgClass: 'bg-[#059669] bg-gradient-to-b from-[#059669] via-[#047857] to-[#065f46]',
+          highlightText: 'text-[#ffd51e]',
+          badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
+          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#044e39] font-black shadow-lg shadow-black/15',
+          circleBackdrop: 'bg-white/10 border-white/20',
+          badgePillText: 'PAUD IT Al-Afiyah',
+          cutoutSrc: '/images/hero/sd-cutout.webp',
         };
       case 'smp':
       default:
         return {
-          glowColor: 'bg-[#030164]/40',
-          badgeText: 'text-[#ffd51e] border-[#ffd51e]/30 bg-[#030164]/60',
-          highlight: 'text-transparent bg-clip-text bg-gradient-to-r from-[#ffd51e] via-amber-200 to-yellow-300',
-          primaryBtn: 'bg-[#030164] hover:bg-[#02004d] text-white border border-[#ffd51e]/40 shadow-lg shadow-[#030164]/50 font-bold'
+          bgClass: 'bg-[#030164] bg-gradient-to-b from-[#05027a] via-[#030164] to-[#02004a]',
+          highlightText: 'text-[#ffd51e]',
+          badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
+          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#030164] font-black shadow-lg shadow-black/15',
+          circleBackdrop: 'bg-white/10 border-white/20',
+          badgePillText: 'Terakreditasi A • BAN-S/M',
+          cutoutSrc: '/images/hero/smp-cutout.webp',
         };
     }
   }, [slug]);
 
-  // Check if all slides have identical text content (e.g. user wants static text overlay with changing background photos)
-  const isAllSameContent = useMemo(() => {
-    if (slug === 'sd') return true;
-    if (slides.length <= 1) return true;
-    const first = slides[0];
-    return slides.every(
-      (s) =>
-        (s.titlePart1 || '').trim() === (first.titlePart1 || '').trim() &&
-        (s.titleHighlight || '').trim() === (first.titleHighlight || '').trim() &&
-        (s.titlePart2 || '').trim() === (first.titlePart2 || '').trim() &&
-        (s.description || '').trim() === (first.description || '').trim() &&
-        (s.primaryCtaText || '').trim() === (first.primaryCtaText || '').trim()
-    );
-  }, [slides, slug]);
-
-  // Auto advance slides every 4.5s continuously
-  useEffect(() => {
-    if (slides.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [currentSlide, slides.length]);
-
-  const targetCtaLink = slides[currentSlide]?.primaryCtaLink || slides[0]?.primaryCtaLink || ppdbUrl;
-  const [effectiveBottomCtaLink, setEffectiveBottomCtaLink] = useState(targetCtaLink);
-
-  useEffect(() => {
-    const refCode = getStoredReferralCode();
-    if (refCode && targetCtaLink.startsWith('/')) {
-      const separator = targetCtaLink.includes('?') ? '&' : '?';
-      setEffectiveBottomCtaLink(`${targetCtaLink}${separator}ref=${refCode}`);
-    } else {
-      setEffectiveBottomCtaLink(targetCtaLink);
-    }
-  }, [targetCtaLink]);
+  let effectiveCtaLink = slide.primaryCtaLink || ppdbUrl;
+  if (refCode && effectiveCtaLink.includes('/ppdb/daftar')) {
+    effectiveCtaLink += `${effectiveCtaLink.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
+  }
 
   return (
-    <section
-      className="relative bg-slate-950 text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-start"
-      style={{ minHeight: statsCards ? 'auto' : '680px' }}
-    >
-      {/* Background Slides with Ken Burns Zoom & Smooth Seamless Crossfade */}
-      {slides.map((s, idx) => {
-        const isActive = idx === currentSlide;
-        return (
-          <div
-            key={s.id || idx}
-            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-              isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
-            }`}
-            style={{ minHeight: '100%', height: '100%' }}
-          >
-            {/* Smooth Continuous Zoom Container */}
-            <div className={`absolute inset-0 w-full h-full overflow-hidden ${isActive ? 'animate-kenburns' : 'scale-100'}`}>
-              <Image
-                src={s.image}
-                alt={s.badge || 'Hero Slide'}
-                fill
-                priority={idx === 0}
-                className="object-cover object-center"
-                sizes="100vw"
-                unoptimized={s.image?.startsWith('data:')}
-              />
-            </div>
-            {/* Multi-Layer Cinematic Contrast Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/40 z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30 z-10 pointer-events-none" />
-            {/* Subtle Unit Theme Ambient Glow */}
-            <div
-              className={`absolute top-1/4 left-10 w-96 h-96 ${themeConfig.glowColor} rounded-full blur-3xl pointer-events-none z-10`}
-            />
-          </div>
-        );
-      })}
+    <section className={`relative text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-start ${theme.bgClass}`}>
+      {/* Subtle top ambient glow - Unit matched (no muddy black shadow) */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-2xl pointer-events-none" />
 
-      {/* Main Content Container with Zero-Jeda Smooth Crossfade & Header Clearance */}
+      {/* Main Content Area */}
       <div
-        className={`relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-start ${
-          statsCards ? 'pb-2 sm:pb-3' : 'pb-16 sm:pb-20 lg:pb-24'
-        }`}
-        style={{ paddingTop: 'clamp(96px, 12vh, 128px)' }}
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24 sm:pt-28 lg:pt-32 pb-6 sm:pb-8"
       >
-        {isAllSameContent ? (
-          <div className="relative w-full max-w-3xl lg:max-w-5xl flex flex-col items-start justify-start text-left">
-            <HeroContent
-              slide={slides[0]}
-              fallbackPrimaryLink={ppdbUrl}
-              highlightClass={themeConfig.highlight}
-              primaryBtnClass={themeConfig.primaryBtn}
-              badgeClass={themeConfig.badgeText}
-              hasStatsCards={Boolean(statsCards)}
-            />
-          </div>
-        ) : (
-          <div className={`relative max-w-3xl lg:max-w-5xl ${statsCards ? 'min-h-[220px] sm:min-h-[200px]' : 'min-h-[480px] sm:min-h-[500px] lg:min-h-[530px]'}`}>
-            {slides.map((s, idx) => {
-              const isTextActive = idx === currentSlide;
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center">
+          {/* Left Column: Heading, Subtitle & Action */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            {/* Overline Badge */}
+            {slide.badge && (
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-3 sm:mb-4 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
+                <span>{slide.badge}</span>
+              </div>
+            )}
 
-              return (
-                <div
-                  key={s.id || idx}
-                  className={`absolute inset-x-0 top-0 flex flex-col items-start justify-start text-left transition-all duration-700 ease-in-out ${
-                    isTextActive
-                      ? 'opacity-100 translate-y-0 pointer-events-auto z-10'
-                      : 'opacity-0 translate-y-2 pointer-events-none z-0'
-                  }`}
+            {/* Dominant Headline */}
+            <h1 className="w-full text-balance">
+              {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, theme.highlightText)}
+            </h1>
+
+            {/* Subtitle / Description - Short and clean */}
+            {slide.description && (
+              <p className="mt-2.5 sm:mt-3.5 max-w-xl text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed font-normal">
+                {slide.description}
+              </p>
+            )}
+
+            {/* Primary Action Buttons (Desktop & Fallback when statsCards are below) */}
+            <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-3 w-full sm:w-auto">
+              <Link
+                href={effectiveCtaLink}
+                className={`inline-flex h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-2 px-6 rounded-xl text-sm font-black transition-all duration-200 hover:-translate-y-0.5 active:scale-95 text-center ${theme.primaryBtn}`}
+              >
+                <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </Link>
+
+              {slide.secondaryCtaLink && (
+                <a
+                  href={slide.secondaryCtaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-2 px-5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all text-center backdrop-blur-sm"
                 >
-                  <HeroContent
-                    slide={s}
-                    fallbackPrimaryLink={ppdbUrl}
-                    highlightClass={themeConfig.highlight}
-                    primaryBtnClass={themeConfig.primaryBtn}
-                    badgeClass={themeConfig.badgeText}
-                    hasStatsCards={Boolean(statsCards)}
-                  />
-                </div>
-              );
-            })}
+                  <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
+                  <span>{slide.secondaryCtaText || 'Tanya Admin WA'}</span>
+                </a>
+              )}
+            </div>
+
+            {/* Trust bullet points */}
+            {slide.trustItems && slide.trustItems.length > 0 && !statsCards && (
+              <div className="mt-5 sm:mt-6 pt-4 border-t border-white/15 w-full flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-white/85 font-medium">
+                {slide.trustItems.map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#ffd51e]" />
+                    <span>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+
+          {/* Right Column: Student Cutout Visual Plate (Universitas YPIB style) */}
+          <div className="lg:col-span-5 flex justify-center items-end relative mt-2 sm:mt-4 lg:mt-0">
+            <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[440px] flex items-end justify-center">
+              {/* Soft circular plate behind cutout */}
+              <div
+                className={`absolute bottom-0 w-56 h-56 sm:w-72 sm:h-72 lg:w-88 lg:h-88 rounded-full border ${theme.circleBackdrop} pointer-events-none`}
+              />
+
+              {/* Cut-out Student Photo */}
+              <div className="relative z-10 w-full flex justify-center items-end">
+                <Image
+                  src={theme.cutoutSrc}
+                  alt={schoolName}
+                  width={640}
+                  height={640}
+                  priority
+                  className="w-auto max-h-[260px] sm:max-h-[340px] lg:max-h-[420px] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.28)] select-none pointer-events-none"
+                />
+              </div>
+
+              {/* Floating Quality / Accreditation Badge like YPIB */}
+              <div className="absolute bottom-2 left-2 sm:left-4 z-20 px-3 py-1.5 rounded-xl bg-white/95 text-slate-900 border border-slate-200/80 shadow-lg backdrop-blur-md flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[11px] sm:text-xs font-black tracking-tight">{theme.badgePillText}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Hero Bottom Highlight Cards nested inside the banner, with Primary CTA button beneath cards (omitted for SMP and SD as they have dedicated promo CTA strips right below) */}
+      {/* Hero Bottom Highlight Cards (SMP & SD Stat Cards) */}
       {statsCards && (
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-1 sm:pt-2 flex flex-col items-start gap-4 sm:gap-5">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8 w-full pt-1 sm:pt-2">
           {statsCards}
-          {slug !== 'smp' && slug !== 'sd' && (
-            <div className="w-full flex justify-start">
-              <Link
-                href={effectiveBottomCtaLink}
-                className={`inline-flex h-11 w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-6 rounded-xl text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer group text-center ${themeConfig.primaryBtn}`}
-              >
-                <span>{slides[currentSlide]?.primaryCtaText || slides[0]?.primaryCtaText || 'Daftar SPMB Online'}</span>
-                <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          )}
         </div>
       )}
     </section>
