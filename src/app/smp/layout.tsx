@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       { url: '/smp-favicon.ico', sizes: 'any' },
     ],
     shortcut: '/images/smp-icon-192.png',
-    apple: '/images/smp-icon-192.png',
+    apple: '/images/smp-apple-icon.png',
   },
   openGraph: {
     title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',
@@ -75,7 +75,7 @@ export default function SmpLayout({
       <head>
         <link rel="icon" type="image/png" sizes="192x192" href="/images/smp-icon-192.png" />
         <link rel="icon" type="image/x-icon" href="/smp-favicon.ico" />
-        <link rel="apple-touch-icon" href="/images/smp-icon-192.png" />
+        <link rel="apple-touch-icon" href="/images/smp-apple-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(smpWebSiteSchema) }}

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       { url: '/favicon.ico', sizes: 'any' },
     ],
     shortcut: '/images/sd-logo.png',
-    apple: '/images/sd-icon-192.png',
+    apple: '/images/sd-apple-icon.png',
   },
   openGraph: {
     title: 'SDIT Al-Afiyah Majalengka | YPIB',
@@ -63,7 +63,7 @@ export default function SdLayout({
       <head>
         <link rel="icon" type="image/png" sizes="192x192" href="/images/sd-logo.png" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/images/sd-logo.png" />
+        <link rel="apple-touch-icon" href="/images/sd-apple-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(sdWebSiteSchema) }}
