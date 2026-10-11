@@ -58,7 +58,7 @@ export function getCleanRootDomain(host?: string): string {
   const portSuffix = port ? `:${port}` : '';
 
   const parts = hostname.split('.');
-  if (parts.length >= 2 && parts[0] in SUBDOMAIN_TO_SLUG) {
+  if (parts.length >= 2 && (parts[0] in SUBDOMAIN_TO_SLUG || parts[0] === 'www')) {
     return `${parts.slice(1).join('.')}${portSuffix}`;
   }
 
@@ -95,10 +95,10 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
       return `${protocol}//${currentHost}/${slug}${normalizedPath}`;
     }
 
-    // Get root host (without prefix)
+    // Get root host (without school or www prefix) — prevents sdit.www.alafiyah.id
     let rootHost = currentHost;
     const parts = currentHostname.split('.');
-    if (parts.length >= 2 && parts[0] in SUBDOMAIN_TO_SLUG) {
+    if (parts.length >= 2 && (parts[0] in SUBDOMAIN_TO_SLUG || parts[0] === 'www')) {
       rootHost = `${parts.slice(1).join('.')}${portSuffix}`;
     }
 

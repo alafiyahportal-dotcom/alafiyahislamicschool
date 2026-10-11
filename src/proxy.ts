@@ -7,11 +7,39 @@ import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
 // Allowed root domains for redirection protection
 const ALLOWED_ROOT_HOSTS = ['alafiyah.id', 'sdit.alafiyah.id', 'smpit.alafiyah.id', 'tkit.alafiyah.id', 'localhost', '127.0.0.1', 'vercel.app'];
 
+// Clean school subpaths served on a school subdomain (smpit.alafiyah.id/profil -> /smp/profil)
+const SCHOOL_SUBPATHS = [
+  '/profil',
+  '/program',
+  '/fasilitas',
+  '/guru',
+  '/kontak',
+  '/karakter',
+  '/dokumentasi',
+  '/testimoni',
+  '/agenda',
+  '/berita',
+  '/doa-dzikir',
+  '/siakad',
+  '/spmb',
+];
+
+function isSchoolSubpath(path: string): boolean {
+  return SCHOOL_SUBPATHS.some((p) => path === p || path.startsWith(`${p}/`));
+}
+
 function isAllowedHost(host: string): boolean {
   const hostname = host.split(':')[0].toLowerCase();
   return ALLOWED_ROOT_HOSTS.some(
     (allowed) => hostname === allowed || hostname.endsWith(`.${allowed}`)
   );
+}
+
+/** Builds a school host from the bare root domain: www.alafiyah.id -> smpit.alafiyah.id (never smpit.www.alafiyah.id) */
+function buildSchoolHost(host: string, slug: SchoolSlug): string {
+  const [hostname, port] = host.split(':');
+  const bare = hostname.toLowerCase().replace(/^www\./, '');
+  return `${SLUG_TO_SUBDOMAIN[slug]}.${bare}${port ? `:${port}` : ''}`;
 }
 
 export function proxy(request: NextRequest) {
@@ -71,22 +99,7 @@ export function proxy(request: NextRequest) {
     }
 
     // Rewrite clean school subpaths on subdomain (e.g. smpit.alafiyah.id/profil -> /smp/profil)
-    const schoolSubpaths = [
-      '/profil',
-      '/program',
-      '/fasilitas',
-      '/guru',
-      '/kontak',
-      '/karakter',
-      '/dokumentasi',
-      '/testimoni',
-      '/agenda',
-      '/berita',
-      '/doa-dzikir',
-      '/siakad',
-      '/spmb',
-    ];
-    if (schoolSubpaths.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
+    if (isSchoolSubpath(pathname)) {
       const url = request.nextUrl.clone();
       url.pathname = `/${subdomain}${pathname}`;
       const response = NextResponse.rewrite(url);
@@ -110,54 +123,39 @@ export function proxy(request: NextRequest) {
       }
     }
   } else {
-    // On root domain with custom domain / localhost, redirect /tk, /sd, /smp to subdomain
-    // On vercel.app default domains (where sub-subdomains don't resolve), keep path-based routing /sd, /tk, /smp
+    // On root domain (alafiyah.id / www.alafiyah.id), send unit paths to their own subdomain.
+    // On vercel.app / localhost / IP (no wildcard subdomains), keep path-based routing /sd, /smp, /tk.
     const hostname = host.split(':')[0].toLowerCase();
     const isIp = /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
     const isVercel = hostname.endsWith('.vercel.app');
     const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+    const supportsSubdomains = !isIp && !isVercel && !isLocalhost;
 
-    // Route /ppdb/daftar?school=smp to dedicated SMP registration form
-    if (pathname === '/ppdb/daftar') {
-      const schoolParam = request.nextUrl.searchParams.get('school')?.toLowerCase();
-      if (schoolParam === 'smp') {
-        const url = request.nextUrl.clone();
-        url.searchParams.delete('school');
-        if (!isIp && !isVercel && !isLocalhost) {
-          const [hostNameOnly, port] = host.split(':');
-          const portSuffix = port ? `:${port}` : '';
-          url.host = `smpit.${hostNameOnly}${portSuffix}`;
-          url.pathname = '/spmb/daftar';
-          return NextResponse.redirect(url);
-        } else {
-          url.pathname = '/smp/spmb/daftar';
-          return NextResponse.redirect(url);
-        }
+    // Legacy link /ppdb/daftar?school=smp -> dedicated SMP IT form (never the SDIT form)
+    if (pathname === '/ppdb/daftar' && request.nextUrl.searchParams.get('school')?.toLowerCase() === 'smp') {
+      const url = request.nextUrl.clone();
+      url.searchParams.delete('school');
+      if (supportsSubdomains) {
+        url.host = buildSchoolHost(host, 'smp');
+        url.pathname = '/spmb/daftar';
+      } else {
+        url.pathname = '/smp/spmb/daftar';
       }
+      return NextResponse.redirect(url);
     }
 
-    if (!isIp && !isVercel && !isLocalhost) {
-      if (pathname === '/tk' || pathname === '/sd' || pathname === '/smp') {
-        const targetSlug = pathname.slice(1) as SchoolSlug;
-        const targetSub = SLUG_TO_SUBDOMAIN[targetSlug] || targetSlug;
-        const url = request.nextUrl.clone();
-        const [hostNameOnly, port] = host.split(':');
-        const portSuffix = port ? `:${port}` : '';
-        url.host = `${targetSub}.${hostNameOnly}${portSuffix}`;
-        url.pathname = '/';
-        return NextResponse.redirect(url);
-      }
-
-      if (pathname.startsWith('/tk/') || pathname.startsWith('/sd/') || pathname.startsWith('/smp/')) {
-        const targetSlug = pathname.split('/')[1] as SchoolSlug;
-        const targetSub = SLUG_TO_SUBDOMAIN[targetSlug] || targetSlug;
-        const restPath = pathname.replace(`/${targetSlug}`, '') || '/';
-        const url = request.nextUrl.clone();
-        const [hostNameOnly, port] = host.split(':');
-        const portSuffix = port ? `:${port}` : '';
-        url.host = `${targetSub}.${hostNameOnly}${portSuffix}`;
-        url.pathname = restPath;
-        return NextResponse.redirect(url);
+    if (supportsSubdomains) {
+      const [, firstSegment, ...rest] = pathname.split('/');
+      const slug = firstSegment as SchoolSlug;
+      if (slug === 'tk' || slug === 'sd' || slug === 'smp') {
+        const restPath = rest.length ? `/${rest.join('/')}` : '/';
+        // Only redirect paths the subdomain can serve; anything else (icons, assets) stays path-based
+        if (restPath === '/' || isSchoolSubpath(restPath)) {
+          const url = request.nextUrl.clone();
+          url.host = buildSchoolHost(host, slug);
+          url.pathname = restPath;
+          return NextResponse.redirect(url);
+        }
       }
     }
   }
