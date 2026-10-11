@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -37,6 +36,7 @@ import {
   Sliders,
   Star,
   CheckCheck,
+  FileText,
 } from 'lucide-react';
 import { DEFAULT_AFFILIATE_CONTENT, AffiliateCMSData } from '@/types/affiliate-cms';
 
@@ -500,80 +500,127 @@ export default function AffiliatePublicPage() {
             >
               <div className="relative mx-auto max-w-lg lg:max-w-none">
                 
-                {/* Collage Grid */}
-                <div className="grid grid-cols-12 gap-3 sm:gap-4 items-center">
+                {/* Modern Dashboard Live Preview Card (No Documentation Photos) */}
+                <div className="bg-[#153424] rounded-3xl p-5 sm:p-7 shadow-2xl border-2 border-emerald-900/80 text-white relative overflow-hidden">
                   
-                  {/* Top Large Photo */}
-                  <div className="col-span-7 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white bg-[#153424]">
-                    {(cmsContent.heroPhoto1 || '/images/sd-activity-halaqah-tahfidz.jpg') ? (
-                      <Image
-                        src={cmsContent.heroPhoto1 || '/images/sd-activity-halaqah-tahfidz.jpg'}
-                        alt="Peserta Didik Tahfidz Al-Afiyah"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 60vw, 30vw"
-                        unoptimized={cmsContent.heroPhoto1?.startsWith('data:')}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
-                        <p className="text-[11px] text-emerald-200/80 mt-1">Halaqah Tahfidz &amp; Adab</p>
+                  {/* Subtle Background Glows */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#a3e635]/10 rounded-full blur-3xl pointer-events-none" />
+
+                  {/* Header Bar of Dashboard Preview */}
+                  <div className="relative z-10 flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex space-x-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                       </div>
-                    )}
+                      <span className="text-[11px] font-mono font-semibold text-emerald-200/90 pl-1.5">
+                        Live Affiliate Dashboard
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-[#a3e635] text-[10px] font-bold border border-emerald-500/30">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#a3e635] animate-pulse" />
+                      <span>Pelacakan Aktif</span>
+                    </span>
                   </div>
 
-                  {/* Top Right Photo */}
-                  <div className="col-span-5 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white bg-[#153424]">
-                    {(cmsContent.heroPhoto2 || '/images/sd-activity-classroom-6b.jpg') ? (
-                      <Image
-                        src={cmsContent.heroPhoto2 || '/images/sd-activity-classroom-6b.jpg'}
-                        alt="Suasana Belajar Al-Afiyah"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 40vw, 20vw"
-                        unoptimized={cmsContent.heroPhoto2?.startsWith('data:')}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-white bg-gradient-to-br from-[#1c432f] to-[#153424]">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
-                        <p className="text-[11px] text-emerald-200/80 mt-1">Interaksi Kelas</p>
+                  {/* Top Stats Cards: Saldo & Konversi */}
+                  <div className="relative z-10 grid grid-cols-2 gap-3 mb-5">
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs text-left">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-200/70">
+                          Estimasi Komisi
+                        </span>
+                        <TrendingUp className="w-3.5 h-3.5 text-[#a3e635]" />
                       </div>
-                    )}
+                      <p className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight">
+                        Rp 2.450.000
+                      </p>
+                      <span className="text-[10px] text-[#a3e635] font-semibold mt-1 inline-block">
+                        +Rp 150rb minggu ini
+                      </span>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs text-left">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-200/70">
+                          Siswa Rujukan
+                        </span>
+                        <Users className="w-3.5 h-3.5 text-amber-300" />
+                      </div>
+                      <p className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight">
+                        16 <span className="text-xs font-normal text-emerald-200/70">Siswa</span>
+                      </p>
+                      <span className="text-[10px] text-emerald-200/80 font-medium mt-1 inline-block">
+                        12 Formulir • 4 Daftar Ulang
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Bottom Wide Photo (Clean & Completely Unobstructed) */}
-                  <div className="col-span-12 relative h-52 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white bg-[#153424]">
-                    {(cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg') ? (
-                      <Image
-                        src={cmsContent.heroPhoto3 || '/images/smp-outing-1.jpg'}
-                        alt="Kegiatan Outing Peserta Didik Al-Afiyah"
-                        fill
-                        className="object-cover object-center"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        unoptimized={cmsContent.heroPhoto3?.startsWith('data:')}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
-                        <p className="text-[11px] text-emerald-200/80 mt-1">Kegiatan Lapangan</p>
+                  {/* Activity Feed: Live Simulation */}
+                  <div className="relative z-10 space-y-2 mb-5 text-left">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/60 block px-1">
+                      Aktivitas Rujukan Terverifikasi
+                    </span>
+
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
+                      <div className="flex items-center space-x-2.5 min-w-0">
+                        <span className="px-2 py-0.5 rounded-md bg-emerald-500/20 text-[#a3e635] font-mono text-[10px] font-bold shrink-0">
+                          SDIT
+                        </span>
+                        <div className="truncate">
+                          <p className="font-bold text-white truncate text-[11px]">Formulir SPMB Terverifikasi</p>
+                          <p className="text-[10px] text-emerald-200/60">Ananda Fatih • Baru saja</p>
+                        </div>
                       </div>
-                    )}
+                      <span className="font-mono font-bold text-[#a3e635] text-xs shrink-0 pl-2">
+                        +Rp 50.000
+                      </span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
+                      <div className="flex items-center space-x-2.5 min-w-0">
+                        <span className="px-2 py-0.5 rounded-md bg-blue-500/20 text-blue-300 font-mono text-[10px] font-bold shrink-0">
+                          SMP IT
+                        </span>
+                        <div className="truncate">
+                          <p className="font-bold text-white truncate text-[11px]">Daftar Ulang Selesai</p>
+                          <p className="text-[10px] text-emerald-200/60">Ananda Zaid • 1 jam lalu</p>
+                        </div>
+                      </div>
+                      <span className="font-mono font-bold text-[#a3e635] text-xs shrink-0 pl-2">
+                        +Rp 65.000
+                      </span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
+                      <div className="flex items-center space-x-2.5 min-w-0">
+                        <span className="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold shrink-0">
+                          TK IT
+                        </span>
+                        <div className="truncate">
+                          <p className="font-bold text-white truncate text-[11px]">Formulir SPMB Terverifikasi</p>
+                          <p className="text-[10px] text-emerald-200/60">Ananda Maryam • Hari ini</p>
+                        </div>
+                      </div>
+                      <span className="font-mono font-bold text-[#a3e635] text-xs shrink-0 pl-2">
+                        +Rp 25.000
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Dedicated Referral Link Card: Positioned Cleanly Below the Photo (Zero Image Overlap) */}
-                  <div className="col-span-12 bg-white rounded-2xl p-4 shadow-sm border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left">
+                  {/* Dedicated Referral Link Box */}
+                  <div className="relative z-10 bg-white rounded-2xl p-4 shadow-sm border border-slate-200 text-left flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-slate-900">
                     <div className="min-w-0">
-                      <div className="flex items-center gap-1.5 mb-1">
+                      <div className="flex items-center gap-1.5 mb-0.5">
                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-900">
-                          Contoh Format Tautan Personal Anda
+                          Tautan Personal Anda
                         </span>
                       </div>
                       <p className="font-mono text-xs sm:text-sm font-bold text-slate-900 truncate">
-                        alafiyah.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80 font-bold">KODE-ANDA</span>
-                      </p>
-                      <p className="text-[10px] text-slate-500 mt-0.5">
-                        Otomatis aktif dengan nama/kode Anda setelah mendaftar
+                        alafiyah.id/ref/<span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-bold">KODE-ANDA</span>
                       </p>
                     </div>
                     <button
@@ -581,7 +628,7 @@ export default function AffiliatePublicPage() {
                       onClick={() => openRegisterWithPersona()}
                       className="px-4 py-2.5 rounded-xl bg-[#153424] hover:bg-[#0f271b] text-white text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer shrink-0 flex items-center justify-center space-x-1.5 active:scale-95 border border-emerald-900/60"
                     >
-                      <span>Dapatkan Link Anda</span>
+                      <span>Dapatkan Link</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#a3e635]" />
                     </button>
                   </div>
@@ -655,44 +702,68 @@ export default function AffiliatePublicPage() {
             className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16"
           >
             
-            {/* Left Column: 2 Stacked Rounded Photos with Circular Emblem */}
+            {/* Left Column: Modern System Highlights (No Documentation Photos) */}
             <div className="lg:col-span-5 relative">
               <div className="relative space-y-4">
-                <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100 bg-[#153424]">
-                  {(cmsContent.aboutPhotoTop || '/images/sd-planting-guidance.jpg') ? (
-                    <Image
-                      src={cmsContent.aboutPhotoTop || '/images/sd-planting-guidance.jpg'}
-                      alt="Praktik Sains Peserta Didik Al-Afiyah"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      unoptimized={cmsContent.aboutPhotoTop?.startsWith('data:')}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
-                      <p className="text-[11px] text-emerald-200/80 mt-1">Kegiatan Belajar Peserta Didik</p>
-                    </div>
-                  )}
-                </div>
-                <div className="relative h-48 sm:h-56 rounded-3xl overflow-hidden shadow-md border-2 border-slate-100 bg-[#153424]">
-                  {(cmsContent.aboutPhotoBottom || '/images/sd-field-fish-feeding.jpg') ? (
-                    <Image
-                      src={cmsContent.aboutPhotoBottom || '/images/sd-field-fish-feeding.jpg'}
-                      alt="Kegiatan Peserta Didik Al-Afiyah"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      unoptimized={cmsContent.aboutPhotoBottom?.startsWith('data:')}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white bg-gradient-to-br from-[#1c432f] to-[#153424]">
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Dokumentasi Al-Afiyah</span>
-                      <p className="text-[11px] text-emerald-200/80 mt-1">Edukasi Luar Ruangan</p>
-                    </div>
-                  )}
-                </div>
                 
+                {/* Bento Card 1: Transparent System Architecture */}
+                <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-[#153424] via-[#1a3f2c] to-[#0f271b] text-white shadow-lg border border-emerald-900/60 relative overflow-hidden text-left">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-[#a3e635] flex items-center justify-center border border-white/10 shadow-xs">
+                      <ShieldCheck className="w-6 h-6" />
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-[#a3e635]/15 text-[#a3e635] text-[10px] font-mono font-bold border border-[#a3e635]/30">
+                      Sistem Resmi Terpusat
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-extrabold text-white tracking-tight">
+                    Ekosistem Afiliasi Berbasis Kejujuran &amp; Teknologi
+                  </h3>
+                  <p className="text-xs sm:text-sm text-emerald-100/80 leading-relaxed mt-2">
+                    Didukung pelacakan referral otomatis 24/7 dan pencatatan komisi transparan tanpa potongan tersembunyi.
+                  </p>
+
+                  <div className="mt-5 pt-4 border-t border-white/10 grid grid-cols-2 gap-3 text-[11px] text-emerald-100">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#a3e635] shrink-0" />
+                      <span>Pelacakan Cookie 30 Hari</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#a3e635] shrink-0" />
+                      <span>Notifikasi WhatsApp Real-Time</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bento Card 2: 3-Unit Structure Matrix */}
+                <div className="rounded-3xl p-5 bg-[#FAFAFA] border border-slate-200/90 shadow-sm text-left space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      Mendukung 3 Jenjang Pendidikan
+                    </span>
+                    <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                      Multi-Unit Terpadu
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2.5 text-center">
+                    <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+                      <span className="text-[10px] text-slate-500 block font-bold">TK IT</span>
+                      <strong className="text-sm font-black text-slate-900 font-mono">Rp 75.000</strong>
+                      <span className="text-[9px] text-slate-400 block mt-0.5">/ Peserta Didik</span>
+                    </div>
+                    <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 shadow-2xs">
+                      <span className="text-[10px] text-emerald-800 block font-bold">SDIT</span>
+                      <strong className="text-sm font-black text-emerald-950 font-mono">Rp 150.000</strong>
+                      <span className="text-[9px] text-emerald-700 block mt-0.5">/ Peserta Didik</span>
+                    </div>
+                    <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+                      <span className="text-[10px] text-slate-500 block font-bold">SMP IT</span>
+                      <strong className="text-sm font-black text-slate-900 font-mono">Rp 100.000</strong>
+                      <span className="text-[9px] text-slate-400 block mt-0.5">/ Peserta Didik</span>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Circular Stamp Overlay at Left Middle */}
                 <div className="absolute top-1/2 -right-5 sm:-right-8 -translate-y-1/2 z-10">
                   <CircularBadgeStamp text="AMANAH • TRANSPARAN • HALAL • RESMI • " />
@@ -827,22 +898,23 @@ export default function AffiliatePublicPage() {
             {/* Card 1: Dark Green Card (Tahap 1 - Formulir) */}
             <div className="bg-[#1c432f] rounded-3xl p-6 border border-white/10 flex flex-col justify-between text-left space-y-5">
               <div className="space-y-4">
-                <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10 bg-[#153424]">
-                  {(cmsContent.formCardImage || '/images/sd-activity-multimedia-learning.jpg') ? (
-                    <Image
-                      src={cmsContent.formCardImage || '/images/sd-activity-multimedia-learning.jpg'}
-                      alt="Pendaftaran Formulir Al-Afiyah"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                      unoptimized={cmsContent.formCardImage?.startsWith('data:')}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Tahap 1</span>
-                      <p className="text-[11px] text-emerald-200/80 mt-1">Formulir Pendaftaran</p>
-                    </div>
-                  )}
+                <div className="h-36 rounded-2xl border border-white/10 bg-gradient-to-br from-[#153424] via-[#1c432f] to-[#0f271b] p-4 flex flex-col justify-between relative overflow-hidden shadow-inner">
+                  <div className="flex items-center justify-between">
+                    <span className="w-10 h-10 rounded-xl bg-[#a3e635]/15 border border-[#a3e635]/30 text-[#a3e635] flex items-center justify-center shadow-xs">
+                      <FileText className="w-5 h-5" />
+                    </span>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 text-emerald-200 border border-white/10">
+                      Tahap 01
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#a3e635] block">
+                      Aktivasi Formulir SPMB
+                    </span>
+                    <p className="text-[11px] text-emerald-100/75 leading-tight mt-0.5">
+                      Komisi otomatis tercatat saat calon wali murid melunasi biaya formulir via link Anda.
+                    </p>
+                  </div>
                 </div>
                 <div>
                   <span className="text-[10px] font-mono tracking-widest text-[#a3e635] uppercase font-bold">
@@ -980,22 +1052,23 @@ export default function AffiliatePublicPage() {
             {/* Card 3: Dark Green Card (Tahap 2 - Kelulusan & Registrasi) */}
             <div className="bg-[#1c432f] rounded-3xl p-6 border border-white/10 flex flex-col justify-between text-left space-y-5">
               <div className="space-y-4">
-                <div className="relative h-44 rounded-2xl overflow-hidden border border-white/10 bg-[#153424]">
-                  {(cmsContent.reRegCardImage || '/images/smp-outing-2.jpg') ? (
-                    <Image
-                      src={cmsContent.reRegCardImage || '/images/smp-outing-2.jpg'}
-                      alt="Peserta Didik Ceria Al-Afiyah"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                      unoptimized={cmsContent.reRegCardImage?.startsWith('data:')}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center text-white bg-gradient-to-br from-[#153424] to-[#1c432f]">
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">Tahap 2</span>
-                      <p className="text-[11px] text-emerald-200/80 mt-1">Daftar Ulang</p>
-                    </div>
-                  )}
+                <div className="h-36 rounded-2xl border border-white/10 bg-gradient-to-br from-[#153424] via-[#1c432f] to-[#0f271b] p-4 flex flex-col justify-between relative overflow-hidden shadow-inner">
+                  <div className="flex items-center justify-between">
+                    <span className="w-10 h-10 rounded-xl bg-[#a3e635]/15 border border-[#a3e635]/30 text-[#a3e635] flex items-center justify-center shadow-xs">
+                      <GraduationCap className="w-5 h-5" />
+                    </span>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/10 text-emerald-200 border border-white/10">
+                      Tahap 02
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#a3e635] block">
+                      Daftar Ulang Selesai
+                    </span>
+                    <p className="text-[11px] text-emerald-100/75 leading-tight mt-0.5">
+                      Komisi utama cair saat calon siswa dinyatakan lulus dan menyelesaikan daftar ulang.
+                    </p>
+                  </div>
                 </div>
                 <div>
                   <span className="text-[10px] font-mono tracking-widest text-[#a3e635] uppercase font-bold">
