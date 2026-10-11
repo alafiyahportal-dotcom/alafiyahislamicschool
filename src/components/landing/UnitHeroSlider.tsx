@@ -35,42 +35,54 @@ interface UnitHeroSliderProps {
 }
 
 function renderHeroHeadline(
+  slug: string,
   titlePart1: string,
   titleHighlight: string,
   titlePart2: string,
   highlightClass: string
 ) {
   const p1 = (titlePart1 || '').trim();
-  const ph = (titleHighlight || '').trim();
-  const p2 = (titlePart2 || '').trim();
 
-  // If this is SDIT's headline ("Bukan Sekedar / Sekadar")
-  if (/bukan\s+(sekedar|sekadar)/i.test(p1)) {
+  // If this is SDIT's headline ("Bukan Sekedar / Sekadar") - 3 distinct lines
+  if (slug === 'sd' || /bukan\s+(sekedar|sekadar)/i.test(p1)) {
     return (
-      <div className="flex flex-col gap-0.5">
-        <span className="font-hero-accent text-xl sm:text-2xl lg:text-3xl italic font-normal tracking-wide text-[#ffd51e] drop-shadow-sm">
+      <div className="flex flex-col gap-1 text-left">
+        <span className="font-hero-accent text-2xl sm:text-3xl lg:text-4xl italic font-normal tracking-wide text-[#ffd51e] drop-shadow-sm">
           Bukan Sekedar
         </span>
-        <span className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+        <span className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.06] tracking-tight">
           Tempat Belajar,
         </span>
-        <span className={`text-2xl sm:text-4xl lg:text-5xl font-black ${highlightClass} leading-tight`}>
+        <span className={`text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black ${highlightClass} leading-[1.06] tracking-tight`}>
           Tempat Bertumbuh
         </span>
       </div>
     );
   }
 
-  // SMP / General headline
-  return (
-    <div className="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight text-white tracking-tight">
-      <span>{p1}</span>{' '}
-      {ph && (
-        <span className={`${highlightClass} inline`}>
-          {ph}
+  // SMP IT - 3 distinct bold lines as requested
+  if (slug === 'smp' || /mencetak\s+generasi/i.test(p1)) {
+    return (
+      <div className="flex flex-col gap-1 text-left">
+        <span className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.06] tracking-tight">
+          Mencetak Generasi
         </span>
-      )}{' '}
-      {p2 && <span>{p2}</span>}
+        <span className={`text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black ${highlightClass} leading-[1.06] tracking-tight`}>
+          Smart &amp; Religious
+        </span>
+        <span className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.06] tracking-tight">
+          Berakhlak Qur’ani
+        </span>
+      </div>
+    );
+  }
+
+  // General fallback
+  return (
+    <div className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black leading-[1.06] text-white tracking-tight flex flex-col gap-1 text-left">
+      <span>{p1}</span>
+      {titleHighlight && <span className={highlightClass}>{titleHighlight}</span>}
+      {titlePart2 && <span>{titlePart2}</span>}
     </div>
   );
 }
@@ -235,7 +247,7 @@ export default function UnitHeroSlider({
   );
 
   return (
-    <section className={`relative text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-start ${theme.bgClass}`}>
+    <section className={`relative text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-between min-h-screen min-h-[100dvh] ${theme.bgClass} pb-8 sm:pb-12 lg:pb-16`}>
       {/* Subtle top ambient glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-2xl pointer-events-none" />
@@ -253,14 +265,14 @@ export default function UnitHeroSlider({
               </div>
             )}
 
-            {/* Dominant Headline */}
+            {/* Dominant 3-Line Headline */}
             <h1 className="w-full text-balance">
-              {renderHeroHeadline(slide.titlePart1, slide.titleHighlight, slide.titlePart2, theme.highlightText)}
+              {renderHeroHeadline(slug, slide.titlePart1, slide.titleHighlight, slide.titlePart2, theme.highlightText)}
             </h1>
 
-            {/* Subtitle / Description - Short and clean */}
+            {/* Subtitle / Description - Constrained width so it doesn't stretch to the right edge */}
             {slide.description && (
-              <p className="mt-2.5 sm:mt-3.5 max-w-xl text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed font-normal">
+              <p className="mt-4 sm:mt-5 max-w-[280px] sm:max-w-md lg:max-w-xl text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed font-normal">
                 {slide.description}
               </p>
             )}
@@ -286,20 +298,22 @@ export default function UnitHeroSlider({
           {/* Right Column: Student Cutout Visual Plate */}
           <div className="lg:col-span-5 flex flex-col items-center justify-end relative mt-2 sm:mt-4 lg:mt-0">
             <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[460px] flex items-end justify-center">
-              {/* Soft circular plate behind cutout */}
+              {/* Islamic Arch Portal Backdrop (replacing plain circle) */}
               <div
-                className={`absolute bottom-0 w-60 h-60 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full border ${theme.circleBackdrop} pointer-events-none`}
+                className="absolute bottom-0 w-64 sm:w-80 lg:w-[22rem] h-[270px] sm:h-[350px] lg:h-[410px] rounded-t-full bg-gradient-to-t from-white/[0.04] to-white/[0.14] border-t-2 border-x border-white/25 shadow-2xl backdrop-blur-sm pointer-events-none"
               />
 
-              {/* Cut-out Student Photo */}
-              <div className="relative z-10 w-full flex justify-center items-end">
+              {/* Cut-out Student Photo - Shifted right for SMP and enlarged */}
+              <div className={`relative z-10 w-full flex justify-center items-end ${
+                slug === 'smp' ? 'translate-x-5 sm:translate-x-8' : ''
+              }`}>
                 <Image
                   src={theme.cutoutSrc}
                   alt={schoolName}
-                  width={660}
-                  height={700}
+                  width={720}
+                  height={760}
                   priority
-                  className="w-auto max-h-[250px] sm:max-h-[320px] lg:max-h-[400px] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.28)] select-none pointer-events-none"
+                  className="w-auto max-h-[290px] sm:max-h-[380px] lg:max-h-[460px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.32)] select-none pointer-events-none"
                 />
               </div>
             </div>
@@ -314,7 +328,7 @@ export default function UnitHeroSlider({
 
       {/* Hero Bottom Highlight Cards (SMP & SD Stat Cards) */}
       {statsCards && (
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8 w-full pt-1 sm:pt-2">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-2 sm:pt-4">
           {statsCards}
         </div>
       )}
