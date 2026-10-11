@@ -177,7 +177,7 @@ export default function UnitHeroSlider({
           badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
           primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#00602e] font-black shadow-lg shadow-black/15',
           circleBackdrop: 'bg-white/10 border-white/20',
-          badgePillText: 'Terakreditasi B • BAN-S/M',
+          badgePillText: '',
           cutoutSrc: '/images/hero/sd-cutout.webp',
         };
       case 'tk':
@@ -187,7 +187,7 @@ export default function UnitHeroSlider({
           badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
           primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#044e39] font-black shadow-lg shadow-black/15',
           circleBackdrop: 'bg-white/10 border-white/20',
-          badgePillText: 'PAUD IT Al-Afiyah',
+          badgePillText: '',
           cutoutSrc: '/images/hero/sd-cutout.webp',
         };
       case 'smp':
@@ -198,8 +198,8 @@ export default function UnitHeroSlider({
           badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
           primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#030164] font-black shadow-lg shadow-black/15',
           circleBackdrop: 'bg-white/10 border-white/20',
-          badgePillText: 'Terakreditasi A • BAN-S/M',
-          cutoutSrc: '/images/hero/smp-cutout.webp',
+          badgePillText: '',
+          cutoutSrc: '/images/hero/smp-santri-cutout.webp',
         };
     }
   }, [slug]);
@@ -209,18 +209,41 @@ export default function UnitHeroSlider({
     effectiveCtaLink += `${effectiveCtaLink.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
   }
 
+  // Common CTA buttons block
+  const ctaButtons = (
+    <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
+      <Link
+        href={effectiveCtaLink}
+        className={`inline-flex h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-2 px-6 rounded-xl text-sm font-black transition-all duration-200 hover:-translate-y-0.5 active:scale-95 text-center ${theme.primaryBtn}`}
+      >
+        <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
+        <ArrowRight className="w-4 h-4 shrink-0" />
+      </Link>
+
+      {slide.secondaryCtaLink && (
+        <a
+          href={slide.secondaryCtaLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-2 px-5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all text-center backdrop-blur-sm"
+        >
+          <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
+          <span>{slide.secondaryCtaText || 'Konsultasi WhatsApp'}</span>
+        </a>
+      )}
+    </div>
+  );
+
   return (
     <section className={`relative text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-start ${theme.bgClass}`}>
-      {/* Subtle top ambient glow - Unit matched (no muddy black shadow) */}
+      {/* Subtle top ambient glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-2xl pointer-events-none" />
 
       {/* Main Content Area */}
-      <div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24 sm:pt-28 lg:pt-32 pb-6 sm:pb-8"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center">
-          {/* Left Column: Heading, Subtitle & Action */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24 sm:pt-28 lg:pt-32 pb-4 sm:pb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-10 items-center">
+          {/* Left Column: Heading & Subtitle (and CTA on desktop) */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             {/* Overline Badge */}
             {slide.badge && (
@@ -242,27 +265,9 @@ export default function UnitHeroSlider({
               </p>
             )}
 
-            {/* Primary Action Buttons (Desktop & Fallback when statsCards are below) */}
-            <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <Link
-                href={effectiveCtaLink}
-                className={`inline-flex h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-2 px-6 rounded-xl text-sm font-black transition-all duration-200 hover:-translate-y-0.5 active:scale-95 text-center ${theme.primaryBtn}`}
-              >
-                <span>{slide.primaryCtaText || 'Daftar SPMB Online'}</span>
-                <ArrowRight className="w-4 h-4 shrink-0" />
-              </Link>
-
-              {slide.secondaryCtaLink && (
-                <a
-                  href={slide.secondaryCtaLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-2 px-5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all text-center backdrop-blur-sm"
-                >
-                  <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
-                  <span>{slide.secondaryCtaText || 'Tanya Admin WA'}</span>
-                </a>
-              )}
+            {/* Primary Action Buttons (Desktop only - on mobile placed below the image) */}
+            <div className="hidden lg:flex mt-6 w-full">
+              {ctaButtons}
             </div>
 
             {/* Trust bullet points */}
@@ -278,12 +283,12 @@ export default function UnitHeroSlider({
             )}
           </div>
 
-          {/* Right Column: Student Cutout Visual Plate (Universitas YPIB style) */}
-          <div className="lg:col-span-5 flex justify-center items-end relative mt-2 sm:mt-4 lg:mt-0">
-            <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[440px] flex items-end justify-center">
+          {/* Right Column: Student Cutout Visual Plate */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-end relative mt-2 sm:mt-4 lg:mt-0">
+            <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[460px] flex items-end justify-center">
               {/* Soft circular plate behind cutout */}
               <div
-                className={`absolute bottom-0 w-56 h-56 sm:w-72 sm:h-72 lg:w-88 lg:h-88 rounded-full border ${theme.circleBackdrop} pointer-events-none`}
+                className={`absolute bottom-0 w-60 h-60 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full border ${theme.circleBackdrop} pointer-events-none`}
               />
 
               {/* Cut-out Student Photo */}
@@ -291,18 +296,17 @@ export default function UnitHeroSlider({
                 <Image
                   src={theme.cutoutSrc}
                   alt={schoolName}
-                  width={640}
-                  height={640}
+                  width={660}
+                  height={700}
                   priority
-                  className="w-auto max-h-[260px] sm:max-h-[340px] lg:max-h-[420px] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.28)] select-none pointer-events-none"
+                  className="w-auto max-h-[250px] sm:max-h-[320px] lg:max-h-[400px] object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.28)] select-none pointer-events-none"
                 />
               </div>
+            </div>
 
-              {/* Floating Quality / Accreditation Badge like YPIB */}
-              <div className="absolute bottom-2 left-2 sm:left-4 z-20 px-3 py-1.5 rounded-xl bg-white/95 text-slate-900 border border-slate-200/80 shadow-lg backdrop-blur-md flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[11px] sm:text-xs font-black tracking-tight">{theme.badgePillText}</span>
-              </div>
+            {/* CTA Buttons on Mobile: positioned directly below the image and above the 4 cards */}
+            <div className="flex lg:hidden mt-4 w-full justify-center">
+              {ctaButtons}
             </div>
           </div>
         </div>

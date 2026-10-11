@@ -19,10 +19,19 @@ export default function StickyMobileBar({
   const waPhone = customWaPhone || (schoolSlug === 'smp' ? '6282249357893' : '6281223344552');
   const schoolName = customSchoolName || (schoolSlug === 'smp' ? 'SMP IT Al-Afiyah' : 'Al-Afiyah');
   const [refCode, setRefCode] = useState<string | null>(null);
-  const [isOpening, setIsOpening] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setRefCode(getStoredReferralCode());
+
+    const handleScroll = () => {
+      // Hanya tampilkan jika user sudah scroll ke bawah (melewati banner atas ~180px)
+      setIsVisible(window.scrollY > 180);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   let targetHref = schoolSlug === 'sd'
@@ -55,7 +64,9 @@ export default function StickyMobileBar({
   return (
     <div className={`fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t ${
       schoolSlug === 'smp' ? 'border-[#030164]/20' : 'border-[#D4EBE7]'
-    } px-3 py-2 shadow-2xl flex items-center space-x-2 max-w-full overflow-hidden`}>
+    } px-3 py-2 shadow-2xl flex items-center space-x-2 max-w-full overflow-hidden transition-all duration-300 ease-out ${
+      isVisible ? 'translate-y-0 opacity-100 pointer-events-auto' : 'translate-y-full opacity-0 pointer-events-none'
+    }`}>
       <a
         href={waHref}
         target="_blank"
