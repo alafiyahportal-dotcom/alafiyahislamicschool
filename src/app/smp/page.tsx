@@ -2,6 +2,7 @@ import React from 'react';
 import SmpLandingView from '@/components/landing/SmpLandingView';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
+import { SMP_OG_IMAGE } from '@/lib/og-images';
 
 export const metadata: Metadata = {
   title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious • Terakreditasi A',
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',
     description: 'SPMB SMP IT Al-Afiyah T.A. 2027/2028 Gelombang 1 dibuka. Diskon Uang Bangunan 70% (SDIT) dan 50% (Umum).',
     siteName: 'SMP IT Al-Afiyah',
-    images: ['/images/smp-spmb-poster.png'],
+    images: [SMP_OG_IMAGE],
   },
 };
 

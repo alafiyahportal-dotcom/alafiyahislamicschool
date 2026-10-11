@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Dzikir Pagi Petang Murid SMP IT Al-Afiyah',
     description: 'Benteng spiritual harian murid penuntut ilmu Al-Qur\'an.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

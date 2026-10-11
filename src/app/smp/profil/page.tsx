@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Profil Lengkap SMP IT Al-Afiyah Majalengka',
     description: 'Mencetak generasi remaja Qur\'ani cerdas dan berakhlak mulia. Terakreditasi A BAN-S/M.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

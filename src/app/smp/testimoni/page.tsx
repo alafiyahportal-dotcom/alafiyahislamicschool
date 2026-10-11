@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Testimoni Wali Murid SMP IT Al-Afiyah',
     description: 'Apresiasi dan kisah sukses wali murid SMP IT Al-Afiyah Majalengka.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

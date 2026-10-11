@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SPMB SMP IT Al-Afiyah Majalengka TA 2027/2028',
     description: 'Gelombang 1 dibuka! Diskon uang bangunan s.d 70%. Bimbingan tahfidz 3-5+ juz & futsal development program.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

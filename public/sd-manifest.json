@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "SDIT Al-Afiyah Majalengka",
+  "short_name": "SDIT Al-Afiyah",
+  "description": "Sekolah Dasar Islam Terpadu Al-Afiyah Majalengka — Smart Akhlak Fitrah.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#00A651",
+  "theme_color": "#00A651",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/images/sd-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/sd-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

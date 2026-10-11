@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SD_OG_IMAGE } from '@/lib/og-images';
 
 export const metadata: Metadata = {
   title: {
@@ -6,13 +7,19 @@ export const metadata: Metadata = {
     default: 'SDIT Al-Afiyah Majalengka | YPIB',
   },
   description: 'Website Resmi SDIT Al-Afiyah Majalengka di bawah naungan Yayasan Pendidikan Imam Bonjol (YPIB). Terakreditasi B resmi, kurikulum karakter nabawiyah Smart Akhlak Fitrah, dan bimbingan Tahfidz Juz 30 Mutqin.',
+  manifest: '/sd-manifest.json',
+  appleWebApp: {
+    capable: true,
+    title: 'SDIT Al-Afiyah',
+    statusBarStyle: 'default',
+  },
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
       { url: '/favicon.ico', sizes: 'any' },
     ],
     shortcut: '/images/sd-logo.png',
-    apple: '/images/sd-logo.png',
+    apple: '/images/sd-icon-192.png',
   },
   openGraph: {
     title: 'SDIT Al-Afiyah Majalengka | YPIB',
@@ -20,6 +27,13 @@ export const metadata: Metadata = {
     siteName: 'SDIT Al-Afiyah',
     locale: 'id_ID',
     type: 'website',
+    images: [SD_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SDIT Al-Afiyah Majalengka | SPMB TA 2027/2028',
+    description: 'Sekolah Dasar Islam Terpadu Terakreditasi B resmi di Lingkungan Giri Asih Majalengka.',
+    images: [SD_OG_IMAGE.url],
   },
 };
 

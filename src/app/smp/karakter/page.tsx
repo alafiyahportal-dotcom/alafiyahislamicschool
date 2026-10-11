@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SCD & Mutaba\'ah Digital SMP IT Al-Afiyah',
     description: 'Membimbing generasi remaja berakhlak mulia, tangguh, dan disiplin beribadah.',
-    images: ['/images/smp-program-unggulan.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

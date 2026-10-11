@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Warta & Prestasi SMP IT Al-Afiyah Majalengka',
     description: 'Liputan kegiatan, prestasi olahraga dan tahfidz murid SMP IT Al-Afiyah.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

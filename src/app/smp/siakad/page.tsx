@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Metadata } from 'next';
 import SiakadMobileShell from '@/components/siakad/SiakadMobileShell';
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SIAKAD & Mutaba\'ah Murid SMP IT Al-Afiyah',
     description: 'Portal presensi QR, grafik ibadah harian, dan capaian tahfidz murid.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

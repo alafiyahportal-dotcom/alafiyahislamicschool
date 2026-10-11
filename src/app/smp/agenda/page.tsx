@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Agenda & Kalender Kegiatan SMP IT Al-Afiyah',
     description: 'Jadwal resmi kegiatan dan penerimaan murid baru SMP IT Al-Afiyah.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

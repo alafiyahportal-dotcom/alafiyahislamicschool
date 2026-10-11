@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '6 Program Unggulan SMP IT Al-Afiyah Majalengka',
     description: 'Tahfidz 3-5+ Juz, Fasih Bahasa Arab, SCD, Mutaba\'ah Digital, & Futsal Development Program. Terakreditasi A.',
-    images: ['/images/smp-program-unggulan.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

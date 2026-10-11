@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Dewan Asatidz & Pendidik SMP IT Al-Afiyah',
     description: 'Pendidik berakhlak Qur\'ani, kompeten di bidangnya, dan berdedikasi membina murid.',
-    images: ['/images/smp-program-unggulan.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

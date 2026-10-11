@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import SmpThemeColorSync from '@/components/shared/SmpThemeColorSync';
+import { SMP_OG_IMAGE } from '@/lib/og-images';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -18,6 +19,11 @@ export const metadata: Metadata = {
   },
   description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka. Terakreditasi A Resmi BAN-S/M, target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD (Student Character Development), Mutaba\'ah Digital, dan Futsal Development Program.',
   manifest: '/smp-manifest.json',
+  appleWebApp: {
+    capable: true,
+    title: 'SMP IT Al-Afiyah',
+    statusBarStyle: 'black-translucent',
+  },
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -32,7 +38,14 @@ export const metadata: Metadata = {
     siteName: 'SMP IT Al-Afiyah',
     locale: 'id_ID',
     type: 'website',
-    images: ['/images/smp-spmb-poster.png'],
+    images: [SMP_OG_IMAGE],
+  },
+  // Override root (SDIT) twitter card — WhatsApp falls back to twitter:image when og:image is unusable
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',
+    description: 'SPMB SMP IT Al-Afiyah T.A. 2027/2028 dibuka. Terakreditasi A, tahfidz 3-5+ juz, diskon uang bangunan s.d. 70%.',
+    images: [SMP_OG_IMAGE.url],
   },
 };
 

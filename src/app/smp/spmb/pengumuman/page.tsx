@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pengumuman Kelulusan SPMB SMP IT Al-Afiyah',
     description: 'SK Kelulusan Hasil Seleksi Observasi Calon Murid Baru T.A. 2027/2028.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 

@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Kontak & Lokasi SMP IT Al-Afiyah Majalengka',
     description: 'Jl. Gerakan Koperasi No. 110, Majalengka Wetan. WhatsApp: 0822-4935-7893.',
-    images: ['/images/smp-spmb-poster.png'],
+    images: ['/images/smp-og.jpg'],
   },
 };
 
