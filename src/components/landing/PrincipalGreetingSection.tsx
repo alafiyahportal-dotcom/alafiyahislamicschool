@@ -18,14 +18,14 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
-            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+          <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-2">
+            <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
             <span>Sambutan Kepala Sekolah</span>
-            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
+            <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mt-3">
             Mendidik dengan Keteladanan, <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#064e3b] via-[#047857] to-[#00A651]">
               Menanamkan Adab Sebelum Ilmu
             </span>
           </h2>
@@ -37,10 +37,10 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
         {/* Direct Editorial Message Card (Tanpa Tab Profil Terpisah Sesuai Arahan User) */}
         <ScrollReveal delay={0.15} yOffset={24} duration={500}>
           <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm border border-slate-200/90 relative overflow-hidden">
-            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-emerald-600 via-[#00A651] to-emerald-700" />
+            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#064e3b] via-[#047857] to-[#00A651]" />
             <Quote className="absolute top-6 right-6 sm:top-8 sm:right-8 w-12 h-12 text-emerald-100/80 pointer-events-none" />
 
-            <div className="text-xs font-extrabold text-[#007638] tracking-wider uppercase mb-2">
+            <div className="text-xs font-extrabold text-[#064e3b] tracking-wider uppercase mb-2">
               Bismillaahirrohmaanirrohiim
             </div>
             <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mb-5 leading-snug">
@@ -66,7 +66,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
               <div>
                 <p className="text-xs text-slate-500">Wassalamu’alaikum Warahmatullahi Wabarakatuh,</p>
                 <p className="text-base font-black text-slate-900 mt-1">Ust. Febrian Fauzi, S.Pd.</p>
-                <p className="text-xs text-[#007638] font-semibold">Kepala Sekolah SDIT Al-Afiyah Majalengka</p>
+                <p className="text-xs text-[#064e3b] font-semibold">Kepala Sekolah SDIT Al-Afiyah Majalengka</p>
                 <p className="text-[11px] text-slate-400 mt-0.5">Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka</p>
               </div>
 
@@ -82,7 +82,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                   href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Kepala%20Sekolah%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendidikan%20ananda"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#00A651] hover:bg-[#008f45] text-white text-xs font-bold transition-all shadow-sm hover:shadow active:scale-95"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#064e3b] hover:bg-[#047857] text-white text-xs font-bold transition-all shadow-sm hover:shadow active:scale-95"
                 >
                   <span>Konsultasi via WhatsApp</span>
                   <ArrowRight className="w-3.5 h-3.5" />

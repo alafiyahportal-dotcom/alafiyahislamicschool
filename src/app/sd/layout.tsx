@@ -1,6 +1,17 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { SD_OG_IMAGE } from '@/lib/og-images';
 import LaunchSplash from '@/components/shared/LaunchSplash';
+import DynamicUnitThemeColorSync from '@/components/shared/DynamicUnitThemeColorSync';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#064e3b' },
+    { media: '(prefers-color-scheme: dark)', color: '#022c22' },
+  ],
+};
 
 export const metadata: Metadata = {
   title: {
@@ -12,7 +23,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: 'SDIT Al-Afiyah',
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
   },
   icons: {
     icon: [
@@ -70,7 +81,8 @@ export default function SdLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(sdWebSiteSchema) }}
         />
       </head>
-      <LaunchSplash background="#00A651" logoSrc="/icons/sd-512.png" logoAlt="SDIT Al-Afiyah" />
+      <LaunchSplash background="#064e3b" logoSrc="/icons/sd-512.png" logoAlt="SDIT Al-Afiyah" />
+      <DynamicUnitThemeColorSync />
       {children}
     </>
   );

@@ -184,10 +184,10 @@ export default function UnitHeroSlider({
     switch (slug) {
       case 'sd':
         return {
-          bgClass: 'bg-[#008a43] bg-gradient-to-b from-[#009b4b] via-[#008a43] to-[#007538]',
+          bgClass: 'bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651]',
           highlightText: 'text-[#ffd51e]',
           badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
-          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#00602e] font-black shadow-lg shadow-black/15',
+          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b] font-black shadow-lg shadow-black/15',
           circleBackdrop: 'bg-white/10 border-white/20',
           badgePillText: '',
           cutoutSrc: '/images/hero/sd-cutout.webp',
@@ -248,6 +248,10 @@ export default function UnitHeroSlider({
 
   return (
     <section className={`relative text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-between min-h-screen min-h-[100dvh] ${theme.bgClass} pb-8 sm:pb-12 lg:pb-16`}>
+      {/* Signature Dot Grid Pattern for SD identical to program tab */}
+      {slug === 'sd' && (
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+      )}
       {/* Subtle top ambient glow */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-2xl pointer-events-none" />

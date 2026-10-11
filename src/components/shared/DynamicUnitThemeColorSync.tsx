@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 export const UNIT_THEME_COLORS = {
   smp: '#030164',        // SMP IT Deep Navy
-  sd: '#00A651',         // SDIT Emerald Green
+  sd: '#064e3b',         // SDIT Forest/Emerald Green Identity
   tk: '#0284c7',         // TK IT Sky Blue
   foundation: '#184F48', // Yayasan Forest Green
   yayasan: '#184F48',

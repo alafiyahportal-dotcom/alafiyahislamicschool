@@ -170,7 +170,7 @@ export default async function SdLandingPage() {
     name: identityData.name || dbSchool?.name || 'SDIT Al-Afiyah Majalengka',
     badgeText: identityData.badgeText || dbSchool?.badgeText || 'TERAKREDITASI B • YPIB GUGUS 3 NUSA INDAH',
     tagline: identityData.tagline || dbSchool?.tagline || 'Mendidik Generasi Sholeh, Cerdas, Mandiri, Berwawasan Luas, dan Berakhlakul Islami',
-    primaryColor: dbSchool?.primaryColor || '#00A651',
+    primaryColor: dbSchool?.primaryColor || '#064e3b',
     accentColor: dbSchool?.accentColor || '#D97706',
     registrationFee: dbSchool?.registrationFee || 250000,
     waCenterPhone: identityData.whatsappNumber || dbSchool?.waCenterPhone || '6281310139001',
