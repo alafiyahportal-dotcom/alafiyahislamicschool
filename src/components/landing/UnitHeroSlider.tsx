@@ -457,11 +457,11 @@ export default function UnitHeroSlider({
         )}
       </div>
 
-      {/* Hero Bottom Highlight Cards nested inside the banner, with Primary CTA button beneath cards (omitted for SMP as it has a dedicated yellow promo CTA bar right below) */}
+      {/* Hero Bottom Highlight Cards nested inside the banner, with Primary CTA button beneath cards (omitted for SMP and SD as they have dedicated promo CTA strips right below) */}
       {statsCards && (
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 w-full pt-1 sm:pt-2 flex flex-col items-start gap-4 sm:gap-5">
           {statsCards}
-          {slug !== 'smp' && (
+          {slug !== 'smp' && slug !== 'sd' && (
             <div className="w-full flex justify-start">
               <Link
                 href={effectiveBottomCtaLink}
