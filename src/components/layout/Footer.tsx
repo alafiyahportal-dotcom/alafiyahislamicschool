@@ -366,15 +366,6 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
                 </Link>
               </li>
               <li>
-                <Link 
-                  href={activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate'} 
-                  className="text-amber-400 hover:text-amber-300 font-medium transition-colors flex items-center space-x-2"
-                >
-                  <span>•</span>
-                  <span>Affiliate Al-Afiyah</span>
-                </Link>
-              </li>
-              <li>
                 <a 
                   href={
                     activeSlug === 'smp'
