@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     shortcut: '/images/sd-logo.png',
     apple: '/images/sd-logo.png',
   },
+  openGraph: {
+    title: 'SDIT Al-Afiyah Majalengka | Sekolah Dasar Islam Terpadu Unggulan',
+    description: 'PPDB SDIT Al-Afiyah Majalengka. Kurikulum terpadu nasional, hafalan tahfidz juz 30 mutqin, pembentukan karakter islami, dan sains modern.',
+    siteName: 'SDIT Al-Afiyah',
+    locale: 'id_ID',
+    type: 'website',
+  },
 };
 
 export const revalidate = 60;

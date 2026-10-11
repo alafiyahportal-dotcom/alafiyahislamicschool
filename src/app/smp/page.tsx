@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',
     description: 'SPMB SMP IT Al-Afiyah T.A. 2027/2028 Gelombang 1 dibuka. Diskon Uang Bangunan 70% (SDIT) dan 50% (Umum).',
+    siteName: 'SMP IT Al-Afiyah',
     images: ['/images/smp-spmb-poster.png'],
   },
 };

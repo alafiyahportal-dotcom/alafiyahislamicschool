@@ -4,25 +4,77 @@ export default function GoogleStructuredData() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.alafiyah.id';
 
   const structuredData = [
-    // 1. WebSite Schema with Google Sitelinks Searchbox
+    // 1. WebSite Schemas for Google Site Names (Google Search Result Site Name per unit)
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      '@id': `${siteUrl}/#website`,
-      url: siteUrl,
-      name: 'SDIT & Yayasan Al-Afiyah Majalengka',
+      '@id': 'https://sdit.alafiyah.id/#website',
+      url: 'https://sdit.alafiyah.id/',
+      name: 'SDIT Al-Afiyah',
       alternateName: [
-        'Al-Afiyah Islamic School',
-        'SDIT Al Afiyah',
         'SDIT Al-Afiyah Majalengka',
-        'SPMB SDIT Al-Afiyah',
-        'PMB Al-Afiyah Majalengka',
-        'YPIB Majalengka'
+        'SD IT Al-Afiyah',
+        'SDIT Al Afiyah',
+        'SD IT Al-Afiyah Majalengka'
       ],
-      description: 'Portal Resmi Sistem Penerimaan Murid Baru (SPMB), Profil Satuan Pendidikan, dan Informasi Terpadu SDIT Al-Afiyah Majalengka.',
+      description: 'Portal Resmi Sistem Penerimaan Murid Baru (SPMB) dan Informasi Terpadu SDIT Al-Afiyah Majalengka.',
       inLanguage: 'id-ID',
       publisher: {
-        '@id': `${siteUrl}/#organization`
+        '@id': 'https://sdit.alafiyah.id/#organization'
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://smpit.alafiyah.id/#website',
+      url: 'https://smpit.alafiyah.id/',
+      name: 'SMP IT Al-Afiyah',
+      alternateName: [
+        'SMP IT Al-Afiyah Majalengka',
+        'SMPIT Al-Afiyah',
+        'SMP IT Al Afiyah',
+        'SMPIT Al-Afiyah Majalengka'
+      ],
+      description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka Terakreditasi A BAN-S/M.',
+      inLanguage: 'id-ID',
+      publisher: {
+        '@id': 'https://smpit.alafiyah.id/#organization'
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://tkit.alafiyah.id/#website',
+      url: 'https://tkit.alafiyah.id/',
+      name: 'TK IT Al-Afiyah',
+      alternateName: [
+        'TK IT Al-Afiyah Majalengka',
+        'TKIT Al-Afiyah',
+        'TKIT Al-Afiyah Majalengka',
+        'PAUD IT Al-Afiyah'
+      ],
+      description: 'Pendidikan Anak Usia Dini & TK Islam Terpadu Al-Afiyah Majalengka.',
+      inLanguage: 'id-ID',
+      publisher: {
+        '@id': 'https://tkit.alafiyah.id/#organization'
+      }
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://alafiyah.id/#website',
+      url: 'https://alafiyah.id/',
+      name: 'Al-Afiyah Islamic School',
+      alternateName: [
+        'Yayasan Pendidikan Imam Bonjol',
+        'Al-Afiyah Majalengka',
+        'YPIB Majalengka',
+        'YPIB Al-Afiyah'
+      ],
+      description: 'Ekosistem Pendidikan Islam Terpadu Al-Afiyah Majalengka di bawah naungan Yayasan Pendidikan Imam Bonjol.',
+      inLanguage: 'id-ID',
+      publisher: {
+        '@id': 'https://alafiyah.id/#organization'
       }
     },
 

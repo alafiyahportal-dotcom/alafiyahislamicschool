@@ -6,6 +6,13 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'TK IT Al-Afiyah Majalengka | PAUD & TK Islam Terpadu Ceria & Shalih',
   description: 'Penerimaan Peserta Didik Baru (PPDB) TK IT Al-Afiyah Majalengka. Membentuk generasi cerdas, mandiri, dan berakhlakul karimah sejak usia dini.',
+  openGraph: {
+    title: 'TK IT Al-Afiyah Majalengka | PAUD & TK Islam Terpadu Ceria & Shalih',
+    description: 'Penerimaan Peserta Didik Baru (PPDB) TK IT Al-Afiyah Majalengka. Membentuk generasi cerdas, mandiri, dan berakhlakul karimah sejak usia dini.',
+    siteName: 'TK IT Al-Afiyah',
+    locale: 'id_ID',
+    type: 'website',
+  },
 };
 
 export const revalidate = 60;

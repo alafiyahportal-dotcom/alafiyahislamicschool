@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "SDIT Al-Afiyah Majalengka - Sekolah Dasar Islam Terpadu",
     description: "Pendaftaran Murid Baru (SPMB) SDIT Al-Afiyah Majalengka. Kuota terbatas 2 rombel, kurikulum karakter nabawiyah, dan tahfidz mutqin di Lingkungan Giri Asih.",
     url: siteUrl,
-    siteName: "SDIT Al-Afiyah Majalengka",
+    siteName: "Al-Afiyah Islamic School",
     locale: "id_ID",
     type: "website",
     images: [

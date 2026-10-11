@@ -29,11 +29,27 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',
     description: 'Sekolah Menengah Pertama Islam Terpadu Terakreditasi A BAN-S/M di Majalengka. SPMB T.A. 2027/2028 dibuka dengan diskon uang bangunan hingga 70%.',
-    siteName: 'SMP IT Al-Afiyah Majalengka',
+    siteName: 'SMP IT Al-Afiyah',
     locale: 'id_ID',
     type: 'website',
     images: ['/images/smp-spmb-poster.png'],
   },
+};
+
+const smpWebSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://smpit.alafiyah.id/#website',
+  url: 'https://smpit.alafiyah.id/',
+  name: 'SMP IT Al-Afiyah',
+  alternateName: [
+    'SMP IT Al-Afiyah Majalengka',
+    'SMPIT Al-Afiyah',
+    'SMP IT Al Afiyah',
+    'SMPIT Al-Afiyah Majalengka'
+  ],
+  description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka Terakreditasi A BAN-S/M.',
+  inLanguage: 'id-ID',
 };
 
 export default function SmpLayout({
@@ -43,6 +59,15 @@ export default function SmpLayout({
 }) {
   return (
     <>
+      <head>
+        <link rel="icon" type="image/png" sizes="192x192" href="/images/smp-icon-192.png" />
+        <link rel="icon" type="image/x-icon" href="/smp-favicon.ico" />
+        <link rel="apple-touch-icon" href="/images/smp-icon-192.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(smpWebSiteSchema) }}
+        />
+      </head>
       <SmpThemeColorSync />
       {children}
     </>

@@ -20,6 +20,13 @@ export const metadata: Metadata = {
   title: 'Yayasan Pendidikan Imam Bonjol Majalengka | Ekosistem Pendidikan Terpadu Al-Afiyah',
   description:
     'Lembaga pendidikan Islam terpadu resmi menaungi TK IT, SDIT, dan SMP IT Al-Afiyah Majalengka. Memadukan tahfidz Al-Qur’an 30 juz, sains modern, dan adab mulia.',
+  openGraph: {
+    title: 'Yayasan Pendidikan Imam Bonjol Majalengka | Ekosistem Pendidikan Terpadu Al-Afiyah',
+    description: 'Lembaga pendidikan Islam terpadu resmi menaungi TK IT, SDIT, dan SMP IT Al-Afiyah Majalengka.',
+    siteName: 'Al-Afiyah Islamic School',
+    locale: 'id_ID',
+    type: 'website',
+  },
 };
 
 export default async function HomePage() {
