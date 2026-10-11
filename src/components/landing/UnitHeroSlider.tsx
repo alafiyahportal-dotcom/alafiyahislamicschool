@@ -298,10 +298,12 @@ export default function UnitHeroSlider({
           {/* Right Column: Student Cutout Visual Plate */}
           <div className="lg:col-span-5 flex flex-col items-center justify-end relative mt-2 sm:mt-4 lg:mt-0">
             <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[460px] flex items-end justify-center">
-              {/* Islamic Arch Portal Backdrop (replacing plain circle) */}
-              <div
-                className="absolute bottom-0 w-64 sm:w-80 lg:w-[22rem] h-[270px] sm:h-[350px] lg:h-[410px] rounded-t-full bg-gradient-to-t from-white/[0.04] to-white/[0.14] border-t-2 border-x border-white/25 shadow-2xl backdrop-blur-sm pointer-events-none"
-              />
+              {/* Islamic Arch Portal Backdrop (active for SMP cutout) */}
+              {slug !== 'sd' && (
+                <div
+                  className="absolute bottom-0 w-64 sm:w-80 lg:w-[22rem] h-[270px] sm:h-[350px] lg:h-[410px] rounded-t-full bg-gradient-to-t from-white/[0.04] to-white/[0.14] border-t-2 border-x border-white/25 shadow-2xl backdrop-blur-sm pointer-events-none"
+                />
+              )}
 
               {/* Cut-out Student Photo - Shifted right for SMP and enlarged */}
               <div className={`relative z-10 w-full flex justify-center items-end ${
@@ -310,8 +312,8 @@ export default function UnitHeroSlider({
                 <Image
                   src={theme.cutoutSrc}
                   alt={schoolName}
-                  width={720}
-                  height={760}
+                  width={780}
+                  height={546}
                   priority
                   className="w-auto max-h-[290px] sm:max-h-[380px] lg:max-h-[460px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.32)] select-none pointer-events-none"
                 />
