@@ -23,6 +23,7 @@ import {
   Gift,
   HelpCircle
 } from 'lucide-react';
+import { INDONESIA_BANKS } from '@/lib/constants/banks';
 
 export default function AffiliateRegisterPage() {
   const router = useRouter();
@@ -55,16 +56,6 @@ export default function AffiliateRegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const banks = [
-    'Bank Syariah Indonesia (BSI)',
-    'Bank Mandiri',
-    'Bank Rakyat Indonesia (BRI)',
-    'Bank Central Asia (BCA)',
-    'Bank Negara Indonesia (BNI)',
-    'Bank Muamalat Indonesia',
-    'Bank Jabar Banten Syariah (BJB Syariah)',
-  ];
-
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -78,12 +69,6 @@ export default function AffiliateRegisterPage() {
 
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage('Konfirmasi kata sandi tidak cocok');
-      setIsLoading(false);
-      return;
-    }
-
-    if (!formData.bankAccountNumber) {
-      setErrorMessage('Nomor rekening bank wajib diisi untuk pencairan komisi');
       setIsLoading(false);
       return;
     }
@@ -496,14 +481,14 @@ export default function AffiliateRegisterPage() {
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Pilihan Bank <span className="text-rose-500">*</span>
+                      Pilihan Bank Pencairan <span className="text-rose-500">*</span>
                     </label>
                     <select
                       value={formData.bankName}
                       onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs"
+                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs cursor-pointer"
                     >
-                      {banks.map((b) => (
+                      {INDONESIA_BANKS.map((b) => (
                         <option key={b} value={b}>
                           {b}
                         </option>
@@ -513,33 +498,39 @@ export default function AffiliateRegisterPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                        Nomor Rekening <span className="text-rose-500">*</span>
-                      </label>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="block text-xs font-bold text-slate-700">
+                          Nomor Rekening
+                        </label>
+                        <span className="text-[10px] text-emerald-800 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
+                          Bisa Diisi Nanti
+                        </span>
+                      </div>
                       <input
                         type="text"
-                        required
                         value={formData.bankAccountNumber}
                         onChange={(e) => setFormData({ ...formData, bankAccountNumber: e.target.value })}
-                        placeholder="Contoh: 7123456789"
+                        placeholder="Contoh: 7123456789 (Bisa dikosongkan)"
                         className="w-full px-4 py-3 text-xs sm:text-sm font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
                       />
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                        Nama Pemilik Rekening <span className="text-rose-500">*</span>
+                        Nama Pemilik Rekening
                       </label>
                       <input
                         type="text"
-                        required
                         value={formData.bankAccountHolder}
                         onChange={(e) => setFormData({ ...formData, bankAccountHolder: e.target.value })}
-                        placeholder="Sesuai buku tabungan"
+                        placeholder="Sesuai buku tabungan / nama Anda"
                         className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs"
                       />
                     </div>
                   </div>
+                  <p className="text-[11px] text-slate-500">
+                    *Bagi yang belum menyiapkan nomor rekening saat mendaftar, dapat langsung melengkapinya nanti melalui menu <strong>Pengaturan Akun &amp; Rekening</strong> di dalam Dasbor Affiliate Anda.
+                  </p>
                 </div>
 
                 {/* 3. KUSTOMISASI KODE REFERRAL */}

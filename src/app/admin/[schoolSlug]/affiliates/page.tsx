@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
-import UnitAffiliatesClient, { UnitAffiliateConversion } from '@/components/admin/UnitAffiliatesClient';
+import UnitAffiliatesClient, { UnitAffiliateConversion, UnitAffiliateItem } from '@/components/admin/UnitAffiliatesClient';
 import { notFound } from 'next/navigation';
 import { reRegCommissionForSchool } from '@/services/affiliate-commission';
 
@@ -41,7 +41,7 @@ export default async function SchoolAffiliatesPage({
     notFound();
   }
 
-  const [conversions, totalAffiliatesCount] = await Promise.all([
+  const [conversions, allAffiliates] = await Promise.all([
     prisma.affiliateConversion.findMany({
       where: {
         schoolId: school.id,
@@ -62,7 +62,19 @@ export default async function SchoolAffiliatesPage({
         createdAt: 'desc',
       },
     }),
-    prisma.affiliateProfile.count(),
+    prisma.affiliateProfile.findMany({
+      include: {
+        user: true,
+        conversions: {
+          include: {
+            school: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    }),
   ]);
 
   const formattedConversions: UnitAffiliateConversion[] = conversions.map((c) => {
@@ -83,6 +95,36 @@ export default async function SchoolAffiliatesPage({
         year: 'numeric',
       }),
       paymentStatus: c.registration?.invoices?.[0]?.paymentStatus || 'UNPAID',
+    };
+  });
+
+  const formattedAffiliates: UnitAffiliateItem[] = allAffiliates.map((a) => {
+    const isBankFilled = Boolean(
+      a.bankAccountNumber &&
+      a.bankAccountNumber.trim() !== '' &&
+      a.bankAccountNumber.trim() !== '-'
+    );
+    const thisUnitCount = a.conversions.filter((c) => c.schoolId === school.id).length;
+    return {
+      id: a.id,
+      fullName: a.user?.fullName || a.bankAccountHolder || 'Mitra Afiliasi',
+      email: a.user?.email || '-',
+      phone: a.user?.phone || '-',
+      referralCode: a.referralCode,
+      customSlug: a.customSlug,
+      bankName: a.bankName || 'BSI',
+      bankAccountNumber: a.bankAccountNumber || '-',
+      bankAccountHolder: a.bankAccountHolder || a.user?.fullName || '-',
+      isBankFilled,
+      totalConversionsThisUnit: thisUnitCount,
+      totalConversionsAllUnits: a.conversions.length,
+      totalEarned: a.totalEarned,
+      balance: a.balance,
+      createdAt: new Date(a.createdAt).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }),
     };
   });
 
@@ -109,7 +151,7 @@ export default async function SchoolAffiliatesPage({
             schoolSlug={schoolSlug}
             schoolName={school.name}
             conversions={formattedConversions}
-            totalAffiliatesCount={totalAffiliatesCount}
+            affiliates={formattedAffiliates}
           />
         </main>
       </div>

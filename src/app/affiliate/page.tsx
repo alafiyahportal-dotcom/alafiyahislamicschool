@@ -39,6 +39,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { DEFAULT_AFFILIATE_CONTENT, AffiliateCMSData } from '@/types/affiliate-cms';
+import { INDONESIA_BANKS } from '@/lib/constants/banks';
 
 /**
  * Double capsule pill badge component matching reference design
@@ -1521,24 +1522,31 @@ export default function AffiliatePublicPage() {
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Nama Bank &amp; Nomor Rekening Pencairan (Bisa Diisi Nanti)
+                  Pilihan Bank &amp; No. Rekening Pencairan (Bisa Diisi Nanti)
                 </label>
-                <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="text"
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <select
                     value={formData.bankName}
                     onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-                    placeholder="Bank Syariah Indonesia (BSI)"
-                    className="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white"
-                  />
+                    className="px-3 py-2 text-xs font-semibold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#153424] outline-hidden cursor-pointer"
+                  >
+                    {INDONESIA_BANKS.map((b) => (
+                      <option key={b} value={b}>
+                        {b}
+                      </option>
+                    ))}
+                  </select>
                   <input
                     type="text"
                     value={formData.bankAccountNumber}
                     onChange={(e) => setFormData({ ...formData, bankAccountNumber: e.target.value })}
-                    placeholder="No. Rekening"
-                    className="px-3 py-2 text-xs font-mono bg-slate-50 border border-slate-200 rounded-xl focus:bg-white"
+                    placeholder="No. Rekening (Bisa Nanti)"
+                    className="px-3 py-2 text-xs font-mono bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#153424] outline-hidden"
                   />
                 </div>
+                <p className="text-[10px] text-slate-500 mt-1">
+                  *Nomor rekening boleh dikosongkan dahulu dan dapat dilengkapi kapan saja di pengaturan dasbor akun mitra.
+                </p>
               </div>
 
               <div className="pt-2">

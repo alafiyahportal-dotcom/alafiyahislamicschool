@@ -17,8 +17,13 @@ import {
   TrendingUp,
   X,
   MessageSquare,
-  Send
+  Send,
+  AlertCircle,
+  Settings,
+  UserCheck,
+  Edit3
 } from 'lucide-react';
+import { INDONESIA_BANKS } from '@/lib/constants/banks';
 
 interface AffiliateConversionItem {
   id: string;
@@ -72,15 +77,46 @@ export default function AffiliateDashboardPage() {
   const [payoutSuccessMessage, setPayoutSuccessMessage] = useState<string | null>(null);
   const [payoutErrorMessage, setPayoutErrorMessage] = useState<string | null>(null);
 
+  // Bank Account & Profile Modal State
+  const [showBankModal, setShowBankModal] = useState(false);
+  const [bankFormData, setBankFormData] = useState({
+    bankName: 'Bank Syariah Indonesia (BSI)',
+    bankAccountNumber: '',
+    bankAccountHolder: '',
+    fullName: '',
+    phone: '',
+  });
+  const [isSavingBank, setIsSavingBank] = useState(false);
+  const [bankSaveSuccess, setBankSaveSuccess] = useState<string | null>(null);
+  const [bankSaveError, setBankSaveError] = useState<string | null>(null);
+
+  // Switch Account Modal State
+  const [showSwitchModal, setShowSwitchModal] = useState(false);
+  const [switchIdentifier, setSwitchIdentifier] = useState('');
+  const [isSwitching, setIsSwitching] = useState(false);
+  const [switchError, setSwitchError] = useState<string | null>(null);
+
   // QR Code Modal State
   const [showQrModal, setShowQrModal] = useState(false);
   const [selectedQrLink, setSelectedQrLink] = useState({ title: '', url: '' });
 
   // Fetch real affiliate profile
-  const fetchAffiliateProfile = async () => {
+  const fetchAffiliateProfile = async (targetCodeOrEmail?: string) => {
     try {
       setIsLoading(true);
-      const res = await fetch('/api/affiliate/me');
+      let queryParam = '';
+      if (targetCodeOrEmail) {
+        const isEmail = targetCodeOrEmail.includes('@');
+        queryParam = `?${isEmail ? 'email' : 'code'}=${encodeURIComponent(targetCodeOrEmail)}`;
+      } else if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const qCode = params.get('code') || params.get('ref');
+        const qEmail = params.get('email');
+        if (qCode) queryParam = `?code=${encodeURIComponent(qCode)}`;
+        else if (qEmail) queryParam = `?email=${encodeURIComponent(qEmail)}`;
+      }
+
+      const res = await fetch(`/api/affiliate/me${queryParam}`);
       const data = await res.json();
       if (data.success && data.profile) {
         setProfile(data.profile);
@@ -96,6 +132,112 @@ export default function AffiliateDashboardPage() {
   useEffect(() => {
     fetchAffiliateProfile();
   }, []);
+
+  const handleOpenBankModal = () => {
+    setBankFormData({
+      bankName: profile?.bankName || 'Bank Syariah Indonesia (BSI)',
+      bankAccountNumber: (!profile?.bankAccountNumber || profile?.bankAccountNumber === '-') ? '' : profile.bankAccountNumber,
+      bankAccountHolder: profile?.bankAccountHolder || profile?.fullName || '',
+      fullName: profile?.fullName || '',
+      phone: profile?.phone || '',
+    });
+    setBankSaveSuccess(null);
+    setBankSaveError(null);
+    setShowBankModal(true);
+  };
+
+  const handleSaveBankSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingBank(true);
+    setBankSaveError(null);
+    setBankSaveSuccess(null);
+
+    const cleanNum = bankFormData.bankAccountNumber.trim();
+    if (!cleanNum || cleanNum === '-') {
+      setBankSaveError('Nomor rekening bank atau nomor HP e-wallet wajib diisi.');
+      setIsSavingBank(false);
+      return;
+    }
+    if (!bankFormData.bankAccountHolder.trim()) {
+      setBankSaveError('Nama pemilik rekening sesuai buku tabungan wajib diisi.');
+      setIsSavingBank(false);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/affiliate/me', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bankName: bankFormData.bankName,
+          bankAccountNumber: cleanNum,
+          bankAccountHolder: bankFormData.bankAccountHolder.trim(),
+          fullName: bankFormData.fullName.trim() || undefined,
+          phone: bankFormData.phone.trim() || undefined,
+          referralCode: profile?.referralCode,
+          email: profile?.email,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setBankSaveError(data.error || 'Gagal menyimpan data rekening.');
+        setIsSavingBank(false);
+        return;
+      }
+
+      setBankSaveSuccess('Nomor rekening pencairan komisi berhasil disimpan!');
+      if (profile) {
+        setProfile({
+          ...profile,
+          bankName: bankFormData.bankName,
+          bankAccountNumber: cleanNum,
+          bankAccountHolder: bankFormData.bankAccountHolder.trim(),
+          fullName: bankFormData.fullName.trim() || profile.fullName,
+          phone: bankFormData.phone.trim() || profile.phone,
+        });
+      }
+
+      setTimeout(() => {
+        setShowBankModal(false);
+        setBankSaveSuccess(null);
+      }, 1500);
+    } catch {
+      setBankSaveError('Terjadi gangguan jaringan saat menyimpan data rekening.');
+    } finally {
+      setIsSavingBank(false);
+    }
+  };
+
+  const handleSwitchAccountSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!switchIdentifier.trim()) return;
+    setIsSwitching(true);
+    setSwitchError(null);
+
+    try {
+      const isEmail = switchIdentifier.includes('@');
+      const paramKey = isEmail ? 'email' : 'code';
+      const res = await fetch(`/api/affiliate/me?${paramKey}=${encodeURIComponent(switchIdentifier.trim())}`);
+      const data = await res.json();
+      if (!res.ok || !data.profile) {
+        setSwitchError('Akun mitra tidak ditemukan. Pastikan email atau kode referral sudah sesuai.');
+        setIsSwitching(false);
+        return;
+      }
+
+      setProfile(data.profile);
+      setShowSwitchModal(false);
+      setSwitchIdentifier('');
+    } catch {
+      setSwitchError('Terjadi gangguan jaringan.');
+    } finally {
+      setIsSwitching(false);
+    }
+  };
+
+  const isBankIncomplete = !profile?.bankAccountNumber || profile.bankAccountNumber === '-' || profile.bankAccountNumber.trim() === '';
+
 
   const host = typeof window !== 'undefined' ? window.location.host : '';
   const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
@@ -317,13 +459,36 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             <p className="text-[11px] text-slate-500">Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <div className="hidden sm:block text-right">
-              <span className="text-xs font-bold text-slate-900 block">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <button
+              type="button"
+              onClick={handleOpenBankModal}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+              title="Atur Rekening Pencairan & Profil"
+            >
+              <Settings className="w-3.5 h-3.5 text-emerald-800" />
+              <span className="hidden sm:inline">Pengaturan Rekening</span>
+              {isBankIncomplete && (
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowSwitchModal(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+              title="Masuk atau Beralih ke Akun Mitra Lain"
+            >
+              <UserCheck className="w-3.5 h-3.5 text-slate-600" />
+              <span className="hidden sm:inline">Ganti Akun</span>
+            </button>
+
+            <div className="hidden sm:block text-right border-l border-slate-200 pl-3">
+              <span className="text-xs font-bold text-slate-900 block truncate max-w-[140px]">
                 {profile?.fullName || 'Mitra Afiliasi'}
               </span>
               <span className="text-[11px] font-mono text-slate-500 block">
-                ID Mitra: {referralCode}
+                ID: {referralCode}
               </span>
             </div>
             <button
@@ -364,6 +529,38 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             </div>
           </div>
         </div>
+
+        {/* Incomplete Bank Warning Banner */}
+        {isBankIncomplete && (
+          <div className="rounded-2xl bg-amber-50 border-2 border-amber-300 p-5 sm:p-6 text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs animate-in fade-in duration-300">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+                <AlertCircle className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-amber-900">
+                    Nomor Rekening Pencairan Belum Diisi
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-950">
+                    Bisa Diisi Sekarang
+                  </span>
+                </div>
+                <p className="text-xs text-amber-800/90 mt-1 max-w-2xl leading-relaxed">
+                  Anda sebelumnya mendaftar tanpa mengisi nomor rekening. Silakan lengkapi nomor rekening bank atau nomor HP e-wallet Anda sekarang agar komisi dari pendaftar baru dapat langsung dicairkan tanpa hambatan.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleOpenBankModal}
+              className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-95 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 shrink-0 cursor-pointer whitespace-nowrap"
+            >
+              <Building2 className="w-4 h-4" />
+              <span>Isi Rekening Pencairan &rarr;</span>
+            </button>
+          </div>
+        )}
 
         {/* 4 Metric Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -434,23 +631,45 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           </div>
 
           {/* Card 4: Bank Details */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
+          <div className={`bg-white rounded-2xl p-6 border shadow-2xs flex flex-col justify-between ${
+            isBankIncomplete ? 'border-amber-300 ring-2 ring-amber-400/20' : 'border-slate-200/90'
+          }`}>
             <div>
               <div className="flex items-center justify-between text-slate-500 mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-600">Rekening Tujuan</span>
-                <div className="p-2 rounded-xl bg-blue-50 text-blue-700">
+                <div className={`p-2 rounded-xl ${isBankIncomplete ? 'bg-amber-100 text-amber-700' : 'bg-blue-50 text-blue-700'}`}>
                   <Building2 className="w-4 h-4" />
                 </div>
               </div>
               <p className="text-xs font-bold text-slate-900">
                 {profile?.bankName || 'Bank Syariah Indonesia'}
               </p>
-              <p className="text-sm font-mono font-bold text-slate-700 mt-1">
-                {profile?.bankAccountNumber || '-'}
-              </p>
+              {isBankIncomplete ? (
+                <div className="mt-1.5">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
+                    <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                    <span>Belum Diisi (Bisa Diisi Sekarang)</span>
+                  </span>
+                </div>
+              ) : (
+                <p className="text-sm font-mono font-bold text-slate-700 mt-1">
+                  {profile?.bankAccountNumber}
+                </p>
+              )}
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 truncate">
-              a.n. {profile?.bankAccountHolder || profile?.fullName}
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+              <span className="text-slate-500 truncate max-w-[120px]">
+                {isBankIncomplete ? 'Pencairan tertunda' : `a.n. ${profile?.bankAccountHolder || profile?.fullName}`}
+              </span>
+              <button
+                type="button"
+                onClick={handleOpenBankModal}
+                className={`text-xs font-bold flex items-center gap-1 cursor-pointer transition-colors ${
+                  isBankIncomplete ? 'text-amber-800 hover:text-amber-950 font-extrabold underline' : 'text-[#064E3B] hover:text-emerald-900 underline'
+                }`}
+              >
+                <span>{isBankIncomplete ? 'Isi Rekening &rarr;' : 'Ubah Rekening &rarr;'}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -1163,6 +1382,242 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           </div>
         </div>
       )}
+
+      {/* BANK ACCOUNT & PROFILE SETTINGS MODAL */}
+      {showBankModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5 animate-in fade-in zoom-in-95 duration-200 my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-900 flex items-center justify-center font-bold">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    Pengaturan Rekening Pencairan
+                  </h3>
+                  <p className="text-[11px] text-slate-500">
+                    Data rekening tujuan transfer bagi hasil resmi Al-Afiyah
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowBankModal(false)}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer rounded-lg hover:bg-slate-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {bankSaveSuccess && (
+              <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{bankSaveSuccess}</span>
+              </div>
+            )}
+
+            {bankSaveError && (
+              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                <span>{bankSaveError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSaveBankSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Pilihan Bank / Dompet Digital (E-Wallet) <span className="text-rose-500">*</span>
+                </label>
+                <select
+                  value={bankFormData.bankName}
+                  onChange={(e) => setBankFormData({ ...bankFormData, bankName: e.target.value })}
+                  className="w-full px-3.5 py-2.5 text-xs sm:text-sm font-semibold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 cursor-pointer shadow-2xs"
+                >
+                  {INDONESIA_BANKS.map((bank) => (
+                    <option key={bank} value={bank}>
+                      {bank}
+                    </option>
+                  ))}
+                </select>
+                <span className="text-[10px] text-slate-400 mt-1 block">
+                  Pilihlah bank rekening Anda atau gunakan akun e-wallet (DANA / GoPay / OVO).
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                    Nomor Rekening / No. HP E-Wallet <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={bankFormData.bankAccountNumber}
+                    onChange={(e) => setBankFormData({ ...bankFormData, bankAccountNumber: e.target.value })}
+                    placeholder="Contoh: 7123456789"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                    Nama Pemilik Rekening <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={bankFormData.bankAccountHolder}
+                    onChange={(e) => setBankFormData({ ...bankFormData, bankAccountHolder: e.target.value })}
+                    placeholder="Sesuai buku tabungan"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm font-semibold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-slate-100">
+                <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block mb-2">
+                  Informasi Kontak Mitra
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Nama Lengkap Mitra
+                    </label>
+                    <input
+                      type="text"
+                      value={bankFormData.fullName}
+                      onChange={(e) => setBankFormData({ ...bankFormData, fullName: e.target.value })}
+                      placeholder="Nama Lengkap"
+                      className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-hidden"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Nomor WhatsApp Aktif
+                    </label>
+                    <input
+                      type="text"
+                      value={bankFormData.phone}
+                      onChange={(e) => setBankFormData({ ...bankFormData, phone: e.target.value })}
+                      placeholder="0812xxxxxxxx"
+                      className="w-full px-3.5 py-2 text-xs font-mono bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-hidden"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 flex items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setShowBankModal(false)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
+                >
+                  Tutup
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingBank}
+                  className="px-5 py-2.5 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-2 cursor-pointer disabled:opacity-60"
+                >
+                  {isSavingBank ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Menyimpan...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4" />
+                      <span>Simpan Rekening Pencairan</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* SWITCH ACCOUNT MODAL */}
+      {showSwitchModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-4 animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center font-bold">
+                  <UserCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    Beralih Akun Mitra
+                  </h3>
+                  <p className="text-[11px] text-slate-500">
+                    Buka dasbor menggunakan email atau kode referral Anda
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowSwitchModal(false)}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer rounded-lg hover:bg-slate-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {switchError && (
+              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
+                {switchError}
+              </div>
+            )}
+
+            <form onSubmit={handleSwitchAccountSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Email atau Kode Referral Mitra Anda <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={switchIdentifier}
+                  onChange={(e) => setSwitchIdentifier(e.target.value)}
+                  placeholder="Contoh: DEDE-418 atau kangdesum@gmail.com"
+                  className="w-full px-4 py-3 text-xs sm:text-sm font-semibold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
+                />
+                <span className="text-[10px] text-slate-400 mt-1 block">
+                  Masukkan email yang Anda pakai saat mendaftar, atau kode referral unik Anda.
+                </span>
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setShowSwitchModal(false)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSwitching || !switchIdentifier.trim()}
+                  className="px-5 py-2.5 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-2 cursor-pointer disabled:opacity-60"
+                >
+                  {isSwitching ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Memuat Akun...</span>
+                    </>
+                  ) : (
+                    <span>Buka Dasbor Saya &rarr;</span>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+

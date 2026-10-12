@@ -251,7 +251,7 @@ export default function AdminSidebar({
     },
     {
       name: 'Kemitraan Afiliasi',
-      href: schoolSlug === 'foundation' ? '/affiliate/dashboard' : `/admin/${schoolSlug}/affiliates`,
+      href: schoolSlug === 'foundation' ? '/admin/foundation/affiliates' : `/admin/${schoolSlug}/affiliates`,
       icon: Share2,
       active: pathname.includes('/affiliate')
     },
