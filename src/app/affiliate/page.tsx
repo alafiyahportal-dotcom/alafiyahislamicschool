@@ -382,14 +382,14 @@ export default function AffiliatePublicPage() {
       <Navbar schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} transparentAtTop={true} />
 
       {/* =========================================================================
-          1. HERO SECTION: Full-bleed Signature Al-Afiyah Green Gradient
-             (Immersive full-screen viewport on mobile with brand gold accents)
+          1. HERO SECTION: Full-bleed Deep Forest Green Matching Section 4 Cards
+             (Immersive full-screen viewport on mobile with #153424 & #cbf738 accents)
          ========================================================================= */}
-      <section className="min-h-screen min-h-[100dvh] flex flex-col justify-center items-center pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-14 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] relative overflow-hidden text-white shadow-inner">
+      <section className="min-h-screen min-h-[100dvh] flex flex-col justify-center items-center pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-14 bg-[#153424] bg-gradient-to-b from-[#0f261a] via-[#153424] to-[#1c432f] relative overflow-hidden text-white shadow-inner">
         {/* Ambient Decorative Lighting */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-black/25 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#cbf738]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-black/35 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent pointer-events-none" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center my-auto w-full">
           <motion.div
@@ -403,9 +403,9 @@ export default function AffiliatePublicPage() {
               <div className="mb-2">
                 <Link
                   href="/sd"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white transition-all backdrop-blur-md active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-white transition-all backdrop-blur-md active:scale-95"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5 text-[#ffd51e]" />
+                  <ArrowLeft className="w-3.5 h-3.5 text-[#cbf738]" />
                   <span>Kembali ke Beranda SDIT</span>
                 </Link>
               </div>
@@ -415,12 +415,12 @@ export default function AffiliatePublicPage() {
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.15] drop-shadow-md">
               Ajak Keluarga &amp; Sahabat,{' '}
-              <span className="text-[#ffd51e] block sm:inline drop-shadow-sm">
+              <span className="text-[#cbf738] block sm:inline drop-shadow-sm">
                 Dapatkan Komisi Hingga Rp 150.000 / Siswa
               </span>
             </h1>
 
-            <p className="text-emerald-50 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-xs">
+            <p className="text-emerald-100/90 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-xs">
               Program rujukan resmi TK IT, SDIT, dan SMP IT Al-Afiyah Majalengka. Cukup bagikan tautan pendaftaran, komisi langsung ditransfer ke rekening bank Anda setelah calon siswa terdaftar.
             </p>
 
@@ -429,7 +429,7 @@ export default function AffiliatePublicPage() {
               <button
                 type="button"
                 onClick={() => openRegisterWithPersona()}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b] font-black text-sm sm:text-base transition-all duration-200 shadow-xl shadow-black/20 hover:shadow-yellow-500/25 flex items-center justify-center gap-2.5 cursor-pointer active:scale-95"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#cbf738] hover:bg-[#b5e028] text-slate-950 font-black text-sm sm:text-base transition-all duration-200 shadow-xl shadow-black/30 hover:shadow-[#cbf738]/20 flex items-center justify-center gap-2.5 cursor-pointer active:scale-95"
               >
                 <span>Daftar Jadi Affiliate</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -437,7 +437,7 @@ export default function AffiliatePublicPage() {
 
               <a
                 href="#kalkulator"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white hover:text-yellow-200 font-bold text-sm sm:text-base transition-all duration-200 border border-white/30 backdrop-blur-md shadow-xs flex items-center justify-center gap-2 active:scale-95"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#1c432f] hover:bg-[#23533b] text-white hover:text-[#cbf738] font-bold text-sm sm:text-base transition-all duration-200 border border-white/20 backdrop-blur-md shadow-xs flex items-center justify-center gap-2 active:scale-95"
               >
                 <span>Hitung Estimasi Komisi</span>
               </a>
@@ -445,37 +445,37 @@ export default function AffiliatePublicPage() {
 
             {/* Micro Trust Indicators */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-semibold text-emerald-100">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-xs">
-                <Check className="w-3.5 h-3.5 text-[#ffd51e]" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1c432f]/80 border border-white/10 backdrop-blur-md shadow-xs">
+                <Check className="w-3.5 h-3.5 text-[#cbf738]" />
                 100% Gratis &amp; Tanpa Modal
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-xs">
-                <Check className="w-3.5 h-3.5 text-[#ffd51e]" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1c432f]/80 border border-white/10 backdrop-blur-md shadow-xs">
+                <Check className="w-3.5 h-3.5 text-[#cbf738]" />
                 Komisi Jelas s.d. Rp 150.000/Siswa
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-xs">
-                <Check className="w-3.5 h-3.5 text-[#ffd51e]" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1c432f]/80 border border-white/10 backdrop-blur-md shadow-xs">
+                <Check className="w-3.5 h-3.5 text-[#cbf738]" />
                 Transfer Langsung ke Rekening
               </span>
             </div>
 
-            {/* 3 Unit Simple Commission Highlights */}
+            {/* 3 Unit Commission Cards matching Section 4 Card Colors */}
             <div className="pt-3 max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 text-left sm:text-center">
-              <div className="p-4 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md shadow-lg hover:bg-white/15 transition-all">
+              <div className="p-4 rounded-2xl bg-[#1c432f] border border-white/10 shadow-lg hover:border-white/20 transition-all">
                 <span className="text-[11px] font-bold text-emerald-200 uppercase tracking-wider block">TK IT Al-Afiyah</span>
                 <p className="text-xl font-black text-white font-mono mt-0.5">Rp 75.000</p>
-                <span className="text-[11px] text-emerald-200/80">per calon siswa</span>
+                <span className="text-[11px] text-emerald-300/70">per calon siswa</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/20 border-2 border-[#ffd51e] backdrop-blur-md shadow-xl relative overflow-hidden scale-102">
-                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-[#ffd51e] text-[#064e3b] font-black text-[9px] uppercase tracking-wide shadow-xs">Tertinggi</div>
-                <span className="text-[11px] font-black text-[#ffd51e] uppercase tracking-wider block">SDIT Al-Afiyah</span>
-                <p className="text-xl font-black text-yellow-300 font-mono mt-0.5">Rp 150.000</p>
+              <div className="p-4 rounded-2xl bg-[#1c432f] border-2 border-[#cbf738] shadow-2xl relative overflow-hidden scale-102">
+                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-[#cbf738] text-slate-950 font-black text-[9px] uppercase tracking-wide shadow-xs">Tertinggi</div>
+                <span className="text-[11px] font-black text-[#cbf738] uppercase tracking-wider block">SDIT Al-Afiyah</span>
+                <p className="text-xl font-black text-[#cbf738] font-mono mt-0.5">Rp 150.000</p>
                 <span className="text-[11px] text-emerald-100 font-semibold">per calon siswa</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md shadow-lg hover:bg-white/15 transition-all">
+              <div className="p-4 rounded-2xl bg-[#1c432f] border border-white/10 shadow-lg hover:border-white/20 transition-all">
                 <span className="text-[11px] font-bold text-emerald-200 uppercase tracking-wider block">SMP IT Al-Afiyah</span>
                 <p className="text-xl font-black text-white font-mono mt-0.5">Rp 100.000</p>
-                <span className="text-[11px] text-emerald-200/80">per calon siswa</span>
+                <span className="text-[11px] text-emerald-300/70">per calon siswa</span>
               </div>
             </div>
           </motion.div>
@@ -483,16 +483,16 @@ export default function AffiliatePublicPage() {
       </section>
 
       {/* =========================================================================
-          2. MARQUEE RIBBON BANNER (Reference Signature Dark Green Ticker)
+          2. MARQUEE RIBBON BANNER (Vibrant Chartreuse / Hijau Muda Matching Card Tengah)
          ========================================================================= */}
-      <div className="bg-[#153424] text-white py-3.5 overflow-hidden whitespace-nowrap border-y border-emerald-950/40 select-none relative">
-        <div className="flex w-max animate-marquee font-bold text-xs sm:text-sm tracking-wider uppercase">
+      <div className="bg-[#cbf738] text-slate-950 py-3.5 overflow-hidden whitespace-nowrap border-y border-[#b5e028] shadow-md select-none relative">
+        <div className="flex w-max animate-marquee font-black text-xs sm:text-sm tracking-wider uppercase text-slate-950">
           {/* First loop track */}
           <div className="flex items-center shrink-0">
             {marqueeKeywords.map((item, idx) => (
               <span key={`a-${idx}`} className="inline-flex items-center space-x-6 sm:space-x-8 px-4 sm:px-6 shrink-0">
                 <span>{item}</span>
-                <span className="text-[#a3e635] text-sm leading-none select-none">✻</span>
+                <span className="text-[#153424] text-sm leading-none select-none font-bold">✻</span>
               </span>
             ))}
           </div>
@@ -501,7 +501,7 @@ export default function AffiliatePublicPage() {
             {marqueeKeywords.map((item, idx) => (
               <span key={`b-${idx}`} className="inline-flex items-center space-x-6 sm:space-x-8 px-4 sm:px-6 shrink-0">
                 <span>{item}</span>
-                <span className="text-[#a3e635] text-sm leading-none select-none">✻</span>
+                <span className="text-[#153424] text-sm leading-none select-none font-bold">✻</span>
               </span>
             ))}
           </div>

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { getStoredReferralCode } from '@/lib/referral';
 
 export interface UnitSlideData {
@@ -257,24 +258,60 @@ export default function UnitHeroSlider({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-10 items-center">
           {/* Left Column: Heading & Subtitle (and CTA on desktop) */}
           <div className="lg:col-span-7 flex flex-col items-start text-left relative z-20">
-            {/* Overline Badge */}
+            {/* Overline Badge (Diatas Judul) - Subtle organic floating & glowing ping */}
             {slide.badge && (
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-2.5 sm:mb-4 backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{
+                  opacity: 1,
+                  y: [0, -3, 0],
+                }}
+                transition={{
+                  opacity: { duration: 0.5, ease: 'easeOut' },
+                  y: { duration: 3.2, repeat: Infinity, ease: 'easeInOut' },
+                }}
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 hover:border-[#ffd51e]/60 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-2.5 sm:mb-4 backdrop-blur-sm shadow-xs transition-colors select-none"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffd51e] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffd51e]" />
+                </span>
                 <span>{slide.badge}</span>
-              </div>
+              </motion.div>
             )}
 
-            {/* Dominant 3-Line Headline */}
-            <h1 className="w-full text-balance">
+            {/* Dominant 3-Line Headline (Judul) - Continuous living breathing motion */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: 1,
+                y: [0, -3.5, 0],
+              }}
+              transition={{
+                opacity: { duration: 0.6, delay: 0.1, ease: 'easeOut' },
+                y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
+              }}
+              className="w-full text-balance"
+            >
               {renderHeroHeadline(slug, slide.titlePart1, slide.titleHighlight, slide.titlePart2, theme.highlightText)}
-            </h1>
+            </motion.h1>
 
-            {/* Subtitle / Description - Constrained width so it doesn't stretch to the right edge */}
+            {/* Subtitle / Description (Sub Judul) - Gentle living breathing motion */}
             {slide.description && (
-              <p className="mt-3.5 sm:mt-5 max-w-[240px] xs:max-w-[270px] sm:max-w-md lg:max-w-xl text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed font-normal">
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{
+                  opacity: 1,
+                  y: [0, -2, 0],
+                }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 0.2, ease: 'easeOut' },
+                  y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 },
+                }}
+                className="mt-3.5 sm:mt-5 max-w-[240px] xs:max-w-[270px] sm:max-w-md lg:max-w-xl text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed font-normal"
+              >
                 {slide.description}
-              </p>
+              </motion.p>
             )}
 
             {/* Primary Action Buttons (Desktop only - on mobile placed below the image) */}
