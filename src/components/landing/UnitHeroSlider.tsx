@@ -50,27 +50,27 @@ function renderHeroHeadline(
         <span className="font-hero-accent text-2xl sm:text-3xl lg:text-4xl italic font-normal tracking-wide text-[#ffd51e] drop-shadow-sm">
           Bukan Sekedar
         </span>
-        <span className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.06] tracking-tight">
+        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight">
           Tempat Belajar,
         </span>
-        <span className={`text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black ${highlightClass} leading-[1.06] tracking-tight`}>
+        <span className={`text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black ${highlightClass} leading-[1.03] tracking-tight`}>
           Tempat Bertumbuh
         </span>
       </div>
     );
   }
 
-  // SMP IT - 3 distinct bold lines as requested
+  // SMP IT - 3 distinct bold lines as requested (enlarged & prominent)
   if (slug === 'smp' || /mencetak\s+generasi/i.test(p1)) {
     return (
-      <div className="flex flex-col gap-1 text-left">
-        <span className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.06] tracking-tight">
+      <div className="flex flex-col gap-1 sm:gap-1.5 text-left">
+        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight drop-shadow-sm">
           Mencetak Generasi
         </span>
-        <span className={`text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black ${highlightClass} leading-[1.06] tracking-tight`}>
+        <span className={`text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black ${highlightClass} leading-[1.03] tracking-tight drop-shadow-sm`}>
           Smart &amp; Religious
         </span>
-        <span className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.06] tracking-tight">
+        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight drop-shadow-sm">
           Berakhlak Qur’ani
         </span>
       </div>
@@ -79,7 +79,7 @@ function renderHeroHeadline(
 
   // General fallback
   return (
-    <div className="text-[2.1rem] sm:text-5xl lg:text-[3.5rem] font-black leading-[1.06] text-white tracking-tight flex flex-col gap-1 text-left">
+    <div className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black leading-[1.03] text-white tracking-tight flex flex-col gap-1 text-left">
       <span>{p1}</span>
       {titleHighlight && <span className={highlightClass}>{titleHighlight}</span>}
       {titlePart2 && <span>{titlePart2}</span>}
@@ -253,13 +253,13 @@ export default function UnitHeroSlider({
       <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-2xl pointer-events-none" />
 
       {/* Main Content Area */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24 sm:pt-28 lg:pt-32 pb-4 sm:pb-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 sm:pt-32 lg:pt-36 pb-4 sm:pb-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-10 items-center">
           {/* Left Column: Heading & Subtitle (and CTA on desktop) */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          <div className="lg:col-span-7 flex flex-col items-start text-left relative z-20">
             {/* Overline Badge */}
             {slide.badge && (
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-3 sm:mb-4 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-2.5 sm:mb-4 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
                 <span>{slide.badge}</span>
               </div>
@@ -272,7 +272,7 @@ export default function UnitHeroSlider({
 
             {/* Subtitle / Description - Constrained width so it doesn't stretch to the right edge */}
             {slide.description && (
-              <p className="mt-4 sm:mt-5 max-w-[280px] sm:max-w-md lg:max-w-xl text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed font-normal">
+              <p className="mt-3.5 sm:mt-5 max-w-[240px] xs:max-w-[270px] sm:max-w-md lg:max-w-xl text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed font-normal">
                 {slide.description}
               </p>
             )}
@@ -296,18 +296,18 @@ export default function UnitHeroSlider({
           </div>
 
           {/* Right Column: Student Cutout Visual Plate */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-end relative mt-2 sm:mt-4 lg:mt-0">
-            <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[460px] flex items-end justify-center">
+          <div className="lg:col-span-5 flex flex-col items-end lg:items-center justify-end relative -mt-28 xs:-mt-36 sm:-mt-44 lg:mt-0 z-10 w-full pointer-events-none">
+            <div className="relative w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] lg:max-w-[500px] flex items-end justify-end lg:justify-center ml-auto">
               {/* Islamic Arch Portal Backdrop (active for SMP cutout) */}
               {slug !== 'sd' && (
                 <div
-                  className="absolute bottom-0 w-64 sm:w-80 lg:w-[22rem] h-[270px] sm:h-[350px] lg:h-[410px] rounded-t-full bg-gradient-to-t from-white/[0.04] to-white/[0.14] border-t-2 border-x border-white/25 shadow-2xl backdrop-blur-sm pointer-events-none"
+                  className="absolute bottom-0 right-0 sm:right-auto w-64 sm:w-80 lg:w-[22rem] h-[300px] sm:h-[390px] lg:h-[450px] rounded-t-full bg-gradient-to-t from-white/[0.04] to-white/[0.14] border-t-2 border-x border-white/25 shadow-2xl backdrop-blur-sm pointer-events-none translate-x-4 sm:translate-x-8"
                 />
               )}
 
               {/* Cut-out Student Photo - Shifted right for SMP and enlarged */}
-              <div className={`relative z-10 w-full flex justify-center items-end ${
-                slug === 'smp' ? 'translate-x-5 sm:translate-x-8' : ''
+              <div className={`relative z-10 w-full flex justify-end lg:justify-center items-end ${
+                slug === 'smp' ? 'translate-x-6 xs:translate-x-10 sm:translate-x-14 lg:translate-x-10' : 'translate-x-2 sm:translate-x-4'
               }`}>
                 <Image
                   src={theme.cutoutSrc}
@@ -315,13 +315,13 @@ export default function UnitHeroSlider({
                   width={780}
                   height={546}
                   priority
-                  className="w-auto max-h-[290px] sm:max-h-[380px] lg:max-h-[460px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.32)] select-none pointer-events-none"
+                  className="w-auto max-h-[330px] xs:max-h-[380px] sm:max-h-[460px] lg:max-h-[520px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.32)] select-none pointer-events-none"
                 />
               </div>
             </div>
 
             {/* CTA Buttons on Mobile: positioned directly below the image and above the 4 cards */}
-            <div className="flex lg:hidden mt-4 w-full justify-center">
+            <div className="flex lg:hidden mt-4 sm:mt-6 w-full justify-center pointer-events-auto">
               {ctaButtons}
             </div>
           </div>
