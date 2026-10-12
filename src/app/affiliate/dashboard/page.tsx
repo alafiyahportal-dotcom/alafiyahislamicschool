@@ -135,8 +135,13 @@ Kenapa memilih SDIT Al-Afiyah?
 
 📌 Kuota pendaftaran sangat terbatas untuk menjaga rasio belajar ananda yang optimal. Biaya formulir pendaftaran: Rp 250.000.
 
-Pendaftaran online dan informasi lengkap dapat langsung diakses melalui tautan resmi kami:
-👉 ${sdLink}
+Informasi lengkap & formulir pendaftaran online resmi:
+
+🌐 Profil & Informasi Lengkap SDIT:
+${sdLink}
+
+📝 Formulir Pendaftaran Langsung SDIT:
+${sdFormLink}
 
 Mari bersama wujudkan generasi sholeh, berakhlak mulia, dan berprestasi bersama SDIT Al-Afiyah.
 
@@ -155,8 +160,13 @@ Mempersiapkan masa depan putra-putri dengan perpaduan keilmuan akademis, adab, d
 ✅ Pembiasaan Bahasa Arab & Inggris Aktif
 ✅ Tersedia Program Keringanan Biaya & Beasiswa Berprestasi
 
-Kuota pendaftaran terbatas! Dapatkan kemudahan pendaftaran langsung melalui tautan resmi mitra kami:
-👉 ${smpLink}
+Kuota pendaftaran terbatas! Informasi lengkap & pendaftaran online:
+
+🌐 Profil & Informasi Lengkap SMP IT:
+${smpLink}
+
+📝 Formulir Pendaftaran Langsung SMP IT:
+${smpFormLink}
 
 Mari bimbing masa transisi terbaik putra-putri tercinta di lingkungan yang aman, agamis, dan berprestasi.
 
@@ -174,8 +184,13 @@ PPDB TK IT Al-Afiyah Majalengka Tahun Ajaran 2026/2027:
 🌸 Pembentukan Karakter Mandiri, Percaya Diri & Berakhlak Islami
 🌸 Guru Penyayang & Area Bermain Edukatif Aman
 
-Informasi lengkap dan pendaftaran online dapat langsung diakses melalui tautan resmi berikut:
-👉 ${tkLink}
+Informasi lengkap & pendaftaran online:
+
+🌐 Profil & Pendaftaran TK IT:
+${tkLink}
+
+🏛️ Portal Terpadu Yayasan:
+${generalLink}
 
 Ayah/Bunda dapat mendaftarkan ananda sebelum kuota kelas terpenuhi.
 
@@ -192,8 +207,16 @@ Pilihan Jenjang Pendidikan:
 📗 SDIT Al-Afiyah (Adab Islami, Sains & Tahfidz Al-Qur'an)
 📘 SMP IT Al-Afiyah (Akreditasi A, Program Asrama & Fullday)
 
-Dapatkan informasi kurikulum, brosur digital, serta pendaftaran online terpadu melalui tautan resmi mitra kami:
-👉 ${generalLink}
+Silakan akses informasi lengkap dan formulir pendaftaran melalui tautan resmi kami:
+
+🌐 Portal PPDB Terpadu Yayasan:
+${generalLink}
+
+📝 Formulir Pendaftaran Langsung SDIT:
+${sdFormLink}
+
+📝 Formulir Pendaftaran Langsung SMP IT:
+${smpFormLink}
 
 Mari bimbing ananda menuju masa depan yang sholeh, cerdas, dan mandiri bersama keluarga besar Al-Afiyah.
 
@@ -299,8 +322,8 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               <span className="text-xs font-bold text-slate-900 block">
                 {profile?.fullName || 'Mitra Afiliasi'}
               </span>
-              <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                Kode: {referralCode}
+              <span className="text-[11px] font-mono text-slate-500 block">
+                ID Mitra: {referralCode}
               </span>
             </div>
             <button
@@ -321,10 +344,6 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
         <div className="rounded-2xl bg-[#064E3B] text-white p-6 sm:p-7 shadow-xs border border-emerald-900/60 relative overflow-hidden">
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-emerald-200 text-xs font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Akun Mitra Aktif</span>
-              </div>
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
                 Selamat Datang, {profile?.fullName || 'Mitra Afiliasi'}
               </h2>
@@ -462,14 +481,15 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           </div>
 
           {/* General Link Card */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-[#064E3B] uppercase tracking-wider">Tautan Utama PPDB (Pilihan Multi-Unit)</span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Direkomendasikan</span>
-              </div>
-              <p className="text-xs text-slate-600 mt-0.5">Wali murid dapat memilih pendaftaran unit TK, SDIT, maupun SMP IT langsung dari satu tautan:</p>
-              <p className="text-xs font-mono text-slate-800 truncate mt-2 bg-white px-3 py-2 rounded-xl border border-emerald-200 select-all font-semibold">
+              <span className="text-xs font-bold text-slate-900 uppercase tracking-wider block">
+                Tautan Utama PPDB Terpadu (Pilihan Multi-Unit)
+              </span>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Wali murid dapat memilih pendaftaran unit TK, SDIT, maupun SMP IT langsung dari satu tautan:
+              </p>
+              <p className="text-xs font-mono text-slate-800 truncate mt-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 select-all font-semibold">
                 {generalLink}
               </p>
             </div>
@@ -480,219 +500,203 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                   setSelectedBroadcastUnit('ALL');
                   handleCopyBroadcast('ALL');
                 }}
-                className="px-3.5 py-2.5 rounded-xl bg-emerald-700 text-white text-xs font-bold hover:bg-emerald-800 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
-                title="Salin pesan siar WhatsApp PPDB Terpadu lengkap dengan link"
+                className="px-4 py-2.5 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                title="Salin pesan siar WhatsApp lengkap dengan semua tautan"
               >
-                <MessageSquare className="w-3.5 h-3.5" />
-                <span>Broadcast WA</span>
+                <Copy className="w-3.5 h-3.5" />
+                <span>{copiedBroadcast && selectedBroadcastUnit === 'ALL' ? 'Pesan & Link Tersalin!' : 'Salin Pesan & Semua Link'}</span>
               </button>
               <button
                 type="button"
-                onClick={() => copyToClipboard(generalLink, 'ALL')}
-                className="px-4 py-2.5 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                onClick={() => handleSendWhatsApp('ALL')}
+                className="px-3.5 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba5a] transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                title="Kirim ke WhatsApp"
               >
-                {copiedLink === 'ALL' ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-white" />
-                    <span>Tersalin!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>Salin Tautan</span>
-                  </>
-                )}
+                <Send className="w-3.5 h-3.5" />
+                <span>Kirim WA</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleOpenQr('Tautan Utama PPDB', generalLink)}
-                className="p-2.5 rounded-xl bg-white border border-emerald-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
+                className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
                 title="QR Code"
               >
-                <QrCode className="w-4 h-4 text-[#064E3B]" />
+                <QrCode className="w-4 h-4 text-slate-600" />
               </button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* TK Link */}
-            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 flex flex-col justify-between shadow-2xs">
               <div>
-                <div className="flex items-center justify-between text-xs font-bold mb-1">
-                  <span className="text-emerald-900 font-extrabold text-sm">TK IT Al-Afiyah</span>
-                  <span className="text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 text-[10px] font-bold">
-                    Menunggu Ketentuan Panitia
-                  </span>
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="text-slate-900 font-bold text-sm">TK IT Al-Afiyah</span>
+                  <span className="text-xs text-slate-500 font-medium">Ketentuan Panitia</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Besaran komisi unit TK akan diumumkan panitia.</p>
-                <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2.5 rounded-xl border border-slate-200 select-all">
-                  {tkLink}
-                </p>
+                <p className="text-[11px] text-slate-500 mb-3">Besaran komisi unit TK akan diumumkan panitia.</p>
+                
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">1. Tautan Profil &amp; Pendaftaran TK:</span>
+                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
+                      {tkLink}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">2. Portal Terpadu Yayasan:</span>
+                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
+                      {generalLink}
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-1.5 pt-2">
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(tkLink, 'TK')}
-                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  title="Salin tautan saja"
-                >
-                  {copiedLink === 'TK' ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold">Tersalin</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Link</span>
-                    </>
-                  )}
-                </button>
+              <div className="flex items-center gap-1.5 pt-2">
                 <button
                   type="button"
                   onClick={() => {
                     setSelectedBroadcastUnit('TK');
                     handleCopyBroadcast('TK');
                   }}
-                  className="py-2 px-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  title="Salin pesan broadcast WA beserta link"
+                  className="flex-1 py-2.5 px-2 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                  title="Salin pesan siar WhatsApp TK IT"
                 >
-                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>Broadcast</span>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{copiedBroadcast && selectedBroadcastUnit === 'TK' ? 'Tersalin!' : 'Salin Pesan & Link'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSendWhatsApp('TK')}
+                  className="py-2.5 px-3 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba5a] transition-colors flex items-center justify-center gap-1 cursor-pointer shadow-xs"
+                  title="Kirim ke WhatsApp"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>WA</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleOpenQr('TK IT Al-Afiyah', tkLink)}
-                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
                   title="QR Code"
                 >
-                  <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span>QR</span>
+                  <QrCode className="w-3.5 h-3.5 text-slate-600" />
                 </button>
               </div>
             </div>
 
             {/* SD Link */}
-            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 flex flex-col justify-between shadow-2xs">
               <div>
-                <div className="flex items-center justify-between text-xs font-bold mb-1">
-                  <span className="text-emerald-900 font-extrabold text-sm">SDIT Al-Afiyah</span>
-                  <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
-                    Komisi Rp 150.000 / murid
-                  </span>
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="text-slate-900 font-bold text-sm">SDIT Al-Afiyah</span>
+                  <span className="text-xs font-bold text-emerald-800">Komisi Rp 150.000</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 50.000) + Daftar Ulang (Rp 100.000)</p>
+                <p className="text-[11px] text-slate-500 mb-3">Formulir (Rp 50.000) + Daftar Ulang (Rp 100.000)</p>
                 
-                <div className="space-y-1 mt-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Tautan Profil &amp; Pendaftaran SD:</span>
-                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-slate-200 select-all">
-                    {sdLink}
-                  </p>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">1. Tautan Profil &amp; Info SD:</span>
+                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
+                      {sdLink}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">2. Tautan Formulir Langsung SD:</span>
+                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
+                      {sdFormLink}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-1.5 pt-2">
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(sdLink, 'SD')}
-                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  title="Salin tautan saja"
-                >
-                  {copiedLink === 'SD' ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold">Tersalin</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Link</span>
-                    </>
-                  )}
-                </button>
+              <div className="flex items-center gap-1.5 pt-2">
                 <button
                   type="button"
                   onClick={() => {
                     setSelectedBroadcastUnit('SD');
                     handleCopyBroadcast('SD');
                   }}
-                  className="py-2 px-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  title="Salin pesan broadcast WA beserta link"
+                  className="flex-1 py-2.5 px-2 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                  title="Salin pesan siar WhatsApp lengkap dengan 2 link (profil & form)"
                 >
-                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>Broadcast</span>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{copiedBroadcast && selectedBroadcastUnit === 'SD' ? 'Tersalin!' : 'Salin Pesan & 2 Link'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSendWhatsApp('SD')}
+                  className="py-2.5 px-3 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba5a] transition-colors flex items-center justify-center gap-1 cursor-pointer shadow-xs"
+                  title="Kirim ke WhatsApp"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>WA</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleOpenQr('SDIT Al-Afiyah', sdLink)}
-                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
                   title="QR Code"
                 >
-                  <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span>QR</span>
+                  <QrCode className="w-3.5 h-3.5 text-slate-600" />
                 </button>
               </div>
             </div>
 
             {/* SMP Link */}
-            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 flex flex-col justify-between shadow-2xs">
               <div>
-                <div className="flex items-center justify-between text-xs font-bold mb-1">
-                  <span className="text-emerald-900 font-extrabold text-sm">SMP IT Al-Afiyah</span>
-                  <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
-                    Komisi Rp 150.000 / murid
-                  </span>
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="text-slate-900 font-bold text-sm">SMP IT Al-Afiyah</span>
+                  <span className="text-xs font-bold text-emerald-800">Komisi Rp 150.000</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 50.000) + Daftar Ulang (Rp 100.000)</p>
+                <p className="text-[11px] text-slate-500 mb-3">Formulir (Rp 50.000) + Daftar Ulang (Rp 100.000)</p>
                 
-                <div className="space-y-1 mt-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Tautan Profil &amp; Pendaftaran SMP:</span>
-                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-slate-200 select-all">
-                    {smpLink}
-                  </p>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">1. Tautan Profil &amp; Info SMP:</span>
+                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
+                      {smpLink}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">2. Tautan Formulir Langsung SMP:</span>
+                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
+                      {smpFormLink}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-1.5 pt-2">
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(smpLink, 'SMP')}
-                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  title="Salin tautan saja"
-                >
-                  {copiedLink === 'SMP' ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold">Tersalin</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Link</span>
-                    </>
-                  )}
-                </button>
+              <div className="flex items-center gap-1.5 pt-2">
                 <button
                   type="button"
                   onClick={() => {
                     setSelectedBroadcastUnit('SMP');
                     handleCopyBroadcast('SMP');
                   }}
-                  className="py-2 px-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  title="Salin pesan broadcast WA beserta link"
+                  className="flex-1 py-2.5 px-2 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                  title="Salin pesan siar WhatsApp lengkap dengan 2 link (profil & form)"
                 >
-                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>Broadcast</span>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{copiedBroadcast && selectedBroadcastUnit === 'SMP' ? 'Tersalin!' : 'Salin Pesan & 2 Link'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSendWhatsApp('SMP')}
+                  className="py-2.5 px-3 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba5a] transition-colors flex items-center justify-center gap-1 cursor-pointer shadow-xs"
+                  title="Kirim ke WhatsApp"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>WA</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleOpenQr('SMP IT Al-Afiyah', smpLink)}
-                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
                   title="QR Code"
                 >
-                  <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span>QR</span>
+                  <QrCode className="w-3.5 h-3.5 text-slate-600" />
                 </button>
               </div>
             </div>
@@ -704,18 +708,15 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-emerald-100/80 text-emerald-800">
+                <div className="p-2 rounded-xl bg-slate-100 text-slate-700">
                   <MessageSquare className="w-4 h-4" />
                 </div>
                 <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider">
                   Pesan Siar / Broadcast WhatsApp (1-Klik)
                 </h2>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  Link Otomatis Tersemat
-                </span>
               </div>
               <p className="text-xs text-slate-500 mt-1 max-w-3xl">
-                Teks resmi sudah terpasang otomatis dengan link referral Anda. Anda cukup klik <strong>Salin Pesan (1-Klik)</strong> atau langsung buka via WhatsApp tanpa perlu repot tempel link secara terpisah.
+                Setiap pesan siar di bawah sudah otomatis memuat <strong>Link Profil Informasi</strong> dan <strong>Link Formulir Pendaftaran Langsung</strong>. Klik tombol <strong>Salin Pesan &amp; 2 Link</strong> untuk menyalin semuanya dalam 1 kali klik.
               </p>
             </div>
           </div>
@@ -725,71 +726,61 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('SD')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                 selectedBroadcastUnit === 'SD'
-                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  ? 'bg-[#064E3B] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <span>📗 SDIT Al-Afiyah</span>
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                selectedBroadcastUnit === 'SD' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200/70 text-slate-600'
-              }`}>
-                Komisi Rp 150rb
-              </span>
+              📗 SDIT Al-Afiyah
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('SMP')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                 selectedBroadcastUnit === 'SMP'
-                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  ? 'bg-[#064E3B] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <span>📘 SMP IT Al-Afiyah</span>
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                selectedBroadcastUnit === 'SMP' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200/70 text-slate-600'
-              }`}>
-                Komisi Rp 150rb
-              </span>
+              📘 SMP IT Al-Afiyah
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('ALL')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                 selectedBroadcastUnit === 'ALL'
-                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  ? 'bg-[#064E3B] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <span>🏛️ Semua Unit (PPDB Terpadu)</span>
+              🏛️ Semua Unit (PPDB Terpadu)
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('TK')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                 selectedBroadcastUnit === 'TK'
-                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  ? 'bg-[#064E3B] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
               }`}
             >
-              <span>🌱 TK IT Al-Afiyah</span>
+              🌱 TK IT Al-Afiyah
             </button>
           </div>
 
           {/* Message Preview Container */}
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs text-slate-500">
-              <span className="font-semibold text-slate-700">Preview Pesan Broadcast Siap Sebar:</span>
-              <span className="text-[11px] text-emerald-700 font-mono">
-                {selectedBroadcastUnit === 'SD' && 'Link: /ref/sd/' + customSlug}
-                {selectedBroadcastUnit === 'SMP' && 'Link: /ref/smp/' + customSlug}
-                {selectedBroadcastUnit === 'TK' && 'Link: /ref/tk/' + customSlug}
-                {selectedBroadcastUnit === 'ALL' && 'Link: /ppdb?ref=' + referralCode}
+              <span className="font-semibold text-slate-700">Preview Pesan Broadcast Siap Kirim (Sudah Memuat Link Profil &amp; Form):</span>
+              <span className="text-[11px] text-slate-500 font-mono">
+                {selectedBroadcastUnit === 'SD' && 'SDIT Al-Afiyah'}
+                {selectedBroadcastUnit === 'SMP' && 'SMP IT Al-Afiyah'}
+                {selectedBroadcastUnit === 'TK' && 'TK IT Al-Afiyah'}
+                {selectedBroadcastUnit === 'ALL' && 'PPDB Terpadu Yayasan'}
               </span>
             </div>
 
@@ -808,12 +799,12 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                   {copiedBroadcast ? (
                     <>
                       <Check className="w-4 h-4 text-emerald-300" />
-                      <span>Pesan &amp; Link Berhasil Tersalin!</span>
+                      <span>Pesan &amp; 2 Link Berhasil Tersalin!</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-4 h-4" />
-                      <span>Salin Pesan &amp; Link (1-Klik)</span>
+                      <span>Salin Pesan &amp; 2 Link (1-Klik)</span>
                     </>
                   )}
                 </button>
@@ -829,7 +820,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               </div>
 
               <span className="text-[11px] text-slate-500 text-center sm:text-right">
-                Otomatis mengaitkan komisi Anda selama 30 hari sejak tautan diklik.
+                Otomatis mengaitkan komisi Anda selama 30 hari sejak calon murid membuka tautan.
               </span>
             </div>
           </div>
