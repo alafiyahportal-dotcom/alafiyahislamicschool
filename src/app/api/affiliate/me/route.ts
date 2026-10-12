@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/session';
+import { reRegCommissionForSchool } from '@/services/affiliate-commission';
 
 export async function GET(request: NextRequest) {
   try {
@@ -105,8 +106,11 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Calculate dynamic stats
-    const totalStudents = affiliateProfile.conversions.length;
+    // Calculate dynamic stats based on unique students
+    const uniqueRegistrations = new Set(
+      affiliateProfile.conversions.map((c) => c.registrationId)
+    );
+    const totalStudents = uniqueRegistrations.size;
     const verifiedStudents = affiliateProfile.conversions.filter(
       (c) => c.status === 'APPROVED' || c.status === 'PAID'
     ).length;
@@ -153,16 +157,20 @@ export async function GET(request: NextRequest) {
         tier,
         nextTierTarget,
         tierProgress,
-        conversions: affiliateProfile.conversions.map((conv) => ({
-          id: conv.id,
-          studentName: conv.registration?.studentName || 'Calon Murid',
-          registrationNo: conv.registration?.registrationNo || '-',
-          schoolName: conv.school?.name || 'Unit Sekolah Al-Afiyah',
-          schoolSlug: conv.school?.slug || 'sd',
-          commissionAmount: conv.commissionAmount,
-          status: conv.status,
-          createdAt: conv.createdAt,
-        })),
+        conversions: affiliateProfile.conversions.map((conv) => {
+          const isReReg = conv.commissionAmount === reRegCommissionForSchool(conv.school?.slug || 'sd');
+          const stageLabel = isReReg ? 'Daftar Ulang' : 'Formulir';
+          return {
+            id: conv.id,
+            studentName: `${conv.registration?.studentName || 'Calon Murid'} (${stageLabel})`,
+            registrationNo: conv.registration?.registrationNo || '-',
+            schoolName: conv.school?.name || 'Unit Sekolah Al-Afiyah',
+            schoolSlug: conv.school?.slug || 'sd',
+            commissionAmount: conv.commissionAmount,
+            status: conv.status,
+            createdAt: conv.createdAt,
+          };
+        }),
       },
     });
   } catch (error: any) {

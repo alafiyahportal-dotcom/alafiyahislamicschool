@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { WhatsAppService } from '@/services/whatsapp.service';
+import { awardReRegistrationCommission } from '@/services/affiliate-commission';
 
 export async function GET(request: NextRequest) {
   try {
@@ -145,6 +146,33 @@ export async function POST(request: NextRequest) {
       }
     } catch (notifErr) {
       console.warn('Failed to send WA re-registration notification:', notifErr);
+    }
+
+    // Award affiliate commission for Tahap 2 (Daftar Ulang) if referred
+    if (reg.affiliateId) {
+      try {
+        const reRegResult = await awardReRegistrationCommission(prisma, {
+          id: reg.id,
+          affiliateId: reg.affiliateId,
+          schoolId: reg.schoolId,
+          schoolSlug: reg.school.slug,
+          studentName: reg.studentName,
+          schoolName: reg.school.name,
+        });
+
+        if (reRegResult && reRegResult.phone) {
+          await WhatsAppService.sendNotification({
+            schoolId: reg.schoolId,
+            recipientPhone: reRegResult.phone,
+            recipientName: reRegResult.name,
+            eventType: 'COMMISSION_EARNED',
+            messageContent: `Assalamu'alaikum Warahmatullahi Wabarakatuh.\nYth. ${reRegResult.name},\n\nAlhamdulillah! Murid rujukan Anda atas nama *${reg.studentName}* telah resmi menyelesaikan proses *DAFTAR ULANG* di *${reg.school.name}*.\n\n🎉 *Bonus Komisi Tahap 2 (Daftar Ulang):* Rp ${reRegResult.commission.toLocaleString('id-ID')}\n📊 *Status:* DIVERIFIKASI & SIAP DICAIRKAN\n\nCek akumulasi saldo komisi di Dasbor Mitra Anda:\n🔗 https://alafiyah.id/affiliate/dashboard\n\nJazakumullah Khairan atas kontribusi dan sinergi dakwah pendidikan bersama Yayasan Pendidikan Al-Afiyah!`,
+            metadata: { studentName: reg.studentName, amount: reRegResult.commission, stage: 'DAFTAR_ULANG' },
+          });
+        }
+      } catch (affErr) {
+        console.warn('Failed to process re-registration affiliate commission:', affErr);
+      }
     }
 
     return NextResponse.json({

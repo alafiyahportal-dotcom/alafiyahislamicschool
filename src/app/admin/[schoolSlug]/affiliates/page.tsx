@@ -5,6 +5,7 @@ import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
 import UnitAffiliatesClient, { UnitAffiliateConversion } from '@/components/admin/UnitAffiliatesClient';
 import { notFound } from 'next/navigation';
+import { reRegCommissionForSchool } from '@/services/affiliate-commission';
 
 export const dynamic = 'force-dynamic';
 
@@ -64,22 +65,26 @@ export default async function SchoolAffiliatesPage({
     prisma.affiliateProfile.count(),
   ]);
 
-  const formattedConversions: UnitAffiliateConversion[] = conversions.map((c) => ({
-    id: c.id,
-    registrationNo: c.registration?.registrationNo || '-',
-    studentName: c.registration?.studentName || 'Pendaftar Peserta Didik',
-    affiliateName: c.affiliate?.user?.fullName || 'Mitra Afiliasi',
-    referralCode: c.affiliate?.referralCode || '-',
-    commissionAmount: c.commissionAmount,
-    status: c.status,
-    paidAt: c.paidAt ? new Date(c.paidAt).toLocaleDateString('id-ID') : null,
-    createdAt: new Date(c.createdAt).toLocaleDateString('id-ID', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    }),
-    paymentStatus: c.registration?.invoices?.[0]?.paymentStatus || 'UNPAID',
-  }));
+  const formattedConversions: UnitAffiliateConversion[] = conversions.map((c) => {
+    const isReReg = c.commissionAmount === reRegCommissionForSchool(schoolSlug);
+    const stageLabel = isReReg ? 'Daftar Ulang' : 'Formulir';
+    return {
+      id: c.id,
+      registrationNo: c.registration?.registrationNo || '-',
+      studentName: `${c.registration?.studentName || 'Pendaftar Peserta Didik'} (${stageLabel})`,
+      affiliateName: c.affiliate?.user?.fullName || 'Mitra Afiliasi',
+      referralCode: c.affiliate?.referralCode || '-',
+      commissionAmount: c.commissionAmount,
+      status: c.status,
+      paidAt: c.paidAt ? new Date(c.paidAt).toLocaleDateString('id-ID') : null,
+      createdAt: new Date(c.createdAt).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }),
+      paymentStatus: c.registration?.invoices?.[0]?.paymentStatus || 'UNPAID',
+    };
+  });
 
   const roleName = `ADMIN_${schoolSlug.toUpperCase()}`;
 
