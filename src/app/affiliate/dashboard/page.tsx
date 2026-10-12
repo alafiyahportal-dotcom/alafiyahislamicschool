@@ -7,24 +7,14 @@ import {
   Users, 
   Copy, 
   Check, 
-  ArrowUpRight, 
   LogOut, 
   Building2, 
   Clock, 
   CheckCircle2, 
   Share2,
   QrCode,
-  Download,
-  AlertCircle,
   Loader2,
-  MessageSquare,
-  Send,
-  HelpCircle,
   TrendingUp,
-  Award,
-  ExternalLink,
-  ChevronRight,
-  ShieldCheck,
   X
 } from 'lucide-react';
 
@@ -64,7 +54,6 @@ export default function AffiliateDashboardPage() {
   const [profile, setProfile] = useState<AffiliateProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
-  const [copiedTemplate, setCopiedTemplate] = useState<string | null>(null);
 
   useEffect(() => {
     document.title = 'Dashboard Affiliate Al-Afiyah';
@@ -131,12 +120,6 @@ export default function AffiliateDashboardPage() {
     setTimeout(() => setCopiedLink(null), 2500);
   };
 
-  const copyTemplateText = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedTemplate(label);
-    setTimeout(() => setCopiedTemplate(null), 2500);
-  };
-
   const handleOpenQr = (title: string, url: string) => {
     setSelectedQrLink({ title, url });
     setShowQrModal(true);
@@ -185,88 +168,7 @@ export default function AffiliateDashboardPage() {
     window.location.href = '/login';
   };
 
-  // WhatsApp Canned Promotional Texts (Unit-separated & dedicated)
-  const cannedMessages = [
-    {
-      id: 'general',
-      title: 'Pendaftaran PPDB 2027/2028 Dibuka (Semua Unit: TK, SDIT, SMP IT)',
-      summary: 'Cocok untuk disebarkan di grup keluarga, alumni, dan majelis taklim.',
-      text: `*Assalamu'alaikum Warahmatullahi Wabarakatuh,*
 
-Bapak/Ibu yang dirahmati Allah, kabar gembira pendaftaran murid baru (*PPDB 2027/2028*) di *Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka* (TK IT, SDIT, SMP IT) resmi dibuka!
-
-Keunggulan Al-Afiyah:
- Pembinaan Karakter & Adab Islami
- Bimbingan Tahfidz Al-Qur'an Intensif Bersanad
- Kurikulum Terpadu & Literasi Sains Modern
- Tenaga Pendidik Profesional & Lingkungan Asri
-
-Dapatkan kemudahan pendaftaran melalui tautan resmi rujukan saya:
-👉 ${generalLink}
-
-Informasi kuota dan konsultasi pendaftaran online dapat langsung diakses pada tautan di atas. Semoga putra-putri kita menjadi generasi shalih dan mushlih. Aamiin!`,
-    },
-    {
-      id: 'smpit',
-      title: 'Fokus SMP IT Al-Afiyah (Fullday, 3-5+ Juz & Diskon s.d. 70%)',
-      summary: 'Khusus calon wali murid lulusan SD/MI yang mencari SMP Islam Terpadu unggulan.',
-      text: `*Mencari SMP Islam Unggulan & Berkarakter di Majalengka?*
-
-Alhamdulillah pendaftaran murid baru (*SPMB 2027/2028*) di *SMP IT Al-Afiyah Majalengka* resmi dibuka!
-
-Keunggulan & Program SMP IT Al-Afiyah:
- Terakreditasi A (BAN-S/M)
- Target Tahfidz 3 - 5+ Juz Mutqin (Bimbingan Asatidz Bersanad)
- Bahasa Arab & Inggris Aktif (Daily Communication)
- Smart Classroom & Mutaba'ah Ibadah Digital
- Program Futsal & Olahraga Prestasi
- *Diskon Uang Bangunan s.d. 70%* (Gelombang 1 Terbatas)
-
-Informasi lengkap profil sekolah:
-👉 ${smpLink}
-
-Formulir pendaftaran online langsung:
-👉 ${smpFormLink}
-
-Mohon bantu teruskan informasi kebaikan ini kepada kerabat atau rekan yang memiliki putra-putri kelas 6 SD/MI. Jazakumullahu khairan!`,
-    },
-    {
-      id: 'sdit',
-      title: 'Fokus SDIT Al-Afiyah (Target 5-10 Juz Mutqin & Karakter Sunnah)',
-      summary: 'Khusus calon wali murid yang mencari sekolah dasar Islam unggulan.',
-      text: `*Mencari SD Islam Terbaik di Majalengka?*
-
-Alhamdulillah *SDIT Al-Afiyah Majalengka* kini membuka pendaftaran murid baru T.A. 2027/2028.
-
-Fasilitas & Program Unggulan:
- Target 5 - 10 Juz Hafalan Al-Qur'an Bersanad
- Pembiasaan Shalat Berjamaah & Adab Harian Sunnah
- Kelas Ber-AC, Smart Classroom & Lab Komputer
- Ekstrakurikuler Panahan, Renang, Futsal, & Robotik
- Kuota Terbatas hanya 2 Rombel (Maksimal 60 Murid)
-
-Informasi profil lengkap:
-👉 ${sdLink}
-
-Formulir pendaftaran online langsung:
-👉 ${sdFormLink}
-
-Silakan amankan kursi dan nomor registrasi ananda sekarang!`,
-    },
-    {
-      id: 'beasiswa',
-      title: 'Info Beasiswa Tahfidz & Keringanan Infaq',
-      summary: 'Informasi jalur prestasi tahfidz dan beasiswa dhuafa berprestasi.',
-      text: `*Informasi Beasiswa Tahfidz Al-Qur'an Al-Afiyah Majalengka*
-
-Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka menyediakan kuota khusus *Jalur Beasiswa Tahfidz* untuk calon murid baru (SDIT & SMP IT) yang memiliki hafalan Al-Qur'an.
-
-Daftarkan putra-putri Anda melalui portal resmi berikut:
-👉 ${generalLink}
-
-Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan informasi kebaikan ini kepada kerabat yang membutuhkan!`,
-    },
-  ];
 
   if (isLoading) {
     return (
@@ -281,33 +183,20 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900">
-      {/* Top Header - Google Workspace Clean Style */}
+      {/* Top Header */}
       <header className="bg-white border-b border-slate-200/90 sticky top-0 z-30 shadow-2xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <Link 
-              href="/" 
-              className="w-9 h-9 rounded-xl bg-[#064E3B] text-white font-bold flex items-center justify-center text-sm shadow-xs hover:bg-emerald-900 transition-colors"
-            >
-              IB
-            </Link>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-sm font-bold text-slate-900 leading-tight">
-                  Dashboard Affiliate Al-Afiyah
-                </h1>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                  {profile?.tier?.replace(/Mitra\s*/i, 'Affiliate ') || '🥉 Affiliate Bronze'}
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-500">Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka</p>
-            </div>
+          <div>
+            <h1 className="text-sm font-bold text-slate-900 leading-tight">
+              Dashboard Affiliate Al-Afiyah
+            </h1>
+            <p className="text-[11px] text-slate-500">Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka</p>
           </div>
 
           <div className="flex items-center space-x-3">
             <div className="hidden sm:block text-right">
               <span className="text-xs font-bold text-slate-900 block">
-                {profile?.fullName || 'Bapak Ahmad Al-Hafidz'}
+                {profile?.fullName || 'Mitra Afiliasi'}
               </span>
               <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                 Kode: {referralCode}
@@ -327,43 +216,31 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
         
-        {/* Top Welcome Banner & Tier Status */}
-        <div className="rounded-3xl bg-[#064E3B] text-white p-6 sm:p-8 shadow-md border border-emerald-900/60 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-8 space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-bold border border-white/15">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Status Akun Affiliate Aktif • TP 2027/2028</span>
+        {/* Top Welcome Banner */}
+        <div className="rounded-2xl bg-[#064E3B] text-white p-6 sm:p-7 shadow-xs border border-emerald-900/60 relative overflow-hidden">
+          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-emerald-200 text-xs font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Akun Mitra Aktif</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-black tracking-tight leading-tight">
-                Ahlan wa Sahlan, {profile?.fullName || 'Bapak Ahmad'}!
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
+                Selamat Datang, {profile?.fullName || 'Mitra Afiliasi'}
               </h2>
               <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed max-w-2xl">
-                Setiap calon murid yang mendaftar dan lunas melalui tautan referral Anda akan otomatis menghasilkan komisi resmi yang cair langsung ke rekening {profile?.bankName || 'BSI'} Anda.
+                Pantau rujukan pendaftaran dan pencairan komisi resmi pendaftaran murid baru Al-Afiyah secara transparan.
               </p>
             </div>
-
-            {/* Tier Progress Badge */}
-            <div className="lg:col-span-4 bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/20 text-right space-y-2">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-emerald-200 font-medium">Level Affiliate:</span>
-                <strong className="text-amber-300 font-bold">{profile?.tier?.replace(/Mitra\s*/i, 'Affiliate ') || '🥉 Affiliate Bronze'}</strong>
-              </div>
-              
-              <div className="w-full bg-black/20 rounded-full h-2 overflow-hidden">
-                <div 
-                  className="bg-amber-400 h-full rounded-full transition-all duration-500" 
-                  style={{ width: `${profile?.tierProgress || 30}%` }}
-                />
-              </div>
-
-              <div className="flex items-center justify-between text-[11px] text-emerald-200/80">
-                <span>{profile?.totalStudents || 0} Murid Terdaftar</span>
-                <span>Target Berikutnya: {profile?.nextTierTarget || 3} Murid</span>
-              </div>
+            <div className="sm:text-right shrink-0">
+              <button
+                type="button"
+                onClick={() => setShowPayoutModal(true)}
+                disabled={(profile?.balance || 0) <= 0}
+                className="px-4 py-2.5 rounded-xl bg-white text-[#064E3B] text-xs font-bold hover:bg-emerald-50 transition-colors shadow-xs disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer inline-flex items-center gap-1.5"
+              >
+                <Wallet className="w-4 h-4 text-[#064E3B]" />
+                <span>Tarik Komisi</span>
+              </button>
             </div>
           </div>
         </div>
@@ -483,17 +360,58 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
             </div>
           </div>
 
+          {/* General Link Card */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-[#064E3B] uppercase tracking-wider">Tautan Utama PPDB (Pilihan Multi-Unit)</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Direkomendasikan</span>
+              </div>
+              <p className="text-xs text-slate-600 mt-0.5">Wali murid dapat memilih pendaftaran unit TK, SDIT, maupun SMP IT langsung dari satu tautan:</p>
+              <p className="text-xs font-mono text-slate-800 truncate mt-2 bg-white px-3 py-2 rounded-xl border border-emerald-200 select-all font-semibold">
+                {generalLink}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => copyToClipboard(generalLink, 'ALL')}
+                className="px-4 py-2.5 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+              >
+                {copiedLink === 'ALL' ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-white" />
+                    <span>Tersalin!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Salin Tautan</span>
+                  </>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => handleOpenQr('Tautan Utama PPDB', generalLink)}
+                className="p-2.5 rounded-xl bg-white border border-emerald-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
+                title="QR Code"
+              >
+                <QrCode className="w-4 h-4 text-[#064E3B]" />
+              </button>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* TK Link */}
             <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between text-xs font-bold mb-1">
-                  <span className="text-emerald-900 font-extrabold">TK IT Al-Afiyah</span>
+                  <span className="text-emerald-900 font-extrabold text-sm">TK IT Al-Afiyah</span>
                   <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
-                    Total Komisi Rp 100.000 / murid
+                    Komisi Rp 75.000 / murid
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 30rb) + Daftar Ulang (Rp 70rb). Usia 4-6 th, sentra adab.</p>
+                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 25.000) + Daftar Ulang (Rp 50.000)</p>
                 <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2.5 rounded-xl border border-slate-200 select-all">
                   {tkLink}
                 </p>
@@ -532,72 +450,46 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
             <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between text-xs font-bold mb-1">
-                  <span className="text-emerald-900 font-extrabold">SDIT Al-Afiyah</span>
+                  <span className="text-emerald-900 font-extrabold text-sm">SDIT Al-Afiyah</span>
                   <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
-                    Total Komisi Rp 150.000 / murid
+                    Komisi Rp 150.000 / murid
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 50rb) + Daftar Ulang Awal 1 Jt (Rp 100rb). Target tahfidz juz 30.</p>
+                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 50.000) + Daftar Ulang (Rp 100.000)</p>
                 
                 <div className="space-y-1 mt-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">1. Tautan Landing &amp; Profil:</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Tautan Profil &amp; Pendaftaran SD:</span>
                   <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-slate-200 select-all">
                     {sdLink}
                   </p>
                 </div>
-
-                <div className="space-y-1 mt-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#064E3B] block">2. Tautan Formulir Langsung SD:</span>
-                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-emerald-200 bg-emerald-50/30 select-all">
-                    {sdFormLink}
-                  </p>
-                </div>
               </div>
 
-              <div className="space-y-1.5 pt-2">
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(sdLink, 'SD')}
-                    className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  >
-                    {copiedLink === 'SD' ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span className="text-[11px]">Salin Landing</span>
-                      </>
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(sdFormLink, 'SD_FORM')}
-                    className="py-2 px-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  >
-                    {copiedLink === 'SD_FORM' ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span className="text-[11px]">Salin Form</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+              <div className="grid grid-cols-2 gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(sdLink, 'SD')}
+                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                >
+                  {copiedLink === 'SD' ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span className="text-[11px]">Salin Link</span>
+                    </>
+                  )}
+                </button>
                 <button
                   type="button"
                   onClick={() => handleOpenQr('SDIT Al-Afiyah', sdLink)}
-                  className="w-full py-1.5 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="text-[11px]">QR Code Affiliate SD</span>
+                  <span className="text-[11px]">QR Code</span>
                 </button>
               </div>
             </div>
@@ -606,142 +498,49 @@ Mari bersama mewujudkan generasi Qur'ani berakhlak mulia. Mohon bantu sebarkan i
             <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200 space-y-3 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between text-xs font-bold mb-1">
-                  <span className="text-emerald-900 font-extrabold">SMP IT Al-Afiyah</span>
+                  <span className="text-emerald-900 font-extrabold text-sm">SMP IT Al-Afiyah</span>
                   <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
-                    Total Komisi Rp 200.000 / murid
+                    Komisi Rp 100.000 / murid
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 60rb) + Daftar Ulang (Rp 140rb). Fullday &amp; tahfidz intensif.</p>
+                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 35.000) + Daftar Ulang (Rp 65.000)</p>
                 
                 <div className="space-y-1 mt-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">1. Tautan Landing &amp; Profil:</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Tautan Profil &amp; Pendaftaran SMP:</span>
                   <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-slate-200 select-all">
                     {smpLink}
                   </p>
                 </div>
-
-                <div className="space-y-1 mt-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#030164] block">2. Tautan Formulir Langsung SMP:</span>
-                  <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2 rounded-xl border border-blue-200 bg-blue-50/30 select-all">
-                    {smpFormLink}
-                  </p>
-                </div>
               </div>
 
-              <div className="space-y-1.5 pt-2">
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(smpLink, 'SMP')}
-                    className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  >
-                    {copiedLink === 'SMP' ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span className="text-[11px]">Salin Landing</span>
-                      </>
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(smpFormLink, 'SMP_FORM')}
-                    className="py-2 px-2.5 rounded-xl bg-blue-50/80 border border-blue-200 text-xs font-semibold text-[#030164] hover:bg-blue-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
-                  >
-                    {copiedLink === 'SMP_FORM' ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span className="text-[11px]">Salin Form</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+              <div className="grid grid-cols-2 gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(smpLink, 'SMP')}
+                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                >
+                  {copiedLink === 'SMP' ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span className="text-[11px]">Salin Link</span>
+                    </>
+                  )}
+                </button>
                 <button
                   type="button"
                   onClick={() => handleOpenQr('SMP IT Al-Afiyah', smpLink)}
-                  className="w-full py-1.5 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="text-[11px]">QR Code Affiliate SMP</span>
+                  <span className="text-[11px]">QR Code</span>
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* WhatsApp Promotional Toolkit (Canned Messages) */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-2xs space-y-6">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold mb-2">
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>Materi Promosi Cepat</span>
-            </div>
-            <h2 className="text-lg font-black text-slate-900 tracking-tight">
-              Teks Promosi Siap Sebar ke WhatsApp &amp; Media Sosial
-            </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              Pilih pesan yang sesuai, salin dengan 1-klik, dan bagikan ke grup wali murid, keluarga, maupun kenalan Anda:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {cannedMessages.map((msg) => (
-              <div 
-                key={msg.id}
-                className="rounded-2xl border border-slate-200 bg-slate-50/50 p-5 flex flex-col justify-between space-y-4 hover:border-emerald-300 transition-colors"
-              >
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 leading-snug">
-                    {msg.title}
-                  </h3>
-                  <p className="text-[11px] text-slate-500 mt-1">
-                    {msg.summary}
-                  </p>
-                  <div className="mt-3 p-3 rounded-xl bg-white border border-slate-200 text-[11px] text-slate-700 max-h-40 overflow-y-auto leading-relaxed whitespace-pre-line font-sans">
-                    {msg.text}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => copyTemplateText(msg.text, msg.id)}
-                    className="flex-1 py-2 px-3 rounded-xl bg-white border border-slate-200 hover:bg-slate-100 text-xs font-bold text-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
-                  >
-                    {copiedTemplate === msg.id ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-emerald-600">Tersalin!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span>Salin Teks</span>
-                      </>
-                    )}
-                  </button>
-                  <a
-                    href={`https://wa.me/?text=${encodeURIComponent(msg.text)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors flex items-center justify-center gap-1 shadow-2xs"
-                    title="Bagikan Langsung ke WhatsApp"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>Kirim WA</span>
-                  </a>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
