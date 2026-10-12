@@ -56,12 +56,12 @@ export const DEFAULT_AFFILIATE_CONTENT: Required<AffiliateCMSData> = {
   // SDIT: Formulir Rp 50.000 + Daftar Ulang Rp 100.000 = Rp 150.000
   commissionFormSd: 50000,
   commissionReRegSd: 100000,
-  // TK IT: lebih kecil dari SD (Formulir Rp 25.000 + Daftar Ulang Rp 50.000 = Rp 75.000)
-  commissionFormTk: 25000,
-  commissionReRegTk: 50000,
-  // SMP IT: lebih kecil dari SD (Formulir Rp 35.000 + Daftar Ulang Rp 65.000 = Rp 100.000)
-  commissionFormSmp: 35000,
-  commissionReRegSmp: 65000,
+  // TK IT: belum ada data / menunggu penetapan panitia
+  commissionFormTk: 0,
+  commissionReRegTk: 0,
+  // SMP IT: Formulir Rp 50.000 + Daftar Ulang Rp 100.000 = Rp 150.000
+  commissionFormSmp: 50000,
+  commissionReRegSmp: 100000,
   // Legacy alias
   commissionFormFee: 50000,
   // Real school activity photos only

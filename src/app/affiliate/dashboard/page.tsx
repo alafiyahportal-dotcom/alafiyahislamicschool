@@ -407,11 +407,11 @@ export default function AffiliateDashboardPage() {
               <div>
                 <div className="flex items-center justify-between text-xs font-bold mb-1">
                   <span className="text-emerald-900 font-extrabold text-sm">TK IT Al-Afiyah</span>
-                  <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
-                    Komisi Rp 75.000 / murid
+                  <span className="text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 text-[10px] font-bold">
+                    Menunggu Ketentuan Panitia
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 25.000) + Daftar Ulang (Rp 50.000)</p>
+                <p className="text-[11px] text-slate-500 mb-2">Besaran komisi unit TK akan diumumkan panitia.</p>
                 <p className="text-[11px] font-mono text-slate-700 truncate bg-white p-2.5 rounded-xl border border-slate-200 select-all">
                   {tkLink}
                 </p>
@@ -500,10 +500,10 @@ export default function AffiliateDashboardPage() {
                 <div className="flex items-center justify-between text-xs font-bold mb-1">
                   <span className="text-emerald-900 font-extrabold text-sm">SMP IT Al-Afiyah</span>
                   <span className="text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 text-[10px] font-bold">
-                    Komisi Rp 100.000 / murid
+                    Komisi Rp 150.000 / murid
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 35.000) + Daftar Ulang (Rp 65.000)</p>
+                <p className="text-[11px] text-slate-500 mb-2">Formulir (Rp 50.000) + Daftar Ulang (Rp 100.000)</p>
                 
                 <div className="space-y-1 mt-2">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Tautan Profil &amp; Pendaftaran SMP:</span>

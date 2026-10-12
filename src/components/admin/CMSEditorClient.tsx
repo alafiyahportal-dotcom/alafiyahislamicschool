@@ -4543,7 +4543,7 @@ export default function CMSEditorClient({
                         3. Unit SMP IT Al-Afiyah
                       </span>
                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-200 text-cyan-900 font-bold">
-                        Total Rp {((formData.affiliate?.commissionFormSmp ?? 35000) + (formData.affiliate?.commissionReRegSmp ?? 65000)).toLocaleString('id-ID')}
+                        Total Rp {((formData.affiliate?.commissionFormSmp ?? 50000) + (formData.affiliate?.commissionReRegSmp ?? 100000)).toLocaleString('id-ID')}
                       </span>
                     </div>
 
@@ -4556,7 +4556,7 @@ export default function CMSEditorClient({
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
                           <input
                             type="number"
-                            value={formData.affiliate?.commissionFormSmp ?? 35000}
+                            value={formData.affiliate?.commissionFormSmp ?? 50000}
                             onChange={(e) => updateAffiliate('commissionFormSmp', parseInt(e.target.value) || 0)}
                             className="w-full text-xs font-bold text-slate-900 border border-cyan-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                           />
@@ -4571,7 +4571,7 @@ export default function CMSEditorClient({
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
                           <input
                             type="number"
-                            value={formData.affiliate?.commissionReRegSmp ?? 65000}
+                            value={formData.affiliate?.commissionReRegSmp ?? 100000}
                             onChange={(e) => updateAffiliate('commissionReRegSmp', parseInt(e.target.value) || 0)}
                             className="w-full text-xs font-bold text-slate-900 border border-cyan-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                           />

@@ -174,25 +174,23 @@ export default function AffiliatePublicPage() {
 
   const FORM_FEES = {
     sd: cmsContent.commissionFormSd ?? (cmsContent.commissionFormFee ?? 50000),
-    tk: cmsContent.commissionFormTk ?? 25000,
-    smp: cmsContent.commissionFormSmp ?? 35000,
+    tk: cmsContent.commissionFormTk ?? 0,
+    smp: cmsContent.commissionFormSmp ?? 50000,
     all: Math.round(
-      ((cmsContent.commissionFormSd ?? (cmsContent.commissionFormFee ?? 50000)) +
-        (cmsContent.commissionFormTk ?? 25000) +
-        (cmsContent.commissionFormSmp ?? 35000)) /
-        3
+      ((cmsContent.commissionFormSd ?? 50000) +
+        (cmsContent.commissionFormSmp ?? 50000)) /
+        2
     ),
   };
 
   const REG_FEES = {
     sd: cmsContent.commissionReRegSd ?? 100000,
-    tk: cmsContent.commissionReRegTk ?? 50000,
-    smp: cmsContent.commissionReRegSmp ?? 65000,
+    tk: cmsContent.commissionReRegTk ?? 0,
+    smp: cmsContent.commissionReRegSmp ?? 100000,
     all: Math.round(
       ((cmsContent.commissionReRegSd ?? 100000) +
-        (cmsContent.commissionReRegTk ?? 50000) +
-        (cmsContent.commissionReRegSmp ?? 65000)) /
-        3
+        (cmsContent.commissionReRegSmp ?? 100000)) /
+        2
     ),
   };
 

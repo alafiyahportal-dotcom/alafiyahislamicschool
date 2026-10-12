@@ -4,16 +4,16 @@ type Tx = Prisma.TransactionClient;
 
 /** Commission rule per unit for registration form (Tahap 1 / Formulir). */
 export function formCommissionForSchool(slug: string): number {
-  if (slug === 'tk') return 25000;
-  if (slug === 'smp') return 35000;
-  return 50000; // sd: Rp 50.000
+  if (slug === 'tk') return 0; // Belum ada data / menunggu penetapan panitia
+  if (slug === 'smp') return 50000; // SMP: Rp 50.000
+  return 50000; // SD: Rp 50.000
 }
 
 /** Commission rule per unit for re-registration (Tahap 2 / Daftar Ulang). */
 export function reRegCommissionForSchool(slug: string): number {
-  if (slug === 'tk') return 50000;
-  if (slug === 'smp') return 65000;
-  return 100000; // sd: Rp 100.000 (total s/d daftar ulang = Rp 150.000)
+  if (slug === 'tk') return 0; // Belum ada data / menunggu penetapan panitia
+  if (slug === 'smp') return 100000; // SMP: Rp 100.000 (Total = Rp 150.000)
+  return 100000; // SD: Rp 100.000 (Total = Rp 150.000)
 }
 
 /** Legacy / default alias for form commission. */
