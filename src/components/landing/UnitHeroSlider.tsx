@@ -44,17 +44,17 @@ function renderHeroHeadline(
 ) {
   const p1 = (titlePart1 || '').trim();
 
-  // If this is SDIT's headline ("Bukan Sekedar / Sekadar") - 3 distinct lines
+  // If this is SDIT's headline ("Bukan Sekedar / Sekadar") - 3 distinct lines enlarged like SMP
   if (slug === 'sd' || /bukan\s+(sekedar|sekadar)/i.test(p1)) {
     return (
-      <div className="flex flex-col gap-1 text-left">
-        <span className="font-hero-accent text-2xl sm:text-3xl lg:text-4xl italic font-normal tracking-wide text-[#ffd51e] drop-shadow-sm">
+      <div className="flex flex-col gap-1 sm:gap-1.5 text-left">
+        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight drop-shadow-sm">
           Bukan Sekedar
         </span>
-        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight">
+        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight drop-shadow-sm">
           Tempat Belajar,
         </span>
-        <span className={`text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black ${highlightClass} leading-[1.03] tracking-tight`}>
+        <span className={`text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black ${highlightClass} leading-[1.03] tracking-tight drop-shadow-sm`}>
           Tempat Bertumbuh
         </span>
       </div>
@@ -126,7 +126,7 @@ export default function UnitHeroSlider({
         primaryCtaLink: ppdbUrl,
         secondaryCtaText: 'Tanya Admin WA',
         secondaryCtaLink: waUrl,
-        image: '/images/hero/sd-cutout.webp',
+        image: '/images/hero/sd-santri-cutout.webp',
         trustItems: [
           { icon: 'shield', text: 'Kurikulum Terpadu & Karakter Nabawiyah' },
           { icon: 'check', text: 'Lingkungan Asri & Ramah Anak' },
@@ -191,7 +191,7 @@ export default function UnitHeroSlider({
           primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b] font-black shadow-lg shadow-black/15',
           circleBackdrop: 'bg-white/10 border-white/20',
           badgePillText: '',
-          cutoutSrc: '/images/hero/sd-cutout.webp',
+          cutoutSrc: '/images/hero/sd-santri-cutout.webp',
         };
       case 'tk':
         return {
@@ -335,16 +335,16 @@ export default function UnitHeroSlider({
           {/* Right Column: Student Cutout Visual Plate */}
           <div className="lg:col-span-5 flex flex-col items-end lg:items-center justify-end relative -mt-28 xs:-mt-36 sm:-mt-44 lg:mt-0 z-10 w-full pointer-events-none">
             <div className="relative w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] lg:max-w-[500px] flex items-end justify-end lg:justify-center ml-auto">
-              {/* Islamic Arch Portal Backdrop (active for SMP cutout) */}
-              {slug !== 'sd' && (
+              {/* Islamic Arch Portal Backdrop (active for both SMP & SD cutout) */}
+              {slug !== 'tk' && (
                 <div
                   className="absolute bottom-0 right-0 sm:right-auto w-64 sm:w-80 lg:w-[22rem] h-[300px] sm:h-[390px] lg:h-[450px] rounded-t-full bg-gradient-to-t from-white/[0.04] to-white/[0.14] border-t-2 border-x border-white/25 shadow-2xl backdrop-blur-sm pointer-events-none translate-x-4 sm:translate-x-8"
                 />
               )}
 
-              {/* Cut-out Student Photo - Shifted right for SMP and enlarged */}
+              {/* Cut-out Student Photo - Shifted right for SMP & SD and enlarged */}
               <div className={`relative z-10 w-full flex justify-end lg:justify-center items-end ${
-                slug === 'smp' ? 'translate-x-6 xs:translate-x-10 sm:translate-x-14 lg:translate-x-10' : 'translate-x-2 sm:translate-x-4'
+                slug === 'smp' || slug === 'sd' ? 'translate-x-6 xs:translate-x-10 sm:translate-x-14 lg:translate-x-10' : 'translate-x-2 sm:translate-x-4'
               }`}>
                 <Image
                   src={theme.cutoutSrc}
