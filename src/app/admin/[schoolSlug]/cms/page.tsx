@@ -94,7 +94,7 @@ export default async function SchoolCMSEditorPage({
         {
           id: 1,
           badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-          titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+          titlePart1: 'Bukan Sekadar Tempat Belajar, Namun Juga ',
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
@@ -113,7 +113,7 @@ export default async function SchoolCMSEditorPage({
         {
           id: 2,
           badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-          titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+          titlePart1: 'Bukan Sekadar Tempat Belajar, Namun Juga ',
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
@@ -132,7 +132,7 @@ export default async function SchoolCMSEditorPage({
         {
           id: 3,
           badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-          titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+          titlePart1: 'Bukan Sekadar Tempat Belajar, Namun Juga ',
           titleHighlight: 'Tempat Bertumbuh',
           titlePart2: '',
           description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
@@ -622,7 +622,7 @@ export default async function SchoolCMSEditorPage({
   let initialSlides = heroPayload.slides || defaultSlides;
   if (schoolSlug === 'sd' && Array.isArray(initialSlides)) {
     const first = initialSlides[0] || defaultSlides[0];
-    const baseHeadline1 = 'Bukan Sekedar Tempat Belajar, Namun Juga ';
+    const baseHeadline1 = 'Bukan Sekadar Tempat Belajar, Namun Juga ';
     const baseHighlight = 'Tempat Bertumbuh';
     initialSlides = initialSlides.slice(0, 3).map((s: any, idx: number) => ({
       ...s,

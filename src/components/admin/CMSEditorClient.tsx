@@ -563,7 +563,7 @@ export default function CMSEditorClient({
     {
       id: 1,
       badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-      titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+      titlePart1: 'Bukan Sekadar Tempat Belajar, Namun Juga ',
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
       description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
@@ -582,7 +582,7 @@ export default function CMSEditorClient({
     {
       id: 2,
       badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-      titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+      titlePart1: 'Bukan Sekadar Tempat Belajar, Namun Juga ',
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
       description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
@@ -601,7 +601,7 @@ export default function CMSEditorClient({
     {
       id: 3,
       badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-      titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+      titlePart1: 'Bukan Sekadar Tempat Belajar, Namun Juga ',
       titleHighlight: 'Tempat Bertumbuh',
       titlePart2: '',
       description: 'Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan prinsip Smart Akhlak Fitrah serta bimbingan metode karakter nabawiyah.',
@@ -1385,7 +1385,7 @@ export default function CMSEditorClient({
                 {schoolSlug === 'sd' ? (
                   <div className="space-y-1">
                     <span className="font-hero-accent italic text-xl sm:text-2xl text-neutral-200 block drop-shadow">
-                      Bukan Sekedar
+                      Bukan Sekadar
                     </span>
                     <span className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight">
                       Tempat Belajar,
@@ -2825,7 +2825,7 @@ export default function CMSEditorClient({
                         type="text"
                         value={currentSlide.titlePart1}
                         onChange={(e) => updateCurrentSlide('titlePart1', e.target.value)}
-                        placeholder={schoolSlug === 'smp' ? 'Membentuk Karakter ' : schoolSlug === 'sd' ? 'Bukan Sekedar Tempat Belajar, Namun Juga ' : 'Membina Generasi '}
+                        placeholder={schoolSlug === 'smp' ? 'Membentuk Karakter ' : schoolSlug === 'sd' ? 'Bukan Sekadar Tempat Belajar, Namun Juga ' : 'Membina Generasi '}
                         className={`w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 bg-white focus:outline-none focus:ring-2 ${unitTheme.ringFocus}`}
                       />
                       <span className="text-[10px] text-slate-400 mt-1 block">

@@ -43,19 +43,15 @@ function renderHeroHeadline(
 ) {
   const p1 = (titlePart1 || '').trim();
 
-  // If this is SDIT's headline ("Bukan Sekedar / Sekadar") - 3 distinct lines enlarged like SMP
+  // SDIT official slogan: "Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh"
   if (slug === 'sd' || /bukan\s+(sekedar|sekadar)/i.test(p1)) {
+    const lineCls = 'text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black leading-[1.03] tracking-tight drop-shadow-sm';
     return (
       <div className="flex flex-col gap-1 sm:gap-1.5 text-left">
-        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight drop-shadow-sm">
-          Bukan Sekedar
-        </span>
-        <span className="text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black text-white leading-[1.03] tracking-tight drop-shadow-sm">
-          Tempat Belajar,
-        </span>
-        <span className={`text-[2.4rem] xs:text-[2.75rem] sm:text-5xl lg:text-[3.85rem] font-black ${highlightClass} leading-[1.03] tracking-tight drop-shadow-sm`}>
-          Tempat Bertumbuh
-        </span>
+        <span className={`${lineCls} text-white`}>Bukan Sekadar</span>
+        <span className={`${lineCls} text-white`}>Tempat Belajar,</span>
+        <span className={`${lineCls} text-white`}>Namun Juga</span>
+        <span className={`${lineCls} ${highlightClass}`}>Tempat Bertumbuh</span>
       </div>
     );
   }
@@ -117,7 +113,7 @@ export default function UnitHeroSlider({
       return {
         id: 1,
         badge: 'SPMB T.A. 2027/2028 • TELAH DIBUKA',
-        titlePart1: 'Bukan Sekedar Tempat Belajar, Namun Juga ',
+        titlePart1: 'Bukan Sekadar Tempat Belajar, Namun Juga ',
         titleHighlight: 'Tempat Bertumbuh',
         titlePart2: '',
         description: 'Mencetak generasi sholeh, mandiri, dan berakhlak mulia dengan prinsip Smart Akhlak Fitrah serta bimbingan karakter nabawiyah.',
