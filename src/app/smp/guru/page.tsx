@@ -49,51 +49,51 @@ interface TeacherItem {
 const DEFAULT_TEACHERS: TeacherItem[] = [
   {
     id: 'smp-t-1',
-    name: 'Ustadz H. Rahmat Hidayat, M.Pd.',
+    name: 'Ustadz Jaja Madhuri, S.Pd.',
     role: 'Kepala Sekolah SMP IT Al-Afiyah',
-    specialization: 'Manajemen Pendidikan Islam',
-    bio: 'Berpengalaman lebih dari 15 tahun dalam memimpin lembaga pendidikan Islam terpadu, berfokus pada integrasi karakter Smart & Religious.',
+    specialization: 'Manajemen Pendidikan Islam & Karakter',
+    bio: 'Memimpin penyelenggaraan pendidikan SMP IT Al-Afiyah dengan visi mencetak generasi Smart & Religious berakhlak Qur\'ani.',
     category: 'Pimpinan & Manajemen'
   },
   {
     id: 'smp-t-2',
-    name: 'Ustadz Ahmad Fauzi, Lc., Al-Hafizh',
-    role: 'Koordinator Tahfidz & Diniyyah',
-    specialization: 'Tahfidz 30 Juz Bersanad & Ulumul Qur\'an',
-    bio: 'Alumnus Timur Tengah pemegang sanad qira\'ah Hafs \'an \'Ashim, pembina halaqah tahfidz mutqin dan bimbingan tasmi\' murid.',
-    category: 'Tahfidz & Diniyyah'
+    name: 'Ustadz M. Akbar Pratama, S.Pd.',
+    role: 'PKS Kurikulum (Pembantu Kepala Sekolah)',
+    specialization: 'Pengembangan Kurikulum Terpadu & Mutu Akademik',
+    bio: 'Mengawal integrasi Kurikulum Nasional dan kurikulum pesantren khas Al-Afiyah, riset sains, dan kecakapan akademik santri.',
+    category: 'Pimpinan & Manajemen'
   },
   {
     id: 'smp-t-3',
-    name: 'Ustadz Muhammad Wildan, S.Pd.I.',
-    role: 'Pengampu Bahasa Arab & Adab',
-    specialization: 'Kaidah Nahwu-Sharaf & Muhadatsah Aktif',
-    bio: 'Mengembangkan metode bi\'ah lughawiyyah interaktif agar murid fasih berkomunikasi lisan dan mendalami literatur kitab turats.',
-    category: 'Bahasa & Karakter'
+    name: 'Ustadz Rio Satrio, S.Pd.',
+    role: 'PKS Kesiswaan (Pembantu Kepala Sekolah)',
+    specialization: 'Pembinaan Karakter Santri, Disiplin & Minat Bakat',
+    bio: 'Membina kedisiplinan, kepemimpinan nabawiyah, program SCD (Student Character Development), dan kegiatan kesiswaan positif.',
+    category: 'Pimpinan & Manajemen'
   },
   {
     id: 'smp-t-4',
-    name: 'Ustadzah Siti Maryam, S.Pd., M.Si.',
-    role: 'Pendidik IPA Terpadu & Sains',
-    specialization: 'Sains Eksperimental & Laboratorium Komputer',
-    bio: 'Membimbing literasi sains, riset terapan, dan persiapan olimpiade akademik murid tingkat kabupaten dan provinsi.',
-    category: 'Akademik & Sains'
+    name: 'Ustadz Muhamad Eechram Riady, S.Pd.',
+    role: 'PKS Sarana & Prasarana',
+    specialization: 'Pengelolaan Fasilitas & Lingkungan Pembelajaran',
+    bio: 'Memastikan kenyamanan, kelayakan sarana modern, laboratorium multimedia, dan lingkungan asri penunjang kegiatan belajar.',
+    category: 'Pimpinan & Manajemen'
   },
   {
     id: 'smp-t-5',
-    name: 'Coach Hendra Kusuma, S.Or.',
-    role: 'Pelatih Kepala Futsal Development Program',
-    specialization: 'Pelatih Futsal Berlisensi & Kebugaran Fisik',
-    bio: 'Mengarahkan pembinaan olahraga futsal terstruktur, disiplin taktik tim, dan penanaman sportivitas juara bagi murid.',
-    category: 'Olahraga & Prestasi'
+    name: 'Ustadz Iip Zaenal Arifin, S.Pd.',
+    role: 'Bendahara Sekolah & Kepala Tata Usaha',
+    specialization: 'Tata Kelola Administrasi & Keuangan Pendidikan',
+    bio: 'Mengelola akuntabilitas keuangan sekolah, layanan administrasi SPMB terpadu, dan tata usaha profesional bagi wali murid.',
+    category: 'Pimpinan & Manajemen'
   },
   {
     id: 'smp-t-6',
-    name: 'Ustadzah Nabila Zahra, S.Sos.',
-    role: 'Koordinator SCD (Student Character Development)',
-    specialization: 'Konseling Remaja & Adab Islami',
-    bio: 'Mendampingi perkembangan psikologis murid remaja, pembinaan etika pergaulan syar\'i, dan pendampingan Mutaba\'ah Digital.',
-    category: 'Bahasa & Karakter'
+    name: 'Ustadz Mulia Rizki',
+    role: 'Kepala IT & Pusat Data Digital (Database Center)',
+    specialization: 'Arsitektur Sistem Informasi, Database & Jaringan',
+    bio: 'Mengelola ekosistem digital sekolah, infrastruktur server dan database, serta operasional portal SPMB & Siakad Al-Afiyah.',
+    category: 'IT & Sistem Digital'
   }
 ];
 

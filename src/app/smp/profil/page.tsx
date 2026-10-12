@@ -53,6 +53,8 @@ export default async function SmpProfilPage() {
     { label: 'Status Akreditasi', value: 'Terakreditasi A (BAN-S/M Resmi)' },
     { label: 'Tagline & Semboyan', value: 'Be Smart & Religious' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
+    { label: 'Ketua Yayasan', value: 'Jejen Nurbayan, S.Sos.' },
+    { label: 'Kepala Sekolah', value: 'Jaja Madhuri, S.Pd.' },
     { label: 'Jenjang Pendidikan', value: 'Sekolah Menengah Pertama Islam Terpadu (Kelas VII – IX)' },
     { label: 'Kurikulum Utama', value: 'Integrasi Kurikulum Nasional & Kurikulum Pesantren Terpadu Al-Afiyah' },
     { label: 'Target Capaian Tahfidz', value: '3 Juz Dasar (Juz 28, 29, 30) & Kelas Unggulan 5+ Juz Mutqin' },
@@ -61,6 +63,16 @@ export default async function SmpProfilPage() {
     { label: 'Hotline Resmi / WhatsApp', value: '0822-4935-7893 (Layanan Informasi SPMB & Tata Usaha)' },
     { label: 'Rekening Resmi SPMB', value: 'Bank Muamalat 1360012405 a.n SMP IT Al Afiyah' },
     { label: 'Media Sosial', value: 'IG: @smpitalafiyahmjl • FB & YouTube: SMP IT Al Afiyah' },
+  ];
+
+  const strukturPengurus = [
+    { jabatan: 'Ketua Yayasan', nama: 'Jejen Nurbayan, S.Sos.', role: 'Penyelenggara Lembaga (YPIB)', icon: Building2 },
+    { jabatan: 'Kepala Sekolah', nama: 'Jaja Madhuri, S.Pd.', role: 'Pimpinan Satuan Pendidikan & Akademik', icon: GraduationCap },
+    { jabatan: 'PKS Kurikulum', nama: 'M. Akbar Pratama, S.Pd.', role: 'Pengembangan Kurikulum & Mutu Pembelajaran', icon: BookOpen },
+    { jabatan: 'PKS Kesiswaan', nama: 'Rio Satrio, S.Pd.', role: 'Pembinaan Karakter & Kedisiplinan Santri', icon: Users },
+    { jabatan: 'PKS Sarana & Prasarana', nama: 'Muhamad Eechram Riady, S.Pd.', role: 'Pengelolaan Fasilitas & Sarana Belajar', icon: Compass },
+    { jabatan: 'Bendahara & Kepala TU', nama: 'Iip Zaenal Arifin, S.Pd.', role: 'Akuntabilitas Keuangan & Tata Usaha', icon: Award },
+    { jabatan: 'Kepala IT & Database Center', nama: 'Mulia Rizki', role: 'Pengembang Ekosistem & Pusat Data Digital', icon: ShieldCheck },
   ];
 
   const misiList = [
@@ -253,6 +265,52 @@ export default async function SmpProfilPage() {
                     </div>
                     <h4 className="text-base font-bold text-slate-900 mb-2">{p.title}</h4>
                     <p className="text-xs text-slate-600 leading-relaxed">{p.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Struktur Kepengurusan & Dewan Pimpinan Sekolah */}
+        <section className="space-y-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              <span>Struktur Organisasi Resmi</span>
+              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+              Dewan Pimpinan &amp; Pengelola Sekolah
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1.5">
+              Amanah kepemimpinan dan manajemen profesional SMP IT Al-Afiyah Majalengka.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4">
+            {strukturPengurus.map((p, idx) => {
+              const IconComp = p.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-[#030164]/40 transition-all flex flex-col justify-between text-left group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-[#030164] text-[10px] sm:text-[11px] font-mono font-bold tracking-wide">
+                        {p.jabatan}
+                      </span>
+                      <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center group-hover:bg-[#030164] group-hover:text-[#ffd51e] transition-colors">
+                        <IconComp className="w-4 h-4" />
+                      </div>
+                    </div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-[#030164] transition-colors">
+                      {p.nama}
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                      {p.role}
+                    </p>
                   </div>
                 </div>
               );
