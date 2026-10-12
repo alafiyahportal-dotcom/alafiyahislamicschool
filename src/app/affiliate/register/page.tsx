@@ -23,6 +23,7 @@ import {
   Gift,
   HelpCircle
 } from 'lucide-react';
+import IslamicToast from '@/components/common/IslamicToast';
 import { INDONESIA_BANKS } from '@/lib/constants/banks';
 
 export default function AffiliateRegisterPage() {
@@ -55,6 +56,16 @@ export default function AffiliateRegisterPage() {
   const [showBankHelp, setShowBankHelp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,13 +73,27 @@ export default function AffiliateRegisterPage() {
     setErrorMessage('');
 
     if (formData.password.length < 6) {
-      setErrorMessage('Kata sandi minimal terdiri dari 6 karakter');
+      const msg = 'Kata sandi minimal terdiri dari 6 karakter';
+      setErrorMessage(msg);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Formulir Belum Lengkap',
+        message: msg,
+      });
       setIsLoading(false);
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setErrorMessage('Konfirmasi kata sandi tidak cocok');
+      const msg = 'Konfirmasi kata sandi tidak cocok. Mohon ketik ulang kata sandi Anda.';
+      setErrorMessage(msg);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Kata Sandi Tidak Cocok',
+        message: msg,
+      });
       setIsLoading(false);
       return;
     }
@@ -91,14 +116,37 @@ export default function AffiliateRegisterPage() {
 
       const data = await res.json();
       if (!res.ok) {
-        setErrorMessage(data.error || 'Gagal mendaftarkan akun Mitra Afiliasi');
+        const errorText = data.error || 'Gagal mendaftarkan akun Mitra Afiliasi';
+        setErrorMessage(errorText);
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Pendaftaran Belum Berhasil',
+          message: errorText,
+        });
         setIsLoading(false);
         return;
       }
 
-      router.push(data.redirectUrl || '/affiliate/dashboard');
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Ahlan wa Sahlan!',
+        message: 'Pendaftaran mitra berhasil! Baarakallahu fiik. Mengalihkan Anda ke Dasbor Mitra...',
+      });
+
+      setTimeout(() => {
+        window.location.href = data.redirectUrl || '/affiliate/dashboard';
+      }, 500);
     } catch {
-      setErrorMessage('Terjadi gangguan jaringan. Silakan periksa koneksi internet Anda.');
+      const netMsg = 'Terjadi gangguan jaringan. Silakan periksa koneksi internet Anda.';
+      setErrorMessage(netMsg);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Gangguan Jaringan',
+        message: netMsg,
+      });
       setIsLoading(false);
     }
   };
@@ -114,7 +162,7 @@ export default function AffiliateRegisterPage() {
             href="/affiliate"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#064E3B] transition-colors"
           >
-            <span>&larr; Kembali ke Info Affiliate</span>
+            <span>← Kembali ke Info Affiliate</span>
           </Link>
           <div className="text-right">
             <span className="text-xs text-slate-500">Sudah terdaftar? </span>
@@ -122,7 +170,7 @@ export default function AffiliateRegisterPage() {
               href="/affiliate/dashboard"
               className="text-xs font-bold text-[#064E3B] hover:underline"
             >
-              Masuk ke Dashboard &rarr;
+              Masuk ke Dashboard →
             </Link>
           </div>
         </div>
@@ -591,6 +639,14 @@ export default function AffiliateRegisterPage() {
 
         </div>
       </main>
+
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
 
       <Footer />
     </div>

@@ -26,7 +26,7 @@ import {
   Download,
   Trash2
 } from 'lucide-react';
-import StudentEduAvatar from '@/components/common/StudentEduAvatar';
+import IslamicToast from '@/components/common/IslamicToast';
 import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
 import DocumentViewerModal from './DocumentViewerModal';
 import { AssessmentRubricModal } from './AssessmentRubricModal';
@@ -102,6 +102,18 @@ export default function PPDBVerificationClient({
   const [testLocation, setTestLocation] = useState(`Gedung Utama ${schoolName} Majalengka`);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
 
+  // Islamic Toast State
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
+
   const handleDeleteApplicant = async (id: string, studentName: string, regNo: string) => {
     const isConfirmed = window.confirm(
       `Apakah Anda yakin ingin menghapus data pendaftaran ananda ${studentName} (${regNo})?\n\nSemua dokumen digital dan tagihan pendaftar ini akan dibersihkan secara permanen.`
@@ -116,12 +128,28 @@ export default function PPDBVerificationClient({
       const data = await res.json();
       if (res.ok) {
         setApplicants((prev) => prev.filter((item) => item.id !== id));
+        setToast({
+          isOpen: true,
+          type: 'success',
+          title: 'Alhamdulillah!',
+          message: `Data pendaftaran ananda ${studentName} berhasil dihapus.`,
+        });
       } else {
-        alert(data.error || 'Gagal menghapus data pendaftaran');
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Terjadi Kendala',
+          message: data.error || 'Gagal menghapus data pendaftaran.',
+        });
       }
     } catch (e) {
       console.error('Failed to delete registration', e);
-      alert('Terjadi kesalahan jaringan saat menghapus data.');
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Terjadi Kendala',
+        message: 'Terjadi kesalahan jaringan saat menghapus data pendaftaran.',
+      });
     } finally {
       setIsDeleting(null);
     }
@@ -177,7 +205,12 @@ export default function PPDBVerificationClient({
 
   const handleExportExcel = () => {
     if (filteredApplicants.length === 0) {
-      alert('Tidak ada data pendaftar untuk diekspor.');
+      setToast({
+        isOpen: true,
+        type: 'info',
+        title: 'Informasi',
+        message: 'Tidak ada data pendaftar untuk diekspor.',
+      });
       return;
     }
 
@@ -314,9 +347,29 @@ export default function PPDBVerificationClient({
           prev.map((item) => (item.id === id ? { ...item, status: newStatus } : item))
         );
         setIsScheduleModalOpen(false);
+        setToast({
+          isOpen: true,
+          type: 'success',
+          title: 'Alhamdulillah, Baarakallahu Fiik!',
+          message: 'Status pendaftar berhasil diperbarui secara sistem.',
+        });
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Mohon Maaf',
+          message: data.error || 'Gagal memperbarui status pendaftar.',
+        });
       }
     } catch (err) {
       console.error('Failed to update status', err);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Terjadi Kendala',
+        message: 'Terjadi kendala jaringan saat memperbarui status.',
+      });
     } finally {
       setIsUpdating(null);
     }
@@ -460,54 +513,47 @@ export default function PPDBVerificationClient({
                   <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
                     {/* Calon Murid */}
                     <td className="py-3.5 px-4">
-                      <div className="flex items-start gap-2.5">
-                        <StudentEduAvatar
-                          gender={item.gender}
-                          name={item.studentName}
-                          size="sm"
-                        />
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="font-bold text-slate-900 text-sm">{item.studentName}</span>
-                            {item.schoolSpecificDetails?.nickname && (
-                              <span className="text-[10px] text-slate-500 font-medium italic">
-                                ({item.schoolSpecificDetails.nickname})
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900 text-sm">{item.studentName}</span>
+                          {item.schoolSpecificDetails?.nickname && (
+                            <span className="text-[10px] text-slate-500 font-medium italic">
+                              ({item.schoolSpecificDetails.nickname})
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center space-x-2 mt-0.5 flex-wrap gap-y-1">
+                          <span className="font-mono text-[11px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded font-semibold">
+                            {item.registrationNo}
+                          </span>
+                          <span className="text-slate-300">•</span>
+                          <span className="text-[11px] text-slate-600">{item.gender === 'L' ? 'Laki-Laki' : 'Perempuan'}</span>
+                          <span className="text-slate-300">•</span>
+                          <span className="text-[11px] text-emerald-700 font-bold">{item.registrationPath}</span>
+                          {item.dob && (
+                            <>
+                              <span className="text-slate-300">•</span>
+                              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+                                Usia: {calculateAgePerJuly2027(item.dob).text}
                               </span>
-                            )}
+                            </>
+                          )}
+                          {item.assessment && (
+                            <>
+                              <span className="text-slate-300">•</span>
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-50 text-amber-900 border border-amber-300">
+                                <Award className="w-3 h-3 text-amber-600" />
+                                <span>Skor: {item.assessment.totalScore}</span>
+                              </span>
+                            </>
+                          )}
+                        </div>
+                        {item.schoolSpecificDetails?.originSchoolName && (
+                          <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
+                            <Building className="w-3 h-3 text-slate-400 shrink-0" />
+                            <span className="truncate max-w-[240px]">TK/Asal: {item.schoolSpecificDetails.originSchoolName}</span>
                           </div>
-                      <div className="flex items-center space-x-2 mt-0.5 flex-wrap gap-y-1">
-                        <span className="font-mono text-[11px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded font-semibold">
-                          {item.registrationNo}
-                        </span>
-                        <span className="text-slate-300">•</span>
-                        <span className="text-[11px] text-slate-600">{item.gender === 'L' ? 'Laki-Laki' : 'Perempuan'}</span>
-                        <span className="text-slate-300">•</span>
-                        <span className="text-[11px] text-emerald-700 font-bold">{item.registrationPath}</span>
-                        {item.dob && (
-                          <>
-                            <span className="text-slate-300">•</span>
-                            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
-                              Usia: {calculateAgePerJuly2027(item.dob).text}
-                            </span>
-                          </>
                         )}
-                        {item.assessment && (
-                          <>
-                            <span className="text-slate-300">•</span>
-                            <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-50 text-amber-900 border border-amber-300">
-                              <Award className="w-3 h-3 text-amber-600" />
-                              <span>Skor: {item.assessment.totalScore}</span>
-                            </span>
-                          </>
-                        )}
-                      </div>
-                      {item.schoolSpecificDetails?.originSchoolName && (
-                        <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
-                          <Building className="w-3 h-3 text-slate-400 shrink-0" />
-                          <span className="truncate max-w-[240px]">TK/Asal: {item.schoolSpecificDetails.originSchoolName}</span>
-                        </div>
-                      )}
-                        </div>
                       </div>
                     </td>
 
@@ -548,7 +594,7 @@ export default function PPDBVerificationClient({
                           className="inline-flex items-center space-x-1 text-[11px] font-semibold text-emerald-700 hover:text-emerald-900 cursor-pointer"
                         >
                           <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                          <span>Checklist Berkas Fisik &rarr;</span>
+                          <span>Checklist Berkas Fisik →</span>
                         </button>
                       </div>
                     </td>
@@ -904,6 +950,15 @@ export default function PPDBVerificationClient({
           }}
         />
       )}
+
+      {/* Islamic Notification Toast */}
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
     </div>
   );
 }

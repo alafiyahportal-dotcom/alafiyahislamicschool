@@ -33,18 +33,13 @@ export default async function SchoolAffiliatesPage({
     notFound();
   }
 
-  const school = await prisma.school.findUnique({
-    where: { slug: schoolSlug },
-  });
-
-  if (!school) {
-    notFound();
-  }
-
-  const [conversions, allAffiliates] = await Promise.all([
+  const [school, conversions, allAffiliates] = await Promise.all([
+    prisma.school.findUnique({
+      where: { slug: schoolSlug },
+    }),
     prisma.affiliateConversion.findMany({
       where: {
-        schoolId: school.id,
+        school: { slug: schoolSlug },
       },
       include: {
         affiliate: {
@@ -76,6 +71,10 @@ export default async function SchoolAffiliatesPage({
       },
     }),
   ]);
+
+  if (!school) {
+    notFound();
+  }
 
   const formattedConversions: UnitAffiliateConversion[] = conversions.map((c) => {
     const isReReg = c.commissionAmount === reRegCommissionForSchool(schoolSlug);

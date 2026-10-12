@@ -20,10 +20,10 @@ import {
   Send,
   AlertCircle,
   Settings,
-  UserCheck,
   Edit3
 } from 'lucide-react';
 import { INDONESIA_BANKS } from '@/lib/constants/banks';
+import IslamicToast from '@/components/common/IslamicToast';
 
 interface AffiliateConversionItem {
   id: string;
@@ -90,11 +90,17 @@ export default function AffiliateDashboardPage() {
   const [bankSaveSuccess, setBankSaveSuccess] = useState<string | null>(null);
   const [bankSaveError, setBankSaveError] = useState<string | null>(null);
 
-  // Switch Account Modal State
-  const [showSwitchModal, setShowSwitchModal] = useState(false);
-  const [switchIdentifier, setSwitchIdentifier] = useState('');
-  const [isSwitching, setIsSwitching] = useState(false);
-  const [switchError, setSwitchError] = useState<string | null>(null);
+  // Islamic Toast State
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
 
   // QR Code Modal State
   const [showQrModal, setShowQrModal] = useState(false);
@@ -182,11 +188,23 @@ export default function AffiliateDashboardPage() {
       const data = await res.json();
       if (!res.ok) {
         setBankSaveError(data.error || 'Gagal menyimpan data rekening.');
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Mohon Maaf',
+          message: data.error || 'Gagal menyimpan data rekening.',
+        });
         setIsSavingBank(false);
         return;
       }
 
-      setBankSaveSuccess('Nomor rekening pencairan komisi berhasil disimpan!');
+      setBankSaveSuccess('Alhamdulillah, Baarakallahu fiik! Rekening pencairan komisi berhasil disimpan dengan aman.');
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Baarakallahu Fiik!',
+        message: 'Rekening pencairan komisi berhasil disimpan dengan aman.',
+      });
       if (profile) {
         setProfile({
           ...profile,
@@ -201,38 +219,17 @@ export default function AffiliateDashboardPage() {
       setTimeout(() => {
         setShowBankModal(false);
         setBankSaveSuccess(null);
-      }, 1500);
+      }, 1800);
     } catch {
-      setBankSaveError('Terjadi gangguan jaringan saat menyimpan data rekening.');
+      setBankSaveError('Qadarullah, terjadi gangguan jaringan saat menyimpan data rekening. Silakan periksa koneksi Anda.');
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Terjadi Kendala',
+        message: 'Terjadi gangguan jaringan saat menyimpan data rekening. Silakan periksa koneksi Anda.',
+      });
     } finally {
       setIsSavingBank(false);
-    }
-  };
-
-  const handleSwitchAccountSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!switchIdentifier.trim()) return;
-    setIsSwitching(true);
-    setSwitchError(null);
-
-    try {
-      const isEmail = switchIdentifier.includes('@');
-      const paramKey = isEmail ? 'email' : 'code';
-      const res = await fetch(`/api/affiliate/me?${paramKey}=${encodeURIComponent(switchIdentifier.trim())}`);
-      const data = await res.json();
-      if (!res.ok || !data.profile) {
-        setSwitchError('Akun mitra tidak ditemukan. Pastikan email atau kode referral sudah sesuai.');
-        setIsSwitching(false);
-        return;
-      }
-
-      setProfile(data.profile);
-      setShowSwitchModal(false);
-      setSwitchIdentifier('');
-    } catch {
-      setSwitchError('Terjadi gangguan jaringan.');
-    } finally {
-      setIsSwitching(false);
     }
   };
 
@@ -370,6 +367,12 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
     const msg = getBroadcastMessage(target);
     navigator.clipboard.writeText(msg);
     setCopiedBroadcast(true);
+    setToast({
+      isOpen: true,
+      type: 'info',
+      title: 'Baarakallahu Fiik!',
+      message: `Pesan broadcast promosi jenjang ${target} berhasil disalin ke papan klip.`,
+    });
     setTimeout(() => setCopiedBroadcast(false), 2500);
   };
 
@@ -383,6 +386,12 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setCopiedLink(label);
+    setToast({
+      isOpen: true,
+      type: 'info',
+      title: 'Baarakallahu Fiik!',
+      message: `Tautan ${label} berhasil disalin ke papan klip.`,
+    });
     setTimeout(() => setCopiedLink(null), 2500);
   };
 
@@ -407,11 +416,23 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
       const data = await res.json();
       if (!res.ok) {
         setPayoutErrorMessage(data.error || 'Gagal mengajukan pencairan dana.');
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Mohon Maaf',
+          message: data.error || 'Gagal mengajukan pencairan dana.',
+        });
         setIsProcessingPayout(false);
         return;
       }
 
-      setPayoutSuccessMessage(data.message || 'Pencairan dana berhasil diajukan.');
+      setPayoutSuccessMessage('Alhamdulillah, Baarakallahu fiik! Pengajuan pencairan komisi berhasil diajukan dan segera diproses oleh Bagian Keuangan.');
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Baarakallahu Fiik!',
+        message: 'Pengajuan pencairan komisi berhasil diajukan dan segera diproses oleh Bagian Keuangan.',
+      });
       if (profile) {
         setProfile({
           ...profile,
@@ -423,7 +444,13 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
         setPayoutSuccessMessage(null);
       }, 2500);
     } catch {
-      setPayoutErrorMessage('Terjadi gangguan jaringan saat memproses pencairan.');
+      setPayoutErrorMessage('Qadarullah, terjadi gangguan jaringan saat memproses pencairan dana. Silakan coba kembali.');
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Terjadi Kendala',
+        message: 'Terjadi gangguan jaringan saat memproses pencairan dana. Silakan coba kembali.',
+      });
     } finally {
       setIsProcessingPayout(false);
     }
@@ -471,16 +498,6 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               {isBankIncomplete && (
                 <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setShowSwitchModal(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all shadow-2xs cursor-pointer"
-              title="Masuk atau Beralih ke Akun Mitra Lain"
-            >
-              <UserCheck className="w-3.5 h-3.5 text-slate-600" />
-              <span className="hidden sm:inline">Ganti Akun</span>
             </button>
 
             <div className="hidden sm:block text-right border-l border-slate-200 pl-3">
@@ -557,7 +574,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-95 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 shrink-0 cursor-pointer whitespace-nowrap"
             >
               <Building2 className="w-4 h-4" />
-              <span>Isi Rekening Pencairan &rarr;</span>
+              <span>Isi Rekening Pencairan →</span>
             </button>
           </div>
         )}
@@ -587,7 +604,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                 disabled={(profile?.balance || 0) <= 0}
                 className="text-xs font-bold text-[#064E3B] hover:text-emerald-900 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
               >
-                Tarik Saldo &rarr;
+                Tarik Saldo →
               </button>
             </div>
           </div>
@@ -668,7 +685,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                   isBankIncomplete ? 'text-amber-800 hover:text-amber-950 font-extrabold underline' : 'text-[#064E3B] hover:text-emerald-900 underline'
                 }`}
               >
-                <span>{isBankIncomplete ? 'Isi Rekening &rarr;' : 'Ubah Rekening &rarr;'}</span>
+                <span>{isBankIncomplete ? 'Isi Rekening →' : 'Ubah Rekening →'}</span>
               </button>
             </div>
           </div>
@@ -1371,8 +1388,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               <button
                 type="button"
                 onClick={() => {
-                  copyToClipboard(selectedQrLink.url, 'QR_URL');
-                  alert('Tautan berhasil disalin ke clipboard!');
+                  copyToClipboard(selectedQrLink.url, 'Tautan QR Code');
                 }}
                 className="w-full py-2.5 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-bold transition-colors cursor-pointer"
               >
@@ -1539,84 +1555,14 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
         </div>
       )}
 
-      {/* SWITCH ACCOUNT MODAL */}
-      {showSwitchModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-4 animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center font-bold">
-                  <UserCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900">
-                    Beralih Akun Mitra
-                  </h3>
-                  <p className="text-[11px] text-slate-500">
-                    Buka dasbor menggunakan email atau kode referral Anda
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowSwitchModal(false)}
-                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer rounded-lg hover:bg-slate-100"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {switchError && (
-              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
-                {switchError}
-              </div>
-            )}
-
-            <form onSubmit={handleSwitchAccountSubmit} className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                  Email atau Kode Referral Mitra Anda <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={switchIdentifier}
-                  onChange={(e) => setSwitchIdentifier(e.target.value)}
-                  placeholder="Contoh: DEDE-418 atau kangdesum@gmail.com"
-                  className="w-full px-4 py-3 text-xs sm:text-sm font-semibold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
-                />
-                <span className="text-[10px] text-slate-400 mt-1 block">
-                  Masukkan email yang Anda pakai saat mendaftar, atau kode referral unik Anda.
-                </span>
-              </div>
-
-              <div className="pt-2 flex items-center justify-end gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => setShowSwitchModal(false)}
-                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  disabled={isSwitching || !switchIdentifier.trim()}
-                  className="px-5 py-2.5 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-2 cursor-pointer disabled:opacity-60"
-                >
-                  {isSwitching ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Memuat Akun...</span>
-                    </>
-                  ) : (
-                    <span>Buka Dasbor Saya &rarr;</span>
-                  )}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Islamic Notification Toast */}
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
     </div>
   );
 }

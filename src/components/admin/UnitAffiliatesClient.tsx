@@ -475,7 +475,7 @@ export default function UnitAffiliatesClient({
                                   rel="noreferrer"
                                   className="block text-[10px] font-bold text-emerald-700 hover:underline"
                                 >
-                                  Ingatkan via WA &rarr;
+                                  Ingatkan via WA →
                                 </a>
                               )}
                             </div>

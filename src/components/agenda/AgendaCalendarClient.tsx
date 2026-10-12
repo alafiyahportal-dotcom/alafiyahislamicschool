@@ -597,7 +597,7 @@ export default function AgendaCalendarClient({ initialEvents, schoolSlug }: Agen
                           <MapPin className="w-3 h-3 text-[#2D7A70]" />
                           <span>{evt.location}</span>
                         </span>
-                        <span className="text-[#2D7A70] font-bold">Rincian &rarr;</span>
+                        <span className="text-[#2D7A70] font-bold">Rincian →</span>
                       </div>
                     </div>
                   ))}

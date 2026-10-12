@@ -23,6 +23,7 @@ import {
   ShieldCheck,
   AlertCircle,
 } from 'lucide-react';
+import IslamicToast from '@/components/common/IslamicToast';
 
 export interface StudentRegData {
   id: string;
@@ -105,6 +106,18 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
   const [showSizeModal, setShowSizeModal] = useState(false);
   const [showPrintProof, setShowPrintProof] = useState(false);
 
+  // Islamic Toast State
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
+
   const isSMP = registration.school.slug === 'smp';
 
   // Format Date
@@ -122,7 +135,12 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!agreementChecked) {
-      alert('Silakan centang persetujuan keabsahan data daftar ulang terlebih dahulu.');
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Mohon Perhatian',
+        message: 'Silakan centang persetujuan keabsahan data daftar ulang terlebih dahulu.',
+      });
       return;
     }
 
@@ -152,9 +170,20 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
 
       setSubmitSuccess(true);
       setActiveStep(4);
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Baarakallahu Fiik!',
+        message: 'Konfirmasi pendaftaran ulang dan spesifikasi seragam ananda berhasil disimpan.',
+      });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Terjadi kesalahan sistem';
-      alert(msg);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Terjadi Kendala',
+        message: msg,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -764,7 +793,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
                 onClick={() => setActiveStep(1)}
                 className="text-xs font-semibold text-[#2D7A70] hover:underline"
               >
-                Ubah atau sesuaikan kembali ukuran seragam &rarr;
+                Ubah atau sesuaikan kembali ukuran seragam →
               </button>
             </div>
           </div>
@@ -991,6 +1020,15 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
           </div>
         </div>
       )}
+
+      {/* Islamic Notification Toast */}
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
     </div>
   );
 }

@@ -42,7 +42,7 @@ export default function TeacherShowcaseSection({ teachers = [] }: TeacherShowcas
             <p className="text-sm font-bold text-slate-500">Profil Dewan Guru Segera Hadir</p>
             <p className="text-xs text-slate-400 leading-relaxed">
               Data guru asli sedang dipersiapkan oleh panitia. Admin dapat menambahkan profil guru
-              melalui Panel Admin &rarr; Kelola Guru.
+              melalui Panel Admin → Kelola Guru.
             </p>
           </div>
         </div>

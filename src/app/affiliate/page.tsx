@@ -1316,7 +1316,7 @@ export default function AffiliatePublicPage() {
                     <p className="text-xs text-slate-500">
                       Sudah pernah mendaftar?{' '}
                       <Link href="/affiliate/dashboard" className="text-[#153424] font-bold hover:underline">
-                        Masuk ke Dashboard Affiliate &rarr;
+                        Masuk ke Dashboard Affiliate →
                       </Link>
                     </p>
                   </div>
@@ -1561,7 +1561,7 @@ export default function AffiliatePublicPage() {
                       <span>Memproses Pendaftaran...</span>
                     </>
                   ) : (
-                    <span>Aktifkan Akun Affiliate Sekarang &rarr;</span>
+                    <span>Aktifkan Akun Affiliate Sekarang →</span>
                   )}
                 </button>
               </div>

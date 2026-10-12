@@ -408,6 +408,7 @@ export default function AdminSidebar({
                 )}
                 <Link
                   href={item.href}
+                  prefetch={true}
                   onClick={() => {
                     if (isMobileDrawer) setIsMobileOpen(false);
                   }}

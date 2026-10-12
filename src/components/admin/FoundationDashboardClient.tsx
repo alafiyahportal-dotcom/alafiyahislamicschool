@@ -19,13 +19,13 @@ import {
   Trash2,
   Loader2
 } from 'lucide-react';
-import StudentEduAvatar from '@/components/common/StudentEduAvatar';
 import EdukaStatCards from './EdukaStatCards';
 import EdukaSplineChart from './EdukaSplineChart';
 import EdukaDonutChart from './EdukaDonutChart';
 import EdukaUnitTable from './EdukaUnitTable';
 import EdukaRecentStudents from './EdukaRecentStudents';
 import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
+import IslamicToast from '@/components/common/IslamicToast';
 
 interface SchoolStat {
   id: string;
@@ -83,6 +83,16 @@ export default function FoundationDashboardClient({
   const [applicants, setApplicants] = useState<ApplicantRecord[]>(initialApplicants);
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
 
   const filteredApplicants = applicants.filter((item) => {
     const matchesSearch =
@@ -108,9 +118,28 @@ export default function FoundationDashboardClient({
             item.id === id ? { ...item, status: newStatus } : item
           )
         );
+        setToast({
+          isOpen: true,
+          type: 'success',
+          title: 'Alhamdulillah, Baarakallahu Fiik!',
+          message: `Status pendaftaran murid berhasil diperbarui menjadi ${newStatus}.`,
+        });
+      } else {
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Gagal Memperbarui',
+          message: 'Terjadi kendala saat memperbarui status berkas.',
+        });
       }
     } catch (e) {
       console.error('Failed to update status', e);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Gangguan Jaringan',
+        message: 'Gagal terhubung ke server untuk memperbarui status.',
+      });
     } finally {
       setIsUpdating(null);
     }
@@ -130,12 +159,28 @@ export default function FoundationDashboardClient({
       const data = await res.json();
       if (res.ok) {
         setApplicants((prev) => prev.filter((item) => item.id !== id));
+        setToast({
+          isOpen: true,
+          type: 'success',
+          title: 'Alhamdulillah, Data Terhapus',
+          message: `Data pendaftaran ananda ${studentName} berhasil dihapus dari sistem.`,
+        });
       } else {
-        alert(data.error || 'Gagal menghapus data pendaftaran');
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Gagal Menghapus Data',
+          message: data.error || 'Terjadi kendala saat menghapus berkas pendaftaran.',
+        });
       }
     } catch (e) {
       console.error('Failed to delete registration', e);
-      alert('Terjadi gangguan jaringan saat menghapus data.');
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Gangguan Jaringan',
+        message: 'Terjadi gangguan jaringan saat menghapus data.',
+      });
     } finally {
       setIsDeleting(null);
     }
@@ -410,18 +455,11 @@ export default function FoundationDashboardClient({
                       </Link>
                     </td>
                     <td className="py-3.5 px-4 font-semibold text-slate-900">
-                      <div className="flex items-center gap-2.5">
-                        <StudentEduAvatar
-                          gender={applicant.gender}
-                          name={applicant.studentName}
-                          size="xs"
-                        />
-                        <div>
-                          <span className="font-semibold block text-slate-900">{applicant.studentName}</span>
-                          <span className="text-[10px] text-slate-400 font-medium">
-                            {applicant.gender === 'P' ? 'Perempuan (Akhwat)' : 'Laki-laki (Ikhwan)'}
-                          </span>
-                        </div>
+                      <div>
+                        <span className="font-semibold block text-slate-900">{applicant.studentName}</span>
+                        <span className="text-[10px] text-slate-400 font-medium">
+                          {applicant.gender === 'P' ? 'Perempuan (Akhwat)' : 'Laki-laki (Ikhwan)'}
+                        </span>
                       </div>
                     </td>
                     {isFoundation && (
@@ -498,6 +536,15 @@ export default function FoundationDashboardClient({
           <span className="font-mono text-[11px] text-slate-400">Pusat Kendali Terpadu Al-Afiyah Eduka</span>
         </div>
       </div>
+
+      {/* Islamic Toast Notification */}
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
     </div>
   );
 }

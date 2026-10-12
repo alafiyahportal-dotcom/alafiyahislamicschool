@@ -26,6 +26,7 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
+import IslamicToast from '@/components/common/IslamicToast';
 
 export default function SmpRegistrationClient() {
   const router = useRouter();
@@ -37,6 +38,16 @@ export default function SmpRegistrationClient() {
   const [errorMessage, setErrorMessage] = useState('');
   const [copiedBank, setCopiedBank] = useState(false);
   const [regResult, setRegResult] = useState<{ registrationNo: string; studentName: string } | null>(null);
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
 
   const [formData, setFormData] = useState({
     schoolSlug: 'smp',
@@ -128,13 +139,27 @@ export default function SmpRegistrationClient() {
         studentName: formData.studentName.trim(),
       });
 
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Ahlan wa Sahlan!',
+        message: `Pendaftaran ananda ${formData.studentName} berhasil tercatat di sistem SMP IT Al-Afiyah. Baarakallahu fiikum!`,
+      });
+
       confetti({
         particleCount: 80,
         spread: 70,
         origin: { y: 0.6 },
       });
     } catch (err: any) {
-      setErrorMessage(err.message || 'Terjadi kesalahan sistem saat mendaftar.');
+      const errText = err.message || 'Terjadi kesalahan sistem saat mendaftar.';
+      setErrorMessage(errText);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Pendaftaran Belum Berhasil',
+        message: errText,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -557,6 +582,15 @@ export default function SmpRegistrationClient() {
         </form>
       )}
       </div>
+
+      {/* Islamic Toast Notification */}
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
     </div>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { extractSubdomain } from '@/lib/domain';
 import { applyThemeColorToDocument } from '@/components/shared/DynamicUnitThemeColorSync';
+import IslamicToast from '@/components/common/IslamicToast';
 
 type UnitKey = 'yayasan' | 'sd' | 'smp' | 'tk';
 
@@ -108,6 +109,16 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
 
   // Default to SD unit or auto-detect from host/url
   const [activeUnit, setActiveUnit] = useState<UnitKey>('sd');
@@ -201,15 +212,39 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data.error || 'Email atau kata sandi tidak valid');
+        const errorText = data.error || 'Email atau kata sandi tidak valid';
+        setErrorMsg(errorText);
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Login Belum Berhasil',
+          message: errorText,
+        });
         setIsLoading(false);
         return;
       }
 
-      // Success redirect
-      router.push(data.redirectUrl);
+      // Success notification with Islamic greeting
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Ahlan wa Sahlan!',
+        message: 'Otentikasi berhasil. Mengalihkan Anda ke dasbor...',
+      });
+
+      // Immediate redirect with clean window navigation for instant speed
+      setTimeout(() => {
+        window.location.href = data.redirectUrl;
+      }, 400);
     } catch {
-      setErrorMsg('Terjadi gangguan jaringan, silakan coba lagi');
+      const netError = 'Terjadi gangguan jaringan, silakan periksa koneksi Anda.';
+      setErrorMsg(netError);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Gangguan Jaringan',
+        message: netError,
+      });
       setIsLoading(false);
     }
   };
@@ -402,6 +437,14 @@ export default function LoginPage() {
         © 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Hak Cipta Dilindungi.
       </footer>
 
+      {/* Islamic Toast Notification */}
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
     </div>
   );
 }

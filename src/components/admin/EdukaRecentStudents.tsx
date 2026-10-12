@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { UserCheck, ArrowRight, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
-import StudentEduAvatar from '@/components/common/StudentEduAvatar';
 
 interface RecentApplicant {
   id: string;
@@ -87,20 +86,13 @@ export default function EdukaRecentStudents({ applicants, schoolSlug = 'foundati
               key={app.id}
               className="py-3 flex items-center gap-3 hover:bg-slate-50/80 px-2 sm:px-3 rounded-2xl transition-colors"
             >
-              {/* 1. Avatar + Name (Flex-1 absorbs variation in name lengths) */}
-              <div className="flex items-center space-x-3 min-w-0 flex-1">
-                <StudentEduAvatar
-                  gender={app.gender}
-                  name={app.studentName}
-                  size="md"
-                />
-                <div className="min-w-0 flex-1">
-                  <h4 className="font-semibold text-xs sm:text-sm text-slate-900 truncate">
-                    {app.studentName}
-                  </h4>
-                  <div className="text-[11px] text-slate-500 truncate mt-0.5">
-                    Wali: {app.parentName}
-                  </div>
+              {/* 1. Student Name & Parent (Clean typography without cartoon child avatar) */}
+              <div className="min-w-0 flex-1">
+                <h4 className="font-semibold text-xs sm:text-sm text-slate-900 truncate">
+                  {app.studentName}
+                </h4>
+                <div className="text-[11px] text-slate-500 truncate mt-0.5">
+                  Wali: {app.parentName}
                 </div>
               </div>
 

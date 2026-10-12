@@ -434,7 +434,7 @@ export default function PPDBHubPage() {
                     href={`/${u.slug}`}
                     className="w-full text-center py-2 px-3 text-[11px] font-semibold text-slate-500 hover:text-slate-800 transition-colors block"
                   >
-                    Lihat Profil Lengkap {u.name} &rarr;
+                    Lihat Profil Lengkap {u.name} →
                   </Link>
                 </div>
               </div>

@@ -38,6 +38,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { extractSubdomain, getSchoolUrl } from '@/lib/domain';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
+import IslamicToast from '@/components/common/IslamicToast';
 
 interface SchoolOption {
   slug: 'tk' | 'sd' | 'smp';
@@ -239,6 +240,16 @@ function PPDBFormContent() {
   const [selectedPayment, setSelectedPayment] = useState('QRIS');
   const [isPaying, setIsPaying] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, docType: 'KK' | 'AKTA' | 'FOTO') => {
     const file = e.target.files?.[0];
@@ -547,7 +558,14 @@ function PPDBFormContent() {
 
       const data = await res.json();
       if (!res.ok) {
-        setErrorMessage(data.error || 'Gagal mengirimkan formulir pendaftaran');
+        const errorText = data.error || 'Gagal mengirimkan formulir pendaftaran';
+        setErrorMessage(errorText);
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Qadarullah, Formulir Belum Lengkap',
+          message: errorText,
+        });
         setIsLoading(false);
         return;
       }
@@ -563,10 +581,24 @@ function PPDBFormContent() {
         waCenterPhone: data.payment?.waCenterPhone,
       });
 
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Ahlan wa Sahlan!',
+        message: `Pendaftaran ananda ${formData.studentName} berhasil tercatat di sistem Al-Afiyah. Baarakallahu fiikum!`,
+      });
+
       setCurrentStep(6);
       setIsLoading(false);
     } catch {
-      setErrorMessage('Terjadi gangguan koneksi internet');
+      const netMsg = 'Terjadi gangguan koneksi internet. Silakan periksa jaringan Anda.';
+      setErrorMessage(netMsg);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Gangguan Jaringan',
+        message: netMsg,
+      });
       setIsLoading(false);
     }
   };
@@ -600,8 +632,20 @@ function PPDBFormContent() {
 
       // Clear draft
       localStorage.removeItem('alafiyah_ppdb_draft');
+
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Baarakallahu Fiik!',
+        message: 'Pembayaran formulir SPMB berhasil dikonfirmasi. Selamat bergabung di Al-Afiyah!',
+      });
     } catch {
-      alert('Simulasi pembayaran gagal diproses');
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Qadarullah, Kendala Pembayaran',
+        message: 'Terjadi kendala saat memverifikasi pembayaran. Silakan coba kembali.',
+      });
       setIsPaying(false);
     }
   };
@@ -2118,6 +2162,14 @@ function PPDBFormContent() {
           )}
         </div>
       </main>
+
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+      />
 
       <Footer schoolSlug="sd" />
       <StickyMobileBar schoolSlug="sd" waPhone="6281310139001" schoolName="SDIT Al-Afiyah" />

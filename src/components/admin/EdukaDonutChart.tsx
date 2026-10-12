@@ -81,10 +81,10 @@ export default function EdukaDonutChart({
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="font-bold text-base sm:text-lg text-slate-900 tracking-tight">
-            Distribusi Akun &amp; Pendaftar {unitName}
+            Statistik Komunitas &amp; Pendaftar {unitName}
           </h3>
           <p className="text-xs text-slate-500 font-medium">
-            Komposisi peserta didik (Jalur Reguler), wali, guru, &amp; mitra
+            Komposisi peserta didik, wali murid, dewan guru, &amp; mitra edukasi
           </p>
         </div>
 
