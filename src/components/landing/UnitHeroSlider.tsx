@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getStoredReferralCode } from '@/lib/referral';
@@ -180,39 +179,27 @@ export default function UnitHeroSlider({
     };
   }, [slug, customSlides, ppdbUrl, waUrl, registrationFee]);
 
-  // Unit theme styles - Bright, solid identity color (YPIB style) with NO dark/black gradient overlays
+  // Unit theme styles - solid identity color per unit (no photo, full-color banner)
   const theme = useMemo(() => {
     switch (slug) {
       case 'sd':
         return {
           bgClass: 'bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651]',
           highlightText: 'text-[#ffd51e]',
-          badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
-          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b] font-black shadow-lg shadow-black/15',
-          circleBackdrop: 'bg-white/10 border-white/20',
-          badgePillText: '',
-          cutoutSrc: '/images/hero/sd-santri-cutout.webp',
+          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b]',
         };
       case 'tk':
         return {
-          bgClass: 'bg-[#059669] bg-gradient-to-b from-[#059669] via-[#047857] to-[#065f46]',
+          bgClass: 'bg-gradient-to-b from-[#059669] via-[#047857] to-[#065f46]',
           highlightText: 'text-[#ffd51e]',
-          badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
-          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#044e39] font-black shadow-lg shadow-black/15',
-          circleBackdrop: 'bg-white/10 border-white/20',
-          badgePillText: '',
-          cutoutSrc: '/images/hero/sd-cutout.webp',
+          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#044e39]',
         };
       case 'smp':
       default:
         return {
-          bgClass: 'bg-[#030164] bg-gradient-to-b from-[#05027a] via-[#030164] to-[#02004a]',
+          bgClass: 'bg-gradient-to-b from-[#05027a] via-[#030164] to-[#02004a]',
           highlightText: 'text-[#ffd51e]',
-          badgeBorder: 'border-[#ffd51e]/40 text-[#ffd51e]',
-          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#030164] font-black shadow-lg shadow-black/15',
-          circleBackdrop: 'bg-white/10 border-white/20',
-          badgePillText: '',
-          cutoutSrc: '/images/hero/smp-santri-cutout.webp',
+          primaryBtn: 'bg-[#ffd51e] hover:bg-yellow-400 text-[#030164]',
         };
     }
   }, [slug]);
@@ -222,155 +209,100 @@ export default function UnitHeroSlider({
     effectiveCtaLink += `${effectiveCtaLink.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
   }
 
-  // Common CTA buttons block - Side-by-side 2-column grid on mobile, inline on desktop
-  const ctaButtons = (
-    <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-row sm:items-center sm:gap-3 w-full sm:w-auto">
-      <Link
-        href={effectiveCtaLink}
-        className={`inline-flex h-10 xs:h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-1.5 px-3 xs:px-5 rounded-xl text-xs sm:text-sm font-black transition-all duration-200 hover:-translate-y-0.5 active:scale-95 text-center shadow-md ${theme.primaryBtn}`}
-      >
-        <span className="truncate">{slug === 'smp' ? 'Daftar SPMB' : slide.primaryCtaText || 'Daftar SPMB'}</span>
-        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-      </Link>
-
-      {slide.secondaryCtaLink && (
-        <a
-          href={slide.secondaryCtaLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex h-10 xs:h-11 sm:h-12 w-full sm:w-auto items-center justify-center gap-1.5 px-2 xs:px-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white text-[11px] xs:text-xs sm:text-sm font-bold uppercase tracking-wider transition-all text-center backdrop-blur-sm shadow-xs"
-        >
-          <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#ffd51e] shrink-0" />
-          <span className="truncate">Konsultasi WA</span>
-        </a>
-      )}
-    </div>
-  );
-
   return (
-    <section className={`relative text-white overflow-hidden select-none w-full flex-shrink-0 flex flex-col justify-between min-h-screen min-h-[100dvh] ${theme.bgClass} pb-6 sm:pb-12 lg:pb-16`}>
-      {/* Subtle top ambient glow */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-2xl pointer-events-none" />
+    <section
+      className={`relative text-white overflow-hidden select-none w-full flex flex-col min-h-screen min-h-[100svh] ${theme.bgClass}`}
+    >
+      {/* Soft ambient glows (decorative) */}
+      <div aria-hidden="true" className="absolute -top-32 -right-32 w-[420px] h-[420px] sm:w-[560px] sm:h-[560px] bg-white/[0.06] rounded-full blur-3xl pointer-events-none" />
+      <div aria-hidden="true" className="absolute top-1/3 -left-40 w-[360px] h-[360px] bg-[#ffd51e]/[0.05] rounded-full blur-3xl pointer-events-none" />
 
-      {/* Main Content Area */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 sm:pt-32 lg:pt-36 pb-3 sm:pb-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-10 items-center">
-          {/* Left Column: Heading & Subtitle (and CTA on desktop) */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left relative z-20">
-            {/* Overline Badge (Diatas Judul) - Subtle organic floating & glowing ping */}
-            {slide.badge && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{
-                  opacity: 1,
-                  y: [0, -3, 0],
-                }}
-                transition={{
-                  opacity: { duration: 0.5, ease: 'easeOut' },
-                  y: { duration: 3.2, repeat: Infinity, ease: 'easeInOut' },
-                }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 hover:border-[#ffd51e]/60 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-2.5 sm:mb-4 backdrop-blur-sm shadow-xs transition-colors select-none"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffd51e] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffd51e]" />
-                </span>
-                <span>{slide.badge}</span>
-              </motion.div>
-            )}
-
-            {/* Dominant 3-Line Headline (Judul) - Continuous living breathing motion */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{
-                opacity: 1,
-                y: [0, -3.5, 0],
-              }}
+      {/* Headline block — vertically centered in the space between navbar and CTA */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-24 sm:pt-28 lg:pt-32 pb-6 sm:pb-8">
+        <div className="max-w-3xl">
+          {slide.badge && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: [0, -3, 0] }}
               transition={{
-                opacity: { duration: 0.6, delay: 0.1, ease: 'easeOut' },
-                y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
+                opacity: { duration: 0.5, ease: 'easeOut' },
+                y: { duration: 3.2, repeat: Infinity, ease: 'easeInOut' },
               }}
-              className="w-full text-balance"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-4 sm:mb-5 backdrop-blur-sm"
             >
-              {renderHeroHeadline(slug, slide.titlePart1, slide.titleHighlight, slide.titlePart2, theme.highlightText)}
-            </motion.h1>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffd51e] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffd51e]" />
+              </span>
+              <span>{slide.badge}</span>
+            </motion.div>
+          )}
 
-            {/* Subtitle / Description (Sub Judul) - Gentle living breathing motion */}
-            {slide.description && (
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={{
-                  opacity: 1,
-                  y: [0, -2, 0],
-                }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.2, ease: 'easeOut' },
-                  y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 },
-                }}
-                className="mt-3.5 sm:mt-5 max-w-[240px] xs:max-w-[270px] sm:max-w-md lg:max-w-xl text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed font-normal"
-              >
-                {slide.description}
-              </motion.p>
-            )}
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: [0, -3.5, 0] }}
+            transition={{
+              opacity: { duration: 0.6, delay: 0.1, ease: 'easeOut' },
+              y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
+            }}
+            className="w-full"
+          >
+            {renderHeroHeadline(slug, slide.titlePart1, slide.titleHighlight, slide.titlePart2, theme.highlightText)}
+          </motion.h1>
 
-            {/* Primary Action Buttons (Desktop only - on mobile placed below the image) */}
-            <div className="hidden lg:flex mt-6 w-full">
-              {ctaButtons}
+          {slide.description && (
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: [0, -2, 0] }}
+              transition={{
+                opacity: { duration: 0.6, delay: 0.2, ease: 'easeOut' },
+                y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 },
+              }}
+              className="mt-4 sm:mt-6 max-w-xl text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed"
+            >
+              {slide.description}
+            </motion.p>
+          )}
+
+          {slide.trustItems && slide.trustItems.length > 0 && !statsCards && (
+            <div className="mt-6 pt-4 border-t border-white/15 flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-white/85 font-medium">
+              {slide.trustItems.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ffd51e]" />
+                  <span>{item.text}</span>
+                </div>
+              ))}
             </div>
-
-            {/* Trust bullet points */}
-            {slide.trustItems && slide.trustItems.length > 0 && !statsCards && (
-              <div className="mt-5 sm:mt-6 pt-4 border-t border-white/15 w-full flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-white/85 font-medium">
-                {slide.trustItems.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#ffd51e]" />
-                    <span>{item.text}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Right Column: Student Cutout Visual Plate */}
-          <div className="lg:col-span-5 flex flex-col items-end lg:items-center justify-end relative -mt-28 xs:-mt-36 sm:-mt-44 lg:mt-0 z-10 w-full pointer-events-none">
-            <div className="relative w-full max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] lg:max-w-[500px] flex items-end justify-end lg:justify-center ml-auto">
-              {/* Islamic Arch Portal Backdrop (active for both SMP & SD cutout) */}
-              {slug !== 'tk' && (
-                <div
-                  className="absolute bottom-0 right-0 sm:right-auto w-64 sm:w-80 lg:w-[22rem] h-[300px] sm:h-[390px] lg:h-[450px] rounded-t-full bg-gradient-to-t from-white/[0.04] to-white/[0.14] border-t-2 border-x border-white/25 shadow-2xl backdrop-blur-sm pointer-events-none translate-x-4 sm:translate-x-8"
-                />
-              )}
-
-              {/* Cut-out Student Photo - Shifted right for SMP & SD and enlarged */}
-              <div className={`relative z-10 w-full flex justify-end lg:justify-center items-end ${
-                slug === 'smp' || slug === 'sd' ? 'translate-x-6 xs:translate-x-10 sm:translate-x-14 lg:translate-x-10' : 'translate-x-2 sm:translate-x-4'
-              }`}>
-                <Image
-                  src={theme.cutoutSrc}
-                  alt={schoolName}
-                  width={780}
-                  height={546}
-                  priority
-                  className="w-auto max-h-[330px] xs:max-h-[380px] sm:max-h-[460px] lg:max-h-[520px] object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.32)] select-none pointer-events-none"
-                />
-              </div>
-            </div>
-
-            {/* CTA Buttons on Mobile: positioned directly below the image and above the 4 cards */}
-            <div className="flex lg:hidden mt-4 sm:mt-6 w-full justify-center pointer-events-auto">
-              {ctaButtons}
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
-      {/* Hero Bottom Highlight Cards (SMP & SD Stat Cards) */}
-      {statsCards && (
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 sm:pb-12 w-full pt-2 sm:pt-4">
-          {statsCards}
+      {/* Bottom block — CTA buttons sit directly above the 4 stat cards */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:pb-10 lg:pb-12">
+        <div className="grid grid-cols-2 gap-2.5 sm:flex sm:gap-3 mb-3 sm:mb-5">
+          <Link
+            href={effectiveCtaLink}
+            className={`inline-flex h-12 items-center justify-center gap-1.5 px-3 sm:px-7 rounded-xl text-[13px] sm:text-sm font-black shadow-lg shadow-black/15 transition-all duration-200 hover:-translate-y-0.5 active:scale-95 ${theme.primaryBtn}`}
+          >
+            <span className="truncate">{slug === 'smp' ? 'Daftar SPMB' : slide.primaryCtaText || 'Daftar SPMB'}</span>
+            <ArrowRight className="w-4 h-4 shrink-0" />
+          </Link>
+
+          {slide.secondaryCtaLink && (
+            <a
+              href={slide.secondaryCtaLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 items-center justify-center gap-1.5 px-3 sm:px-6 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs sm:text-sm font-bold uppercase tracking-wider backdrop-blur-sm transition-all"
+            >
+              <MessageCircle className="w-4 h-4 text-[#ffd51e] shrink-0" />
+              <span className="truncate">Konsultasi WA</span>
+            </a>
+          )}
         </div>
-      )}
+
+        {statsCards}
+      </div>
     </section>
   );
 }

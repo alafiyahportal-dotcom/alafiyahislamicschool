@@ -177,7 +177,7 @@ export default async function SdLandingPage() {
     address: identityData.schoolAddress || identityData.address || dbSchool?.address || 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka 45411',
     heroHeadline: heroData.headline || 'Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh 🌱',
     heroSubheadline: heroData.subheadline || 'Selamat datang di SDIT Al-Afiyah. Kami menemani anak bertumbuh, mengenal dirinya, mencintai kebaikan, serta berkembang sesuai fitrahnya dalam lingkungan yang penuh iman, ilmu, dan kasih sayang.',
-    heroImage: heroData.heroImage || '/images/hero/sd-santri-cutout.webp',
+    heroImage: heroData.heroImage || '/images/sd-hero-greenhouse.jpg',
     heroSlides: heroData.slides,
     stats: sectionsMap.stats || heroData.stats,
     values: sectionsMap.values,
