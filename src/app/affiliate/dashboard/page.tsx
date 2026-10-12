@@ -15,7 +15,9 @@ import {
   QrCode,
   Loader2,
   TrendingUp,
-  X
+  X,
+  MessageSquare,
+  Send
 } from 'lucide-react';
 
 interface AffiliateConversionItem {
@@ -113,6 +115,105 @@ export default function AffiliateDashboardPage() {
   const sdFormLink = `${rootOrigin}/sd/spmb/daftar?ref=${referralCode}`;
   // General hub link (multi-unit: parents choose TK, SD, or SMP)
   const generalLink = `${rootOrigin}/ppdb?ref=${referralCode}`;
+
+  // Broadcast WhatsApp State & Generator
+  const [selectedBroadcastUnit, setSelectedBroadcastUnit] = useState<'SD' | 'SMP' | 'TK' | 'ALL'>('SD');
+  const [copiedBroadcast, setCopiedBroadcast] = useState(false);
+
+  const getBroadcastMessage = (unit: 'SD' | 'SMP' | 'TK' | 'ALL'): string => {
+    if (unit === 'SD') {
+      return `Assalamu'alaikum Warahmatullahi Wabarakatuh Ayah/Bunda 🙏
+
+Kabar gembira! Penerimaan Peserta Didik Baru (PPDB) SDIT Al-Afiyah Majalengka Tahun Ajaran 2026/2027 telah resmi dibuka.
+
+Kenapa memilih SDIT Al-Afiyah?
+✅ Target Tahfidz Al-Qur'an 5 - 10 Juz
+✅ Pembiasaan Adab & Karakter Islami Sejak Dini
+✅ Tenaga Pendidik Berpengalaman & Penuh Kasih Sayang
+✅ Lingkungan Belajar Nyaman, Asri & Ramah Anak
+✅ Fasilitas Lengkap & Beragam Kegiatan Ekstrakurikuler
+
+📌 Kuota pendaftaran sangat terbatas untuk menjaga rasio belajar ananda yang optimal. Biaya formulir pendaftaran: Rp 250.000.
+
+Pendaftaran online dan informasi lengkap dapat langsung diakses melalui tautan resmi kami:
+👉 ${sdLink}
+
+Mari bersama wujudkan generasi sholeh, berakhlak mulia, dan berprestasi bersama SDIT Al-Afiyah.
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
+    }
+
+    if (unit === 'SMP') {
+      return `Assalamu'alaikum Warahmatullahi Wabarakatuh Ayah/Bunda 🙏
+
+PPDB SMP IT Al-Afiyah Majalengka Tahun Ajaran 2026/2027 Telah Resmi Dibuka!
+
+Mempersiapkan masa depan putra-putri dengan perpaduan keilmuan akademis, adab, dan Al-Qur'an:
+✅ Terakreditasi A (Unggul)
+✅ Pilihan Program Asrama (Boarding) & Fullday School
+✅ Program Unggulan Tahfidz Al-Qur'an (Target 3 - 5+ Juz)
+✅ Pembiasaan Bahasa Arab & Inggris Aktif
+✅ Tersedia Program Keringanan Biaya & Beasiswa Berprestasi
+
+Kuota pendaftaran terbatas! Dapatkan kemudahan pendaftaran langsung melalui tautan resmi mitra kami:
+👉 ${smpLink}
+
+Mari bimbing masa transisi terbaik putra-putri tercinta di lingkungan yang aman, agamis, dan berprestasi.
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
+    }
+
+    if (unit === 'TK') {
+      return `Assalamu'alaikum Warahmatullahi Wabarakatuh Ayah/Bunda 🙏
+
+Tumbuh kembang ananda di usia emas memerlukan pondasi keimanan, cinta ibadah, dan stimulasi belajar yang penuh kasih sayang.
+
+PPDB TK IT Al-Afiyah Majalengka Tahun Ajaran 2026/2027:
+🌸 Pembiasaan Doa Harian, Hadits Pilihan & Hafalan Juz 'Amma
+🌸 Metode Belajar Sambil Bermain yang Menyenangkan & Kreatif
+🌸 Pembentukan Karakter Mandiri, Percaya Diri & Berakhlak Islami
+🌸 Guru Penyayang & Area Bermain Edukatif Aman
+
+Informasi lengkap dan pendaftaran online dapat langsung diakses melalui tautan resmi berikut:
+👉 ${tkLink}
+
+Ayah/Bunda dapat mendaftarkan ananda sebelum kuota kelas terpenuhi.
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
+    }
+
+    // Default / ALL (PPDB Terpadu)
+    return `Assalamu'alaikum Warahmatullahi Wabarakatuh Ayah/Bunda 🙏
+
+Penerimaan Peserta Didik Baru (PPDB) Terpadu Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka Tahun Ajaran 2026/2027 telah resmi dibuka!
+
+Pilihan Jenjang Pendidikan:
+🌱 TK IT Al-Afiyah (Fondasi Karakter & Cinta Ibadah Usia Dini)
+📗 SDIT Al-Afiyah (Adab Islami, Sains & Tahfidz Al-Qur'an)
+📘 SMP IT Al-Afiyah (Akreditasi A, Program Asrama & Fullday)
+
+Dapatkan informasi kurikulum, brosur digital, serta pendaftaran online terpadu melalui tautan resmi mitra kami:
+👉 ${generalLink}
+
+Mari bimbing ananda menuju masa depan yang sholeh, cerdas, dan mandiri bersama keluarga besar Al-Afiyah.
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
+  };
+
+  const handleCopyBroadcast = (unit?: 'SD' | 'SMP' | 'TK' | 'ALL') => {
+    const target = unit || selectedBroadcastUnit;
+    const msg = getBroadcastMessage(target);
+    navigator.clipboard.writeText(msg);
+    setCopiedBroadcast(true);
+    setTimeout(() => setCopiedBroadcast(false), 2500);
+  };
+
+  const handleSendWhatsApp = (unit?: 'SD' | 'SMP' | 'TK' | 'ALL') => {
+    const target = unit || selectedBroadcastUnit;
+    const msg = getBroadcastMessage(target);
+    const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -372,7 +473,19 @@ export default function AffiliateDashboardPage() {
                 {generalLink}
               </p>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedBroadcastUnit('ALL');
+                  handleCopyBroadcast('ALL');
+                }}
+                className="px-3.5 py-2.5 rounded-xl bg-emerald-700 text-white text-xs font-bold hover:bg-emerald-800 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                title="Salin pesan siar WhatsApp PPDB Terpadu lengkap dengan link"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>Broadcast WA</span>
+              </button>
               <button
                 type="button"
                 onClick={() => copyToClipboard(generalLink, 'ALL')}
@@ -417,31 +530,45 @@ export default function AffiliateDashboardPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-2">
+              <div className="grid grid-cols-3 gap-1.5 pt-2">
                 <button
                   type="button"
                   onClick={() => copyToClipboard(tkLink, 'TK')}
-                  className="py-2 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="Salin tautan saja"
                 >
                   {copiedLink === 'TK' ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold">Tersalin!</span>
+                      <span className="text-emerald-600 font-bold">Tersalin</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span>Salin Link</span>
+                      <span>Link</span>
                     </>
                   )}
                 </button>
                 <button
                   type="button"
+                  onClick={() => {
+                    setSelectedBroadcastUnit('TK');
+                    handleCopyBroadcast('TK');
+                  }}
+                  className="py-2 px-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="Salin pesan broadcast WA beserta link"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Broadcast</span>
+                </button>
+                <button
+                  type="button"
                   onClick={() => handleOpenQr('TK IT Al-Afiyah', tkLink)}
-                  className="py-2 px-3 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="QR Code"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span>QR Code</span>
+                  <span>QR</span>
                 </button>
               </div>
             </div>
@@ -465,31 +592,45 @@ export default function AffiliateDashboardPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-2">
+              <div className="grid grid-cols-3 gap-1.5 pt-2">
                 <button
                   type="button"
                   onClick={() => copyToClipboard(sdLink, 'SD')}
-                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="Salin tautan saja"
                 >
                   {copiedLink === 'SD' ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                      <span className="text-emerald-600 font-bold">Tersalin</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span className="text-[11px]">Salin Link</span>
+                      <span>Link</span>
                     </>
                   )}
                 </button>
                 <button
                   type="button"
+                  onClick={() => {
+                    setSelectedBroadcastUnit('SD');
+                    handleCopyBroadcast('SD');
+                  }}
+                  className="py-2 px-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="Salin pesan broadcast WA beserta link"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Broadcast</span>
+                </button>
+                <button
+                  type="button"
                   onClick={() => handleOpenQr('SDIT Al-Afiyah', sdLink)}
-                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="QR Code"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="text-[11px]">QR Code</span>
+                  <span>QR</span>
                 </button>
               </div>
             </div>
@@ -513,33 +654,183 @@ export default function AffiliateDashboardPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-2">
+              <div className="grid grid-cols-3 gap-1.5 pt-2">
                 <button
                   type="button"
                   onClick={() => copyToClipboard(smpLink, 'SMP')}
-                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="Salin tautan saja"
                 >
                   {copiedLink === 'SMP' ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold text-[11px]">Tersalin!</span>
+                      <span className="text-emerald-600 font-bold">Tersalin</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span className="text-[11px]">Salin Link</span>
+                      <span>Link</span>
                     </>
                   )}
                 </button>
                 <button
                   type="button"
+                  onClick={() => {
+                    setSelectedBroadcastUnit('SMP');
+                    handleCopyBroadcast('SMP');
+                  }}
+                  className="py-2 px-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="Salin pesan broadcast WA beserta link"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Broadcast</span>
+                </button>
+                <button
+                  type="button"
                   onClick={() => handleOpenQr('SMP IT Al-Afiyah', smpLink)}
-                  className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  className="py-2 px-1.5 rounded-xl bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 flex items-center justify-center space-x-1 cursor-pointer shadow-2xs"
+                  title="QR Code"
                 >
                   <QrCode className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="text-[11px]">QR Code</span>
+                  <span>QR</span>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Dedicated WhatsApp Broadcast Hub */}
+        <div id="broadcast-section" className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-2xs space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <div className="p-2 rounded-xl bg-emerald-100/80 text-emerald-800">
+                  <MessageSquare className="w-4 h-4" />
+                </div>
+                <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider">
+                  Pesan Siar / Broadcast WhatsApp (1-Klik)
+                </h2>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  Link Otomatis Tersemat
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-1 max-w-3xl">
+                Teks resmi sudah terpasang otomatis dengan link referral Anda. Anda cukup klik <strong>Salin Pesan (1-Klik)</strong> atau langsung buka via WhatsApp tanpa perlu repot tempel link secara terpisah.
+              </p>
+            </div>
+          </div>
+
+          {/* Unit Switcher Tabs */}
+          <div className="flex items-center gap-2 p-1.5 bg-slate-100/80 rounded-2xl border border-slate-200/80 overflow-x-auto">
+            <button
+              type="button"
+              onClick={() => setSelectedBroadcastUnit('SD')}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+                selectedBroadcastUnit === 'SD'
+                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+              }`}
+            >
+              <span>📗 SDIT Al-Afiyah</span>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                selectedBroadcastUnit === 'SD' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200/70 text-slate-600'
+              }`}>
+                Komisi Rp 150rb
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedBroadcastUnit('SMP')}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+                selectedBroadcastUnit === 'SMP'
+                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+              }`}
+            >
+              <span>📘 SMP IT Al-Afiyah</span>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                selectedBroadcastUnit === 'SMP' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200/70 text-slate-600'
+              }`}>
+                Komisi Rp 150rb
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedBroadcastUnit('ALL')}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+                selectedBroadcastUnit === 'ALL'
+                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+              }`}
+            >
+              <span>🏛️ Semua Unit (PPDB Terpadu)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSelectedBroadcastUnit('TK')}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+                selectedBroadcastUnit === 'TK'
+                  ? 'bg-white text-emerald-900 shadow-xs border border-slate-200'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+              }`}
+            >
+              <span>🌱 TK IT Al-Afiyah</span>
+            </button>
+          </div>
+
+          {/* Message Preview Container */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between text-xs text-slate-500">
+              <span className="font-semibold text-slate-700">Preview Pesan Broadcast Siap Sebar:</span>
+              <span className="text-[11px] text-emerald-700 font-mono">
+                {selectedBroadcastUnit === 'SD' && 'Link: /ref/sd/' + customSlug}
+                {selectedBroadcastUnit === 'SMP' && 'Link: /ref/smp/' + customSlug}
+                {selectedBroadcastUnit === 'TK' && 'Link: /ref/tk/' + customSlug}
+                {selectedBroadcastUnit === 'ALL' && 'Link: /ppdb?ref=' + referralCode}
+              </span>
+            </div>
+
+            <div className="relative rounded-2xl bg-slate-50 border border-slate-200 p-5 font-sans text-xs sm:text-sm text-slate-800 leading-relaxed whitespace-pre-wrap selection:bg-emerald-200">
+              {getBroadcastMessage(selectedBroadcastUnit)}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleCopyBroadcast()}
+                  className="px-5 py-3 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-sm active:scale-98"
+                >
+                  {copiedBroadcast ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-300" />
+                      <span>Pesan &amp; Link Berhasil Tersalin!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      <span>Salin Pesan &amp; Link (1-Klik)</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSendWhatsApp()}
+                  className="px-5 py-3 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba5a] transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-sm active:scale-98"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>Kirim Langsung ke WhatsApp</span>
+                </button>
+              </div>
+
+              <span className="text-[11px] text-slate-500 text-center sm:text-right">
+                Otomatis mengaitkan komisi Anda selama 30 hari sejak tautan diklik.
+              </span>
             </div>
           </div>
         </div>
