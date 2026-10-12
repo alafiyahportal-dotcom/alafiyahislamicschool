@@ -379,43 +379,48 @@ export default function AffiliatePublicPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between selection:bg-emerald-100 selection:text-emerald-900 font-sans antialiased text-slate-800">
-      <Navbar schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} transparentAtTop={false} />
+      <Navbar schoolSlug={schoolSlug === 'sd' ? 'sd' : undefined} transparentAtTop={true} />
 
       {/* =========================================================================
-          1. HERO SECTION: Clean Crisp White Background with Bento Photo Grid
-             (Adopting Layout & Editorial Typo from Reference Image Top)
+          1. HERO SECTION: Full-bleed Signature Al-Afiyah Green Gradient
+             (Immersive full-screen viewport on mobile with brand gold accents)
          ========================================================================= */}
-      <section className="pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 bg-[#FAFAFA] border-b border-slate-200/80 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="min-h-screen min-h-[100dvh] flex flex-col justify-center items-center pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-14 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] relative overflow-hidden text-white shadow-inner">
+        {/* Ambient Decorative Lighting */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-black/25 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center my-auto w-full">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.15 }}
             variants={scrollFadeVariant}
-            className="space-y-6"
+            className="space-y-5 sm:space-y-6"
           >
             {schoolSlug === 'sd' && (
               <div className="mb-2">
                 <Link
                   href="/sd"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs font-semibold text-emerald-800 transition-all active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white transition-all backdrop-blur-md active:scale-95"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5 text-emerald-600" />
+                  <ArrowLeft className="w-3.5 h-3.5 text-[#ffd51e]" />
                   <span>Kembali ke Beranda SDIT</span>
                 </Link>
               </div>
             )}
 
-            <DoublePillBadge label={cmsContent.heroBadge || "Program Affiliate Al-Afiyah"} />
+            <DoublePillBadge label={cmsContent.heroBadge || "Program Affiliate Al-Afiyah"} isLight={true} />
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.15] drop-shadow-md">
               Ajak Keluarga &amp; Sahabat,{' '}
-              <span className="text-[#153424] block sm:inline">
+              <span className="text-[#ffd51e] block sm:inline drop-shadow-sm">
                 Dapatkan Komisi Hingga Rp 150.000 / Siswa
               </span>
             </h1>
 
-            <p className="text-slate-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-emerald-50 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-xs">
               Program rujukan resmi TK IT, SDIT, dan SMP IT Al-Afiyah Majalengka. Cukup bagikan tautan pendaftaran, komisi langsung ditransfer ke rekening bank Anda setelah calon siswa terdaftar.
             </p>
 
@@ -424,52 +429,53 @@ export default function AffiliatePublicPage() {
               <button
                 type="button"
                 onClick={() => openRegisterWithPersona()}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#153424] hover:bg-[#0f271b] text-white font-bold text-sm sm:text-base transition-all duration-200 shadow-md flex items-center justify-center gap-2.5 cursor-pointer active:scale-98"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b] font-black text-sm sm:text-base transition-all duration-200 shadow-xl shadow-black/20 hover:shadow-yellow-500/25 flex items-center justify-center gap-2.5 cursor-pointer active:scale-95"
               >
                 <span>Daftar Jadi Affiliate</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </button>
 
               <a
                 href="#kalkulator"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 hover:text-slate-950 font-bold text-sm sm:text-base transition-all duration-200 border border-slate-300 shadow-xs flex items-center justify-center gap-2 active:scale-98"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white hover:text-yellow-200 font-bold text-sm sm:text-base transition-all duration-200 border border-white/30 backdrop-blur-md shadow-xs flex items-center justify-center gap-2 active:scale-95"
               >
                 <span>Hitung Estimasi Komisi</span>
               </a>
             </div>
 
             {/* Micro Trust Indicators */}
-            <div className="pt-3 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs font-semibold text-slate-600">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs">
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-semibold text-emerald-100">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-xs">
+                <Check className="w-3.5 h-3.5 text-[#ffd51e]" />
                 100% Gratis &amp; Tanpa Modal
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs">
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-xs">
+                <Check className="w-3.5 h-3.5 text-[#ffd51e]" />
                 Komisi Jelas s.d. Rp 150.000/Siswa
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs">
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-xs">
+                <Check className="w-3.5 h-3.5 text-[#ffd51e]" />
                 Transfer Langsung ke Rekening
               </span>
             </div>
 
             {/* 3 Unit Simple Commission Highlights */}
-            <div className="pt-4 max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 text-left sm:text-center">
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">TK IT Al-Afiyah</span>
-                <p className="text-xl font-black text-slate-900 font-mono mt-0.5">Rp 75.000</p>
-                <span className="text-[11px] text-slate-400">per calon siswa</span>
+            <div className="pt-3 max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 text-left sm:text-center">
+              <div className="p-4 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md shadow-lg hover:bg-white/15 transition-all">
+                <span className="text-[11px] font-bold text-emerald-200 uppercase tracking-wider block">TK IT Al-Afiyah</span>
+                <p className="text-xl font-black text-white font-mono mt-0.5">Rp 75.000</p>
+                <span className="text-[11px] text-emerald-200/80">per calon siswa</span>
               </div>
-              <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 shadow-2xs">
-                <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">SDIT Al-Afiyah</span>
-                <p className="text-xl font-black text-emerald-950 font-mono mt-0.5">Rp 150.000</p>
-                <span className="text-[11px] text-emerald-700 font-medium">per calon siswa</span>
+              <div className="p-4 rounded-2xl bg-white/20 border-2 border-[#ffd51e] backdrop-blur-md shadow-xl relative overflow-hidden scale-102">
+                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-[#ffd51e] text-[#064e3b] font-black text-[9px] uppercase tracking-wide shadow-xs">Tertinggi</div>
+                <span className="text-[11px] font-black text-[#ffd51e] uppercase tracking-wider block">SDIT Al-Afiyah</span>
+                <p className="text-xl font-black text-yellow-300 font-mono mt-0.5">Rp 150.000</p>
+                <span className="text-[11px] text-emerald-100 font-semibold">per calon siswa</span>
               </div>
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">SMP IT Al-Afiyah</span>
-                <p className="text-xl font-black text-slate-900 font-mono mt-0.5">Rp 100.000</p>
-                <span className="text-[11px] text-slate-400">per calon siswa</span>
+              <div className="p-4 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md shadow-lg hover:bg-white/15 transition-all">
+                <span className="text-[11px] font-bold text-emerald-200 uppercase tracking-wider block">SMP IT Al-Afiyah</span>
+                <p className="text-xl font-black text-white font-mono mt-0.5">Rp 100.000</p>
+                <span className="text-[11px] text-emerald-200/80">per calon siswa</span>
               </div>
             </div>
           </motion.div>

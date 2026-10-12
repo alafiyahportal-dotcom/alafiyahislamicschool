@@ -547,45 +547,9 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         registrationFee={school.registrationFee}
         waCenterPhone={school.waCenterPhone}
         customSlides={school.heroSlides}
-        statsCards={school.slug === 'sd' || school.slug === 'smp' ? <Hero3DStatCards stats={displayStats} unitSlug={school.slug} /> : undefined}
+        statsCards={<Hero3DStatCards stats={displayStats} unitSlug={school.slug} />}
       />
 
-
-
-      {/* Stats: for units without hero 3D stat cards (e.g. TK), show the standard fallback bar */}
-      {school.slug !== 'sd' && school.slug !== 'smp' && (
-        <section className="relative z-10 bg-neutral-50 border-b border-neutral-200/70 py-4 sm:py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* No-op touchstart (delegated to all cards) makes iOS Safari apply :active immediately on tap */}
-            <ul
-              className="w-full grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
-              onTouchStart={() => {}}
-            >
-              {displayStats.map((stat, idx) => (
-                <ScrollReveal
-                  key={stat.label}
-                  as="li"
-                  delay={idx * 0.1}
-                  yOffset={20}
-                  duration={500}
-                  className="bg-white rounded-2xl border border-neutral-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] p-3.5 sm:p-5 cursor-pointer select-none [-webkit-tap-highlight-color:transparent] transition-all duration-200 ease-out hover:border-neutral-300 active:scale-[0.97] active:bg-neutral-50 active:border-emerald-500/40 active:shadow-sm motion-reduce:transition-none motion-reduce:active:scale-100"
-                >
-                  <p className="flex items-start gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-neutral-500 leading-tight">
-                    <span className="text-green-600 mt-px">{renderStatIcon(stat.iconType)}</span>
-                    <span>{stat.label}</span>
-                  </p>
-                  <p className="mt-1.5 text-sm sm:text-base font-bold text-neutral-900 leading-snug">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-[11px] text-neutral-400 line-clamp-1">
-                    {stat.subtext}
-                  </p>
-                </ScrollReveal>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
 
       {/* Sambutan Resmi Kepala Sekolah (Khusus SDIT Al-Afiyah) */}
       {school.slug === 'sd' && (
