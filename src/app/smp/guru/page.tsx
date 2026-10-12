@@ -90,9 +90,9 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   {
     id: 'smp-t-6',
     name: 'Ustadz Mulia Rizki',
-    role: 'Kepala IT & Pusat Data Digital (Database Center)',
-    specialization: 'Arsitektur Sistem Informasi, Database & Jaringan',
-    bio: 'Mengelola ekosistem digital sekolah, infrastruktur server dan database, serta operasional portal SPMB & Siakad Al-Afiyah.',
+    role: 'Lead Developer & IT Systems',
+    specialization: 'Arsitektur Sistem Informasi, Fullstack Development & Database',
+    bio: 'Mengembangkan dan mengelola ekosistem digital sekolah, infrastruktur sistem, database, serta operasional portal SPMB & platform digital Al-Afiyah.',
     category: 'IT & Sistem Digital'
   }
 ];

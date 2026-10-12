@@ -72,7 +72,7 @@ export default async function SmpProfilPage() {
     { jabatan: 'PKS Kesiswaan', nama: 'Rio Satrio, S.Pd.', role: 'Pembinaan Karakter & Kedisiplinan Santri', icon: Users },
     { jabatan: 'PKS Sarana & Prasarana', nama: 'Muhamad Eechram Riady, S.Pd.', role: 'Pengelolaan Fasilitas & Sarana Belajar', icon: Compass },
     { jabatan: 'Bendahara & Kepala TU', nama: 'Iip Zaenal Arifin, S.Pd.', role: 'Akuntabilitas Keuangan & Tata Usaha', icon: Award },
-    { jabatan: 'Kepala IT & Database Center', nama: 'Mulia Rizki', role: 'Pengembang Ekosistem & Pusat Data Digital', icon: ShieldCheck },
+    { jabatan: 'Lead Developer & IT Systems', nama: 'Mulia Rizki', role: 'Pengembang Sistem Digital & Pusat Data', icon: ShieldCheck },
   ];
 
   const misiList = [

@@ -46,7 +46,7 @@ function StatCard({ stat, unitSlug, index }: { stat: StatItemData; unitSlug?: 's
         transition: { duration: 0.2 },
       }}
       whileTap={{ scale: 0.98 }}
-      className="group relative overflow-hidden rounded-lg xs:rounded-xl sm:rounded-2xl p-2 xs:p-2.5 sm:p-4 lg:p-5 select-none backdrop-blur-md shadow-lg border bg-white/[0.09] hover:bg-white/[0.16] border-white/20 hover:border-[#ffd51e]/80 transition-colors duration-200 cursor-default"
+      className="group relative overflow-hidden rounded-xl sm:rounded-2xl p-3 xs:p-3.5 sm:p-4 lg:p-5 select-none backdrop-blur-md shadow-lg border bg-white/[0.09] hover:bg-white/[0.16] border-white/20 hover:border-[#ffd51e]/80 transition-colors duration-200 cursor-default"
     >
       {/* Ambient Moving Shimmer Sweep */}
       <motion.div
@@ -63,23 +63,23 @@ function StatCard({ stat, unitSlug, index }: { stat: StatItemData; unitSlug?: 's
       />
 
       {/* Brand Accent Line with Glowing Pulse */}
-      <div className="flex items-center gap-1 sm:gap-1.5 mb-1 sm:mb-2">
-        <div className="w-4 xs:w-6 sm:w-8 h-0.5 sm:h-1 rounded-full bg-[#ffd51e] shadow-[0_0_8px_rgba(255,213,30,0.6)] group-hover:w-10 transition-all duration-300" />
-        <span className="w-1 xs:w-1.5 h-1 xs:h-1.5 rounded-full bg-[#ffd51e] animate-ping opacity-75" />
+      <div className="flex items-center gap-1.5 mb-1.5 sm:mb-2.5">
+        <div className="w-5 sm:w-8 h-1 rounded-full bg-[#ffd51e] shadow-[0_0_10px_rgba(255,213,30,0.6)] group-hover:w-10 transition-all duration-300" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#ffd51e] animate-ping opacity-75" />
       </div>
 
       {/* Label */}
-      <p className="text-[9px] xs:text-[10px] sm:text-xs font-black uppercase tracking-wider line-clamp-1 text-[#ffd51e] group-hover:text-yellow-300 transition-colors">
+      <p className="text-[10px] sm:text-xs font-black uppercase tracking-wider line-clamp-1 text-[#ffd51e] group-hover:text-yellow-300 transition-colors">
         {stat.label}
       </p>
 
       {/* Primary Value */}
-      <h4 className="text-xs xs:text-sm sm:text-base lg:text-lg font-black text-white tracking-tight mt-0.5 leading-snug drop-shadow-sm truncate">
+      <h4 className="text-sm sm:text-base lg:text-lg font-black text-white tracking-tight mt-0.5 leading-snug drop-shadow-sm">
         {stat.value}
       </h4>
 
       {/* Subtext */}
-      <p className="text-[9px] xs:text-[10px] sm:text-xs font-normal mt-0.5 sm:mt-1 leading-snug sm:leading-relaxed line-clamp-1 sm:line-clamp-2 text-white/85 group-hover:text-white transition-colors">
+      <p className="text-[11px] sm:text-xs font-normal mt-1 leading-relaxed line-clamp-2 text-white/85 group-hover:text-white transition-colors">
         {stat.subtext}
       </p>
     </motion.div>
@@ -91,7 +91,7 @@ export default function Hero3DStatCards({ stats, unitSlug }: Hero3DStatCardsProp
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5 xs:gap-2.5 sm:gap-3.5 lg:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4">
         {stats.map((stat, idx) => (
           <StatCard key={stat.label + idx} stat={stat} unitSlug={unitSlug} index={idx} />
         ))}
