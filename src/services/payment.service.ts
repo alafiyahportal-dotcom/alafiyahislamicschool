@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { WhatsAppService } from './whatsapp.service';
+import { approveConversionForRegistration } from './affiliate-commission';
 
 export class PaymentService {
   /**
@@ -73,12 +74,6 @@ export class PaymentService {
 
     const paidAt = new Date();
 
-    // Commission rule: TK 250k, SD 100k (daftar ulang), SMP 500k
-    let commission = 100000;
-    if (existing.school.slug === 'tk') commission = 250000;
-    if (existing.school.slug === 'sd') commission = 100000;
-    if (existing.school.slug === 'smp') commission = 500000;
-
     // Atomic transaction for all state mutations
     const result = await prisma.$transaction(async (tx) => {
       // 1. Re-check invoice under transaction
@@ -107,39 +102,13 @@ export class PaymentService {
         },
       });
 
-      // 4. Attribute Affiliate Commission if referred
-      let affiliateInfo = null;
-      if (existing.registration.affiliateId) {
-        const affiliateProfile = await tx.affiliateProfile.findUnique({
-          where: { id: existing.registration.affiliateId },
-          include: { user: true },
-        });
-
-        if (affiliateProfile) {
-          await tx.affiliateConversion.create({
-            data: {
-              affiliateId: affiliateProfile.id,
-              schoolId: existing.schoolId,
-              registrationId: existing.registrationId,
-              commissionAmount: commission,
-              status: 'APPROVED',
-            },
-          });
-
-          await tx.affiliateProfile.update({
-            where: { id: affiliateProfile.id },
-            data: {
-              totalEarned: { increment: commission },
-              balance: { increment: commission },
-            },
-          });
-
-          affiliateInfo = {
-            phone: affiliateProfile.user.phone,
-            name: affiliateProfile.user.fullName,
-          };
-        }
-      }
+      // 4. Attribute Affiliate Commission if referred (credited exactly once)
+      const affiliateInfo = await approveConversionForRegistration(tx, {
+        id: existing.registrationId,
+        affiliateId: existing.registration.affiliateId,
+        schoolId: existing.schoolId,
+        schoolSlug: existing.school.slug,
+      });
 
       return {
         alreadyPaid: false,
@@ -175,7 +144,7 @@ export class PaymentService {
           affiliateName: result.affiliateInfo.name,
           studentName: existing.registration.studentName,
           schoolName: existing.school.name,
-          commissionAmount: commission,
+          commissionAmount: result.affiliateInfo.commission,
         });
       }
     } catch (notifErr) {

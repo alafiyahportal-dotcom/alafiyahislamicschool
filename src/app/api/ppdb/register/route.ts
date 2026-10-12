@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { PaymentService } from '@/services/payment.service';
 import { WhatsAppService } from '@/services/whatsapp.service';
+import { recordPendingConversion } from '@/services/affiliate-commission';
 
 export async function POST(request: NextRequest) {
   try {
@@ -93,6 +94,16 @@ export async function POST(request: NextRequest) {
         affiliateId,
       },
     });
+
+    // 4b. Show the referral on the affiliate dashboard right away (status: Menunggu)
+    if (affiliateId) {
+      await recordPendingConversion(prisma, {
+        affiliateId,
+        schoolId: school.id,
+        schoolSlug: school.slug,
+        registrationId: registration.id,
+      });
+    }
 
     // 5. Create Documents if any
     if (Array.isArray(uploadedDocs) && uploadedDocs.length > 0) {

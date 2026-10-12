@@ -1883,7 +1883,7 @@ function PPDBFormContent() {
                     </div>
                     <div className="flex items-start space-x-2">
                       <span className="text-emerald-700 font-bold">•</span>
-                      <span>Biaya formulir Rp 175.000 (Gelombang 1)</span>
+                      <span>Biaya formulir Rp 250.000</span>
                     </div>
                     <div className="flex items-start space-x-2">
                       <span className="text-emerald-700 font-bold">•</span>

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { WhatsAppService } from '@/services/whatsapp.service';
 import { requireAuth } from '@/lib/auth-guard';
+import { approveConversionForRegistration } from '@/services/affiliate-commission';
 
 export async function POST(
   request: Request,
@@ -50,7 +51,7 @@ export async function POST(
     }
 
     // Wrap in transaction
-    const updatedInvoice = await prisma.$transaction(async (tx) => {
+    const { inv: updatedInvoice, affiliateInfo } = await prisma.$transaction(async (tx) => {
       const inv = await tx.invoice.update({
         where: { id },
         data: {
@@ -60,14 +61,23 @@ export async function POST(
         },
       });
 
+      let affiliateInfo = null;
       if (invoice.registration) {
         await tx.pPDBRegistration.update({
           where: { id: invoice.registration.id },
           data: { status: 'VERIFIED' },
         });
+
+        // Credit the referring affiliate exactly once
+        affiliateInfo = await approveConversionForRegistration(tx, {
+          id: invoice.registration.id,
+          affiliateId: invoice.registration.affiliateId,
+          schoolId: invoice.schoolId,
+          schoolSlug: invoice.school.slug,
+        });
       }
 
-      return inv;
+      return { inv, affiliateInfo };
     });
 
     // Send WhatsApp outside transaction
@@ -99,6 +109,16 @@ export async function POST(
           amount: invoice.amount,
           orderId: invoice.orderId,
         });
+
+        if (affiliateInfo?.phone) {
+          await WhatsAppService.notifyAffiliateEarned({
+            affiliatePhone: affiliateInfo.phone,
+            affiliateName: affiliateInfo.name,
+            studentName,
+            schoolName: invoice.school.name,
+            commissionAmount: affiliateInfo.commission,
+          });
+        }
       } catch (err) {
         console.warn('WhatsApp receipt delivery failed:', err);
       }
