@@ -127,7 +127,7 @@ export default function AffiliateDashboardPage() {
 Kabar gembira! Penerimaan Peserta Didik Baru (PPDB) SDIT Al-Afiyah Majalengka Tahun Ajaran 2026/2027 telah resmi dibuka.
 
 Kenapa memilih SDIT Al-Afiyah?
-✅ Target Tahfidz Al-Qur'an 5 - 10 Juz
+✅ Target Tahfidz Al-Qur'an: Juz 30 Mutqin + Juz 29 & 28
 ✅ Pembiasaan Adab & Karakter Islami Sejak Dini
 ✅ Tenaga Pendidik Berpengalaman & Penuh Kasih Sayang
 ✅ Lingkungan Belajar Nyaman, Asri & Ramah Anak

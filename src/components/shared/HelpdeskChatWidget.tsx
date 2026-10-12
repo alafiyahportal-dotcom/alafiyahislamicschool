@@ -88,7 +88,7 @@ const FAQ_DATA: FAQItem[] = [
     id: 'faq-2',
     category: 'TAHFIDZ',
     question: 'Bagaimana target capaian hafalan Al-Qur\'an dan metodenya?',
-    answer: 'SDIT Al-Afiyah menargetkan hafalan minimal Juz 30 Mutqin dengan metode talaqqi tartil harian. Untuk SMP IT Al-Afiyah, target kurikulum adalah 3-5 Juz mutqin & tartil, serta tersedia kelas khusus Peminatan Tahfidz bagi murid yang ingin mendalami hafalan lebih intensif.',
+    answer: 'SDIT Al-Afiyah menargetkan hafalan Juz 30 Mutqin ditambah Juz 29 dan 28 dengan metode talaqqi tartil harian. Untuk SMP IT Al-Afiyah, target kurikulum adalah 3-5 Juz mutqin & tartil, serta tersedia kelas khusus Peminatan Tahfidz bagi murid yang ingin mendalami hafalan lebih intensif.',
   },
   {
     id: 'faq-3',

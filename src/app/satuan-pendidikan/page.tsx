@@ -56,10 +56,10 @@ export default function SatuanPendidikanPage() {
       badge: 'Sekolah Dasar Islam Terpadu',
       accentColor: 'from-[#123E38] to-[#1E6B60]',
       badgeBg: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      targetHafalan: '5 s/d 10 Juz Mutqin Bersanad',
+      targetHafalan: 'Juz 30 Mutqin + Juz 29 & 28',
       curriculum: 'Integrasi Kurikulum Nasional (Kemdikbud) & Kurikulum JSIT',
       features: [
-        'Target Kelulusan Hafal Minimal 5 - 10 Juz Mutqin',
+        'Target Kelulusan Hafal Juz 30 Mutqin + Juz 29 & 28',
         'Kelas Smart Classroom & Pembelajaran Saintifik',
         'Penguatan Karakter Salimul Aqidah & Shahihul Ibadah',
         'Pemberian Makanan Bergizi & Sholat Dzuhur Berjamaah',
