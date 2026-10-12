@@ -65,9 +65,6 @@ const SCHOOLS: SchoolOption[] = [
     accent: '#00A651',
     desc: 'Kurikulum terpadu nasional & JSIT, tahfidz juz 30 mutqin, sains, dan pembinaan karakter.',
     waveName: 'Gelombang 1 (1 Okt - 30 Des 2026)',
-    bankName: 'Bank Muamalat',
-    bankAccountNumber: '1360012405',
-    bankAccountHolder: 'SDIT Al-Afiyah',
   },
 ];
 
@@ -234,6 +231,10 @@ function PPDBFormContent() {
     invoiceId: string;
     amount: number;
     schoolName: string;
+    bankName?: string;
+    bankAccountNumber?: string;
+    bankAccountHolder?: string;
+    waCenterPhone?: string;
   } | null>(null);
   const [selectedPayment, setSelectedPayment] = useState('QRIS');
   const [isPaying, setIsPaying] = useState(false);
@@ -348,9 +349,6 @@ function PPDBFormContent() {
                 isPpdbOpen: sdSetting.isPpdbOpen,
                 waveName: sdSetting.waveName || s.waveName,
                 quota: sdSetting.quota || s.quota,
-                bankName: sdSetting.bankName || s.bankName || 'Bank Muamalat',
-                bankAccountNumber: sdSetting.bankAccountNumber || s.bankAccountNumber || '1360012405',
-                bankAccountHolder: sdSetting.bankAccountHolder || s.bankAccountHolder || 'SDIT Al-Afiyah',
               }))
             );
           }
@@ -558,7 +556,11 @@ function PPDBFormContent() {
         registrationNo: data.registration.registrationNo,
         invoiceId: data.invoice.id,
         amount: data.invoice.amount,
-        schoolName: activeSchool.name,
+        schoolName: data.payment?.schoolName || activeSchool.name,
+        bankName: data.payment?.bankName,
+        bankAccountNumber: data.payment?.bankAccountNumber,
+        bankAccountHolder: data.payment?.bankAccountHolder,
+        waCenterPhone: data.payment?.waCenterPhone,
       });
 
       setCurrentStep(6);
@@ -1961,28 +1963,31 @@ function PPDBFormContent() {
                   <div className="flex items-center justify-between">
                     <span className="font-extrabold text-emerald-950 flex items-center gap-1.5 text-xs sm:text-sm">
                       <CreditCard className="w-4 h-4 text-emerald-700" />
-                      <span>Metode 1: Transfer Bank Resmi {activeSchool.name}</span>
+                      <span>Metode 1: Transfer Bank Resmi {createdResult.schoolName}</span>
                     </span>
-                    <span className="text-[10px] bg-emerald-700 text-white px-2.5 py-0.5 rounded-full font-bold shadow-2xs">
-                      {activeSchool.bankName || 'Bank Muamalat'}
-                    </span>
+                    {createdResult.bankName && (
+                      <span className="text-[10px] bg-emerald-700 text-white px-2.5 py-0.5 rounded-full font-bold shadow-2xs">
+                        {createdResult.bankName}
+                      </span>
+                    )}
                   </div>
 
+                  {createdResult.bankAccountNumber ? (
                   <div className="flex items-center justify-between bg-white p-3.5 rounded-xl border border-emerald-200 shadow-2xs">
                     <div>
                       <span className="text-[10px] text-slate-500 uppercase font-medium block">Nomor Rekening:</span>
                       <strong className="text-base sm:text-lg font-mono font-bold text-slate-900 tracking-wider">
-                        {activeSchool.bankAccountNumber || '1360012405'}
+                        {createdResult.bankAccountNumber}
                       </strong>
                       <span className="text-xs text-slate-600 block mt-0.5">
-                        a.n <strong>{activeSchool.bankAccountHolder || `${activeSchool.name} / Yayasan Al-Afiyah`}</strong>
+                        a.n <strong>{createdResult.bankAccountHolder}</strong>
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={() => {
-                        const accNumber = activeSchool.bankAccountNumber || '1360012405';
-                        if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                        const accNumber = createdResult.bankAccountNumber;
+                        if (accNumber && typeof navigator !== 'undefined' && navigator.clipboard) {
                           navigator.clipboard.writeText(accNumber);
                           setCopiedBankAcc(true);
                           setTimeout(() => setCopiedBankAcc(false), 2200);
@@ -2003,6 +2008,11 @@ function PPDBFormContent() {
                       )}
                     </button>
                   </div>
+                  ) : (
+                    <p className="bg-white p-3.5 rounded-xl border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
+                      Nomor rekening resmi akan dikirimkan oleh panitia. Silakan hubungi panitia melalui tombol WhatsApp di bawah sebelum melakukan transfer.
+                    </p>
+                  )}
 
                   <p className="text-[11px] text-slate-600 leading-relaxed">
                     Saat transfer lewat ATM / M-Banking, mohon sertakan keterangan berita: <strong className="text-slate-900 font-mono">{createdResult.registrationNo}</strong> dan simpan struk transfer untuk dikonfirmasi.
@@ -2022,7 +2032,7 @@ function PPDBFormContent() {
 
                 {/* Tombol Konfirmasi WhatsApp */}
                 <a
-                  href={`https://wa.me/6281310139001?text=${encodeURIComponent(
+                  href={`https://wa.me/${createdResult.waCenterPhone || '6281310139001'}?text=${encodeURIComponent(
                     `Assalamu'alaikum Panitia PPDB Al-Afiyah,\n\nSaya orang tua/wali dari calon murid:\n• Nama Murid: ${formData.studentName}\n• No. Registrasi: ${createdResult.registrationNo}\n• Unit: ${createdResult.schoolName}\n• Biaya Pendaftaran: Rp ${createdResult.amount.toLocaleString('id-ID')}\n\nIngin konfirmasi pembayaran biaya formulir PPDB. Terlampir bukti transfer kami. Terima kasih.`
                   )}`}
                   target="_blank"

@@ -130,6 +130,15 @@ export async function POST(request: NextRequest) {
       success: true,
       registration,
       invoice,
+      // Payment instructions come from the registered school's own record (single source of truth)
+      payment: {
+        schoolSlug: school.slug,
+        schoolName: school.name,
+        bankName: school.bankName,
+        bankAccountNumber: school.bankAccountNumber,
+        bankAccountHolder: school.bankAccountHolder,
+        waCenterPhone: school.waCenterPhone,
+      },
     });
   } catch (error: unknown) {
     const err = error as Error;

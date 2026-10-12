@@ -325,21 +325,29 @@ export default async function ApplicantPortalPage({
                 </div>
                 {!isPaid && (
                   <div className="mt-3 pt-3 border-t border-slate-200/80 bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200/80 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-emerald-950 text-xs">Rekening Kas Unit Resmi:</span>
-                      <span className="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded-full font-bold">
-                        {reg.school.bankName}
-                      </span>
-                    </div>
-                    <div className="bg-white p-2.5 rounded-lg border border-emerald-200 flex items-center justify-between">
-                      <div>
-                        <span className="text-[10px] text-slate-500 block">No. Rekening Transfer:</span>
-                        <strong className="font-mono text-sm font-bold text-slate-900">
-                          {reg.school.bankAccountNumber}
-                        </strong>
-                        <span className="text-[11px] text-slate-600 block">a.n {reg.school.bankAccountHolder}</span>
-                      </div>
-                    </div>
+                    {reg.school.bankAccountNumber ? (
+                      <>
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-emerald-950 text-xs">Rekening Resmi {reg.school.name}:</span>
+                          <span className="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded-full font-bold">
+                            {reg.school.bankName}
+                          </span>
+                        </div>
+                        <div className="bg-white p-2.5 rounded-lg border border-emerald-200 flex items-center justify-between">
+                          <div>
+                            <span className="text-[10px] text-slate-500 block">No. Rekening Transfer:</span>
+                            <strong className="font-mono text-sm font-bold text-slate-900">
+                              {reg.school.bankAccountNumber}
+                            </strong>
+                            <span className="text-[11px] text-slate-600 block">a.n {reg.school.bankAccountHolder}</span>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <p className="text-[11px] text-amber-900 leading-relaxed">
+                        Nomor rekening resmi akan dikirimkan oleh panitia {reg.school.name}. Silakan hubungi panitia via WhatsApp sebelum melakukan transfer.
+                      </p>
+                    )}
                     <p className="text-[10px] text-slate-500 leading-relaxed">
                       Cantumkan no. registrasi <strong>{reg.registrationNo}</strong> pada berita transfer dan kirimkan bukti setor ke panitia PPDB unit.
                     </p>
