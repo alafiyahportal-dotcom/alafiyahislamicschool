@@ -128,6 +128,11 @@ export default async function ProfilPage({
       role: 'Koordinator Kurikulum & Mutu Pembelajaran',
       origin: 'Praktisi Parenting & Psikologi Anak',
     },
+    {
+      name: 'Mulia Rizki',
+      role: 'Lead Developer & IT Systems Yayasan',
+      origin: 'Arsitek Sistem Informasi & Ekosistem Digital Al-Afiyah',
+    },
   ];
 
   const saranaFasilitas = [

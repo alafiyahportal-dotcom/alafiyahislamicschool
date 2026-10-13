@@ -23,6 +23,9 @@ export const revalidate = 60; // Cache 60 detik untuk navigasi kilat & otomatis 
 
 function inferCategory(role: string = '', specialization: string = ''): string {
   const text = `${role} ${specialization}`.toLowerCase();
+  if (text.includes('developer') || text.includes('it') || text.includes('sistem') || text.includes('arsitektur')) {
+    return 'IT & Sistem Digital';
+  }
   if (text.includes('yayasan') || text.includes('kepala') || text.includes('komite') || text.includes('pimpinan')) {
     return 'Pimpinan & Komite';
   }

@@ -49,7 +49,7 @@ interface TeacherItem {
 const DEFAULT_TEACHERS: TeacherItem[] = [
   {
     id: 'smp-t-1',
-    name: 'Ustadz Jaja Madhuri, S.Pd.',
+    name: 'Jaja Madhuri, S.Pd.',
     role: 'Kepala Sekolah SMP IT Al-Afiyah',
     specialization: 'Manajemen Pendidikan Islam & Karakter',
     bio: 'Memimpin penyelenggaraan pendidikan SMP IT Al-Afiyah dengan visi mencetak generasi Smart & Religious berakhlak Qur\'ani.',
@@ -57,7 +57,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   },
   {
     id: 'smp-t-2',
-    name: 'Ustadz M. Akbar Pratama, S.Pd.',
+    name: 'M. Akbar Pratama, S.Pd.',
     role: 'PKS Kurikulum (Pembantu Kepala Sekolah)',
     specialization: 'Pengembangan Kurikulum Terpadu & Mutu Akademik',
     bio: 'Mengawal integrasi Kurikulum Nasional dan kurikulum pesantren khas Al-Afiyah, riset sains, dan kecakapan akademik santri.',
@@ -65,7 +65,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   },
   {
     id: 'smp-t-3',
-    name: 'Ustadz Rio Satrio, S.Pd.',
+    name: 'Rio Satrio, S.Pd.',
     role: 'PKS Kesiswaan (Pembantu Kepala Sekolah)',
     specialization: 'Pembinaan Karakter Santri, Disiplin & Minat Bakat',
     bio: 'Membina kedisiplinan, kepemimpinan nabawiyah, program SCD (Student Character Development), dan kegiatan kesiswaan positif.',
@@ -73,7 +73,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   },
   {
     id: 'smp-t-4',
-    name: 'Ustadz Muhamad Eechram Riady, S.Pd.',
+    name: 'Muhamad Eechram Riady, S.Pd.',
     role: 'PKS Sarana & Prasarana',
     specialization: 'Pengelolaan Fasilitas & Lingkungan Pembelajaran',
     bio: 'Memastikan kenyamanan, kelayakan sarana modern, laboratorium multimedia, dan lingkungan asri penunjang kegiatan belajar.',
@@ -81,7 +81,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   },
   {
     id: 'smp-t-5',
-    name: 'Ustadz Iip Zaenal Arifin, S.Pd.',
+    name: 'Iip Zaenal Arifin, S.Pd.',
     role: 'Bendahara Sekolah & Kepala Tata Usaha',
     specialization: 'Tata Kelola Administrasi & Keuangan Pendidikan',
     bio: 'Mengelola akuntabilitas keuangan sekolah, layanan administrasi SPMB terpadu, dan tata usaha profesional bagi wali murid.',
@@ -89,7 +89,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   },
   {
     id: 'smp-t-6',
-    name: 'Ustadz Mulia Rizki',
+    name: 'Mulia Rizki',
     role: 'Lead Developer & IT Systems',
     specialization: 'Arsitektur Sistem Informasi, Fullstack Development & Database',
     bio: 'Mengembangkan dan mengelola ekosistem digital sekolah, infrastruktur sistem, database, serta operasional portal SPMB & platform digital Al-Afiyah.',
@@ -110,13 +110,15 @@ export default async function SmpGuruPage() {
     });
 
     if (dbTeachers && dbTeachers.length > 0) {
-      teachers = dbTeachers.map((t, idx) => ({
+      teachers = dbTeachers.map((t) => ({
         id: t.id,
-        name: t.name,
+        name: t.name.replace(/^(?:Ustadz|Ust\.?)\s+/i, '').trim(),
         role: t.role,
         specialization: t.specialization || 'Pendidik SMP IT',
         bio: t.bio || 'Pendidik berdedikasi tinggi di SMP IT Al-Afiyah Majalengka.',
-        category: t.role.toLowerCase().includes('kepala') || t.role.toLowerCase().includes('manajemen')
+        category: t.role.toLowerCase().includes('developer') || t.role.toLowerCase().includes('it')
+          ? 'IT & Sistem Digital'
+          : t.role.toLowerCase().includes('kepala') || t.role.toLowerCase().includes('manajemen')
           ? 'Pimpinan & Manajemen'
           : t.role.toLowerCase().includes('tahfidz') || t.role.toLowerCase().includes('qur')
           ? 'Tahfidz & Diniyyah'

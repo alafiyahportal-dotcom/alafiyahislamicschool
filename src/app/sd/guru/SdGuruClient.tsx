@@ -92,6 +92,15 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
     specialization: 'Tata Kelola Keuangan & Akuntabilitas Anggaran',
     bio: 'Menyelenggarakan pencatatan anggaran dan tata kelola keuangan sekolah yang transparan, amanah, dan akuntabel.',
     imageUrl: '/images/teacher-avatar-placeholder.jpg',
+  },
+  {
+    id: 't-sd-9',
+    name: 'Mulia Rizki',
+    role: 'Lead Developer & IT Systems',
+    degrees: 'IT & Sistem Digital',
+    specialization: 'Arsitektur Sistem Informasi, Fullstack Development & Database',
+    bio: 'Mengembangkan dan mengelola ekosistem digital sekolah, infrastruktur sistem, database, serta operasional portal SPMB & platform digital Al-Afiyah.',
+    imageUrl: '/images/teacher-avatar-placeholder.jpg',
   }
 ];
 
