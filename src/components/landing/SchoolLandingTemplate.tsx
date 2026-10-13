@@ -240,7 +240,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     { 
       label: 'Akreditasi Sekolah', 
       value: 'Terakreditasi A', 
-      subtext: 'BAN-S/M Unggul Resmi',
+      subtext: 'SK No. 012/BAN-PDM/SK/2025 (Unggul)',
       iconType: 'award',
       badge: 'Akreditasi A',
       color: 'blue',

@@ -29,7 +29,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Profil Lengkap SMP IT Al-Afiyah | Be Smart & Religious',
-  description: 'Profil resmi Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka. Terakreditasi A BAN-S/M, visi Smart & Religious, kurikulum terpadu, tahfidz 3-5+ juz mutqin, dan bahasa Arab aktif.',
+  description: 'Profil resmi Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025), visi Smart & Religious, kurikulum terpadu, tahfidz 3-5+ juz mutqin, dan bahasa Arab aktif.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Profil Lengkap SMP IT Al-Afiyah Majalengka',
-    description: 'Mencetak generasi remaja Qur\'ani cerdas dan berakhlak mulia. Terakreditasi A BAN-S/M.',
+    description: 'Mencetak generasi remaja Qur\'ani cerdas dan berakhlak mulia. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025).',
     images: ['/images/smp-og.jpg'],
   },
 };
@@ -50,7 +50,7 @@ export const revalidate = 60;
 export default async function SmpProfilPage() {
   const identitasSekolah = [
     { label: 'Nama Sekolah Resmi', value: 'SMP IT Al-Afiyah Majalengka' },
-    { label: 'Status Akreditasi', value: 'Terakreditasi A (BAN-S/M Resmi)' },
+    { label: 'Status Akreditasi', value: 'Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)' },
     { label: 'Tagline & Semboyan', value: 'Be Smart & Religious' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Ketua Yayasan', value: 'Jejen Nurbayan, S.Sos.' },
@@ -105,7 +105,7 @@ export default async function SmpProfilPage() {
   const pilarKeunggulan = [
     {
       title: 'Akademik Berbobot & Terakreditasi A',
-      desc: 'Standar mutu pembelajaran unggul yang diakui BAN-S/M dengan predikat A (Unggul).',
+      desc: 'Standar mutu pembelajaran unggul yang diakui BAN-PDM dengan predikat A Unggul (SK No. 012/BAN-PDM/SK/2025).',
       icon: Award,
     },
     {
@@ -150,7 +150,7 @@ export default async function SmpProfilPage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
               <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Terakreditasi A Resmi BAN-S/M</span>
+              <span>Terakreditasi A Resmi (SK No. 012/BAN-PDM/SK/2025)</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -201,7 +201,7 @@ export default async function SmpProfilPage() {
             <div className="mt-6 pt-6 border-t border-white/15 space-y-3">
               <div className="flex items-center gap-3 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-[#ffd51e] shrink-0" />
-                <span>Terakreditasi A BAN-S/M Kemendikbudristek</span>
+                <span>Terakreditasi A (SK No. 012/BAN-PDM/SK/2025) Kemendikbudristek</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-[#ffd51e] shrink-0" />

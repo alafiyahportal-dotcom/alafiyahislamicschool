@@ -48,6 +48,14 @@ interface TeacherItem {
 
 const DEFAULT_TEACHERS: TeacherItem[] = [
   {
+    id: 'smp-t-0',
+    name: 'Jejen Nurbayan, S.Sos',
+    role: 'Ketua Yayasan Pendidikan Imam Bonjol',
+    specialization: 'Manajemen Kelembagaan & Kebijakan Yayasan',
+    bio: 'Mengarahkan visi pendidikan terpadu berlandaskan tauhid dan akhlak mulia demi masa depan generasi Qur\'ani.',
+    category: 'Pimpinan & Manajemen'
+  },
+  {
     id: 'smp-t-1',
     name: 'Jaja Madhuri, S.Pd.',
     role: 'Kepala Sekolah SMP IT Al-Afiyah',
@@ -118,7 +126,7 @@ export default async function SmpGuruPage() {
         bio: t.bio || 'Pendidik berdedikasi tinggi di SMP IT Al-Afiyah Majalengka.',
         category: t.role.toLowerCase().includes('developer') || t.role.toLowerCase().includes('it')
           ? 'IT & Sistem Digital'
-          : t.role.toLowerCase().includes('kepala') || t.role.toLowerCase().includes('manajemen')
+          : t.role.toLowerCase().includes('kepala') || t.role.toLowerCase().includes('manajemen') || t.role.toLowerCase().includes('yayasan') || t.role.toLowerCase().includes('ketua')
           ? 'Pimpinan & Manajemen'
           : t.role.toLowerCase().includes('tahfidz') || t.role.toLowerCase().includes('qur')
           ? 'Tahfidz & Diniyyah'

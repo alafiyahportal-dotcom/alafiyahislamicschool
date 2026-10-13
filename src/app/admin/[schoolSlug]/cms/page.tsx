@@ -277,7 +277,7 @@ export default async function SchoolCMSEditorPage({
     { label: 'Akreditasi Sekolah', value: 'Terakreditasi B' },
     { label: 'Bimbingan Tahfidz', value: 'Juz 30 Mutqin' }
   ] : schoolSlug === 'smp' ? [
-    { label: 'Akreditasi Lembaga', value: 'Terakreditasi A', subtext: 'BAN-S/M Resmi', badge: 'RESMI' },
+    { label: 'Akreditasi Lembaga', value: 'Terakreditasi A', subtext: 'SK No. 012/BAN-PDM/SK/2025', badge: 'RESMI' },
     { label: 'Target Capaian Tahfidz', value: '3-5+ Juz', subtext: 'Metode Talaqqi Mutqin & Tartil', badge: 'PROGRAM UNGGULAN' },
     { label: 'Diskon Uang Bangunan', value: 'Hingga 70%', subtext: 'Alumni SDIT Al Afiyah & Umum', badge: 'SPMB GELOMBANG 1' },
     { label: 'Karakter & Bahasa', value: 'Smart & Religious', subtext: 'Bahasa Arab Aktif & Mutaba\'ah Digital', badge: 'SCD' }

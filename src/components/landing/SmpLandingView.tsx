@@ -216,7 +216,7 @@ const SMP_FAQS = [
   },
   {
     q: 'Apakah SMP IT Al-Afiyah sudah terakreditasi resmi?',
-    a: 'Ya, SMP IT Al-Afiyah telah Terakreditasi A Resmi oleh BAN-S/M dengan predikat Unggul.',
+    a: 'Ya, SMP IT Al-Afiyah telah Terakreditasi A Resmi oleh BAN-PDM dengan predikat Unggul (SK No. 012/BAN-PDM/SK/2025).',
   },
   {
     q: 'Apa saja program unggulan khusus di SMP IT Al-Afiyah?',
@@ -268,7 +268,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
     { 
       label: 'Akreditasi Lembaga', 
       value: 'Terakreditasi A', 
-      subtext: 'BAN-S/M Unggul Resmi',
+      subtext: 'SK No. 012/BAN-PDM/SK/2025 (Unggul)',
       iconType: 'award' as const,
       badge: 'Akreditasi A',
       color: 'blue' as const,
@@ -349,7 +349,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
                 <div>
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#ffd51e] mb-2">
                     <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-                    <span>SMP IT Al-Afiyah • Terakreditasi A BAN-S/M</span>
+                    <span>SMP IT Al-Afiyah • Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
                     Jadwal &amp; Ketentuan Gelombang SPMB

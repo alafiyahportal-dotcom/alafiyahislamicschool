@@ -167,7 +167,7 @@ export default function UnitHeroSlider({
       secondaryCtaLink: waUrl,
       image: '/images/hero/smp-cutout.webp',
       trustItems: [
-        { icon: 'award', text: 'Terakreditasi A BAN-S/M' },
+        { icon: 'award', text: 'Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)' },
         { icon: 'check', text: 'Target Tahfidz 3-5+ Juz' },
         { icon: 'calendar', text: 'Diskon Gelombang 1 s.d. 70%' },
         { icon: 'shield', text: `Formulir: Rp ${registrationFee.toLocaleString('id-ID')}` }

@@ -328,7 +328,7 @@ export const DEFAULT_SMP_PROFIL: SMPProfilData = {
   ],
   legalitas: [
     { label: 'Nama Sekolah Resmi', value: 'SMP IT Al-Afiyah Majalengka' },
-    { label: 'Status Akreditasi', value: 'Terakreditasi A (BAN-S/M Resmi)' },
+    { label: 'Status Akreditasi', value: 'Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)' },
     { label: 'Tagline & Semboyan', value: 'Be Smart & Religious' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Jenjang Pendidikan', value: 'Sekolah Menengah Pertama Islam Terpadu (Kelas VII – IX)' },
@@ -364,7 +364,7 @@ export default function CMSEditorClient({
     if (typeof window !== 'undefined') {
       try {
         deletedUrls = JSON.parse(localStorage.getItem(DELETED_KEY) || '[]');
-      } catch {}
+      } catch { }
     }
     const deletedSet = new Set<string>(deletedUrls);
     // Explicit blacklist of AI images so they NEVER reappear
@@ -398,7 +398,7 @@ export default function CMSEditorClient({
         return parsed.filter((p) => !deletedSet.has(p.url));
       }
       return defaults;
-    } catch {}
+    } catch { }
     return defaults;
   };
 
@@ -411,7 +411,7 @@ export default function CMSEditorClient({
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(presetImages));
-    } catch {}
+    } catch { }
   }, [presetImages, STORAGE_KEY]);
 
   const handleRemovePresetImage = async (urlToRemove: string) => {
@@ -425,7 +425,7 @@ export default function CMSEditorClient({
           deletedArr.push(urlToRemove);
           localStorage.setItem(DELETED_KEY, JSON.stringify(deletedArr));
         }
-      } catch {}
+      } catch { }
     }
 
     // Persist mutation directly to database backend so re-render/fetch never resurrects it
@@ -490,7 +490,7 @@ export default function CMSEditorClient({
       if (typeof window !== 'undefined') {
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        } catch {}
+        } catch { }
       }
 
       // Persist to database backend
@@ -504,7 +504,7 @@ export default function CMSEditorClient({
             contentJson: updated,
           }),
         });
-      } catch {}
+      } catch { }
 
       return finalUrl;
     } catch (err: unknown) {
@@ -622,8 +622,8 @@ export default function CMSEditorClient({
   const slides = formData.hero.slides && formData.hero.slides.length > 0
     ? formData.hero.slides
     : schoolSlug === 'sd'
-    ? defaultSdSlides
-    : [
+      ? defaultSdSlides
+      : [
         {
           id: 1,
           badge: badgeText,
@@ -654,28 +654,28 @@ export default function CMSEditorClient({
   // Unit-specific accent color tokens for CMS Editor
   const unitTheme = isSmp
     ? {
-        primaryBg: 'bg-[#030164]',
-        primaryBgHover: 'hover:bg-[#080554]',
-        primaryText: 'text-[#030164]',
-        borderActive: 'border-[#030164]',
-        ringFocus: 'focus:ring-[#030164]/30',
-        activeTabClass: 'bg-[#030164] text-white shadow-xs',
-        saveBtnClass: 'bg-[#030164] hover:bg-[#080554] text-white shadow-sm',
-        slideBtnActive: 'bg-[#030164] text-[#ffd51e] shadow-xs ring-2 ring-[#ffd51e]/40 font-black',
-        badgePill: 'bg-blue-50 text-[#030164] border border-blue-200 font-extrabold',
-        infoBox: 'bg-blue-50/70 border border-blue-200 text-blue-950',
-        infoIcon: 'text-[#030164]',
-        presetActive: 'border-[#030164] bg-blue-50/50 ring-2 ring-[#030164]/40',
-        uploadBorder: 'border-[#030164]/40 bg-blue-50/20 hover:bg-blue-50/60 hover:border-[#030164]',
-        uploadIcon: 'text-[#030164]',
-        uploadText: 'text-[#030164]',
-        cta2Text: 'text-[#030164]',
-        manageBtn: 'bg-blue-50 text-[#030164] hover:bg-blue-100 border border-blue-200',
-        manageIcon: 'text-[#030164]',
-        unitTitle: 'SMP IT Al-Afiyah',
-      }
+      primaryBg: 'bg-[#030164]',
+      primaryBgHover: 'hover:bg-[#080554]',
+      primaryText: 'text-[#030164]',
+      borderActive: 'border-[#030164]',
+      ringFocus: 'focus:ring-[#030164]/30',
+      activeTabClass: 'bg-[#030164] text-white shadow-xs',
+      saveBtnClass: 'bg-[#030164] hover:bg-[#080554] text-white shadow-sm',
+      slideBtnActive: 'bg-[#030164] text-[#ffd51e] shadow-xs ring-2 ring-[#ffd51e]/40 font-black',
+      badgePill: 'bg-blue-50 text-[#030164] border border-blue-200 font-extrabold',
+      infoBox: 'bg-blue-50/70 border border-blue-200 text-blue-950',
+      infoIcon: 'text-[#030164]',
+      presetActive: 'border-[#030164] bg-blue-50/50 ring-2 ring-[#030164]/40',
+      uploadBorder: 'border-[#030164]/40 bg-blue-50/20 hover:bg-blue-50/60 hover:border-[#030164]',
+      uploadIcon: 'text-[#030164]',
+      uploadText: 'text-[#030164]',
+      cta2Text: 'text-[#030164]',
+      manageBtn: 'bg-blue-50 text-[#030164] hover:bg-blue-100 border border-blue-200',
+      manageIcon: 'text-[#030164]',
+      unitTitle: 'SMP IT Al-Afiyah',
+    }
     : isTk
-    ? {
+      ? {
         primaryBg: 'bg-[#0284c7]',
         primaryBgHover: 'hover:bg-[#0369a1]',
         primaryText: 'text-[#0284c7]',
@@ -696,49 +696,49 @@ export default function CMSEditorClient({
         manageIcon: 'text-[#0284c7]',
         unitTitle: 'TK IT Al-Afiyah',
       }
-    : isSd
-    ? {
-        primaryBg: 'bg-[#00A651]',
-        primaryBgHover: 'hover:bg-[#059669]',
-        primaryText: 'text-[#00A651]',
-        borderActive: 'border-[#00A651]',
-        ringFocus: 'focus:ring-[#00A651]/30',
-        activeTabClass: 'bg-[#00A651] text-white shadow-xs',
-        saveBtnClass: 'bg-[#00A651] hover:bg-[#059669] text-white shadow-sm',
-        slideBtnActive: 'bg-[#00A651] text-white shadow-xs ring-2 ring-emerald-300 font-black',
-        badgePill: 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-extrabold',
-        infoBox: 'bg-emerald-50/70 border border-emerald-200 text-emerald-950',
-        infoIcon: 'text-[#00A651]',
-        presetActive: 'border-[#00A651] bg-emerald-50/50 ring-2 ring-[#00A651]/40',
-        uploadBorder: 'border-[#00A651]/40 bg-emerald-50/20 hover:bg-emerald-50/60 hover:border-[#00A651]',
-        uploadIcon: 'text-[#00A651]',
-        uploadText: 'text-[#00A651]',
-        cta2Text: 'text-[#00A651]',
-        manageBtn: 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200',
-        manageIcon: 'text-[#00A651]',
-        unitTitle: 'SDIT Al-Afiyah',
-      }
-    : {
-        primaryBg: 'bg-[#184F48]',
-        primaryBgHover: 'hover:bg-[#123E38]',
-        primaryText: 'text-[#184F48]',
-        borderActive: 'border-[#184F48]',
-        ringFocus: 'focus:ring-[#2D7A70]/30',
-        activeTabClass: 'bg-[#184F48] text-white shadow-xs',
-        saveBtnClass: 'bg-[#184F48] hover:bg-[#123E38] text-white shadow-sm',
-        slideBtnActive: 'bg-[#184F48] text-white shadow-xs ring-2 ring-[#2D7A70]/30 font-black',
-        badgePill: 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-extrabold',
-        infoBox: 'bg-slate-50 border border-slate-200 text-slate-800',
-        infoIcon: 'text-[#184F48]',
-        presetActive: 'border-[#184F48] bg-[#E8F3F1] ring-2 ring-[#2D7A70]/20',
-        uploadBorder: 'border-[#2D7A70]/40 bg-[#F0FAF8] hover:bg-[#E0F5F0] hover:border-[#2D7A70]',
-        uploadIcon: 'text-[#2D7A70]',
-        uploadText: 'text-[#2D7A70]',
-        cta2Text: 'text-[#184F48]',
-        manageBtn: 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-300',
-        manageIcon: 'text-emerald-700',
-        unitTitle: 'Yayasan Pendidikan Al-Afiyah',
-      };
+      : isSd
+        ? {
+          primaryBg: 'bg-[#00A651]',
+          primaryBgHover: 'hover:bg-[#059669]',
+          primaryText: 'text-[#00A651]',
+          borderActive: 'border-[#00A651]',
+          ringFocus: 'focus:ring-[#00A651]/30',
+          activeTabClass: 'bg-[#00A651] text-white shadow-xs',
+          saveBtnClass: 'bg-[#00A651] hover:bg-[#059669] text-white shadow-sm',
+          slideBtnActive: 'bg-[#00A651] text-white shadow-xs ring-2 ring-emerald-300 font-black',
+          badgePill: 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-extrabold',
+          infoBox: 'bg-emerald-50/70 border border-emerald-200 text-emerald-950',
+          infoIcon: 'text-[#00A651]',
+          presetActive: 'border-[#00A651] bg-emerald-50/50 ring-2 ring-[#00A651]/40',
+          uploadBorder: 'border-[#00A651]/40 bg-emerald-50/20 hover:bg-emerald-50/60 hover:border-[#00A651]',
+          uploadIcon: 'text-[#00A651]',
+          uploadText: 'text-[#00A651]',
+          cta2Text: 'text-[#00A651]',
+          manageBtn: 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200',
+          manageIcon: 'text-[#00A651]',
+          unitTitle: 'SDIT Al-Afiyah',
+        }
+        : {
+          primaryBg: 'bg-[#184F48]',
+          primaryBgHover: 'hover:bg-[#123E38]',
+          primaryText: 'text-[#184F48]',
+          borderActive: 'border-[#184F48]',
+          ringFocus: 'focus:ring-[#2D7A70]/30',
+          activeTabClass: 'bg-[#184F48] text-white shadow-xs',
+          saveBtnClass: 'bg-[#184F48] hover:bg-[#123E38] text-white shadow-sm',
+          slideBtnActive: 'bg-[#184F48] text-white shadow-xs ring-2 ring-[#2D7A70]/30 font-black',
+          badgePill: 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-extrabold',
+          infoBox: 'bg-slate-50 border border-slate-200 text-slate-800',
+          infoIcon: 'text-[#184F48]',
+          presetActive: 'border-[#184F48] bg-[#E8F3F1] ring-2 ring-[#2D7A70]/20',
+          uploadBorder: 'border-[#2D7A70]/40 bg-[#F0FAF8] hover:bg-[#E0F5F0] hover:border-[#2D7A70]',
+          uploadIcon: 'text-[#2D7A70]',
+          uploadText: 'text-[#2D7A70]',
+          cta2Text: 'text-[#184F48]',
+          manageBtn: 'bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-300',
+          manageIcon: 'text-emerald-700',
+          unitTitle: 'Yayasan Pendidikan Al-Afiyah',
+        };
 
   // Helper to update current slide (universal copy sync across all slides)
   const updateCurrentSlide = (field: keyof UnitSlideData, value: any) => {
@@ -888,7 +888,7 @@ export default function CMSEditorClient({
               contentJson: presetImages,
             }),
           });
-        } catch {}
+        } catch { }
 
         setSaveSuccess(true);
         setTimeout(() => setSaveSuccess(false), 3500);
@@ -908,14 +908,14 @@ export default function CMSEditorClient({
     activeTab === 'affiliate'
       ? '/affiliate'
       : activeTab === 'sd_karakter'
-      ? '/sd/karakter'
-      : activeTab === 'sd_profil'
-      ? '/sd/profil'
-      : activeTab === 'smp_karakter'
-      ? '/smp/karakter'
-      : activeTab === 'smp_profil'
-      ? '/smp/profil'
-      : publicUrl;
+        ? '/sd/karakter'
+        : activeTab === 'sd_profil'
+          ? '/sd/profil'
+          : activeTab === 'smp_karakter'
+            ? '/smp/karakter'
+            : activeTab === 'smp_profil'
+              ? '/smp/profil'
+              : publicUrl;
 
   const [newKeywordInput, setNewKeywordInput] = useState('');
 
@@ -1119,10 +1119,10 @@ export default function CMSEditorClient({
                   {schoolSlug === 'tk'
                     ? 'TK IT Al-Afiyah'
                     : schoolSlug === 'sd'
-                    ? 'SDIT Al-Afiyah'
-                    : schoolSlug === 'smp'
-                    ? 'SMP IT Al-Afiyah'
-                    : schoolName}
+                      ? 'SDIT Al-Afiyah'
+                      : schoolSlug === 'smp'
+                        ? 'SMP IT Al-Afiyah'
+                        : schoolName}
                 </span>
                 <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold inline-block">
                   Aktif
@@ -1147,11 +1147,10 @@ export default function CMSEditorClient({
             <button
               type="button"
               onClick={() => setViewMode('editor')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                viewMode === 'editor'
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${viewMode === 'editor'
                   ? 'bg-white text-slate-900 shadow-2xs'
                   : 'text-slate-600 hover:text-slate-900'
-              }`}
+                }`}
             >
               <Edit3 className="w-3.5 h-3.5 text-[#2D7A70]" />
               <span>Formulir Editor</span>
@@ -1159,11 +1158,10 @@ export default function CMSEditorClient({
             <button
               type="button"
               onClick={() => setViewMode('preview')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                viewMode === 'preview'
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${viewMode === 'preview'
                   ? 'bg-white text-slate-900 shadow-2xs'
                   : 'text-slate-600 hover:text-slate-900'
-              }`}
+                }`}
             >
               <Eye className="w-3.5 h-3.5 text-[#2D7A70]" />
               <span>Pratinjau Live</span>
@@ -1222,15 +1220,15 @@ export default function CMSEditorClient({
             : []),
           ...(schoolSlug === 'sd'
             ? [
-                { id: 'sd_karakter', label: '9. Pilar Karakter (/sd/karakter)', icon: HeartHandshake },
-                { id: 'sd_profil', label: '10. Profil & Visi Misi (/sd/profil)', icon: Building2 },
-              ]
+              { id: 'sd_karakter', label: '9. Pilar Karakter (/sd/karakter)', icon: HeartHandshake },
+              { id: 'sd_profil', label: '10. Profil & Visi Misi (/sd/profil)', icon: Building2 },
+            ]
             : []),
           ...(schoolSlug === 'smp'
             ? [
-                { id: 'smp_karakter', label: '9. Karakter & SCD (/smp/karakter)', icon: HeartHandshake },
-                { id: 'smp_profil', label: '10. Profil & Legalitas (/smp/profil)', icon: Building2 },
-              ]
+              { id: 'smp_karakter', label: '9. Karakter & SCD (/smp/karakter)', icon: HeartHandshake },
+              { id: 'smp_profil', label: '10. Profil & Legalitas (/smp/profil)', icon: Building2 },
+            ]
             : []),
         ].map((tab) => {
           const Icon = tab.icon;
@@ -1239,11 +1237,10 @@ export default function CMSEditorClient({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as TabType)}
-              className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
-                isActive
+              className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${isActive
                   ? unitTheme.activeTabClass
                   : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-              }`}
+                }`}
             >
               <Icon className="w-3.5 h-3.5" />
               <span>{tab.label}</span>
@@ -1348,7 +1345,7 @@ export default function CMSEditorClient({
           )}
           {activeTab === 'smp_profil' && (
             <span>
-              <strong>Halaman Profil Lengkap (/smp/profil):</strong> Kelola Visi resmi (*Be Smart &amp; Religious*), 6 butir Misi strategis, dan data legalitas BAN-S/M Terakreditasi A SMP IT Al-Afiyah Majalengka.
+              <strong>Halaman Profil Lengkap (/smp/profil):</strong> Kelola Visi resmi (*Be Smart &amp; Religious*), 6 butir Misi strategis, dan data legalitas BAN-PDM Terakreditasi A (SK No. 012/BAN-PDM/SK/2025) SMP IT Al-Afiyah Majalengka.
             </span>
           )}
         </div>
@@ -1431,15 +1428,14 @@ export default function CMSEditorClient({
                 )}
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">{currentSlide.description}</p>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <span className={`px-5 py-2.5 rounded-xl font-extrabold text-xs shadow-lg inline-flex items-center space-x-1.5 ${
-                    schoolSlug === 'smp'
+                  <span className={`px-5 py-2.5 rounded-xl font-extrabold text-xs shadow-lg inline-flex items-center space-x-1.5 ${schoolSlug === 'smp'
                       ? 'bg-[#ffd51e] text-[#030164] hover:bg-yellow-400'
                       : schoolSlug === 'sd'
-                      ? 'bg-[#00A651] text-white hover:bg-[#008f45]'
-                      : schoolSlug === 'tk'
-                      ? 'bg-sky-500 text-white hover:bg-sky-600'
-                      : 'bg-amber-500 text-slate-950'
-                  }`}>
+                        ? 'bg-[#00A651] text-white hover:bg-[#008f45]'
+                        : schoolSlug === 'tk'
+                          ? 'bg-sky-500 text-white hover:bg-sky-600'
+                          : 'bg-amber-500 text-slate-950'
+                    }`}>
                     <span>{currentSlide.primaryCtaText || (schoolSlug === 'smp' ? 'Daftar SPMB SMP IT' : schoolSlug === 'sd' ? 'Daftar SPMB SDIT' : schoolSlug === 'tk' ? 'Daftar SPMB TK' : 'Daftar Sekarang')}</span><ChevronRight className="w-4 h-4" />
                   </span>
                   <span className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-xs">
@@ -1966,7 +1962,7 @@ export default function CMSEditorClient({
                   {(formData.testimonials || []).map((t, i) => (
                     <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3">
                       <div className="flex items-center gap-1 text-amber-400">
-                        {[1,2,3,4,5].map(s => <Award key={s} className="w-3.5 h-3.5 fill-amber-400" />)}
+                        {[1, 2, 3, 4, 5].map(s => <Award key={s} className="w-3.5 h-3.5 fill-amber-400" />)}
                       </div>
                       <p className="text-xs text-slate-600 italic leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
                       <div className="pt-2 border-t border-slate-100">
@@ -2101,22 +2097,20 @@ export default function CMSEditorClient({
                         <button
                           type="button"
                           onClick={() => setSmpPreviewGender('ikhwan')}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                            smpPreviewGender === 'ikhwan'
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${smpPreviewGender === 'ikhwan'
                               ? 'bg-[#030164] text-white shadow-xs'
                               : 'text-slate-600 hover:text-slate-900'
-                          }`}
+                            }`}
                         >
                           Ikhwan (Putra)
                         </button>
                         <button
                           type="button"
                           onClick={() => setSmpPreviewGender('akhwat')}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                            smpPreviewGender === 'akhwat'
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${smpPreviewGender === 'akhwat'
                               ? 'bg-[#030164] text-white shadow-xs'
                               : 'text-slate-600 hover:text-slate-900'
-                          }`}
+                            }`}
                         >
                           Akhwat (Putri)
                         </button>
@@ -2132,11 +2126,10 @@ export default function CMSEditorClient({
                         <button
                           type="button"
                           onClick={() => setSmpPreviewDiscount('sdit')}
-                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                            smpPreviewDiscount === 'sdit'
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${smpPreviewDiscount === 'sdit'
                               ? 'bg-blue-50/90 border-[#030164] ring-2 ring-[#030164]/20'
                               : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-xs font-bold text-[#030164]">Alumni SDIT Al Afiyah</span>
@@ -2150,11 +2143,10 @@ export default function CMSEditorClient({
                         <button
                           type="button"
                           onClick={() => setSmpPreviewDiscount('umum')}
-                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                            smpPreviewDiscount === 'umum'
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${smpPreviewDiscount === 'umum'
                               ? 'bg-amber-50/90 border-amber-500 ring-2 ring-amber-500/20'
                               : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-xs font-bold text-amber-950">Luar SDIT / Umum</span>
@@ -2168,11 +2160,10 @@ export default function CMSEditorClient({
                         <button
                           type="button"
                           onClick={() => setSmpPreviewDiscount('normal')}
-                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                            smpPreviewDiscount === 'normal'
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${smpPreviewDiscount === 'normal'
                               ? 'bg-slate-200 border-slate-600 ring-2 ring-slate-400'
                               : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-xs font-bold text-slate-800">Biaya Normal (Gelombang 2)</span>
@@ -2321,22 +2312,20 @@ export default function CMSEditorClient({
                           <button
                             type="button"
                             onClick={() => setSmpActivePoster('/images/smp-spmb-biaya.png')}
-                            className={`px-2 py-1 rounded text-[10px] font-bold cursor-pointer transition-colors ${
-                              smpActivePoster === '/images/smp-spmb-biaya.png'
+                            className={`px-2 py-1 rounded text-[10px] font-bold cursor-pointer transition-colors ${smpActivePoster === '/images/smp-spmb-biaya.png'
                                 ? 'bg-[#030164] text-white'
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
+                              }`}
                           >
                             Biaya &amp; Diskon
                           </button>
                           <button
                             type="button"
                             onClick={() => setSmpActivePoster('/images/smp-spmb-poster.png')}
-                            className={`px-2 py-1 rounded text-[10px] font-bold cursor-pointer transition-colors ${
-                              smpActivePoster === '/images/smp-spmb-poster.png'
+                            className={`px-2 py-1 rounded text-[10px] font-bold cursor-pointer transition-colors ${smpActivePoster === '/images/smp-spmb-poster.png'
                                 ? 'bg-[#030164] text-white'
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
+                              }`}
                           >
                             Poster Utama
                           </button>
@@ -2682,7 +2671,7 @@ export default function CMSEditorClient({
               {/* Header */}
               <div className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white rounded-3xl p-6 sm:p-8 text-center space-y-2 shadow-md">
                 <span className="text-xs font-bold text-[#030164] uppercase tracking-widest bg-[#ffd51e] px-3.5 py-1.5 rounded-full inline-block font-mono">
-                  Profil Resmi &amp; Legalitas BAN-S/M Terakreditasi A
+                  Profil Resmi &amp; Legalitas Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)
                 </span>
                 <h3 className="text-xl sm:text-3xl font-black text-white tracking-tight">
                   SMP IT Al-Afiyah Majalengka
@@ -2732,11 +2721,11 @@ export default function CMSEditorClient({
                 </div>
               </div>
 
-              {/* Identitas Satuan Pendidikan & Legalitas BAN-S/M */}
+              {/* Identitas Satuan Pendidikan & Legalitas */}
               <div className="max-w-4xl mx-auto space-y-4 pt-4 border-t border-slate-200">
                 <div className="text-center">
                   <span className="text-xs font-bold text-[#030164] uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                    Data Satuan Pendidikan &amp; Legalitas BAN-S/M Terakreditasi A
+                    Data Satuan Pendidikan &amp; Legalitas Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -2997,11 +2986,10 @@ export default function CMSEditorClient({
                         key={s.id || idx}
                         type="button"
                         onClick={() => setSelectedSlideIndex(idx)}
-                        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                          selectedSlideIndex === idx
+                        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${selectedSlideIndex === idx
                             ? unitTheme.slideBtnActive
                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                        }`}
+                          }`}
                       >
                         Foto Slide {idx + 1}
                       </button>
@@ -3073,11 +3061,10 @@ export default function CMSEditorClient({
                       {availablePresetImages.map((preset) => (
                         <div
                           key={preset.url}
-                          className={`relative p-1.5 rounded-xl border text-left transition-all group cursor-pointer ${
-                            currentSlide.image === preset.url
+                          className={`relative p-1.5 rounded-xl border text-left transition-all group cursor-pointer ${currentSlide.image === preset.url
                               ? unitTheme.presetActive
                               : 'border-slate-200 bg-white hover:bg-slate-100'
-                          }`}
+                            }`}
                         >
                           {/* Hapus dari daftar preset */}
                           <button
@@ -3127,8 +3114,8 @@ export default function CMSEditorClient({
                         ) : (
                           <>
                             <Upload className={`w-4 h-4 ${unitTheme.uploadIcon} group-hover:scale-110 transition-transform`} />
-                            <span className={`text-[10px] font-bold ${unitTheme.uploadText} text-center leading-tight`}>Unggah<br/>Foto Baru</span>
-                            <span className="text-[9px] text-slate-400 text-center">JPG/PNG/WebP<br/>maks 5MB</span>
+                            <span className={`text-[10px] font-bold ${unitTheme.uploadText} text-center leading-tight`}>Unggah<br />Foto Baru</span>
+                            <span className="text-[9px] text-slate-400 text-center">JPG/PNG/WebP<br />maks 5MB</span>
                           </>
                         )}
                       </div>
@@ -5324,7 +5311,7 @@ export default function CMSEditorClient({
                       <span>Editor Profil, Visi, Misi &amp; Legalitas SMP IT (/smp/profil)</span>
                     </h3>
                     <p className="text-xs text-slate-500 mt-1">
-                      Data profil resmi, visi misi institusi, kurikulum terpadu, dan legalitas akreditasi BAN-S/M SMP IT Al-Afiyah.
+                      Data profil resmi, visi misi institusi, kurikulum terpadu, dan legalitas akreditasi Terakreditasi A (SK No. 012/BAN-PDM/SK/2025) SMP IT Al-Afiyah.
                     </p>
                   </div>
                   <a
@@ -5420,10 +5407,10 @@ export default function CMSEditorClient({
                 <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900">
-                      Tabel Identitas Sekolah &amp; Legalitas BAN-S/M
+                      Tabel Identitas Sekolah &amp; Legalitas Akreditasi
                     </h4>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Informasi legalitas, status akreditasi A resmi, kurikulum terpadu, alamat, dan narahubung SMP IT.
+                      Informasi legalitas, status akreditasi A resmi (SK No. 012/BAN-PDM/SK/2025), kurikulum terpadu, alamat, dan narahubung SMP IT.
                     </p>
                   </div>
                   <button
@@ -5467,7 +5454,7 @@ export default function CMSEditorClient({
                             currentLeg[idIdx] = { ...currentLeg[idIdx], value: e.target.value };
                             updateSmpProfil((prev) => ({ ...prev, legalitas: currentLeg }));
                           }}
-                          placeholder="Nilai (misal: Terakreditasi A (BAN-S/M))"
+                          placeholder="Nilai (misal: Terakreditasi A (SK No. 012/BAN-PDM/SK/2025))"
                           className="w-full text-xs text-slate-900 border border-slate-300 rounded-lg p-2 bg-white"
                         />
                       </div>

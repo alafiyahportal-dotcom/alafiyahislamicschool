@@ -73,21 +73,21 @@ const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
   },
   {
     id: 'smp-pengumuman-1',
-    title: 'Alhamdulillah! SMP IT Al-Afiyah Resmi Raih Nilai Akreditasi A (Unggul) dari BAN-S/M',
+    title: 'Alhamdulillah! SMP IT Al-Afiyah Resmi Raih Nilai Akreditasi A (SK No. 012/BAN-PDM/SK/2025)',
     slug: 'smp-it-al-afiyah-raih-akreditasi-a',
     category: 'Pengumuman',
-    excerpt: 'Prestasi membanggakan bagi seluruh civitas akademika. Standar mutu pembelajaran, sarana ber-AC, dan pembinaan tahfidz resmi diakui dengan predikat A Unggul.',
+    excerpt: 'Prestasi membanggakan bagi seluruh civitas akademika. Standar mutu pembelajaran, sarana ber-AC, dan pembinaan tahfidz resmi diakui dengan predikat A Unggul (SK No. 012/BAN-PDM/SK/2025).',
     author: 'Humas SMP IT Al-Afiyah',
     date: '3 Okt 2026',
     schoolName: 'SMP IT Al-Afiyah',
     readingTime: '3 menit baca',
     imageUrl: '/images/smp-spmb-biaya.png',
     paragraphs: [
-      'Berdasarkan Surat Keputusan resmi Badan Akreditasi Nasional Sekolah/Madrasah (BAN-S/M), SMP IT Al-Afiyah Majalengka resmi memperoleh predikat Akreditasi A (Unggul).',
+      'Berdasarkan Surat Keputusan resmi No. 012/BAN-PDM/SK/2025 dari Badan Akreditasi Nasional (BAN-PDM), SMP IT Al-Afiyah Majalengka resmi memperoleh predikat Akreditasi A (Unggul).',
       'Pencapaian ini mencerminkan komitmen yayasan dan sekolah dalam menyediakan kurikulum berkualitas, asatidz berkualifikasi, lingkungan belajar kondusif, dan sistem monitoring karakter modern.'
     ],
     keyHighlights: [
-      'Akreditasi A Unggul resmi dari BAN-S/M',
+      'Akreditasi A Unggul resmi SK No. 012/BAN-PDM/SK/2025 (BAN-PDM)',
       'Legalitas lengkap dan terverifikasi di Kemendikbudristek',
       'Komitmen peningkatan mutu berkelanjutan menyambut T.A. 2027/2028'
     ]

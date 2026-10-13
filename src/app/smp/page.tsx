@@ -6,7 +6,7 @@ import { SMP_OG_IMAGE } from '@/lib/og-images';
 
 export const metadata: Metadata = {
   title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious • Terakreditasi A',
-  description: 'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka T.A. 2027/2028. Terakreditasi A BAN-S/M, target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD, Mutaba\'ah Digital, & Futsal Development Program. Diskon uang bangunan s.d. 70%.',
+  description: 'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka T.A. 2027/2028. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025), target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD, Mutaba\'ah Digital, & Futsal Development Program. Diskon uang bangunan s.d. 70%.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },

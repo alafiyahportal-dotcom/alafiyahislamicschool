@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import IslamicToast from '@/components/common/IslamicToast';
 import {
   UserCheck,
   Plus,
@@ -53,11 +54,22 @@ export default function TeacherManagerClient({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Toast Notification State
+  const [toast, setToast] = useState<{
+    isOpen: boolean;
+    type: 'success' | 'error' | 'info';
+    title?: string;
+    message: string;
+  }>({
+    isOpen: false,
+    type: 'success',
+    message: '',
+  });
+
   // Form State
   const [formName, setFormName] = useState('');
   const [formRole, setFormRole] = useState('');
   const [formSpecialization, setFormSpecialization] = useState('');
-  const [formPhotoUrl, setFormPhotoUrl] = useState('');
   const [formBio, setFormBio] = useState('');
   const [formOrder, setFormOrder] = useState(0);
   const [formIsActive, setFormIsActive] = useState(true);
@@ -67,7 +79,6 @@ export default function TeacherManagerClient({
     setFormName('');
     setFormRole('');
     setFormSpecialization('');
-    setFormPhotoUrl('');
     setFormBio('');
     setFormOrder(teachers.length + 1);
     setFormIsActive(true);
@@ -80,7 +91,6 @@ export default function TeacherManagerClient({
     setFormName(teacher.name);
     setFormRole(teacher.role);
     setFormSpecialization(teacher.specialization || '');
-    setFormPhotoUrl(teacher.photoUrl || '');
     setFormBio(teacher.bio || '');
     setFormOrder(teacher.order);
     setFormIsActive(teacher.isActive);
@@ -114,7 +124,7 @@ export default function TeacherManagerClient({
             name: formName.trim(),
             role: formRole.trim(),
             specialization: formSpecialization.trim() || null,
-            photoUrl: formPhotoUrl.trim() || null,
+            photoUrl: editingTeacher.photoUrl || null,
             bio: formBio.trim() || null,
             order: Number(formOrder),
             isActive: formIsActive,
@@ -126,6 +136,12 @@ export default function TeacherManagerClient({
         setTeachers((prev) =>
           prev.map((t) => (t.id === editingTeacher.id ? data.teacher : t))
         );
+        setToast({
+          isOpen: true,
+          type: 'success',
+          title: 'Alhamdulillah',
+          message: `Data pendidik "${formName.trim()}" berhasil diperbarui.`,
+        });
       } else {
         // Create Teacher
         const res = await fetch('/api/admin/teachers', {
@@ -136,7 +152,7 @@ export default function TeacherManagerClient({
             name: formName.trim(),
             role: formRole.trim(),
             specialization: formSpecialization.trim() || null,
-            photoUrl: formPhotoUrl.trim() || null,
+            photoUrl: null,
             bio: formBio.trim() || null,
             order: Number(formOrder),
             isActive: formIsActive,
@@ -146,11 +162,23 @@ export default function TeacherManagerClient({
         if (!res.ok) throw new Error(data.error || 'Gagal menambahkan data guru');
 
         setTeachers((prev) => [...prev, data.teacher]);
+        setToast({
+          isOpen: true,
+          type: 'success',
+          title: 'Alhamdulillah',
+          message: `Data pendidik "${formName.trim()}" berhasil ditambahkan.`,
+        });
       }
       closeModal();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Terjadi kesalahan sistem';
       setErrorMessage(msg);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Kendala Penyimpanan',
+        message: msg,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -168,9 +196,21 @@ export default function TeacherManagerClient({
         setTeachers((prev) =>
           prev.map((t) => (t.id === teacher.id ? { ...t, isActive: updatedStatus } : t))
         );
+        setToast({
+          isOpen: true,
+          type: 'info',
+          title: 'Status Diperbarui',
+          message: `Pendidik "${teacher.name}" kini berstatus ${updatedStatus ? 'Aktif' : 'Nonaktif'}.`,
+        });
       }
     } catch (err) {
       console.error('Failed to toggle status:', err);
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Kendala Status',
+        message: 'Gagal memperbarui status keaktifan pendidik.',
+      });
     }
   };
 
@@ -185,12 +225,28 @@ export default function TeacherManagerClient({
       });
       if (res.ok) {
         setTeachers((prev) => prev.filter((t) => t.id !== id));
+        setToast({
+          isOpen: true,
+          type: 'success',
+          title: 'Alhamdulillah',
+          message: `Data pendidik "${name}" berhasil dihapus.`,
+        });
       } else {
-        alert('Gagal menghapus data guru');
+        setToast({
+          isOpen: true,
+          type: 'error',
+          title: 'Gagal Menghapus',
+          message: 'Gagal menghapus data guru dari server.',
+        });
       }
     } catch (err) {
       console.error('Failed to delete teacher:', err);
-      alert('Terjadi kesalahan saat menghapus data');
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Terjadi Kendala',
+        message: 'Terjadi kesalahan sistem saat menghapus data pendidik.',
+      });
     }
   };
 
@@ -302,20 +358,13 @@ export default function TeacherManagerClient({
                       #{teacher.order}
                     </td>
                     <td className="py-3.5 px-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={teacher.photoUrl || '/images/arc-ustadz.jpg'}
-                          alt={teacher.name}
-                          className="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0 shadow-xs"
-                        />
-                        <div>
-                          <p className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                            {teacher.name}
-                          </p>
-                          {teacher.bio && (
-                            <p className="text-xs text-slate-500 truncate max-w-xs">{teacher.bio}</p>
-                          )}
-                        </div>
+                      <div>
+                        <p className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                          {teacher.name}
+                        </p>
+                        {teacher.bio && (
+                          <p className="text-xs text-slate-500 truncate max-w-xs">{teacher.bio}</p>
+                        )}
                       </div>
                     </td>
                     <td className="py-3.5 px-4 font-medium text-slate-800">
@@ -456,26 +505,6 @@ export default function TeacherManagerClient({
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  URL Foto Profil / Pas Foto
-                </label>
-                <div className="flex gap-3 items-center">
-                  <img
-                    src={formPhotoUrl || '/images/arc-ustadz.jpg'}
-                    alt="Preview"
-                    className="w-12 h-12 rounded-full object-cover border border-slate-200 shadow-xs flex-shrink-0"
-                  />
-                  <input
-                    type="url"
-                    placeholder="https://..."
-                    value={formPhotoUrl}
-                    onChange={(e) => setFormPhotoUrl(e.target.value)}
-                    className="flex-1 px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:bg-white text-slate-900 font-mono text-xs"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Ringkasan Profil / Dedikasi Singkat
                 </label>
                 <textarea
@@ -522,6 +551,16 @@ export default function TeacherManagerClient({
           </div>
         </div>
       )}
+
+      {/* Islamic Toast Notification */}
+      <IslamicToast
+        isOpen={toast.isOpen}
+        onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
+        type={toast.type}
+        title={toast.title}
+        message={toast.message}
+        unit={schoolSlug}
+      />
     </div>
   );
 }

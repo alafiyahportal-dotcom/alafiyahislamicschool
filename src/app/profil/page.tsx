@@ -472,7 +472,7 @@ export default async function ProfilPage({
               <div className="pt-2 flex flex-wrap gap-3 text-xs text-slate-300">
                 <span className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">SK Kemenkumham RI Terdaftar</span>
                 <span className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">NPSN Resmi Kemdikbud</span>
-                <span className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">Terakreditasi BAN-S/M</span>
+                <span className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">Terakreditasi BAN-PDM</span>
               </div>
             </div>
 

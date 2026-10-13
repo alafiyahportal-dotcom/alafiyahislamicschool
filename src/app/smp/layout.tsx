@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | SMP IT Al-Afiyah Majalengka',
     default: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious • Terakreditasi A',
   },
-  description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka. Terakreditasi A Resmi BAN-S/M, target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD (Student Character Development), Mutaba\'ah Digital, dan Futsal Development Program.',
+  description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka. Terakreditasi A Resmi (SK No. 012/BAN-PDM/SK/2025), target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD (Student Character Development), Mutaba\'ah Digital, dan Futsal Development Program.',
   manifest: '/smp-manifest.json',
   appleWebApp: {
     capable: true,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',
-    description: 'Sekolah Menengah Pertama Islam Terpadu Terakreditasi A BAN-S/M di Majalengka. SPMB T.A. 2027/2028 dibuka dengan diskon uang bangunan hingga 70%.',
+    description: 'Sekolah Menengah Pertama Islam Terpadu Terakreditasi A (SK No. 012/BAN-PDM/SK/2025) di Majalengka. SPMB T.A. 2027/2028 dibuka dengan diskon uang bangunan hingga 70%.',
     siteName: 'SMP IT Al-Afiyah',
     locale: 'id_ID',
     type: 'website',
@@ -62,7 +62,7 @@ const smpWebSiteSchema = {
     'SMP IT Al Afiyah',
     'SMPIT Al-Afiyah Majalengka'
   ],
-  description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka Terakreditasi A BAN-S/M.',
+  description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka Terakreditasi A (SK No. 012/BAN-PDM/SK/2025).',
   inLanguage: 'id-ID',
 };
 

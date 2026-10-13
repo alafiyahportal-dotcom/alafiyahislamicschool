@@ -4,8 +4,8 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
-import { 
-  ArrowRight, 
+import {
+  ArrowRight,
   ChevronRight,
   ArrowLeft,
   Award,
@@ -18,7 +18,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'SPMB SMP IT Al-Afiyah Majalengka TA 2027/2028 | Be Smart & Religious',
-  description: 'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Terakreditasi A BAN-S/M. Gelombang 1 diskon 70% uang bangunan (SDIT) dan 50% (umum). Bimbingan tahfidz 3-5+ juz mutqin dan bahasa Arab aktif.',
+  description: 'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025). Gelombang 1 diskon 70% uang bangunan (SDIT) dan 50% (umum). Bimbingan tahfidz 3-5+ juz mutqin dan bahasa Arab aktif.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },

@@ -35,7 +35,7 @@ export default function GoogleStructuredData() {
         'SMP IT Al Afiyah',
         'SMPIT Al-Afiyah Majalengka'
       ],
-      description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka Terakreditasi A BAN-S/M.',
+      description: 'Sekolah Menengah Pertama Islam Terpadu (SMP IT) Al-Afiyah Majalengka Terakreditasi A (SK No. 012/BAN-PDM/SK/2025).',
       inLanguage: 'id-ID',
       publisher: {
         '@id': 'https://smpit.alafiyah.id/#organization'

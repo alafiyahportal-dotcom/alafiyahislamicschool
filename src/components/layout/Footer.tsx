@@ -109,7 +109,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       badgeLetter: 'SMP',
       description:
         'SMP IT Al-Afiyah — Be Smart & Religious. Sekolah Menengah Pertama Islam Terpadu Terakreditasi A dengan target tahfidz 3-5+ juz mutqin, fasih Bahasa Arab aktif, SCD & Mutaba\'ah Digital, serta Futsal Development Program.',
-      accreditation: 'Terakreditasi A (BAN-S/M)',
+      accreditation: 'Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)',
       permit: 'YPIB • Majalengka',
       address:
         'Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',

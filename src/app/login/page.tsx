@@ -444,6 +444,7 @@ export default function LoginPage() {
         type={toast.type}
         title={toast.title}
         message={toast.message}
+        unit={activeUnit}
       />
     </div>
   );
