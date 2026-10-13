@@ -20,7 +20,11 @@ import {
   Send,
   AlertCircle,
   Settings,
-  Edit3
+  Edit3,
+  GraduationCap,
+  BookOpen,
+  Layers,
+  Sparkles
 } from 'lucide-react';
 import { INDONESIA_BANKS } from '@/lib/constants/banks';
 import IslamicToast from '@/components/common/IslamicToast';
@@ -370,19 +374,19 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
 Penerimaan Peserta Didik Baru (PPDB) Terpadu Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka Tahun Ajaran 2026/2027 telah resmi dibuka!
 
 Pilihan Jenjang Pendidikan:
-🌱 TK IT Al-Afiyah (Fondasi Karakter & Cinta Ibadah Usia Dini)
-📗 SDIT Al-Afiyah (Adab Islami, Sains & Tahfidz Al-Qur'an)
-📘 SMP IT Al-Afiyah (Akreditasi A, Program Asrama & Fullday)
+• PAUD / TK IT Al-Afiyah (Fondasi Karakter & Cinta Ibadah Usia Dini)
+• SDIT Al-Afiyah (Adab Islami, Sains & Tahfidz Al-Qur'an)
+• SMP IT Al-Afiyah (Akreditasi A, Program Asrama & Fullday)
 
 Silakan akses informasi lengkap dan formulir pendaftaran melalui tautan resmi kami:
 
-🌐 Portal PPDB Terpadu Yayasan:
+📌 Portal PPDB Terpadu Yayasan:
 ${generalLink}
 
-📝 Formulir Pendaftaran Langsung SDIT:
+📌 Formulir Pendaftaran Langsung SDIT:
 ${sdFormLink}
 
-📝 Formulir Pendaftaran Langsung SMP IT:
+📌 Formulir Pendaftaran Langsung SMP IT:
 ${smpFormLink}
 
 Mari bimbing ananda menuju masa depan yang sholeh, cerdas, dan mandiri bersama keluarga besar Al-Afiyah.
@@ -985,54 +989,58 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             </div>
           </div>
 
-          {/* Unit Switcher Tabs */}
-          <div className="flex items-center gap-2 p-1.5 bg-slate-100/80 rounded-2xl border border-slate-200/80 overflow-x-auto">
+          {/* Unit Switcher Tabs - Modern Minimalist */}
+          <div className="flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-2xl border border-slate-200/80 overflow-x-auto">
+            <button
+              type="button"
+              onClick={() => setSelectedBroadcastUnit('ALL')}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+                selectedBroadcastUnit === 'ALL'
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              <Layers className={`w-3.5 h-3.5 ${selectedBroadcastUnit === 'ALL' ? 'text-emerald-400' : 'text-slate-500'}`} />
+              <span>Semua Unit</span>
+            </button>
+
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('SD')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 selectedBroadcastUnit === 'SD'
                   ? 'bg-[#064E3B] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
-              📗 SDIT Al-Afiyah
+              <GraduationCap className={`w-3.5 h-3.5 ${selectedBroadcastUnit === 'SD' ? 'text-emerald-300' : 'text-emerald-700'}`} />
+              <span>SDIT Al-Afiyah</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('SMP')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 selectedBroadcastUnit === 'SMP'
-                  ? 'bg-[#064E3B] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+                  ? 'bg-[#1E3A8A] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
-              📘 SMP IT Al-Afiyah
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setSelectedBroadcastUnit('ALL')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                selectedBroadcastUnit === 'ALL'
-                  ? 'bg-[#064E3B] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
-              }`}
-            >
-              🏛️ Semua Unit (PPDB Terpadu)
+              <BookOpen className={`w-3.5 h-3.5 ${selectedBroadcastUnit === 'SMP' ? 'text-blue-300' : 'text-blue-700'}`} />
+              <span>SMP IT Al-Afiyah</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('TK')}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 selectedBroadcastUnit === 'TK'
-                  ? 'bg-[#064E3B] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+                  ? 'bg-emerald-800 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
-              🌱 TK IT Al-Afiyah
+              <Sparkles className={`w-3.5 h-3.5 ${selectedBroadcastUnit === 'TK' ? 'text-amber-300' : 'text-amber-600'}`} />
+              <span>TK IT Al-Afiyah</span>
             </button>
           </div>
 

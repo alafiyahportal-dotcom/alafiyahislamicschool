@@ -666,9 +666,21 @@ export default function PPDBVerificationClient({
                           <>
                             <button
                               type="button"
+                              onClick={() => {
+                                setSelectedApplicant(item);
+                                setIsScheduleModalOpen(true);
+                              }}
+                              className="px-2.5 py-1 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-semibold border border-amber-300 transition-colors flex items-center space-x-1 cursor-pointer"
+                              title="Ubah Hari, Waktu, atau Ruang Observasi"
+                            >
+                              <Calendar className="w-3 h-3 text-amber-700" />
+                              <span>Ubah Jadwal</span>
+                            </button>
+                            <button
+                              type="button"
                               disabled={isUpdating === item.id}
                               onClick={() => handleUpdateStatus(item.id, 'ACCEPTED')}
-                              className="px-2.5 py-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-2xs transition-colors"
+                              className="px-2.5 py-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
                             >
                               Luluskan
                             </button>
@@ -676,7 +688,7 @@ export default function PPDBVerificationClient({
                               type="button"
                               disabled={isUpdating === item.id}
                               onClick={() => handleUpdateStatus(item.id, 'REJECTED')}
-                              className="px-2.5 py-1 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold border border-rose-200 transition-colors"
+                              className="px-2.5 py-1 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold border border-rose-200 transition-colors cursor-pointer"
                             >
                               Cadangan
                             </button>
@@ -826,40 +838,65 @@ export default function PPDBVerificationClient({
         />
       )}
 
-      {/* Modal 2: Atur Jadwal Observasi & Wawancara */}
+      {/* Modal 2: Atur / Ubah Jadwal Observasi & Wawancara */}
       {isScheduleModalOpen && selectedApplicant && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-slate-200 shadow-xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 border border-slate-200 shadow-xl space-y-4 my-auto">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
                 <h3 className="text-base font-bold text-slate-900">
-                  Atur Jadwal Observasi & Wawancara
+                  {selectedApplicant.status === 'INTERVIEW_SCHEDULED' ? 'Perbarui / Ubah Jadwal Observasi' : 'Atur Jadwal Observasi & Wawancara'}
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Murid: <span className="font-semibold text-slate-800">{selectedApplicant.studentName}</span>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Murid: <span className="font-semibold text-slate-800">{selectedApplicant.studentName}</span> • <span className="font-mono">{selectedApplicant.registrationNo}</span>
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsScheduleModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 p-1"
+                className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3.5 text-xs">
               <div>
                 <label className="font-bold text-slate-700 block mb-1">
-                  Hari & Waktu Pelaksanaan
+                  Hari &amp; Waktu Pelaksanaan
                 </label>
                 <input
                   type="text"
                   value={scheduleDate}
                   onChange={(e) => setScheduleDate(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-slate-800 focus:outline-hidden focus:border-[#2D7A70]"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-slate-900 font-medium focus:outline-hidden focus:border-[#2D7A70] text-xs bg-slate-50 focus:bg-white transition-colors"
                   placeholder="Contoh: Sabtu, 28 Maret 2026 Pukul 08.30 WIB"
                 />
+                {/* Pilihan cepat */}
+                <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                  <span className="text-[10px] text-slate-400">Pilihan cepat:</span>
+                  <button
+                    type="button"
+                    onClick={() => setScheduleDate('Sabtu, 28 Maret 2026 Pukul 08.00 WIB')}
+                    className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-medium cursor-pointer transition-colors"
+                  >
+                    Sabtu Pagi (08.00)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setScheduleDate('Ahad, 29 Maret 2026 Pukul 08.30 WIB')}
+                    className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-medium cursor-pointer transition-colors"
+                  >
+                    Ahad Pagi (08.30)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setScheduleDate('Sabtu, 4 April 2026 Pukul 09.00 WIB')}
+                    className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-medium cursor-pointer transition-colors"
+                  >
+                    Gelombang 2
+                  </button>
+                </div>
               </div>
 
               <div>
@@ -870,45 +907,64 @@ export default function PPDBVerificationClient({
                   type="text"
                   value={testLocation}
                   onChange={(e) => setTestLocation(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-slate-800 focus:outline-hidden focus:border-[#2D7A70]"
-                  placeholder="Contoh: Gedung Al-Afiyah, Ruang Wawancara 2"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-slate-900 font-medium focus:outline-hidden focus:border-[#2D7A70] text-xs bg-slate-50 focus:bg-white transition-colors"
+                  placeholder="Contoh: Gedung Utama SDIT Al-Afiyah Majalengka"
                 />
               </div>
 
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 text-[11px] leading-relaxed flex items-start space-x-2">
+              <div className="p-3 bg-blue-50/80 border border-blue-200 rounded-xl text-blue-950 text-[11px] leading-relaxed flex items-start space-x-2">
                 <MessageCircle className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
                 <span>
-                  Menyimpan jadwal ini akan secara otomatis memicu pengiriman pesan WhatsApp resmi ke nomor wali murid (<strong>{selectedApplicant.parentPhone}</strong>) berisi tanggal, jam, dan lokasi ujian.
+                  Informasi jadwal akan disimpan ke sistem dan dicatat pada log pesan resmi untuk nomor wali murid (<strong>{selectedApplicant.parentPhone}</strong>).
                 </span>
               </div>
             </div>
 
-            <div className="pt-3 border-t border-slate-100 flex justify-end space-x-2">
-              <button
-                type="button"
-                onClick={() => setIsScheduleModalOpen(false)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg"
-              >
-                Batal
-              </button>
-              <button
-                type="button"
-                disabled={isUpdating === selectedApplicant.id}
-                onClick={() =>
-                  handleUpdateStatus(selectedApplicant.id, 'INTERVIEW_SCHEDULED', {
-                    scheduleDate,
-                    testLocation
-                  })
-                }
-                className="px-4 py-2 bg-[#2D7A70] hover:bg-[#184F48] text-white text-xs font-semibold rounded-lg flex items-center space-x-1.5 shadow-2xs"
-              >
-                {isUpdating === selectedApplicant.id ? (
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                ) : (
-                  <Send className="w-3.5 h-3.5" />
-                )}
-                <span>Simpan & Kirim Undangan WA</span>
-              </button>
+            <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              {selectedApplicant.status === 'INTERVIEW_SCHEDULED' ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleUpdateStatus(selectedApplicant.id, 'VERIFIED');
+                  }}
+                  className="text-xs text-rose-600 hover:text-rose-800 underline font-medium text-left cursor-pointer"
+                  title="Batalkan jadwal dan kembalikan status calon murid ke Menunggu Jadwal"
+                >
+                  ↩ Batalkan Jadwal (Kembalikan ke Berkas Valid)
+                </button>
+              ) : (
+                <div />
+              )}
+
+              <div className="flex items-center justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setIsScheduleModalOpen(false)}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg cursor-pointer transition-colors"
+                >
+                  Tutup
+                </button>
+                <button
+                  type="button"
+                  disabled={isUpdating === selectedApplicant.id}
+                  onClick={() =>
+                    handleUpdateStatus(selectedApplicant.id, 'INTERVIEW_SCHEDULED', {
+                      scheduleDate,
+                      testLocation
+                    })
+                  }
+                  className="px-4 py-2 bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-semibold rounded-lg flex items-center space-x-1.5 shadow-2xs cursor-pointer transition-colors"
+                >
+                  {isUpdating === selectedApplicant.id ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Send className="w-3.5 h-3.5" />
+                  )}
+                  <span>
+                    {selectedApplicant.status === 'INTERVIEW_SCHEDULED' ? 'Perbarui Jadwal' : 'Simpan & Kirim Undangan WA'}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

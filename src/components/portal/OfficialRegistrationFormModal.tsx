@@ -52,17 +52,27 @@ export default function OfficialRegistrationFormModal({
       })
     : '-';
 
-  const registrationDate = createdAt
-    ? new Date(createdAt).toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-    : new Date().toLocaleDateString('id-ID', {
+  const getFormattedDate = (val?: string) => {
+    if (!val) {
+      return new Date().toLocaleDateString('id-ID', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
       });
+    }
+    const d = new Date(val);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+    }
+    // Return original string if already formatted like "13 Okt 2026"
+    return val;
+  };
+
+  const registrationDate = getFormattedDate(createdAt);
 
   const getUnitLevel = () => {
     if (schoolSlug === 'tk') return 'PAUD / TK IT (Taman Kanak-Kanak Islam Terpadu)';
@@ -71,33 +81,36 @@ export default function OfficialRegistrationFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 overflow-y-auto print:p-0 print:bg-white print:static">
-      {/* Container Dialog */}
-      <div className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden print:shadow-none print:w-full print:max-w-none print:rounded-none my-6">
-        {/* Screen Controls Header (Hidden in Print) */}
-        <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200 print:hidden">
-          <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-[#2D7A70]" />
-            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-              Formulir Pendaftaran Resmi Murid Baru (F-PPDB A4)
-            </span>
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs p-2 sm:p-4 print:p-0 print:bg-white print:static">
+      <div className="min-h-full flex items-start justify-center py-4">
+        {/* Container Dialog */}
+        <div className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden print:shadow-none print:w-full print:max-w-none print:rounded-none">
+          {/* Screen Controls Header (Hidden in Print) */}
+          <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200 print:hidden">
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-[#2D7A70]" />
+              <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                Formulir Pendaftaran Resmi Murid Baru (F-PPDB A4)
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={handlePrint}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#2D7A70] hover:bg-[#184F48] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span>Cetak / Unduh PDF (A4)</span>
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#2D7A70] hover:bg-[#184F48] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span>Cetak Formulir A4</span>
-            </button>
-            <button
-              onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
 
         {/* Printable Document Paper (A4 Style) */}
         <div className="p-8 sm:p-12 print:p-6 text-slate-900 font-sans max-w-[210mm] mx-auto bg-white">
@@ -488,62 +501,62 @@ export default function OfficialRegistrationFormModal({
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">1</td>
                     <td className="border border-slate-300 p-1.5">Usia minimal SD kelas 1 per 1 Juli 2027 adalah enam tahun</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">[ &check; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ Lengkap</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">2</td>
                     <td className="border border-slate-300 p-1.5">Membayar biaya pendaftaran sebesar Rp250.000,00 (gelombang 1), Rp275.000,00 (gelombang 2), atau Rp300.000,00 (gelombang 3)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">[ &check; ] LUNAS</td>
+                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ LUNAS</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">3</td>
                     <td className="border border-slate-300 p-1.5">Mengisi formulir pendaftaran</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">[ &check; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ Lengkap</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">4</td>
                     <td className="border border-slate-300 p-1.5">Menyerahkan foto copy ijazah/surat keterangan Tamat dari TK/RA/BA (1 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">[ &check; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">5</td>
                     <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Kartu Keluarga (2 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">[ &check; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">6</td>
                     <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Akta Kelahiran (2 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">[ &check; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">7</td>
                     <td className="border border-slate-300 p-1.5">Menyerahkan pas foto berwarna 3x4 (2 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">[ &check; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">8</td>
                     <td className="border border-slate-300 p-1.5">Surat pengantar dari sekolah sebelumnya (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">[ &minus; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">9</td>
                     <td className="border border-slate-300 p-1.5">Raport terakhir dari sekolah sebelumnya (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">[ &minus; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">10</td>
                     <td className="border border-slate-300 p-1.5">NISN (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">[ &minus; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">11</td>
                     <td className="border border-slate-300 p-1.5">Surat kelakuan baik (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">[ &minus; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
                   </tr>
                   <tr>
                     <td className="border border-slate-300 p-1.5 text-center">12</td>
                     <td className="border border-slate-300 p-1.5">Surat Akreditasi sekolah (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">[ &minus; ]</td>
+                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
                   </tr>
                 </tbody>
               </table>
@@ -597,5 +610,7 @@ export default function OfficialRegistrationFormModal({
         </div>
       </div>
     </div>
+  </div>
   );
 }
+
