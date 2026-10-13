@@ -78,107 +78,107 @@ export default function EdukaStatCards({
         };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
       
       {/* CARD 1: TOTAL STUDENTS (Unit Identity Gradient) */}
-      <div className={`relative overflow-hidden rounded-[24px] ${card1Config.bg} text-white p-6 transition-all duration-300 transform hover:-translate-y-1 group`}>
+      <div className={`relative overflow-hidden rounded-2xl sm:rounded-[24px] ${card1Config.bg} text-white p-4.5 sm:p-6 transition-all duration-300 transform hover:-translate-y-1 group`}>
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <span className={`text-xs font-medium ${card1Config.textColor} uppercase tracking-wider`}>
+            <span className={`text-xs font-medium ${card1Config.textColor} uppercase tracking-wider block`}>
               {isFoundation ? 'Total Murid Pendaftar' : `Pendaftar ${unitLabel} IT`}
             </span>
             <div className="text-3xl sm:text-4xl font-bold tracking-tight text-white tabular-nums">
               {stats.totalStudents || 0}
             </div>
           </div>
-          <div className={`w-12 h-12 rounded-2xl ${card1Config.iconBg} backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
-            <BookOpen className="w-6 h-6 text-white" />
+          <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl ${card1Config.iconBg} backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+            <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
         </div>
 
         {/* Footer Sub-Metric */}
-        <div className="mt-5 pt-3.5 border-t border-white/20 flex items-center justify-between text-xs text-white/90">
-          <span>Terverifikasi Berkas</span>
-          <span className={`px-2.5 py-0.5 rounded-full text-[11px] ${card1Config.badgeStyle}`}>
+        <div className="mt-4 sm:mt-5 pt-3 border-t border-white/20 flex items-center justify-between text-xs text-white/90">
+          <span className="whitespace-nowrap">Terverifikasi Berkas</span>
+          <span className={`px-2.5 py-0.5 rounded-full text-xs whitespace-nowrap ${card1Config.badgeStyle}`}>
             {stats.totalStudents > 0 ? `${verifiedPercentage}% Sah` : '0 Pendaftar'}
           </span>
         </div>
       </div>
 
       {/* CARD 2: TOTAL TEACHERS / GURU (Vibrant Blue/Sky Gradient) */}
-      <div className={`relative overflow-hidden rounded-[24px] ${
+      <div className={`relative overflow-hidden rounded-2xl sm:rounded-[24px] ${
         schoolSlug === 'smp'
           ? 'bg-gradient-to-br from-[#1E40AF] via-[#1D4ED8] to-[#172554] shadow-xl shadow-blue-900/20'
           : 'bg-gradient-to-br from-[#0EA5E9] via-[#0284C7] to-[#0369A1] shadow-xl shadow-sky-600/20'
-      } text-white p-6 transition-all duration-300 transform hover:-translate-y-1 group`}>
+      } text-white p-4.5 sm:p-6 transition-all duration-300 transform hover:-translate-y-1 group`}>
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <span className="text-xs font-medium text-sky-100 uppercase tracking-wider">
+            <span className="text-xs font-medium text-sky-100 uppercase tracking-wider block">
               {isFoundation ? 'Dewan Guru & Pendidik' : `Dewan Guru ${unitLabel} IT`}
             </span>
             <div className="text-3xl sm:text-4xl font-bold tracking-tight text-white tabular-nums">
               {totalTeachers}
             </div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-            <GraduationCap className="w-6 h-6 text-white" />
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+            <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
         </div>
 
         {/* Footer Sub-Metric */}
-        <div className="mt-5 pt-3.5 border-t border-white/20 flex items-center justify-between text-xs text-sky-100">
-          <span>Status Keaktifan</span>
-          <span className="font-semibold text-white bg-white/20 px-2.5 py-0.5 rounded-full text-[11px]">
+        <div className="mt-4 sm:mt-5 pt-3 border-t border-white/20 flex items-center justify-between text-xs text-sky-100">
+          <span className="whitespace-nowrap">Status Keaktifan</span>
+          <span className="font-semibold text-white bg-white/20 px-2.5 py-0.5 rounded-full text-xs whitespace-nowrap">
             {totalTeachers > 0 ? '100% Aktif' : '0 Guru Terdaftar'}
           </span>
         </div>
       </div>
 
       {/* CARD 3: TOTAL REVENUE PPDB (Vibrant Royal Violet Gradient) */}
-      <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6D28D9] text-white p-6 shadow-xl shadow-purple-600/20 transition-all duration-300 transform hover:-translate-y-1 group">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-[24px] bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6D28D9] text-white p-4.5 sm:p-6 shadow-xl shadow-purple-600/20 transition-all duration-300 transform hover:-translate-y-1 group">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <span className="text-xs font-medium text-purple-100 uppercase tracking-wider">
+            <span className="text-xs font-medium text-purple-100 uppercase tracking-wider block">
               {isFoundation ? 'Total Kas Masuk PPDB' : `Kas PPDB ${unitLabel} IT`}
             </span>
             <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white truncate max-w-full tabular-nums">
               {formatRupiah(stats.totalRevenue || 0)}
             </div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-            <Wallet className="w-6 h-6 text-white" />
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+            <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
         </div>
 
         {/* Footer Sub-Metric */}
-        <div className="mt-5 pt-3.5 border-t border-white/20 flex items-center justify-between text-xs text-purple-100">
-          <span>{isFoundation ? 'Mitra Afiliasi' : 'Pemasukan Terverifikasi'}</span>
-          <span className="font-semibold text-white bg-white/20 px-2.5 py-0.5 rounded-full text-[11px]">
+        <div className="mt-4 sm:mt-5 pt-3 border-t border-white/20 flex items-center justify-between text-xs text-purple-100">
+          <span className="whitespace-nowrap">{isFoundation ? 'Mitra Afiliasi' : 'Pemasukan Terverifikasi'}</span>
+          <span className="font-semibold text-white bg-white/20 px-2.5 py-0.5 rounded-full text-xs whitespace-nowrap">
             {isFoundation ? `${stats.totalAffiliates || 0} Mitra Aktif` : 'Kas Terkonfirmasi'}
           </span>
         </div>
       </div>
 
       {/* CARD 4: KAPASITAS KUOTA (Vibrant Warm Coral Orange Gradient) */}
-      <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#F97316] via-[#EA580C] to-[#C2410C] text-white p-6 shadow-xl shadow-orange-600/20 transition-all duration-300 transform hover:-translate-y-1 group">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-[24px] bg-gradient-to-br from-[#F97316] via-[#EA580C] to-[#C2410C] text-white p-4.5 sm:p-6 shadow-xl shadow-orange-600/20 transition-all duration-300 transform hover:-translate-y-1 group">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <span className="text-xs font-medium text-orange-100 uppercase tracking-wider">
+            <span className="text-xs font-medium text-orange-100 uppercase tracking-wider block">
               {isFoundation ? 'Kapasitas Kuota Rombel' : `Kapasitas Kuota ${unitLabel}`}
             </span>
             <div className="text-3xl sm:text-4xl font-bold tracking-tight text-white tabular-nums">
               {quotaFilledPercentage}%
             </div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-            <Trophy className="w-6 h-6 text-white" />
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+            <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
         </div>
 
         {/* Footer Sub-Metric */}
-        <div className="mt-5 pt-3.5 border-t border-white/20 flex items-center justify-between text-xs text-orange-100">
-          <span>Sisa Kursi Penerimaan</span>
-          <span className="font-semibold text-white bg-white/20 px-2.5 py-0.5 rounded-full text-[11px]">
+        <div className="mt-4 sm:mt-5 pt-3 border-t border-white/20 flex items-center justify-between text-xs text-orange-100">
+          <span className="whitespace-nowrap">Sisa Kursi Penerimaan</span>
+          <span className="font-semibold text-white bg-white/20 px-2.5 py-0.5 rounded-full text-xs whitespace-nowrap">
             {remainingQuota} Kursi
           </span>
         </div>

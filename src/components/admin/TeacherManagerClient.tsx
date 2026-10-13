@@ -339,27 +339,27 @@ export default function TeacherManagerClient({
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 text-slate-600 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
+          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+            <table className="w-full text-left text-sm min-w-[720px]">
+              <thead className="bg-slate-50 text-slate-700 text-xs font-semibold uppercase tracking-wider border-b border-slate-200">
                 <tr>
-                  <th className="py-3.5 px-4 w-16">Urut</th>
-                  <th className="py-3.5 px-4">Profil Guru &amp; Tenaga Pendidik</th>
-                  <th className="py-3.5 px-4">Amanah &amp; Posisi</th>
-                  <th className="py-3.5 px-4">Spesialisasi / Keilmuan</th>
-                  <th className="py-3.5 px-4 text-center">Status</th>
-                  <th className="py-3.5 px-4 text-right">Tindakan</th>
+                  <th className="py-3.5 px-4 w-16 whitespace-nowrap">Urut</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Profil Guru &amp; Tenaga Pendidik</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Amanah &amp; Posisi</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Spesialisasi / Keilmuan</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap">Status</th>
+                  <th className="py-3.5 px-4 text-right whitespace-nowrap">Tindakan</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {filteredTeachers.map((teacher) => (
                   <tr key={teacher.id} className="hover:bg-slate-50/80 transition-colors group">
-                    <td className="py-3.5 px-4 text-slate-400 font-mono text-xs">
+                    <td className="py-3.5 px-4 text-slate-400 font-mono text-xs whitespace-nowrap">
                       #{teacher.order}
                     </td>
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       <div>
-                        <p className="font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                        <p className="font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors">
                           {teacher.name}
                         </p>
                         {teacher.bio && (
@@ -367,7 +367,7 @@ export default function TeacherManagerClient({
                         )}
                       </div>
                     </td>
-                    <td className="py-3.5 px-4 font-medium text-slate-800">
+                    <td className="py-3.5 px-4 font-medium text-slate-800 whitespace-nowrap">
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-100">
                         <Award className="w-3.5 h-3.5 text-emerald-600" />
                         {teacher.role}
@@ -376,31 +376,30 @@ export default function TeacherManagerClient({
                     <td className="py-3.5 px-4 text-xs text-slate-600 max-w-xs">
                       {teacher.specialization || '-'}
                     </td>
-                    <td className="py-3.5 px-4 text-center">
+                    <td className="py-3.5 px-4 text-center whitespace-nowrap">
                       <button
                         onClick={() => handleToggleStatus(teacher)}
-                        className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
-                          teacher.isActive
-                            ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'
-                            : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
-                        }`}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium cursor-pointer"
                         title="Klik untuk mengubah status"
                       >
-                        {teacher.isActive ? 'Aktif' : 'Nonaktif'}
+                        <span className={`w-1.5 h-1.5 rounded-full ${teacher.isActive ? 'bg-emerald-600' : 'bg-slate-400'}`} />
+                        <span className={teacher.isActive ? 'text-emerald-800' : 'text-slate-500'}>
+                          {teacher.isActive ? 'Aktif' : 'Nonaktif'}
+                        </span>
                       </button>
                     </td>
-                    <td className="py-3.5 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right whitespace-nowrap">
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => openEditModal(teacher)}
-                          className="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-md transition-all"
+                          className="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-emerald-50 rounded-md transition-all cursor-pointer"
                           title="Edit Data Guru"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(teacher.id, teacher.name)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-all"
+                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-all cursor-pointer"
                           title="Hapus Data Guru"
                         >
                           <Trash2 className="w-4 h-4" />

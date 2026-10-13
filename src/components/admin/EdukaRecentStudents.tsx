@@ -27,22 +27,13 @@ export default function EdukaRecentStudents({ applicants, schoolSlug = 'foundati
   // Take up to 5 most recent applicants
   const recentList = applicants.slice(0, 5);
 
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .slice(0, 2)
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase();
-  };
-
   return (
-    <div className="bg-white rounded-[24px] p-6 sm:p-7 border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between">
+    <div className="bg-white rounded-2xl sm:rounded-[24px] p-4 sm:p-7 border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between">
       {/* Header */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-100">
         <div>
           <h3 className="font-bold text-base sm:text-lg text-slate-900 tracking-tight">
-            Pendaftar Murid Baru Terkini (Recent Applicants)
+            Pendaftar Murid Baru Terkini
           </h3>
           <p className="text-xs text-slate-500 font-medium">
             Calon murid yang baru mendaftar di sistem PPDB
@@ -58,8 +49,8 @@ export default function EdukaRecentStudents({ applicants, schoolSlug = 'foundati
         </Link>
       </div>
 
-      {/* Column Headers for Perfect Horizontal & Vertical Alignment */}
-      <div className="hidden sm:flex items-center gap-3 px-3 pt-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+      {/* Column Headers */}
+      <div className="hidden sm:flex items-center gap-3 px-3 pt-3 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100">
         <div className="flex-1 min-w-0">
           Calon Murid
         </div>
@@ -74,7 +65,7 @@ export default function EdukaRecentStudents({ applicants, schoolSlug = 'foundati
         </div>
       </div>
 
-      {/* Rows List with Strict Tabular Alignment */}
+      {/* Rows List */}
       <div className="divide-y divide-slate-100 my-auto py-1">
         {recentList.length === 0 ? (
           <div className="py-8 text-center text-xs text-slate-400">
@@ -84,56 +75,61 @@ export default function EdukaRecentStudents({ applicants, schoolSlug = 'foundati
           recentList.map((app) => (
             <div
               key={app.id}
-              className="py-3 flex items-center gap-3 hover:bg-slate-50/80 px-2 sm:px-3 rounded-2xl transition-colors"
+              className="py-3 flex items-center gap-3 hover:bg-slate-50/80 px-2 sm:px-3 rounded-xl transition-colors"
             >
-              {/* 1. Student Name & Parent (Clean typography without cartoon child avatar) */}
+              {/* 1. Student Name & Parent */}
               <div className="min-w-0 flex-1">
                 <h4 className="font-semibold text-xs sm:text-sm text-slate-900 truncate">
                   {app.studentName}
                 </h4>
-                <div className="text-[11px] text-slate-500 truncate mt-0.5">
+                <div className="text-xs text-slate-500 truncate mt-0.5">
                   Wali: {app.parentName}
                 </div>
               </div>
 
-              {/* 2. SID / No. Registrasi (Fixed-width column, right-aligned) */}
+              {/* 2. SID / No. Registrasi */}
               <div className="hidden sm:flex flex-col items-end justify-center w-28 sm:w-32 flex-shrink-0 text-right">
-                <div className="text-[11px] font-mono font-semibold text-slate-700">
+                <div className="text-xs font-mono font-semibold text-slate-700 whitespace-nowrap">
                   {app.registrationNo}
                 </div>
-                <div className="text-[10px] text-slate-400">
+                <div className="text-xs text-slate-400 whitespace-nowrap">
                   {app.schoolName}
                 </div>
               </div>
 
-              {/* 3. Status Badge Pill (Fixed-width column, centered uniform badge) */}
+              {/* 3. Status Dot Indicator */}
               <div className="w-28 flex-shrink-0 flex items-center justify-center">
                 {app.status === 'ACCEPTED' && (
-                  <span className="inline-block w-24 text-center py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
-                    Diterima
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 whitespace-nowrap">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span>Diterima</span>
                   </span>
                 )}
                 {app.status === 'VERIFIED' && (
-                  <span className="inline-block w-24 text-center py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
-                    Berkas Sah
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-700 whitespace-nowrap">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    <span>Berkas Sah</span>
                   </span>
                 )}
                 {app.status === 'PAYMENT_PENDING' && (
-                  <span className="inline-block w-24 text-center py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 shadow-2xs">
-                    Menunggu Bayar
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700 whitespace-nowrap">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                    <span>Menunggu Bayar</span>
                   </span>
                 )}
                 {app.status === 'SUBMITTED' && (
-                  <span className="inline-block w-24 text-center py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs">
-                    Terkirim
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 whitespace-nowrap">
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                    <span>Terkirim</span>
                   </span>
                 )}
               </div>
 
-              {/* 4. Score Ratio / Payment (Fixed-width column, right-aligned) */}
+              {/* 4. Score Ratio / Payment */}
               <div className="w-20 flex-shrink-0 hidden md:flex items-center justify-end">
-                <span className="inline-block w-16 text-center text-xs font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded-lg tabular-nums">
-                  {app.paymentStatus === 'PAID' ? 'LUNAS' : 'PENDING'}
+                <span className={`inline-flex items-center gap-1 text-xs font-semibold whitespace-nowrap ${app.paymentStatus === 'PAID' ? 'text-emerald-700' : 'text-amber-700'}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${app.paymentStatus === 'PAID' ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+                  <span>{app.paymentStatus === 'PAID' ? 'LUNAS' : 'PENDING'}</span>
                 </span>
               </div>
             </div>
@@ -146,7 +142,7 @@ export default function EdukaRecentStudents({ applicants, schoolSlug = 'foundati
         <span>Menampilkan 5 pendaftar terbaru</span>
         <Link
           href="/admin/sd/ppdb"
-          className="font-bold text-slate-700 hover:text-[#10B981] transition-colors"
+          className="font-semibold text-slate-700 hover:text-[#10B981] transition-colors"
         >
           Lihat Semua Seleksi →
         </Link>

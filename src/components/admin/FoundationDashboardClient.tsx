@@ -327,27 +327,14 @@ export default function FoundationDashboardClient({
 
       {/* 4. DETAIL REGISTRATIONS TABLE & STATUS MANAGEMENT CONSOLE */}
       <div id="pendaftar" className="bg-white rounded-[24px] p-6 sm:p-7 border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between relative overflow-hidden">
-        {/* Table Header with Right Accent Pill */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-100 gap-4">
+        {/* Table Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-100 gap-3">
           <div>
-            <div className="flex items-center space-x-2">
-              <h3 className="font-bold text-base sm:text-lg text-slate-900 tracking-tight">
-                {isFoundation
-                  ? 'Basis Data & Verifikasi Murid PPDB (Semua Unit)'
-                  : `Basis Data & Verifikasi Murid PPDB - ${schoolName || currentSchoolSlug.toUpperCase() + ' IT Al-Afiyah'}`}
-              </h3>
-              <span
-                className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
-                  currentSchoolSlug === 'smp'
-                    ? 'bg-blue-100 text-[#030164] border border-blue-200'
-                    : currentSchoolSlug === 'tk'
-                    ? 'bg-sky-100 text-sky-800 border border-sky-200'
-                    : 'bg-emerald-100 text-emerald-800'
-                }`}
-              >
-                Live Data
-              </span>
-            </div>
+            <h3 className="font-bold text-base sm:text-lg text-slate-900 tracking-tight">
+              {isFoundation
+                ? 'Basis Data & Verifikasi Murid PPDB (Semua Unit)'
+                : `Basis Data & Verifikasi Murid PPDB - ${schoolName || currentSchoolSlug.toUpperCase() + ' IT Al-Afiyah'}`}
+            </h3>
             <p className="text-xs text-slate-500 font-medium mt-0.5">
               {isFoundation
                 ? 'Konsol pencarian murid terpadu, validasi berkas fisik/digital, dan update status seleksi yayasan'
@@ -409,7 +396,7 @@ export default function FoundationDashboardClient({
 
             <button
               onClick={handleExportExcel}
-              className="flex items-center gap-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2.5 rounded-xl transition-all shadow-md shadow-slate-900/10 cursor-pointer"
+              className="flex items-center gap-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2.5 rounded-xl transition-all shadow-md shadow-slate-900/10 cursor-pointer whitespace-nowrap"
             >
               <Download className="w-3.5 h-3.5 text-emerald-400" />
               <span>Ekspor Excel (.xlsx)</span>
@@ -417,19 +404,19 @@ export default function FoundationDashboardClient({
           </div>
         </div>
 
-        {/* Data Table */}
-        <div className="overflow-x-auto mt-2">
-          <table className="w-full text-left border-collapse text-xs">
+        {/* Data Table with smooth horizontal scroll and min-width to prevent word breakage */}
+        <div className="overflow-x-auto mt-2 -mx-4 sm:mx-0 px-4 sm:px-0">
+          <table className="w-full text-left border-collapse text-xs min-w-[760px]">
             <thead>
-              <tr className="bg-slate-50/80 text-slate-500 font-semibold uppercase tracking-wider text-[10px] border-b border-slate-100">
-                <th className="py-3.5 px-4 rounded-l-xl">No. Registrasi</th>
-                <th className="py-3.5 px-4">Nama Calon Murid</th>
-                {isFoundation && <th className="py-3.5 px-4">Unit</th>}
-                <th className="py-3.5 px-4">Wali & WhatsApp</th>
-                <th className="py-3.5 px-4">Jalur</th>
-                <th className="py-3.5 px-4">Status Biaya</th>
-                <th className="py-3.5 px-4">Status Seleksi</th>
-                <th className="py-3.5 px-4 text-right rounded-r-xl">Aksi Perubahan</th>
+              <tr className="bg-slate-50/80 text-slate-500 font-semibold uppercase tracking-wider text-[11px] border-b border-slate-200">
+                <th className="py-3 px-4 rounded-l-xl whitespace-nowrap">No. Registrasi</th>
+                <th className="py-3 px-4 whitespace-nowrap">Nama Calon Murid</th>
+                {isFoundation && <th className="py-3 px-4 whitespace-nowrap">Unit</th>}
+                <th className="py-3 px-4 whitespace-nowrap">Wali &amp; WhatsApp</th>
+                <th className="py-3 px-4 whitespace-nowrap">Jalur</th>
+                <th className="py-3 px-4 whitespace-nowrap">Status Biaya</th>
+                <th className="py-3 px-4 whitespace-nowrap">Status Seleksi</th>
+                <th className="py-3 px-4 text-right rounded-r-xl whitespace-nowrap">Aksi Perubahan</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -438,13 +425,13 @@ export default function FoundationDashboardClient({
                   <td colSpan={isFoundation ? 8 : 7} className="py-12 text-center text-slate-400">
                     <AlertCircle className="w-8 h-8 text-slate-300 mx-auto mb-2" />
                     <p className="font-semibold text-slate-600">Tidak ada murid yang cocok dengan kriteria pencarian.</p>
-                    <p className="text-slate-400 text-[11px] mt-0.5">Coba ubah kata kunci atau bersihkan filter pencarian.</p>
+                    <p className="text-slate-400 text-xs mt-0.5">Coba ubah kata kunci atau bersihkan filter pencarian.</p>
                   </td>
                 </tr>
               ) : (
                 filteredApplicants.map((applicant) => (
                   <tr key={applicant.id} className="hover:bg-slate-50/80 transition-colors group">
-                    <td className="py-3.5 px-4 font-mono font-semibold text-slate-900">
+                    <td className="py-3.5 px-4 font-mono font-semibold text-slate-900 whitespace-nowrap">
                       <Link
                         href={`/portal/ppdb/${applicant.registrationNo}`}
                         target="_blank"
@@ -456,51 +443,53 @@ export default function FoundationDashboardClient({
                     </td>
                     <td className="py-3.5 px-4 font-semibold text-slate-900">
                       <div>
-                        <span className="font-semibold block text-slate-900">{applicant.studentName}</span>
-                        <span className="text-[10px] text-slate-400 font-medium">
+                        <span className="font-semibold block text-slate-900 whitespace-nowrap">{applicant.studentName}</span>
+                        <span className="text-xs text-slate-400 font-medium">
                           {applicant.gender === 'P' ? 'Perempuan (Akhwat)' : 'Laki-laki (Ikhwan)'}
                         </span>
                       </div>
                     </td>
                     {isFoundation && (
-                      <td className="py-3.5 px-4">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider bg-slate-100 text-slate-700 px-2 py-0.5 rounded-lg border border-slate-200">
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <span className="font-mono text-xs font-semibold text-slate-700 uppercase">
                           {applicant.schoolSlug.toUpperCase()}
                         </span>
                       </td>
                     )}
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="font-medium text-slate-800">{applicant.parentName}</div>
-                      <div className="text-[11px] text-slate-400 font-mono">
+                      <div className="text-xs text-slate-400 font-mono">
                         {applicant.parentPhone}
                       </div>
                     </td>
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       <span className="capitalize font-medium text-slate-600">
                         {applicant.registrationPath}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       {applicant.paymentStatus === 'PAID' ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                          Lunas (Rp {applicant.amount.toLocaleString('id-ID')})
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                          <span>Lunas (Rp {applicant.amount.toLocaleString('id-ID')})</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-200">
-                          Belum Bayar
+                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700">
+                          <span className="w-2 h-2 rounded-full bg-amber-500" />
+                          <span>Belum Bayar</span>
                         </span>
                       )}
                     </td>
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       {getStatusBadge(applicant.status)}
                     </td>
-                    <td className="py-3.5 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right whitespace-nowrap">
                       <div className="inline-flex items-center justify-end gap-1.5">
                         <select
                           disabled={isUpdating === applicant.id || isDeleting === applicant.id}
                           value={applicant.status}
                           onChange={(e) => handleStatusChange(applicant.id, e.target.value)}
-                          className="text-[11px] bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 font-bold focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-emerald-500 cursor-pointer disabled:opacity-50 shadow-2xs"
+                          className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 font-semibold focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-emerald-500 cursor-pointer disabled:opacity-50 shadow-2xs"
                         >
                           <option value="SUBMITTED">Menunggu</option>
                           <option value="VERIFIED">Verifikasi Berkas</option>

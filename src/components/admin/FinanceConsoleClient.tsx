@@ -463,16 +463,16 @@ export default function FinanceConsoleClient({
 
         {/* TAB 1: INVOICES TABLE */}
         {activeTab === 'invoices' && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-600">
-              <thead className="bg-slate-100/70 border-b border-slate-200 text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+            <table className="w-full text-left text-xs text-slate-600 min-w-[760px]">
+              <thead className="bg-slate-100/70 border-b border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider">
                 <tr>
-                  <th className="py-3 px-4">No. Tagihan (Order ID)</th>
-                  <th className="py-3 px-4">Calon Murid & Unit</th>
-                  <th className="py-3 px-4">Nominal Tagihan</th>
-                  <th className="py-3 px-4">Metode Bayar</th>
-                  <th className="py-3 px-4">Status Pembayaran</th>
-                  <th className="py-3 px-4 text-right">Tindakan Kasir</th>
+                  <th className="py-3 px-4 whitespace-nowrap">No. Tagihan (Order ID)</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Calon Murid &amp; Unit</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Nominal Tagihan</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Metode Bayar</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Status Pembayaran</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap">Tindakan Kasir</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -486,15 +486,15 @@ export default function FinanceConsoleClient({
                 ) : (
                   filteredInvoices.map((inv) => (
                     <tr key={inv.id} className="hover:bg-slate-50/70 transition-colors">
-                      <td className="py-3.5 px-4 font-mono font-bold text-slate-900 text-xs">
+                      <td className="py-3.5 px-4 font-mono font-semibold text-slate-900 text-xs whitespace-nowrap">
                         {inv.orderId}
-                        <span className="block text-[11px] font-normal text-slate-400 font-sans mt-0.5">
+                        <span className="block text-xs font-normal text-slate-400 font-sans mt-0.5">
                           {inv.createdAt}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td className="py-3.5 px-4 whitespace-nowrap">
                         <div className="font-semibold text-slate-900 text-sm">{inv.studentName}</div>
-                        <div className="flex items-center space-x-2 text-[11px] text-slate-500 mt-0.5">
+                        <div className="flex items-center space-x-2 text-xs text-slate-500 mt-0.5">
                           <span className="font-mono bg-slate-100 px-1.5 py-0.5 rounded">
                             {inv.registrationNo}
                           </span>
@@ -502,35 +502,35 @@ export default function FinanceConsoleClient({
                           <span>{inv.schoolName}</span>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 font-semibold text-slate-900 text-sm tabular-nums">
+                      <td className="py-3.5 px-4 font-semibold text-slate-900 text-sm tabular-nums whitespace-nowrap">
                         Rp {inv.amount.toLocaleString('id-ID')}
                       </td>
-                      <td className="py-3.5 px-4">
-                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px]">
-                          <QrCode className="w-3 h-3 text-slate-500" />
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-xs">
+                          <QrCode className="w-3.5 h-3.5 text-slate-500" />
                           <span>{inv.paymentMethod}</span>
                         </span>
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td className="py-3.5 px-4 whitespace-nowrap">
                         {inv.paymentStatus === 'PAID' ? (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold bg-[#E8F3F1] text-[#2D7A70] border border-[#2D7A70]/30">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#2D7A70]" />
+                          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500" />
                             <span>LUNAS TERVERIFIKASI</span>
                           </span>
                         ) : (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
-                            <Clock className="w-3.5 h-3.5 text-amber-600" />
+                          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700">
+                            <span className="w-2 h-2 rounded-full bg-amber-500" />
                             <span>MENUNGGU PEMBAYARAN</span>
                           </span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-right">
+                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
                         {inv.paymentStatus === 'UNPAID' ? (
                           <button
                             type="button"
                             disabled={isProcessing === inv.id}
                             onClick={() => handleConfirmInvoice(inv.id)}
-                            className="px-3 py-1.5 rounded-lg bg-[#2D7A70] hover:bg-[#184F48] text-white text-xs font-bold transition-colors shadow-2xs inline-flex items-center space-x-1.5"
+                            className="px-3 py-1.5 rounded-lg bg-[#2D7A70] hover:bg-[#184F48] text-white text-xs font-semibold transition-colors shadow-2xs inline-flex items-center space-x-1.5 cursor-pointer whitespace-nowrap"
                           >
                             {isProcessing === inv.id ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -540,14 +540,14 @@ export default function FinanceConsoleClient({
                             <span>Konfirmasi Lunas Tunai</span>
                           </button>
                         ) : (
-                          <div className="flex items-center justify-end gap-2">
-                            <span className="text-[11px] text-slate-400 font-medium hidden sm:inline">
+                          <div className="flex items-center justify-end gap-2 whitespace-nowrap">
+                            <span className="text-xs text-slate-400 font-medium hidden sm:inline">
                               Lunas {inv.paidAt ? new Date(inv.paidAt).toLocaleDateString('id-ID') : ''}
                             </span>
                             <button
                               type="button"
                               onClick={() => setSelectedReceipt(inv)}
-                              className="px-2.5 py-1 rounded-lg bg-[#E8F3F1] hover:bg-[#d5ebe7] text-[#184F48] border border-[#2D7A70]/30 text-xs font-semibold transition-colors inline-flex items-center gap-1 cursor-pointer shadow-2xs"
+                              className="px-2.5 py-1 rounded-lg bg-[#E8F3F1] hover:bg-[#d5ebe7] text-[#184F48] border border-[#2D7A70]/30 text-xs font-semibold transition-colors inline-flex items-center gap-1 cursor-pointer shadow-2xs whitespace-nowrap"
                             >
                               <ReceiptText className="w-3 h-3 text-[#2D7A70]" />
                               <span>Cetak Kuitansi</span>
@@ -565,16 +565,16 @@ export default function FinanceConsoleClient({
 
         {/* TAB 2: PAYOUTS TABLE */}
         {activeTab === 'payouts' && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-600">
-              <thead className="bg-slate-100/70 border-b border-slate-200 text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+            <table className="w-full text-left text-xs text-slate-600 min-w-[780px]">
+              <thead className="bg-slate-100/70 border-b border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider">
                 <tr>
-                  <th className="py-3 px-4">Nama Mitra & Kontak</th>
-                  <th className="py-3 px-4">Rekening Tujuan</th>
-                  <th className="py-3 px-4">Murid Rujukan</th>
-                  <th className="py-3 px-4">Besaran Komisi</th>
-                  <th className="py-3 px-4">Status Pencairan</th>
-                  <th className="py-3 px-4 text-right">Tindakan Keuangan</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Nama Mitra &amp; Kontak</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Rekening Tujuan</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Murid Rujukan</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Besaran Komisi</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Status Pencairan</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap">Tindakan Keuangan</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -588,8 +588,8 @@ export default function FinanceConsoleClient({
                 ) : (
                   filteredPayouts.map((p) => (
                     <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
-                      <td className="py-3.5 px-4">
-                        <div className="font-bold text-slate-900 text-sm">{p.affiliateName}</div>
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <div className="font-semibold text-slate-900 text-sm">{p.affiliateName}</div>
                         <a
                           href={`https://wa.me/${p.affiliatePhone.startsWith('0') ? '62' + p.affiliatePhone.slice(1) : p.affiliatePhone}`}
                           target="_blank"
@@ -600,49 +600,49 @@ export default function FinanceConsoleClient({
                           <span>{p.affiliatePhone}</span>
                         </a>
                       </td>
-                      <td className="py-3.5 px-4">
-                        <div className="font-bold text-slate-800">{p.bankName}</div>
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <div className="font-medium text-slate-800">{p.bankName}</div>
                         <div className="font-mono text-slate-600 text-xs mt-0.5">
                           {p.bankAccountNumber} (a.n. {p.bankAccountHolder})
                         </div>
                       </td>
-                      <td className="py-3.5 px-4">
-                        <div className="font-semibold text-slate-900">{p.studentName}</div>
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <div className="font-medium text-slate-900">{p.studentName}</div>
                         <div className="text-[11px] text-slate-500">{p.schoolName}</div>
                       </td>
-                      <td className="py-3.5 px-4 font-semibold text-slate-900 text-sm tabular-nums">
+                      <td className="py-3.5 px-4 font-semibold text-slate-900 text-sm tabular-nums whitespace-nowrap">
                         Rp {p.commissionAmount.toLocaleString('id-ID')}
                       </td>
-                      <td className="py-3.5 px-4">
+                      <td className="py-3.5 px-4 whitespace-nowrap">
                         {p.status === 'PAID' ? (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold bg-[#E8F3F1] text-[#2D7A70] border border-[#2D7A70]/30">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#2D7A70]" />
-                            <span>SUDAH DITRANSFER</span>
+                          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-800">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                            <span>Sudah Ditransfer</span>
                           </span>
                         ) : (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800 border border-purple-300">
-                            <Clock className="w-3.5 h-3.5 text-purple-600" />
-                            <span>PERLU DITRANSFER</span>
+                          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                            <span>Perlu Ditransfer</span>
                           </span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-right">
+                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
                         {p.status === 'PENDING' ? (
                           <button
                             type="button"
                             disabled={isProcessing === p.id}
                             onClick={() => handleConfirmPayout(p.id)}
-                            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors shadow-2xs inline-flex items-center space-x-1.5"
+                            className="px-3 py-1.5 rounded-lg bg-[#2D7A70] hover:bg-[#236159] text-white text-xs font-semibold transition-colors shadow-2xs inline-flex items-center space-x-1.5 cursor-pointer disabled:opacity-50"
                           >
                             {isProcessing === p.id ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
                             ) : (
                               <Send className="w-3.5 h-3.5" />
                             )}
-                            <span>Setujui & Transfer</span>
+                            <span>Setujui &amp; Transfer</span>
                           </button>
                         ) : (
-                          <span className="text-[11px] text-slate-400 font-medium">
+                          <span className="text-xs text-slate-400 font-medium">
                             Ditransfer pada {p.paidAt ? new Date(p.paidAt).toLocaleDateString('id-ID') : '-'}
                           </span>
                         )}

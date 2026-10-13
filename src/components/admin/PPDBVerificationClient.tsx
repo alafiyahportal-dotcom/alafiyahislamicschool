@@ -379,37 +379,37 @@ export default function PPDBVerificationClient({
     switch (status) {
       case 'ACCEPTED':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
-            <Award className="w-3.5 h-3.5 text-emerald-600" />
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-800 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
             <span>Diterima (Lulus)</span>
           </span>
         );
       case 'INTERVIEW_SCHEDULED':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-300">
-            <Calendar className="w-3.5 h-3.5 text-blue-600" />
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-700 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
             <span>Terjadwal Observasi</span>
           </span>
         );
       case 'VERIFIED':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#E8F3F1] text-[#2D7A70] border border-[#2D7A70]/30">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#2D7A70]" />
-            <span>Berkas Lunas Terverifikasi</span>
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#184F48] whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2D7A70]" />
+            <span>Berkas Terverifikasi</span>
           </span>
         );
       case 'REJECTED':
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-300">
-            <XCircle className="w-3.5 h-3.5 text-rose-600" />
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-rose-700 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
             <span>Cadangan / Ditolak</span>
           </span>
         );
       case 'SUBMITTED':
       default:
         return (
-          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
-            <Clock className="w-3.5 h-3.5 text-amber-600" />
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
             <span>Menunggu Verifikasi</span>
           </span>
         );
@@ -488,15 +488,15 @@ export default function PPDBVerificationClient({
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-600">
-            <thead className="bg-slate-100/70 border-b border-slate-200 text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+        <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+          <table className="w-full text-left text-xs text-slate-600 min-w-[800px]">
+            <thead className="bg-slate-100/70 border-b border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider">
               <tr>
-                <th className="py-3 px-4">Calon Murid & No. Reg</th>
-                <th className="py-3 px-4">Wali Murid & Kontak</th>
-                <th className="py-3 px-4">Berkas Persyaratan</th>
-                <th className="py-3 px-4">Status Seleksi</th>
-                <th className="py-3 px-4 text-right">Tindakan Seleksi</th>
+                <th className="py-3 px-4 whitespace-nowrap">Calon Murid &amp; No. Reg</th>
+                <th className="py-3 px-4 whitespace-nowrap">Wali Murid &amp; Kontak</th>
+                <th className="py-3 px-4 whitespace-nowrap">Berkas Persyaratan</th>
+                <th className="py-3 px-4 whitespace-nowrap">Status Seleksi</th>
+                <th className="py-3 px-4 text-right whitespace-nowrap">Tindakan Seleksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -558,7 +558,7 @@ export default function PPDBVerificationClient({
                     </td>
 
                     {/* Wali & Kontak */}
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="font-medium text-slate-800">{item.parentName}</div>
                       <a
                         href={`https://wa.me/${item.parentPhone.startsWith('0') ? '62' + item.parentPhone.slice(1) : item.parentPhone}`}
@@ -572,7 +572,7 @@ export default function PPDBVerificationClient({
                     </td>
 
                     {/* Berkas */}
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="flex flex-col gap-1.5 items-start">
                         <button
                           type="button"
@@ -600,10 +600,10 @@ export default function PPDBVerificationClient({
                     </td>
 
                     {/* Status */}
-                    <td className="py-3.5 px-4">{getStatusBadge(item.status)}</td>
+                    <td className="py-3.5 px-4 whitespace-nowrap">{getStatusBadge(item.status)}</td>
 
                     {/* Tindakan */}
-                    <td className="py-3.5 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right whitespace-nowrap">
                       <div className="inline-flex items-center space-x-1.5">
                         {/* Tombol Detail Lengkap (28 Butir Formulir) */}
                         <button
