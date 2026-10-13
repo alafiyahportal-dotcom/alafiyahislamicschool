@@ -51,14 +51,17 @@ export default async function SmpProfilPage() {
   const identitasSekolah = [
     { label: 'Nama Sekolah Resmi', value: 'SMP IT Al-Afiyah Majalengka' },
     { label: 'Status Akreditasi', value: 'Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)' },
-    { label: 'Tagline & Semboyan', value: 'Be Smart & Religious' },
+    { label: 'Tagline & Semboyan', value: 'Be Smart and Be Religius' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Ketua Yayasan', value: 'Jejen Nurbayan, S.Sos.' },
     { label: 'Kepala Sekolah', value: 'Jaja Madhuri, S.Pd.' },
+    { label: 'Tata Usaha', value: 'Iip Zaenal Arifin, S.Pd.' },
+    { label: 'Sarpras', value: 'Muhamad Eechram Riady, S.Pd.' },
+    { label: 'Humas', value: 'Amelia Kartika, S.Sos.' },
     { label: 'Jenjang Pendidikan', value: 'Sekolah Menengah Pertama Islam Terpadu (Kelas VII – IX)' },
     { label: 'Kurikulum Utama', value: 'Integrasi Kurikulum Nasional & Kurikulum Pesantren Terpadu Al-Afiyah' },
-    { label: 'Target Capaian Tahfidz', value: '3 Juz Dasar (Juz 28, 29, 30) & Kelas Unggulan 5+ Juz Mutqin' },
-    { label: 'Penguasaan Bahasa', value: 'Bahasa Arab Aktif (Lisan & Tulisan) & Penguatan Bahasa Inggris' },
+    { label: 'Target Capaian Tahfidz', value: 'Minimal 3 Juz (Juz 28, 29, 30) & Kelas Unggulan 5+ Juz Mutqin' },
+    { label: 'Penguasaan Bahasa', value: 'Bahasa Internasional (Bahasa Arab & Bahasa Inggris Aktif)' },
     { label: 'Alamat Sekolah', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka 45411' },
     { label: 'Hotline Resmi / WhatsApp', value: '0822-4935-7893 (Layanan Informasi SPMB & Tata Usaha)' },
     { label: 'Rekening Resmi SPMB', value: 'Bank Muamalat 1360012405 a.n SMP IT Al Afiyah' },
@@ -70,37 +73,49 @@ export default async function SmpProfilPage() {
     { jabatan: 'Kepala Sekolah', nama: 'Jaja Madhuri, S.Pd.', role: 'Pimpinan Satuan Pendidikan & Akademik', icon: GraduationCap },
     { jabatan: 'PKS Kurikulum', nama: 'M. Akbar Pratama, S.Pd.', role: 'Pengembangan Kurikulum & Mutu Pembelajaran', icon: BookOpen },
     { jabatan: 'PKS Kesiswaan', nama: 'Rio Satrio, S.Pd.', role: 'Pembinaan Karakter & Kedisiplinan Santri', icon: Users },
-    { jabatan: 'PKS Sarana & Prasarana', nama: 'Muhamad Eechram Riady, S.Pd.', role: 'Pengelolaan Fasilitas & Sarana Belajar', icon: Compass },
-    { jabatan: 'Bendahara & Kepala TU', nama: 'Iip Zaenal Arifin, S.Pd.', role: 'Akuntabilitas Keuangan & Tata Usaha', icon: Award },
+    { jabatan: 'Sarpras', nama: 'Muhamad Eechram Riady, S.Pd.', role: 'Pengelolaan Fasilitas & Sarana Belajar', icon: Compass },
+    { jabatan: 'Tata Usaha', nama: 'Iip Zaenal Arifin, S.Pd.', role: 'Akuntabilitas Keuangan & Administrasi Sekolah', icon: Award },
+    { jabatan: 'Humas', nama: 'Amelia Kartika, S.Sos.', role: 'Kemitraan, Komunikasi Publik & Layanan Informasi', icon: HeartHandshake },
     { jabatan: 'Lead Developer & IT Systems', nama: 'Mulia Rizki', role: 'Pengembang Sistem Digital & Pusat Data', icon: ShieldCheck },
   ];
 
-  const misiList = [
-    {
-      title: 'Tauhid & Akhlakul Karimah',
-      desc: 'Menanamkan pondasi akidah yang lurus dan pembiasaan adab nabawiyah dalam kehidupan sehari-hari murid.',
-    },
-    {
-      title: 'Hafalan Qur\'an Mutqin & Tartil',
-      desc: 'Membimbing murid menuntaskan target hafalan 3 hingga 5+ juz dengan kaidah tajwid makharijul huruf yang kokoh.',
-    },
-    {
-      title: 'Kecakapan Bahasa Arab Aktif',
-      desc: 'Menciptakan bi\'ah lughawiyyah (lingkungan berbahasa) agar murid fasih bertutur dan memahami literatur Arab.',
-    },
-    {
-      title: 'SCD (Student Character Development)',
-      desc: 'Membangun kepemimpinan, kemandirian, kedisiplinan, dan tanggung jawab sosial murid remaja islami.',
-    },
-    {
-      title: 'Mutaba\'ah Ibadah Digital Kolaboratif',
-      desc: 'Memantau keteraturan ibadah harian melalui aplikasi digital yang menghubungkan siswa, orang tua, dan asatidz.',
-    },
-    {
-      title: 'Pengembangan Bakat & Prestasi Sportif',
-      desc: 'Mewadahi talenta murid melalui Futsal Development Program, tata boga, pramuka, dan karya sains.',
-    },
+  const defaultMisiList = [
+    'Menetapkan motto sekolah yaitu Be Smart and Be Religius.',
+    'Membiasakan Murid menggunakan bahasa Arab/Inggris di lingkungan sekolah, sehingga fasih berbahasa Arab/Inggris baik lisan maupun tulisan.',
+    'Membiasakan Murid menghafalkan Al Quran minimal 3 juz.',
+    'Menanamkan nilai-nilai tauhid, mengajarkan akidah ahlusunnah dan ibadah yang sohihah mengikuti Al-Qur\'an dan As-Sunnah sesuai dengan pemahaman salafus shaleh.',
+    'Membiasakan anak dengan akhlak Islami, mendidik anak agar kreatif dan inovatif, serta menanamkan rasa cinta kepada Allah dan Rosul-Nya.',
+    'Mendidik Murid agar mampu menguasai semua pelajaran baik umum maupun agama termasuk teknologi informatika, sehingga dapat menciptakan SDM yang handal.',
+    'Mengikuti kegiatan PMBK yang dilaksanakan oleh Dinas Pendidikan.',
+    'Mengikuti kegiatan turnamen yang dilaksanakan oleh lembaga lain.',
+    'Melakukan pemetaan mutu pendidikan.',
+    'Membuat rencana pemenuhan mutu pendidikan.',
+    'Melaksanakan rencana pemenuhan mutu pendidikan.',
+    'Mengembangkan kemampuan belajar dan berinovasi.',
+    'Mengembangkan literasi digital.',
+    'Mengembangkan kecakapan hidup.',
+    'Mengembangkan penguatan pendidikan karakter.'
   ];
+
+  let visi = 'Unggul dalam bahasa Internasional (Inggris dan Arab), hafal Al Quran dan Menguasai Teknologi Informatika';
+  let misiList = defaultMisiList;
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'smp' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'smp_profil');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (parsed.visi) visi = parsed.visi;
+      if (Array.isArray(parsed.misi) && parsed.misi.length > 0) {
+        misiList = parsed.misi;
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SMP profil data from CMS:', err);
+  }
 
   const pilarKeunggulan = [
     {
@@ -191,47 +206,58 @@ export default async function SmpProfilPage() {
               <Target className="w-4 h-4" />
               <span>Visi Utama Sekolah</span>
             </div>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-snug">
-              Mencetak Generasi Smart &amp; Religious Berakhlak Qur’ani
+            <h2 className="text-xl sm:text-2xl font-extrabold text-white leading-snug">
+              Visi SMP IT Al-Afiyah Majalengka
             </h2>
-            <p className="mt-4 text-xs sm:text-sm text-blue-100 leading-relaxed">
-              "Terwujudnya Generasi Remaja Muslim yang Beraqidah Shahihah, Berakhlaqul Karimah, Cerdas Intelektual, Fasih Berbahasa Arab, dan Unggul dalam Karakter Kepemimpinan."
-            </p>
+            <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-xs">
+              <p className="text-sm sm:text-base font-bold text-white leading-relaxed italic">
+                &ldquo;{visi}&rdquo;
+              </p>
+            </div>
 
             <div className="mt-6 pt-6 border-t border-white/15 space-y-3">
               <div className="flex items-center gap-3 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-[#ffd51e] shrink-0" />
-                <span>Terakreditasi A (SK No. 012/BAN-PDM/SK/2025) Kemendikbudristek</span>
+                <span>Terakreditasi A (SK No. 012/BAN-PDM/SK/2025) BAN-PDM</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-[#ffd51e] shrink-0" />
-                <span>Target Hafalan 3 – 5+ Juz Al-Qur'an Mutqin</span>
+                <span>Target Hafalan Minimal 3 Juz Al-Qur'an</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-[#ffd51e] shrink-0" />
-                <span>Bi'ah Lughawiyyah (Bahasa Arab Aktif)</span>
+                <span>Bahasa Internasional (Arab &amp; Inggris) serta Teknologi Informatika</span>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7 bg-white p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-6">
-            <div>
-              <div className="text-xs font-bold text-[#030164] uppercase tracking-widest mb-2">
-                Amanah Pendidikan
+          <div className="lg:col-span-7 bg-white p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-5">
+            <div className="flex items-center justify-between flex-wrap gap-2 border-b border-slate-100 pb-3">
+              <div>
+                <div className="text-xs font-bold text-[#030164] uppercase tracking-widest mb-1">
+                  Amanah Pendidikan
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                  {misiList.length} Misi Strategis SMP IT Al-Afiyah
+                </h3>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                6 Misi Strategis SMP IT Al-Afiyah
-              </h3>
+              <span className="px-3 py-1 bg-blue-50 text-[#030164] text-xs font-bold rounded-full font-mono">
+                Motto: Be Smart and Be Religius
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2.5 max-h-[560px] overflow-y-auto pr-1 sm:pr-2">
               {misiList.map((m, idx) => (
-                <div key={idx} className="p-4 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-all">
-                  <div className="w-7 h-7 rounded-lg bg-[#030164] text-[#ffd51e] font-bold text-xs flex items-center justify-center mb-3">
-                    0{idx + 1}
-                  </div>
-                  <h4 className="text-sm font-bold text-slate-900 mb-1">{m.title}</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">{m.desc}</p>
+                <div
+                  key={idx}
+                  className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50/80 border border-slate-200/80 hover:border-blue-300 hover:bg-blue-50/30 transition-all flex items-start gap-3 group"
+                >
+                  <span className="w-7 h-7 rounded-lg bg-[#030164] text-[#ffd51e] font-black text-xs flex items-center justify-center shrink-0 mt-0.5 font-mono shadow-2xs group-hover:scale-105 transition-transform">
+                    {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                    {m}
+                  </p>
                 </div>
               ))}
             </div>

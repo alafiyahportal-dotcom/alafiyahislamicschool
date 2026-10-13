@@ -82,7 +82,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   {
     id: 'smp-t-4',
     name: 'Muhamad Eechram Riady, S.Pd.',
-    role: 'PKS Sarana & Prasarana',
+    role: 'Sarpras (Sarana & Prasarana)',
     specialization: 'Pengelolaan Fasilitas & Lingkungan Pembelajaran',
     bio: 'Memastikan kenyamanan, kelayakan sarana modern, laboratorium multimedia, dan lingkungan asri penunjang kegiatan belajar.',
     category: 'Pimpinan & Manajemen'
@@ -90,13 +90,21 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   {
     id: 'smp-t-5',
     name: 'Iip Zaenal Arifin, S.Pd.',
-    role: 'Bendahara Sekolah & Kepala Tata Usaha',
+    role: 'Tata Usaha',
     specialization: 'Tata Kelola Administrasi & Keuangan Pendidikan',
     bio: 'Mengelola akuntabilitas keuangan sekolah, layanan administrasi SPMB terpadu, dan tata usaha profesional bagi wali murid.',
     category: 'Pimpinan & Manajemen'
   },
   {
     id: 'smp-t-6',
+    name: 'Amelia Kartika, S.Sos.',
+    role: 'Humas (Hubungan Masyarakat)',
+    specialization: 'Komunikasi Publik, Kemitraan & Layanan Informasi',
+    bio: 'Membangun komunikasi sinergis antara sekolah, wali murid, dan masyarakat serta memfasilitasi kemitraan strategis.',
+    category: 'Pimpinan & Manajemen'
+  },
+  {
+    id: 'smp-t-7',
     name: 'Mulia Rizki',
     role: 'Lead Developer & IT Systems',
     specialization: 'Arsitektur Sistem Informasi, Fullstack Development & Database',
@@ -126,7 +134,7 @@ export default async function SmpGuruPage() {
         bio: t.bio || 'Pendidik berdedikasi tinggi di SMP IT Al-Afiyah Majalengka.',
         category: t.role.toLowerCase().includes('developer') || t.role.toLowerCase().includes('it')
           ? 'IT & Sistem Digital'
-          : t.role.toLowerCase().includes('kepala') || t.role.toLowerCase().includes('manajemen') || t.role.toLowerCase().includes('yayasan') || t.role.toLowerCase().includes('ketua')
+          : t.role.toLowerCase().includes('kepala') || t.role.toLowerCase().includes('manajemen') || t.role.toLowerCase().includes('yayasan') || t.role.toLowerCase().includes('ketua') || t.role.toLowerCase().includes('humas') || t.role.toLowerCase().includes('tata usaha') || t.role.toLowerCase().includes('sarpras')
           ? 'Pimpinan & Manajemen'
           : t.role.toLowerCase().includes('tahfidz') || t.role.toLowerCase().includes('qur')
           ? 'Tahfidz & Diniyyah'

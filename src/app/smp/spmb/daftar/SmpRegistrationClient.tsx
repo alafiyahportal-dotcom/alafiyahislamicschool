@@ -421,60 +421,19 @@ export default function SmpRegistrationClient() {
               </div>
             </div>
 
-            {/* Asal Sekolah & NISN/NIK */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-bold text-slate-800 block mb-1">
-                  Nama Asal SD / MI <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.previousSchool}
-                  onChange={(e) => setFormData((p) => ({ ...p, previousSchool: e.target.value }))}
-                  placeholder="Contoh: SDIT Al-Afiyah / SDN 1 Majalengka"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-bold text-slate-800 block mb-1">
-                  NISN / NIK Murid (Opsional)
-                </label>
-                <input
-                  type="text"
-                  value={formData.nik}
-                  onChange={(e) => setFormData((p) => ({ ...p, nik: e.target.value }))}
-                  placeholder="Bisa disusulkan kemudian"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
-                />
-              </div>
-            </div>
-
-            {/* Pilihan Ekstrakurikuler yang Diminati */}
+            {/* Asal Sekolah */}
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-bold text-slate-800 block">
-                  Pilihan Ekstrakurikuler yang Diminati <span className="text-rose-500">*</span>
-                </label>
-                <span className="text-[11px] text-slate-400">Pilih 1 ekskul utama</span>
-              </div>
-              <select
-                value={formData.extracurricularInterest}
-                onChange={(e) => setFormData((p) => ({ ...p, extracurricularInterest: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] bg-white cursor-pointer font-medium text-slate-800"
-              >
-                <option value="Futsal Club (Olahraga Prestasi)">Futsal Club (Olahraga Prestasi)</option>
-                <option value="Pramuka SIT (Kepanduan Islam Terpadu)">Pramuka SIT (Kepanduan Islam Terpadu)</option>
-                <option value="Panahan & Olahraga Sunnah">Panahan &amp; Olahraga Sunnah</option>
-                <option value="English & Arabic Club (Klub Bahasa)">English &amp; Arabic Club (Klub Bahasa)</option>
-                <option value="Tata Boga & Cooking Class (Kewirausahaan)">Tata Boga &amp; Cooking Class (Kewirausahaan Murid)</option>
-                <option value="Kaligrafi & Seni Islami">Kaligrafi &amp; Seni Islami</option>
-                <option value="Palang Merah Remaja (PMR / UKS)">Palang Merah Remaja (PMR / UKS)</option>
-              </select>
-              <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-                *Seluruh program inti (Tahfidz Al-Qur&apos;an 3–5+ Juz, Bahasa Arab harian, sains &amp; pembiasaan adab) otomatis diperoleh semua murid secara terpadu.
-              </p>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Nama Asal SD / MI <span className="text-rose-500">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                value={formData.previousSchool}
+                onChange={(e) => setFormData((p) => ({ ...p, previousSchool: e.target.value }))}
+                placeholder="Contoh: SDIT Al-Afiyah / SDN 1 Majalengka"
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#030164] focus:border-transparent"
+              />
             </div>
           </div>
 
