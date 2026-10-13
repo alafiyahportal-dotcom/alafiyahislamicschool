@@ -34,10 +34,7 @@ import {
   Tag,
   CreditCard,
   Search,
-  MapPin,
-  Building2,
-  Code2,
-  Sparkles
+  MapPin
 } from 'lucide-react';
 
 import { getStoredReferralCode } from '@/lib/referral';
@@ -154,124 +151,29 @@ const SMP_POSTERS = [
   { src: '/images/smp-program-unggulan.png', label: 'Program Unggulan & Fasilitas', file: 'Poster-Program-Unggulan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
 ];
 
-interface StructuralRoleConfig {
-  tier: 'pimpinan' | 'akademik' | 'operasional';
-  department: string;
-  badgeClass: string;
-  iconBgClass: string;
-  iconTextClass: string;
-  IconComponent: React.ComponentType<{ className?: string }>;
-}
-
-function getStructuralRoleConfig(role: string = '', specialization: string = ''): StructuralRoleConfig {
+function getDepartmentByRole(role: string = '', specialization: string = ''): string {
   const text = `${role} ${specialization}`.toLowerCase();
-
-  // 1. IT & Sistem Digital / Developer
-  if (text.includes('developer') || text.includes('it') || text.includes('sistem digital') || text.includes('sistem informasi') || text.includes('arsitektur') || text.includes('database')) {
-    return {
-      tier: 'operasional',
-      department: 'Pengembang Sistem & IT',
-      badgeClass: 'bg-sky-50 text-sky-800 border-sky-200/80',
-      iconBgClass: 'bg-sky-100/90',
-      iconTextClass: 'text-sky-700',
-      IconComponent: Code2,
-    };
-  }
-
-  // 2. Yayasan
-  if (text.includes('yayasan') || text.includes('penyelenggara')) {
-    return {
-      tier: 'pimpinan',
-      department: 'Penyelenggara Lembaga (YPIB)',
-      badgeClass: 'bg-amber-50 text-amber-900 border-amber-200/80 font-bold',
-      iconBgClass: 'bg-amber-100/90',
-      iconTextClass: 'text-amber-800',
-      IconComponent: Building2,
-    };
-  }
-
-  // 3. Komite Sekolah
-  if (text.includes('komite') || text.includes('paguyuban') || text.includes('kemitraan')) {
-    return {
-      tier: 'pimpinan',
-      department: 'Komite & Sinergi Wali Murid',
-      badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
-      iconBgClass: 'bg-emerald-100/90',
-      iconTextClass: 'text-emerald-700',
-      IconComponent: Users,
-    };
-  }
-
-  // 4. Kepala Sekolah / Pimpinan
-  if (text.includes('kepala sekolah') || text.includes('pimpinan')) {
-    return {
-      tier: 'pimpinan',
-      department: 'Pimpinan Satuan Pendidikan',
-      badgeClass: 'bg-emerald-100/90 text-emerald-950 border-emerald-300 font-extrabold',
-      iconBgClass: 'bg-emerald-600/15',
-      iconTextClass: 'text-[#064e3b]',
-      IconComponent: GraduationCap,
-    };
-  }
-
-  // 5. Kurikulum
-  if (text.includes('kurikulum') || text.includes('merdeka') || text.includes('akademik')) {
-    return {
-      tier: 'akademik',
-      department: 'Kurikulum & Mutu Pembelajaran',
-      badgeClass: 'bg-teal-50 text-teal-800 border-teal-200/80',
-      iconBgClass: 'bg-teal-100/90',
-      iconTextClass: 'text-teal-700',
-      IconComponent: BookOpen,
-    };
-  }
-
-  // 6. Tahfidz
-  if (text.includes('tahfidz') || text.includes('talaqqi') || text.includes('tartil') || text.includes('qur')) {
-    return {
-      tier: 'akademik',
-      department: 'Koordinator Tahfidz Al-Qur\'an',
-      badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
-      iconBgClass: 'bg-emerald-100/90',
-      iconTextClass: 'text-emerald-700',
-      IconComponent: Sparkles,
-    };
-  }
-
-  // 7. Kesiswaan
-  if (text.includes('kesiswaan') || text.includes('karakter') || text.includes('ekstrakurikuler')) {
-    return {
-      tier: 'akademik',
-      department: 'Kesiswaan & Pembinaan Adab',
-      badgeClass: 'bg-indigo-50 text-indigo-800 border-indigo-200/80',
-      iconBgClass: 'bg-indigo-100/90',
-      iconTextClass: 'text-indigo-700',
-      IconComponent: UserCheck,
-    };
-  }
-
-  // 8. Bendahara / Keuangan
-  if (text.includes('bendahara') || text.includes('keuangan') || text.includes('anggaran')) {
-    return {
-      tier: 'operasional',
-      department: 'Tata Kelola Keuangan & Anggaran',
-      badgeClass: 'bg-amber-50 text-amber-800 border-amber-200/80',
-      iconBgClass: 'bg-amber-100/90',
-      iconTextClass: 'text-amber-700',
-      IconComponent: CreditCard,
-    };
-  }
-
-  // 9. Tata Usaha & Operasional default
-  return {
-    tier: 'operasional',
-    department: 'Tata Usaha & Layanan Sekolah',
-    badgeClass: 'bg-slate-100 text-slate-800 border-slate-200/80',
-    iconBgClass: 'bg-slate-200/70',
-    iconTextClass: 'text-slate-700',
-    IconComponent: FileText,
-  };
+  if (text.includes('yayasan') || text.includes('penyelenggara')) return 'Penyelenggara Lembaga';
+  if (text.includes('kepala sekolah') || text.includes('pimpinan')) return 'Pimpinan Satuan Pendidikan';
+  if (text.includes('developer') || text.includes('lead dev') || text.includes('programmer') || text.includes('sistem')) return 'Pengembang Sistem & IT';
+  if (text.includes('komite') || text.includes('paguyuban') || text.includes('kemitraan')) return 'Komite & Sinergi Wali Murid';
+  if (text.includes('kurikulum') || text.includes('merdeka') || text.includes('akademik')) return 'Kurikulum & Mutu Pembelajaran';
+  if (text.includes('tahfidz') || text.includes('talaqqi') || text.includes('tartil') || text.includes('qur')) return 'Bidang Tahfidz & Keislaman';
+  if (text.includes('kesiswaan') || text.includes('karakter') || text.includes('ekstrakurikuler')) return 'Kesiswaan & Pembinaan Adab';
+  if (text.includes('bendahara') || text.includes('keuangan') || text.includes('anggaran')) return 'Tata Kelola Keuangan';
+  if (text.includes('tata usaha') || text.includes('administrasi')) return 'Tata Usaha & Layanan Sekolah';
+  return 'Tenaga Pendidik & Staf';
 }
+
+function getInitials(name: string = ''): string {
+  if (!name) return 'AF';
+  const clean = name.replace(/(S\.Sos|S\.Pd|S\.T|S\.TP|M\.Pd|Ust\.|Ustadz|H\.)/gi, '').trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'AF';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + (parts[1]?.[0] || '')).toUpperCase();
+}
+
 
 export default function SchoolLandingTemplate({ school }: { school: SchoolData }) {
   const [selectedNews, setSelectedNews] = useState<NewsData | null>(null);
@@ -1548,7 +1450,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </div>
       </section>
 
-      {/* Dewan Guru & Tenaga Pendidik */}
+      {/* Struktur Kepengurusan & Tenaga Pendidik */}
       {school.teachers && school.teachers.length > 0 && (
         <section id="teachers" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1556,71 +1458,71 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               <div>
                 <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-2">
                   <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
-                  <span>Kompetensi &amp; Dedikasi</span>
+                  <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
                   {school.slug === 'sd' ? (
                     <>
-                      Dewan Guru &amp; Tenaga Pendidik <br />
-                      <span className="text-[#064e3b] inline-block">{school.name}</span>
+                      Struktur Kepengurusan &amp; Tenaga Pendidik <br />
+                      <span className="text-[#064e3b] inline-block">SD&nbsp;IT Al-Afiyah</span>
                     </>
                   ) : (
-                    `Dewan Guru & Tenaga Pendidik ${school.name}`
+                    `Struktur Kepengurusan & Tenaga Pendidik ${school.name}`
                   )}
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                  Mendidik dengan keteladanan akhlak, hafalan mutqin, dan dedikasi penuh kasih sayang.
+                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
+                  {school.slug === 'sd'
+                    ? 'Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, komite sekolah, asatidzah tahfidz & kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.'
+                    : 'Tata kelola terintegrasi jajaran pimpinan yayasan, kepala sekolah, dan dewan pendidik yang bersinergi mewujudkan pendidikan berkarakter islami.'}
                 </p>
               </div>
 
               <div className="mt-4 md:mt-0 flex items-center gap-2">
-                <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-xl">
-                  {school.teachers.length} Tenaga Pendidik Aktif
+                <span className="text-xs font-semibold text-[#064e3b] bg-emerald-50 border border-emerald-200/80 px-3.5 py-1.5 rounded-xl">
+                  {school.teachers.length} Struktur &amp; Tenaga Pendidik Aktif
                 </span>
               </div>
             </ScrollReveal>
 
-            {/* Grid Kartu — Tanpa Pengelompokan & Tanpa Foto */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Grid Kartu — 3 Kolom Seimbang dengan Card Hijau di Dalamnya (Tanpa Foto & Tanpa Kolom AI) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {school.teachers.map((teacher, idx) => {
-                const roleConfig = getStructuralRoleConfig(teacher.role, teacher.specialization || '');
-                const RoleIcon = roleConfig.IconComponent;
+                const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
+                const initials = getInitials(teacher.name);
 
                 return (
                   <ScrollReveal
                     key={teacher.id}
-                    delay={(idx % 4) * 0.1}
+                    delay={(idx % 3) * 0.08}
                     yOffset={24}
                     duration={500}
                     className="h-full flex flex-col"
                   >
-                    <div className="bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-emerald-500/50 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between group h-full">
+                    <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group h-full">
                       <div className="space-y-4">
-                        {/* Role Icon in place of photo avatar */}
-                        <div
-                          className={`relative w-16 h-16 mx-auto rounded-2xl ${roleConfig.iconBgClass} ${roleConfig.iconTextClass} border border-slate-200/60 shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}
-                        >
-                          <RoleIcon className="w-7 h-7" />
+                        {/* Card Hijau Elegan di dalam setiap card nama */}
+                        <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-4 shadow-xs relative overflow-hidden flex items-center justify-between">
+                          <div className="relative z-10 pr-2">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
+                              {department}
+                            </span>
+                            <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug line-clamp-1">
+                              {teacher.role}
+                            </span>
+                          </div>
+                          <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-xs border border-white/30 flex items-center justify-center shrink-0 text-white font-extrabold text-xs font-mono shadow-2xs">
+                            {initials}
+                          </div>
                         </div>
 
-                        {/* Teacher Bio Info */}
-                        <div className="text-center space-y-1.5">
-                          <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
+                        {/* Nama & Bidang Amanah (Tanpa Kolom Kutipan AI) */}
+                        <div className="space-y-1">
+                          <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-[#064e3b] transition-colors">
                             {teacher.name}
                           </h3>
-                          <span
-                            className={`inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold border ${roleConfig.badgeClass}`}
-                          >
-                            {teacher.role}
-                          </span>
                           {teacher.specialization && (
-                            <p className="text-[11px] text-slate-600 font-medium leading-relaxed pt-1">
+                            <p className="text-xs text-slate-600 font-medium leading-relaxed pt-0.5">
                               {teacher.specialization}
-                            </p>
-                          )}
-                          {teacher.bio && (
-                            <p className="text-[10px] text-slate-400 italic leading-relaxed pt-1 line-clamp-2">
-                              &ldquo;{teacher.bio}&rdquo;
                             </p>
                           )}
                         </div>
@@ -1628,10 +1530,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
                       <Link
                         href={school.slug === 'sd' ? '/sd/guru' : '#teachers'}
-                        className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 transition-colors"
+                        className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#064e3b] hover:text-emerald-950 transition-colors"
                       >
-                        <span>Lihat Profil Asatidzah</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-emerald-700" />
+                        <span>Lihat Detail Tim &amp; Struktur</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-emerald-700 group-hover:translate-x-1 transition-transform" />
                       </Link>
                     </div>
                   </ScrollReveal>
@@ -1643,11 +1545,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               <div className="mt-10 text-center">
                 <Link
                   href="/sd/guru"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-[#064e3b] border border-emerald-200 font-bold text-xs sm:text-sm shadow-xs transition-all active:scale-95"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#064e3b] hover:bg-emerald-900 text-white font-black text-xs sm:text-sm shadow-md transition-all active:scale-95 text-center leading-snug"
                 >
-                  <UserCheck className="w-4 h-4 text-[#064e3b]" />
-                  <span>Buka Seluruh Profil Dewan Guru &amp; Asatidzah SDIT</span>
-                  <ArrowRight className="w-4 h-4 text-[#064e3b]" />
+                  <Users className="w-4 h-4 text-emerald-300 shrink-0" />
+                  <span>Buka Bagan Struktur &amp; Dewan Pendidik Lengkap SD&nbsp;IT</span>
+                  <ArrowRight className="w-4 h-4 text-emerald-300 shrink-0" />
                 </Link>
               </div>
             )}

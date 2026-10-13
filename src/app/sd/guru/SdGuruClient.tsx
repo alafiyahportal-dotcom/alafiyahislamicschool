@@ -6,16 +6,7 @@ import ScrollReveal from '@/components/landing/ScrollReveal';
 import { 
   ArrowLeft, 
   ChevronRight, 
-  ArrowRight,
-  Building2,
-  Users,
-  GraduationCap,
-  BookOpen,
-  Sparkles,
-  UserCheck,
-  CreditCard,
-  FileText,
-  Code2
+  ArrowRight
 } from 'lucide-react';
 
 export interface TeacherItem {
@@ -104,123 +95,27 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   }
 ];
 
-interface StructuralRoleConfig {
-  tier: 'pimpinan' | 'akademik' | 'operasional';
-  department: string;
-  badgeClass: string;
-  iconBgClass: string;
-  iconTextClass: string;
-  IconComponent: React.ComponentType<{ className?: string }>;
+function getDepartmentByRole(role: string = '', specialization: string = ''): string {
+  const text = `${role} ${specialization}`.toLowerCase();
+  if (text.includes('yayasan') || text.includes('penyelenggara')) return 'Penyelenggara Lembaga';
+  if (text.includes('kepala sekolah') || text.includes('pimpinan')) return 'Pimpinan Satuan Pendidikan';
+  if (text.includes('developer') || text.includes('lead dev') || text.includes('programmer') || text.includes('sistem')) return 'Pengembang Sistem & IT';
+  if (text.includes('komite') || text.includes('paguyuban') || text.includes('kemitraan')) return 'Komite & Sinergi Wali Murid';
+  if (text.includes('kurikulum') || text.includes('merdeka') || text.includes('akademik')) return 'Kurikulum & Mutu Pembelajaran';
+  if (text.includes('tahfidz') || text.includes('talaqqi') || text.includes('tartil') || text.includes('qur')) return 'Bidang Tahfidz & Keislaman';
+  if (text.includes('kesiswaan') || text.includes('karakter') || text.includes('ekstrakurikuler')) return 'Kesiswaan & Pembinaan Adab';
+  if (text.includes('bendahara') || text.includes('keuangan') || text.includes('anggaran')) return 'Tata Kelola Keuangan';
+  if (text.includes('tata usaha') || text.includes('administrasi')) return 'Tata Usaha & Layanan Sekolah';
+  return 'Tenaga Pendidik & Staf';
 }
 
-function getStructuralRoleConfig(role: string = '', specialization: string = ''): StructuralRoleConfig {
-  const text = `${role} ${specialization}`.toLowerCase();
-
-  // 1. IT & Sistem Digital / Developer
-  if (text.includes('developer') || text.includes('it') || text.includes('sistem digital') || text.includes('sistem informasi') || text.includes('arsitektur') || text.includes('database')) {
-    return {
-      tier: 'operasional',
-      department: 'Pengembang Sistem & IT',
-      badgeClass: 'bg-sky-50 text-sky-800 border-sky-200/80',
-      iconBgClass: 'bg-sky-100/90',
-      iconTextClass: 'text-sky-700',
-      IconComponent: Code2,
-    };
-  }
-
-  // 2. Yayasan
-  if (text.includes('yayasan') || text.includes('penyelenggara')) {
-    return {
-      tier: 'pimpinan',
-      department: 'Penyelenggara Lembaga (YPIB)',
-      badgeClass: 'bg-amber-50 text-amber-900 border-amber-200/80 font-bold',
-      iconBgClass: 'bg-amber-100/90',
-      iconTextClass: 'text-amber-800',
-      IconComponent: Building2,
-    };
-  }
-
-  // 3. Komite Sekolah
-  if (text.includes('komite') || text.includes('paguyuban') || text.includes('kemitraan')) {
-    return {
-      tier: 'pimpinan',
-      department: 'Komite & Sinergi Wali Murid',
-      badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
-      iconBgClass: 'bg-emerald-100/90',
-      iconTextClass: 'text-emerald-700',
-      IconComponent: Users,
-    };
-  }
-
-  // 4. Kepala Sekolah / Pimpinan
-  if (text.includes('kepala sekolah') || text.includes('pimpinan')) {
-    return {
-      tier: 'pimpinan',
-      department: 'Pimpinan Satuan Pendidikan',
-      badgeClass: 'bg-emerald-100/90 text-emerald-950 border-emerald-300 font-extrabold',
-      iconBgClass: 'bg-emerald-600/15',
-      iconTextClass: 'text-[#064e3b]',
-      IconComponent: GraduationCap,
-    };
-  }
-
-  // 5. Kurikulum
-  if (text.includes('kurikulum') || text.includes('merdeka') || text.includes('akademik')) {
-    return {
-      tier: 'akademik',
-      department: 'Kurikulum & Mutu Pembelajaran',
-      badgeClass: 'bg-teal-50 text-teal-800 border-teal-200/80',
-      iconBgClass: 'bg-teal-100/90',
-      iconTextClass: 'text-teal-700',
-      IconComponent: BookOpen,
-    };
-  }
-
-  // 6. Tahfidz
-  if (text.includes('tahfidz') || text.includes('talaqqi') || text.includes('tartil') || text.includes('qur')) {
-    return {
-      tier: 'akademik',
-      department: 'Koordinator Tahfidz Al-Qur\'an',
-      badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
-      iconBgClass: 'bg-emerald-100/90',
-      iconTextClass: 'text-emerald-700',
-      IconComponent: Sparkles,
-    };
-  }
-
-  // 7. Kesiswaan
-  if (text.includes('kesiswaan') || text.includes('karakter') || text.includes('ekstrakurikuler')) {
-    return {
-      tier: 'akademik',
-      department: 'Kesiswaan & Pembinaan Adab',
-      badgeClass: 'bg-indigo-50 text-indigo-800 border-indigo-200/80',
-      iconBgClass: 'bg-indigo-100/90',
-      iconTextClass: 'text-indigo-700',
-      IconComponent: UserCheck,
-    };
-  }
-
-  // 8. Bendahara / Keuangan
-  if (text.includes('bendahara') || text.includes('keuangan') || text.includes('anggaran')) {
-    return {
-      tier: 'operasional',
-      department: 'Tata Kelola Keuangan & Anggaran',
-      badgeClass: 'bg-amber-50 text-amber-800 border-amber-200/80',
-      iconBgClass: 'bg-amber-100/90',
-      iconTextClass: 'text-amber-700',
-      IconComponent: CreditCard,
-    };
-  }
-
-  // 9. Tata Usaha & Operasional default
-  return {
-    tier: 'operasional',
-    department: 'Tata Usaha & Layanan Sekolah',
-    badgeClass: 'bg-slate-100 text-slate-800 border-slate-200/80',
-    iconBgClass: 'bg-slate-200/70',
-    iconTextClass: 'text-slate-700',
-    IconComponent: FileText,
-  };
+function getInitials(name: string = ''): string {
+  if (!name) return 'AF';
+  const clean = name.replace(/(S\.Sos|S\.Pd|S\.T|S\.TP|M\.Pd|Ust\.|Ustadz|H\.)/gi, '').trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'AF';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + (parts[1]?.[0] || '')).toUpperCase();
 }
 
 export default function SdGuruClient({ initialTeachers }: { initialTeachers: TeacherItem[] }) {
@@ -290,8 +185,8 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {teachersList.map((teacher) => {
-              const roleConfig = getStructuralRoleConfig(teacher.role, teacher.specialization || '');
-              const RoleIcon = roleConfig.IconComponent;
+              const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
+              const initials = getInitials(teacher.name);
 
               return (
                 <div
@@ -299,16 +194,18 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                   className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-emerald-500/60 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
                 >
                   <div className="space-y-4">
-                    {/* Header: Departemen + Ikon Peran */}
-                    <div className="flex items-start justify-between gap-3">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold border ${roleConfig.badgeClass}`}>
-                        <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
-                        <span>{roleConfig.department}</span>
-                      </span>
-                      <div
-                        className={`w-9 h-9 rounded-xl ${roleConfig.iconBgClass} ${roleConfig.iconTextClass} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300`}
-                      >
-                        <RoleIcon className="w-4 h-4" />
+                    {/* Card Hijau Elegan di dalam setiap card */}
+                    <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-4 shadow-xs relative overflow-hidden flex items-center justify-between">
+                      <div className="relative z-10 pr-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
+                          {department}
+                        </span>
+                        <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug line-clamp-1">
+                          {teacher.role}
+                        </span>
+                      </div>
+                      <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-xs border border-white/30 flex items-center justify-center shrink-0 text-white font-extrabold text-xs font-mono shadow-2xs">
+                        {initials}
                       </div>
                     </div>
 
@@ -316,27 +213,12 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                       <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#064e3b] transition-colors">
                         {teacher.name}
                       </h3>
-                      <p className="text-xs font-semibold text-emerald-700 mt-1">
-                        {teacher.role}
-                      </p>
-                    </div>
-
-                    {teacher.specialization && (
-                      <div className="pt-2 border-t border-slate-100">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                          Amanah &amp; Bidang Fokus
-                        </span>
-                        <p className="text-xs text-slate-700 font-medium leading-relaxed mt-0.5">
+                      {teacher.specialization && (
+                        <p className="text-xs text-slate-600 font-medium leading-relaxed mt-1">
                           {teacher.specialization}
                         </p>
-                      </div>
-                    )}
-
-                    {teacher.bio && (
-                      <p className="text-[11px] text-slate-600 italic leading-relaxed bg-slate-50/70 p-3 rounded-xl border border-slate-100">
-                        &ldquo;{teacher.bio}&rdquo;
-                      </p>
-                    )}
+                      )}
+                    </div>
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
