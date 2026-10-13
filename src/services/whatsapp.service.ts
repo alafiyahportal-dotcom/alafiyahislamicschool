@@ -144,7 +144,7 @@ Pantau akumulasi saldo komisi dan ajukan pencairan ke rekening bank melalui Dasb
 🔗 https://alafiyah.id/affiliate/dashboard
 
 Terima kasih atas kontribusi dakwah dan syiar bersama Al-Afiyah!
-_Tim Kemitraan Yayasan Pendidikan Imam Bonjol Majalengka_`;
+_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`;
 
     return this.sendNotification({
       recipientPhone: params.affiliatePhone,

@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
         parentName: 'Mitra Afiliasi',
         phone: aff.user.phone || '6281200000000',
         registrationNo: aff.referralCode,
-        schoolName: 'Yayasan Imam Bonjol',
+        schoolName: 'Al-Afiyah Majalengka',
         schoolSlug: 'foundation',
         status: 'ACTIVE_AFFILIATE',
       }));

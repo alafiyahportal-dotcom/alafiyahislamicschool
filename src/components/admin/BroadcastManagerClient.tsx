@@ -102,15 +102,30 @@ _Panitia PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`,
   MOTIVASI_AFILIASI: {
     title: '🤝 Kabar & Evaluasi Kemitraan Afiliasi',
     text: `Assalamu'alaikum Warahmatullahi Wabarakatuh.
-Yth. Mitra Afiliasi {nama_murid},
+Yth. Mitra Afiliasi Al-Afiyah Majalengka {nama_murid},
 
-Alhamdulillah, antusiasme pendaftaran murid baru Yayasan Imam Bonjol Majalengka terus meningkat.
+Alhamdulillah, antusiasme pendaftaran murid baru Al-Afiyah Majalengka terus meningkat.
 
-Terima kasih atas syiar dan rekomendasi yang telah Anda bagikan. Pantau perolehan komisi dan riwayat pencairan saldo referral Anda melalui tautan:
+Terima kasih atas syiar dan rekomendasi yang telah Anda bagikan. Pantau perolehan komisi dan riwayat pencairan saldo referral Anda melalui tautan resmi:
 🔗 https://alafiyah.id/affiliate/dashboard
 
 Mari terus perluas keberkahan dakwah pendidikan Al-Qur'an bersama Al-Afiyah!
-_Tim Kemitraan Yayasan Pendidikan Imam Bonjol_`,
+_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`,
+  },
+  PENGINGAT_REKENING_AFILIASI: {
+    title: '💳 Pengingat Rekening Mitra Afiliasi',
+    text: `Assalamu'alaikum Warahmatullahi Wabarakatuh.
+Yth. Mitra Afiliasi Al-Afiyah Majalengka {nama_murid},
+
+Terima kasih telah bergabung sebagai Mitra Afiliasi Al-Afiyah Majalengka.
+
+Kami melihat data nomor rekening pencairan komisi Anda belum dilengkapi di dasbor afiliasi. Silakan buka dasbor Anda di tautan resmi:
+🔗 https://alafiyah.id/affiliate/dashboard?action=rekening
+
+Lalu lengkapi nomor rekening BSI/Muamalat/BCA/lainnya agar komisi PPDB Anda dapat langsung kami transfer saat ada calon murid yang mendaftar.
+
+Jazakumullah Khairan Katsiran.
+_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`,
   },
 };
 

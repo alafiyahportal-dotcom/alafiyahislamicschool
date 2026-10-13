@@ -385,8 +385,18 @@ export default function UnitAffiliatesClient({
                       ? cleanPhone
                       : '62' + cleanPhone;
 
+                    const baseUrl = typeof window !== 'undefined' && window.location.origin.includes('localhost')
+                      ? window.location.origin
+                      : 'https://alafiyah.id';
+
                     const reminderWaText = encodeURIComponent(
-                      `Assalamu'alaikum Warahmatullahi Wabarakatuh ${aff.fullName} 🙏\n\nTerima kasih telah bergabung sebagai Mitra Afiliasi ${schoolName} Al-Afiyah Majalengka (Kode: ${aff.referralCode}).\n\nKami melihat data nomor rekening pencairan komisi Anda belum dilengkapi di dasbor. Silakan buka http://al-afiyah.sch.id/affiliate/dashboard lalu klik "Pengaturan Rekening" untuk memasukkan no. rekening BSI/Muamalat/BCA/lainnya agar komisi PPDB Anda dapat langsung kami transfer saat ada calon murid yang mendaftar.\n\nJazakumullah Khairan Katsiran.`
+                      `Assalamu'alaikum Warahmatullahi Wabarakatuh ${aff.fullName} 🙏\n\n` +
+                      `Terima kasih telah bergabung sebagai Mitra Afiliasi Al-Afiyah Majalengka (Kode: ${aff.referralCode}).\n\n` +
+                      `Kami melihat data nomor rekening pencairan komisi Anda belum dilengkapi di dasbor. Silakan buka tautan resmi dasbor Anda di:\n` +
+                      `🔗 ${baseUrl}/affiliate/dashboard?code=${aff.referralCode}&action=rekening\n\n` +
+                      `Lalu masukkan nomor rekening BSI/Muamalat/BCA/lainnya agar komisi PPDB Anda dapat langsung kami transfer saat ada calon murid yang mendaftar.\n\n` +
+                      `Jazakumullah Khairan Katsiran.\n` +
+                      `_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`
                     );
 
                     return (

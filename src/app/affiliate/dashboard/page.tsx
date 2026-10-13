@@ -127,6 +127,22 @@ export default function AffiliateDashboardPage() {
       if (data.success && data.profile) {
         setProfile(data.profile);
         setPayoutAmount(data.profile.balance);
+
+        if (typeof window !== 'undefined') {
+          const params = new URLSearchParams(window.location.search);
+          const act = params.get('action');
+          const edit = params.get('edit');
+          if (act === 'rekening' || act === 'bank' || edit === 'bank' || edit === 'rekening') {
+            setBankFormData({
+              bankName: data.profile.bankName || 'Bank Syariah Indonesia (BSI)',
+              bankAccountNumber: (!data.profile.bankAccountNumber || data.profile.bankAccountNumber === '-') ? '' : data.profile.bankAccountNumber,
+              bankAccountHolder: data.profile.bankAccountHolder || data.profile.fullName || '',
+              fullName: data.profile.fullName || '',
+              phone: data.profile.phone || '',
+            });
+            setShowBankModal(true);
+          }
+        }
       }
     } catch (err) {
       console.error('Failed to load affiliate profile:', err);
