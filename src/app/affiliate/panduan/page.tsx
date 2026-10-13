@@ -302,7 +302,7 @@ export default function AffiliateGuidePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-center">
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">TK IT Al-Afiyah</span>
-                <p className="text-lg font-black text-slate-900 mt-0.5">Rp 100.000</p>
+                <p className="text-lg font-black text-slate-900 mt-0.5">Rp 75.000</p>
                 <span className="text-[10px] text-slate-500 block">per murid diterima</span>
               </div>
               <div className="p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50/70 text-center relative shadow-sm">
@@ -313,17 +313,20 @@ export default function AffiliateGuidePage() {
                 <p className="text-xl font-black text-emerald-900 mt-0.5">Rp 150.000</p>
                 <span className="text-[10px] text-emerald-700 font-semibold block">total per murid rujukan</span>
               </div>
-              <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-center">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">SMP IT Al-Afiyah</span>
-                <p className="text-lg font-black text-slate-900 mt-0.5">Rp 200.000</p>
-                <span className="text-[10px] text-slate-500 block">per murid diterima</span>
+              <div className="p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50/70 text-center relative shadow-sm">
+                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full shadow-xs">
+                  Fokus SMP IT
+                </span>
+                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">SMP IT Al-Afiyah</span>
+                <p className="text-xl font-black text-emerald-900 mt-0.5">Rp 150.000</p>
+                <span className="text-[10px] text-emerald-700 font-semibold block">total per murid rujukan</span>
               </div>
             </div>
 
-            {/* Rincian Mekanisme Komisi SDIT Al-Afiyah */}
+            {/* Rincian Mekanisme Komisi SDIT & SMP IT Al-Afiyah */}
             <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 text-xs space-y-2">
               <span className="font-bold text-emerald-950 block text-[11px] uppercase tracking-wide">
-                📌 Rincian Pembagian Komisi SDIT Al-Afiyah (Total Rp 150.000 / Murid):
+                📌 Rincian Pembagian Komisi SDIT &amp; SMP IT Al-Afiyah (Total Rp 150.000 / Murid):
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-800">
                 <div className="bg-white p-2.5 rounded-lg border border-emerald-200 shadow-2xs">

@@ -49,7 +49,7 @@ export default function AffiliateRegisterPage() {
   const [simTk, setSimTk] = useState(2);
   const [simSd, setSimSd] = useState(4);
   const [simSmp, setSimSmp] = useState(2);
-  const estimatedEarnings = (simTk * 250000) + (simSd * 100000) + (simSmp * 500000);
+  const estimatedEarnings = (simTk * 75000) + (simSd * 150000) + (simSmp * 150000);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -205,15 +205,15 @@ export default function AffiliateRegisterPage() {
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
                       <span className="text-[10px] text-emerald-200 block font-medium">TK IT</span>
-                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 250.000</strong>
+                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 75.000</strong>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
                       <span className="text-[10px] text-emerald-200 block font-medium">SDIT</span>
-                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 100.000</strong>
+                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 150.000</strong>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
                       <span className="text-[10px] text-emerald-200 block font-medium">SMP IT</span>
-                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 500.000</strong>
+                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 150.000</strong>
                     </div>
                   </div>
                 </div>

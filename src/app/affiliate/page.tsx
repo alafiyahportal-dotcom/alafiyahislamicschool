@@ -471,10 +471,11 @@ export default function AffiliatePublicPage() {
                 <p className="text-xl font-black text-[#cbf738] font-mono mt-0.5">Rp 150.000</p>
                 <span className="text-[11px] text-emerald-100 font-semibold">per calon siswa</span>
               </div>
-              <div className="p-4 rounded-2xl bg-[#1c432f] border border-white/10 shadow-lg hover:border-white/20 transition-all">
-                <span className="text-[11px] font-bold text-emerald-200 uppercase tracking-wider block">SMP IT Al-Afiyah</span>
-                <p className="text-xl font-black text-white font-mono mt-0.5">Rp 100.000</p>
-                <span className="text-[11px] text-emerald-300/70">per calon siswa</span>
+              <div className="p-4 rounded-2xl bg-[#1c432f] border-2 border-[#cbf738] shadow-2xl relative overflow-hidden scale-102">
+                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-[#cbf738] text-slate-950 font-black text-[9px] uppercase tracking-wide shadow-xs">Tertinggi</div>
+                <span className="text-[11px] font-black text-[#cbf738] uppercase tracking-wider block">SMP IT Al-Afiyah</span>
+                <p className="text-xl font-black text-[#cbf738] font-mono mt-0.5">Rp 150.000</p>
+                <span className="text-[11px] text-emerald-100 font-semibold">per calon siswa</span>
               </div>
             </div>
           </motion.div>
