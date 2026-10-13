@@ -165,14 +165,7 @@ function getDepartmentByRole(role: string = '', specialization: string = ''): st
   return 'Tenaga Pendidik & Staf';
 }
 
-function getInitials(name: string = ''): string {
-  if (!name) return 'AF';
-  const clean = name.replace(/(S\.Sos|S\.Pd|S\.T|S\.TP|M\.Pd|Ust\.|Ustadz|H\.)/gi, '').trim();
-  const parts = clean.split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return 'AF';
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + (parts[1]?.[0] || '')).toUpperCase();
-}
+
 
 
 export default function SchoolLandingTemplate({ school }: { school: SchoolData }) {
@@ -1488,7 +1481,6 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {school.teachers.map((teacher, idx) => {
                 const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
-                const initials = getInitials(teacher.name);
 
                 return (
                   <ScrollReveal
@@ -1500,29 +1492,29 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   >
                     <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group h-full">
                       <div className="space-y-4">
-                        {/* Card Hijau Elegan di dalam setiap card nama */}
-                        <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-4 shadow-xs relative overflow-hidden flex items-center justify-between">
-                          <div className="relative z-10 pr-2">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
-                              {department}
-                            </span>
-                            <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug line-clamp-1">
-                              {teacher.role}
-                            </span>
-                          </div>
-                          <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-xs border border-white/30 flex items-center justify-center shrink-0 text-white font-extrabold text-xs font-mono shadow-2xs">
-                            {initials}
-                          </div>
+                        {/* Card Hijau Elegan di dalam setiap card nama (Tanpa Inisial) */}
+                        <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3.5 shadow-xs relative overflow-hidden">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
+                            {department}
+                          </span>
+                          <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                            {teacher.role}
+                          </span>
                         </div>
 
-                        {/* Nama & Bidang Amanah (Tanpa Kolom Kutipan AI) */}
-                        <div className="space-y-1">
+                        {/* Nama, Bidang Amanah & Kutipan Resmi */}
+                        <div className="space-y-1.5">
                           <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-[#064e3b] transition-colors">
                             {teacher.name}
                           </h3>
                           {teacher.specialization && (
-                            <p className="text-xs text-slate-600 font-medium leading-relaxed pt-0.5">
+                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
                               {teacher.specialization}
+                            </p>
+                          )}
+                          {teacher.bio && (
+                            <p className="text-[11px] text-slate-500 italic leading-relaxed pt-1 line-clamp-3">
+                              &ldquo;{teacher.bio}&rdquo;
                             </p>
                           )}
                         </div>
