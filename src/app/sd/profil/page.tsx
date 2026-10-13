@@ -425,10 +425,10 @@ export default async function SdProfilPage() {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    Dewan Guru &amp; Asatidzah
+                    Struktur Organisasi &amp; Pendidik
                   </h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    Profil pengajar tahfidz hafizhah 30 juz dan guru kelas berdedikasi.
+                    Struktur yayasan, kepala sekolah, asatidzah &amp; pengembang sistem IT Al-Afiyah.
                   </p>
                 </div>
               </Link>

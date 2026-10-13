@@ -201,7 +201,7 @@ export default function Navbar({
       items: activeSlug === 'sd'
         ? [
             { label: 'Profil Lengkap SDIT', href: '/sd/profil', desc: 'Visi, misi & identitas resmi SDIT' },
-            { label: 'Dewan Guru & Asatidzah', href: '/sd/guru', desc: 'Pendidik tahfidz, sains & pembina karakter' },
+            { label: 'Struktur & Dewan Pendidik', href: '/sd/guru', desc: 'Struktur kepengurusan, asatidzah & tim IT' },
             { label: 'Dokumentasi & Belajar SDIT', href: '/sd/dokumentasi', desc: 'Galeri nyata kegiatan belajar & agro-sains' },
             { label: 'Layanan Tata Usaha & Lokasi', href: '/sd/kontak', desc: 'Alamat sekolah & rute Google Maps' },
           ]

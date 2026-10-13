@@ -1,5 +1,5 @@
 import React from 'react';
-import SchoolLandingTemplate, { SchoolData } from '@/components/landing/SchoolLandingTemplate';
+import SchoolLandingTemplate, { SchoolData, TeacherData } from '@/components/landing/SchoolLandingTemplate';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { SD_OG_IMAGE } from '@/lib/og-images';
@@ -165,6 +165,101 @@ export default async function SdLandingPage() {
     },
   ];
 
+  const defaultSdStructuralTeam: TeacherData[] = [
+    {
+      id: 't-sd-1',
+      name: 'Jejen Nurbayan, S.Sos',
+      role: 'Ketua Yayasan Pendidikan Imam Bonjol',
+      specialization: 'Manajemen Kelembagaan & Kebijakan Yayasan',
+      bio: "Mengarahkan visi pendidikan terpadu berlandaskan tauhid dan akhlak mulia demi masa depan generasi Qur'ani.",
+      order: 1,
+    },
+    {
+      id: 't-sd-2',
+      name: 'Febrian Fauzi, S.Pd',
+      role: 'Kepala Sekolah SDIT Al-Afiyah Majalengka',
+      specialization: 'Kepemimpinan Sekolah & Mutu Pendidikan',
+      bio: 'Mendidik dengan keteladanan dan menanamkan adab sebelum ilmu agar proses belajar anak senantiasa berkah dan membahagiakan.',
+      order: 2,
+    },
+    {
+      id: 't-sd-3',
+      name: 'Yayan Herdianto, S.Pd',
+      role: 'Komite Sekolah SDIT Al-Afiyah',
+      specialization: 'Kemitraan Sekolah & Paguyuban Orang Tua',
+      bio: 'Menjembatani komunikasi sinergis antara pihak sekolah dan orang tua murid demi tercapainya lingkungan belajar yang ideal.',
+      order: 3,
+    },
+    {
+      id: 't-sd-4',
+      name: 'Windi Widayanti, S.Pd',
+      role: 'Kasie Kurikulum SDIT Al-Afiyah',
+      specialization: 'Kurikulum Merdeka & Integrasi Karakter Adab',
+      bio: 'Mengembangkan kurikulum kontekstual yang memadukan capaian akademis nasional dengan penguatan karakter islami.',
+      order: 4,
+    },
+    {
+      id: 't-sd-5',
+      name: 'Muhammad Rizki, S.Pd',
+      role: 'Koordinator Tahfidz SDIT Al-Afiyah',
+      specialization: "Talaqqi, Tartil & Tahfidz Al-Qur'an",
+      bio: "Membimbing hafalan Al-Qur'an dengan metode yang ramah, tartil sesuai tajwid, dan menumbuhkan kecintaan pada Al-Qur'an sejak dini.",
+      order: 5,
+    },
+    {
+      id: 't-sd-6',
+      name: 'Iyan Kusdiana, S.Pd',
+      role: 'Wakasek Kesiswaan SDIT Al-Afiyah',
+      specialization: 'Pembinaan Karakter & Pengembangan Minat Murid',
+      bio: 'Membimbing pembiasaan disiplin, adab harian, dan keaktifan murid dalam berbagai kegiatan ekstrakurikuler positif.',
+      order: 6,
+    },
+    {
+      id: 't-sd-7',
+      name: 'Moch. Ajat Nurhidayat, S.T',
+      role: 'Tata Usaha SDIT Al-Afiyah',
+      specialization: 'Administrasi Sekolah & Sistem Informasi Akademik',
+      bio: 'Memberikan pelayanan administrasi, kearsipan data pokok, dan operasional layanan sekolah yang tertib serta terpercaya.',
+      order: 7,
+    },
+    {
+      id: 't-sd-8',
+      name: 'Aditya Rahadian, S.TP',
+      role: 'Bendahara SDIT Al-Afiyah',
+      specialization: 'Tata Kelola Keuangan & Akuntabilitas Anggaran',
+      bio: 'Menyelenggarakan pencatatan anggaran dan tata kelola keuangan sekolah yang transparan, amanah, dan akuntabel.',
+      order: 8,
+    },
+    {
+      id: 't-sd-9',
+      name: 'Mulia Rizki',
+      role: 'Lead Developer & IT Systems',
+      specialization: 'Arsitektur Sistem Informasi, Fullstack Development & Database',
+      bio: 'Mengembangkan dan mengelola ekosistem digital sekolah, infrastruktur sistem, database, serta operasional portal SPMB & platform digital Al-Afiyah.',
+      order: 9,
+    },
+  ];
+
+  let rawTeachers: TeacherData[] = (dbSchool?.teachers && dbSchool.teachers.length > 0)
+    ? dbSchool.teachers.map((t) => ({
+        id: t.id,
+        name: t.name,
+        role: t.role,
+        specialization: t.specialization,
+        photoUrl: t.photoUrl,
+        bio: t.bio,
+        order: t.order,
+      }))
+    : defaultSdStructuralTeam;
+
+  // Pastikan Developer (Mulia Rizki) dan Ketua Yayasan (Jejen Nurbayan) selalu tercakup dalam struktur
+  if (!rawTeachers.some((t) => t.name.toLowerCase().includes('mulia rizki'))) {
+    rawTeachers.push(defaultSdStructuralTeam[8]);
+  }
+  if (!rawTeachers.some((t) => t.name.toLowerCase().includes('jejen nurbayan'))) {
+    rawTeachers.unshift(defaultSdStructuralTeam[0]);
+  }
+
   const schoolData: SchoolData = {
     slug: 'sd',
     name: identityData.name || dbSchool?.name || 'SDIT Al-Afiyah Majalengka',
@@ -197,7 +292,7 @@ export default async function SdLandingPage() {
             quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.'
           }
         ],
-    teachers: dbSchool?.teachers || [],
+    teachers: rawTeachers,
     newsPosts: (dbSchool?.newsPosts && dbSchool.newsPosts.length > 0) ? dbSchool.newsPosts : defaultSdNewsPosts,
   };
 

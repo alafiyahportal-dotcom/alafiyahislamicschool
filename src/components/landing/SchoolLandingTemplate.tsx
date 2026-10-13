@@ -34,7 +34,10 @@ import {
   Tag,
   CreditCard,
   Search,
-  MapPin
+  MapPin,
+  Building2,
+  Code2,
+  Sparkles
 } from 'lucide-react';
 
 import { getStoredReferralCode } from '@/lib/referral';
@@ -150,6 +153,125 @@ const SMP_POSTERS = [
   { src: '/images/smp-spmb-biaya.png', label: 'Biaya Pendidikan & Diskon', file: 'Poster-Biaya-Pendidikan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
   { src: '/images/smp-program-unggulan.png', label: 'Program Unggulan & Fasilitas', file: 'Poster-Program-Unggulan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
 ];
+
+interface StructuralRoleConfig {
+  tier: 'pimpinan' | 'akademik' | 'operasional';
+  department: string;
+  badgeClass: string;
+  iconBgClass: string;
+  iconTextClass: string;
+  IconComponent: React.ComponentType<{ className?: string }>;
+}
+
+function getStructuralRoleConfig(role: string = '', specialization: string = ''): StructuralRoleConfig {
+  const text = `${role} ${specialization}`.toLowerCase();
+
+  // 1. IT & Sistem Digital / Developer
+  if (text.includes('developer') || text.includes('it') || text.includes('sistem digital') || text.includes('sistem informasi') || text.includes('arsitektur') || text.includes('database')) {
+    return {
+      tier: 'operasional',
+      department: 'Pengembang Sistem & IT',
+      badgeClass: 'bg-sky-50 text-sky-800 border-sky-200/80',
+      iconBgClass: 'bg-sky-100/90',
+      iconTextClass: 'text-sky-700',
+      IconComponent: Code2,
+    };
+  }
+
+  // 2. Yayasan
+  if (text.includes('yayasan') || text.includes('penyelenggara')) {
+    return {
+      tier: 'pimpinan',
+      department: 'Penyelenggara Lembaga (YPIB)',
+      badgeClass: 'bg-amber-50 text-amber-900 border-amber-200/80 font-bold',
+      iconBgClass: 'bg-amber-100/90',
+      iconTextClass: 'text-amber-800',
+      IconComponent: Building2,
+    };
+  }
+
+  // 3. Komite Sekolah
+  if (text.includes('komite') || text.includes('paguyuban') || text.includes('kemitraan')) {
+    return {
+      tier: 'pimpinan',
+      department: 'Komite & Sinergi Wali Murid',
+      badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
+      iconBgClass: 'bg-emerald-100/90',
+      iconTextClass: 'text-emerald-700',
+      IconComponent: Users,
+    };
+  }
+
+  // 4. Kepala Sekolah / Pimpinan
+  if (text.includes('kepala sekolah') || text.includes('pimpinan')) {
+    return {
+      tier: 'pimpinan',
+      department: 'Pimpinan Satuan Pendidikan',
+      badgeClass: 'bg-emerald-100/90 text-emerald-950 border-emerald-300 font-extrabold',
+      iconBgClass: 'bg-emerald-600/15',
+      iconTextClass: 'text-[#064e3b]',
+      IconComponent: GraduationCap,
+    };
+  }
+
+  // 5. Kurikulum
+  if (text.includes('kurikulum') || text.includes('merdeka') || text.includes('akademik')) {
+    return {
+      tier: 'akademik',
+      department: 'Kurikulum & Mutu Pembelajaran',
+      badgeClass: 'bg-teal-50 text-teal-800 border-teal-200/80',
+      iconBgClass: 'bg-teal-100/90',
+      iconTextClass: 'text-teal-700',
+      IconComponent: BookOpen,
+    };
+  }
+
+  // 6. Tahfidz
+  if (text.includes('tahfidz') || text.includes('talaqqi') || text.includes('tartil') || text.includes('qur')) {
+    return {
+      tier: 'akademik',
+      department: 'Koordinator Tahfidz Al-Qur\'an',
+      badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
+      iconBgClass: 'bg-emerald-100/90',
+      iconTextClass: 'text-emerald-700',
+      IconComponent: Sparkles,
+    };
+  }
+
+  // 7. Kesiswaan
+  if (text.includes('kesiswaan') || text.includes('karakter') || text.includes('ekstrakurikuler')) {
+    return {
+      tier: 'akademik',
+      department: 'Kesiswaan & Pembinaan Adab',
+      badgeClass: 'bg-indigo-50 text-indigo-800 border-indigo-200/80',
+      iconBgClass: 'bg-indigo-100/90',
+      iconTextClass: 'text-indigo-700',
+      IconComponent: UserCheck,
+    };
+  }
+
+  // 8. Bendahara / Keuangan
+  if (text.includes('bendahara') || text.includes('keuangan') || text.includes('anggaran')) {
+    return {
+      tier: 'operasional',
+      department: 'Tata Kelola Keuangan & Anggaran',
+      badgeClass: 'bg-amber-50 text-amber-800 border-amber-200/80',
+      iconBgClass: 'bg-amber-100/90',
+      iconTextClass: 'text-amber-700',
+      IconComponent: CreditCard,
+    };
+  }
+
+  // 9. Tata Usaha & Operasional default
+  return {
+    tier: 'operasional',
+    department: 'Tata Usaha & Layanan Sekolah',
+    badgeClass: 'bg-slate-100 text-slate-800 border-slate-200/80',
+    iconBgClass: 'bg-slate-200/70',
+    iconTextClass: 'text-slate-700',
+    IconComponent: FileText,
+  };
+}
 
 export default function SchoolLandingTemplate({ school }: { school: SchoolData }) {
   const [selectedNews, setSelectedNews] = useState<NewsData | null>(null);
@@ -1426,7 +1548,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </div>
       </section>
 
-      {/* Dewan Guru & Tenaga Pendidik (Sprint 3 - M11) */}
+      {/* Dewan Guru & Tenaga Pendidik */}
       {school.teachers && school.teachers.length > 0 && (
         <section id="teachers" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1458,62 +1580,63 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               </div>
             </ScrollReveal>
 
+            {/* Grid Kartu — Tanpa Pengelompokan & Tanpa Foto */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {school.teachers.map((teacher, idx) => (
-                <ScrollReveal
-                  key={teacher.id}
-                  delay={(idx % 4) * 0.1}
-                  yOffset={24}
-                  duration={500}
-                  className="h-full flex flex-col"
-                >
-                  <div
-                    className="bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-emerald-500/50 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between group h-full"
+              {school.teachers.map((teacher, idx) => {
+                const roleConfig = getStructuralRoleConfig(teacher.role, teacher.specialization || '');
+                const RoleIcon = roleConfig.IconComponent;
+
+                return (
+                  <ScrollReveal
+                    key={teacher.id}
+                    delay={(idx % 4) * 0.1}
+                    yOffset={24}
+                    duration={500}
+                    className="h-full flex flex-col"
                   >
-                    <div className="space-y-4">
-                      {/* Teacher Avatar */}
-                      <div className="relative w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-emerald-600/30 p-0.5 shadow-sm group-hover:scale-105 transition-transform duration-300">
-                        <img
-                          src={
-                            teacher.photoUrl ||
-                            '/images/arc-ustadz.jpg'
-                          }
-                          alt={teacher.name}
-                          className="w-full h-full object-cover rounded-full"
-                        />
+                    <div className="bg-slate-50/70 rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-emerald-500/50 hover:bg-white hover:shadow-md transition-all flex flex-col justify-between group h-full">
+                      <div className="space-y-4">
+                        {/* Role Icon in place of photo avatar */}
+                        <div
+                          className={`relative w-16 h-16 mx-auto rounded-2xl ${roleConfig.iconBgClass} ${roleConfig.iconTextClass} border border-slate-200/60 shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}
+                        >
+                          <RoleIcon className="w-7 h-7" />
+                        </div>
+
+                        {/* Teacher Bio Info */}
+                        <div className="text-center space-y-1.5">
+                          <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
+                            {teacher.name}
+                          </h3>
+                          <span
+                            className={`inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold border ${roleConfig.badgeClass}`}
+                          >
+                            {teacher.role}
+                          </span>
+                          {teacher.specialization && (
+                            <p className="text-[11px] text-slate-600 font-medium leading-relaxed pt-1">
+                              {teacher.specialization}
+                            </p>
+                          )}
+                          {teacher.bio && (
+                            <p className="text-[10px] text-slate-400 italic leading-relaxed pt-1 line-clamp-2">
+                              &ldquo;{teacher.bio}&rdquo;
+                            </p>
+                          )}
+                        </div>
                       </div>
 
-                      {/* Teacher Bio Info */}
-                      <div className="text-center space-y-1.5">
-                        <h3 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
-                          {teacher.name}
-                        </h3>
-                        <span className="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100/70 text-emerald-800 text-[11px] font-semibold border border-emerald-200/60">
-                          {teacher.role}
-                        </span>
-                        {teacher.specialization && (
-                          <p className="text-[11px] text-slate-600 font-medium leading-relaxed pt-1">
-                            {teacher.specialization}
-                          </p>
-                        )}
-                        {teacher.bio && (
-                          <p className="text-[10px] text-slate-400 italic leading-relaxed pt-1 line-clamp-2">
-                            &ldquo;{teacher.bio}&rdquo;
-                          </p>
-                        )}
-                      </div>
+                      <Link
+                        href={school.slug === 'sd' ? '/sd/guru' : '#teachers'}
+                        className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 transition-colors"
+                      >
+                        <span>Lihat Profil Asatidzah</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-emerald-700" />
+                      </Link>
                     </div>
-
-                    <Link
-                      href={school.slug === 'sd' ? '/sd/guru' : '#teachers'}
-                      className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 transition-colors"
-                    >
-                      <span>Lihat Profil Asatidzah</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-emerald-700" />
-                    </Link>
-                  </div>
-                </ScrollReveal>
-              ))}
+                  </ScrollReveal>
+                );
+              })}
             </div>
 
             {school.slug === 'sd' && (
