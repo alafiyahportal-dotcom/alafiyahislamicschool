@@ -149,7 +149,7 @@ export default function AdminSidebar({
 
   const isFoundation = schoolSlug === 'foundation';
 
-  // Define nav items strictly scoped to role & tenant
+  // Define nav items strictly scoped to role & tenant - prioritized by operational access
   const navItems = [
     {
       name: 'Dashboard',
@@ -165,16 +165,29 @@ export default function AdminSidebar({
       badge: 'Baru'
     },
     {
+      name: 'Kas & Tagihan',
+      href: schoolSlug === 'foundation' ? '/admin/foundation/finance' : `/admin/${schoolSlug}/finance`,
+      icon: Wallet,
+      active: pathname.endsWith('/finance')
+    },
+    {
+      name: 'Kemitraan Afiliasi',
+      href: schoolSlug === 'foundation' ? '/admin/foundation/affiliates' : `/admin/${schoolSlug}/affiliates`,
+      icon: Share2,
+      active: pathname.includes('/affiliate')
+    },
+    {
+      name: 'Editor Konten CMS',
+      href: schoolSlug === 'foundation' ? '/admin/foundation/cms' : `/admin/${schoolSlug}/cms`,
+      icon: FileEdit,
+      active: pathname.endsWith('/cms')
+    },
+    {
       name: 'Buku Induk Murid',
       href: schoolSlug === 'foundation' ? '/admin/foundation/students' : `/admin/${schoolSlug}/students`,
       icon: GraduationCap,
-      active: pathname.endsWith('/students')
-    },
-    {
-      name: 'Prestasi Murid',
-      href: schoolSlug === 'foundation' ? '/admin/foundation/achievements' : `/admin/${schoolSlug}/achievements`,
-      icon: Award,
-      active: pathname.endsWith('/achievements')
+      active: pathname.endsWith('/students'),
+      sectionLabel: 'Akademik & Siswa'
     },
     {
       name: 'Daftar Ulang & Seragam',
@@ -183,43 +196,31 @@ export default function AdminSidebar({
       active: pathname.endsWith('/re-registration')
     },
     {
-      name: 'Analitik & Corong',
-      href: schoolSlug === 'foundation' ? '/admin/foundation/analytics' : `/admin/${schoolSlug}/analytics`,
-      icon: BarChart3,
-      active: pathname.endsWith('/analytics')
-    },
-    {
-      name: 'Kas & Tagihan',
-      href: schoolSlug === 'foundation' ? '/admin/foundation/finance' : `/admin/${schoolSlug}/finance`,
-      icon: Wallet,
-      active: pathname.endsWith('/finance')
-    },
-    {
       name: 'Dewan Guru',
       href: schoolSlug === 'foundation' ? '/admin/foundation/users' : `/admin/${schoolSlug}/teachers`,
       icon: UserCheck,
       active: pathname.endsWith('/teachers') || (schoolSlug === 'foundation' && pathname.endsWith('/users'))
     },
     {
-      name: 'Berita & Kegiatan',
+      name: 'Prestasi Murid',
+      href: schoolSlug === 'foundation' ? '/admin/foundation/achievements' : `/admin/${schoolSlug}/achievements`,
+      icon: Award,
+      active: pathname.endsWith('/achievements')
+    },
+    {
+      name: 'Kabar & Artikel Blog',
       href: schoolSlug === 'foundation' ? '/admin/foundation/cms' : `/admin/${schoolSlug}/news`,
       icon: Newspaper,
-      active: pathname.endsWith('/news')
+      active: pathname.endsWith('/news'),
+      sectionLabel: 'Komunikasi & Publikasi'
     },
     {
-      name: 'Broadcast WhatsApp',
+      name: 'Pusat WhatsApp & Log',
       href: schoolSlug === 'foundation' ? '/admin/foundation/broadcast' : `/admin/${schoolSlug}/broadcast`,
       icon: Radio,
-      active: pathname.endsWith('/broadcast')
-    },
-    {
-      name: 'Log Pesan WhatsApp',
-      href: schoolSlug === 'foundation' ? '/admin/foundation/notifications' : `/admin/${schoolSlug}/notifications`,
-      icon: MessageSquare,
-      active: pathname.endsWith('/notifications')
+      active: pathname.endsWith('/broadcast') || pathname.endsWith('/notifications')
     },
     // SIAKAD Features (Presensi, Nilai & Rapor, Tahfidz) disembunyikan sementara sesuai instruksi.
-    // Ubah flag di bawah ke true sewaktu-waktu siap diaktifkan kembali / dipisah ke sistem terpisah.
     ...((!isFoundation && false)
       ? [
           {
@@ -244,16 +245,11 @@ export default function AdminSidebar({
         ]
       : []),
     {
-      name: 'Editor Konten CMS',
-      href: schoolSlug === 'foundation' ? '/admin/foundation/cms' : `/admin/${schoolSlug}/cms`,
-      icon: FileEdit,
-      active: pathname.endsWith('/cms')
-    },
-    {
-      name: 'Kemitraan Afiliasi',
-      href: schoolSlug === 'foundation' ? '/admin/foundation/affiliates' : `/admin/${schoolSlug}/affiliates`,
-      icon: Share2,
-      active: pathname.includes('/affiliate')
+      name: 'Analitik & Corong',
+      href: schoolSlug === 'foundation' ? '/admin/foundation/analytics' : `/admin/${schoolSlug}/analytics`,
+      icon: BarChart3,
+      active: pathname.endsWith('/analytics'),
+      sectionLabel: 'Sistem & Pengaturan'
     },
     {
       name: isFoundation ? 'Pengaturan Yayasan' : 'Pengaturan Unit',

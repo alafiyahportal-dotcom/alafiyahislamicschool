@@ -14,7 +14,8 @@ import {
   Send,
   Building2,
   RefreshCw,
-  ExternalLink
+  ExternalLink,
+  Radio
 } from 'lucide-react';
 
 export interface NotificationLogItem {
@@ -153,21 +154,31 @@ export default function NotificationLogClient({ initialLogs }: NotificationLogCl
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <Filter className="w-4 h-4 text-slate-400" />
-            <select
-              value={selectedEvent}
-              onChange={(e) => setSelectedEvent(e.target.value)}
-              className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium text-slate-700 focus:outline-hidden focus:border-[#2D7A70]"
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center space-x-2">
+              <Filter className="w-4 h-4 text-slate-400" />
+              <select
+                value={selectedEvent}
+                onChange={(e) => setSelectedEvent(e.target.value)}
+                className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium text-slate-700 focus:outline-hidden focus:border-[#2D7A70]"
+              >
+                <option value="ALL">Semua Jenis Notifikasi</option>
+                <option value="PPDB_REGISTERED">Pendaftaran Baru</option>
+                <option value="PAYMENT_CONFIRMED">Kuitansi Pembayaran Lunas</option>
+                <option value="TEST_SCHEDULED">Jadwal Ujian Observasi</option>
+                <option value="ADMISSION_ANNOUNCED">Hasil Seleksi / Kelulusan</option>
+                <option value="COMMISSION_EARNED">Bonus Komisi Afiliasi</option>
+                <option value="PAYOUT_TRANSFERRED">Pencairan Komisi Mitra</option>
+              </select>
+            </div>
+
+            <a
+              href="broadcast"
+              className="inline-flex items-center space-x-1.5 px-3 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold shadow-2xs transition-colors whitespace-nowrap"
             >
-              <option value="ALL">Semua Jenis Notifikasi</option>
-              <option value="PPDB_REGISTERED">Pendaftaran Baru</option>
-              <option value="PAYMENT_CONFIRMED">Kuitansi Pembayaran Lunas</option>
-              <option value="TEST_SCHEDULED">Jadwal Ujian Observasi</option>
-              <option value="ADMISSION_ANNOUNCED">Hasil Seleksi / Kelulusan</option>
-              <option value="COMMISSION_EARNED">Bonus Komisi Afiliasi</option>
-              <option value="PAYOUT_TRANSFERRED">Pencairan Komisi Mitra</option>
-            </select>
+              <Radio className="w-3.5 h-3.5" />
+              <span>Kirim Siaran Broadcast</span>
+            </a>
           </div>
         </div>
 
