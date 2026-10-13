@@ -56,14 +56,41 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2. Check referral code if provided
+    // 2. Check referral code (from body or fallback to cookies/referer)
     let affiliateId: string | null = null;
-    if (referralCode) {
+    let effectiveRefCode = typeof referralCode === 'string' ? referralCode.trim() : '';
+
+    if (!effectiveRefCode) {
+      effectiveRefCode = request.cookies.get('alafiyah_ref_code')?.value?.trim() || '';
+    }
+    if (!effectiveRefCode) {
+      effectiveRefCode = request.cookies.get('alafiyah_affiliate_ref')?.value?.trim() || '';
+    }
+    if (!effectiveRefCode) {
+      const rawJson = request.cookies.get('alafiyah_ref')?.value;
+      if (rawJson) {
+        try {
+          const parsed = JSON.parse(decodeURIComponent(rawJson));
+          effectiveRefCode = parsed.referralCode?.trim() || '';
+        } catch {}
+      }
+    }
+    if (!effectiveRefCode) {
+      const referer = request.headers.get('referer');
+      if (referer) {
+        try {
+          const refUrl = new URL(referer);
+          effectiveRefCode = refUrl.searchParams.get('ref')?.trim() || refUrl.searchParams.get('referral')?.trim() || '';
+        } catch {}
+      }
+    }
+
+    if (effectiveRefCode) {
       const affiliate = await prisma.affiliateProfile.findFirst({
         where: {
           OR: [
-            { referralCode: referralCode.toUpperCase() },
-            { customSlug: referralCode.toLowerCase() },
+            { referralCode: effectiveRefCode.toUpperCase() },
+            { customSlug: effectiveRefCode.toLowerCase() },
           ],
         },
       });

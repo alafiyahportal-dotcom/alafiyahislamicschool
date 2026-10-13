@@ -118,8 +118,17 @@ export default function AffiliateDashboardPage() {
         const params = new URLSearchParams(window.location.search);
         const qCode = params.get('code') || params.get('ref');
         const qEmail = params.get('email');
-        if (qCode) queryParam = `?code=${encodeURIComponent(qCode)}`;
-        else if (qEmail) queryParam = `?email=${encodeURIComponent(qEmail)}`;
+        if (qCode) {
+          queryParam = `?code=${encodeURIComponent(qCode)}`;
+          localStorage.setItem('alafiyah_my_affiliate_code', qCode.trim().toUpperCase());
+        } else if (qEmail) {
+          queryParam = `?email=${encodeURIComponent(qEmail)}`;
+        } else {
+          const cachedCode = localStorage.getItem('alafiyah_my_affiliate_code');
+          if (cachedCode) {
+            queryParam = `?code=${encodeURIComponent(cachedCode)}`;
+          }
+        }
       }
 
       const res = await fetch(`/api/affiliate/me${queryParam}`);
@@ -127,6 +136,9 @@ export default function AffiliateDashboardPage() {
       if (data.success && data.profile) {
         setProfile(data.profile);
         setPayoutAmount(data.profile.balance);
+        if (typeof window !== 'undefined' && data.profile.referralCode) {
+          localStorage.setItem('alafiyah_my_affiliate_code', data.profile.referralCode);
+        }
 
         if (typeof window !== 'undefined') {
           const params = new URLSearchParams(window.location.search);

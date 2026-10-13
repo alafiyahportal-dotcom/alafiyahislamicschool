@@ -86,6 +86,7 @@ export async function GET(
 
   response.cookies.set('alafiyah_ref', JSON.stringify({ referralCode, schoolSlug }), cookieOptions);
   response.cookies.set('alafiyah_affiliate_ref', referralCode, cookieOptions);
+  response.cookies.set('alafiyah_ref_code', referralCode, cookieOptions);
 
   return response;
 }
