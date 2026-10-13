@@ -86,26 +86,29 @@ export default function OfficialRegistrationFormModal({
         {/* Container Dialog */}
         <div className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden print:shadow-none print:w-full print:max-w-none print:rounded-none">
           {/* Screen Controls Header (Hidden in Print) */}
-          <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200 print:hidden">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#2D7A70]" />
-              <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                Formulir Pendaftaran Resmi Murid Baru (F-PPDB A4)
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-white border-b border-slate-200 print:hidden">
+            <div className="min-w-0 pr-2">
+              <span className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight block truncate">
+                Pratinjau Formulir F-PPDB (A4)
+              </span>
+              <span className="text-[10px] sm:text-[11px] text-slate-500 font-mono">
+                {regNo} &bull; {studentName}
               </span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#2D7A70] hover:bg-[#184F48] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
               >
                 <Printer className="w-3.5 h-3.5" />
-                <span>Cetak / Unduh PDF (A4)</span>
+                <span>Cetak / Unduh PDF</span>
               </button>
               <button
                 type="button"
                 onClick={onClose}
-                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors cursor-pointer"
+                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                title="Tutup"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -113,7 +116,7 @@ export default function OfficialRegistrationFormModal({
           </div>
 
         {/* Printable Document Paper (A4 Style) */}
-        <div className="p-8 sm:p-12 print:p-6 text-slate-900 font-sans max-w-[210mm] mx-auto bg-white">
+        <div className="p-3.5 sm:p-8 md:p-12 print:p-6 text-slate-900 font-sans max-w-[210mm] mx-auto bg-white overflow-x-hidden">
           
           {/* ================= HALAMAN 1 ================= */}
           <div className="space-y-5 pb-8 border-b-2 border-dashed border-slate-300 print:border-none print:pb-0 print:break-after-page">
@@ -209,7 +212,7 @@ export default function OfficialRegistrationFormModal({
             </div>
 
             {/* Kotak Ringkasan Registrasi */}
-            <div className="grid grid-cols-3 gap-2 p-2.5 bg-slate-50 border border-slate-300 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 print:grid-cols-3 gap-2 p-2.5 bg-slate-50 border border-slate-300 text-xs">
               <div>
                 <span className="text-slate-500 text-[10px] block">No. Pendaftaran:</span>
                 <span className="font-mono font-bold text-slate-900">{regNo}</span>
@@ -230,99 +233,99 @@ export default function OfficialRegistrationFormModal({
                 A. KETERANGAN ANAK
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col-reverse sm:flex-row print:flex-row gap-3 sm:gap-4 items-center sm:items-start print:items-start">
                 {/* Tabel Identitas */}
-                <table className="flex-1 text-xs border-collapse">
+                <table className="w-full sm:flex-1 print:flex-1 text-xs border-collapse">
                   <tbody>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 w-44 text-slate-600">1. Nama Lengkap</td>
-                      <td className="py-1 w-3 text-center">:</td>
-                      <td className="py-1 font-bold uppercase text-slate-900">{studentName}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">1. Nama Lengkap</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 font-bold uppercase text-slate-900 break-words">{studentName}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">2. Nama Panggilan</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.nickname as string) || '-'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">2. Nama Panggilan</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.nickname as string) || '-'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">3. Jenis Kelamin</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">3. Jenis Kelamin</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">
                         {gender === 'L' ? 'Laki-Laki' : 'Perempuan'}
                       </td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">4. Tempat &amp; Tanggal Lahir</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{pob}, {formattedDob}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">4. Tempat &amp; Tanggal Lahir</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{pob}, {formattedDob}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">5. Agama</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.religion as string) || 'Islam'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">5. Agama</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.religion as string) || 'Islam'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">6. Kewarganegaraan</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.citizenship as string) || 'WNI'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">6. Kewarganegaraan</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.citizenship as string) || 'WNI'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">7. Anak ke-</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.childOrder as string) || '1'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">7. Anak ke-</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.childOrder as string) || '1'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">8. Jml Saudara Kandung</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.siblingsCount as string) || '1'} Orang</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">8. Jml Saudara Kandung</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.siblingsCount as string) || '1'} Orang</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">9. Jml Saudara Tiri/Angkat</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.stepSiblingsCount as string) || '0'} Orang</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">9. Jml Saudara Tiri/Angkat</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.stepSiblingsCount as string) || '0'} Orang</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">10. Bahasa Sehari-hari</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.dailyLanguage as string) || 'Bahasa Indonesia'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">10. Bahasa Sehari-hari</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.dailyLanguage as string) || 'Bahasa Indonesia'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">11. Tinggi Badan / 12. Berat</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">11. Tinggi Badan / 12. Berat</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">
                         {(schoolSpecificData.heightCm as string) ? `${schoolSpecificData.heightCm} cm` : '-'} / {(schoolSpecificData.weightKg as string) ? `${schoolSpecificData.weightKg} kg` : '-'}
                       </td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">13. Penyakit Pernah Diderita</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.diseaseHistory as string) || 'Tidak Ada'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">13. Penyakit Pernah Diderita</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.diseaseHistory as string) || 'Tidak Ada'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">14. Golongan Darah</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.bloodType as string) || 'Belum Tahu'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">14. Golongan Darah</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.bloodType as string) || 'Belum Tahu'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">15. Jarak Rumah ke Sekolah</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.distanceToSchoolKm as string) ? `${schoolSpecificData.distanceToSchoolKm} km` : '-'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">15. Jarak Rumah ke Sekolah</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.distanceToSchoolKm as string) ? `${schoolSpecificData.distanceToSchoolKm} km` : '-'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">16. Mengikuti / Tinggal Dengan</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900">{(schoolSpecificData.livingWith as string) || 'Keduanya (Ayah & Ibu)'}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">16. Mengikuti / Tinggal Dengan</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 break-words">{(schoolSpecificData.livingWith as string) || 'Keduanya (Ayah &amp; Ibu)'}</td>
                     </tr>
                     <tr className="border-b border-slate-200">
-                      <td className="py-1 text-slate-600">17. Alamat Lengkap</td>
-                      <td className="py-1 text-center">:</td>
-                      <td className="py-1 text-slate-900 leading-snug">{address}</td>
+                      <td className="py-1 w-28 sm:w-44 print:w-44 text-slate-600 shrink-0">17. Alamat Lengkap</td>
+                      <td className="py-1 w-3 text-center shrink-0">:</td>
+                      <td className="py-1 text-slate-900 leading-snug break-words">{address}</td>
                     </tr>
                   </tbody>
                 </table>
 
                 {/* Box Pas Foto Fisik 3x4 */}
-                <div className="w-24 h-32 border-2 border-dashed border-slate-400 rounded flex flex-col items-center justify-center p-2 text-center text-slate-400 text-[10px] flex-shrink-0 bg-slate-50 self-start">
+                <div className="w-20 h-28 sm:w-24 sm:h-32 print:w-24 print:h-32 border-2 border-dashed border-slate-400 rounded flex flex-col items-center justify-center p-2 text-center text-slate-400 text-[10px] shrink-0 bg-slate-50 self-end sm:self-start print:self-start">
                   <span>Pas Foto</span>
                   <span className="font-bold text-slate-500">3 x 4</span>
                   <span className="text-[9px] mt-1 text-slate-400">(Warna)</span>
@@ -468,7 +471,7 @@ export default function OfficialRegistrationFormModal({
             </div>
 
             {/* Kotak Ringkasan Murid Halaman 2 */}
-            <div className="grid grid-cols-3 gap-2 p-2.5 bg-slate-50 border border-slate-300 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 print:grid-cols-3 gap-2 p-2.5 bg-slate-50 border border-slate-300 text-xs">
               <div>
                 <span className="text-slate-500 text-[10px] block">NO. PENDAFTARAN:</span>
                 <span className="font-mono font-bold text-slate-900">{regNo}</span>
@@ -479,7 +482,7 @@ export default function OfficialRegistrationFormModal({
               </div>
               <div>
                 <span className="text-slate-500 text-[10px] block">NAMA PESERTA DIDIK:</span>
-                <span className="font-bold text-slate-900 uppercase">{studentName}</span>
+                <span className="font-bold text-slate-900 uppercase truncate block">{studentName}</span>
               </div>
             </div>
 
@@ -568,33 +571,35 @@ export default function OfficialRegistrationFormModal({
             </div>
 
             {/* Area Tanda Tangan */}
-            <div className="pt-4 grid grid-cols-2 gap-8 text-xs">
+            <div className="pt-4 grid grid-cols-2 gap-3 sm:gap-8 text-xs">
               {/* Panitia PPDB SDIT AL AFIYAH */}
-              <div className="text-center space-y-16">
+              <div className="text-center space-y-12 sm:space-y-16">
                 <div>
-                  <p className="text-slate-600">Majalengka, {registrationDate}</p>
-                  <p className="font-bold text-slate-900">Panitia PPDB SDIT AL AFIYAH</p>
+                  <p className="text-slate-600 text-[11px] sm:text-xs">Majalengka, {registrationDate}</p>
+                  <p className="font-bold text-slate-900 text-xs sm:text-sm">Panitia PPDB SDIT AL AFIYAH</p>
                   <p className="text-[10px] text-slate-500">Penerima Berkas,</p>
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 underline">
-                    ( .................................................... )
-                  </p>
-                  <p className="text-[10px] text-slate-500">Tanda Tangan &amp; Nama Terang</p>
+                  <div className="w-28 sm:w-48 mx-auto border-b border-slate-900 pb-1">
+                    <span className="text-[11px] text-transparent select-none">( Panitia )</span>
+                  </div>
+                  <p className="text-[10px] text-slate-500 mt-1">Tanda Tangan &amp; Nama Terang</p>
                 </div>
               </div>
 
               {/* Orang Tua / Wali */}
-              <div className="text-center space-y-16">
+              <div className="text-center space-y-12 sm:space-y-16">
                 <div>
-                  <p className="text-slate-600">Majalengka, {registrationDate}</p>
-                  <p className="font-bold text-slate-900">Orang Tua / Wali Calon Murid,</p>
+                  <p className="text-slate-600 text-[11px] sm:text-xs">Majalengka, {registrationDate}</p>
+                  <p className="font-bold text-slate-900 text-xs sm:text-sm">Orang Tua / Wali Calon Murid,</p>
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 underline">
-                    ( {parentData.fatherName || parentData.motherName || '...........................................'} )
-                  </p>
-                  <p className="text-[10px] text-slate-500">Tanda Tangan &amp; Nama Terang</p>
+                  <div className="w-32 sm:w-52 mx-auto border-b border-slate-900 pb-1">
+                    <span className="font-bold text-slate-900 text-xs sm:text-sm truncate block">
+                      {parentData.fatherName || parentData.motherName ? `( ${parentData.fatherName || parentData.motherName} )` : '( ........................ )'}
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-slate-500 mt-1">Tanda Tangan &amp; Nama Terang</p>
                 </div>
               </div>
             </div>

@@ -735,123 +735,9 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                 Salin dan bagikan tautan ini ke media sosial atau grup WhatsApp. Calon murid yang mengklik akan otomatis terikat komisi Anda selama 30 hari:
               </p>
             </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => handleOpenQr('Tautan Pendaftaran Terpadu', generalLink)}
-                className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-              >
-                <QrCode className="w-4 h-4 text-[#064E3B]" />
-                <span>QR Code Affiliate</span>
-              </button>
-            </div>
           </div>
 
-          {/* General Link Card */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="min-w-0">
-              <span className="text-xs font-bold text-slate-900 uppercase tracking-wider block">
-                Tautan Utama PPDB Terpadu (Pilihan Multi-Unit)
-              </span>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Wali murid dapat memilih pendaftaran unit TK, SDIT, maupun SMP IT langsung dari satu tautan:
-              </p>
-              <p className="text-xs font-mono text-slate-800 truncate mt-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 select-all font-semibold">
-                {generalLink}
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedBroadcastUnit('ALL');
-                  handleCopyBroadcast('ALL');
-                }}
-                className="px-4 py-2.5 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
-                title="Salin pesan siar WhatsApp lengkap dengan semua tautan"
-              >
-                <Copy className="w-3.5 h-3.5" />
-                <span>{copiedBroadcast && selectedBroadcastUnit === 'ALL' ? 'Pesan & Link Tersalin!' : 'Salin Pesan & Semua Link'}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSendWhatsApp('ALL')}
-                className="px-3.5 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba5a] transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
-                title="Kirim ke WhatsApp"
-              >
-                <Send className="w-3.5 h-3.5" />
-                <span>Kirim WA</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleOpenQr('Tautan Utama PPDB', generalLink)}
-                className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
-                title="QR Code"
-              >
-                <QrCode className="w-4 h-4 text-slate-600" />
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* TK Link */}
-            <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 flex flex-col justify-between shadow-2xs">
-              <div>
-                <div className="flex items-baseline justify-between mb-1">
-                  <span className="text-slate-900 font-bold text-sm">TK IT Al-Afiyah</span>
-                  <span className="text-xs text-slate-500 font-medium">Ketentuan Panitia</span>
-                </div>
-                <p className="text-[11px] text-slate-500 mb-3">Besaran komisi unit TK akan diumumkan panitia.</p>
-                
-                <div className="space-y-2">
-                  <div>
-                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">1. Tautan Profil &amp; Pendaftaran TK:</span>
-                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
-                      {tkLink}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider block">2. Portal Terpadu Yayasan:</span>
-                    <p className="text-[11px] font-mono text-slate-700 truncate bg-slate-50 p-2 rounded-xl border border-slate-200 select-all">
-                      {generalLink}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-1.5 pt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedBroadcastUnit('TK');
-                    handleCopyBroadcast('TK');
-                  }}
-                  className="flex-1 py-2.5 px-2 rounded-xl bg-[#064E3B] text-white text-xs font-bold hover:bg-emerald-900 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
-                  title="Salin pesan siar WhatsApp TK IT"
-                >
-                  <Copy className="w-3.5 h-3.5" />
-                  <span>{copiedBroadcast && selectedBroadcastUnit === 'TK' ? 'Tersalin!' : 'Salin Pesan & Link'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSendWhatsApp('TK')}
-                  className="py-2.5 px-3 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba5a] transition-colors flex items-center justify-center gap-1 cursor-pointer shadow-xs"
-                  title="Kirim ke WhatsApp"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>WA</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleOpenQr('TK IT Al-Afiyah', tkLink)}
-                  className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer shadow-2xs"
-                  title="QR Code"
-                >
-                  <QrCode className="w-3.5 h-3.5 text-slate-600" />
-                </button>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
             {/* SD Link */}
             <div className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 flex flex-col justify-between shadow-2xs">
@@ -989,25 +875,12 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             </div>
           </div>
 
-          {/* Unit Switcher Tabs - Modern Minimalist */}
+          {/* Unit Switcher Tabs - Unit Aktif (SDIT & SMP IT) */}
           <div className="flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-2xl border border-slate-200/80 overflow-x-auto">
             <button
               type="button"
-              onClick={() => setSelectedBroadcastUnit('ALL')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                selectedBroadcastUnit === 'ALL'
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
-              }`}
-            >
-              <Layers className={`w-3.5 h-3.5 ${selectedBroadcastUnit === 'ALL' ? 'text-emerald-400' : 'text-slate-500'}`} />
-              <span>Semua Unit</span>
-            </button>
-
-            <button
-              type="button"
               onClick={() => setSelectedBroadcastUnit('SD')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 selectedBroadcastUnit === 'SD'
                   ? 'bg-[#064E3B] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
@@ -1020,7 +893,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             <button
               type="button"
               onClick={() => setSelectedBroadcastUnit('SMP')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
                 selectedBroadcastUnit === 'SMP'
                   ? 'bg-[#1E3A8A] text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
@@ -1029,19 +902,6 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               <BookOpen className={`w-3.5 h-3.5 ${selectedBroadcastUnit === 'SMP' ? 'text-blue-300' : 'text-blue-700'}`} />
               <span>SMP IT Al-Afiyah</span>
             </button>
-
-            <button
-              type="button"
-              onClick={() => setSelectedBroadcastUnit('TK')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                selectedBroadcastUnit === 'TK'
-                  ? 'bg-emerald-800 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
-              }`}
-            >
-              <Sparkles className={`w-3.5 h-3.5 ${selectedBroadcastUnit === 'TK' ? 'text-amber-300' : 'text-amber-600'}`} />
-              <span>TK IT Al-Afiyah</span>
-            </button>
           </div>
 
           {/* Message Preview Container */}
@@ -1049,10 +909,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             <div className="flex items-center justify-between text-xs text-slate-500">
               <span className="font-semibold text-slate-700">Preview Pesan Broadcast Siap Kirim (Sudah Memuat Link Profil &amp; Form):</span>
               <span className="text-[11px] text-slate-500 font-mono">
-                {selectedBroadcastUnit === 'SD' && 'SDIT Al-Afiyah'}
-                {selectedBroadcastUnit === 'SMP' && 'SMP IT Al-Afiyah'}
-                {selectedBroadcastUnit === 'TK' && 'TK IT Al-Afiyah'}
-                {selectedBroadcastUnit === 'ALL' && 'PPDB Terpadu Yayasan'}
+                {selectedBroadcastUnit === 'SD' ? 'SDIT Al-Afiyah' : 'SMP IT Al-Afiyah'}
               </span>
             </div>
 

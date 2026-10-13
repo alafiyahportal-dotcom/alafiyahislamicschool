@@ -70,28 +70,20 @@ export default function ApplicantDetailBiodataModal({
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-2 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
         <div className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200/90 overflow-hidden my-auto flex flex-col max-h-[94vh]">
           
-          {/* Header Dialog - Modern Minimalist, No Initial Badge */}
-          <div className="px-4 sm:px-6 py-4 sm:py-5 bg-[#064E3B] text-white flex items-center justify-between shrink-0 shadow-sm relative overflow-hidden">
-            <div className="flex items-center space-x-3 min-w-0">
-              <div className="p-2 sm:p-2.5 rounded-xl bg-white/10 border border-white/20 text-white shrink-0">
-                <FileText className="w-5 h-5 text-emerald-300" />
+          {/* Header Dialog - Clean & Minimalist */}
+          <div className="px-4 sm:px-6 py-3.5 sm:py-4 bg-[#064E3B] text-white flex items-center justify-between shrink-0 shadow-sm relative overflow-hidden">
+            <div className="min-w-0 pr-2">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[11px] font-bold text-white bg-black/25 px-2 py-0.5 rounded-md border border-white/15">
+                  {applicant.registrationNo}
+                </span>
               </div>
-              <div className="min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-white/15 text-emerald-100 border border-white/20">
-                    Formulir 28 Butir Lengkap
-                  </span>
-                  <span className="font-mono text-[11px] font-bold text-white bg-black/25 px-2 py-0.5 rounded-md border border-white/15">
-                    {applicant.registrationNo}
-                  </span>
-                </div>
-                <h2 className="text-base sm:text-xl font-bold text-white tracking-tight mt-1 truncate">
-                  {applicant.studentName}
-                </h2>
-                <p className="text-[11px] sm:text-xs text-emerald-100/90 font-medium truncate">
-                  {applicant.schoolName} • Jalur {applicant.registrationPath} • Terdaftar {applicant.createdAt}
-                </p>
-              </div>
+              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight mt-1 truncate">
+                {applicant.studentName}
+              </h2>
+              <p className="text-[11px] sm:text-xs text-emerald-100/90 font-medium truncate">
+                {applicant.schoolName} • Jalur {applicant.registrationPath} • Terdaftar {applicant.createdAt}
+              </p>
             </div>
 
             {/* Header Action Buttons */}
@@ -231,9 +223,8 @@ export default function ApplicantDetailBiodataModal({
                 {/* Section A: Identitas Calon Murid (Butir 1 s/d 10) */}
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                      <User className="w-4 h-4 text-emerald-700" />
-                      <span>A. Identitas Calon Murid (Butir 1 s/d 10)</span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      A. Identitas Calon Murid (Butir 1 s/d 10)
                     </h3>
                   </div>
 
@@ -304,9 +295,8 @@ export default function ApplicantDetailBiodataModal({
                   {/* Keadaan Jasmani */}
                   <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                     <div className="px-5 py-3 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                        <Activity className="w-4 h-4 text-emerald-700" />
-                        <span>Keadaan Jasmani (Butir 11 s/d 14)</span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        Keadaan Jasmani (Butir 11 s/d 14)
                       </h3>
                     </div>
                     <div className="divide-y divide-slate-100 text-xs">
@@ -334,9 +324,8 @@ export default function ApplicantDetailBiodataModal({
                   {/* Tempat Tinggal */}
                   <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                     <div className="px-5 py-3 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-emerald-700" />
-                        <span>Tempat Tinggal (Butir 15 s/d 17)</span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        Tempat Tinggal (Butir 15 s/d 17)
                       </h3>
                     </div>
                     <div className="divide-y divide-slate-100 text-xs">
@@ -373,9 +362,8 @@ export default function ApplicantDetailBiodataModal({
                   {/* Ayah Kandung */}
                   <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                     <div className="px-5 py-3 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                        <User className="w-4 h-4 text-blue-700" />
-                        <span>18. Data Ayah Kandung</span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        18. Data Ayah Kandung
                       </h3>
                       <span className="px-2 py-0.5 rounded-md bg-blue-100 text-blue-800 text-[10px] font-bold">
                         Ayah
@@ -421,9 +409,8 @@ export default function ApplicantDetailBiodataModal({
                   {/* Ibu Kandung */}
                   <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                     <div className="px-5 py-3 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                        <Heart className="w-4 h-4 text-rose-600" />
-                        <span>19. Data Ibu Kandung</span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        19. Data Ibu Kandung
                       </h3>
                       <span className="px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 text-[10px] font-bold">
                         Ibu
@@ -472,9 +459,8 @@ export default function ApplicantDetailBiodataModal({
                 {/* Data Wali & Penghasilan Bulanan */}
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                      <Briefcase className="w-4 h-4 text-amber-700" />
-                      <span>20. Data Wali &amp; Rentang Penghasilan Keluarga</span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      20. Data Wali &amp; Rentang Penghasilan Keluarga
                     </h3>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 text-xs">
@@ -506,9 +492,8 @@ export default function ApplicantDetailBiodataModal({
               <div className="space-y-4 sm:space-y-5 animate-in fade-in duration-150">
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                      <School className="w-4 h-4 text-emerald-700" />
-                      <span>C. Keterangan Sekolah &amp; Pendidikan (Butir 21 s/d 25)</span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      C. Keterangan Sekolah &amp; Pendidikan (Butir 21 s/d 25)
                     </h3>
                   </div>
 
@@ -564,9 +549,8 @@ export default function ApplicantDetailBiodataModal({
                 {/* Kesiapan Belajar & Keterangan Khusus */}
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                      <Compass className="w-4 h-4 text-emerald-700" />
-                      <span>D. Kesiapan Belajar, Tahfidz &amp; Motivasi (Butir 26 s/d 28)</span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      D. Kesiapan Belajar, Tahfidz &amp; Motivasi (Butir 26 s/d 28)
                     </h3>
                   </div>
 
@@ -632,9 +616,8 @@ export default function ApplicantDetailBiodataModal({
                 {/* Uploaded Documents */}
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                      <FileCheck className="w-4 h-4 text-emerald-700" />
-                      <span>Dokumen Digital yang Diunggah ({applicant.documents.length})</span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Dokumen Digital yang Diunggah ({applicant.documents.length})
                     </h3>
                   </div>
 
@@ -684,9 +667,8 @@ export default function ApplicantDetailBiodataModal({
                 {/* Checklist Fisik Sesuai Formulir Resmi */}
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-emerald-700" />
-                      <span>Checklist Dokumen Fisik Arsip Sekolah (Formulir F-PPDB)</span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                      Checklist Dokumen Fisik Arsip Sekolah (Formulir F-PPDB)
                     </h3>
                   </div>
                   <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
