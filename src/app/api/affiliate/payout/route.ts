@@ -40,6 +40,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const cleanBankNum = String(affiliateProfile.bankAccountNumber || '').trim();
+    if (!cleanBankNum || cleanBankNum === '-' || cleanBankNum.length < 4) {
+      return NextResponse.json(
+        { error: 'Harap lengkapi nomor rekening bank pencairan Anda terlebih dahulu di pengaturan profil.' },
+        { status: 400 }
+      );
+    }
+
     const availableBalance = affiliateProfile.balance;
     const withdrawAmount = requestedAmount && requestedAmount > 0 && requestedAmount <= availableBalance
       ? requestedAmount
@@ -57,6 +65,48 @@ export async function POST(request: NextRequest) {
         { error: 'Batas minimal pencairan dana komisi adalah Rp 50.000.' },
         { status: 400 }
       );
+    }
+
+    // 1. Check weekly withdrawal rule (maksimal 1x dalam 7 hari agar bendahara tidak kewalahan)
+    const lastPayoutLog = await prisma.notificationLog.findFirst({
+      where: {
+        eventType: 'COMMISSION_PAYOUT_REQUESTED',
+        metadata: {
+          contains: affiliateProfile.id,
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (lastPayoutLog) {
+      const diffMs = Date.now() - new Date(lastPayoutLog.createdAt).getTime();
+      const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+      if (diffMs < sevenDaysMs) {
+        const daysLeft = Math.ceil((sevenDaysMs - diffMs) / (24 * 60 * 60 * 1000));
+        const nextAvailableDate = new Date(new Date(lastPayoutLog.createdAt).getTime() + sevenDaysMs);
+        const formattedNextDate = nextAvailableDate.toLocaleDateString('id-ID', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+        const formattedLastDate = new Date(lastPayoutLog.createdAt).toLocaleDateString('id-ID', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+
+        return NextResponse.json(
+          {
+            error: `Penarikan komisi dibatasi 1 (satu) kali dalam seminggu untuk memudahkan rekapitulasi kas Bendahara Yayasan. Pengajuan terakhir Anda tercatat pada hari ${formattedLastDate}. Anda dapat mengajukan penarikan berikutnya pada hari ${formattedNextDate} (${daysLeft} hari lagi).`,
+            canWithdraw: false,
+            nextPayoutDate: nextAvailableDate.toISOString(),
+            daysLeft,
+          },
+          { status: 429 }
+        );
+      }
     }
 
     // Atomic transaction: re-check balance & deduct without race conditions
@@ -82,7 +132,7 @@ export async function POST(request: NextRequest) {
           recipientPhone: affiliateProfile.user.phone || '6281234567890',
           recipientName: affiliateProfile.user.fullName,
           eventType: 'COMMISSION_PAYOUT_REQUESTED',
-          messageContent: `Permintaan pencairan komisi mitra afiliasi an. ${affiliateProfile.user.fullName} sebesar Rp ${withdrawAmount.toLocaleString('id-ID')} ke rekening ${affiliateProfile.bankName} (${affiliateProfile.bankAccountNumber} a.n ${affiliateProfile.bankAccountHolder}) sedang diproses oleh Bagian Keuangan Yayasan Imam Bonjol Majalengka.`,
+          messageContent: `Permintaan pencairan komisi mitra afiliasi an. ${affiliateProfile.user.fullName} sebesar Rp ${withdrawAmount.toLocaleString('id-ID')} ke rekening ${affiliateProfile.bankName} (${affiliateProfile.bankAccountNumber} a.n ${affiliateProfile.bankAccountHolder}) telah diterima dalam jadwal batch mingguan dan sedang diproses oleh Bagian Keuangan / Bendahara Yayasan Imam Bonjol Majalengka.`,
           status: 'SENT',
           metadata: JSON.stringify({
             affiliateId: affiliateProfile.id,
@@ -90,6 +140,7 @@ export async function POST(request: NextRequest) {
             bankName: affiliateProfile.bankName,
             accountNumber: affiliateProfile.bankAccountNumber,
             accountHolder: affiliateProfile.bankAccountHolder,
+            requestedAt: new Date().toISOString(),
           }),
         },
       });
@@ -97,15 +148,25 @@ export async function POST(request: NextRequest) {
       return updated;
     });
 
+    const nextPayoutDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
     return NextResponse.json({
       success: true,
-      message: `Permintaan pencairan dana sebesar Rp ${withdrawAmount.toLocaleString('id-ID')} berhasil diajukan dan sedang diproses Bagian Keuangan Yayasan.`,
+      message: `Permintaan pencairan dana sebesar Rp ${withdrawAmount.toLocaleString('id-ID')} berhasil diajukan dalam jadwal batch mingguan dan sedang diproses Bagian Keuangan / Bendahara Yayasan.`,
       newBalance: updatedProfile.balance,
       withdrawnAmount: withdrawAmount,
       bankDetails: {
         bankName: affiliateProfile.bankName,
         accountNumber: affiliateProfile.bankAccountNumber,
         accountHolder: affiliateProfile.bankAccountHolder,
+      },
+      payoutSchedule: {
+        frequency: 'WEEKLY',
+        frequencyLabel: '1 Kali Seminggu',
+        canWithdraw: false,
+        lastPayoutDate: new Date().toISOString(),
+        nextAvailableDate: nextPayoutDate.toISOString(),
+        daysLeft: 7,
       },
     });
   } catch (error: unknown) {

@@ -116,9 +116,9 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       hotline: '+62 822-4935-7893',
       hotlineWa: 'https://wa.me/6282249357893',
       email: 'smpit@alafiyah.id',
-      instagramUrl: 'https://instagram.com/smpitalafiyahmjl',
-      facebookUrl: 'https://facebook.com/smpitalafiyah',
-      youtubeUrl: 'https://youtube.com/@smpitalafiyah',
+      instagramUrl: 'https://www.instagram.com/smpitalafiyahmjl?srtk=dGd1bXRleGVzY3Vk&utm_source=qr',
+      facebookUrl: 'https://www.facebook.com/share/1C4oQCB576/?mibextid=wwXIfr',
+      youtubeUrl: 'https://youtube.com/@smpitalafiyah?si=2-tXlimdRF1c6KSt',
       navTitle: 'Navigasi SMP IT',
       navLinks: [
         { label: 'Profil SMP IT Al-Afiyah', href: '/smp/profil' },

@@ -281,8 +281,8 @@ export default function AffiliateGuidePage() {
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-emerald-800">5. Pencairan</td>
-                    <td className="p-3 text-slate-700">Mengajukan transfer ke rekening bank mitra, atau dialihkan sebagai <strong>pemotong SPP</strong> ananda.</td>
-                    <td className="p-3 text-slate-600">Terekonsiliasi otomatis dengan laporan kas Bendahara Yayasan.</td>
+                    <td className="p-3 text-slate-700">Mengajukan transfer ke rekening bank mitra (dijadwalkan <strong>1x seminggu</strong> oleh Bendahara Yayasan), atau dialihkan sebagai <strong>pemotong SPP</strong> ananda.</td>
+                    <td className="p-3 text-slate-600">Terekonsiliasi otomatis dengan laporan kas Bendahara Yayasan secara berkala.</td>
                   </tr>
                 </tbody>
               </table>
@@ -408,9 +408,9 @@ export default function AffiliateGuidePage() {
             {/* Skema Pilihan Pencairan */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                <span className="font-bold text-[#064E3B] block mb-1">1. Transfer Rekening Bank Tunai</span>
+                <span className="font-bold text-[#064E3B] block mb-1">1. Transfer Rekening Bank Tunai (1x Seminggu)</span>
                 <p className="text-slate-600 text-[11px] leading-relaxed">
-                  Ditransfer langsung ke rekening bank mitra (BSI, Mandiri, BRI, dll) setiap tanggal 5 awal bulan oleh Bagian Keuangan Yayasan.
+                  Ditransfer langsung ke rekening bank mitra (BSI, Mandiri, BRI, dll) dengan jadwal penarikan <strong>1 (satu) kali seminggu secara berkala</strong> oleh Bagian Keuangan / Bendahara Yayasan agar rekapitulasi kas tetap rapi dan tidak membebani bagian bendahara.
                 </p>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -418,6 +418,17 @@ export default function AffiliateGuidePage() {
                 <p className="text-slate-600 text-[11px] leading-relaxed">
                   Khusus mitra dari kalangan wali murid aktif, komisi dapat langsung dialihkan sebagai pemotong SPP bulanan ananda sehingga meringankan biaya pendidikan.
                 </p>
+              </div>
+            </div>
+
+            {/* Kebijakan Penarikan Komisi Mingguan */}
+            <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 flex items-start gap-2.5">
+              <span className="text-sm">ℹ️</span>
+              <div className="text-[11px] leading-relaxed">
+                <strong className="block font-bold text-emerald-900 mb-0.5">
+                  Ketentuan Jadwal Penarikan: Maksimal 1 Kali dalam Seminggu
+                </strong>
+                Demi efisiensi kerja dan kenyamanan operasional Bendahara Yayasan dalam mengelola pembukuan kas sekolah, pengajuan penarikan dana komisi oleh setiap mitra dibatasi maksimal 1 kali dalam 7 hari (seminggu sekali).
               </div>
             </div>
           </div>

@@ -103,11 +103,29 @@ export const DEFAULT_SMP_GALLERIES: SmpGalleryItem[] = [
   },
   {
     id: 'smp-gal-9',
-    title: 'Halaqah Tahfidz & Ujian Tasmi\' Al-Qur\'an Sekali Duduk',
+    title: 'Halaqah Tahfidz Al-Qur\'an & Talaqqi Bersama Asatidz',
     category: 'Tahfidz & Ibadah',
-    image: '/images/smp-outing-3.jpg',
-    desc: 'Murid membacakan hafalan 1 juz Al-Qur\'an sekali duduk di hadapan dewan asatidz dan disaksikan oleh kedua orang tua secara khidmat.',
-    date: 'September 2026',
+    image: '/images/smp-halaqah-tahfidz-quran.jpg',
+    desc: 'Suasana halaqah Al-Qur\'an intensif para santri di ruang utama masjid dengan bimbingan asatidz pembina tahfidz mutqin.',
+    date: 'Oktober 2026',
+    location: 'Masjid SMP IT Al-Afiyah'
+  },
+  {
+    id: 'smp-gal-10',
+    title: 'Ujian Tasmi\' Al-Qur\'an & Mutaba\'ah Digital Santri',
+    category: 'Tahfidz & Ibadah',
+    image: '/images/smp-tasmi-mutabaah-digital.jpg',
+    desc: 'Pelaksanaan ujian tasmi\' hafalan Al-Qur\'an santri dan pencatatan mutaba\'ah digital terpadu oleh ustadz penguji.',
+    date: 'Oktober 2026',
+    location: 'Masjid SMP IT Al-Afiyah'
+  },
+  {
+    id: 'smp-gal-11',
+    title: 'Bimbingan Adab, Dzikir & Pembiasaan Shalat di Masjid',
+    category: 'Tahfidz & Ibadah',
+    image: '/images/smp-masjid-pusat-halaqah.jpg',
+    desc: 'Keteladanan para asatidz dalam membimbing adab, shalat fardhu berjamaah, serta dzikir harian santriwan di lingkungan masjid sekolah.',
+    date: 'Oktober 2026',
     location: 'Masjid SMP IT Al-Afiyah'
   }
 ];

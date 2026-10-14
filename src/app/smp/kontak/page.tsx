@@ -191,13 +191,21 @@ export default function SmpKontakPage() {
               <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs">
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">Instagram Resmi:</span>
-                  <a href="https://instagram.com/smpitalafiyahmjl" target="_blank" rel="noopener noreferrer" className="font-bold text-[#030164] hover:underline">
+                  <a href="https://www.instagram.com/smpitalafiyahmjl?srtk=dGd1bXRleGVzY3Vk&utm_source=qr" target="_blank" rel="noopener noreferrer" className="font-bold text-[#030164] hover:underline">
                     @smpitalafiyahmjl
                   </a>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Facebook &amp; YouTube:</span>
-                  <span className="font-bold text-slate-800">SMP IT Al Afiyah</span>
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">Facebook Resmi:</span>
+                  <a href="https://www.facebook.com/share/1C4oQCB576/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="font-bold text-[#030164] hover:underline">
+                    SMP IT Al Afiyah
+                  </a>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold block">YouTube Channel:</span>
+                  <a href="https://youtube.com/@smpitalafiyah?si=2-tXlimdRF1c6KSt" target="_blank" rel="noopener noreferrer" className="font-bold text-[#030164] hover:underline">
+                    @smpitalafiyah
+                  </a>
                 </div>
               </div>
             </div>

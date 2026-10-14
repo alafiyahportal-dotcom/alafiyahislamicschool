@@ -132,7 +132,7 @@ const SMP_FACILITIES = [
   {
     title: 'Masjid & Pusat Halaqah Tahfidz Qur\'an',
     category: 'Pusat Ibadah',
-    image: '/images/smp-outing-3.jpg',
+    image: '/images/smp-masjid-pusat-halaqah.jpg',
     desc: 'Pusat peradaban ruhiyah untuk shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, dan halaqah talaqqi tahfidz mutqin.',
   },
   {
@@ -969,7 +969,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
             <div className="lg:col-span-6">
               <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 aspect-[4/3]">
                 <img
-                  src="/images/smp-outing-3.jpg"
+                  src="/images/smp-halaqah-tahfidz-quran.jpg"
                   alt="Aktivitas Ibadah dan Karakter SMP IT Al-Afiyah"
                   className="w-full h-full object-cover"
                 />

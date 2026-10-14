@@ -209,10 +209,13 @@ export default function AffiliatePublicPage() {
     password: '',
     confirmPassword: '',
     referralCode: '',
-    bankName: 'Bank Syariah Indonesia (BSI)',
+    bankName: '',
     bankAccountNumber: '',
     bankAccountHolder: '',
   });
+
+  const [isCustomBank, setIsCustomBank] = useState(false);
+  const [customBankName, setCustomBankName] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -258,7 +261,9 @@ export default function AffiliatePublicPage() {
           phone: formData.phone,
           password: formData.password || 'password123',
           referralCode: formData.referralCode || undefined,
-          bankName: formData.bankName,
+          bankName: isCustomBank 
+            ? (customBankName.trim() || 'Bank Lainnya') 
+            : (formData.bankName.trim() || 'Pilihan Bank Lainnya'),
           bankAccountNumber: formData.bankAccountNumber || '-',
           bankAccountHolder: formData.bankAccountHolder || formData.fullName,
           personaRole: selectedPersonaRole || undefined,
@@ -1267,32 +1272,64 @@ export default function AffiliatePublicPage() {
                           />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="space-y-2.5">
                           <div>
                             <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                              Nama Bank
+                              Pilihan Bank / Dompet Digital Pencairan
                             </label>
-                            <input
-                              type="text"
-                              value={formData.bankName}
-                              onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-                              placeholder="BSI / BRI / BCA / Mandiri"
-                              className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl"
-                            />
+                            <select
+                              value={isCustomBank ? 'Bank / Rekening Lainnya (Tulis Sendiri)' : formData.bankName}
+                              onChange={(e) => {
+                                if (e.target.value === 'Bank / Rekening Lainnya (Tulis Sendiri)') {
+                                  setIsCustomBank(true);
+                                  setFormData({ ...formData, bankName: '' });
+                                } else {
+                                  setIsCustomBank(false);
+                                  setFormData({ ...formData, bankName: e.target.value });
+                                }
+                              }}
+                              className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl focus:border-[#153424] focus:ring-1 focus:ring-[#153424] outline-hidden cursor-pointer font-medium text-slate-900"
+                            >
+                              <option value="">-- Pilih Bank / E-Wallet --</option>
+                              {INDONESIA_BANKS.map((b) => (
+                                <option key={b} value={b}>
+                                  {b}
+                                </option>
+                              ))}
+                            </select>
+
+                            {isCustomBank && (
+                              <div className="mt-2">
+                                <label className="block text-[10px] font-bold text-slate-700 mb-0.5">
+                                  Tuliskan Nama Bank Anda:
+                                </label>
+                                <input
+                                  type="text"
+                                  value={customBankName}
+                                  onChange={(e) => setCustomBankName(e.target.value)}
+                                  placeholder="Contoh: Bank Nagari, Jenius, Bank Papua, dll"
+                                  className="w-full px-3 py-2 text-xs bg-white border border-emerald-600/40 rounded-xl focus:border-[#153424] focus:ring-1 focus:ring-[#153424] outline-hidden"
+                                />
+                              </div>
+                            )}
                           </div>
 
                           <div>
                             <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                              Nomor Rekening
+                              Nomor Rekening / No. HP E-Wallet
                             </label>
                             <input
                               type="text"
                               value={formData.bankAccountNumber}
                               onChange={(e) => setFormData({ ...formData, bankAccountNumber: e.target.value })}
-                              placeholder="Nomor Rekening"
-                              className="w-full px-3 py-2 text-xs font-mono bg-white border border-slate-200 rounded-xl"
+                              placeholder="Nomor Rekening (Bisa Nanti)"
+                              className="w-full px-3 py-2 text-xs font-mono bg-white border border-slate-200 rounded-xl focus:border-[#153424] focus:ring-1 focus:ring-[#153424] outline-hidden"
                             />
                           </div>
+
+                          <p className="text-[10px] text-slate-500 leading-relaxed">
+                            💡 Bebas menggunakan rekening bank apa saja (BSI, BCA, BRI, Mandiri, BNI, Bank Daerah) atau E-Wallet (DANA/GoPay/OVO). Boleh dikosongkan dahulu dan diatur nanti di dasbor.
+                          </p>
                         </div>
                       </div>
                     )}
@@ -1527,10 +1564,19 @@ export default function AffiliatePublicPage() {
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <select
-                    value={formData.bankName}
-                    onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
+                    value={isCustomBank ? 'Bank / Rekening Lainnya (Tulis Sendiri)' : formData.bankName}
+                    onChange={(e) => {
+                      if (e.target.value === 'Bank / Rekening Lainnya (Tulis Sendiri)') {
+                        setIsCustomBank(true);
+                        setFormData({ ...formData, bankName: '' });
+                      } else {
+                        setIsCustomBank(false);
+                        setFormData({ ...formData, bankName: e.target.value });
+                      }
+                    }}
                     className="px-3 py-2 text-xs font-semibold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#153424] outline-hidden cursor-pointer"
                   >
+                    <option value="">-- Pilih Bank / E-Wallet --</option>
                     {INDONESIA_BANKS.map((b) => (
                       <option key={b} value={b}>
                         {b}
@@ -1545,8 +1591,19 @@ export default function AffiliatePublicPage() {
                     className="px-3 py-2 text-xs font-mono bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#153424] outline-hidden"
                   />
                 </div>
-                <p className="text-[10px] text-slate-500 mt-1">
-                  *Nomor rekening boleh dikosongkan dahulu dan dapat dilengkapi kapan saja di pengaturan dasbor akun mitra.
+                {isCustomBank && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      value={customBankName}
+                      onChange={(e) => setCustomBankName(e.target.value)}
+                      placeholder="Tuliskan nama bank Anda (misal: Bank Nagari / Jenius / Bank Papua)"
+                      className="w-full px-3 py-2 text-xs bg-white border border-emerald-600/40 rounded-xl focus:border-[#153424] focus:ring-1 focus:ring-[#153424] outline-hidden"
+                    />
+                  </div>
+                )}
+                <p className="text-[10px] text-slate-500 mt-1 leading-relaxed">
+                  *Bebas menggunakan rekening bank apa saja (BSI, BCA, BRI, Mandiri, BNI, Bank Daerah) atau E-Wallet (DANA/GoPay/OVO). Boleh dikosongkan dahulu.
                 </p>
               </div>
 

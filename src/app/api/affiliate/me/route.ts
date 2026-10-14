@@ -162,6 +162,33 @@ export async function GET(request: NextRequest) {
       tierProgress = Math.min(100, Math.round(((totalStudents - 3) / 3) * 100));
     }
 
+    // Payout weekly schedule calculation (1x per 7 days)
+    const lastPayoutLog = await prisma.notificationLog.findFirst({
+      where: {
+        eventType: 'COMMISSION_PAYOUT_REQUESTED',
+        metadata: {
+          contains: affiliateProfile.id,
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    let canWithdraw = true;
+    let nextAvailableDate: string | null = null;
+    let daysLeft = 0;
+    let lastPayoutDate: string | null = null;
+
+    if (lastPayoutLog) {
+      lastPayoutDate = lastPayoutLog.createdAt.toISOString();
+      const diffMs = Date.now() - new Date(lastPayoutLog.createdAt).getTime();
+      const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+      if (diffMs < sevenDaysMs) {
+        canWithdraw = false;
+        daysLeft = Math.ceil((sevenDaysMs - diffMs) / (24 * 60 * 60 * 1000));
+        nextAvailableDate = new Date(new Date(lastPayoutLog.createdAt).getTime() + sevenDaysMs).toISOString();
+      }
+    }
+
     return NextResponse.json({
       success: true,
       profile: {
@@ -182,6 +209,15 @@ export async function GET(request: NextRequest) {
         tier,
         nextTierTarget,
         tierProgress,
+        payoutSchedule: {
+          frequency: 'WEEKLY',
+          frequencyLabel: '1 Kali Seminggu',
+          canWithdraw,
+          lastPayoutDate,
+          nextAvailableDate,
+          daysLeft,
+          ruleNotice: 'Penarikan komisi dapat diajukan maksimal 1 (satu) kali dalam seminggu agar rekapitulasi Bendahara Yayasan tetap tertib dan teratur.',
+        },
         conversions: affiliateProfile.conversions.map((conv) => {
           const isReReg = conv.commissionAmount === reRegCommissionForSchool(conv.school?.slug || 'sd');
           const stageLabel = isReReg ? 'Daftar Ulang' : 'Formulir';

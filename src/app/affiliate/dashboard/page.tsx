@@ -40,6 +40,16 @@ interface AffiliateConversionItem {
   createdAt: string;
 }
 
+interface PayoutScheduleInfo {
+  frequency: string;
+  frequencyLabel: string;
+  canWithdraw: boolean;
+  lastPayoutDate: string | null;
+  nextAvailableDate: string | null;
+  daysLeft: number;
+  ruleNotice: string;
+}
+
 interface AffiliateProfileData {
   id: string;
   fullName: string;
@@ -58,6 +68,7 @@ interface AffiliateProfileData {
   tier: string;
   nextTierTarget: number;
   tierProgress: number;
+  payoutSchedule?: PayoutScheduleInfo;
   conversions: AffiliateConversionItem[];
 }
 
@@ -91,6 +102,8 @@ export default function AffiliateDashboardPage() {
     phone: '',
   });
   const [isSavingBank, setIsSavingBank] = useState(false);
+  const [isCustomBank, setIsCustomBank] = useState(false);
+  const [customBankName, setCustomBankName] = useState('');
   const [bankSaveSuccess, setBankSaveSuccess] = useState<string | null>(null);
   const [bankSaveError, setBankSaveError] = useState<string | null>(null);
 
@@ -172,13 +185,39 @@ export default function AffiliateDashboardPage() {
   }, []);
 
   const handleOpenBankModal = () => {
-    setBankFormData({
-      bankName: profile?.bankName || 'Bank Syariah Indonesia (BSI)',
-      bankAccountNumber: (!profile?.bankAccountNumber || profile?.bankAccountNumber === '-') ? '' : profile.bankAccountNumber,
-      bankAccountHolder: profile?.bankAccountHolder || profile?.fullName || '',
-      fullName: profile?.fullName || '',
-      phone: profile?.phone || '',
-    });
+    const currentBank = profile?.bankName || '';
+    const isKnown = INDONESIA_BANKS.includes((currentBank as any));
+    if (isKnown && currentBank !== 'Bank / Rekening Lainnya (Tulis Sendiri)') {
+      setIsCustomBank(false);
+      setCustomBankName('');
+      setBankFormData({
+        bankName: currentBank,
+        bankAccountNumber: (!profile?.bankAccountNumber || profile?.bankAccountNumber === '-') ? '' : profile.bankAccountNumber,
+        bankAccountHolder: profile?.bankAccountHolder || profile?.fullName || '',
+        fullName: profile?.fullName || '',
+        phone: profile?.phone || '',
+      });
+    } else if (currentBank) {
+      setIsCustomBank(true);
+      setCustomBankName(currentBank);
+      setBankFormData({
+        bankName: 'Bank / Rekening Lainnya (Tulis Sendiri)',
+        bankAccountNumber: (!profile?.bankAccountNumber || profile?.bankAccountNumber === '-') ? '' : profile.bankAccountNumber,
+        bankAccountHolder: profile?.bankAccountHolder || profile?.fullName || '',
+        fullName: profile?.fullName || '',
+        phone: profile?.phone || '',
+      });
+    } else {
+      setIsCustomBank(false);
+      setCustomBankName('');
+      setBankFormData({
+        bankName: '',
+        bankAccountNumber: '',
+        bankAccountHolder: profile?.fullName || '',
+        fullName: profile?.fullName || '',
+        phone: profile?.phone || '',
+      });
+    }
     setBankSaveSuccess(null);
     setBankSaveError(null);
     setShowBankModal(true);
@@ -202,12 +241,16 @@ export default function AffiliateDashboardPage() {
       return;
     }
 
+    const finalBankName = isCustomBank
+      ? (customBankName.trim() || 'Bank Lainnya')
+      : (bankFormData.bankName.trim() || 'Bank Syariah Indonesia (BSI)');
+
     try {
       const res = await fetch('/api/affiliate/me', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          bankName: bankFormData.bankName,
+          bankName: finalBankName,
           bankAccountNumber: cleanNum,
           bankAccountHolder: bankFormData.bankAccountHolder.trim(),
           fullName: bankFormData.fullName.trim() || undefined,
@@ -469,6 +512,15 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
         setProfile({
           ...profile,
           balance: data.newBalance ?? (profile.balance - payoutAmount),
+          payoutSchedule: data.payoutSchedule || {
+            frequency: 'WEEKLY',
+            frequencyLabel: '1 Kali Seminggu',
+            canWithdraw: false,
+            lastPayoutDate: new Date().toISOString(),
+            nextAvailableDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+            daysLeft: 7,
+            ruleNotice: 'Penarikan komisi dapat diajukan maksimal 1 (satu) kali dalam seminggu agar rekapitulasi Bendahara Yayasan tetap tertib dan teratur.',
+          },
         });
       }
       setTimeout(() => {
@@ -618,13 +670,23 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             <div>
               <div className="flex items-center justify-between text-slate-500 mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-600">Saldo Komisi Tersedia</span>
-                <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
-                  <Wallet className="w-4 h-4" />
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    1x Seminggu
+                  </span>
+                  <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+                    <Wallet className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
               <p className="text-2xl font-black text-slate-900 font-mono">
                 Rp {(profile?.balance || 0).toLocaleString('id-ID')}
               </p>
+              {profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw && (
+                <p className="text-[11px] text-amber-700 font-medium mt-1">
+                  ⏳ Penarikan berikutnya dpt diajukan dlm {profile.payoutSchedule.daysLeft} hari lagi
+                </p>
+              )}
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
               <span className="text-[11px] text-slate-500 truncate max-w-[120px]">
@@ -633,10 +695,19 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               <button
                 type="button"
                 onClick={() => setShowPayoutModal(true)}
-                disabled={(profile?.balance || 0) <= 0}
+                disabled={(profile?.balance || 0) <= 0 || (profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw)}
+                title={
+                  profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw
+                    ? `Penarikan berikutnya dapat diajukan dalam ${profile.payoutSchedule.daysLeft} hari lagi (kebijakan 1x seminggu).`
+                    : (profile?.balance || 0) <= 0
+                    ? 'Saldo komisi belum mencukupi.'
+                    : 'Ajukan penarikan komisi'
+                }
                 className="text-xs font-bold text-[#064E3B] hover:text-emerald-900 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
               >
-                Tarik Saldo →
+                {profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw
+                  ? `Tarik Saldo (${profile.payoutSchedule.daysLeft}h lagi)`
+                  : 'Tarik Saldo →'}
               </button>
             </div>
           </div>
@@ -1146,7 +1217,10 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                 <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
                   <Wallet className="w-4 h-4" />
                 </div>
-                <h3 className="text-base font-bold text-slate-900">Tarik Saldo Komisi</h3>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900 leading-tight">Tarik Saldo Komisi</h3>
+                  <p className="text-[10px] text-emerald-800 font-semibold">Jadwal Penarikan: 1 Kali Seminggu</p>
+                </div>
               </div>
               <button
                 type="button"
@@ -1165,6 +1239,42 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               </div>
             ) : (
               <form onSubmit={handleRequestPayoutSubmit} className="space-y-4">
+                {/* Kebijakan Penarikan 1x Seminggu Info Box */}
+                <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-950 flex items-start gap-2.5">
+                  <span className="text-base">📅</span>
+                  <div className="space-y-0.5 leading-relaxed text-[11px]">
+                    <strong className="block font-bold text-amber-900">
+                      Kebijakan Penarikan: Maksimal 1x per Minggu
+                    </strong>
+                    <p className="text-amber-800">
+                      Untuk menjaga ketertiban administrasi dan memudahkan rekapitulasi Bendahara Yayasan, pengajuan penarikan dana komisi diproses berkala satu kali setiap pekan.
+                    </p>
+                  </div>
+                </div>
+
+                {profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw && (
+                  <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block font-bold">Batas Waktu Mingguan Sedang Berjalan</strong>
+                      <p className="text-[11px] text-rose-700 mt-0.5">
+                        Anda telah mengajukan penarikan dalam kurun 7 hari terakhir. Pengajuan penarikan berikutnya dapat dilakukan pada{' '}
+                        <strong>
+                          {profile.payoutSchedule.nextAvailableDate
+                            ? new Date(profile.payoutSchedule.nextAvailableDate).toLocaleDateString('id-ID', {
+                                weekday: 'long',
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                              })
+                            : `${profile.payoutSchedule.daysLeft} hari lagi`}
+                        </strong>{' '}
+                        ({profile.payoutSchedule.daysLeft} hari lagi).
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {payoutErrorMessage && (
                   <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700">
                     {payoutErrorMessage}
@@ -1223,7 +1333,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                   </button>
                   <button
                     type="submit"
-                    disabled={isProcessingPayout || payoutAmount <= 0}
+                    disabled={isProcessingPayout || payoutAmount <= 0 || (profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw)}
                     className="px-5 py-2.5 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                   >
                     {isProcessingPayout ? (
@@ -1339,18 +1449,44 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                   Pilihan Bank / Dompet Digital (E-Wallet) <span className="text-rose-500">*</span>
                 </label>
                 <select
-                  value={bankFormData.bankName}
-                  onChange={(e) => setBankFormData({ ...bankFormData, bankName: e.target.value })}
+                  value={isCustomBank ? 'Bank / Rekening Lainnya (Tulis Sendiri)' : bankFormData.bankName}
+                  onChange={(e) => {
+                    if (e.target.value === 'Bank / Rekening Lainnya (Tulis Sendiri)') {
+                      setIsCustomBank(true);
+                      setBankFormData({ ...bankFormData, bankName: '' });
+                    } else {
+                      setIsCustomBank(false);
+                      setBankFormData({ ...bankFormData, bankName: e.target.value });
+                    }
+                  }}
                   className="w-full px-3.5 py-2.5 text-xs sm:text-sm font-semibold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 cursor-pointer shadow-2xs"
                 >
+                  <option value="">-- Pilih Bank / E-Wallet Pencairan --</option>
                   {INDONESIA_BANKS.map((bank) => (
                     <option key={bank} value={bank}>
                       {bank}
                     </option>
                   ))}
                 </select>
-                <span className="text-[10px] text-slate-400 mt-1 block">
-                  Pilihlah bank rekening Anda atau gunakan akun e-wallet (DANA / GoPay / OVO).
+
+                {isCustomBank && (
+                  <div className="mt-2.5 animate-in fade-in duration-200">
+                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                      Tuliskan Nama Bank / Dompet Digital Anda: <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required={isCustomBank}
+                      value={customBankName}
+                      onChange={(e) => setCustomBankName(e.target.value)}
+                      placeholder="Contoh: Bank Nagari, Bank Papua, Jenius, dll"
+                      className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-emerald-600/40 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden text-slate-900 shadow-2xs"
+                    />
+                  </div>
+                )}
+
+                <span className="text-[11px] text-slate-500 mt-1.5 block leading-relaxed">
+                  💡 Bebas gunakan rekening bank apa saja (BSI, BCA, BRI, Mandiri, BNI, Bank Daerah) atau E-Wallet (DANA / GoPay / OVO) atas nama pribadi Anda.
                 </span>
               </div>
 

@@ -371,9 +371,38 @@ export default async function SmpProfilPage() {
                 <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
                   {item.label}
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-slate-900 mt-1">
-                  {item.value}
-                </span>
+                {item.label === 'Media Sosial' ? (
+                  <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs">
+                    <a
+                      href="https://www.instagram.com/smpitalafiyahmjl?srtk=dGd1bXRleGVzY3Vk&utm_source=qr"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-2.5 py-1 rounded-md bg-pink-50 text-pink-700 font-bold hover:bg-pink-100 transition-colors border border-pink-200"
+                    >
+                      IG: @smpitalafiyahmjl
+                    </a>
+                    <a
+                      href="https://www.facebook.com/share/1C4oQCB576/?mibextid=wwXIfr"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 font-bold hover:bg-blue-100 transition-colors border border-blue-200"
+                    >
+                      FB: SMP IT Al Afiyah
+                    </a>
+                    <a
+                      href="https://youtube.com/@smpitalafiyah?si=2-tXlimdRF1c6KSt"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-2.5 py-1 rounded-md bg-red-50 text-red-700 font-bold hover:bg-red-100 transition-colors border border-red-200"
+                    >
+                      YT: @smpitalafiyah
+                    </a>
+                  </div>
+                ) : (
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 mt-1">
+                    {item.value}
+                  </span>
+                )}
               </div>
             ))}
           </div>

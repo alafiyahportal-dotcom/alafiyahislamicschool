@@ -565,7 +565,25 @@ export default function FinanceConsoleClient({
 
         {/* TAB 2: PAYOUTS TABLE */}
         {activeTab === 'payouts' && (
-          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+          <div className="space-y-4">
+            <div className="p-3.5 mx-4 sm:mx-6 mt-4 rounded-xl bg-purple-50/70 border border-purple-200 text-xs text-purple-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-purple-100 text-purple-800 flex items-center justify-center shrink-0 font-bold">
+                  <Share2 className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-purple-950">Kebijakan Penarikan: Batch Mingguan (1x Seminggu)</h4>
+                  <p className="text-[11px] text-purple-800 mt-0.5">
+                    Mitra dibatasi mengajukan penarikan maksimal 1x per minggu agar Bendahara Yayasan dapat merekapitulasi dan mentransfer dana komisi secara terjadwal tanpa beban kerja harian.
+                  </p>
+                </div>
+              </div>
+              <span className="self-start sm:self-center px-2.5 py-1 rounded-full bg-purple-200/80 text-purple-900 font-bold text-[10px] uppercase tracking-wider shrink-0">
+                Batch Mingguan
+              </span>
+            </div>
+
+            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
             <table className="w-full text-left text-xs text-slate-600 min-w-[780px]">
               <thead className="bg-slate-100/70 border-b border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider">
                 <tr>
@@ -653,7 +671,8 @@ export default function FinanceConsoleClient({
               </tbody>
             </table>
           </div>
-        )}
+        </div>
+      )}
       </div>
 
       {/* Official Receipt Modal for Cashier Print */}

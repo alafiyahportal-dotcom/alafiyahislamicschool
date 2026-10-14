@@ -123,7 +123,7 @@ const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
     date: '25 Sep 2026',
     schoolName: 'SMP IT Al-Afiyah',
     readingTime: '5 menit baca',
-    imageUrl: '/images/smp-outing-3.jpg',
+    imageUrl: '/images/smp-tasmi-mutabaah-digital.jpg',
     paragraphs: [
       'Suasana haru dan khidmat menyelimuti masjid SMP IT Al-Afiyah saat para santri melantunkan ayat-ayat suci Al-Qur’an dalam ujian tasmi’ sekali duduk tanpa membuka mushaf.',
       'Orang tua santri yang hadir turut menyimak dan meneteskan air mata bahagia menyaksikan buah hati mereka mampu menjaga kalam Ilahi di usia muda.'

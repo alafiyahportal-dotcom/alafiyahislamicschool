@@ -80,7 +80,7 @@ const DEFAULT_FACILITIES: FacilityItem[] = [
   {
     name: 'Masjid & Pusat Halaqah Tahfidz Al-Qur\'an',
     category: 'Pusat Ibadah & Tahfidz',
-    image: '/images/smp-outing-3.jpg',
+    image: '/images/smp-masjid-pusat-halaqah.jpg',
     desc: 'Pusat pembinaan ruhiyah dan pembiasaan ibadah harian santri: shalat fardhu berjamaah, dzikir Al-Ma\'tsurat pagi petang, serta halaqah talaqqi & muraja\'ah Al-Qur\'an intensif.',
     features: ['Area Ibadah Bersih, Suci & Nyaman', 'Tempat Wudhu Higienis Terpisah Ikhwan/Akhwat', 'Suasana Tenang Menunjang Kekhusyukan']
   },

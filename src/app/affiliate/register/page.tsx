@@ -40,10 +40,13 @@ export default function AffiliateRegisterPage() {
     password: '',
     confirmPassword: '',
     referralCode: '',
-    bankName: 'Bank Syariah Indonesia (BSI)',
+    bankName: '',
     bankAccountNumber: '',
     bankAccountHolder: '',
   });
+
+  const [isCustomBank, setIsCustomBank] = useState(false);
+  const [customBankName, setCustomBankName] = useState('');
 
   // Simulator State
   const [simTk, setSimTk] = useState(2);
@@ -108,7 +111,9 @@ export default function AffiliateRegisterPage() {
           phone: formData.phone,
           password: formData.password,
           referralCode: formData.referralCode || undefined,
-          bankName: formData.bankName,
+          bankName: isCustomBank 
+            ? (customBankName.trim() || 'Bank Lainnya') 
+            : (formData.bankName.trim() || 'Pilihan Bank Lainnya'),
           bankAccountNumber: formData.bankAccountNumber,
           bankAccountHolder: formData.bankAccountHolder || formData.fullName,
         }),
@@ -345,9 +350,9 @@ export default function AffiliateRegisterPage() {
                     ✓
                   </div>
                   <div>
-                    <strong className="text-slate-900 block font-semibold">Pencairan Dana Fleksibel</strong>
+                    <strong className="text-slate-900 block font-semibold">Pencairan Dana Terjadwal (1x Seminggu)</strong>
                     <span className="text-slate-500 text-[11px] leading-relaxed">
-                      Klaim pencairan komisi kapan saja ke rekening bank pilihan Anda tanpa potongan biaya admin yang memberatkan.
+                      Klaim pencairan komisi dapat diajukan secara berkala 1 kali setiap minggu ke rekening bank pilihan Anda tanpa potongan biaya admin yang memberatkan.
                     </span>
                   </div>
                 </div>
@@ -529,19 +534,48 @@ export default function AffiliateRegisterPage() {
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Pilihan Bank Pencairan <span className="text-rose-500">*</span>
+                      Pilihan Bank / Dompet Digital Pencairan <span className="text-slate-400 font-normal">(Bebas Semua Bank)</span>
                     </label>
                     <select
-                      value={formData.bankName}
-                      onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
+                      value={isCustomBank ? 'Bank / Rekening Lainnya (Tulis Sendiri)' : formData.bankName}
+                      onChange={(e) => {
+                        if (e.target.value === 'Bank / Rekening Lainnya (Tulis Sendiri)') {
+                          setIsCustomBank(true);
+                          setFormData({ ...formData, bankName: '' });
+                        } else {
+                          setIsCustomBank(false);
+                          setFormData({ ...formData, bankName: e.target.value });
+                        }
+                      }}
                       className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs cursor-pointer"
                     >
+                      <option value="">-- Pilih Bank / E-Wallet Pencairan --</option>
                       {INDONESIA_BANKS.map((b) => (
                         <option key={b} value={b}>
                           {b}
                         </option>
                       ))}
                     </select>
+
+                    {isCustomBank && (
+                      <div className="mt-2.5 animate-in fade-in duration-200">
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                          Tuliskan Nama Bank / Dompet Digital Anda: <span className="text-rose-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required={isCustomBank}
+                          value={customBankName}
+                          onChange={(e) => setCustomBankName(e.target.value)}
+                          placeholder="Contoh: Bank Nagari, Bank Jateng, Bank Kalbar, Jenius, dll"
+                          className="w-full px-4 py-2.5 text-xs sm:text-sm bg-white border border-emerald-600/40 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden text-slate-900 shadow-2xs"
+                        />
+                      </div>
+                    )}
+
+                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                      💡 Bebas menggunakan rekening bank apa saja (BSI, BCA, BRI, Mandiri, BNI, Bank Daerah) atau E-Wallet (DANA/GoPay/OVO) atas nama pribadi Anda.
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
