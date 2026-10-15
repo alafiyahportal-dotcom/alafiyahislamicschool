@@ -76,8 +76,9 @@ function PPDBFormContent() {
 
   const [autoDetectedRef, setAutoDetectedRef] = useState<string>('');
   const [isRedirectingToSmp, setIsRedirectingToSmp] = useState(false);
+  const [isRedirectingToSd, setIsRedirectingToSd] = useState(false);
 
-  // Safety Guard: Instantly redirect to SMP IT registration if school=smp or on SMP subdomain
+  // Safety Guard: Instantly redirect to SMP or SD registration if visited directly
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const schoolParam = searchParams.get('school')?.toLowerCase();
@@ -91,6 +92,17 @@ function PPDBFormContent() {
         const targetUrl = sub === 'smp'
           ? `/spmb/daftar${refQuery}`
           : `/smp/spmb/daftar${refQuery}`;
+        router.replace(targetUrl);
+        return;
+      }
+
+      if (schoolParam === 'sd' || (!schoolParam && (sub as string) !== 'tk')) {
+        setIsRedirectingToSd(true);
+        const qRef = searchParams.get('ref') || searchParams.get('referral') || initialRef;
+        const refQuery = qRef ? `?ref=${encodeURIComponent(qRef)}` : '';
+        const targetUrl = sub === 'sd'
+          ? `/spmb/daftar${refQuery}`
+          : `/sd/spmb/daftar${refQuery}`;
         router.replace(targetUrl);
         return;
       }
@@ -657,6 +669,18 @@ function PPDBFormContent() {
           <Loader2 className="w-8 h-8 animate-spin text-[#030164] mx-auto" />
           <h3 className="text-base font-bold text-slate-900">Mengalihkan ke Formulir SPMB SMP IT...</h3>
           <p className="text-xs text-slate-500">Anda sedang diarahkan ke formulir pendaftaran resmi SMP IT Al-Afiyah Majalengka.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isRedirectingToSd || searchParams.get('school')?.toLowerCase() === 'sd') {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-sans">
+        <div className="text-center space-y-3 p-8 bg-white rounded-3xl border border-slate-200 shadow-sm max-w-md mx-4">
+          <Loader2 className="w-8 h-8 animate-spin text-[#00A651] mx-auto" />
+          <h3 className="text-base font-bold text-slate-900">Mengalihkan ke Formulir SPMB SDIT...</h3>
+          <p className="text-xs text-slate-500">Anda sedang diarahkan ke formulir pendaftaran resmi SDIT Al-Afiyah Majalengka.</p>
         </div>
       </div>
     );
