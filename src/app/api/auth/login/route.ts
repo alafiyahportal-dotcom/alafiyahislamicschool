@@ -38,7 +38,8 @@ export async function POST(request: NextRequest) {
     }
 
     const cleanEmail = email.toLowerCase().trim();
-    const clientIp = request.headers.get('x-forwarded-for') || 'local';
+    const forwarded = request.headers.get('x-forwarded-for');
+    const clientIp = forwarded ? forwarded.split(',')[0].trim() : (request.headers.get('x-real-ip') || 'local');
     const rateLimitKey = `${clientIp}:${cleanEmail}`;
 
     if (!checkRateLimit(rateLimitKey)) {

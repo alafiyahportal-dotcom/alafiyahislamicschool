@@ -18,10 +18,13 @@ export class WhatsAppService {
       ? '62' + payload.recipientPhone.slice(1)
       : payload.recipientPhone;
 
-    console.log(`\n📱 [WHATSAPP SIMULATOR TRIGGERED]`);
-    console.log(`To: ${payload.recipientName || 'Penerima'} (${formattedPhone})`);
-    console.log(`Event: ${payload.eventType}`);
-    console.log(`Content:\n${payload.messageContent}\n`);
+    const isDev = process.env.NODE_ENV !== 'production';
+    if (isDev) {
+      const maskedPhone = formattedPhone.length > 7
+        ? `${formattedPhone.slice(0, 4)}****${formattedPhone.slice(-4)}`
+        : '****';
+      console.log(`\n📱 [WHATSAPP NOTIFICATION] To: ${payload.recipientName || 'Penerima'} (${maskedPhone}) | Event: ${payload.eventType}`);
+    }
 
     const log = await prisma.notificationLog.create({
       data: {

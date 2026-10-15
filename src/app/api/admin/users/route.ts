@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import { isValidEmail, validatePasswordStrength } from '@/lib/input-validator';
 
 const ALLOWED_ROLES = [
   'SUPERADMIN',
@@ -91,6 +93,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!isValidEmail(email)) {
+      return NextResponse.json(
+        { success: false, error: 'Format alamat email tidak valid' },
+        { status: 400 }
+      );
+    }
+
     const normalizedRole = role.toUpperCase().trim();
     if (!ALLOWED_ROLES.includes(normalizedRole)) {
       return NextResponse.json(
@@ -111,7 +120,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const rawPassword = password && password.trim() ? password.trim() : 'password123';
+    // 🔒 Security (Point 9: Ganti default pass): Enforce strong password
+    let rawPassword = password ? password.trim() : '';
+    if (rawPassword) {
+      const strength = validatePasswordStrength(rawPassword);
+      if (!strength.valid) {
+        return NextResponse.json(
+          { success: false, error: strength.message },
+          { status: 400 }
+        );
+      }
+    } else {
+      // Auto-generate strong random 12-char password
+      rawPassword = `Afiyah@${crypto.randomBytes(4).toString('hex')}`;
+    }
+
     const hashedPassword = bcrypt.hashSync(rawPassword, 10);
 
     const newUser = await prisma.user.create({

@@ -3,6 +3,8 @@ import type { NextRequest } from 'next/server';
 import { extractSubdomain, SLUG_TO_SUBDOMAIN } from '@/lib/domain';
 import type { SchoolSlug } from '@/lib/domain';
 import { verifyAndDecodeToken, SESSION_COOKIE_NAME } from '@/lib/session';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+import { getCorsHeaders, validateCsrfOrigin } from '@/lib/security';
 
 // Allowed root domains for redirection protection
 const ALLOWED_ROOT_HOSTS = ['alafiyah.id', 'sdit.alafiyah.id', 'smpit.alafiyah.id', 'tkit.alafiyah.id', 'localhost', '127.0.0.1', 'vercel.app'];
@@ -42,11 +44,101 @@ function buildSchoolHost(host: string, slug: SchoolSlug): string {
   return `${SLUG_TO_SUBDOMAIN[slug]}.${bare}${port ? `:${port}` : ''}`;
 }
 
+function applySecurityHeaders(res: NextResponse, req: NextRequest): NextResponse {
+  res.headers.set('X-Content-Type-Options', 'nosniff');
+  res.headers.set('X-Frame-Options', 'SAMEORIGIN');
+  res.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  res.headers.set('X-XSS-Protection', '1; mode=block');
+  res.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), browsing-topics=()');
+  res.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+
+  if (req.nextUrl.pathname.startsWith('/api/')) {
+    const origin = req.headers.get('origin');
+    const cors = getCorsHeaders(origin);
+    for (const [k, v] of Object.entries(cors)) {
+      res.headers.set(k, v);
+    }
+  }
+
+  return res;
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const rawHost = request.headers.get('host') || 'localhost:3000';
   const host = isAllowedHost(rawHost) ? rawHost : 'alafiyah.id';
   const subdomain = extractSubdomain(host);
+
+  // ─── 0. API Security Layer (CORS, CSRF, & Rate Limiting) ─────────────────
+  if (pathname.startsWith('/api/')) {
+    // 0a. Handle CORS Preflight OPTIONS (Point 2)
+    if (request.method === 'OPTIONS') {
+      const origin = request.headers.get('origin');
+      return new NextResponse(null, {
+        status: 204,
+        headers: getCorsHeaders(origin),
+      });
+    }
+
+    // 0b. Enforce CSRF Origin Validation on mutations (Point 3)
+    if (!validateCsrfOrigin(request)) {
+      return applySecurityHeaders(
+        NextResponse.json(
+          {
+            success: false,
+            error: 'Akses ditolak: Permintaan lintas asal (Cross-Origin CSRF) tidak diizinkan.',
+          },
+          { status: 403 }
+        ),
+        request
+      );
+    }
+
+    // 0c. Enforce Route-Specific Rate Limiting (Point 1)
+    const clientIp = getClientIp(request.headers);
+    let limitConfig = { windowMs: 60 * 1000, maxRequests: 120 };
+    let routeKey = 'general';
+
+    if (pathname.startsWith('/api/auth/login')) {
+      limitConfig = { windowMs: 15 * 60 * 1000, maxRequests: 10 };
+      routeKey = 'auth-login';
+    } else if (pathname.startsWith('/api/ppdb/register')) {
+      limitConfig = { windowMs: 60 * 1000, maxRequests: 15 };
+      routeKey = 'ppdb-register';
+    } else if (pathname.startsWith('/api/ppdb/check-status')) {
+      limitConfig = { windowMs: 60 * 1000, maxRequests: 45 };
+      routeKey = 'check-status';
+    } else if (pathname.startsWith('/api/upload') || pathname.startsWith('/api/admin/upload')) {
+      limitConfig = { windowMs: 60 * 1000, maxRequests: 20 };
+      routeKey = 'upload';
+    } else if (pathname.startsWith('/api/affiliate/register')) {
+      limitConfig = { windowMs: 60 * 60 * 1000, maxRequests: 10 };
+      routeKey = 'affiliate-register';
+    }
+
+    const rateResult = checkRateLimit(`${clientIp}:${routeKey}`, limitConfig);
+    if (!rateResult.allowed) {
+      return applySecurityHeaders(
+        NextResponse.json(
+          {
+            success: false,
+            error: 'Terlalu banyak permintaan (Rate limit tercapai). Silakan coba kembali dalam beberapa saat.',
+          },
+          {
+            status: 429,
+            headers: {
+              'Retry-After': String(rateResult.retryAfterSec),
+              'RateLimit-Limit': String(rateResult.limit),
+              'RateLimit-Remaining': '0',
+              'RateLimit-Reset': String(Math.ceil(rateResult.resetAt / 1000)),
+            },
+          }
+        ),
+        request
+      );
+    }
+  }
 
   // ─── 1. Subdomain Multi-Tenant Routing ─────────────────────────────────────
   if (subdomain) {
@@ -166,12 +258,15 @@ export function proxy(request: NextRequest) {
   // ─── 2. API Admin Protection ───────────────────────────────────────────────
   if (pathname.startsWith('/api/admin')) {
     if (!session) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Unauthorized: Sesi autentikasi tidak valid atau telah berakhir.',
-        },
-        { status: 401 }
+      return applySecurityHeaders(
+        NextResponse.json(
+          {
+            success: false,
+            error: 'Unauthorized: Sesi autentikasi tidak valid atau telah berakhir.',
+          },
+          { status: 401 }
+        ),
+        request
       );
     }
   }
@@ -250,11 +345,8 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  // Add security headers to all responses
-  const response = NextResponse.next();
-  response.headers.set('X-Content-Type-Options', 'nosniff');
-  response.headers.set('X-Frame-Options', 'DENY');
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  // Create response with security headers
+  const response = applySecurityHeaders(NextResponse.next(), request);
 
   // ─── 4. Referral Code Persistence (30 Hari) ─────────────────────────────
   const refQuery = request.nextUrl.searchParams.get('ref') || request.nextUrl.searchParams.get('referral');

@@ -56,6 +56,17 @@ export async function POST(request: NextRequest) {
       const uploadsDir = path.join(process.cwd(), 'public', 'images', 'uploads');
       await mkdir(uploadsDir, { recursive: true });
       const filePath = path.join(uploadsDir, filename);
+
+      // 🔒 Path Traversal Prevention (Point 5)
+      const normalizedUploadDir = path.resolve(uploadsDir);
+      const normalizedFilePath = path.resolve(filePath);
+      if (!normalizedFilePath.startsWith(normalizedUploadDir)) {
+        return NextResponse.json(
+          { error: 'Deteksi pelanggaran jalur penyimpanan berkas (Path Traversal).' },
+          { status: 403 }
+        );
+      }
+
       await writeFile(filePath, buffer);
     } catch (fsError) {
       // On Vercel Serverless, local disk is read-only.

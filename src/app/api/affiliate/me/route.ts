@@ -2,133 +2,79 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession, setSession } from '@/lib/session';
 import { reRegCommissionForSchool } from '@/services/affiliate-commission';
+import { sanitizeString, sanitizePhoneNumber } from '@/lib/input-validator';
+import { safeErrorResponse } from '@/lib/security';
 
 export async function GET(request: NextRequest) {
   try {
     const session = await getSession();
     const { searchParams } = new URL(request.url);
     const queryCode = searchParams.get('code')?.trim().toUpperCase();
-    const queryEmail = searchParams.get('email')?.trim().toLowerCase();
 
-    let affiliateProfile = null;
-
-    // 0. If code or email is explicitly requested in query param
-    if (queryCode || queryEmail) {
-      affiliateProfile = await prisma.affiliateProfile.findFirst({
+    // ─── 1. Public referral code verification (Non-sensitive) ───────────────
+    // Used by PPDB registration forms to verify referral validity without exposing private financial data
+    if (queryCode && !session) {
+      const publicAffiliate = await prisma.affiliateProfile.findFirst({
         where: {
           OR: [
-            ...(queryCode ? [{ referralCode: queryCode }, { customSlug: queryCode.toLowerCase() }] : []),
-            ...(queryEmail ? [{ user: { email: queryEmail } }] : []),
+            { referralCode: queryCode },
+            { customSlug: queryCode.toLowerCase() },
           ],
         },
-        include: {
-          user: true,
-          conversions: {
-            include: {
-              school: true,
-              registration: true,
-            },
-            orderBy: { createdAt: 'desc' },
-          },
+        include: { user: { select: { fullName: true } } },
+      });
+
+      if (!publicAffiliate) {
+        return NextResponse.json(
+          { success: false, error: 'Kode referral tidak ditemukan' },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        isPublicCheck: true,
+        profile: {
+          referralCode: publicAffiliate.referralCode,
+          customSlug: publicAffiliate.customSlug,
+          name: publicAffiliate.user?.fullName || 'Mitra Resmi Al-Afiyah',
         },
       });
     }
 
-    // 1. If user is logged in, find by session ID or email
-    if (!affiliateProfile && session && session.id) {
-      affiliateProfile = await prisma.affiliateProfile.findFirst({
-        where: {
-          OR: [
-            { userId: session.id },
-            { user: { email: session.email } },
-          ],
-        },
-        include: {
-          user: true,
-          conversions: {
-            include: {
-              school: true,
-              registration: true,
-            },
-            orderBy: { createdAt: 'desc' },
-          },
-        },
-      });
+    // ─── 2. Authenticated Dashboard Access (Strict Session Verification) ────
+    if (!session || !session.id) {
+      return NextResponse.json(
+        { success: false, error: 'Sesi autentikasi diperlukan untuk mengakses dasbor mitra.' },
+        { status: 401 }
+      );
     }
 
-    // 2. If not found, find default USTADZ-AHMAD
+    // Strictly find profile belonging to this authenticated user
+    const affiliateProfile = await prisma.affiliateProfile.findFirst({
+      where: {
+        OR: [
+          { userId: session.id },
+          { user: { email: session.email } },
+        ],
+      },
+      include: {
+        user: true,
+        conversions: {
+          include: {
+            school: true,
+            registration: true,
+          },
+          orderBy: { createdAt: 'desc' },
+        },
+      },
+    });
+
     if (!affiliateProfile) {
-      affiliateProfile = await prisma.affiliateProfile.findFirst({
-        where: {
-          OR: [
-            { referralCode: 'USTADZ-AHMAD' },
-            { customSlug: 'ustadz-ahmad' },
-          ],
-        },
-        include: {
-          user: true,
-          conversions: {
-            include: {
-              school: true,
-              registration: true,
-            },
-            orderBy: { createdAt: 'desc' },
-          },
-        },
-      });
-    }
-
-    // 3. Fallback: Any existing affiliate profile in DB
-    if (!affiliateProfile) {
-      affiliateProfile = await prisma.affiliateProfile.findFirst({
-        include: {
-          user: true,
-          conversions: {
-            include: {
-              school: true,
-              registration: true,
-            },
-            orderBy: { createdAt: 'desc' },
-          },
-        },
-      });
-    }
-
-    // 4. If still absolutely no affiliate profile exists, create a fresh one with unique email
-    if (!affiliateProfile) {
-      const defaultEmail = `mitra-${Date.now()}@alafiyah.id`;
-      const newUser = await prisma.user.create({
-        data: {
-          email: defaultEmail,
-          fullName: 'Ustadz Ahmad Al-Hafidz',
-          phone: '081234567890',
-          passwordHash: 'password123',
-          role: 'AFFILIATE',
-        },
-      });
-
-      affiliateProfile = await prisma.affiliateProfile.create({
-        data: {
-          userId: newUser.id,
-          referralCode: 'USTADZ-AHMAD',
-          customSlug: 'ustadz-ahmad',
-          bankName: 'Bank Syariah Indonesia (BSI)',
-          bankAccountNumber: '7123456789',
-          bankAccountHolder: 'Ahmad Al-Hafidz',
-          totalEarned: 0,
-          balance: 0,
-        },
-        include: {
-          user: true,
-          conversions: {
-            include: {
-              school: true,
-              registration: true,
-            },
-            orderBy: { createdAt: 'desc' },
-          },
-        },
-      });
+      return NextResponse.json(
+        { success: false, error: 'Profil afiliasi tidak ditemukan untuk akun ini.' },
+        { status: 404 }
+      );
     }
 
     // Calculate dynamic stats based on unique students
@@ -234,73 +180,65 @@ export async function GET(request: NextRequest) {
         }),
       },
     });
-  } catch (error: any) {
-    console.error('Error fetching affiliate profile:', error);
-    return NextResponse.json(
-      { error: error?.message || 'Gagal mengambil data profil afiliasi' },
-      { status: 500 }
-    );
+  } catch (error) {
+    return safeErrorResponse(error, 'Gagal mengambil data profil afiliasi');
   }
 }
 
 export async function PATCH(request: NextRequest) {
   try {
+    // 🔒 IDOR Prevention: Must have authenticated session
     const session = await getSession();
-    const body = await request.json();
+    if (!session || !session.id) {
+      return NextResponse.json(
+        { error: 'Unauthorized: Harap login terlebih dahulu untuk mengubah data rekening.' },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json().catch(() => ({}));
     const {
       bankName,
       bankAccountNumber,
       bankAccountHolder,
       fullName,
       phone,
-      referralCode,
-      email,
     } = body;
 
-    if (!bankName || !bankAccountNumber || !bankAccountHolder) {
+    const cleanBankName = sanitizeString(bankName, 60);
+    const cleanBankNum = sanitizeString(bankAccountNumber, 40);
+    const cleanBankHolder = sanitizeString(bankAccountHolder, 100);
+    const cleanFullName = fullName ? sanitizeString(fullName, 100) : undefined;
+    const cleanPhone = phone ? sanitizePhoneNumber(phone) : undefined;
+
+    if (!cleanBankName || !cleanBankNum || !cleanBankHolder) {
       return NextResponse.json(
-        { error: 'Nama bank, nomor rekening, dan nama pemilik rekening wajib diisi' },
+        { error: 'Nama bank, nomor rekening, dan nama pemilik rekening wajib diisi.' },
         { status: 400 }
       );
     }
 
-    const cleanBankNum = String(bankAccountNumber).trim();
-    if (!cleanBankNum || cleanBankNum === '-') {
+    if (cleanBankNum === '-' || cleanBankNum.length < 4) {
       return NextResponse.json(
-        { error: 'Nomor rekening tidak boleh kosong atau hanya tanda strip (-)' },
+        { error: 'Nomor rekening bank tidak valid.' },
         { status: 400 }
       );
     }
 
-    // Find profile by session ID, email, or referralCode
-    let profile = null;
-    if (session && session.id) {
-      profile = await prisma.affiliateProfile.findFirst({
-        where: {
-          OR: [
-            { userId: session.id },
-            { user: { email: session.email } },
-          ],
-        },
-        include: { user: true },
-      });
-    }
-
-    if (!profile && (referralCode || email)) {
-      profile = await prisma.affiliateProfile.findFirst({
-        where: {
-          OR: [
-            ...(referralCode ? [{ referralCode: String(referralCode).trim().toUpperCase() }] : []),
-            ...(email ? [{ user: { email: String(email).trim().toLowerCase() } }] : []),
-          ],
-        },
-        include: { user: true },
-      });
-    }
+    // Find profile strictly owned by session user
+    const profile = await prisma.affiliateProfile.findFirst({
+      where: {
+        OR: [
+          { userId: session.id },
+          { user: { email: session.email } },
+        ],
+      },
+      include: { user: true },
+    });
 
     if (!profile) {
       return NextResponse.json(
-        { error: 'Profil afiliasi tidak ditemukan. Silakan masuk terlebih dahulu.' },
+        { error: 'Profil afiliasi tidak ditemukan untuk akun ini.' },
         { status: 404 }
       );
     }
@@ -309,30 +247,30 @@ export async function PATCH(request: NextRequest) {
     const updatedProfile = await prisma.affiliateProfile.update({
       where: { id: profile.id },
       data: {
-        bankName: String(bankName).trim(),
+        bankName: cleanBankName,
         bankAccountNumber: cleanBankNum,
-        bankAccountHolder: String(bankAccountHolder).trim(),
+        bankAccountHolder: cleanBankHolder,
       },
       include: { user: true },
     });
 
     // Optionally update user fullName and phone if provided
-    if (profile.userId && (fullName || phone)) {
+    if (profile.userId && (cleanFullName || cleanPhone)) {
       await prisma.user.update({
         where: { id: profile.userId },
         data: {
-          ...(fullName ? { fullName: String(fullName).trim() } : {}),
-          ...(phone ? { phone: String(phone).trim() } : {}),
+          ...(cleanFullName ? { fullName: cleanFullName } : {}),
+          ...(cleanPhone ? { phone: cleanPhone } : {}),
         },
       });
     }
 
-    // Set or refresh session for user
+    // Refresh active session
     if (profile.user) {
       await setSession({
         id: profile.user.id,
         email: profile.user.email,
-        fullName: fullName ? String(fullName).trim() : profile.user.fullName,
+        fullName: cleanFullName || profile.user.fullName,
         role: 'AFFILIATE',
         schoolId: null,
       });
@@ -345,16 +283,11 @@ export async function PATCH(request: NextRequest) {
         bankName: updatedProfile.bankName,
         bankAccountNumber: updatedProfile.bankAccountNumber,
         bankAccountHolder: updatedProfile.bankAccountHolder,
-        fullName: fullName ? String(fullName).trim() : profile.user?.fullName,
-        phone: phone ? String(phone).trim() : profile.user?.phone,
+        fullName: cleanFullName || profile.user?.fullName,
+        phone: cleanPhone || profile.user?.phone,
       },
     });
-  } catch (error: any) {
-    console.error('Error updating affiliate bank details:', error);
-    return NextResponse.json(
-      { error: error?.message || 'Gagal memperbarui rekening afiliasi' },
-      { status: 500 }
-    );
+  } catch (error) {
+    return safeErrorResponse(error, 'Gagal memperbarui rekening afiliasi');
   }
 }
-

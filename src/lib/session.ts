@@ -8,22 +8,38 @@ export interface UserSession {
   role: string;
   schoolId: string | null;
   schoolSlug?: string | null;
+  exp?: number; // Expiration timestamp in epoch ms
 }
 
 export const SESSION_COOKIE_NAME = 'alafiyah_session';
-const SESSION_SECRET =
-  process.env.APP_SECRET ||
-  process.env.NEXTAUTH_SECRET ||
-  'alafiyah-super-secret-key-prod-2026-imam-bonjol-protection';
+
+const DEFAULT_DEV_SECRET = 'alafiyah-super-secret-key-prod-2026-imam-bonjol-protection';
+
+function getSessionSecret(): string {
+  const secret = process.env.APP_SECRET || process.env.NEXTAUTH_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      console.error('CRITICAL SECURITY ERROR: APP_SECRET or NEXTAUTH_SECRET is not configured in production environment!');
+      throw new Error('Konfigurasi keamanan server (APP_SECRET) belum diatur.');
+    }
+    return DEFAULT_DEV_SECRET;
+  }
+  return secret;
+}
 
 export function signData(data: string): string {
-  const hmac = crypto.createHmac('sha256', SESSION_SECRET);
+  const secret = getSessionSecret();
+  const hmac = crypto.createHmac('sha256', secret);
   hmac.update(data);
   return hmac.digest('hex');
 }
 
 export function encodeSession(user: UserSession): string {
-  const jsonStr = JSON.stringify(user);
+  const sessionWithExpiry: UserSession = {
+    ...user,
+    exp: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days expiration
+  };
+  const jsonStr = JSON.stringify(sessionWithExpiry);
   const payloadB64 = Buffer.from(jsonStr).toString('base64');
   const signature = signData(payloadB64);
   return `${payloadB64}.${signature}`;
@@ -50,6 +66,12 @@ export function verifyAndDecodeToken(token: string): UserSession | null {
 
     // Validate essential fields
     if (!parsed.id || !parsed.email || !parsed.role) return null;
+
+    // Validate token expiry (7 days)
+    if (parsed.exp && Date.now() > parsed.exp) {
+      return null;
+    }
+
     return parsed;
   } catch {
     return null;

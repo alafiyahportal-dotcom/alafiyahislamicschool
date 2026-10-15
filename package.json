@@ -9,6 +9,7 @@
     "lint": "eslint",
     "db:backup": "npx tsx scripts/db-backup.ts",
     "db:restore": "npx tsx scripts/db-restore.ts",
+    "security:audit": "npx tsx scripts/security-audit-live.ts",
     "postinstall": "prisma generate"
   },
   "prisma": {

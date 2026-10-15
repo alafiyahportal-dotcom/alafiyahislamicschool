@@ -70,6 +70,16 @@ export async function POST(request: NextRequest) {
     const finalFileName = generateSafeFileName(safeDocType, verified.ext);
     const filePath = path.join(uploadDir, finalFileName);
 
+    // 🔒 Path Traversal Prevention (Point 5)
+    const normalizedUploadDir = path.resolve(uploadDir);
+    const normalizedFilePath = path.resolve(filePath);
+    if (!normalizedFilePath.startsWith(normalizedUploadDir)) {
+      return NextResponse.json(
+        { success: false, error: 'Deteksi pelanggaran jalur penyimpanan berkas (Path Traversal).' },
+        { status: 403 }
+      );
+    }
+
     // Write file to disk
     await writeFile(filePath, buffer);
 

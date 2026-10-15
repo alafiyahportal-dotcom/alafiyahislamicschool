@@ -31,11 +31,26 @@ export async function PATCH(
       );
     }
 
-    // Validasi kepemilikan nomor registrasi jika diberikan
-    if (registrationNo && existingDoc.registration.registrationNo !== registrationNo) {
+    if (!registrationNo || typeof registrationNo !== 'string') {
       return NextResponse.json(
-        { success: false, error: 'Otorisasi dokumen tidak valid' },
+        { success: false, error: 'Nomor registrasi wajib disertakan untuk otorisasi berkas.' },
+        { status: 400 }
+      );
+    }
+
+    // Validate ownership: registrationNo must strictly match the document owner
+    if (existingDoc.registration.registrationNo !== registrationNo.trim()) {
+      return NextResponse.json(
+        { success: false, error: 'Otorisasi dokumen tidak valid: nomor registrasi tidak cocok.' },
         { status: 403 }
+      );
+    }
+
+    // Validate fileUrl to prevent arbitrary URL injection or path traversal
+    if (!fileUrl.startsWith('/uploads/ppdb/') && !fileUrl.startsWith('data:image/')) {
+      return NextResponse.json(
+        { success: false, error: 'URL berkas tidak valid.' },
+        { status: 400 }
       );
     }
 

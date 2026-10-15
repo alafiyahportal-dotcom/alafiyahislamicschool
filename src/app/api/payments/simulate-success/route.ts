@@ -11,12 +11,13 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Auth check: require admin session or simulation key in development
+  // Auth check: require admin session or explicit env simulation key in development
   const session = await getSession();
   const simHeader = request.headers.get('x-simulation-key');
+  const configuredSimKey = process.env.SIMULATION_KEY || 'dev-sim-key';
   const isAuthorized =
     (session && ['SUPERADMIN', 'FINANCE', 'ADMIN_TK', 'ADMIN_SD', 'ADMIN_SMP'].includes(session.role)) ||
-    simHeader === 'dev-sim-key';
+    (Boolean(configuredSimKey) && simHeader === configuredSimKey);
 
   if (!isAuthorized) {
     return NextResponse.json(

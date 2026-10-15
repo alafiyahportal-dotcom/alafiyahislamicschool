@@ -105,7 +105,11 @@ async function main() {
   console.log('✅ 4 Schools Seeded: TK, SD, SMP Al-Afiyah & Yayasan Foundation');
 
   // 3. Seed Official Master Accounts (Yayasan, Unit Admins, Unit Treasurers, Affiliates)
-  const defaultPassword = bcrypt.hashSync('password123', 10);
+  const rawSeedPass = process.env.SEED_DEFAULT_PASSWORD || 'password123';
+  if (!process.env.SEED_DEFAULT_PASSWORD) {
+    console.warn('⚠️ [SECURITY NOTICE] Akun master dibuat dengan kata sandi bawaan. Harap segera perbarui kata sandi melalui menu Pengaturan Profil sebelum rilis publik!');
+  }
+  const defaultPassword = bcrypt.hashSync(rawSeedPass, 10);
 
   // A. Pimpinan Yayasan
   await prisma.user.create({

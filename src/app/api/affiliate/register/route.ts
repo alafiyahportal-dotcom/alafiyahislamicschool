@@ -1,22 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { setSession } from '@/lib/session';
+import bcrypt from 'bcryptjs';
+import {
+  isValidEmail,
+  sanitizeEmail,
+  validatePasswordStrength,
+  sanitizePhoneNumber,
+  sanitizeString,
+} from '@/lib/input-validator';
+import { safeErrorResponse, sanitizeApiOutput } from '@/lib/security';
 
 export async function POST(request: NextRequest) {
   try {
-    const { fullName, email, phone, referralCode, bankName, bankAccountNumber, bankAccountHolder, password } = await request.json();
+    const body = await request.json().catch(() => ({}));
+    const {
+      fullName,
+      email,
+      phone,
+      referralCode,
+      bankName,
+      bankAccountNumber,
+      bankAccountHolder,
+      password,
+    } = body;
 
-    if (!fullName || !email) {
+    const cleanFullName = sanitizeString(fullName, 100);
+    const cleanEmail = sanitizeEmail(email || '');
+    const cleanPhone = sanitizePhoneNumber(phone || '');
+    const cleanBankName = sanitizeString(bankName, 60, 'Bank Syariah Indonesia (BSI)');
+    const cleanBankNum = sanitizeString(bankAccountNumber, 40, '-');
+    const cleanBankHolder = sanitizeString(bankAccountHolder, 100, cleanFullName);
+
+    if (!cleanFullName || !cleanEmail) {
       return NextResponse.json(
-        { error: 'Nama lengkap dan email wajib diisi' },
+        { success: false, error: 'Nama lengkap dan email wajib diisi.' },
         { status: 400 }
       );
     }
 
-    const userProvidedCode = referralCode?.trim();
-    let cleanCode = userProvidedCode 
+    if (!isValidEmail(cleanEmail)) {
+      return NextResponse.json(
+        { success: false, error: 'Format alamat email tidak valid.' },
+        { status: 400 }
+      );
+    }
+
+    // Password validation (Point 6 & 9)
+    const passwordCheck = validatePasswordStrength(password || '');
+    if (!passwordCheck.valid) {
+      return NextResponse.json(
+        { success: false, error: passwordCheck.message },
+        { status: 400 }
+      );
+    }
+
+    const userProvidedCode = referralCode ? sanitizeString(referralCode, 30).trim() : '';
+    let cleanCode = userProvidedCode
       ? userProvidedCode.toUpperCase().replace(/[^A-Z0-9-]/g, '')
-      : (fullName.trim().split(/\s+/)[0] || 'MITRA').toUpperCase().replace(/[^A-Z0-9]/g, '');
+      : (cleanFullName.split(/\s+/)[0] || 'MITRA').toUpperCase().replace(/[^A-Z0-9]/g, '');
 
     if (!cleanCode) {
       cleanCode = 'MITRA-' + Math.floor(1000 + Math.random() * 9000);
@@ -26,75 +68,77 @@ export async function POST(request: NextRequest) {
 
     let cleanSlug = cleanCode.toLowerCase();
 
-    // Check if referral code already used, if auto-generated collision then append extra random number
-    let existing = await prisma.affiliateProfile.findFirst({
+    // Check referral code collision
+    let existingRef = await prisma.affiliateProfile.findFirst({
       where: {
         OR: [{ referralCode: cleanCode }, { customSlug: cleanSlug }],
       },
     });
 
-    if (existing && userProvidedCode) {
+    if (existingRef && userProvidedCode) {
       return NextResponse.json(
-        { error: 'Kode referral atau tautan ini sudah dipakai mitra lain. Silakan pilih kode lain.' },
-        { status: 400 }
+        { success: false, error: 'Kode referral atau tautan ini sudah dipakai mitra lain. Silakan pilih kode lain.' },
+        { status: 409 }
       );
     }
 
-    while (existing) {
+    while (existingRef) {
       cleanCode = `${cleanCode}-${Math.floor(100 + Math.random() * 900)}`;
       cleanSlug = cleanCode.toLowerCase();
-      existing = await prisma.affiliateProfile.findFirst({
+      existingRef = await prisma.affiliateProfile.findFirst({
         where: {
           OR: [{ referralCode: cleanCode }, { customSlug: cleanSlug }],
         },
       });
     }
 
-    // Check or create user
-    let user = await prisma.user.findUnique({ where: { email } });
-
-    if (!user) {
-      user = await prisma.user.create({
-        data: {
-          email,
-          fullName,
-          phone: phone || null,
-          passwordHash: password || 'password123',
-          role: 'AFFILIATE',
-        },
-      });
-    } else {
-      // Update password and phone if existing user
-      user = await prisma.user.update({
-        where: { id: user.id },
-        data: {
-          fullName,
-          phone: phone || user.phone,
-          passwordHash: password || user.passwordHash,
-        },
-      });
-    }
-
-    // Check if affiliate profile already exists for this user
-    let profile = await prisma.affiliateProfile.findUnique({
-      where: { userId: user.id },
+    // 🔒 Security Check (Account Takeover & IDOR Prevention):
+    // Never allow an unauthenticated registration to overwrite an existing user!
+    const existingUser = await prisma.user.findUnique({
+      where: { email: cleanEmail },
     });
 
-    if (!profile) {
-      // Create Affiliate Profile
-      profile = await prisma.affiliateProfile.create({
+    if (existingUser) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Alamat email ini sudah terdaftar. Silakan masuk (login) terlebih dahulu ke akun Anda.',
+        },
+        { status: 409 }
+      );
+    }
+
+    // Hash password with bcrypt (Point 9: Never store plaintext!)
+    const passwordHash = bcrypt.hashSync(password.trim(), 10);
+
+    // Create user and profile in a transaction
+    const { user, profile } = await prisma.$transaction(async (tx) => {
+      const newUser = await tx.user.create({
         data: {
-          userId: user.id,
+          email: cleanEmail,
+          fullName: cleanFullName,
+          phone: cleanPhone || null,
+          passwordHash,
+          role: 'AFFILIATE',
+          isActive: true,
+        },
+      });
+
+      const newProfile = await tx.affiliateProfile.create({
+        data: {
+          userId: newUser.id,
           referralCode: cleanCode,
           customSlug: cleanSlug,
-          bankName: bankName || 'Bank Syariah Indonesia (BSI)',
-          bankAccountNumber: bankAccountNumber || '-',
-          bankAccountHolder: bankAccountHolder || fullName,
+          bankName: cleanBankName,
+          bankAccountNumber: cleanBankNum,
+          bankAccountHolder: cleanBankHolder,
           totalEarned: 0,
           balance: 0,
         },
       });
-    }
+
+      return { user: newUser, profile: newProfile };
+    });
 
     // Automatically set session for instant dashboard access
     await setSession({
@@ -107,14 +151,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      profile,
+      profile: sanitizeApiOutput(profile),
       redirectUrl: '/affiliate/dashboard',
     });
   } catch (error) {
-    console.error('Affiliate registration error:', error);
-    return NextResponse.json(
-      { error: 'Gagal mendaftarkan mitra afiliasi' },
-      { status: 500 }
-    );
+    return safeErrorResponse(error, 'Gagal memproses pendaftaran mitra afiliasi');
   }
 }

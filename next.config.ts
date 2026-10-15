@@ -35,6 +35,10 @@ const nextConfig: NextConfig = {
   },
 
 
+  // ─── Security & Source Maps ────────────────────────────────────────────────
+  // Disable browser source maps in production to keep source code private (Point 16)
+  productionBrowserSourceMaps: false,
+
   // ─── Headers ────────────────────────────────────────────────────────────────
   async headers() {
     return [
@@ -59,12 +63,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Security headers for all pages
+        // Comprehensive Security headers for all pages and APIs (Point 19)
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+          { key: "X-XSS-Protection", value: "1; mode=block" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
         ],
       },
     ];
