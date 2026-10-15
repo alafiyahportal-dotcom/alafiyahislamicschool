@@ -425,7 +425,7 @@ export default function AffiliatePublicPage() {
             </h1>
 
             <p className="text-emerald-100/90 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-xs">
-              Program rujukan resmi TK IT, SDIT, dan SMP IT Al-Afiyah Majalengka. Cukup bagikan tautan pendaftaran, komisi langsung ditransfer ke rekening bank Anda setelah calon siswa terdaftar.
+              Program rujukan resmi SDIT dan SMP IT Al-Afiyah Majalengka (TK IT segera dibuka). Cukup bagikan tautan pendaftaran, komisi langsung ditransfer ke rekening bank Anda setelah calon siswa terdaftar.
             </p>
 
             {/* Action Buttons */}
@@ -465,10 +465,13 @@ export default function AffiliatePublicPage() {
 
             {/* 3 Unit Commission Cards matching Section 4 Card Colors */}
             <div className="pt-3 max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 text-left sm:text-center">
-              <div className="p-4 rounded-2xl bg-[#1c432f] border border-white/10 shadow-lg hover:border-white/20 transition-all">
-                <span className="text-[11px] font-bold text-emerald-200 uppercase tracking-wider block">TK IT Al-Afiyah</span>
-                <p className="text-xl font-black text-white font-mono mt-0.5">Rp 75.000</p>
-                <span className="text-[11px] text-emerald-300/70">per calon siswa</span>
+              <div className="p-4 rounded-2xl bg-[#1c432f]/85 border border-dashed border-amber-400/40 shadow-lg relative overflow-hidden transition-all text-left sm:text-center">
+                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 font-black text-[9px] uppercase tracking-wide">
+                  Segera Hadir
+                </div>
+                <span className="text-[11px] font-bold text-emerald-200/90 uppercase tracking-wider block">TK IT Al-Afiyah</span>
+                <p className="text-base sm:text-lg font-bold text-amber-300 mt-1 leading-tight">Tahap Penetapan</p>
+                <span className="text-[10px] text-emerald-300/70 block mt-0.5">skema segera diumumkan</span>
               </div>
               <div className="p-4 rounded-2xl bg-[#1c432f] border-2 border-[#cbf738] shadow-2xl relative overflow-hidden scale-102">
                 <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-[#cbf738] text-slate-950 font-black text-[9px] uppercase tracking-wide shadow-xs">Tertinggi</div>
@@ -692,11 +695,17 @@ export default function AffiliatePublicPage() {
                       Rp {FORM_FEES.smp.toLocaleString('id-ID')}
                     </strong>
                   </div>
-                  <div className="flex justify-between pt-0.5">
+                  <div className="flex justify-between items-center pt-0.5">
                     <span>TK IT Al-Afiyah:</span>
-                    <strong className="text-white font-mono font-bold">
-                      Rp {FORM_FEES.tk.toLocaleString('id-ID')}
-                    </strong>
+                    {FORM_FEES.tk > 0 ? (
+                      <strong className="text-white font-mono font-bold">
+                        Rp {FORM_FEES.tk.toLocaleString('id-ID')}
+                      </strong>
+                    ) : (
+                      <span className="px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 font-bold text-[10px] uppercase tracking-wide border border-amber-400/30">
+                        Segera Hadir
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -734,7 +743,7 @@ export default function AffiliatePublicPage() {
                     { id: 'all', label: 'Semua Jenjang' },
                     { id: 'sd', label: `SDIT (${Math.round((FORM_FEES.sd + REG_FEES.sd) / 1000)}rb)` },
                     { id: 'smp', label: `SMP IT (${Math.round((FORM_FEES.smp + REG_FEES.smp) / 1000)}rb)` },
-                    { id: 'tk', label: `TK IT (${Math.round((FORM_FEES.tk + REG_FEES.tk) / 1000)}rb)` },
+                    { id: 'tk', label: 'TK IT (Segera Hadir)' },
                   ].map((u) => (
                     <button
                       key={u.id}
@@ -743,6 +752,8 @@ export default function AffiliatePublicPage() {
                       className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                         calcUnit === u.id
                           ? 'bg-slate-950 text-white shadow-xs'
+                          : u.id === 'tk'
+                          ? 'bg-white/60 hover:bg-white text-slate-800 border border-slate-950/20 italic'
                           : 'bg-white/70 hover:bg-white text-slate-900 border border-slate-950/10'
                       }`}
                     >
@@ -751,42 +762,59 @@ export default function AffiliatePublicPage() {
                   ))}
                 </div>
 
-                {/* Range Slider */}
-                <div className="space-y-1.5 pt-1">
-                  <div className="flex justify-between text-xs font-bold text-slate-900">
-                    <span>Target Calon Peserta Didik:</span>
-                    <span className="font-mono text-sm font-extrabold px-2 py-0.5 rounded bg-white text-slate-950 border border-slate-950/20">
-                      {calcStudents} Peserta Didik
-                    </span>
+                {calcUnit === 'tk' ? (
+                  <div className="p-4 rounded-2xl bg-slate-900/10 border border-slate-900/15 space-y-2 text-slate-900 my-1">
+                    <div className="flex items-center gap-1.5 text-xs font-black">
+                      <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
+                      <span>Skema Komisi TK IT Dalam Tahap Penetapan</span>
+                    </div>
+                    <p className="text-xs text-slate-800 leading-relaxed">
+                      Nominal bagi hasil rujukan untuk jenjang <strong>TK IT Al-Afiyah</strong> saat ini sedang dirumuskan oleh panitia yayasan dan akan segera diumumkan.
+                    </p>
+                    <p className="text-[11px] text-slate-700">
+                      💡 Anda dapat memilih opsi <strong>SDIT</strong> atau <strong>SMP IT</strong> di atas dengan komisi aktif resmi <strong>Rp 150.000 / murid</strong>.
+                    </p>
                   </div>
-                  <input
-                    type="range"
-                    min="1"
-                    max="20"
-                    step="1"
-                    value={calcStudents}
-                    onChange={(e) => setCalcStudents(Number(e.target.value))}
-                    className="w-full h-2.5 bg-slate-900/20 rounded-lg appearance-none cursor-pointer accent-slate-950"
-                  />
-                  <div className="flex justify-between text-[10px] text-slate-700 font-mono">
-                    <span>1 Peserta Didik</span>
-                    <span>10 Peserta Didik</span>
-                    <span>20 Peserta Didik</span>
-                  </div>
-                </div>
+                ) : (
+                  <>
+                    {/* Range Slider */}
+                    <div className="space-y-1.5 pt-1">
+                      <div className="flex justify-between text-xs font-bold text-slate-900">
+                        <span>Target Calon Peserta Didik:</span>
+                        <span className="font-mono text-sm font-extrabold px-2 py-0.5 rounded bg-white text-slate-950 border border-slate-950/20">
+                          {calcStudents} Peserta Didik
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min="1"
+                        max="20"
+                        step="1"
+                        value={calcStudents}
+                        onChange={(e) => setCalcStudents(Number(e.target.value))}
+                        className="w-full h-2.5 bg-slate-900/20 rounded-lg appearance-none cursor-pointer accent-slate-950"
+                      />
+                      <div className="flex justify-between text-[10px] text-slate-700 font-mono">
+                        <span>1 Peserta Didik</span>
+                        <span>10 Peserta Didik</span>
+                        <span>20 Peserta Didik</span>
+                      </div>
+                    </div>
 
-                {/* Total Counter Box */}
-                <div className="p-4 rounded-2xl bg-slate-950 text-white space-y-1 shadow-md">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#cbf738] block">
-                    Total Estimasi Komisi Anda
-                  </span>
-                  <p className="text-3xl font-black text-white font-mono tracking-tight">
-                    <AnimatedRupiah value={totalCalcCommission} />
-                  </p>
-                  <p className="text-[10px] text-slate-300">
-                    Komisi Formulir: Rp {(formCommissionTotal).toLocaleString('id-ID')} + Registrasi: Rp {(regCommissionTotal).toLocaleString('id-ID')}
-                  </p>
-                </div>
+                    {/* Total Counter Box */}
+                    <div className="p-4 rounded-2xl bg-slate-950 text-white space-y-1 shadow-md">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#cbf738] block">
+                        Total Estimasi Komisi Anda
+                      </span>
+                      <p className="text-3xl font-black text-white font-mono tracking-tight">
+                        <AnimatedRupiah value={totalCalcCommission} />
+                      </p>
+                      <p className="text-[10px] text-slate-300">
+                        Komisi Formulir: Rp {(formCommissionTotal).toLocaleString('id-ID')} + Registrasi: Rp {(regCommissionTotal).toLocaleString('id-ID')}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Action Button inside Lime Card */}
@@ -835,11 +863,17 @@ export default function AffiliatePublicPage() {
                       Rp {REG_FEES.smp.toLocaleString('id-ID')}
                     </strong>
                   </div>
-                  <div className="flex justify-between pt-0.5">
+                  <div className="flex justify-between items-center pt-0.5">
                     <span>TK IT Al-Afiyah:</span>
-                    <strong className="text-white font-mono font-bold">
-                      Rp {REG_FEES.tk.toLocaleString('id-ID')}
-                    </strong>
+                    {REG_FEES.tk > 0 ? (
+                      <strong className="text-white font-mono font-bold">
+                        Rp {REG_FEES.tk.toLocaleString('id-ID')}
+                      </strong>
+                    ) : (
+                      <span className="px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 font-bold text-[10px] uppercase tracking-wide border border-amber-400/30">
+                        Segera Hadir
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

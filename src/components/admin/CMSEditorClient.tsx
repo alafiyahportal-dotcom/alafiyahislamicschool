@@ -1949,24 +1949,30 @@ export default function CMSEditorClient({
                       Apresiasi &amp; Pengalaman Wali Santri
                     </h3>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {(formData.testimonials || []).map((t, idx) => (
-                      <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3 flex flex-col justify-between">
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-1 text-amber-400">
-                            {[1, 2, 3, 4, 5].map((s) => (
-                              <Award key={s} className="w-3.5 h-3.5 fill-amber-400" />
-                            ))}
+                  {(!formData.testimonials || formData.testimonials.length === 0) ? (
+                    <div className="p-8 text-center bg-white rounded-2xl border border-dashed border-slate-300 text-slate-500 text-xs">
+                      Belum ada testimoni yang ditambahkan untuk SMP IT. Halaman publik akan menampilkan status bahwa testimoni sedang dihimpun oleh tim publikasi sekolah.
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {formData.testimonials.map((t, idx) => (
+                        <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs space-y-3 flex flex-col justify-between">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-1 text-amber-400">
+                              {[1, 2, 3, 4, 5].map((s) => (
+                                <Award key={s} className="w-3.5 h-3.5 fill-amber-400" />
+                              ))}
+                            </div>
+                            <p className="text-xs text-slate-600 italic leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
                           </div>
-                          <p className="text-xs text-slate-600 italic leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
+                          <div className="pt-3 border-t border-slate-100">
+                            <p className="text-xs font-bold text-slate-900">{t.name}</p>
+                            <p className="text-[11px] text-[#030164] font-semibold">{t.role}</p>
+                          </div>
                         </div>
-                        <div className="pt-3 border-t border-slate-100">
-                          <p className="text-xs font-bold text-slate-900">{t.name}</p>
-                          <p className="text-[11px] text-[#030164] font-semibold">{t.role}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
@@ -3734,24 +3740,30 @@ export default function CMSEditorClient({
               </div>
 
               <div className="space-y-4">
+                {(!formData.testimonials || formData.testimonials.length === 0) && (
+                  <div className="p-8 text-center bg-slate-50 border border-dashed border-slate-300 rounded-xl space-y-2">
+                    <p className="text-xs font-semibold text-slate-600">Belum ada testimoni yang ditambahkan.</p>
+                    <p className="text-[11px] text-slate-400">Klik tombol <strong>&quot;Tambah Testimoni&quot;</strong> di atas untuk menambahkan testimoni wali murid.</p>
+                  </div>
+                )}
                 {(formData.testimonials || []).map((t, i) => (
                   <div key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-extrabold text-[#184F48]">
                         Testimoni #{i + 1}
                       </span>
-                      {formData.testimonials.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const newT = formData.testimonials.filter((_, idx) => idx !== i);
-                            setFormData({ ...formData, testimonials: newT });
-                          }}
-                          className="text-rose-500 hover:text-rose-700 text-xs"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newT = formData.testimonials.filter((_, idx) => idx !== i);
+                          setFormData({ ...formData, testimonials: newT });
+                        }}
+                        className="text-rose-500 hover:text-rose-700 text-xs flex items-center gap-1"
+                        title="Hapus testimoni ini"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span className="text-[10px]">Hapus</span>
+                      </button>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <input
@@ -4499,9 +4511,15 @@ export default function CMSEditorClient({
                       <span className="text-xs font-extrabold text-teal-950 uppercase tracking-wide">
                         2. Unit TK IT Al-Afiyah
                       </span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-200 text-teal-900 font-bold">
-                        Total Rp {((formData.affiliate?.commissionFormTk ?? 25000) + (formData.affiliate?.commissionReRegTk ?? 50000)).toLocaleString('id-ID')}
-                      </span>
+                      {((formData.affiliate?.commissionFormTk ?? 0) + (formData.affiliate?.commissionReRegTk ?? 0)) > 0 ? (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-200 text-teal-900 font-bold">
+                          Total Rp {((formData.affiliate?.commissionFormTk ?? 0) + (formData.affiliate?.commissionReRegTk ?? 0)).toLocaleString('id-ID')}
+                        </span>
+                      ) : (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold border border-amber-300">
+                          Status: Segera Hadir
+                        </span>
+                      )}
                     </div>
 
                     <div className="space-y-2.5">
@@ -4513,8 +4531,9 @@ export default function CMSEditorClient({
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
                           <input
                             type="number"
-                            value={formData.affiliate?.commissionFormTk ?? 25000}
+                            value={formData.affiliate?.commissionFormTk ?? 0}
                             onChange={(e) => updateAffiliate('commissionFormTk', parseInt(e.target.value) || 0)}
+                            placeholder="0 (Segera Hadir)"
                             className="w-full text-xs font-bold text-slate-900 border border-teal-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                           />
                         </div>
@@ -4528,11 +4547,15 @@ export default function CMSEditorClient({
                           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
                           <input
                             type="number"
-                            value={formData.affiliate?.commissionReRegTk ?? 50000}
+                            value={formData.affiliate?.commissionReRegTk ?? 0}
                             onChange={(e) => updateAffiliate('commissionReRegTk', parseInt(e.target.value) || 0)}
+                            placeholder="0 (Segera Hadir)"
                             className="w-full text-xs font-bold text-slate-900 border border-teal-300 rounded-xl p-2.5 pl-9 bg-white focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                           />
                         </div>
+                        <p className="text-[10px] text-slate-500 italic mt-1">
+                          *Biarkan 0 jika skema komisi TK IT belum resmi diberlakukan oleh panitia yayasan. Halaman publik akan otomatis menampilkan status &quot;Segera Hadir&quot;.
+                        </p>
                       </div>
                     </div>
                   </div>

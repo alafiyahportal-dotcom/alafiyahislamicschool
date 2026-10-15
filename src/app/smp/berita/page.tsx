@@ -105,7 +105,7 @@ const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
     imageUrl: '/images/smp-tubing-1.jpg',
     paragraphs: [
       'Kegiatan tahunan tadabbur alam dan rihlah santri SMP IT Al-Afiyah diselenggarakan di wisata sungai Cikadongdong Majalengka. Santri diajak mempraktikkan doa safar, dzikir alam, dan ketangkasan fisik menyusuri arus air dengan pengawasan instruktur profesional.',
-      'Suasana riang dan penuh keakraban tampak di wajah para santri. Kegiatan ini sekaligus mempererat ukhuwah islamiyah antar santri dan para pembina asrama/sekolah.'
+      'Suasana riang dan penuh keakraban tampak di wajah para murid. Kegiatan ini sekaligus mempererat ukhuwah islamiyah antarmurid dan para guru pembina sekolah.'
     ],
     keyHighlights: [
       'Pelatihan kepemimpinan dan ketangkasan alam terbuka',

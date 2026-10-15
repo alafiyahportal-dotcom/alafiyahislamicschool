@@ -300,10 +300,10 @@ export default function AffiliateGuidePage() {
 
             {/* Grid 3 Unit Sekolah */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-center">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">TK IT Al-Afiyah</span>
-                <p className="text-lg font-black text-slate-900 mt-0.5">Rp 75.000</p>
-                <span className="text-[10px] text-slate-500 block">per murid diterima</span>
+              <div className="p-3.5 rounded-xl border border-dashed border-amber-300 bg-amber-50/60 text-center relative">
+                <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider block">TK IT Al-Afiyah</span>
+                <p className="text-base font-bold text-amber-900 mt-1">Segera Hadir</p>
+                <span className="text-[10px] text-amber-700/80 block mt-0.5">tahap penetapan panitia</span>
               </div>
               <div className="p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50/70 text-center relative shadow-sm">
                 <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full shadow-xs">

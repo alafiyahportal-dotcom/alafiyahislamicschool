@@ -369,7 +369,7 @@ PPDB SMP IT Al-Afiyah Majalengka Tahun Ajaran 2026/2027 Telah Resmi Dibuka!
 
 Mempersiapkan masa depan putra-putri dengan perpaduan keilmuan akademis, adab, dan Al-Qur'an:
 ✅ Terakreditasi A (Unggul)
-✅ Pilihan Program Asrama (Boarding) & Fullday School
+✅ Program Unggulan Fullday School (Sekolah Terpadu Pagi - Sore)
 ✅ Program Unggulan Tahfidz Al-Qur'an (Target 3 - 5+ Juz)
 ✅ Pembiasaan Bahasa Arab & Inggris Aktif
 ✅ Tersedia Program Keringanan Biaya & Beasiswa Berprestasi
@@ -419,7 +419,7 @@ Penerimaan Peserta Didik Baru (PPDB) Terpadu Yayasan Pendidikan Imam Bonjol Al-A
 Pilihan Jenjang Pendidikan:
 • PAUD / TK IT Al-Afiyah (Fondasi Karakter & Cinta Ibadah Usia Dini)
 • SDIT Al-Afiyah (Adab Islami, Sains & Tahfidz Al-Qur'an)
-• SMP IT Al-Afiyah (Akreditasi A, Program Asrama & Fullday)
+• SMP IT Al-Afiyah (Akreditasi A, Program Unggulan Fullday School)
 
 Silakan akses informasi lengkap dan formulir pendaftaran melalui tautan resmi kami:
 

@@ -49,10 +49,9 @@ export default function AffiliateRegisterPage() {
   const [customBankName, setCustomBankName] = useState('');
 
   // Simulator State
-  const [simTk, setSimTk] = useState(2);
   const [simSd, setSimSd] = useState(4);
   const [simSmp, setSimSmp] = useState(2);
-  const estimatedEarnings = (simTk * 75000) + (simSd * 150000) + (simSmp * 150000);
+  const estimatedEarnings = (simSd * 150000) + (simSmp * 150000);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -208,9 +207,9 @@ export default function AffiliateRegisterPage() {
                     Struktur Komisi Resmi Per-Murid Diterima:
                   </p>
                   <div className="grid grid-cols-3 gap-2 text-center">
-                    <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
-                      <span className="text-[10px] text-emerald-200 block font-medium">TK IT</span>
-                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 75.000</strong>
+                    <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-dashed border-amber-300/40">
+                      <span className="text-[10px] text-amber-300 block font-bold">TK IT</span>
+                      <strong className="text-xs font-bold text-amber-200 block mt-0.5">Segera Hadir</strong>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
                       <span className="text-[10px] text-emerald-200 block font-medium">SDIT</span>
@@ -238,20 +237,15 @@ export default function AffiliateRegisterPage() {
               </div>
 
               <div className="space-y-3 pt-1">
-                {/* TK slider */}
-                <div>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-slate-600 font-medium">Calon Murid TK IT:</span>
-                    <strong className="text-slate-900 font-bold">{simTk} Murid</strong>
+                {/* TK info box */}
+                <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-amber-950 block">Calon Murid TK IT:</span>
+                    <span className="text-[10px] text-amber-800">Skema komisi sedang dalam penetapan panitia</span>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="10"
-                    value={simTk}
-                    onChange={(e) => setSimTk(parseInt(e.target.value))}
-                    className="w-full accent-[#064E3B] cursor-pointer"
-                  />
+                  <span className="px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold text-[10px] uppercase">
+                    Segera Hadir
+                  </span>
                 </div>
 
                 {/* SD slider */}
@@ -296,7 +290,7 @@ export default function AffiliateRegisterPage() {
                   </div>
                 </div>
                 <div className="text-right text-[10px] text-emerald-100/80">
-                  {simTk + simSd + simSmp} Total Rujukan
+                  {simSd + simSmp} Total Rujukan (SD &amp; SMP)
                 </div>
               </div>
             </div>

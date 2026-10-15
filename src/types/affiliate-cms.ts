@@ -32,7 +32,7 @@ export const DEFAULT_AFFILIATE_CONTENT: Required<AffiliateCMSData> = {
   heroHeadline: 'Sebar Kebaikan Pendidikan,',
   heroHighlight: 'Raih Apresiasi Berkah Nyata',
   heroDescription:
-    'Program rujukan resmi Yayasan Pendidikan Al-Afiyah (TK IT, SDIT, SMP IT). Dapatkan komisi apresiasi yang transparan, mudah, dan terpercaya cukup dengan membagikan link rekomendasi pendaftaran sekolah.',
+    'Program rujukan resmi Yayasan Pendidikan Al-Afiyah (Fokus SDIT & SMP IT, TK IT segera hadir). Dapatkan komisi apresiasi yang transparan, mudah, dan terpercaya cukup dengan membagikan link rekomendasi pendaftaran sekolah.',
   // Real school photos only
   heroPhoto1: '/images/sd-activity-halaqah-tahfidz.jpg',
   heroPhoto2: '/images/sd-activity-classroom-6b.jpg',
@@ -43,7 +43,7 @@ export const DEFAULT_AFFILIATE_CONTENT: Required<AffiliateCMSData> = {
     '100% Gratis Tanpa Biaya Pendaftaran',
     'Pencairan Cepat ke Rekening Bank',
     'Dashboard Real-Time 24/7',
-    'Multi-Unit TK, SD, SMP IT',
+    'Multi-Unit SDIT & SMP IT (TK Segera Hadir)',
     'Materi Promosi Resmi Disediakan',
     'Transparan Tanpa Potongan',
   ],

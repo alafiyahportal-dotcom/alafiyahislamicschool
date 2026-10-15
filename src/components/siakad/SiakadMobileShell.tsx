@@ -60,7 +60,7 @@ const DEMO_STUDENTS: SiakadStudentData[] = [
     nis: '2024-SMP-0078',
     fullName: 'Abdullah Rasyid Al-Ghazi',
     unitLevel: 'SMP',
-    schoolName: 'SMP IT Boarding Al-Afiyah',
+    schoolName: 'SMP IT Al-Afiyah',
     classGrade: '9 SMP IT (Halaqah Mutqin)',
     academicYear: '2026/2027',
     primaryColor: '#064E3B', // Deep Royal Emerald

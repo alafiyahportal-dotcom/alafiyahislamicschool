@@ -553,28 +553,7 @@ export default async function SchoolCMSEditorPage({
       role: 'Wali Murid Kelas 2 SDIT',
       quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.'
     }
-  ] : schoolSlug === 'smp' ? [
-    {
-      name: 'dr. H. Hendra Lesmana, Sp.PD.',
-      role: 'Orang Tua dari Fatih (Alumni & Murid SMP IT)',
-      quote: 'Pilihan terbaik untuk jenjang menengah pertama di Majalengka. Target hafalan Qur\'annya terukur dengan metode mutqin yang sangat baik, dan ananda sangat mandiri serta santun kepada orang tua.'
-    },
-    {
-      name: 'Ibu Hj. Siti Sarah Fauziyyah, M.Pd.',
-      role: 'Wali Murid Kelas VIII SMP IT',
-      quote: 'Perkembangan karakter dan kedisiplinan shalat berjamaah ananda luar biasa berkat Mutaba\'ah Digital dan SCD. Lingkungan pergaulannya sangat terjaga dari pengaruh negatif luar.'
-    },
-    {
-      name: 'Bapak Ahmad Junaedi, S.T.',
-      role: 'Wali Murid Siswi Kelas IX SMP IT',
-      quote: 'Guru-guru asatidz mendampingi murid dengan penuh kesabaran seperti anak sendiri. Fasilitas kelasnya sangat nyaman dan program bahasanya terbukti aktif.'
-    },
-    {
-      name: 'Ibu Nurul Aini, S.Farm., Apt.',
-      role: 'Wali Murid Kelas VII SMP IT',
-      quote: 'Sistem fullday terintegrasi dengan baik antara kurikulum nasional dan nilai pesantren. Anak kami selalu semangat ke sekolah dan prestasinya membanggakan.'
-    }
-  ] : schoolSlug === 'tk' ? [
+  ] : schoolSlug === 'smp' ? [] : schoolSlug === 'tk' ? [
     {
       name: 'Ibu Ratna Dewi, S.Pd',
       role: 'Wali Murid Kelompok B TK IT',
@@ -590,9 +569,11 @@ export default async function SchoolCMSEditorPage({
     { name: 'Ibu Hj. Rina Nurhasanah S.Pd', role: `Wali Murid ${school.name}`, quote: 'Lingkungan belajar islami yang hangat dan para dewan guru yang mendidik dengan sepenuh hati. Pilihan terbaik di Majalengka.' }
   ];
 
-  const testimonialsPayload = (sectionsMap.testimonials && sectionsMap.testimonials.length > 0)
-    ? sectionsMap.testimonials
-    : defaultTestimonialsForSchool;
+  const testimonialsPayload = schoolSlug === 'smp'
+    ? (sectionsMap.testimonials || [])
+    : (sectionsMap.testimonials && sectionsMap.testimonials.length > 0
+        ? sectionsMap.testimonials
+        : defaultTestimonialsForSchool);
 
   const rawTuition = (sectionsMap.tuition as any) || {};
   const tuitionPayload = {

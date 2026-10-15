@@ -99,7 +99,7 @@ const unitCards: UnitCardData[] = [
       },
     ],
     description:
-      'Sekolah Menengah Pertama Islam Terpadu dengan sistem fullday school dan asrama unggulan. Memadukan penguasaan akademik berstandar nasional, pembiasaan adab kemandirian aqil-baligh, dan kepemimpinan islami.',
+      'Sekolah Menengah Pertama Islam Terpadu dengan sistem fullday school unggulan. Memadukan penguasaan akademik berstandar nasional, pembiasaan adab kemandirian aqil-baligh, dan kepemimpinan islami.',
     primaryBtnText: 'Profil SMP IT',
     primaryBtnLink: getSchoolUrl('smp'),
     secondaryBtnText: 'Daftar SPMB SMP',
@@ -157,7 +157,7 @@ export default function SatuanPendidikanSection() {
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal mb-5 lg:text-right">
               Seluruh satuan pendidikan dirancang berkesinambungan: mulai dari
               PAUD &amp; TK IT usia emas, SDIT dengan karakter Smart Akhlak Fitrah,
-              hingga SMP IT unggulan dengan sistem fullday &amp; asrama.
+              hingga SMP IT unggulan dengan sistem fullday school terpadu.
             </p>
 
             <Link
