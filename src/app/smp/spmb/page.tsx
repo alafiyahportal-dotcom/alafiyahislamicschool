@@ -90,6 +90,13 @@ export default async function SmpSpmbInfoPage() {
                 <Megaphone className="w-3.5 h-3.5 text-blue-200" />
                 <span>Pengumuman Kelulusan</span>
               </Link>
+              <Link
+                href="/affiliate/register"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95 inline-flex items-center justify-center gap-2"
+              >
+                <span>Daftar Mitra Afiliasi</span>
+                <span className="font-mono">→</span>
+              </Link>
             </div>
           </div>
         </div>
