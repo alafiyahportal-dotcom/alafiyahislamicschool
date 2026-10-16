@@ -23,20 +23,38 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function SdAnnouncementPage() {
-  // Ambil data sekolah SDIT
-  const sdSchoolData = await prisma.school.findFirst({
-    where: { slug: 'sd' },
-    select: {
-      id: true,
-      slug: true,
-      name: true,
-      badgeText: true,
-      quota: true,
-      waveName: true,
-      primaryColor: true,
-      accentColor: true,
-    },
-  });
+  // Ambil data sekolah SDIT & murid ACCEPTED secara aman
+  let sdSchoolData: any = null;
+  let acceptedList: any[] = [];
+
+  try {
+    sdSchoolData = await prisma.school.findFirst({
+      where: { slug: 'sd' },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        badgeText: true,
+        quota: true,
+        waveName: true,
+        primaryColor: true,
+        accentColor: true,
+      },
+    });
+
+    acceptedList = await prisma.pPDBRegistration.findMany({
+      where: { 
+        status: 'ACCEPTED',
+        school: { slug: 'sd' },
+      },
+      include: { school: true },
+      orderBy: [
+        { registrationNo: 'asc' },
+      ],
+    });
+  } catch (err) {
+    console.error('Error fetching SD announcement data:', err);
+  }
 
   const schoolsFormatted: SchoolInfo[] = sdSchoolData
     ? [
@@ -64,19 +82,7 @@ export default async function SdAnnouncementPage() {
         },
       ];
 
-  // Ambil murid SDIT berstatus ACCEPTED
-  const acceptedList = await prisma.pPDBRegistration.findMany({
-    where: { 
-      status: 'ACCEPTED',
-      school: { slug: 'sd' },
-    },
-    include: { school: true },
-    orderBy: [
-      { registrationNo: 'asc' },
-    ],
-  });
-
-  const formattedData: AcceptedStudent[] = acceptedList.map((reg) => {
+  const formattedData: AcceptedStudent[] = acceptedList.map((reg: any) => {
     let parsedSpecific: Record<string, unknown> = {};
     try {
       parsedSpecific = JSON.parse(reg.schoolSpecificData || '{}');

@@ -23,8 +23,7 @@ import {
   Edit3,
   GraduationCap,
   BookOpen,
-  Layers,
-  Sparkles
+  Layers
 } from 'lucide-react';
 import { INDONESIA_BANKS } from '@/lib/constants/banks';
 import IslamicToast from '@/components/common/IslamicToast';
@@ -106,6 +105,17 @@ export default function AffiliateDashboardPage() {
   const [customBankName, setCustomBankName] = useState('');
   const [bankSaveSuccess, setBankSaveSuccess] = useState<string | null>(null);
   const [bankSaveError, setBankSaveError] = useState<string | null>(null);
+  const [justRegistered, setJustRegistered] = useState(false);
+  const [bankSavedJustNow, setBankSavedJustNow] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('new') === '1') {
+        setJustRegistered(true);
+      }
+    }
+  }, []);
 
   // Islamic Toast State
   const [toast, setToast] = useState<{
@@ -283,13 +293,15 @@ export default function AffiliateDashboardPage() {
       if (profile) {
         setProfile({
           ...profile,
-          bankName: bankFormData.bankName,
+          bankName: finalBankName,
           bankAccountNumber: cleanNum,
           bankAccountHolder: bankFormData.bankAccountHolder.trim(),
           fullName: bankFormData.fullName.trim() || profile.fullName,
           phone: bankFormData.phone.trim() || profile.phone,
         });
       }
+      setBankSavedJustNow(true);
+      setJustRegistered(false);
 
       setTimeout(() => {
         setShowBankModal(false);
@@ -631,34 +643,142 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           </div>
         </div>
 
-        {/* Incomplete Bank Warning Banner */}
-        {isBankIncomplete && (
-          <div className="rounded-2xl bg-amber-50 border-2 border-amber-300 p-5 sm:p-6 text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs animate-in fade-in duration-300">
+        {/* Top Notifications (Matching Screenshot 2 & 3) */}
+        {justRegistered && (
+          <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-900 text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-xs">
+            <span className="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0">
+              ✓
+            </span>
+            <span>
+              Akun afiliasi berhasil dibuat! Kode unikmu: <strong className="font-mono font-bold text-[#064E3B]">{profile?.referralCode}</strong>
+            </span>
+          </div>
+        )}
+
+        {bankSavedJustNow && (
+          <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-900 text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-xs">
+            <span className="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0">
+              ✓
+            </span>
+            <span>Data rekening bank berhasil disimpan.</span>
+          </div>
+        )}
+
+        {/* Bank Completion Card / Verified Card (Matching Screenshot 2 & 3) */}
+        {isBankIncomplete ? (
+          <div className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-sm space-y-4">
             <div className="flex items-start sm:items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-xs">
-                <AlertCircle className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-2xl bg-[#064E3B] text-white flex items-center justify-center shrink-0 shadow-sm">
+                <Building2 className="w-5 h-5" />
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm sm:text-base font-bold text-amber-900">
-                    Nomor Rekening Pencairan Belum Diisi
-                  </h3>
-                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-950">
-                    Bisa Diisi Sekarang
-                  </span>
-                </div>
-                <p className="text-xs text-amber-800/90 mt-1 max-w-2xl leading-relaxed">
-                  Anda sebelumnya mendaftar tanpa mengisi nomor rekening. Silakan lengkapi nomor rekening bank atau nomor HP e-wallet Anda sekarang agar komisi dari pendaftar baru dapat langsung dicairkan tanpa hambatan.
+                <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                  Lengkapi Data Rekening Bank
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Untuk mulai membagikan link referral dan mendapatkan komisi, silakan isi data rekening pencairan Anda di bawah ini.
                 </p>
+              </div>
+            </div>
+
+            <form onSubmit={handleSaveBankSubmit} className="space-y-4 pt-2">
+              {bankSaveError && (
+                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
+                  {bankSaveError}
+                </div>
+              )}
+
+              <div>
+                <label className="text-xs font-bold text-slate-800 block mb-1">
+                  Nama Bank
+                </label>
+                <select
+                  value={isCustomBank ? 'Bank / Rekening Lainnya (Tulis Sendiri)' : bankFormData.bankName}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === 'Bank / Rekening Lainnya (Tulis Sendiri)') {
+                      setIsCustomBank(true);
+                      setBankFormData((p) => ({ ...p, bankName: val }));
+                    } else {
+                      setIsCustomBank(false);
+                      setBankFormData((p) => ({ ...p, bankName: val }));
+                    }
+                  }}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651] bg-white cursor-pointer"
+                >
+                  {INDONESIA_BANKS.map((b) => (
+                    <option key={b} value={b}>{b}</option>
+                  ))}
+                </select>
+                {isCustomBank && (
+                  <input
+                    type="text"
+                    required
+                    value={customBankName}
+                    onChange={(e) => setCustomBankName(e.target.value)}
+                    placeholder="Ketik nama bank Anda"
+                    className="w-full mt-2 px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651]"
+                  />
+                )}
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-800 block mb-1">
+                  Nomor Rekening
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={bankFormData.bankAccountNumber}
+                  onChange={(e) => setBankFormData((p) => ({ ...p, bankAccountNumber: e.target.value }))}
+                  placeholder="Contoh: 1234567890"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651]"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-800 block mb-1">
+                  Atas Nama
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={bankFormData.bankAccountHolder}
+                  onChange={(e) => setBankFormData((p) => ({ ...p, bankAccountHolder: e.target.value }))}
+                  placeholder="Sesuai buku tabungan"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651]"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSavingBank}
+                className="px-6 py-2.5 rounded-xl bg-[#064E3B] hover:bg-[#00A651] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer disabled:opacity-70"
+              >
+                {isSavingBank ? 'Menyimpan Rekening...' : 'Simpan Rekening'}
+              </button>
+            </form>
+          </div>
+        ) : (
+          /* Rekening Pencairan Box (Screenshot 2) */
+          <div className="rounded-2xl bg-emerald-50/70 border border-emerald-200 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+                <Building2 className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-xs text-slate-500 block">Rekening Pencairan:</span>
+                <span className="font-bold text-slate-900 text-sm sm:text-base">
+                  {profile?.bankName} — {profile?.bankAccountNumber} (a.n {profile?.bankAccountHolder})
+                </span>
               </div>
             </div>
             <button
               type="button"
               onClick={handleOpenBankModal}
-              className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-95 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 shrink-0 cursor-pointer whitespace-nowrap"
+              className="text-xs font-bold text-[#064E3B] hover:underline self-start sm:self-auto cursor-pointer"
             >
-              <Building2 className="w-4 h-4" />
-              <span>Isi Rekening Pencairan →</span>
+              Edit Rekening
             </button>
           </div>
         )}

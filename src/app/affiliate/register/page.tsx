@@ -6,31 +6,19 @@ import { useRouter } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { 
-  Users, 
-  Wallet, 
-  Share2, 
-  ShieldCheck, 
-  CheckCircle2, 
-  ArrowRight, 
-  Loader2, 
+  Check, 
   Eye, 
   EyeOff, 
-  Calculator, 
-  Building2, 
-  Award, 
-  Check, 
-  Phone,
-  Gift,
-  HelpCircle
+  Loader2, 
+  AlertCircle 
 } from 'lucide-react';
 import IslamicToast from '@/components/common/IslamicToast';
-import { INDONESIA_BANKS } from '@/lib/constants/banks';
 
 export default function AffiliateRegisterPage() {
   const router = useRouter();
 
   useEffect(() => {
-    document.title = 'Daftar Akun Affiliate Al-Afiyah | Sekolah IT Al-Afiyah';
+    document.title = 'Daftar Mitra Afiliasi | Al-Afiyah Islamic School';
   }, []);
 
   const [formData, setFormData] = useState({
@@ -39,23 +27,10 @@ export default function AffiliateRegisterPage() {
     phone: '',
     password: '',
     confirmPassword: '',
-    referralCode: '',
-    bankName: '',
-    bankAccountNumber: '',
-    bankAccountHolder: '',
   });
-
-  const [isCustomBank, setIsCustomBank] = useState(false);
-  const [customBankName, setCustomBankName] = useState('');
-
-  // Simulator State
-  const [simSd, setSimSd] = useState(4);
-  const [simSmp, setSimSmp] = useState(2);
-  const estimatedEarnings = (simSd * 150000) + (simSmp * 150000);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showBankHelp, setShowBankHelp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [toast, setToast] = useState<{
@@ -69,33 +44,37 @@ export default function AffiliateRegisterPage() {
     message: '',
   });
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage('');
 
-    if (formData.password.length < 6) {
-      const msg = 'Kata sandi minimal terdiri dari 6 karakter';
-      setErrorMessage(msg);
-      setToast({
-        isOpen: true,
-        type: 'error',
-        title: 'Qadarullah, Formulir Belum Lengkap',
-        message: msg,
-      });
+    if (!formData.fullName.trim()) {
+      setErrorMessage('Nama lengkap wajib diisi.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setErrorMessage('Alamat email aktif wajib diisi.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!formData.phone.trim()) {
+      setErrorMessage('Nomor HP / WhatsApp wajib diisi.');
+      setIsLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      setErrorMessage('Password minimal terdiri dari 8 karakter.');
       setIsLoading(false);
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      const msg = 'Konfirmasi kata sandi tidak cocok. Mohon ketik ulang kata sandi Anda.';
-      setErrorMessage(msg);
-      setToast({
-        isOpen: true,
-        type: 'error',
-        title: 'Qadarullah, Kata Sandi Tidak Cocok',
-        message: msg,
-      });
+      setErrorMessage('Konfirmasi password tidak cocok.');
       setIsLoading(false);
       return;
     }
@@ -105,569 +84,205 @@ export default function AffiliateRegisterPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
+          fullName: formData.fullName.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
           password: formData.password,
-          referralCode: formData.referralCode || undefined,
-          bankName: isCustomBank 
-            ? (customBankName.trim() || 'Bank Lainnya') 
-            : (formData.bankName.trim() || 'Pilihan Bank Lainnya'),
-          bankAccountNumber: formData.bankAccountNumber,
-          bankAccountHolder: formData.bankAccountHolder || formData.fullName,
         }),
       });
 
       const data = await res.json();
       if (!res.ok) {
-        const errorText = data.error || 'Gagal mendaftarkan akun Mitra Afiliasi';
-        setErrorMessage(errorText);
-        setToast({
-          isOpen: true,
-          type: 'error',
-          title: 'Qadarullah, Pendaftaran Belum Berhasil',
-          message: errorText,
-        });
-        setIsLoading(false);
-        return;
+        throw new Error(data.error || 'Gagal mendaftar akun afiliasi.');
       }
 
       setToast({
         isOpen: true,
         type: 'success',
-        title: 'Alhamdulillah, Ahlan wa Sahlan!',
-        message: 'Pendaftaran mitra berhasil! Baarakallahu fiik. Mengalihkan Anda ke Dasbor Mitra...',
+        title: 'Alhamdulillah',
+        message: 'Akun afiliasi Anda berhasil dibuat. Mengalihkan ke Dashboard...',
       });
 
       setTimeout(() => {
-        window.location.href = data.redirectUrl || '/affiliate/dashboard';
+        router.push('/affiliate/dashboard?new=1');
       }, 500);
-    } catch {
-      const netMsg = 'Terjadi gangguan jaringan. Silakan periksa koneksi internet Anda.';
-      setErrorMessage(netMsg);
+    } catch (err: unknown) {
+      const error = err as Error;
+      const text = error?.message || 'Terjadi kesalahan sistem saat mendaftar.';
+      setErrorMessage(text);
       setToast({
         isOpen: true,
         type: 'error',
-        title: 'Qadarullah, Gangguan Jaringan',
-        message: netMsg,
+        title: 'Pendaftaran Belum Berhasil',
+        message: text,
       });
+    } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-between font-sans selection:bg-amber-100 selection:text-amber-900">
+    <div className="min-h-screen bg-[#061826] flex flex-col justify-between font-sans selection:bg-amber-400 selection:text-slate-950">
       <Navbar transparentAtTop={false} />
 
-      <main className="flex-1 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        {/* Breadcrumb & Navigation */}
-        <div className="mb-8 flex items-center justify-between">
-          <Link
-            href="/affiliate"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#064E3B] transition-colors"
-          >
-            <span>← Kembali ke Info Affiliate</span>
-          </Link>
-          <div className="text-right">
-            <span className="text-xs text-slate-500">Sudah terdaftar? </span>
+      <main className="flex-1 flex flex-col justify-center items-center py-10 sm:py-16 px-4 w-full">
+        {/* Banner Singkat di Atas Card */}
+        <div className="flex items-center gap-2 text-white/90 text-xs sm:text-sm font-semibold mb-4 sm:mb-5">
+          <span className="w-5 h-5 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center text-xs font-bold">
+            ✓
+          </span>
+          <span>Komisi Berkah Cair Tiap Murid Diterima</span>
+        </div>
+
+        {/* Card Formulir Registrasi Minimalis */}
+        <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Mulai Sekarang
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1.5">
+              Buat akun afiliasi Anda dan dapatkan link unik.
+            </p>
+          </div>
+
+          {errorMessage && (
+            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs mb-5 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* 1. Nama Lengkap */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Nama Lengkap
+              </label>
+              <input
+                type="text"
+                required
+                value={formData.fullName}
+                onChange={(e) => setFormData((p) => ({ ...p, fullName: e.target.value }))}
+                placeholder="Contoh: Budi Santoso"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-transparent transition-all placeholder:text-slate-400"
+              />
+            </div>
+
+            {/* 2. Email Aktif */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Email Aktif
+              </label>
+              <input
+                type="email"
+                required
+                value={formData.email}
+                onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
+                placeholder="Contoh: budi@gmail.com"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-transparent transition-all placeholder:text-slate-400"
+              />
+            </div>
+
+            {/* 3. Nomor HP / WhatsApp */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Nomor HP / WhatsApp
+              </label>
+              <input
+                type="tel"
+                required
+                value={formData.phone}
+                onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
+                placeholder="Contoh: 081234567890"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-transparent transition-all placeholder:text-slate-400"
+              />
+            </div>
+
+            {/* 4. Password */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={formData.password}
+                  onChange={(e) => setFormData((p) => ({ ...p, password: e.target.value }))}
+                  placeholder="Minimal 8 karakter"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-transparent transition-all pr-11 placeholder:text-slate-400"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* 5. Konfirmasi Password */}
+            <div>
+              <label className="text-xs font-bold text-slate-800 block mb-1">
+                Konfirmasi Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  required
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData((p) => ({ ...p, confirmPassword: e.target.value }))}
+                  placeholder="Ulangi password"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-transparent transition-all pr-11 placeholder:text-slate-400"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                  tabIndex={-1}
+                >
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm tracking-wide transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
+                    <span>Mendaftarkan Akun...</span>
+                  </>
+                ) : (
+                  <span>Daftar Jadi Affiliator — Gratis</span>
+                )}
+              </button>
+            </div>
+          </form>
+
+          {/* Login Link */}
+          <div className="text-center mt-6 pt-5 border-t border-slate-100 text-xs text-slate-500">
+            <span>Sudah punya akun? </span>
             <Link
-              href="/affiliate/dashboard"
-              className="text-xs font-bold text-[#064E3B] hover:underline"
+              href="/login"
+              className="font-bold text-[#064e3b] hover:text-[#00A651] transition-colors"
             >
-              Masuk ke Dashboard →
+              Login di Sini
             </Link>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-          
-          {/* LEFT COLUMN: Value Proposition, Interactive Calculator & Perks */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="rounded-3xl bg-[#064E3B] text-white p-7 sm:p-8 shadow-xl relative overflow-hidden border border-emerald-900/60">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
-
-              <div className="relative z-10 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-300 text-xs font-bold">
-                  <Award className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Program Affiliate Al-Afiyah 2027/2028</span>
-                </div>
-
-                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug">
-                  Daftar Menjadi Affiliate Al-Afiyah
-                </h1>
-
-                <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
-                  Bantu mengenalkan pendidikan Islam terpadu berkualitas kepada keluarga, kerabat, dan masyarakat. Raih pahala jariyah sekaligus bagi hasil komisi berkah yang cair transparan langsung ke rekening Anda.
-                </p>
-
-                {/* Rate Card Preview */}
-                <div className="pt-3 border-t border-white/15 space-y-2.5">
-                  <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">
-                    Struktur Komisi Resmi Per-Murid Diterima:
-                  </p>
-                  <div className="grid grid-cols-3 gap-2 text-center">
-                    <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-dashed border-amber-300/40">
-                      <span className="text-[10px] text-amber-300 block font-bold">TK IT</span>
-                      <strong className="text-xs font-bold text-amber-200 block mt-0.5">Segera Hadir</strong>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
-                      <span className="text-[10px] text-emerald-200 block font-medium">SDIT</span>
-                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 150.000</strong>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-xs border border-white/15">
-                      <span className="text-[10px] text-emerald-200 block font-medium">SMP IT</span>
-                      <strong className="text-xs font-bold text-white block mt-0.5">Rp 150.000</strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Interactive Commission Estimator Card */}
-            <div className="rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                  <Calculator className="w-4 h-4 text-emerald-600" />
-                  <span>Simulasi Potensi Bagi Hasil Anda</span>
-                </h3>
-                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                  Transparan
-                </span>
-              </div>
-
-              <div className="space-y-3 pt-1">
-                {/* TK info box */}
-                <div className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-center justify-between text-xs">
-                  <div>
-                    <span className="font-bold text-amber-950 block">Calon Murid TK IT:</span>
-                    <span className="text-[10px] text-amber-800">Skema komisi sedang dalam penetapan panitia</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 font-extrabold text-[10px] uppercase">
-                    Segera Hadir
-                  </span>
-                </div>
-
-                {/* SD slider */}
-                <div>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-slate-600 font-medium">Calon Murid SDIT:</span>
-                    <strong className="text-slate-900 font-bold">{simSd} Murid</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="15"
-                    value={simSd}
-                    onChange={(e) => setSimSd(parseInt(e.target.value))}
-                    className="w-full accent-[#064E3B] cursor-pointer"
-                  />
-                </div>
-
-                {/* SMP slider */}
-                <div>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-slate-600 font-medium">Calon Murid SMP IT:</span>
-                    <strong className="text-slate-900 font-bold">{simSmp} Murid</strong>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="10"
-                    value={simSmp}
-                    onChange={(e) => setSimSmp(parseInt(e.target.value))}
-                    className="w-full accent-[#064E3B] cursor-pointer"
-                  />
-                </div>
-              </div>
-
-              {/* Total Calculation Result Box */}
-              <div className="p-4 rounded-2xl bg-[#064E3B] text-white flex items-center justify-between">
-                <div>
-                  <span className="text-[11px] text-emerald-200 font-medium block">Total Potensi Komisi:</span>
-                  <div className="text-xl sm:text-2xl font-black text-amber-300 font-mono">
-                    Rp {estimatedEarnings.toLocaleString('id-ID')}
-                  </div>
-                </div>
-                <div className="text-right text-[10px] text-emerald-100/80">
-                  {simSd + simSmp} Total Rujukan (SD &amp; SMP)
-                </div>
-              </div>
-            </div>
-
-            {/* Syiar Guarantee & Perks List */}
-            <div className="rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-700" />
-                <span>Keuntungan &amp; Fasilitas Affiliate</span>
-              </h3>
-
-              <div className="space-y-3.5 text-xs text-slate-700">
-                <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                    ✓
-                  </div>
-                  <div>
-                    <strong className="text-slate-900 block font-semibold">Tautan Referral Multi-Unit Otomatis</strong>
-                    <span className="text-slate-500 text-[11px] leading-relaxed">
-                      Satu akun langsung mendapatkan tautan khusus TK IT, SDIT, dan SMP IT dengan cookie tracking 30 hari.
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                    ✓
-                  </div>
-                  <div>
-                    <strong className="text-slate-900 block font-semibold">Dasbor Pemantauan Real-Time 24/7</strong>
-                    <span className="text-slate-500 text-[11px] leading-relaxed">
-                      Pantau siapa saja calon murid yang mendaftar, status kelulusan, dan saldo komisi yang masuk secara transparan.
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                    ✓
-                  </div>
-                  <div>
-                    <strong className="text-slate-900 block font-semibold">Marketing Kit &amp; Materi Promosi Digital</strong>
-                    <span className="text-slate-500 text-[11px] leading-relaxed">
-                      Tersedia teks promosi siap salin ke WhatsApp, flyer digital, dan QR Code unik untuk dibagikan ke wali murid.
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">
-                    ✓
-                  </div>
-                  <div>
-                    <strong className="text-slate-900 block font-semibold">Pencairan Dana Terjadwal (1x Seminggu)</strong>
-                    <span className="text-slate-500 text-[11px] leading-relaxed">
-                      Klaim pencairan komisi dapat diajukan secara berkala 1 kali setiap minggu ke rekening bank pilihan Anda tanpa potongan biaya admin yang memberatkan.
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial Quote */}
-            <div className="rounded-3xl bg-amber-50/80 border border-amber-200/80 p-5 text-xs text-amber-950 leading-relaxed shadow-2xs">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-7 h-7 rounded-full bg-amber-400 text-slate-950 font-bold flex items-center justify-center text-xs">
-                  AH
-                </div>
-                <div>
-                  <strong className="block font-bold">Ustadz Ahmad Al-Hafidz</strong>
-                  <span className="text-[10px] text-amber-800">Affiliate Tier Gold • 12 Murid Rujukan</span>
-                </div>
-              </div>
-              <p className="italic text-slate-700">
-                &ldquo;Alhamdulillah, selain ikut menyiarkan kebaikan pendidikan Al-Qur&apos;an di Majalengka, sistem komisi Al-Afiyah sangat amanah dan pencairannya tepat waktu setiap awal bulan.&rdquo;
-              </p>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: Dedicated Registration Form Card */}
-          <div className="lg:col-span-7">
-            <div className="bg-white rounded-3xl p-7 sm:p-10 border border-slate-200/90 shadow-md">
-              <div className="border-b border-slate-100 pb-5 mb-6">
-                <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                  Formulir Pendaftaran Affiliate
-                </span>
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-2">
-                  Lengkapi Data Akun Affiliate Anda
-                </h2>
-                <p className="text-xs text-slate-500 mt-1">
-                  Pendaftaran gratis, langsung aktif tanpa menunggu verifikasi berhari-hari.
-                </p>
-              </div>
-
-              {errorMessage && (
-                <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700">
-                  {errorMessage}
-                </div>
-              )}
-
-              <form onSubmit={handleRegister} className="space-y-6">
-                {/* 1. INFORMASI PRIBADI */}
-                <div className="space-y-4">
-                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#064E3B] text-white flex items-center justify-center text-[10px]">
-                      1
-                    </span>
-                    <span>Informasi Pribadi</span>
-                  </h3>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Nama Lengkap &amp; Gelar <span className="text-rose-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.fullName}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        setFormData({
-                          ...formData,
-                          fullName: val,
-                          bankAccountHolder: formData.bankAccountHolder || val,
-                        });
-                      }}
-                      placeholder="Contoh: Hendra Gunawan S.Pd.I"
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                        Email Aktif <span className="text-rose-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="nama@gmail.com"
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                        No. WhatsApp Aktif <span className="text-rose-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="0812xxxxxxxx"
-                        className="w-full px-4 py-3 text-xs sm:text-sm font-mono font-semibold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                        Kata Sandi Dasbor <span className="text-rose-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={showPassword ? 'text' : 'password'}
-                          required
-                          value={formData.password}
-                          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                          placeholder="Minimal 6 karakter"
-                          className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs pr-10"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
-                        >
-                          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                        Konfirmasi Kata Sandi <span className="text-rose-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={showConfirmPassword ? 'text' : 'password'}
-                          required
-                          value={formData.confirmPassword}
-                          onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                          placeholder="Ketik ulang kata sandi"
-                          className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs pr-10"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
-                        >
-                          {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. REKENING BANK PENAMPUNG KOMISI */}
-                <div className="space-y-4 pt-4 border-t border-slate-100">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-5 h-5 rounded-full bg-[#064E3B] text-white flex items-center justify-center text-[10px]">
-                        2
-                      </span>
-                      <span>Rekening Bank Penampung Komisi</span>
-                    </h3>
-                    <button
-                      type="button"
-                      onClick={() => setShowBankHelp(!showBankHelp)}
-                      className="text-[11px] text-emerald-800 hover:underline flex items-center gap-1 font-medium cursor-pointer"
-                    >
-                      <HelpCircle className="w-3.5 h-3.5" />
-                      <span>Kenapa dibutuhkan?</span>
-                    </button>
-                  </div>
-
-                  {showBankHelp && (
-                    <div className="p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-xs text-emerald-900 leading-relaxed">
-                      Nomor rekening digunakan secara otomatis oleh Bagian Keuangan Yayasan Imam Bonjol Majalengka saat mentransfer komisi rujukan murid baru yang telah menyelesaikan pembayaran.
-                    </div>
-                  )}
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Pilihan Bank / Dompet Digital Pencairan <span className="text-slate-400 font-normal">(Bebas Semua Bank)</span>
-                    </label>
-                    <select
-                      value={isCustomBank ? 'Bank / Rekening Lainnya (Tulis Sendiri)' : formData.bankName}
-                      onChange={(e) => {
-                        if (e.target.value === 'Bank / Rekening Lainnya (Tulis Sendiri)') {
-                          setIsCustomBank(true);
-                          setFormData({ ...formData, bankName: '' });
-                        } else {
-                          setIsCustomBank(false);
-                          setFormData({ ...formData, bankName: e.target.value });
-                        }
-                      }}
-                      className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs cursor-pointer"
-                    >
-                      <option value="">-- Pilih Bank / E-Wallet Pencairan --</option>
-                      {INDONESIA_BANKS.map((b) => (
-                        <option key={b} value={b}>
-                          {b}
-                        </option>
-                      ))}
-                    </select>
-
-                    {isCustomBank && (
-                      <div className="mt-2.5 animate-in fade-in duration-200">
-                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                          Tuliskan Nama Bank / Dompet Digital Anda: <span className="text-rose-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required={isCustomBank}
-                          value={customBankName}
-                          onChange={(e) => setCustomBankName(e.target.value)}
-                          placeholder="Contoh: Bank Nagari, Bank Jateng, Bank Kalbar, Jenius, dll"
-                          className="w-full px-4 py-2.5 text-xs sm:text-sm bg-white border border-emerald-600/40 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:outline-hidden text-slate-900 shadow-2xs"
-                        />
-                      </div>
-                    )}
-
-                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-                      💡 Bebas menggunakan rekening bank apa saja (BSI, BCA, BRI, Mandiri, BNI, Bank Daerah) atau E-Wallet (DANA/GoPay/OVO) atas nama pribadi Anda.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="block text-xs font-bold text-slate-700">
-                          Nomor Rekening
-                        </label>
-                        <span className="text-[10px] text-emerald-800 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
-                          Bisa Diisi Nanti
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        value={formData.bankAccountNumber}
-                        onChange={(e) => setFormData({ ...formData, bankAccountNumber: e.target.value })}
-                        placeholder="Contoh: 7123456789 (Bisa dikosongkan)"
-                        className="w-full px-4 py-3 text-xs sm:text-sm font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                        Nama Pemilik Rekening
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.bankAccountHolder}
-                        onChange={(e) => setFormData({ ...formData, bankAccountHolder: e.target.value })}
-                        placeholder="Sesuai buku tabungan / nama Anda"
-                        className="w-full px-4 py-3 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden font-semibold text-slate-900 shadow-2xs"
-                      />
-                    </div>
-                  </div>
-                  <p className="text-[11px] text-slate-500">
-                    *Bagi yang belum menyiapkan nomor rekening saat mendaftar, dapat langsung melengkapinya nanti melalui menu <strong>Pengaturan Akun &amp; Rekening</strong> di dalam Dasbor Affiliate Anda.
-                  </p>
-                </div>
-
-                {/* 3. KUSTOMISASI KODE REFERRAL */}
-                <div className="space-y-4 pt-4 border-t border-slate-100">
-                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#064E3B] text-white flex items-center justify-center text-[10px]">
-                      3
-                    </span>
-                    <span>Kustomisasi Kode Unik Tautan Referral (Opsional)</span>
-                  </h3>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Kode Referral Pilihan Anda
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={formData.referralCode}
-                        onChange={(e) => setFormData({ ...formData, referralCode: e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '') })}
-                        placeholder="Contoh: REF-HENDRA atau KODE-ALFI"
-                        className="w-full px-4 py-3 text-xs sm:text-sm uppercase font-mono font-bold bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:ring-2 focus:ring-emerald-600/20 focus:bg-white focus:outline-hidden text-slate-900 shadow-2xs"
-                      />
-                    </div>
-                    <span className="text-[11px] text-slate-400 mt-1 block">
-                      *Jika dikosongkan, sistem akan otomatis membuatkan kode unik berdasarkan nama depan Anda.
-                    </span>
-                  </div>
-                </div>
-
-                {/* SUBMIT BUTTON */}
-                <div className="pt-4">
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full py-4 px-6 rounded-2xl bg-[#064E3B] hover:bg-emerald-900 text-white font-bold text-sm sm:text-base shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer tactile-press disabled:opacity-70"
-                  >
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Mendaftarkan Akun Affiliate...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Daftar &amp; Dapatkan Tautan Referral Saya</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-
-                  <p className="text-[11px] text-center text-slate-400 mt-3 leading-relaxed">
-                    Dengan mendaftar, Anda menyetujui ketentuan dan apresiasi komisi program Affiliate Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka.
-                  </p>
-                </div>
-              </form>
-            </div>
-          </div>
-
-        </div>
       </main>
 
+      <Footer />
+
+      {/* Islamic Toast Notification */}
       <IslamicToast
         isOpen={toast.isOpen}
         onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
@@ -675,8 +290,6 @@ export default function AffiliateRegisterPage() {
         title={toast.title}
         message={toast.message}
       />
-
-      <Footer />
     </div>
   );
 }

@@ -30,12 +30,17 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const foundation = await prisma.school.findUnique({
-    where: { slug: 'foundation' },
-    include: {
-      cmsSections: true,
-    },
-  });
+  let foundation = null;
+  try {
+    foundation = await prisma.school.findUnique({
+      where: { slug: 'foundation' },
+      include: {
+        cmsSections: true,
+      },
+    });
+  } catch (err) {
+    console.error('Error fetching foundation data:', err);
+  }
 
   const heroSection = foundation?.cmsSections.find((s) => s.sectionKey === 'hero');
   let heroData: any = {};
