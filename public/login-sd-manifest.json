@@ -1,0 +1,17 @@
+{
+  "id": "/login-sd",
+  "name": "Portal Masuk SDIT Al-Afiyah",
+  "short_name": "Login SDIT",
+  "description": "Portal Masuk Resmi Siswa, Guru, dan Wali Murid SDIT Al-Afiyah Majalengka.",
+  "start_url": "/login?unit=sd",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#00A651",
+  "theme_color": "#00A651",
+  "lang": "id",
+  "icons": [
+    { "src": "/icons/sd-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/sd-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/sd-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

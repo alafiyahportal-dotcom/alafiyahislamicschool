@@ -12,7 +12,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { extractSubdomain } from '@/lib/domain';
-import { applyThemeColorToDocument } from '@/components/shared/DynamicUnitThemeColorSync';
+import { applyThemeColorToDocument, applyPwaIdentityToDocument } from '@/components/shared/DynamicUnitThemeColorSync';
 import IslamicToast from '@/components/common/IslamicToast';
 
 type UnitKey = 'yayasan' | 'sd' | 'smp' | 'tk';
@@ -126,17 +126,21 @@ export default function LoginPage() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
-      const paramUnit = params.get('unit') as UnitKey | null;
+      const paramUnit = (params.get('unit') || params.get('school')) as UnitKey | null;
       const sub = extractSubdomain(window.location.host) as UnitKey | null;
+      const stored = localStorage.getItem('alafiyah_active_unit') as UnitKey | null;
 
       let resolved: UnitKey = 'sd';
       if (paramUnit && ['sd', 'smp', 'tk', 'yayasan'].includes(paramUnit)) {
         resolved = paramUnit;
       } else if (sub && ['sd', 'smp', 'tk'].includes(sub)) {
         resolved = sub;
+      } else if (stored && ['sd', 'smp', 'tk', 'yayasan'].includes(stored)) {
+        resolved = stored;
       }
 
       setActiveUnit(resolved);
+      applyPwaIdentityToDocument(resolved === 'yayasan' ? 'sd' : resolved, '/login');
 
       // Preload target routes in browser cache
       try {
@@ -150,52 +154,22 @@ export default function LoginPage() {
 
   const currentTheme = UNIT_THEMES[activeUnit] || UNIT_THEMES.sd;
 
-  // Dynamically synchronize browser tab title & favicon based on active unit
+  // Dynamically synchronize browser tab title, favicon, and PWA manifest based on active unit
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
     // 1. Update Document Title
     document.title = `Masuk ke Akun | ${currentTheme.name}`;
 
-    // 2. Select matching favicon icon
-    const iconHref = activeUnit === 'smp' 
-      ? '/images/smp-logo.png' 
-      : activeUnit === 'sd' || activeUnit === 'tk' 
-      ? '/images/sd-logo.png' 
-      : '/favicon.ico';
-    const iconType = activeUnit === 'yayasan' ? 'image/x-icon' : 'image/png';
+    // 2. Full PWA & Add-to-Screen sync (Manifest, Apple Touch Icon, Favicon, Theme Color)
+    const pwaUnit = activeUnit === 'yayasan' ? 'sd' : activeUnit;
+    applyPwaIdentityToDocument(pwaUnit, '/login');
 
-    // 3. Update existing icon link elements in head
-    const existingIcons = document.querySelectorAll<HTMLLinkElement>(
-      "link[rel*='icon'], link[rel='shortcut icon'], link[rel='apple-touch-icon']"
-    );
-
-    if (existingIcons.length === 0) {
-      const link = document.createElement('link');
-      link.rel = 'icon';
-      link.type = iconType;
-      link.href = iconHref;
-      document.head.appendChild(link);
-    } else {
-      existingIcons.forEach((el) => {
-        el.type = iconType;
-        el.href = iconHref;
-      });
-    }
-
-    // 4. Force browser tab to refresh icon by appending clean icon element
-    const freshIcon = document.createElement('link');
-    freshIcon.rel = 'icon';
-    freshIcon.type = iconType;
-    freshIcon.href = `${iconHref}?unit=${activeUnit}`;
-    document.head.appendChild(freshIcon);
-
-    // 5. Update browser mobile address bar / status bar (theme-color) to unit identity
-    applyThemeColorToDocument(currentTheme.primaryColor);
-
-    return () => {
-      freshIcon.remove();
-    };
+    // 3. Persist unit preference for subsequent pages (affiliate, dashboard, etc.)
+    try {
+      localStorage.setItem('alafiyah_active_unit', activeUnit);
+      document.cookie = `alafiyah_active_unit=${activeUnit}; path=/; max-age=2592000; SameSite=Lax`;
+    } catch {}
   }, [activeUnit, currentTheme]);
 
   const handleLogin = async (targetEmail = email, targetPass = password) => {

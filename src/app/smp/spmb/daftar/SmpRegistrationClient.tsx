@@ -187,7 +187,7 @@ export default function SmpRegistrationClient() {
                 Mau bagi hasil berkah dengan mereferensikan calon murid?
               </span>
               <Link
-                href="/affiliate/register"
+                href="/affiliate/register?unit=smp"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ffd51e] hover:bg-yellow-400 text-[#030164] text-xs font-bold transition-all shadow-sm"
               >
                 <span>Daftar Mitra Afiliasi</span>

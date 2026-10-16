@@ -13,12 +13,22 @@ import {
   AlertCircle 
 } from 'lucide-react';
 import IslamicToast from '@/components/common/IslamicToast';
+import { detectActiveUnit, applyPwaIdentityToDocument, ActiveUnitType } from '@/components/shared/DynamicUnitThemeColorSync';
 
 export default function AffiliateRegisterPage() {
   const router = useRouter();
+  const [activeUnit, setActiveUnit] = useState<ActiveUnitType>('sd');
 
   useEffect(() => {
-    document.title = 'Daftar Mitra Afiliasi | Al-Afiyah Islamic School';
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search);
+      const unit = detectActiveUnit(window.location.pathname, searchParams);
+      setActiveUnit(unit);
+      applyPwaIdentityToDocument(unit, '/affiliate/register');
+      document.title = unit === 'smp' 
+        ? 'Daftar Mitra Afiliasi SMP IT | Al-Afiyah' 
+        : 'Daftar Mitra Afiliasi | Al-Afiyah Islamic School';
+    }
   }, []);
 
   const [formData, setFormData] = useState({
@@ -109,7 +119,7 @@ export default function AffiliateRegisterPage() {
 
       setTimeout(() => {
         const codeParam = data.profile?.referralCode ? `&code=${encodeURIComponent(data.profile.referralCode)}` : '';
-        window.location.href = `/affiliate/dashboard?new=1${codeParam}`;
+        window.location.href = `/affiliate/dashboard?new=1${codeParam}&unit=${activeUnit}`;
       }, 700);
     } catch (err: unknown) {
       const error = err as Error;
@@ -128,7 +138,7 @@ export default function AffiliateRegisterPage() {
 
   return (
     <div className="min-h-screen bg-[#061826] flex flex-col justify-between font-sans selection:bg-amber-400 selection:text-slate-950">
-      <Navbar transparentAtTop={false} />
+      <Navbar schoolSlug={activeUnit === 'smp' ? 'smp' : activeUnit === 'sd' ? 'sd' : undefined} transparentAtTop={false} />
 
       <main className="flex-1 flex flex-col justify-center items-center py-10 sm:py-16 px-4 w-full">
         {/* Banner Singkat di Atas Card */}
@@ -146,7 +156,9 @@ export default function AffiliateRegisterPage() {
               Mulai Sekarang
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-1.5">
-              Buat akun afiliasi Anda dan dapatkan link unik.
+              {activeUnit === 'smp' 
+                ? 'Buat akun afiliasi Anda dan dapatkan link unik rekomendasi SMP IT.'
+                : 'Buat akun afiliasi Anda dan dapatkan link unik.'}
             </p>
           </div>
 
@@ -276,7 +288,7 @@ export default function AffiliateRegisterPage() {
           <div className="text-center mt-6 pt-5 border-t border-slate-100 text-xs text-slate-500">
             <span>Sudah punya akun? </span>
             <Link
-              href="/login"
+              href={activeUnit === 'smp' ? '/login?unit=smp' : activeUnit === 'sd' ? '/login?unit=sd' : '/login'}
               className="font-bold text-[#064e3b] hover:text-[#00A651] transition-colors"
             >
               Login di Sini
@@ -285,7 +297,7 @@ export default function AffiliateRegisterPage() {
         </div>
       </main>
 
-      <Footer />
+      <Footer schoolSlug={activeUnit === 'smp' ? 'smp' : activeUnit === 'sd' ? 'sd' : undefined} />
 
       {/* Islamic Toast Notification */}
       <IslamicToast

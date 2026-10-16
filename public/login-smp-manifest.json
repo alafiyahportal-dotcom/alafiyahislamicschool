@@ -1,0 +1,17 @@
+{
+  "id": "/login-smp",
+  "name": "Portal Masuk SMP IT Al-Afiyah",
+  "short_name": "Login SMP IT",
+  "description": "Portal Masuk Resmi Siswa, Guru, dan Wali Murid SMP IT Al-Afiyah Majalengka.",
+  "start_url": "/login?unit=smp",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#030164",
+  "theme_color": "#030164",
+  "lang": "id",
+  "icons": [
+    { "src": "/icons/smp-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/smp-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/smp-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -221,7 +221,7 @@ export default function SdRegistrationClient() {
                 Mau bagi hasil berkah dengan mereferensikan calon murid?
               </span>
               <Link
-                href="/affiliate/register"
+                href="/affiliate/register?unit=sd"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold transition-all shadow-sm"
               >
                 <span>Daftar Mitra Afiliasi</span>

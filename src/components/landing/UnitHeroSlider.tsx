@@ -298,7 +298,7 @@ export default function UnitHeroSlider({
 
           {(slug === 'sd' || slug === 'smp') && (
             <Link
-              href="/affiliate/register"
+              href={`/affiliate/register?unit=${slug}`}
               className="col-span-2 sm:col-span-1 inline-flex h-12 items-center justify-center gap-1.5 px-4 sm:px-5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95"
             >
               <span>Daftar Mitra Afiliasi</span>

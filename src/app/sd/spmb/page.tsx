@@ -172,7 +172,7 @@ export default async function SdSpmbInfoPage() {
               </Link>
 
               <Link
-                href="/affiliate/register"
+                href="/affiliate/register?unit=sd"
                 className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
               >
                 <span>Daftar Mitra Afiliasi</span>
