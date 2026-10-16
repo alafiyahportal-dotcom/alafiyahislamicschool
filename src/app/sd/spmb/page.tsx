@@ -151,32 +151,40 @@ export default async function SdSpmbInfoPage() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/sd/spmb/daftar"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-400/20 active:scale-95 transition-all"
+                className="group relative overflow-hidden inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-400/20 active:scale-95 transition-all duration-300 hover:scale-[1.02] animate-cta-glow-amber"
               >
-                <span>Isi Formulir SPMB Online</span>
-                <ArrowRight className="w-4 h-4 text-slate-950" />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent"
+                />
+                <span className="relative z-10">Isi Formulir SPMB Online</span>
+                <ArrowRight className="relative z-10 w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow" />
               </Link>
 
               <Link
                 href="/sd/spmb/cek-status"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all duration-200 hover:scale-[1.02] active:scale-95"
               >
                 <span>Lacak Status Pendaftaran</span>
               </Link>
 
               <Link
                 href="/sd/spmb/pengumuman"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all duration-200 hover:scale-[1.02] active:scale-95"
               >
                 <span>Pengumuman Kelulusan</span>
               </Link>
 
               <Link
                 href="/affiliate/register?unit=sd"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
+                className="group relative overflow-hidden inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 animate-cta-glow-amber"
               >
-                <span>Daftar Mitra Afiliasi</span>
-                <span className="font-mono">→</span>
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer-delay bg-gradient-to-r from-transparent via-white/45 to-transparent"
+                />
+                <span className="relative z-10">Daftar Mitra Afiliasi</span>
+                <span className="relative z-10 font-mono transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow">→</span>
               </Link>
             </div>
           </div>

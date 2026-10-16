@@ -278,10 +278,15 @@ export default function UnitHeroSlider({
         <div className="grid grid-cols-2 gap-2.5 sm:flex sm:gap-3 mb-3 sm:mb-5">
           <Link
             href={effectiveCtaLink}
-            className={`inline-flex h-12 items-center justify-center gap-1.5 px-3 sm:px-7 rounded-xl text-[13px] sm:text-sm font-black shadow-lg shadow-black/15 transition-all duration-200 hover:-translate-y-0.5 active:scale-95 ${theme.primaryBtn}`}
+            className={`group relative overflow-hidden inline-flex h-12 items-center justify-center gap-2 px-3 sm:px-7 rounded-xl text-[13px] sm:text-sm font-black transition-all duration-300 hover:scale-[1.02] active:scale-95 animate-cta-glow ${theme.primaryBtn}`}
           >
-            <span className="truncate">{slug === 'smp' ? 'Daftar SPMB' : slide.primaryCtaText || 'Daftar SPMB'}</span>
-            <ArrowRight className="w-4 h-4 shrink-0" />
+            {/* 60fps Shimmer Beam */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent"
+            />
+            <span className="relative z-10 truncate">{slug === 'smp' ? 'Daftar SPMB' : slide.primaryCtaText || 'Daftar SPMB'}</span>
+            <ArrowRight className="relative z-10 w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow" />
           </Link>
 
           {slide.secondaryCtaLink && (
@@ -289,9 +294,14 @@ export default function UnitHeroSlider({
               href={slide.secondaryCtaLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-1.5 px-3 sm:px-6 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs sm:text-sm font-bold uppercase tracking-wider backdrop-blur-sm transition-all"
+              className="group inline-flex h-12 items-center justify-center gap-2 px-3 sm:px-6 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/50 text-white text-xs sm:text-sm font-bold uppercase tracking-wider backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-95 hover:shadow-[0_0_24px_rgba(255,255,255,0.2)]"
             >
-              <MessageCircle className="w-4 h-4 text-[#ffd51e] shrink-0" />
+              {/* Online Green Pulsing Indicator */}
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
+              <MessageCircle className="w-4 h-4 text-[#ffd51e] shrink-0 animate-cta-wiggle group-hover:scale-110 transition-transform duration-200" />
               <span className="truncate">Konsultasi WA</span>
             </a>
           )}
@@ -299,10 +309,15 @@ export default function UnitHeroSlider({
           {(slug === 'sd' || slug === 'smp') && (
             <Link
               href={`/affiliate/register?unit=${slug}`}
-              className="col-span-2 sm:col-span-1 inline-flex h-12 items-center justify-center gap-1.5 px-4 sm:px-5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-bold shadow-md transition-all active:scale-95"
+              className="group relative overflow-hidden col-span-2 sm:col-span-1 inline-flex h-12 items-center justify-center gap-2 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-slate-950 text-xs sm:text-sm font-black shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 animate-cta-glow-amber"
             >
-              <span>Daftar Mitra Afiliasi</span>
-              <span className="font-mono">→</span>
+              {/* Delayed Shimmer Beam for natural choreography */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer-delay bg-gradient-to-r from-transparent via-white/45 to-transparent"
+              />
+              <span className="relative z-10">Daftar Mitra Afiliasi</span>
+              <span className="relative z-10 font-mono transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow">→</span>
             </Link>
           )}
         </div>

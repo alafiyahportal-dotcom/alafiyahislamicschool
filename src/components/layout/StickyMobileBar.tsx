@@ -105,7 +105,7 @@ export default function StickyMobileBar({
       
       <Link
         href={targetHref}
-        className={`min-w-0 flex-1 py-2.5 px-3 rounded-full ${
+        className={`group relative overflow-hidden min-w-0 flex-1 py-2.5 px-3 rounded-full ${
           schoolSlug === 'sd'
             ? 'bg-gradient-to-r from-[#064e3b] to-[#047857] hover:from-[#047857] hover:to-[#00A651] shadow-[#064e3b]/30 text-white'
             : schoolSlug === 'smp'
@@ -113,8 +113,12 @@ export default function StickyMobileBar({
             : 'bg-gradient-to-r from-softwater-dark to-softwater text-white'
         } text-xs font-bold text-center shadow-md flex items-center justify-center space-x-1.5 transition-all active:scale-95`}
       >
-        <span className="truncate">{btnLabel}</span>
-        <ArrowRight className={`w-3.5 h-3.5 flex-shrink-0 ${schoolSlug === 'smp' ? 'text-[#ffd51e]' : 'text-amber-300'}`} />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent"
+        />
+        <span className="relative z-10 truncate">{btnLabel}</span>
+        <ArrowRight className={`relative z-10 w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow ${schoolSlug === 'smp' ? 'text-[#ffd51e]' : 'text-amber-300'}`} />
       </Link>
     </div>
   );

@@ -71,31 +71,39 @@ export default async function SmpSpmbInfoPage() {
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
               <Link
                 href="/smp/spmb/daftar"
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95 inline-flex items-center justify-center gap-2"
+                className="group relative overflow-hidden w-full sm:w-auto px-6 py-3 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2 animate-cta-glow"
               >
-                <span>Isi Formulir Online</span>
-                <ArrowRight className="w-4 h-4" />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent"
+                />
+                <span className="relative z-10">Isi Formulir Online</span>
+                <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow" />
               </Link>
               <Link
                 href="/smp/spmb/cek-status"
-                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2"
               >
                 <FileSearch className="w-3.5 h-3.5 text-blue-200" />
                 <span>Cek Status Berkas</span>
               </Link>
               <Link
                 href="/smp/spmb/pengumuman"
-                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2"
               >
                 <Megaphone className="w-3.5 h-3.5 text-blue-200" />
                 <span>Pengumuman Kelulusan</span>
               </Link>
               <Link
                 href="/affiliate/register?unit=smp"
-                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95 inline-flex items-center justify-center gap-2"
+                className="group relative overflow-hidden w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2 animate-cta-glow-amber"
               >
-                <span>Daftar Mitra Afiliasi</span>
-                <span className="font-mono">→</span>
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer-delay bg-gradient-to-r from-transparent via-white/45 to-transparent"
+                />
+                <span className="relative z-10">Daftar Mitra Afiliasi</span>
+                <span className="relative z-10 font-mono transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow">→</span>
               </Link>
             </div>
           </div>
