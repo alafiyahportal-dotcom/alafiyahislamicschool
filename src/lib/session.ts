@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import crypto from 'crypto';
 
 export interface UserSession {
@@ -80,6 +80,17 @@ export function verifyAndDecodeToken(token: string): UserSession | null {
 
 export async function setSession(user: UserSession) {
   const cookieStore = await cookies();
+  let domain: string | undefined = undefined;
+  try {
+    const headerStore = await headers();
+    const host = headerStore.get('host') || '';
+    if (host.includes('alafiyah.id')) {
+      domain = '.alafiyah.id';
+    }
+  } catch {
+    // Safe fallback if headers not available
+  }
+
   const token = encodeSession(user);
 
   cookieStore.set(SESSION_COOKIE_NAME, token, {
@@ -88,6 +99,7 @@ export async function setSession(user: UserSession) {
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: '/',
+    ...(domain ? { domain } : {}),
   });
 }
 
@@ -105,7 +117,20 @@ export async function getSession(): Promise<UserSession | null> {
 
 export async function clearSession() {
   const cookieStore = await cookies();
-  cookieStore.delete(SESSION_COOKIE_NAME);
+  let domain: string | undefined = undefined;
+  try {
+    const headerStore = await headers();
+    const host = headerStore.get('host') || '';
+    if (host.includes('alafiyah.id')) {
+      domain = '.alafiyah.id';
+    }
+  } catch {}
+
+  cookieStore.delete({
+    name: SESSION_COOKIE_NAME,
+    path: '/',
+    ...(domain ? { domain } : {}),
+  });
 }
 
 export function getRedirectUrlForRole(role: string, schoolSlug?: string | null): string {

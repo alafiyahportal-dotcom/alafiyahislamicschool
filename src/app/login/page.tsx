@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
@@ -102,12 +101,12 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
 };
 
 export default function LoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [toast, setToast] = useState<{
     isOpen: boolean;
@@ -141,19 +140,8 @@ export default function LoginPage() {
 
       setActiveUnit(resolved);
       applyPwaIdentityToDocument(resolved === 'yayasan' ? 'sd' : resolved, '/login');
-
-      // Preload target routes in browser cache for instant post-login transition
-      try {
-        router.prefetch('/affiliate/dashboard');
-        router.prefetch('/admin/foundation');
-        router.prefetch('/admin/sd/dashboard');
-        router.prefetch('/admin/smp/dashboard');
-        router.prefetch('/portal');
-      } catch {
-        // Safe fallback
-      }
     }
-  }, [router]);
+  }, []);
 
   const currentTheme = UNIT_THEMES[activeUnit] || UNIT_THEMES.sd;
 
@@ -202,6 +190,8 @@ export default function LoginPage() {
       }
 
       // Success notification with Islamic greeting
+      setIsLoading(false);
+      setIsRedirecting(true);
       setToast({
         isOpen: true,
         type: 'success',
@@ -209,20 +199,9 @@ export default function LoginPage() {
         message: 'Otentikasi berhasil. Mengalihkan Anda ke dasbor...',
       });
 
-      // Instant transition using Next.js client router without artificial delay
+      // Immediate clean window redirect directly to destination (bypasses stale RSC prefetch cache)
       if (data.redirectUrl) {
-        try {
-          router.prefetch(data.redirectUrl);
-          router.replace(data.redirectUrl);
-          // Fallback timer if client navigation stalls
-          setTimeout(() => {
-            if (window.location.pathname === '/login') {
-              window.location.href = data.redirectUrl;
-            }
-          }, 350);
-        } catch {
-          window.location.href = data.redirectUrl;
-        }
+        window.location.replace(data.redirectUrl);
       }
     } catch {
       const netError = 'Terjadi gangguan jaringan, silakan periksa koneksi Anda.';
@@ -234,6 +213,7 @@ export default function LoginPage() {
         message: netError,
       });
       setIsLoading(false);
+      setIsRedirecting(false);
     }
   };
 
@@ -375,11 +355,16 @@ export default function LoginPage() {
               {/* Primary Action Button */}
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || isRedirecting}
                 className="w-full mt-2 py-3.5 px-4 rounded-xl text-white font-bold text-sm tracking-wide shadow-md transition-all active:scale-[0.99] disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
                 style={{ backgroundColor: currentTheme.primaryColor }}
               >
-                {isLoading ? (
+                {isRedirecting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <span>Mengalihkan ke Dasbor...</span>
+                  </>
+                ) : isLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
                     <span>Memverifikasi...</span>
