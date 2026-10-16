@@ -28,6 +28,15 @@ export interface GalleryItem {
 
 const GALLERY_DATA: GalleryItem[] = [
   {
+    id: 'rihlah-jepara-waterpark',
+    name: 'Rihlah & Tadabbur Alam Murid SDIT (Jepara Waterpark)',
+    image: '/images/sd-rihlah-jepara-waterpark.jpg',
+    desc: 'Keceriaan rihlah edukatif dan tadabbur alam siswi SDIT Al-Afiyah bersama para asatidzah di Jepara Waterpark. Mempererat ukhuwah islamiyah, melatih kemandirian, dan menyegarkan semangat belajar.',
+    category: 'Rihlah & Outing',
+    date: 'Tahun Ajaran Berjalan',
+    location: 'Jepara Ourland / Waterpark'
+  },
+  {
     id: 'shalat-berjamaah',
     name: 'Pembiasaan Shalat Berjamaah Siswi',
     image: '/images/sd-activity-shalat-berjamaah.jpg',
@@ -139,6 +148,7 @@ const GALLERY_DATA: GalleryItem[] = [
 
 const CATEGORIES = [
   'Semua',
+  'Rihlah & Outing',
   'Ibadah & Karakter',
   'Aktivitas Kelas',
   'Agro-Sains & Alam',
@@ -249,6 +259,13 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
                       alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.triedFallback) {
+                          target.dataset.triedFallback = 'true';
+                          target.src = '/images/sd-hero-greenhouse.jpg';
+                        }
+                      }}
                     />
                     <div className="absolute top-3 left-3 flex items-center gap-1.5">
                       <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">

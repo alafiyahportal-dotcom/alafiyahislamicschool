@@ -39,8 +39,8 @@ export default async function SdDokumentasiPage() {
           image: item.image || '/images/sd-hero-greenhouse.jpg',
           desc: item.desc || item.description || '',
           category: item.category || 'Aktivitas Kelas',
-          date: 'Tahun Ajaran 2026/2027',
-          location: 'SDIT Al-Afiyah Majalengka'
+          date: item.date || 'Tahun Ajaran Berjalan',
+          location: item.location || (item.name?.toLowerCase().includes('jepara') ? 'Jepara Ourland / Waterpark' : 'SDIT Al-Afiyah Majalengka')
         }));
       }
     }

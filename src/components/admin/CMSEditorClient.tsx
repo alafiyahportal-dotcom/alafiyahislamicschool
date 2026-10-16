@@ -176,6 +176,7 @@ interface PresetImage {
 
 const PRESET_IMAGES_DEFAULT: PresetImage[] = [
   // Foto Asli Kegiatan Murid & Guru Al-Afiyah (Dokumentasi Lapangan Nyata)
+  { label: 'Rihlah Jepara Waterpark SDIT', url: '/images/sd-rihlah-jepara-waterpark.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Halaqah Tahfidz SDIT', url: '/images/sd-activity-halaqah-tahfidz.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Belajar Kelas 6B SDIT', url: '/images/sd-activity-classroom-6b.jpg', forUnits: ['sd', 'foundation'] },
   { label: 'Outing Rafting SMP IT Majalengka', url: '/images/smp-outing-1.jpg', forUnits: ['smp', 'foundation'] },

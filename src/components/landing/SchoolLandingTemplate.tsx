@@ -407,6 +407,12 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
   const rawFacilities: FacilityItem[] = school.facilities && school.facilities.length > 0 ? school.facilities : (
     school.slug === 'sd' ? [
       {
+        name: 'Rihlah & Tadabbur Alam Murid SDIT (Jepara Waterpark)',
+        image: '/images/sd-rihlah-jepara-waterpark.jpg',
+        desc: 'Keceriaan rihlah edukatif dan tadabbur alam siswi SDIT Al-Afiyah bersama para asatidzah di Jepara Waterpark. Mempererat ukhuwah islamiyah, melatih kemandirian, dan menyegarkan semangat belajar.',
+        category: 'Rihlah & Outing',
+      },
+      {
         name: 'Pembiasaan Shalat Berjamaah Siswi',
         image: '/images/sd-activity-shalat-berjamaah.jpg',
         desc: 'Pembiasaan adab ibadah harian sejak dini dengan shalat berjamaah yang khusyuk, melatih ketertiban, kebersihan, dan akhlak mahmudah.',
@@ -1645,6 +1651,13 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       alt={fac.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.triedFallback) {
+                          target.dataset.triedFallback = 'true';
+                          target.src = '/images/sd-hero-greenhouse.jpg';
+                        }
+                      }}
                     />
                     {fac.category && (
                       <div className="absolute top-3 left-3">
