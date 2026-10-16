@@ -46,7 +46,7 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
       alt: "Mushaf Al-Qur'an Al-Afiyah",
       width: 458,
       height: 395,
-      className: 'w-[110px] sm:w-[135px] md:w-[160px] animate-poster-float-slow select-none',
+      className: 'w-[120px] sm:w-[145px] md:w-[170px] animate-poster-float-slow select-none',
       glowClass: 'drop-shadow-[0_16px_36px_rgba(16,185,129,0.35)] drop-shadow-[0_4px_14px_rgba(255,213,30,0.25)]',
       style: {
         position: 'absolute',
@@ -71,19 +71,19 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
         animationDelay: '1.8s',
       },
     },
-    // 3. HD 3D Gold Trophy (Soft depth-of-field blur as requested)
+    // 3. HD 3D Gold Trophy (Clearly smaller than the Quran with soft depth-of-field blur)
     {
       id: 'smp-trophy',
       src: '/images/hero/smp-elem-trophy.png',
       alt: 'Piala Juara Prestasi Emas',
       width: 483,
       height: 401,
-      className: 'w-[95px] sm:w-[120px] md:w-[145px] animate-poster-float-medium select-none',
-      glowClass: 'drop-shadow-[0_18px_44px_rgba(255,213,30,0.42)] drop-shadow-[0_4px_16px_rgba(16,185,129,0.22)]',
+      className: 'w-[65px] sm:w-[80px] md:w-[98px] animate-poster-float-medium select-none',
+      glowClass: 'drop-shadow-[0_12px_28px_rgba(255,213,30,0.38)] drop-shadow-[0_3px_10px_rgba(16,185,129,0.2)]',
       style: {
         position: 'absolute',
-        top: '12%',
-        right: '24%',
+        top: '13%',
+        right: '23%',
         animationDelay: '0.8s',
       },
     },
