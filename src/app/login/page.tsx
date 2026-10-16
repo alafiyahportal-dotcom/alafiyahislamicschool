@@ -142,10 +142,13 @@ export default function LoginPage() {
       setActiveUnit(resolved);
       applyPwaIdentityToDocument(resolved === 'yayasan' ? 'sd' : resolved, '/login');
 
-      // Preload target routes in browser cache
+      // Preload target routes in browser cache for instant post-login transition
       try {
+        router.prefetch('/affiliate/dashboard');
+        router.prefetch('/admin/foundation');
+        router.prefetch('/admin/sd/dashboard');
+        router.prefetch('/admin/smp/dashboard');
         router.prefetch('/portal');
-        router.prefetch('/admin');
       } catch {
         // Safe fallback
       }
@@ -206,10 +209,21 @@ export default function LoginPage() {
         message: 'Otentikasi berhasil. Mengalihkan Anda ke dasbor...',
       });
 
-      // Immediate redirect with clean window navigation for instant speed
-      setTimeout(() => {
-        window.location.href = data.redirectUrl;
-      }, 400);
+      // Instant transition using Next.js client router without artificial delay
+      if (data.redirectUrl) {
+        try {
+          router.prefetch(data.redirectUrl);
+          router.replace(data.redirectUrl);
+          // Fallback timer if client navigation stalls
+          setTimeout(() => {
+            if (window.location.pathname === '/login') {
+              window.location.href = data.redirectUrl;
+            }
+          }, 350);
+        } catch {
+          window.location.href = data.redirectUrl;
+        }
+      }
     } catch {
       const netError = 'Terjadi gangguan jaringan, silakan periksa koneksi Anda.';
       setErrorMsg(netError);

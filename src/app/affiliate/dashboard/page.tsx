@@ -139,7 +139,9 @@ export default function AffiliateDashboardPage() {
   // Fetch real affiliate profile
   const fetchAffiliateProfile = async (targetCodeOrEmail?: string) => {
     try {
-      setIsLoading(true);
+      if (!profile) {
+        setIsLoading(true);
+      }
       let queryParam = '';
       if (targetCodeOrEmail) {
         const isEmail = targetCodeOrEmail.includes('@');

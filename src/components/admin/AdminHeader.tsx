@@ -214,6 +214,9 @@ export default function AdminHeader({
                 <Link
                   key={tab.slug}
                   href={tab.url}
+                  prefetch={true}
+                  onMouseEnter={() => router.prefetch(tab.url)}
+                  onTouchStart={() => router.prefetch(tab.url)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 ${
                     isActive ? tab.activeClass : tab.inactiveClass
                   }`}
