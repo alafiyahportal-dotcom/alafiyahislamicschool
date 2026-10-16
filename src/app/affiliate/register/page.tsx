@@ -103,9 +103,14 @@ export default function AffiliateRegisterPage() {
         message: 'Akun afiliasi Anda berhasil dibuat. Mengalihkan ke Dashboard...',
       });
 
+      if (typeof window !== 'undefined' && data.profile?.referralCode) {
+        localStorage.setItem('alafiyah_my_affiliate_code', data.profile.referralCode);
+      }
+
       setTimeout(() => {
-        router.push('/affiliate/dashboard?new=1');
-      }, 500);
+        const codeParam = data.profile?.referralCode ? `&code=${encodeURIComponent(data.profile.referralCode)}` : '';
+        window.location.href = `/affiliate/dashboard?new=1${codeParam}`;
+      }, 700);
     } catch (err: unknown) {
       const error = err as Error;
       const text = error?.message || 'Terjadi kesalahan sistem saat mendaftar.';

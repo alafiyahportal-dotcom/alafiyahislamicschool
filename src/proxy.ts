@@ -272,6 +272,10 @@ export function proxy(request: NextRequest) {
   }
 
   // ─── 3. Page Route Protection ──────────────────────────────────────────────
+  if (pathname === '/affiliate/daftar') {
+    return NextResponse.redirect(new URL('/affiliate/register', request.url));
+  }
+
   const isPublicPage =
     pathname === '/' ||
     pathname.startsWith('/sd') ||
@@ -286,7 +290,7 @@ export function proxy(request: NextRequest) {
     pathname === '/agenda' ||
     pathname.startsWith('/ppdb') ||
     pathname.startsWith('/portal') ||
-    pathname === '/affiliate' ||
+    (pathname.startsWith('/affiliate') && pathname !== '/affiliate/dashboard') ||
     pathname.startsWith('/ref') ||
     pathname.startsWith('/api/') ||
     pathname === '/sitemap.xml' ||
