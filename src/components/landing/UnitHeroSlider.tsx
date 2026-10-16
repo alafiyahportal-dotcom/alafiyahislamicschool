@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getStoredReferralCode } from '@/lib/referral';
+import HeroFloatingBubbles from './HeroFloatingBubbles';
 
 export interface UnitSlideData {
   id: number;
@@ -209,9 +210,8 @@ export default function UnitHeroSlider({
     <section
       className={`relative text-white overflow-hidden select-none w-full flex flex-col min-h-screen min-h-[100svh] ${theme.bgClass}`}
     >
-      {/* Soft ambient glows (decorative) */}
-      <div aria-hidden="true" className="absolute -top-32 -right-32 w-[420px] h-[420px] sm:w-[560px] sm:h-[560px] bg-white/[0.06] rounded-full blur-3xl pointer-events-none" />
-      <div aria-hidden="true" className="absolute top-1/3 -left-40 w-[360px] h-[360px] bg-[#ffd51e]/[0.05] rounded-full blur-3xl pointer-events-none" />
+      {/* Bespoke organic floating glass bubbles & orbs */}
+      <HeroFloatingBubbles slug={slug} />
 
       {/* Headline block — vertically centered in the space between navbar and CTA */}
       <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-24 sm:pt-28 lg:pt-32 pb-6 sm:pb-8">

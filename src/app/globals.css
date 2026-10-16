@@ -716,3 +716,100 @@ h1, h2, h3, h4, h5, h6 {
     animation: none !important;
   }
 }
+
+/* ===================================================
+   ORGANIC FLOATING GLASS BUBBLES / ORBS (60FPS GPU COMPOSITED)
+   =================================================== */
+@keyframes bubble-float-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(18px, -28px, 0) scale(1.06) rotate(6deg);
+  }
+  66% {
+    transform: translate3d(-14px, -52px, 0) scale(0.95) rotate(-4deg);
+  }
+}
+
+@keyframes bubble-float-medium {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(-20px, -24px, 0) scale(1.08) rotate(-8deg);
+  }
+  50% {
+    transform: translate3d(12px, -46px, 0) scale(0.96) rotate(5deg);
+  }
+  75% {
+    transform: translate3d(-8px, -22px, 0) scale(1.04) rotate(-3deg);
+  }
+}
+
+@keyframes bubble-float-fast {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  30% {
+    transform: translate3d(24px, -36px, 0) scale(1.12);
+  }
+  70% {
+    transform: translate3d(-18px, -20px, 0) scale(0.92);
+  }
+}
+
+@keyframes bubble-drift-wide {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-38px, -30px, 0) scale(1.08);
+  }
+}
+
+@keyframes bubble-sparkle-pulse {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.9;
+  }
+}
+
+.animate-bubble-float-1 {
+  animation: bubble-float-slow 16s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-bubble-float-2 {
+  animation: bubble-float-medium 13s ease-in-out 2s infinite;
+  will-change: transform;
+}
+
+.animate-bubble-float-3 {
+  animation: bubble-float-fast 10s ease-in-out 1s infinite;
+  will-change: transform;
+}
+
+.animate-bubble-drift {
+  animation: bubble-drift-wide 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-bubble-sparkle {
+  animation: bubble-sparkle-pulse 4.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bubble-float-1,
+  .animate-bubble-float-2,
+  .animate-bubble-float-3,
+  .animate-bubble-drift,
+  .animate-bubble-sparkle {
+    animation: none !important;
+  }
+}
