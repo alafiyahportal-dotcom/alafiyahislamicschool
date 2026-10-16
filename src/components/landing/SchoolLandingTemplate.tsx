@@ -408,7 +408,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     school.slug === 'sd' ? [
       {
         name: 'Rihlah & Tadabbur Alam Murid SDIT (Jepara Waterpark)',
-        image: '/images/sd-rihlah-jepara-waterpark.jpg',
+        image: '/images/sd-rihlah-jepara.jpg',
         desc: 'Keceriaan rihlah edukatif dan tadabbur alam siswi SDIT Al-Afiyah bersama para asatidzah di Jepara Waterpark. Mempererat ukhuwah islamiyah, melatih kemandirian, dan menyegarkan semangat belajar.',
         category: 'Rihlah & Outing',
       },
