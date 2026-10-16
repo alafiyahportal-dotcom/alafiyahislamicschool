@@ -112,9 +112,7 @@ export default function AffiliateDashboardPage() {
       const unit = detectActiveUnit(window.location.pathname, searchParams);
       setActiveUnit(unit);
       applyPwaIdentityToDocument(unit, '/affiliate/dashboard');
-      document.title = unit === 'smp' 
-        ? 'Dashboard Afiliasi SMP IT | Al-Afiyah' 
-        : 'Dashboard Afiliasi | Al-Afiyah Islamic School';
+      document.title = 'Dashboard Afiliasi Al-Afiyah';
 
       if (searchParams.get('new') === '1') {
         setJustRegistered(true);
@@ -588,10 +586,10 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
             />
             <div>
               <h1 className="text-sm font-bold text-slate-900 leading-tight">
-                {activeUnit === 'smp' ? 'Dashboard Afiliasi SMP IT' : 'Dashboard Afiliasi Al-Afiyah'}
+                Dashboard Afiliasi Al-Afiyah
               </h1>
               <p className="text-[11px] text-slate-500">
-                {activeUnit === 'smp' ? 'SMP IT Al-Afiyah Majalengka • Be Smart & Religious' : 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka'}
+                {activeUnit === 'smp' ? 'Mitra SMP IT Al-Afiyah • Yayasan Pendidikan Imam Bonjol' : 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka'}
               </p>
             </div>
           </div>

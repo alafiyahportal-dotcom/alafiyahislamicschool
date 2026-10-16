@@ -1,8 +1,8 @@
 {
   "id": "/affiliate-sd",
-  "name": "Afiliasi SDIT Al-Afiyah",
-  "short_name": "Afiliasi SDIT",
-  "description": "Dasbor Kemitraan Afiliasi SDIT Al-Afiyah Majalengka.",
+  "name": "Dashboard Afiliasi Al-Afiyah",
+  "short_name": "Afiliasi Al-Afiyah",
+  "description": "Dasbor Kemitraan Afiliasi Al-Afiyah Majalengka.",
   "start_url": "/affiliate/dashboard?unit=sd",
   "scope": "/",
   "display": "standalone",

@@ -178,7 +178,7 @@ export function applyPwaIdentityToDocument(
     themeColor = UNIT_THEME_COLORS.smp;
     if (isAffiliate) {
       manifestUrl = '/affiliate-smp-manifest.json';
-      appTitle = 'Afiliasi SMP IT';
+      appTitle = 'Dashboard Afiliasi Al-Afiyah';
     } else if (isLogin) {
       manifestUrl = '/login-smp-manifest.json';
       appTitle = 'Login SMP IT';
@@ -191,7 +191,7 @@ export function applyPwaIdentityToDocument(
     themeColor = UNIT_THEME_COLORS.sd;
     if (isAffiliate) {
       manifestUrl = '/affiliate-sd-manifest.json';
-      appTitle = 'Afiliasi SDIT';
+      appTitle = 'Dashboard Afiliasi Al-Afiyah';
     } else if (isLogin) {
       manifestUrl = '/login-sd-manifest.json';
       appTitle = 'Login SDIT';
