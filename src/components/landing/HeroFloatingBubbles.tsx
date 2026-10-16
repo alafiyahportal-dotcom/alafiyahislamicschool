@@ -39,115 +39,99 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
   // Non-slop authentic assets matching Islamic & Academic excellence identity.
   // =========================================================================
   const smpPosterElements = useMemo<SmpPosterElement[]>(() => [
-    // 1. Primary Sharp Quran Mushaf (Bottom-Right/Mid-Right foreground)
+    // 1. Primary Sharp HD Quran Mushaf (Prominent center-right foreground)
     {
       id: 'smp-quran-main',
       src: '/images/hero/smp-elem-quran.png',
       alt: "Mushaf Al-Qur'an Al-Afiyah",
-      width: 145,
-      height: 155,
-      className: 'w-[100px] sm:w-[125px] md:w-[150px] animate-poster-float-slow select-none',
-      glowClass: 'drop-shadow-[0_16px_36px_rgba(16,185,129,0.32)] drop-shadow-[0_4px_12px_rgba(255,213,30,0.22)]',
+      width: 458,
+      height: 395,
+      className: 'w-[110px] sm:w-[135px] md:w-[160px] animate-poster-float-slow select-none',
+      glowClass: 'drop-shadow-[0_16px_36px_rgba(16,185,129,0.35)] drop-shadow-[0_4px_14px_rgba(255,213,30,0.25)]',
       style: {
         position: 'absolute',
-        top: '24%',
-        right: '6%',
+        top: '22%',
+        right: '7%',
         animationDelay: '0s',
       },
     },
-    // 2. Secondary Depth Quran Mushaf (Mid-Left background depth)
+    // 2. Secondary Depth HD Quran Mushaf (Lower-left background depth)
     {
       id: 'smp-quran-depth',
       src: '/images/hero/smp-elem-quran.png',
       alt: "Mushaf Al-Qur'an Latar",
-      width: 100,
-      height: 108,
-      className: 'w-[65px] sm:w-[80px] md:w-[95px] opacity-70 -rotate-12 animate-poster-leaf-1 select-none',
-      glowClass: 'drop-shadow-[0_10px_24px_rgba(16,185,129,0.2)]',
+      width: 458,
+      height: 395,
+      className: 'w-[75px] sm:w-[90px] md:w-[105px] opacity-75 -rotate-12 animate-poster-leaf-1 select-none',
+      glowClass: 'drop-shadow-[0_10px_24px_rgba(16,185,129,0.22)]',
       style: {
         position: 'absolute',
-        top: '62%',
-        left: '4%',
+        top: '64%',
+        left: '5%',
         animationDelay: '1.8s',
       },
     },
-    // 3. Piala Juara Emas (Top-Right / Center-Right prestige cup)
+    // 3. HD 3D Gold Trophy (Soft depth-of-field blur as requested)
     {
       id: 'smp-trophy',
       src: '/images/hero/smp-elem-trophy.png',
       alt: 'Piala Juara Prestasi Emas',
-      width: 135,
-      height: 160,
-      className: 'w-[85px] sm:w-[110px] md:w-[130px] animate-poster-float-medium select-none',
-      glowClass: 'drop-shadow-[0_18px_42px_rgba(255,213,30,0.38)] drop-shadow-[0_4px_16px_rgba(16,185,129,0.22)]',
+      width: 483,
+      height: 401,
+      className: 'w-[95px] sm:w-[120px] md:w-[145px] animate-poster-float-medium select-none',
+      glowClass: 'drop-shadow-[0_18px_44px_rgba(255,213,30,0.42)] drop-shadow-[0_4px_16px_rgba(16,185,129,0.22)]',
       style: {
         position: 'absolute',
         top: '12%',
-        right: '22%',
+        right: '24%',
         animationDelay: '0.8s',
       },
     },
-    // 4. Medali Emas Prestasi (Top-Left hanging & gentle pendulum sway)
-    {
-      id: 'smp-medal',
-      src: '/images/hero/smp-elem-medal.png',
-      alt: 'Medali Penghargaan Prestasi',
-      width: 100,
-      height: 145,
-      className: 'w-[70px] sm:w-[88px] md:w-[105px] animate-poster-pendulum select-none',
-      glowClass: 'drop-shadow-[0_14px_30px_rgba(255,213,30,0.32)]',
-      style: {
-        position: 'absolute',
-        top: '10%',
-        left: '10%',
-        animationDelay: '0.4s',
-      },
-    },
-    // 5. Daun Segar Hijau 1 (Right botanical drift)
+    // 4. HD Botanical Leaf 1 (Right drift, soft motion/depth blur as requested)
     {
       id: 'smp-leaf-right',
       src: '/images/hero/smp-elem-leaf.png',
       alt: 'Daun Segar Prestasi',
-      width: 95,
-      height: 150,
-      className: 'w-[65px] sm:w-[80px] md:w-[95px] rotate-6 animate-poster-leaf-1 select-none',
-      glowClass: 'drop-shadow-[0_10px_22px_rgba(16,185,129,0.28)]',
+      width: 475,
+      height: 410,
+      className: 'w-[75px] sm:w-[92px] md:w-[110px] rotate-12 animate-poster-leaf-1 select-none',
+      glowClass: 'drop-shadow-[0_12px_24px_rgba(16,185,129,0.3)]',
       style: {
         position: 'absolute',
-        top: '54%',
-        right: '1%',
-        animationDelay: '0.6s',
+        top: '56%',
+        right: '2%',
+        animationDelay: '0.5s',
       },
     },
-    // 6. Daun Segar Hijau 2 (Left-Bottom small floating leaf)
+    // 5. HD Botanical Leaf 2 (Left lower drift, soft motion/depth blur)
     {
       id: 'smp-leaf-left-bottom',
       src: '/images/hero/smp-elem-leaf.png',
       alt: 'Daun Segar Al-Afiyah',
-      width: 65,
-      height: 105,
-      className: 'w-[45px] sm:w-[55px] md:w-[65px] -rotate-45 opacity-75 animate-poster-leaf-2 select-none',
-      glowClass: 'drop-shadow-[0_8px_18px_rgba(16,185,129,0.22)]',
+      width: 475,
+      height: 410,
+      className: 'w-[55px] sm:w-[68px] md:w-[80px] -rotate-45 opacity-80 animate-poster-leaf-2 select-none',
+      glowClass: 'drop-shadow-[0_8px_18px_rgba(16,185,129,0.25)]',
       style: {
         position: 'absolute',
         top: '74%',
         left: '16%',
-        animationDelay: '2.4s',
+        animationDelay: '2.2s',
       },
     },
-    // 7. Daun Segar Hijau 3 (Top-Left leaf accent)
+    // 6. HD Botanical Leaf 3 (Top-left accent, soft motion/depth blur)
     {
       id: 'smp-leaf-top-left',
       src: '/images/hero/smp-elem-leaf.png',
       alt: 'Daun Segar Al-Afiyah',
-      width: 75,
-      height: 120,
-      className: 'w-[50px] sm:w-[62px] md:w-[72px] rotate-45 opacity-70 animate-poster-float-slow select-none',
-      glowClass: 'drop-shadow-[0_8px_20px_rgba(16,185,129,0.2)]',
+      width: 475,
+      height: 410,
+      className: 'w-[60px] sm:w-[72px] md:w-[85px] rotate-45 opacity-75 animate-poster-float-slow select-none',
+      glowClass: 'drop-shadow-[0_10px_20px_rgba(16,185,129,0.22)]',
       style: {
         position: 'absolute',
-        top: '26%',
-        left: '2%',
+        top: '20%',
+        left: '3%',
         animationDelay: '1.2s',
       },
     },
