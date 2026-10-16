@@ -813,3 +813,99 @@ h1, h2, h3, h4, h5, h6 {
     animation: none !important;
   }
 }
+
+/* ===================================================
+   SMP POSTER FLOATING ELEMENTS ANIMATIONS (60FPS GPU)
+   =================================================== */
+@keyframes poster-elem-float-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate3d(14px, -24px, 0) rotate(3deg) scale(1.03);
+  }
+  66% {
+    transform: translate3d(-10px, -42px, 0) rotate(-2.5deg) scale(0.98);
+  }
+}
+
+@keyframes poster-elem-float-medium {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  40% {
+    transform: translate3d(-18px, -28px, 0) rotate(-4deg) scale(1.04);
+  }
+  75% {
+    transform: translate3d(12px, -48px, 0) rotate(3deg) scale(0.97);
+  }
+}
+
+@keyframes poster-elem-pendulum {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-3.5deg);
+  }
+  50% {
+    transform: translate3d(8px, -18px, 0) rotate(4deg);
+  }
+}
+
+@keyframes poster-elem-drift-leaf {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translate3d(-16px, -22px, 0) rotate(8deg) scale(1.05);
+  }
+  65% {
+    transform: translate3d(20px, -40px, 0) rotate(-6deg) scale(0.96);
+  }
+}
+
+@keyframes poster-elem-drift-leaf-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  35% {
+    transform: translate3d(22px, -32px, 0) rotate(-10deg) scale(1.06);
+  }
+  70% {
+    transform: translate3d(-14px, -18px, 0) rotate(6deg) scale(0.95);
+  }
+}
+
+.animate-poster-float-slow {
+  animation: poster-elem-float-slow 14s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-poster-float-medium {
+  animation: poster-elem-float-medium 11s ease-in-out 1.2s infinite;
+  will-change: transform;
+}
+
+.animate-poster-pendulum {
+  animation: poster-elem-pendulum 8.5s ease-in-out infinite;
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.animate-poster-leaf-1 {
+  animation: poster-elem-drift-leaf 13s ease-in-out 0.5s infinite;
+  will-change: transform;
+}
+
+.animate-poster-leaf-2 {
+  animation: poster-elem-drift-leaf-2 15s ease-in-out 2s infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-poster-float-slow,
+  .animate-poster-float-medium,
+  .animate-poster-pendulum,
+  .animate-poster-leaf-1,
+  .animate-poster-leaf-2 {
+    animation: none !important;
+  }
+}
