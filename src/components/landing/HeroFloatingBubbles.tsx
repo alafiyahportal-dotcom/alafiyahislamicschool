@@ -39,15 +39,15 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
   // Non-slop authentic assets matching Islamic & Academic excellence identity.
   // =========================================================================
   const smpPosterElements = useMemo<SmpPosterElement[]>(() => [
-    // 1. Primary Sharp HD Quran Mushaf (Prominent center-right foreground)
+    // 1. Primary Sharp HD Quran Mushaf (Refined compact size as requested)
     {
       id: 'smp-quran-main',
       src: '/images/hero/smp-elem-quran.png',
       alt: "Mushaf Al-Qur'an Al-Afiyah",
       width: 458,
       height: 395,
-      className: 'w-[120px] sm:w-[145px] md:w-[170px] animate-poster-float-slow select-none',
-      glowClass: 'drop-shadow-[0_16px_36px_rgba(16,185,129,0.35)] drop-shadow-[0_4px_14px_rgba(255,213,30,0.25)]',
+      className: 'w-[95px] sm:w-[115px] md:w-[135px] animate-poster-float-slow select-none',
+      glowClass: 'drop-shadow-[0_12px_28px_rgba(16,185,129,0.32)] drop-shadow-[0_3px_10px_rgba(255,213,30,0.22)]',
       style: {
         position: 'absolute',
         top: '22%',
