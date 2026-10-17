@@ -199,10 +199,17 @@ export default function LoginPage() {
         message: 'Otentikasi berhasil. Mengalihkan Anda ke dasbor...',
       });
 
-      // Immediate clean window redirect directly to destination (bypasses stale RSC prefetch cache)
-      if (data.redirectUrl) {
-        window.location.replace(data.redirectUrl);
-      }
+      // Prevent PWA / APK launch splash from ever replaying upon reaching beranda or dashboard
+      try {
+        sessionStorage.setItem('alafiyah_pwa_splash_seen', '1');
+      } catch {}
+
+      // Smooth transition to destination
+      setTimeout(() => {
+        if (data.redirectUrl) {
+          window.location.replace(data.redirectUrl);
+        }
+      }, 500);
     } catch {
       const netError = 'Terjadi gangguan jaringan, silakan periksa koneksi Anda.';
       setErrorMsg(netError);

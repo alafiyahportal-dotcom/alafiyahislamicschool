@@ -103,23 +103,7 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
         animationDelay: '0.5s',
       },
     },
-    // 5. HD Botanical Leaf 2 (Left lower drift, soft motion/depth blur)
-    {
-      id: 'smp-leaf-left-bottom',
-      src: '/images/hero/smp-elem-leaf.png',
-      alt: 'Daun Segar Al-Afiyah',
-      width: 475,
-      height: 410,
-      className: 'w-[55px] sm:w-[68px] md:w-[80px] -rotate-45 opacity-80 animate-poster-leaf-2 select-none',
-      glowClass: 'drop-shadow-[0_8px_18px_rgba(16,185,129,0.25)]',
-      style: {
-        position: 'absolute',
-        top: '74%',
-        left: '16%',
-        animationDelay: '2.2s',
-      },
-    },
-    // 6. HD Botanical Leaf 3 (Top-left accent, soft motion/depth blur)
+    // 5. HD Botanical Leaf 2 (Top-left accent, soft motion/depth blur)
     {
       id: 'smp-leaf-top-left',
       src: '/images/hero/smp-elem-leaf.png',

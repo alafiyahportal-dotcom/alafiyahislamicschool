@@ -138,7 +138,16 @@ export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMo
   );
   const [showStudentModal, setShowStudentModal] = useState(false);
   const [useDeviceFrame, setUseDeviceFrame] = useState(true);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return sessionStorage.getItem('siakad_session_active') !== '1';
+      } catch {
+        return true;
+      }
+    }
+    return true;
+  });
 
   return (
     <div 
@@ -294,6 +303,9 @@ export default function SiakadMobileShell({ initialSchoolSlug = 'sd' }: SiakadMo
                     currentStudent={currentStudent}
                     availableStudents={availableStudents}
                     onLoginSuccess={(student) => {
+                      try {
+                        sessionStorage.setItem('siakad_session_active', '1');
+                      } catch {}
                       setCurrentStudent(student);
                       setShowSplash(false);
                     }}

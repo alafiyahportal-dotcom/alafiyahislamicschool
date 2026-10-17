@@ -151,6 +151,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+      },
       profile: sanitizeApiOutput(profile),
       redirectUrl: '/affiliate/dashboard',
     });
