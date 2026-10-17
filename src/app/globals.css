@@ -582,38 +582,7 @@ h1, h2, h3, h4, h5, h6 {
   animation-play-state: paused !important;
 }
 
-/* ── PWA launch splash: fades out over the OS splash (see components/shared/LaunchSplash.tsx) ── */
-.launch-splash {
-  display: none;
-}
-@media (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
-  .launch-splash {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    animation: launch-splash-out 500ms ease-out 400ms forwards;
-  }
-  .launch-splash img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    animation: launch-splash-logo 900ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-}
-@keyframes launch-splash-out {
-  to { opacity: 0; visibility: hidden; }
-}
-@keyframes launch-splash-logo {
-  0%, 40% { transform: scale(1); }
-  100% { transform: scale(0.88); opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .launch-splash, .launch-splash img { animation-duration: 1ms; animation-delay: 0ms; }
-}
+
 
 /* ===================================================
    HERO & CTA BUTTON MICRO-ANIMATIONS (60FPS HARDWARE ACCELERATED)

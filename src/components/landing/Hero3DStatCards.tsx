@@ -98,20 +98,6 @@ export default function Hero3DStatCards({ stats, unitSlug }: Hero3DStatCardsProp
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none z-20 select-none overflow-visible"
         >
-          {/* Leaf 1 (Red Circle 1): Medium size ("aga sedengin") in the top gap between Card 1 & Card 2 */}
-          <div className="absolute left-[48%] lg:left-[24.5%] -top-4 sm:-top-6 -translate-x-1/2 pointer-events-none transition-transform duration-700 ease-out">
-            <div className="relative drop-shadow-[0_12px_26px_rgba(16,185,129,0.38)]">
-              <Image
-                src="/images/hero/smp-elem-leaf.png"
-                alt="Daun Segar Al-Afiyah"
-                width={475}
-                height={410}
-                className="w-[72px] sm:w-[84px] md:w-[94px] -rotate-12 animate-poster-leaf-1 select-none"
-                priority
-                unoptimized
-              />
-            </div>
-          </div>
 
           {/* Leaf 2 (Red Circle 2): Small size ("kecilin satunya") on the right edge of Card 2 (Target Tahfidz) */}
           <div className="absolute right-[-6px] sm:right-[-3px] lg:left-[49.5%] lg:right-auto lg:-translate-x-1/2 top-2 sm:top-3.5 pointer-events-none transition-transform duration-700 ease-out">

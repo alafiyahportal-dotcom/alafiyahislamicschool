@@ -218,10 +218,9 @@ export default function UnitHeroSlider({
         <div className="max-w-3xl">
           {slide.badge && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: [0, -3, 0] }}
+              initial={false}
+              animate={{ y: [0, -3, 0] }}
               transition={{
-                opacity: { duration: 0.5, ease: 'easeOut' },
                 y: { duration: 3.2, repeat: Infinity, ease: 'easeInOut' },
               }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[11px] sm:text-xs font-black tracking-wider text-[#ffd51e] uppercase mb-4 sm:mb-5 backdrop-blur-sm"
@@ -235,26 +234,24 @@ export default function UnitHeroSlider({
           )}
 
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: [0, -3.5, 0] }}
+            initial={false}
+            animate={{ y: [0, -3.5, 0] }}
             transition={{
-              opacity: { duration: 0.6, delay: 0.1, ease: 'easeOut' },
-              y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
+              y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut' },
             }}
-            className="w-full"
+            className="w-full opacity-100"
           >
             {renderHeroHeadline(slug, slide.titlePart1, slide.titleHighlight, slide.titlePart2, theme.highlightText)}
           </motion.h1>
 
           {slide.description && (
             <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: [0, -2, 0] }}
+              initial={false}
+              animate={{ y: [0, -2, 0] }}
               transition={{
-                opacity: { duration: 0.6, delay: 0.2, ease: 'easeOut' },
-                y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.4 },
+                y: { duration: 4.4, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
               }}
-              className="mt-4 sm:mt-6 max-w-xl text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed"
+              className="mt-4 sm:mt-6 max-w-xl text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed opacity-100"
             >
               {slide.description}
             </motion.p>

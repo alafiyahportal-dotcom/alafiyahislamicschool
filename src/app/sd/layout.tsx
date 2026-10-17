@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { SD_OG_IMAGE } from '@/lib/og-images';
-import LaunchSplash from '@/components/shared/LaunchSplash';
 import DynamicUnitThemeColorSync from '@/components/shared/DynamicUnitThemeColorSync';
 
 export const viewport: Viewport = {
@@ -81,7 +80,6 @@ export default function SdLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(sdWebSiteSchema) }}
         />
       </head>
-      <LaunchSplash background="#064e3b" logoSrc="/icons/sd-512.png" logoAlt="SDIT Al-Afiyah" />
       <DynamicUnitThemeColorSync />
       {children}
     </>
