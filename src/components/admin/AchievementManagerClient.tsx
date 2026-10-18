@@ -18,8 +18,12 @@ import {
   School as SchoolIcon,
   Globe,
   Filter,
+  Upload,
+  ImageIcon,
+  Loader2,
 } from 'lucide-react';
 import CertificatePrintModal from './CertificatePrintModal';
+import { compressImageClient } from '@/lib/image-compress';
 
 export interface AchievementItem {
   id: string;
@@ -84,8 +88,50 @@ export default function AchievementManagerClient({
   const [formYear, setFormYear] = useState('2026');
   const [formDescription, setFormDescription] = useState('');
   const [formImageUrl, setFormImageUrl] = useState('/images/arc-tahfidz.jpg');
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [imageUploadMode, setImageUploadMode] = useState<'upload' | 'url'>('upload');
 
   const isFoundation = schoolSlug === 'foundation';
+
+  // Handle image upload from device
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingImage(true);
+    setErrorMessage(null);
+
+    try {
+      // 1. Client-side compression to ~150KB WebP to avoid 413 and speed up uploads
+      const compressed = await compressImageClient(file, 1400, 1050, 0.82);
+
+      // 2. Upload to server
+      const fd = new FormData();
+      fd.append('file', compressed.file);
+      fd.append('schoolSlug', schoolSlug || 'general');
+
+      let finalUrl = compressed.dataUrl; // Safe fallback
+
+      try {
+        const res = await fetch('/api/admin/upload', {
+          method: 'POST',
+          body: fd,
+        });
+        const data = await res.json();
+        if (res.ok && data.success && data.url) {
+          finalUrl = data.url;
+        }
+      } catch (uploadErr) {
+        console.warn('Upload API fallback to data URL:', uploadErr);
+      }
+
+      setFormImageUrl(finalUrl);
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Gagal memproses gambar foto');
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
 
   // Open modal for Add
   const handleOpenAdd = () => {
@@ -99,6 +145,7 @@ export default function AchievementManagerClient({
     setFormYear('2026');
     setFormDescription('');
     setFormImageUrl('/images/arc-tahfidz.jpg');
+    setImageUploadMode('upload');
     setErrorMessage(null);
     setIsModalOpen(true);
   };
@@ -115,6 +162,7 @@ export default function AchievementManagerClient({
     setFormYear(item.year);
     setFormDescription(item.description || '');
     setFormImageUrl(item.imageUrl || '/images/arc-tahfidz.jpg');
+    setImageUploadMode('upload');
     setErrorMessage(null);
     setIsModalOpen(true);
   };
@@ -729,16 +777,76 @@ export default function AchievementManagerClient({
                   />
                 </div>
 
-                {/* Foto URL */}
+                {/* Foto / Dokumentasi Piala */}
                 <div>
-                  <label className="block font-bold text-slate-800 mb-1.5">Foto Dokumentasi Piala</label>
-                  <input
-                    type="text"
-                    value={formImageUrl}
-                    onChange={(e) => setFormImageUrl(e.target.value)}
-                    placeholder="Contoh: /images/arc-tahfidz.jpg"
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:outline-hidden text-slate-700"
-                  />
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block font-bold text-slate-800">
+                      Foto Dokumentasi / Piagam / Piala
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setImageUploadMode(imageUploadMode === 'upload' ? 'url' : 'upload')}
+                      className="text-[10px] font-semibold text-emerald-700 hover:text-emerald-800 underline cursor-pointer"
+                    >
+                      {imageUploadMode === 'upload' ? 'Gunakan URL' : 'Upload Berkas'}
+                    </button>
+                  </div>
+
+                  {imageUploadMode === 'upload' ? (
+                    <div className="flex items-center gap-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                      {/* Thumbnail Preview */}
+                      {formImageUrl ? (
+                        <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-slate-200 border border-slate-300 shrink-0">
+                          <img
+                            src={formImageUrl}
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-12 h-12 rounded-lg bg-slate-200 border border-dashed border-slate-300 flex items-center justify-center text-slate-400 shrink-0">
+                          <ImageIcon className="w-5 h-5" />
+                        </div>
+                      )}
+
+                      {/* Upload Button */}
+                      <div className="flex-1 min-w-0">
+                        <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] cursor-pointer transition-colors shadow-xs active:scale-95">
+                          {isUploadingImage ? (
+                            <>
+                              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                              <span>Mengunggah...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Upload className="w-3.5 h-3.5" />
+                              <span>Pilih Foto dari Perangkat</span>
+                            </>
+                          )}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            disabled={isUploadingImage}
+                            onChange={handleImageFileChange}
+                            className="hidden"
+                          />
+                        </label>
+                        <p className="text-[9.5px] text-slate-500 mt-1 truncate">
+                          Kompresi otomatis WebP/JPG (&lt; 200KB)
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <input
+                        type="text"
+                        value={formImageUrl}
+                        onChange={(e) => setFormImageUrl(e.target.value)}
+                        placeholder="Contoh: /images/arc-tahfidz.jpg atau https://..."
+                        className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-[#064E3B] focus:outline-hidden text-slate-700 font-mono text-[11px]"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
