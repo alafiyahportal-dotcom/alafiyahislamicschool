@@ -45,6 +45,7 @@ import ScrollReveal from './ScrollReveal';
 import Hero3DStatCards from './Hero3DStatCards';
 import PrincipalGreetingSection from './PrincipalGreetingSection';
 import SpmbRoadmapSection from './SpmbRoadmapSection';
+import UnitAchievementSection from './UnitAchievementSection';
 
 export interface TeacherData {
   id: string;
@@ -96,6 +97,7 @@ export interface SchoolData {
   facilities?: FacilityItem[];
   teachers?: TeacherData[];
   newsPosts?: NewsData[];
+  achievements?: any[];
   bankName?: string;
   bankAccountNumber?: string;
   bankAccountHolder?: string;
@@ -1711,6 +1713,15 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           )}
         </div>
       </section>
+
+      {/* Prestasi & Capaian Murid */}
+      <UnitAchievementSection
+        schoolSlug={school.slug}
+        schoolName={school.name}
+        primaryColor={school.primaryColor}
+        accentColor={school.accentColor}
+        initialAchievements={school.achievements}
+      />
 
       {/* Kabar & Agenda Kegiatan Sekolah (Sprint 3 - M12) */}
       {school.newsPosts && school.newsPosts.length > 0 && (

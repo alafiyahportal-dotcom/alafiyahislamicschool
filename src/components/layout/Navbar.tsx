@@ -201,6 +201,7 @@ export default function Navbar({
       items: activeSlug === 'sd'
         ? [
             { label: 'Profil Lengkap SDIT', href: '/sd/profil', desc: 'Visi, misi & identitas resmi SDIT' },
+            { label: 'Prestasi & Capaian Murid', href: '/sd#prestasi', desc: 'Piala juara tahfidz, sains & kejuaraan murid' },
             { label: 'Struktur & Dewan Pendidik', href: '/sd/guru', desc: 'Struktur kepengurusan, asatidzah & tim IT' },
             { label: 'Dokumentasi & Belajar SDIT', href: '/sd/dokumentasi', desc: 'Galeri nyata kegiatan belajar & agro-sains' },
             { label: 'Layanan Tata Usaha & Lokasi', href: '/sd/kontak', desc: 'Alamat sekolah & rute Google Maps' },
@@ -208,6 +209,7 @@ export default function Navbar({
         : activeSlug === 'smp'
         ? [
             { label: 'Profil Lengkap SMP IT', href: '/smp/profil', desc: 'Visi, misi & legalitas Terakreditasi A' },
+            { label: 'Prestasi & Capaian Santri', href: '/smp#prestasi', desc: 'Piala kejuaraan MHQ, tahfidz & akademik santri' },
             { label: 'Dewan Asatidz & Pendidik', href: '/smp/guru', desc: 'Pendidik tahfidz, bahasa Arab & pembina murid' },
             { label: 'Sarana & Fasilitas Sekolah', href: '/smp/fasilitas', desc: 'Kelas ber-AC, lab komputer & lapangan futsal' },
             { label: 'Dokumentasi & Galeri Murid', href: '/smp/dokumentasi', desc: 'Haflah kelulusan, wisuda tahfidz & rihlah murid' },
@@ -216,12 +218,14 @@ export default function Navbar({
         : activeSlug
         ? [
             { label: `Profil & Karakter ${brandConfig.title}`, href: `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
+            { label: 'Prestasi & Capaian Murid', href: `${brandConfig.homeUrl}#prestasi`, desc: 'Kejuaraan & prestasi murid' },
             { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
             { label: 'Sarana & Fasilitas Belajar', href: `${brandConfig.homeUrl}#facilities`, desc: 'Lingkungan belajar ramah anak & asri' },
             { label: 'Kontak & Lokasi', href: '/kontak', desc: 'Alamat sekolah & peta navigasi' },
           ]
         : [
             { label: 'Tentang Yayasan & Sejarah', href: '/profil#tentang', desc: 'Latar belakang pendirian & amanah dakwah' },
+            { label: 'Galeri Prestasi Murid', href: '/#prestasi', desc: 'Papan kejuaraan & piala murid Al-Afiyah' },
             { label: 'Visi, Misi & 7 Karakter', href: '/profil#visi-misi', desc: 'Pondasi pembinaan adab & akademik' },
             { label: 'Struktur Manajemen Yayasan', href: '/profil#manajemen', desc: 'Dewan Pembina & Pengurus Yayasan' },
             { label: 'Dewan Guru & Asatidzah', href: '/#dewan-guru', desc: 'Pendidik tahfidz, sains & pembina karakter' },

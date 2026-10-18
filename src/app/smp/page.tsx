@@ -27,22 +27,40 @@ export const revalidate = 60;
 
 export default async function SmpLandingPage() {
   let dbSchool = null;
+  let achievements: any[] = [];
   try {
-    dbSchool = await prisma.school.findUnique({
-      where: { slug: 'smp' },
-      include: {
-        cmsSections: true,
-        teachers: {
-          where: { isActive: true },
-          orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    const [schoolData, achList] = await Promise.all([
+      prisma.school.findUnique({
+        where: { slug: 'smp' },
+        include: {
+          cmsSections: true,
+          teachers: {
+            where: { isActive: true },
+            orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+          },
+          newsPosts: {
+            where: { isPublished: true },
+            orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+            take: 3,
+          },
         },
-        newsPosts: {
-          where: { isPublished: true },
-          orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-          take: 3,
+      }),
+      prisma.studentAchievement.findMany({
+        where: { school: { slug: 'smp' } },
+        include: {
+          school: {
+            select: {
+              slug: true,
+              name: true,
+              primaryColor: true,
+            },
+          },
         },
-      },
-    });
+        orderBy: { createdAt: 'desc' },
+      }),
+    ]);
+    dbSchool = schoolData;
+    achievements = achList;
   } catch (err) {
     console.error('Error fetching SMP school data, falling back to static content:', err);
   }
@@ -51,6 +69,7 @@ export default async function SmpLandingPage() {
     <SmpLandingView
       teachers={dbSchool?.teachers || []}
       newsPosts={dbSchool?.newsPosts || []}
+      achievements={achievements}
     />
   );
 }

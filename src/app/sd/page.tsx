@@ -21,22 +21,40 @@ export const revalidate = 60;
 
 export default async function SdLandingPage() {
   let dbSchool = null;
+  let achievements: any[] = [];
   try {
-    dbSchool = await prisma.school.findUnique({
-      where: { slug: 'sd' },
-      include: {
-        cmsSections: true,
-        teachers: {
-          where: { isActive: true },
-          orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    const [schoolData, achList] = await Promise.all([
+      prisma.school.findUnique({
+        where: { slug: 'sd' },
+        include: {
+          cmsSections: true,
+          teachers: {
+            where: { isActive: true },
+            orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+          },
+          newsPosts: {
+            where: { isPublished: true },
+            orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+            take: 6,
+          },
         },
-        newsPosts: {
-          where: { isPublished: true },
-          orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-          take: 6,
+      }),
+      prisma.studentAchievement.findMany({
+        where: { school: { slug: 'sd' } },
+        include: {
+          school: {
+            select: {
+              slug: true,
+              name: true,
+              primaryColor: true,
+            },
+          },
         },
-      },
-    });
+        orderBy: { createdAt: 'desc' },
+      }),
+    ]);
+    dbSchool = schoolData;
+    achievements = achList;
   } catch (err) {
     console.error('Error fetching SD school data, falling back to static content:', err);
   }
@@ -294,6 +312,7 @@ export default async function SdLandingPage() {
         ],
     teachers: rawTeachers,
     newsPosts: (dbSchool?.newsPosts && dbSchool.newsPosts.length > 0) ? dbSchool.newsPosts : defaultSdNewsPosts,
+    achievements,
   };
 
   return <SchoolLandingTemplate school={schoolData} />;

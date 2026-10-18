@@ -19,22 +19,40 @@ export const revalidate = 60;
 
 export default async function TkLandingPage() {
   let dbSchool = null;
+  let achievements: any[] = [];
   try {
-    dbSchool = await prisma.school.findUnique({
-      where: { slug: 'tk' },
-      include: {
-        cmsSections: true,
-        teachers: {
-          where: { isActive: true },
-          orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    const [schoolData, achList] = await Promise.all([
+      prisma.school.findUnique({
+        where: { slug: 'tk' },
+        include: {
+          cmsSections: true,
+          teachers: {
+            where: { isActive: true },
+            orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+          },
+          newsPosts: {
+            where: { isPublished: true },
+            orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+            take: 3,
+          },
         },
-        newsPosts: {
-          where: { isPublished: true },
-          orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-          take: 3,
+      }),
+      prisma.studentAchievement.findMany({
+        where: { school: { slug: 'tk' } },
+        include: {
+          school: {
+            select: {
+              slug: true,
+              name: true,
+              primaryColor: true,
+            },
+          },
         },
-      },
-    });
+        orderBy: { createdAt: 'desc' },
+      }),
+    ]);
+    dbSchool = schoolData;
+    achievements = achList;
   } catch (err) {
     console.error('Error fetching TK school data, falling back to static content:', err);
   }
@@ -95,6 +113,7 @@ export default async function TkLandingPage() {
     testimonials: sectionsMap.testimonials,
     teachers: dbSchool?.teachers || [],
     newsPosts: dbSchool?.newsPosts || [],
+    achievements,
   };
 
   return <SchoolLandingTemplate school={schoolData} />;

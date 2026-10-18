@@ -77,7 +77,7 @@ export default async function HomePage() {
 
       {/* 4. Inspiring Student & Teacher Highlights (Havenly Radial Arc Dial Carousel) */}
       <ScrollFadeIn>
-        <section className="py-16 sm:py-20 bg-gradient-to-b from-[#F2F8F7] via-white to-[#F8FAFC] border-y border-[#D4EBE7]/60 relative overflow-hidden">
+        <section id="prestasi" className="py-16 sm:py-20 bg-gradient-to-b from-[#F2F8F7] via-white to-[#F8FAFC] border-y border-[#D4EBE7]/60 relative overflow-hidden scroll-mt-20">
           {/* Subtle decorative background glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#2D7A70]/5 blur-3xl rounded-full pointer-events-none" />
           

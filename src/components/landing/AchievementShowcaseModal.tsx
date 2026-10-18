@@ -46,7 +46,7 @@ export default function AchievementShowcaseModal({
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/admin/achievements?schoolSlug=${selectedUnit}&category=${selectedCategory}&search=${encodeURIComponent(
+          `/api/achievements?schoolSlug=${selectedUnit}&category=${selectedCategory}&search=${encodeURIComponent(
             searchQuery
           )}`
         );
@@ -234,6 +234,7 @@ export default function AchievementShowcaseModal({
                           alt={item.studentName}
                           fill
                           sizes="96px"
+                          unoptimized={Boolean(item.imageUrl?.startsWith('data:'))}
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute top-1 left-1">

@@ -41,10 +41,12 @@ import {
 } from 'lucide-react';
 import { getStoredReferralCode } from '@/lib/referral';
 import type { TeacherData, NewsData, FacilityItem } from './SchoolLandingTemplate';
+import UnitAchievementSection from './UnitAchievementSection';
 
 export interface SmpLandingViewProps {
   teachers?: TeacherData[];
   newsPosts?: NewsData[];
+  achievements?: any[];
 }
 
 const SMP_POSTERS = [
@@ -228,7 +230,7 @@ const SMP_FAQS = [
   },
 ];
 
-export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLandingViewProps) {
+export default function SmpLandingView({ teachers = [], newsPosts = [], achievements = [] }: SmpLandingViewProps) {
   const [activePoster, setActivePoster] = useState(SMP_POSTERS[0]);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -989,6 +991,15 @@ export default function SmpLandingView({ teachers = [], newsPosts = [] }: SmpLan
           </div>
         </div>
       </section>
+
+      {/* SECTION PRESTASI: PRESTASI & CAPAIAN SANTRI SMP IT AL-AFIYAH */}
+      <UnitAchievementSection
+        schoolSlug="smp"
+        schoolName="SMP IT Al-Afiyah"
+        primaryColor="#030164"
+        accentColor="#ffd51e"
+        initialAchievements={achievements}
+      />
 
       {/* SECTION 4: SARANA & FASILITAS SEKOLAH DI LINGKUNGAN GIRI ASIH */}
       <section id="fasilitas" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">

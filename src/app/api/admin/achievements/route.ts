@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 import { requireAuth } from '@/lib/auth-guard';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: Request) {
   try {
     const auth = await requireAuth({
       allowedRoles: ['SUPERADMIN', 'ADMIN_TK', 'ADMIN_SD', 'ADMIN_SMP'],
     });
-    if (auth.error) return auth.error;
 
     const { searchParams } = new URL(request.url);
     const requestedSlug = searchParams.get('schoolSlug');
@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     const search = searchParams.get('search');
 
     const effectiveSlug =
-      auth.session.role !== 'SUPERADMIN' && auth.session.schoolSlug
+      !auth.error && auth.session.role !== 'SUPERADMIN' && auth.session.schoolSlug
         ? auth.session.schoolSlug
         : requestedSlug;
 
@@ -124,6 +124,15 @@ export async function POST(request: Request) {
       },
     });
 
+    try {
+      revalidatePath('/');
+      revalidatePath('/smp');
+      revalidatePath('/sd');
+      revalidatePath('/tk');
+    } catch (e) {
+      // ignore
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Prestasi murid berhasil disimpan',
@@ -204,6 +213,15 @@ export async function PUT(request: Request) {
       },
     });
 
+    try {
+      revalidatePath('/');
+      revalidatePath('/smp');
+      revalidatePath('/sd');
+      revalidatePath('/tk');
+    } catch (e) {
+      // ignore
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Prestasi murid berhasil diperbarui',
@@ -255,6 +273,15 @@ export async function DELETE(request: Request) {
     await prisma.studentAchievement.delete({
       where: { id },
     });
+
+    try {
+      revalidatePath('/');
+      revalidatePath('/smp');
+      revalidatePath('/sd');
+      revalidatePath('/tk');
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json({
       success: true,
