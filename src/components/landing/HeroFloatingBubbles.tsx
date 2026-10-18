@@ -165,20 +165,22 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
 
   // =========================================================================
   // SD IT: Authentic Educational & Islamic floating elements
-  // (Al-Quran Ungu, Pesawat Kertas Cita-Cita, Papan Tulis ABC, Pensil Ceria, Buku Terbuka)
+  // (Al-Quran Ungu, Pesawat Kertas Cita-Cita, Papan Tulis ABC, Pensil Ceria)
   // Responsively positioned & scaled so laptop & mobile have zero text collision.
+  // Note: Buku Terbuka is rendered in Hero3DStatCards in the foreground over the cards.
   // =========================================================================
   const sdHeroElements = useMemo<FloatingHeroElement[]>(() => [
-    // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah (Top-right)
+    // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah
+    // On mobile: shifted to top-[25%] in the empty space beside the 3 lower lines of text
     {
       id: 'sd-quran-main',
       src: '/images/hero/sd-elem-quran.png',
       alt: "Mushaf Al-Qur'an SDIT Al-Afiyah",
       width: 262,
       height: 276,
-      wrapperClass: 'top-[19%] right-[4%] sm:top-[19%] sm:right-[6%] lg:top-[20%] lg:right-[8%]',
+      wrapperClass: 'top-[25%] right-[3%] sm:top-[19%] sm:right-[6%] lg:top-[20%] lg:right-[8%]',
       tiltClass: '-rotate-6',
-      className: 'w-[80px] xs:w-[92px] sm:w-[115px] md:w-[135px] lg:w-[155px] animate-poster-float-slow select-none',
+      className: 'w-[74px] xs:w-[84px] sm:w-[115px] md:w-[135px] lg:w-[155px] animate-poster-float-slow select-none',
       glowClass: 'drop-shadow-[0_14px_30px_rgba(168,85,247,0.38)] drop-shadow-[0_4px_12px_rgba(255,213,30,0.28)]',
       style: {
         animationDelay: '0s',
@@ -191,57 +193,42 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
       alt: 'Pesawat Kertas Cita-Cita SDIT',
       width: 193,
       height: 287,
-      wrapperClass: 'top-[7%] right-[28%] sm:top-[11%] sm:right-[26%] lg:top-[12%] lg:right-[27%]',
+      wrapperClass: 'top-[7%] right-[22%] sm:top-[11%] sm:right-[26%] lg:top-[12%] lg:right-[27%]',
       tiltClass: 'rotate-6',
-      className: 'w-[56px] xs:w-[66px] sm:w-[84px] md:w-[102px] lg:w-[120px] animate-poster-leaf-1 select-none',
+      className: 'w-[52px] xs:w-[62px] sm:w-[84px] md:w-[102px] lg:w-[120px] animate-poster-leaf-1 select-none',
       glowClass: 'drop-shadow-[0_10px_24px_rgba(52,211,153,0.36)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.3)]',
       style: {
         animationDelay: '0.8s',
       },
     },
-    // 3. Papan Tulis Mini ABC (Early literacy & joyful classroom foundation - lower right)
+    // 3. Papan Tulis Mini ABC (Early literacy & joyful classroom foundation - above buttons)
     {
       id: 'sd-board-abc',
       src: '/images/hero/sd-elem-board.png',
       alt: 'Papan Tulis Ceria ABC SDIT',
       width: 237,
       height: 170,
-      wrapperClass: 'top-[56%] right-[3%] sm:top-[56%] sm:right-[4%] lg:top-[56%] lg:right-[5%]',
+      wrapperClass: 'top-[46%] right-[3%] sm:top-[56%] sm:right-[4%] lg:top-[56%] lg:right-[5%]',
       tiltClass: 'rotate-3',
-      className: 'w-[72px] xs:w-[84px] sm:w-[104px] md:w-[124px] lg:w-[140px] animate-poster-pendulum select-none',
+      className: 'w-[68px] xs:w-[78px] sm:w-[104px] md:w-[124px] lg:w-[140px] animate-poster-pendulum select-none',
       glowClass: 'drop-shadow-[0_12px_28px_rgba(234,179,8,0.36)] drop-shadow-[0_4px_12px_rgba(16,185,129,0.22)]',
       style: {
         animationDelay: '1.5s',
       },
     },
-    // 4. Pensil Ceria (Slim, compact, tilted playfully diagonally ~38deg, centered on laptop, safe on mobile)
+    // 4. Pensil Ceria (Slim, compact, tilted playfully diagonally ~30deg, safely in-bounds on mobile, center on laptop)
     {
       id: 'sd-pencil-creative',
       src: '/images/hero/sd-elem-pencil.png',
       alt: 'Pensil Kreatif Belajar SDIT',
       width: 140,
       height: 348,
-      wrapperClass: 'top-[9%] right-[8%] sm:top-[15%] sm:left-[47%] sm:right-auto lg:top-[16%] lg:left-[49%]',
-      tiltClass: 'rotate-[38deg]',
-      className: 'w-[20px] xs:w-[24px] sm:w-[32px] md:w-[38px] lg:w-[44px] animate-poster-float-medium select-none',
+      wrapperClass: 'top-[11%] right-[16%] sm:top-[15%] sm:left-[47%] sm:right-auto lg:top-[16%] lg:left-[49%]',
+      tiltClass: 'rotate-[30deg]',
+      className: 'w-[17px] xs:w-[20px] sm:w-[32px] md:w-[38px] lg:w-[44px] animate-poster-float-medium select-none',
       glowClass: 'drop-shadow-[0_10px_22px_rgba(251,191,36,0.38)] drop-shadow-[0_2px_8px_rgba(239,68,68,0.22)]',
       style: {
         animationDelay: '0.4s',
-      },
-    },
-    // 5. Buku Pelajaran Terbuka (Moved down lower at ~80-82% so description text has zero overlap)
-    {
-      id: 'sd-book-open',
-      src: '/images/hero/sd-elem-book.png',
-      alt: 'Buku Pelajaran Terbuka SDIT',
-      width: 285,
-      height: 239,
-      wrapperClass: 'top-[78%] left-[2%] sm:top-[80%] sm:left-[2.5%] lg:top-[82%] lg:left-[3%]',
-      tiltClass: 'rotate-6',
-      className: 'w-[44px] xs:w-[52px] sm:w-[68px] md:w-[80px] lg:w-[92px] opacity-80 animate-poster-leaf-2 select-none',
-      glowClass: 'drop-shadow-[0_12px_26px_rgba(251,146,60,0.28)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.2)]',
-      style: {
-        animationDelay: '2.1s',
       },
     },
   ], []);

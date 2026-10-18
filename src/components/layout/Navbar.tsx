@@ -378,7 +378,7 @@ export default function Navbar({
           }`}
         >
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 w-full">
-            <div className="flex items-center justify-between h-[72px] xs:h-[76px] sm:h-[78px] lg:h-[80px] w-full min-w-0">
+            <div className="flex items-center justify-between h-[60px] xs:h-[64px] sm:h-[72px] lg:h-[78px] w-full min-w-0">
               
               {/* Brand Logo & Typography (Al-Irsyad Inspired, Responsive & Truncated on Mobile) */}
               <Link
@@ -389,13 +389,13 @@ export default function Navbar({
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
-                className="flex items-center gap-2.5 xs:gap-3 sm:gap-3.5 min-w-0 flex-1 mr-2 sm:mr-6 xl:mr-10 py-1 group cursor-pointer"
+                className="flex items-center gap-2 xs:gap-2.5 sm:gap-3.5 min-w-0 flex-1 mr-2 sm:mr-6 xl:mr-10 py-1 group cursor-pointer"
               >
                 {brandConfig.logoUrl && (
                   <img
                     src={brandConfig.logoUrl}
                     alt={brandConfig.title}
-                    className="w-12 h-12 xs:w-[52px] xs:h-[52px] sm:w-[54px] sm:h-[54px] lg:w-[56px] lg:h-[56px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
+                    className="w-9 h-9 xs:w-10 xs:h-10 sm:w-[46px] sm:h-[46px] lg:w-[52px] lg:h-[52px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
                   />
                 )}
                 <div className="min-w-0 flex flex-col justify-center">
@@ -403,7 +403,7 @@ export default function Navbar({
                     <>
                       {/* Arabic Calligraphy Style Title */}
                       <div
-                        className={`text-base xs:text-[17px] sm:text-lg xl:text-xl font-bold tracking-normal font-serif transition-colors leading-tight truncate ${
+                        className={`text-[13px] xs:text-[14px] sm:text-base lg:text-lg font-bold tracking-normal font-serif transition-colors leading-tight truncate ${
                           shouldBeTransparent
                             ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                             : 'text-softwater-dark group-hover:text-softwater'
@@ -416,7 +416,7 @@ export default function Navbar({
                       {/* Latin Name (Pure White on Transparent, Slate-800 on Scrolled) */}
                       <div className="mt-0.5">
                         <span
-                          className={`text-xs xs:text-[13.5px] sm:text-sm font-black uppercase tracking-wider transition-colors truncate block ${
+                          className={`text-[10px] xs:text-[11px] sm:text-xs font-black uppercase tracking-wider transition-colors truncate block ${
                             shouldBeTransparent
                               ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                               : 'text-slate-800 group-hover:text-softwater-dark'
@@ -431,7 +431,7 @@ export default function Navbar({
                       {/* Latin Name as Primary Headline on Top */}
                       <div>
                         <span
-                          className={`text-[14px] xs:text-[15.5px] sm:text-base lg:text-[17px] font-black uppercase tracking-wider transition-colors truncate block leading-tight ${
+                          className={`text-[12px] xs:text-[13px] sm:text-[14.5px] lg:text-[16px] font-black uppercase tracking-wider transition-colors truncate block leading-tight ${
                             shouldBeTransparent
                               ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                               : activeSlug === 'smp'
@@ -447,7 +447,7 @@ export default function Navbar({
                       {brandConfig.subtitle && (
                         <div className="mt-0.5">
                           <span
-                            className={`text-[10px] xs:text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-colors truncate block ${
+                            className={`text-[8.5px] xs:text-[9.5px] sm:text-[10.5px] lg:text-[11px] font-bold uppercase tracking-wider transition-colors truncate block ${
                               shouldBeTransparent
                                 ? activeSlug === 'smp'
                                   ? 'text-[#ffd51e] drop-shadow-xs'
@@ -661,35 +661,35 @@ export default function Navbar({
               </div>
 
               {/* Mobile & Tablet Right Actions (Search + Hamburger Drawer Trigger) */}
-              <div className="flex lg:hidden items-center gap-1.5 xs:gap-2 sm:gap-2.5 shrink-0 ml-auto">
+              <div className="flex lg:hidden items-center gap-1 xs:gap-1.5 sm:gap-2.5 shrink-0 ml-auto">
                 <button
                   type="button"
                   onClick={() => setIsSearchOpen(true)}
                   title="Pencarian Cepat"
                   aria-label="Buka pencarian"
-                  className={`p-2 xs:p-2.5 rounded-full transition-all cursor-pointer shrink-0 active:scale-95 ${
+                  className={`p-1.5 xs:p-2 rounded-full transition-all cursor-pointer shrink-0 active:scale-95 ${
                     shouldBeTransparent
                       ? 'text-white hover:bg-white/10 active:bg-white/20'
                       : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100 active:bg-slate-200'
                   }`}
                 >
-                  <Search className="w-5 h-5 xs:w-[22px] xs:h-[22px] sm:w-6 sm:h-6" strokeWidth={2.2} />
+                  <Search className="w-[18px] h-[18px] xs:w-5 xs:h-5 sm:w-6 sm:h-6" strokeWidth={2.2} />
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   aria-label="Buka menu navigasi"
-                  className={`p-2 xs:p-2.5 rounded-xl transition-all cursor-pointer shrink-0 active:scale-95 ${
+                  className={`p-1.5 xs:p-2 rounded-xl transition-all cursor-pointer shrink-0 active:scale-95 ${
                     shouldBeTransparent
                       ? 'text-white hover:bg-white/10 active:bg-white/20'
                       : 'text-slate-800 hover:text-softwater-dark hover:bg-slate-100 active:bg-slate-200'
                   }`}
                 >
                   {isMobileMenuOpen ? (
-                    <X className="w-7 h-7 xs:w-[30px] xs:h-[30px]" strokeWidth={2.3} />
+                    <X className="w-6 h-6 xs:w-[26px] xs:h-[26px] sm:w-[30px] sm:h-[30px]" strokeWidth={2.3} />
                   ) : (
-                    <Menu className="w-7 h-7 xs:w-[30px] xs:h-[30px]" strokeWidth={2.3} />
+                    <Menu className="w-6 h-6 xs:w-[26px] xs:h-[26px] sm:w-[30px] sm:h-[30px]" strokeWidth={2.3} />
                   )}
                 </button>
               </div>

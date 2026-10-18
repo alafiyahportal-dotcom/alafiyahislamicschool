@@ -214,7 +214,7 @@ export default function UnitHeroSlider({
       <HeroFloatingBubbles slug={slug} />
 
       {/* Headline block — vertically centered in the space between navbar and CTA */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-24 sm:pt-28 lg:pt-32 pb-6 sm:pb-8">
+      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-5 sm:px-6 lg:px-8 pt-20 sm:pt-28 lg:pt-32 pb-6 sm:pb-8">
         <div className="max-w-3xl">
           {slide.badge && (
             <motion.div
