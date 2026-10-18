@@ -1913,45 +1913,41 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                   duration={500}
                   className="h-full"
                 >
-                  <div className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-4 sm:p-5">
-                    <div>
-                      {teacher.photoUrl ? (
-                        <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-slate-100">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={teacher.photoUrl}
-                            alt={teacher.name}
-                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-[#064e3b] flex items-center justify-center font-black text-xl mb-4 border border-emerald-100">
-                          {teacher.name.charAt(0)}
-                        </div>
-                      )}
+                  <div className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5">
+                    <div className="space-y-3">
+                      {/* Header Badge Role */}
+                      <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3 shadow-2xs">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200 block">
+                          Amanah Pendidik
+                        </span>
+                        <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                          {teacher.role}
+                        </span>
+                      </div>
 
-                      <span className="text-[11px] font-bold text-[#064e3b] block leading-tight">
-                        {teacher.role}
-                      </span>
-                      <h3 className="font-extrabold text-base text-slate-900 mt-1 leading-snug group-hover:text-emerald-700 transition-colors">
-                        {teacher.name}
-                      </h3>
-                      {teacher.specialization && (
-                        <p className="text-xs text-slate-500 mt-1.5 leading-relaxed line-clamp-2">
-                          {teacher.specialization}
-                        </p>
-                      )}
-                      {teacher.bio && (
-                        <p className="text-[11px] text-slate-400 mt-2 italic line-clamp-2">
-                          &ldquo;{teacher.bio}&rdquo;
-                        </p>
-                      )}
+                      <div className="space-y-1.5">
+                        <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
+                          {teacher.name}
+                        </h3>
+                        {teacher.specialization && (
+                          <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                            {teacher.specialization}
+                          </p>
+                        )}
+                        {teacher.bio && (
+                          <p className="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-lg border border-slate-100 leading-relaxed">
+                            &ldquo;{teacher.bio}&rdquo;
+                          </p>
+                        )}
+                      </div>
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-                      <span>{school.name}</span>
-                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        <span>Aktif Bertugas</span>
+                      </span>
+                      <span className="text-slate-400 text-[10px]">{school.name}</span>
                     </div>
                   </div>
                 </ScrollReveal>

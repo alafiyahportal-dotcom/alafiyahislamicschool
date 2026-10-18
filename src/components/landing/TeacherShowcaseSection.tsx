@@ -1,14 +1,11 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import {
   GraduationCap,
   Award,
   BookOpen,
-  ArrowRight,
-  UserCircle2
+  ArrowRight
 } from 'lucide-react';
 import { getSchoolUrl } from '@/lib/domain';
 
@@ -38,7 +35,7 @@ export default function TeacherShowcaseSection({ teachers = [] }: TeacherShowcas
             <span>DEWAN GURU &amp; PENDIDIK</span>
           </div>
           <div className="bg-white rounded-2xl border border-dashed border-slate-300 p-10 max-w-lg mx-auto space-y-3">
-            <UserCircle2 className="w-10 h-10 text-slate-300 mx-auto" />
+            <GraduationCap className="w-10 h-10 text-slate-300 mx-auto" />
             <p className="text-sm font-bold text-slate-500">Profil Dewan Guru Segera Hadir</p>
             <p className="text-xs text-slate-400 leading-relaxed">
               Data guru asli sedang dipersiapkan oleh panitia. Admin dapat menambahkan profil guru
@@ -72,58 +69,54 @@ export default function TeacherShowcaseSection({ teachers = [] }: TeacherShowcas
           </p>
         </div>
 
-        {/* Teacher Cards Grid */}
+        {/* Teacher Cards Grid — Tanpa Foto Sesuai Adab Islami */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {teachers.map((t, idx) => (
             <div
               key={idx}
-              className="group bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col justify-between"
+              className="group bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-amber-400/60 transition-all duration-300 transform hover:-translate-y-1.5 flex flex-col justify-between"
             >
-              <div>
-                {/* Photo */}
-                <div className="relative h-64 w-full overflow-hidden bg-slate-100">
-                  {t.image ? (
-                    <Image
-                      src={t.image}
-                      alt={t.name}
-                      fill
-                      unoptimized={Boolean(t.image?.startsWith('data:') || t.image?.startsWith('http'))}
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-slate-100">
-                      <UserCircle2 className="w-16 h-16 text-slate-300" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  
-                  {/* Floating Sanad Pill */}
-                  {t.sanad && (
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#184F48]/90 text-amber-300 backdrop-blur-md border border-amber-300/30 truncate max-w-full">
-                        {t.sanad}
-                      </span>
-                    </div>
-                  )}
+              <div className="space-y-4">
+                {/* Header Badge Role */}
+                <div className="bg-gradient-to-br from-[#184F48] to-[#0d332e] text-white rounded-2xl p-4 shadow-2xs relative overflow-hidden">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 block">
+                      Amanah Pendidik
+                    </span>
+                    <GraduationCap className="w-4 h-4 text-amber-300/80" />
+                  </div>
+                  <span className="text-sm font-black text-white mt-1 block leading-snug">
+                    {t.role}
+                  </span>
                 </div>
 
-                {/* Info Content */}
-                <div className="p-5 space-y-1.5 text-center">
-                  <h3 className="font-extrabold text-base text-slate-900 group-hover:text-[#184F48] transition-colors line-clamp-1">
+                <div className="space-y-2">
+                  <h3 className="font-extrabold text-base text-slate-900 group-hover:text-[#184F48] transition-colors leading-snug">
                     {t.name}
                   </h3>
-                  <p className="text-xs font-bold text-amber-600">
-                    {t.role}
-                  </p>
-                  <p className="text-[11px] text-slate-500">
-                    {t.degree}
-                  </p>
+                  
+                  {t.sanad && (
+                    <p className="text-xs font-semibold text-amber-700 bg-amber-50/80 px-2.5 py-1 rounded-lg border border-amber-200/60 inline-block">
+                      {t.sanad}
+                    </p>
+                  )}
+
+                  {t.degree && (
+                    <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                      {t.degree}
+                    </p>
+                  )}
                 </div>
               </div>
 
               {/* Bottom Line Accent */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-amber-400 via-emerald-500 to-[#2D7A70] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+                <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Aktif Membina</span>
+                </span>
+                <span className="text-slate-400 text-[10px]">Al-Afiyah</span>
+              </div>
             </div>
           ))}
         </div>

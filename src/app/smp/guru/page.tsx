@@ -195,26 +195,15 @@ export default async function SmpGuruPage() {
               key={teacher.id}
               className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#030164]/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
             >
-              <div>
-                {teacher.photoUrl ? (
-                  <div className="relative h-56 w-full rounded-xl overflow-hidden mb-4 bg-slate-100">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={teacher.photoUrl}
-                      alt={teacher.name}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#030164] flex items-center justify-center font-bold text-lg mb-3">
-                    {teacher.name.charAt(0)}
-                  </div>
-                )}
-
-                <p className="text-xs font-semibold text-[#030164] mb-1">
-                  {teacher.role}
-                </p>
+              <div className="space-y-3">
+                <div className="bg-[#030164] text-white rounded-xl p-3 shadow-2xs">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
+                    Amanah Pendidik
+                  </span>
+                  <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                    {teacher.role}
+                  </span>
+                </div>
 
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#030164] transition-colors">
                   {teacher.name}

@@ -1231,40 +1231,41 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                   duration={500}
                   className="h-full"
                 >
-                  <div className="bg-slate-50 rounded-2xl border border-slate-200 hover:border-[#030164]/40 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-4 sm:p-5">
-                    <div>
-                      {teacher.photoUrl ? (
-                        <div className="relative h-52 w-full rounded-xl overflow-hidden mb-4 bg-slate-200">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={teacher.photoUrl}
-                            alt={teacher.name}
-                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-14 h-14 rounded-2xl bg-blue-100 text-[#030164] flex items-center justify-center font-black text-xl mb-4">
-                          {teacher.name.charAt(0)}
-                        </div>
-                      )}
+                  <div className="bg-slate-50 rounded-2xl border border-slate-200 hover:border-[#030164]/40 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5">
+                    <div className="space-y-3">
+                      {/* Header Badge Role */}
+                      <div className="bg-[#030164] text-white rounded-xl p-3 shadow-2xs">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
+                          Amanah Pendidik
+                        </span>
+                        <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                          {teacher.role}
+                        </span>
+                      </div>
 
-                      <span className="text-[11px] font-bold text-[#030164] block leading-tight">
-                        {teacher.role}
-                      </span>
-                      <h3 className="font-extrabold text-base text-slate-900 mt-1 leading-snug group-hover:text-[#030164] transition-colors">
-                        {teacher.name}
-                      </h3>
-                      {teacher.specialization && (
-                        <p className="text-xs text-slate-500 mt-1.5 leading-relaxed line-clamp-2">
-                          {teacher.specialization}
-                        </p>
-                      )}
+                      <div className="space-y-1.5">
+                        <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-[#030164] transition-colors">
+                          {teacher.name}
+                        </h3>
+                        {teacher.specialization && (
+                          <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                            {teacher.specialization}
+                          </p>
+                        )}
+                        {teacher.bio && (
+                          <p className="text-[11px] text-slate-500 italic bg-white p-2.5 rounded-lg border border-slate-200/80 leading-relaxed">
+                            &ldquo;{teacher.bio}&rdquo;
+                          </p>
+                        )}
+                      </div>
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-400">
-                      <span>SMP IT Al-Afiyah</span>
-                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span className="inline-flex items-center gap-1.5 font-medium text-[#030164]">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        <span>Aktif Bertugas</span>
+                      </span>
+                      <span className="text-slate-400 text-[10px]">SMP IT Al-Afiyah</span>
                     </div>
                   </div>
                 </ScrollReveal>

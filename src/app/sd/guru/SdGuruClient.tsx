@@ -187,18 +187,6 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                   className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-emerald-500/60 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
                 >
                   <div className="space-y-4">
-                    {Boolean(teacher.photoUrl || (teacher.imageUrl && !teacher.imageUrl.includes('placeholder'))) && (
-                      <div className="relative h-48 w-full rounded-xl overflow-hidden bg-slate-100">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={teacher.photoUrl || teacher.imageUrl}
-                          alt={teacher.name}
-                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                      </div>
-                    )}
-
                     {/* Card Hijau Elegan di dalam setiap card */}
                     <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3.5 shadow-xs relative overflow-hidden">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">

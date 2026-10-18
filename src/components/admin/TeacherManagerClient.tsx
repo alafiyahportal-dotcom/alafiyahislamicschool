@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import IslamicToast from '@/components/common/IslamicToast';
 import {
   UserCheck,
@@ -14,11 +13,8 @@ import {
   AlertCircle,
   Award,
   School as SchoolIcon,
-  Upload,
-  ImageIcon,
-  Loader2,
+  GraduationCap,
 } from 'lucide-react';
-import { compressImageClient } from '@/lib/image-compress';
 
 export interface TeacherItem {
   id: string;
@@ -78,33 +74,6 @@ export default function TeacherManagerClient({
   const [formBio, setFormBio] = useState('');
   const [formOrder, setFormOrder] = useState(0);
   const [formIsActive, setFormIsActive] = useState(true);
-  const [formPhotoUrl, setFormPhotoUrl] = useState('');
-  const [isUploadingImage, setIsUploadingImage] = useState(false);
-  const [imageUploadMode, setImageUploadMode] = useState<'upload' | 'url'>('upload');
-
-  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      setErrorMessage('Berkas yang dipilih harus berupa gambar (JPG, PNG, WebP)');
-      return;
-    }
-
-    setIsUploadingImage(true);
-    setErrorMessage(null);
-
-    try {
-      const compressed = await compressImageClient(file, 800, 800, 0.85);
-      setFormPhotoUrl(compressed.dataUrl);
-    } catch (err: any) {
-      console.error('Image compression error:', err);
-      setErrorMessage(err.message || 'Gagal memproses gambar foto guru');
-    } finally {
-      setIsUploadingImage(false);
-    }
-  };
-
   const openAddModal = () => {
     setEditingTeacher(null);
     setFormName('');
@@ -113,8 +82,6 @@ export default function TeacherManagerClient({
     setFormBio('');
     setFormOrder(teachers.length + 1);
     setFormIsActive(true);
-    setFormPhotoUrl('/images/arc-ustadz.jpg');
-    setImageUploadMode('upload');
     setErrorMessage(null);
     setIsModalOpen(true);
   };
@@ -127,8 +94,6 @@ export default function TeacherManagerClient({
     setFormBio(teacher.bio || '');
     setFormOrder(teacher.order);
     setFormIsActive(teacher.isActive);
-    setFormPhotoUrl(teacher.photoUrl || '/images/arc-ustadz.jpg');
-    setImageUploadMode('upload');
     setErrorMessage(null);
     setIsModalOpen(true);
   };
@@ -159,7 +124,7 @@ export default function TeacherManagerClient({
             name: formName.trim(),
             role: formRole.trim(),
             specialization: formSpecialization.trim() || null,
-            photoUrl: formPhotoUrl.trim() || null,
+            photoUrl: null,
             bio: formBio.trim() || null,
             order: Number(formOrder),
             isActive: formIsActive,
@@ -187,7 +152,7 @@ export default function TeacherManagerClient({
             name: formName.trim(),
             role: formRole.trim(),
             specialization: formSpecialization.trim() || null,
-            photoUrl: formPhotoUrl.trim() || null,
+            photoUrl: null,
             bio: formBio.trim() || null,
             order: Number(formOrder),
             isActive: formIsActive,
@@ -394,15 +359,8 @@ export default function TeacherManagerClient({
                     </td>
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-100 relative shrink-0 border border-slate-200">
-                          <Image
-                            src={teacher.photoUrl || '/images/arc-ustadz.jpg'}
-                            alt={teacher.name}
-                            fill
-                            sizes="40px"
-                            unoptimized={Boolean(teacher.photoUrl?.startsWith('data:'))}
-                            className="object-cover"
-                          />
+                        <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center shrink-0 border border-emerald-200">
+                          <GraduationCap className="w-5 h-5" />
                         </div>
                         <div>
                           <p className="font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -536,99 +494,16 @@ export default function TeacherManagerClient({
                 </div>
               </div>
 
-              {/* Photo Upload & Preview */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-bold text-slate-700">
-                    Foto Profil Guru / Pendidik
-                  </label>
-                  <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg text-[11px] font-semibold">
-                    <button
-                      type="button"
-                      onClick={() => setImageUploadMode('upload')}
-                      className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
-                        imageUploadMode === 'upload'
-                          ? 'bg-white text-emerald-800 shadow-2xs font-bold'
-                          : 'text-slate-500 hover:text-slate-800'
-                      }`}
-                    >
-                      Unggah File
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setImageUploadMode('url')}
-                      className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
-                        imageUploadMode === 'url'
-                          ? 'bg-white text-emerald-800 shadow-2xs font-bold'
-                          : 'text-slate-500 hover:text-slate-800'
-                      }`}
-                    >
-                      Input URL
-                    </button>
-                  </div>
+              {/* Islamic Adab Policy Notice */}
+              <div className="flex items-center gap-3 p-3 bg-emerald-50/80 border border-emerald-200/80 rounded-xl text-xs text-emerald-900">
+                <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0 text-emerald-800">
+                  <GraduationCap className="w-4 h-4" />
                 </div>
-
-                <div className="flex items-start gap-4 p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                  <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-300">
-                    {formPhotoUrl ? (
-                      <Image
-                        src={formPhotoUrl}
-                        alt="Preview Foto Guru"
-                        fill
-                        sizes="80px"
-                        unoptimized={Boolean(formPhotoUrl.startsWith('data:'))}
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                        <ImageIcon className="w-6 h-6 mb-1 opacity-60" />
-                        <span className="text-[9px]">Belum ada</span>
-                      </div>
-                    )}
-                    {isUploadingImage && (
-                      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-2xs flex items-center justify-center text-white">
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    {imageUploadMode === 'upload' ? (
-                      <div>
-                        <label
-                          htmlFor="teacher-photo-upload"
-                          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-slate-300 hover:border-emerald-600 hover:text-emerald-700 text-slate-700 text-xs font-bold shadow-2xs cursor-pointer transition-all active:scale-95"
-                        >
-                          <Upload className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>{isUploadingImage ? 'Mengompres...' : 'Pilih Foto dari HP / Laptop'}</span>
-                        </label>
-                        <input
-                          id="teacher-photo-upload"
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageFileChange}
-                          disabled={isUploadingImage}
-                          className="hidden"
-                        />
-                        <p className="text-[11px] text-slate-500 mt-1.5 leading-snug">
-                          Format JPG, PNG, atau WebP. Foto otomatis dikompresi agar loading kilat di web publik.
-                        </p>
-                      </div>
-                    ) : (
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="/images/arc-ustadz.jpg atau https://..."
-                          value={formPhotoUrl}
-                          onChange={(e) => setFormPhotoUrl(e.target.value)}
-                          className="w-full px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 font-mono text-slate-900"
-                        />
-                        <p className="text-[11px] text-slate-500 mt-1">
-                          Masukkan URL path lokal atau tautan gambar online.
-                        </p>
-                      </div>
-                    )}
-                  </div>
+                <div>
+                  <p className="font-bold">Privasi &amp; Adab Islami Pendidik</p>
+                  <p className="text-[11px] text-emerald-700/90 leading-relaxed">
+                    Sesuai adab dan kebijakan privasi sekolah, profil asatidz &amp; asatidzah disajikan secara elegan tanpa foto perseorangan (menampilkan nama, amanah/jabatan, dan spesialisasi keilmuan).
+                  </p>
                 </div>
               </div>
 

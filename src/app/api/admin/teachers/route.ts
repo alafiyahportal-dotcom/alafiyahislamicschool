@@ -78,7 +78,7 @@ export async function POST(request: Request) {
         name,
         role,
         specialization: specialization || null,
-        photoUrl: photoUrl || '/images/arc-ustadz.jpg',
+        photoUrl: photoUrl || null,
         bio: bio || null,
         order: typeof order === 'number' ? order : 0,
         isActive: isActive !== undefined ? Boolean(isActive) : true,
