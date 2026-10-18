@@ -30,6 +30,8 @@ interface FloatingHeroElement {
   className: string;
   style: React.CSSProperties;
   glowClass: string;
+  wrapperClass?: string;
+  tiltClass?: string;
 }
 
 export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) {
@@ -47,7 +49,7 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
       width: 458,
       height: 395,
       className: 'w-[95px] sm:w-[115px] md:w-[135px] animate-poster-float-slow select-none',
-      glowClass: 'drop-shadow-[0_12px_28px_rgba(16,185,129,0.32)] drop-shadow-[0_3px_10px_rgba(255,213,30,0.22)]',
+      glowClass: 'drop-shadow-[0_12px_28px_rgba(160,185,129,0.32)] drop-shadow-[0_3px_10px_rgba(255,213,30,0.22)]',
       style: {
         position: 'absolute',
         top: '22%',
@@ -164,22 +166,21 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
   // =========================================================================
   // SD IT: Authentic Educational & Islamic floating elements
   // (Al-Quran Ungu, Pesawat Kertas Cita-Cita, Papan Tulis ABC, Pensil Ceria, Buku Terbuka)
-  // Replaces the temporary soap bubbles as requested: varied sizes & responsive.
+  // Responsively positioned & scaled so laptop & mobile have zero text collision.
   // =========================================================================
   const sdHeroElements = useMemo<FloatingHeroElement[]>(() => [
-    // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah (Largest & most prominent)
+    // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah (Top-right)
     {
       id: 'sd-quran-main',
       src: '/images/hero/sd-elem-quran.png',
       alt: "Mushaf Al-Qur'an SDIT Al-Afiyah",
       width: 262,
       height: 276,
-      className: 'w-[84px] xs:w-[98px] sm:w-[120px] md:w-[140px] lg:w-[155px] -rotate-6 animate-poster-float-slow select-none',
+      wrapperClass: 'top-[19%] right-[4%] sm:top-[19%] sm:right-[6%] lg:top-[20%] lg:right-[8%]',
+      tiltClass: '-rotate-6',
+      className: 'w-[80px] xs:w-[92px] sm:w-[115px] md:w-[135px] lg:w-[155px] animate-poster-float-slow select-none',
       glowClass: 'drop-shadow-[0_14px_30px_rgba(168,85,247,0.38)] drop-shadow-[0_4px_12px_rgba(255,213,30,0.28)]',
       style: {
-        position: 'absolute',
-        top: '20%',
-        right: '8%',
         animationDelay: '0s',
       },
     },
@@ -190,60 +191,56 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
       alt: 'Pesawat Kertas Cita-Cita SDIT',
       width: 193,
       height: 287,
-      className: 'w-[68px] xs:w-[80px] sm:w-[96px] md:w-[114px] lg:w-[128px] rotate-6 animate-poster-leaf-1 select-none',
+      wrapperClass: 'top-[7%] right-[28%] sm:top-[11%] sm:right-[26%] lg:top-[12%] lg:right-[27%]',
+      tiltClass: 'rotate-6',
+      className: 'w-[56px] xs:w-[66px] sm:w-[84px] md:w-[102px] lg:w-[120px] animate-poster-leaf-1 select-none',
       glowClass: 'drop-shadow-[0_10px_24px_rgba(52,211,153,0.36)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.3)]',
       style: {
-        position: 'absolute',
-        top: '12%',
-        right: '27%',
         animationDelay: '0.8s',
       },
     },
-    // 3. Papan Tulis Mini ABC (Early literacy & joyful classroom foundation)
+    // 3. Papan Tulis Mini ABC (Early literacy & joyful classroom foundation - lower right)
     {
       id: 'sd-board-abc',
       src: '/images/hero/sd-elem-board.png',
       alt: 'Papan Tulis Ceria ABC SDIT',
       width: 237,
       height: 170,
-      className: 'w-[78px] xs:w-[92px] sm:w-[112px] md:w-[130px] lg:w-[146px] rotate-3 animate-poster-pendulum select-none',
+      wrapperClass: 'top-[56%] right-[3%] sm:top-[56%] sm:right-[4%] lg:top-[56%] lg:right-[5%]',
+      tiltClass: 'rotate-3',
+      className: 'w-[72px] xs:w-[84px] sm:w-[104px] md:w-[124px] lg:w-[140px] animate-poster-pendulum select-none',
       glowClass: 'drop-shadow-[0_12px_28px_rgba(234,179,8,0.36)] drop-shadow-[0_4px_12px_rgba(16,185,129,0.22)]',
       style: {
-        position: 'absolute',
-        top: '56%',
-        right: '5%',
         animationDelay: '1.5s',
       },
     },
-    // 4. Pensil Ceria (Creative writing, active learning, sharp graphite & red eraser)
+    // 4. Pensil Ceria (Slim, compact, tilted playfully diagonally ~38deg, centered on laptop, safe on mobile)
     {
       id: 'sd-pencil-creative',
       src: '/images/hero/sd-elem-pencil.png',
       alt: 'Pensil Kreatif Belajar SDIT',
       width: 140,
       height: 348,
-      className: 'w-[40px] xs:w-[48px] sm:w-[60px] md:w-[72px] lg:w-[82px] -rotate-12 animate-poster-float-medium select-none',
+      wrapperClass: 'top-[9%] right-[8%] sm:top-[15%] sm:left-[47%] sm:right-auto lg:top-[16%] lg:left-[49%]',
+      tiltClass: 'rotate-[38deg]',
+      className: 'w-[20px] xs:w-[24px] sm:w-[32px] md:w-[38px] lg:w-[44px] animate-poster-float-medium select-none',
       glowClass: 'drop-shadow-[0_10px_22px_rgba(251,191,36,0.38)] drop-shadow-[0_2px_8px_rgba(239,68,68,0.22)]',
       style: {
-        position: 'absolute',
-        top: '18%',
-        left: '4%',
         animationDelay: '0.4s',
       },
     },
-    // 5. Buku Pelajaran Terbuka (Window of knowledge & diligent study)
+    // 5. Buku Pelajaran Terbuka (Moved down lower at ~80-82% so description text has zero overlap)
     {
       id: 'sd-book-open',
       src: '/images/hero/sd-elem-book.png',
       alt: 'Buku Pelajaran Terbuka SDIT',
       width: 285,
       height: 239,
-      className: 'w-[66px] xs:w-[78px] sm:w-[94px] md:w-[110px] lg:w-[124px] rotate-6 opacity-90 animate-poster-leaf-2 select-none',
-      glowClass: 'drop-shadow-[0_12px_26px_rgba(251,146,60,0.32)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.22)]',
+      wrapperClass: 'top-[78%] left-[2%] sm:top-[80%] sm:left-[2.5%] lg:top-[82%] lg:left-[3%]',
+      tiltClass: 'rotate-6',
+      className: 'w-[44px] xs:w-[52px] sm:w-[68px] md:w-[80px] lg:w-[92px] opacity-80 animate-poster-leaf-2 select-none',
+      glowClass: 'drop-shadow-[0_12px_26px_rgba(251,146,60,0.28)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.2)]',
       style: {
-        position: 'absolute',
-        top: '65%',
-        left: '4%',
         animationDelay: '2.1s',
       },
     },
@@ -387,9 +384,9 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
           <div
             key={elem.id}
             style={elem.style}
-            className={`pointer-events-none transition-transform duration-700 ease-out`}
+            className={`pointer-events-none transition-transform duration-700 ease-out ${elem.wrapperClass || ''}`}
           >
-            <div className={`relative ${elem.glowClass}`}>
+            <div className={`relative ${elem.tiltClass || ''} ${elem.glowClass}`}>
               <Image
                 src={elem.src}
                 alt={elem.alt}
@@ -463,9 +460,9 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
           <div
             key={elem.id}
             style={elem.style}
-            className="pointer-events-none transition-transform duration-700 ease-out"
+            className={`absolute pointer-events-none transition-transform duration-700 ease-out ${elem.wrapperClass || ''}`}
           >
-            <div className={`relative ${elem.glowClass}`}>
+            <div className={`relative ${elem.tiltClass || ''} ${elem.glowClass}`}>
               <Image
                 src={elem.src}
                 alt={elem.alt}
