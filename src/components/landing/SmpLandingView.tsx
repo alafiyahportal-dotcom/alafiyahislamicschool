@@ -47,6 +47,14 @@ export interface SmpLandingViewProps {
   teachers?: TeacherData[];
   newsPosts?: NewsData[];
   achievements?: any[];
+  cmsData?: {
+    heroSlides?: any[];
+    heroHeadline?: string;
+    heroSubheadline?: string;
+    programs?: any[];
+    facilities?: any[];
+    testimonials?: any[];
+  };
 }
 
 const SMP_POSTERS = [
@@ -230,7 +238,7 @@ const SMP_FAQS = [
   },
 ];
 
-export default function SmpLandingView({ teachers = [], newsPosts = [], achievements = [] }: SmpLandingViewProps) {
+export default function SmpLandingView({ teachers = [], newsPosts = [], achievements = [], cmsData }: SmpLandingViewProps) {
   const [activePoster, setActivePoster] = useState(SMP_POSTERS[0]);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -239,6 +247,26 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
   const [copiedBank, setCopiedBank] = useState(false);
   const [refCode, setRefCode] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const programsList = (cmsData?.programs && cmsData.programs.length > 0)
+    ? cmsData.programs.map((prog: any, idx: number) => ({
+        number: String(idx + 1).padStart(2, '0'),
+        title: prog.title,
+        category: prog.badge || prog.category || 'Program Unggulan',
+        desc: prog.desc || prog.description || '',
+        href: '/smp/program',
+        icon: SMP_PROGRAMS[idx]?.icon || BookOpen,
+      }))
+    : SMP_PROGRAMS;
+
+  const facilitiesList = (cmsData?.facilities && cmsData.facilities.length > 0)
+    ? cmsData.facilities.map((fac: any) => ({
+        title: fac.name || fac.title || 'Fasilitas SMP IT',
+        category: fac.category || 'Fasilitas Sekolah',
+        image: fac.image || '/images/smp-haflah-aula.jpg',
+        desc: fac.desc || fac.description || '',
+      }))
+    : SMP_FACILITIES;
 
   useEffect(() => {
     setRefCode(getStoredReferralCode());
@@ -320,6 +348,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
         badgeText="TERAKREDITASI A • BE SMART & RELIGIOUS"
         registrationFee={200000}
         waCenterPhone="6282249357893"
+        customSlides={cmsData?.heroSlides && cmsData.heroSlides.length > 0 ? cmsData.heroSlides : undefined}
         statsCards={<Hero3DStatCards stats={displayStats} unitSlug="smp" />}
       />
 
@@ -847,7 +876,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
 
           {/* Programs Grid: Pure Crisp White Cards with High Contrast */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SMP_PROGRAMS.map((prog, idx) => (
+            {programsList.map((prog, idx) => (
               <ScrollReveal
                 key={prog.number}
                 delay={idx * 0.08}
@@ -1018,9 +1047,9 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
             </p>
           </ScrollReveal>
 
-          {/* Facilities Grid (3 Authentic Photos) */}
+          {/* Facilities Grid (Authentic Photos) */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {SMP_FACILITIES.map((fac, idx) => (
+            {facilitiesList.map((fac, idx) => (
               <ScrollReveal
                 key={idx}
                 delay={(idx % 3) * 0.1}
@@ -1166,6 +1195,235 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
           </div>
         </div>
       </section>
+
+      {/* SECTION: DEWAN ASATIDZAH & GURU PEMBINA SMP IT */}
+      {teachers && teachers.length > 0 && (
+        <section id="dewan-guru" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+                  <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+                  <span>Dewan Guru &amp; Asatidzah SMP IT</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  Dibimbing Langsung oleh Asatidz Berdedikasi
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+                  Para asatidz pembina tahfidz bersanad, sarjana berprestasi, dan pendidik berakhlak mulia yang mendampingi santri secara personal.
+                </p>
+              </div>
+              <Link
+                href="/smp/guru"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#030164] text-white hover:bg-[#030164]/90 text-xs font-bold transition-all shadow-sm shrink-0"
+              >
+                <span>Lihat Seluruh Dewan Guru</span>
+                <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
+              </Link>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {teachers.slice(0, 8).map((teacher, idx) => (
+                <ScrollReveal
+                  key={teacher.id || idx}
+                  delay={(idx % 4) * 0.1}
+                  yOffset={24}
+                  duration={500}
+                  className="h-full"
+                >
+                  <div className="bg-slate-50 rounded-2xl border border-slate-200 hover:border-[#030164]/40 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-4 sm:p-5">
+                    <div>
+                      {teacher.photoUrl ? (
+                        <div className="relative h-52 w-full rounded-xl overflow-hidden mb-4 bg-slate-200">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={teacher.photoUrl}
+                            alt={teacher.name}
+                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-14 h-14 rounded-2xl bg-blue-100 text-[#030164] flex items-center justify-center font-black text-xl mb-4">
+                          {teacher.name.charAt(0)}
+                        </div>
+                      )}
+
+                      <span className="text-[11px] font-bold text-[#030164] block leading-tight">
+                        {teacher.role}
+                      </span>
+                      <h3 className="font-extrabold text-base text-slate-900 mt-1 leading-snug group-hover:text-[#030164] transition-colors">
+                        {teacher.name}
+                      </h3>
+                      {teacher.specialization && (
+                        <p className="text-xs text-slate-500 mt-1.5 leading-relaxed line-clamp-2">
+                          {teacher.specialization}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-400">
+                      <span>SMP IT Al-Afiyah</span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SECTION: WARTA & KABAR TERKINI SMP IT */}
+      {newsPosts && newsPosts.length > 0 && (
+        <section id="warta" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
+                  <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+                  <span>Warta &amp; Kabar Terkini SMP IT</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  Kabar Prestasi &amp; Kegiatan Santri Terkini
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+                  Informasi resmi capaian tasmi&apos; hafalan, prestasi kejuaraan futsal, kegiatan alam terbuka, dan pengumuman sekolah.
+                </p>
+              </div>
+              <Link
+                href="/smp/berita"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-[#030164] text-[#030164] hover:bg-blue-50 text-xs font-bold transition-all shadow-xs shrink-0"
+              >
+                <span>Buka Seluruh Berita SMP IT</span>
+                <ArrowRight className="w-4 h-4 text-[#030164]" />
+              </Link>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {newsPosts.slice(0, 3).map((post, idx) => (
+                <ScrollReveal
+                  key={post.id || idx}
+                  delay={(idx % 3) * 0.12}
+                  yOffset={24}
+                  duration={500}
+                  className="h-full"
+                >
+                  <Link
+                    href={`/smp/berita`}
+                    className="bg-white rounded-2xl border border-slate-200/90 hover:border-[#030164]/40 hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between h-full group"
+                  >
+                    <div>
+                      {post.coverImage && (
+                        <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={post.coverImage}
+                            alt={post.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                          <div className="absolute top-3 left-3">
+                            <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#030164] text-[#ffd51e] shadow-xs">
+                              {post.category || 'Warta'}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="p-5 space-y-2">
+                        <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                          <Calendar className="w-3.5 h-3.5" />
+                          <span>
+                            {new Date(post.publishedAt).toLocaleDateString('id-ID', {
+                              dateStyle: 'medium',
+                            })}
+                          </span>
+                        </div>
+
+                        <h3 className="font-bold text-slate-900 group-hover:text-[#030164] transition-colors line-clamp-2 text-base leading-snug">
+                          {post.title}
+                        </h3>
+
+                        <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-5 pt-0 flex items-center justify-between text-xs font-bold text-[#030164]">
+                      <span>Baca Selengkapnya</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SECTION: TESTIMONI WALI SANTRI SMP IT */}
+      {cmsData?.testimonials && cmsData.testimonials.length > 0 && (
+        <section id="testimoni" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-12">
+              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-3">
+                <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+                <span>Apresiasi Wali Murid</span>
+                <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+                Apa Kata Orang Tua Santri SMP IT Al-Afiyah?
+              </h2>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                Kisah tulus Ayah Bunda yang mempercayakan amanah pembinaan tahfidz, karakter, dan akademik ananda di SMP IT Al-Afiyah.
+              </p>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {cmsData.testimonials.map((testi: any, idx: number) => (
+                <ScrollReveal
+                  key={idx}
+                  delay={(idx % 3) * 0.1}
+                  yOffset={24}
+                  duration={500}
+                  className="h-full"
+                >
+                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between h-full">
+                    <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-4">
+                      &ldquo;{testi.quote}&rdquo;
+                    </p>
+                    <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
+                      <div>
+                        <h4 className="font-bold text-xs sm:text-sm text-slate-900">
+                          {testi.name}
+                        </h4>
+                        <p className="text-[11px] text-slate-500">
+                          {testi.role}
+                        </p>
+                      </div>
+                      <div className="flex text-amber-400 text-xs">
+                        {'★'.repeat(testi.rating || 5)}
+                      </div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link
+                href="/smp/testimoni"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all border border-slate-300"
+              >
+                <span>Lihat Seluruh Testimoni Wali Santri</span>
+                <ArrowRight className="w-4 h-4 text-[#030164]" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* SECTION 6: FAQ ACCORDION */}
       <section id="faq" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">

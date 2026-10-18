@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
 
@@ -121,6 +122,16 @@ export async function PUT(request: Request) {
         })
       );
 
+      try {
+        revalidatePath('/');
+        revalidatePath('/sd');
+        revalidatePath('/smp');
+        revalidatePath('/tk');
+        revalidatePath('/ppdb');
+      } catch (e) {
+        console.warn('Settings batch revalidation warning:', e);
+      }
+
       return NextResponse.json({
         success: true,
         message: 'Seluruh konfigurasi unit berhasil diperbarui',
@@ -185,6 +196,17 @@ export async function PUT(request: Request) {
         ...(tagline !== undefined && { tagline }),
       },
     });
+
+    try {
+      revalidatePath('/');
+      revalidatePath(`/${updatedSchool.slug}`);
+      revalidatePath('/ppdb');
+      revalidatePath(`/${updatedSchool.slug}/ppdb`);
+      revalidatePath(`/${updatedSchool.slug}/spmb`);
+      revalidatePath(`/${updatedSchool.slug}/biaya`);
+    } catch (e) {
+      console.warn('Settings revalidation warning:', e);
+    }
 
     return NextResponse.json({
       success: true,

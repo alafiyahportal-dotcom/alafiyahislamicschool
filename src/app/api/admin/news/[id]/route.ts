@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
+import { revalidatePath } from 'next/cache';
 
 export async function PUT(
   request: Request,
@@ -59,6 +60,18 @@ export async function PUT(
       },
     });
 
+    try {
+      revalidatePath('/');
+      revalidatePath('/berita');
+      revalidatePath('/sd');
+      revalidatePath('/sd/berita');
+      revalidatePath('/smp');
+      revalidatePath('/smp/berita');
+      revalidatePath('/tk');
+    } catch (e) {
+      // ignore
+    }
+
     return NextResponse.json({ success: true, news: updatedNews });
   } catch (error) {
     console.error('Failed to update news:', error);
@@ -101,6 +114,18 @@ export async function DELETE(
     await prisma.newsPost.delete({
       where: { id },
     });
+
+    try {
+      revalidatePath('/');
+      revalidatePath('/berita');
+      revalidatePath('/sd');
+      revalidatePath('/sd/berita');
+      revalidatePath('/smp');
+      revalidatePath('/smp/berita');
+      revalidatePath('/tk');
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json({ success: true, message: 'Artikel berita berhasil dihapus' });
   } catch (error) {

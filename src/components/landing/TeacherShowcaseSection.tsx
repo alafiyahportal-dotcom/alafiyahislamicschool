@@ -87,6 +87,7 @@ export default function TeacherShowcaseSection({ teachers = [] }: TeacherShowcas
                       src={t.image}
                       alt={t.name}
                       fill
+                      unoptimized={Boolean(t.image?.startsWith('data:') || t.image?.startsWith('http'))}
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />

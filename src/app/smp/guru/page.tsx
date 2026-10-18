@@ -44,6 +44,7 @@ interface TeacherItem {
   specialization?: string | null;
   bio?: string | null;
   category: string;
+  photoUrl?: string | null;
 }
 
 const DEFAULT_TEACHERS: TeacherItem[] = [
@@ -132,6 +133,7 @@ export default async function SmpGuruPage() {
         role: t.role,
         specialization: t.specialization || 'Pendidik SMP IT',
         bio: t.bio || 'Pendidik berdedikasi tinggi di SMP IT Al-Afiyah Majalengka.',
+        photoUrl: t.photoUrl,
         category: t.role.toLowerCase().includes('developer') || t.role.toLowerCase().includes('it')
           ? 'IT & Sistem Digital'
           : t.role.toLowerCase().includes('kepala') || t.role.toLowerCase().includes('manajemen') || t.role.toLowerCase().includes('yayasan') || t.role.toLowerCase().includes('ketua') || t.role.toLowerCase().includes('humas') || t.role.toLowerCase().includes('tata usaha') || t.role.toLowerCase().includes('sarpras')
@@ -191,14 +193,30 @@ export default async function SmpGuruPage() {
           {teachers.map((teacher) => (
             <div 
               key={teacher.id}
-              className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#030164]/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#030164]/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
             >
               <div>
+                {teacher.photoUrl ? (
+                  <div className="relative h-56 w-full rounded-xl overflow-hidden mb-4 bg-slate-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={teacher.photoUrl}
+                      alt={teacher.name}
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#030164] flex items-center justify-center font-bold text-lg mb-3">
+                    {teacher.name.charAt(0)}
+                  </div>
+                )}
+
                 <p className="text-xs font-semibold text-[#030164] mb-1">
                   {teacher.role}
                 </p>
 
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#030164] transition-colors">
                   {teacher.name}
                 </h3>
 

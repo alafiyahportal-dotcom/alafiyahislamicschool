@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
+import { revalidatePath } from 'next/cache';
 
 function generateSlug(title: string): string {
   return title
@@ -16,13 +17,12 @@ export async function GET(request: Request) {
     const auth = await requireAuth({
       allowedRoles: ['SUPERADMIN', 'ADMIN_TK', 'ADMIN_SD', 'ADMIN_SMP'],
     });
-    if (auth.error) return auth.error;
 
     const { searchParams } = new URL(request.url);
     const requestedSlug = searchParams.get('schoolSlug');
 
     const effectiveSlug =
-      auth.session.role !== 'SUPERADMIN' && auth.session.schoolSlug
+      !auth.error && auth.session.role !== 'SUPERADMIN' && auth.session.schoolSlug
         ? auth.session.schoolSlug
         : requestedSlug;
 
@@ -103,6 +103,18 @@ export async function POST(request: Request) {
         },
       },
     });
+
+    try {
+      revalidatePath('/');
+      revalidatePath('/berita');
+      revalidatePath('/sd');
+      revalidatePath('/sd/berita');
+      revalidatePath('/smp');
+      revalidatePath('/smp/berita');
+      revalidatePath('/tk');
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json({ success: true, news }, { status: 201 });
   } catch (error) {

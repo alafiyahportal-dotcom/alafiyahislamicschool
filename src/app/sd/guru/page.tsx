@@ -62,6 +62,7 @@ export default async function SdGuruPage() {
         role: t.role,
         bio: t.bio || '',
         imageUrl: t.photoUrl || '/images/teacher-avatar-placeholder.jpg',
+        photoUrl: t.photoUrl || undefined,
         specialization: t.specialization || 'Pendidik Karakter Nabawiyah',
         degrees: inferDegrees(t.name, t.specialization || 'Pendidik Profesional'),
         category: inferCategory(t.role, t.specialization || ''),

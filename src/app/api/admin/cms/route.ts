@@ -193,10 +193,12 @@ export async function POST(request: Request) {
 
     // Revalidate public landing and admin pages to prevent stale cache
     try {
+      revalidatePath('/');
       revalidatePath(`/${schoolSlug}`);
       revalidatePath(`/${schoolSlug}/karakter`);
       revalidatePath(`/${schoolSlug}/profil`);
       revalidatePath(`/${schoolSlug}/program`);
+      revalidatePath(`/${schoolSlug}/fasilitas`);
       revalidatePath(`/${schoolSlug}/testimoni`);
       revalidatePath(`/${schoolSlug}/dokumentasi`);
       revalidatePath(`/${schoolSlug}/kontak`);
@@ -204,7 +206,6 @@ export async function POST(request: Request) {
       revalidatePath(`/admin/${schoolSlug}/cms`);
       revalidatePath('/ppdb/daftar');
       if (schoolSlug === 'foundation') {
-        revalidatePath('/');
         revalidatePath('/profil');
         revalidatePath('/affiliate');
       }

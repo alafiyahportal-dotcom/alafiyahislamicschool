@@ -31,15 +31,34 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   let foundation = null;
+  let teachersList: any[] = [];
   try {
-    foundation = await prisma.school.findUnique({
-      where: { slug: 'foundation' },
-      include: {
-        cmsSections: true,
-      },
-    });
+    const [foundationData, teachersData] = await Promise.all([
+      prisma.school.findUnique({
+        where: { slug: 'foundation' },
+        include: {
+          cmsSections: true,
+        },
+      }),
+      prisma.teacher.findMany({
+        where: { isActive: true },
+        orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+        take: 8,
+        include: { school: true },
+      }),
+    ]);
+    foundation = foundationData;
+    if (teachersData && teachersData.length > 0) {
+      teachersList = teachersData.map((t) => ({
+        name: t.name,
+        role: t.role,
+        sanad: t.specialization || (t.school ? `${t.school.name}` : 'Pendidik Berdedikasi'),
+        degree: t.bio || (t.school ? `Tenaga Pendidik ${t.school.name}` : 'Pendidik Al-Afiyah'),
+        image: t.photoUrl || '',
+      }));
+    }
   } catch (err) {
-    console.error('Error fetching foundation data:', err);
+    console.error('Error fetching foundation or teacher data:', err);
   }
 
   const heroSection = foundation?.cmsSections.find((s) => s.sectionKey === 'hero');
@@ -114,7 +133,7 @@ export default async function HomePage() {
 
       {/* 7. Meet Our Teachers (Dewan Guru Berpengalaman) */}
       <ScrollFadeIn>
-        <TeacherShowcaseSection />
+        <TeacherShowcaseSection teachers={teachersList} />
       </ScrollFadeIn>
 
       {/* 8. Parent Testimonials & High-Conversion PPDB Call to Action Banner */}

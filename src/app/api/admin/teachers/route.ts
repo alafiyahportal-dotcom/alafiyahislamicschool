@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: Request) {
   try {
     const auth = await requireAuth({
       allowedRoles: ['SUPERADMIN', 'ADMIN_TK', 'ADMIN_SD', 'ADMIN_SMP'],
     });
-    if (auth.error) return auth.error;
 
     const { searchParams } = new URL(request.url);
     const schoolSlug = searchParams.get('schoolSlug');
 
-    // Tenant isolation
+    // Tenant isolation with public fallback
     const effectiveSlug =
-      auth.session.role !== 'SUPERADMIN' && auth.session.schoolSlug
+      !auth.error && auth.session.role !== 'SUPERADMIN' && auth.session.schoolSlug
         ? auth.session.schoolSlug
         : schoolSlug;
 
@@ -92,6 +92,18 @@ export async function POST(request: Request) {
         },
       },
     });
+
+    try {
+      revalidatePath('/');
+      revalidatePath('/sd');
+      revalidatePath('/sd/guru');
+      revalidatePath('/smp');
+      revalidatePath('/smp/guru');
+      revalidatePath('/tk');
+      revalidatePath('/profil');
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json({ success: true, teacher }, { status: 201 });
   } catch (error) {

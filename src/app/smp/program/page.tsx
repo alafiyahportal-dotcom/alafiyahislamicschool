@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 import { 
   ArrowLeft, 
   ChevronRight, 
@@ -141,7 +142,37 @@ const SMP_PROGRAMS = [
   }
 ];
 
-export default function SmpProgramPage() {
+export default async function SmpProgramPage() {
+  let displayPrograms = SMP_PROGRAMS;
+
+  try {
+    const school = await prisma.school.findUnique({
+      where: { slug: 'smp' },
+      include: { cmsSections: true },
+    });
+    const cmsSec = school?.cmsSections.find((s) => s.sectionKey === 'programs');
+    if (cmsSec?.payload) {
+      const parsed = JSON.parse(cmsSec.payload);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        displayPrograms = parsed.map((item: any, idx: number) => ({
+          id: `program-${idx + 1}`,
+          number: String(idx + 1).padStart(2, '0'),
+          title: item.title,
+          subtitle: item.subtitle || 'Program Unggulan SMP IT Al-Afiyah',
+          desc: item.desc || item.description || '',
+          badge: item.badge || item.category || 'Program Unggulan',
+          icon: SMP_PROGRAMS[idx]?.icon || BookOpen,
+          accent: idx % 2 === 0 ? 'gold' : 'blue',
+          highlights: Array.isArray(item.highlights) && item.highlights.length > 0
+            ? item.highlights
+            : ['Kurikulum terpadu berkarakter Islami', 'Pendampingan intensif bersama dewan asatidz', 'Evaluasi berkala dan pelaporan kemajuan murid']
+        }));
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching SMP programs from CMS, using default list:', err);
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
       <Navbar schoolSlug="smp" />
@@ -197,7 +228,7 @@ export default function SmpProgramPage() {
       {/* Program Grid Section */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12 sm:space-y-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {SMP_PROGRAMS.map((prog) => {
+          {displayPrograms.map((prog) => {
             const IconComp = prog.icon;
             const isGold = prog.accent === 'gold';
             return (

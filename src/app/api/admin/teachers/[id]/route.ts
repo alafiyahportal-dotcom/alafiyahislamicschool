@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
+import { revalidatePath } from 'next/cache';
 
 export async function PUT(
   request: Request,
@@ -58,6 +59,18 @@ export async function PUT(
       },
     });
 
+    try {
+      revalidatePath('/');
+      revalidatePath('/sd');
+      revalidatePath('/sd/guru');
+      revalidatePath('/smp');
+      revalidatePath('/smp/guru');
+      revalidatePath('/tk');
+      revalidatePath('/profil');
+    } catch (e) {
+      // ignore
+    }
+
     return NextResponse.json({ success: true, teacher: updatedTeacher });
   } catch (error) {
     console.error('Failed to update teacher:', error);
@@ -100,6 +113,18 @@ export async function DELETE(
     await prisma.teacher.delete({
       where: { id },
     });
+
+    try {
+      revalidatePath('/');
+      revalidatePath('/sd');
+      revalidatePath('/sd/guru');
+      revalidatePath('/smp');
+      revalidatePath('/smp/guru');
+      revalidatePath('/tk');
+      revalidatePath('/profil');
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json({ success: true, message: 'Data guru berhasil dihapus' });
   } catch (error) {

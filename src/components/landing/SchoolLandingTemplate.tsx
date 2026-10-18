@@ -1876,6 +1876,91 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </section>
       )}
 
+      {/* Dewan Guru & Asatidzah Sekolah */}
+      {school.teachers && school.teachers.length > 0 && (
+        <section id="dewan-guru" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200/80 scroll-mt-16 sm:scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-700 mb-2">
+                  <span className="w-5 h-[2px] bg-emerald-600 rounded-full inline-block" />
+                  <span>Dewan Guru &amp; Tenaga Pendidik</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                  Dibimbing Langsung oleh Pendidik Berakhlak &amp; Kompeten
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
+                  Para asatidzah pembina tahfidz bersanad, sarjana pendidikan berdedikasi, dan teladan adab mulia yang mendampingi tumbuh kembang ananda di {school.name}.
+                </p>
+              </div>
+
+              <Link
+                href={school.slug === 'sd' ? '/sd/guru' : `/${school.slug}/guru`}
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#064e3b] border border-emerald-200 font-bold text-xs shadow-xs transition-all active:scale-95 shrink-0"
+              >
+                <Users className="w-4 h-4 text-[#00A651]" />
+                <span>Lihat Struktur &amp; Pendidik Lengkap</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {school.teachers.slice(0, 8).map((teacher, idx) => (
+                <ScrollReveal
+                  key={teacher.id || idx}
+                  delay={(idx % 4) * 0.1}
+                  yOffset={24}
+                  duration={500}
+                  className="h-full"
+                >
+                  <div className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-4 sm:p-5">
+                    <div>
+                      {teacher.photoUrl ? (
+                        <div className="relative h-48 w-full rounded-xl overflow-hidden mb-4 bg-slate-100">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={teacher.photoUrl}
+                            alt={teacher.name}
+                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-[#064e3b] flex items-center justify-center font-black text-xl mb-4 border border-emerald-100">
+                          {teacher.name.charAt(0)}
+                        </div>
+                      )}
+
+                      <span className="text-[11px] font-bold text-[#064e3b] block leading-tight">
+                        {teacher.role}
+                      </span>
+                      <h3 className="font-extrabold text-base text-slate-900 mt-1 leading-snug group-hover:text-emerald-700 transition-colors">
+                        {teacher.name}
+                      </h3>
+                      {teacher.specialization && (
+                        <p className="text-xs text-slate-500 mt-1.5 leading-relaxed line-clamp-2">
+                          {teacher.specialization}
+                        </p>
+                      )}
+                      {teacher.bio && (
+                        <p className="text-[11px] text-slate-400 mt-2 italic line-clamp-2">
+                          &ldquo;{teacher.bio}&rdquo;
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+                      <span>{school.name}</span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Testimoni Orang Tua */}
       <section
         id="testimonials"

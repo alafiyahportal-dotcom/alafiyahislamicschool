@@ -65,11 +65,31 @@ export default async function SmpLandingPage() {
     console.error('Error fetching SMP school data, falling back to static content:', err);
   }
 
+  const sectionsMap: Record<string, any> = {};
+  if (dbSchool?.cmsSections) {
+    for (const sec of dbSchool.cmsSections) {
+      try {
+        sectionsMap[sec.sectionKey] = JSON.parse(sec.payload);
+      } catch {
+        // ignore corrupted json payload
+      }
+    }
+  }
+  const heroData = sectionsMap.hero || {};
+
   return (
     <SmpLandingView
       teachers={dbSchool?.teachers || []}
       newsPosts={dbSchool?.newsPosts || []}
       achievements={achievements}
+      cmsData={{
+        heroSlides: Array.isArray(heroData.slides) ? heroData.slides : undefined,
+        heroHeadline: heroData.headline,
+        heroSubheadline: heroData.subheadline,
+        programs: Array.isArray(sectionsMap.programs) ? sectionsMap.programs : undefined,
+        facilities: Array.isArray(sectionsMap.facilities) ? sectionsMap.facilities : undefined,
+        testimonials: Array.isArray(sectionsMap.testimonials) ? sectionsMap.testimonials : undefined,
+      }}
     />
   );
 }
