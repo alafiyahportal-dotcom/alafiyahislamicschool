@@ -21,7 +21,7 @@ interface BubbleConfig {
   hasSpecular?: boolean;
 }
 
-interface SmpPosterElement {
+interface FloatingHeroElement {
   id: string;
   src: string;
   alt: string;
@@ -38,7 +38,7 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
   // (Quran Mushaf, Piala Emas, Medali Juara, Daun Segar Hijau, & Blueprint Grid)
   // Non-slop authentic assets matching Islamic & Academic excellence identity.
   // =========================================================================
-  const smpPosterElements = useMemo<SmpPosterElement[]>(() => [
+  const smpPosterElements = useMemo<FloatingHeroElement[]>(() => [
     // 1. Primary Sharp HD Quran Mushaf (Refined compact size as requested)
     {
       id: 'smp-quran-main',
@@ -162,134 +162,122 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
   }), []);
 
   // =========================================================================
-  // SD IT (User mandate: "yang sd tetep gelembung aja dlu ya")
-  // Pristine Handcrafted Glass Soap Bubbles
+  // SD IT: Authentic Educational & Islamic floating elements
+  // (Al-Quran Ungu, Pesawat Kertas Cita-Cita, Papan Tulis ABC, Pensil Ceria, Buku Terbuka)
+  // Replaces the temporary soap bubbles as requested: varied sizes & responsive.
   // =========================================================================
-  const sdConfig = useMemo<{
-    bokehOrbs: Array<{
-      id: number;
-      size: number;
-      top: string;
-      left: string;
-      color: string;
-      blur: string;
-      anim: string;
-    }>;
-    bubbles: BubbleConfig[];
-    sparkles: Array<{
-      id: number;
-      size: number;
-      top: string;
-      left: string;
-      color: string;
-      delay: string;
-    }>;
-  }>(() => ({
+  const sdHeroElements = useMemo<FloatingHeroElement[]>(() => [
+    // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah (Largest & most prominent)
+    {
+      id: 'sd-quran-main',
+      src: '/images/hero/sd-elem-quran.png',
+      alt: "Mushaf Al-Qur'an SDIT Al-Afiyah",
+      width: 262,
+      height: 276,
+      className: 'w-[84px] xs:w-[98px] sm:w-[120px] md:w-[140px] lg:w-[155px] -rotate-6 animate-poster-float-slow select-none',
+      glowClass: 'drop-shadow-[0_14px_30px_rgba(168,85,247,0.38)] drop-shadow-[0_4px_12px_rgba(255,213,30,0.28)]',
+      style: {
+        position: 'absolute',
+        top: '20%',
+        right: '8%',
+        animationDelay: '0s',
+      },
+    },
+    // 2. Pesawat Kertas Cita-Cita (Soaring dreams & creativity with dotted loop trail)
+    {
+      id: 'sd-plane-motion',
+      src: '/images/hero/sd-elem-plane.png',
+      alt: 'Pesawat Kertas Cita-Cita SDIT',
+      width: 193,
+      height: 287,
+      className: 'w-[68px] xs:w-[80px] sm:w-[96px] md:w-[114px] lg:w-[128px] rotate-6 animate-poster-leaf-1 select-none',
+      glowClass: 'drop-shadow-[0_10px_24px_rgba(52,211,153,0.36)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.3)]',
+      style: {
+        position: 'absolute',
+        top: '12%',
+        right: '27%',
+        animationDelay: '0.8s',
+      },
+    },
+    // 3. Papan Tulis Mini ABC (Early literacy & joyful classroom foundation)
+    {
+      id: 'sd-board-abc',
+      src: '/images/hero/sd-elem-board.png',
+      alt: 'Papan Tulis Ceria ABC SDIT',
+      width: 237,
+      height: 170,
+      className: 'w-[78px] xs:w-[92px] sm:w-[112px] md:w-[130px] lg:w-[146px] rotate-3 animate-poster-pendulum select-none',
+      glowClass: 'drop-shadow-[0_12px_28px_rgba(234,179,8,0.36)] drop-shadow-[0_4px_12px_rgba(16,185,129,0.22)]',
+      style: {
+        position: 'absolute',
+        top: '56%',
+        right: '5%',
+        animationDelay: '1.5s',
+      },
+    },
+    // 4. Pensil Ceria (Creative writing, active learning, sharp graphite & red eraser)
+    {
+      id: 'sd-pencil-creative',
+      src: '/images/hero/sd-elem-pencil.png',
+      alt: 'Pensil Kreatif Belajar SDIT',
+      width: 140,
+      height: 348,
+      className: 'w-[40px] xs:w-[48px] sm:w-[60px] md:w-[72px] lg:w-[82px] -rotate-12 animate-poster-float-medium select-none',
+      glowClass: 'drop-shadow-[0_10px_22px_rgba(251,191,36,0.38)] drop-shadow-[0_2px_8px_rgba(239,68,68,0.22)]',
+      style: {
+        position: 'absolute',
+        top: '18%',
+        left: '4%',
+        animationDelay: '0.4s',
+      },
+    },
+    // 5. Buku Pelajaran Terbuka (Window of knowledge & diligent study)
+    {
+      id: 'sd-book-open',
+      src: '/images/hero/sd-elem-book.png',
+      alt: 'Buku Pelajaran Terbuka SDIT',
+      width: 285,
+      height: 239,
+      className: 'w-[66px] xs:w-[78px] sm:w-[94px] md:w-[110px] lg:w-[124px] rotate-6 opacity-90 animate-poster-leaf-2 select-none',
+      glowClass: 'drop-shadow-[0_12px_26px_rgba(251,146,60,0.32)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.22)]',
+      style: {
+        position: 'absolute',
+        top: '65%',
+        left: '4%',
+        animationDelay: '2.1s',
+      },
+    },
+  ], []);
+
+  // Ambient orbs & sparkles for SD IT
+  const sdAmbient = useMemo(() => ({
     bokehOrbs: [
       {
         id: 1,
         size: 440,
         top: '-8%',
         left: '62%',
-        color: 'bg-gradient-to-br from-emerald-400/20 via-teal-300/10 to-transparent',
+        color: 'bg-gradient-to-br from-emerald-400/22 via-teal-300/12 to-transparent',
         blur: 'blur-3xl',
         anim: 'animate-bubble-drift',
       },
       {
         id: 2,
-        size: 320,
-        top: '38%',
+        size: 330,
+        top: '36%',
         left: '-8%',
-        color: 'bg-gradient-to-tr from-emerald-600/20 via-[#ffd51e]/10 to-transparent',
+        color: 'bg-gradient-to-tr from-emerald-600/20 via-[#ffd51e]/12 to-transparent',
         blur: 'blur-3xl',
         anim: 'animate-bubble-float-1',
       },
       {
         id: 3,
-        size: 280,
-        top: '65%',
-        left: '72%',
-        color: 'bg-gradient-to-tl from-teal-400/15 to-transparent',
+        size: 270,
+        top: '64%',
+        left: '70%',
+        color: 'bg-gradient-to-tl from-purple-500/12 via-teal-400/15 to-transparent',
         blur: 'blur-2xl',
         anim: 'animate-bubble-float-2',
-      },
-    ],
-    bubbles: [
-      {
-        id: 101,
-        size: 92,
-        top: '16%',
-        left: '70%',
-        animationClass: 'animate-bubble-float-1',
-        opacity: 0.65,
-        glowColor: 'shadow-[0_8px_32px_rgba(52,211,153,0.25),inset_0_2px_12px_rgba(255,255,255,0.5)]',
-        borderColor: 'border-white/35',
-        gradientFill: 'bg-gradient-to-br from-white/20 via-emerald-400/15 to-teal-500/15',
-        hasSpecular: true,
-      },
-      {
-        id: 102,
-        size: 66,
-        top: '34%',
-        left: '85%',
-        animationClass: 'animate-bubble-float-2',
-        delay: '1.2s',
-        opacity: 0.55,
-        glowColor: 'shadow-[0_6px_24px_rgba(16,185,129,0.22),inset_0_2px_8px_rgba(255,255,255,0.45)]',
-        borderColor: 'border-white/30',
-        gradientFill: 'bg-gradient-to-tr from-white/25 via-emerald-300/15 to-transparent',
-        hasSpecular: true,
-      },
-      {
-        id: 103,
-        size: 54,
-        top: '52%',
-        left: '64%',
-        animationClass: 'animate-bubble-float-3',
-        delay: '0.6s',
-        opacity: 0.6,
-        glowColor: 'shadow-[0_4px_20px_rgba(251,191,36,0.22),inset_0_1px_6px_rgba(255,255,255,0.45)]',
-        borderColor: 'border-amber-200/40',
-        gradientFill: 'bg-gradient-to-br from-[#ffd51e]/15 via-white/10 to-transparent',
-        hasSpecular: true,
-      },
-      {
-        id: 104,
-        size: 78,
-        top: '65%',
-        left: '10%',
-        animationClass: 'animate-bubble-float-2',
-        delay: '2.2s',
-        opacity: 0.5,
-        glowColor: 'shadow-[0_6px_26px_rgba(52,211,153,0.2),inset_0_2px_10px_rgba(255,255,255,0.35)]',
-        borderColor: 'border-white/25',
-        gradientFill: 'bg-gradient-to-tl from-emerald-500/15 via-white/15 to-transparent',
-        hasSpecular: true,
-      },
-      {
-        id: 105,
-        size: 40,
-        top: '20%',
-        left: '54%',
-        animationClass: 'animate-bubble-float-3',
-        delay: '2.8s',
-        opacity: 0.45,
-        glowColor: 'shadow-[0_4px_16px_rgba(110,231,183,0.25),inset_0_1px_6px_rgba(255,255,255,0.4)]',
-        borderColor: 'border-white/30',
-        gradientFill: 'bg-gradient-to-br from-white/20 to-emerald-400/10',
-        hasSpecular: true,
-      },
-      {
-        id: 106,
-        size: 114,
-        top: '6%',
-        left: '86%',
-        animationClass: 'animate-bubble-drift',
-        opacity: 0.4,
-        glowColor: 'shadow-[0_12px_40px_rgba(16,185,129,0.18),inset_0_3px_16px_rgba(255,255,255,0.3)]',
-        borderColor: 'border-white/20',
-        gradientFill: 'bg-gradient-to-br from-white/10 via-emerald-300/10 to-teal-600/10',
-        hasSpecular: true,
       },
     ],
     sparkles: [
@@ -434,17 +422,91 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
   }
 
   // -------------------------------------------------------------------------
-  // RENDER: SD IT & TK (Glass Soap Bubbles retained as requested)
+  // RENDER: SD IT (Authentic Educational & Islamic Floating Elements)
   // -------------------------------------------------------------------------
-  const currentConfig = slug === 'sd' ? sdConfig : tkConfig;
+  if (slug === 'sd') {
+    return (
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 overflow-hidden pointer-events-none z-0 select-none"
+      >
+        {/* Subtle Geometric / Dot-Star Grid Motif */}
+        <div className="absolute inset-0 pointer-events-none opacity-20 [mask-image:radial-gradient(ellipse_at_center,white_35%,transparent_85%)]">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="sd-hero-grid" width="52" height="52" patternUnits="userSpaceOnUse">
+                <circle cx="26" cy="26" r="1.25" fill="rgba(255,255,255,0.22)" />
+                <path d="M 52 0 L 0 0 0 52" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="0.75" />
+                <circle cx="52" cy="0" r="1.5" fill="rgba(255,213,30,0.3)" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#sd-hero-grid)" />
+          </svg>
+        </div>
 
+        {/* Ambient Deep Bokeh Orbs */}
+        {sdAmbient.bokehOrbs.map((orb) => (
+          <div
+            key={`sd-orb-${orb.id}`}
+            className={`absolute rounded-full ${orb.color} ${orb.blur} ${orb.anim} pointer-events-none`}
+            style={{
+              width: `${orb.size}px`,
+              height: `${orb.size}px`,
+              top: orb.top,
+              left: orb.left,
+            }}
+          />
+        ))}
+
+        {/* Authentic Floating Elements for SDIT (Al-Qur'an, Pesawat Kertas, Papan Tulis, Pensil, Buku) */}
+        {sdHeroElements.map((elem) => (
+          <div
+            key={elem.id}
+            style={elem.style}
+            className="pointer-events-none transition-transform duration-700 ease-out"
+          >
+            <div className={`relative ${elem.glowClass}`}>
+              <Image
+                src={elem.src}
+                alt={elem.alt}
+                width={elem.width}
+                height={elem.height}
+                className={elem.className}
+                priority
+                unoptimized
+              />
+            </div>
+          </div>
+        ))}
+
+        {/* Luminous Golden & Emerald Micro-Gleams */}
+        {sdAmbient.sparkles.map((sp) => (
+          <div
+            key={`sd-sp-${sp.id}`}
+            className={`absolute rounded-full shadow-[0_0_12px_rgba(255,213,30,0.7)] animate-bubble-sparkle ${sp.color}`}
+            style={{
+              width: `${sp.size}px`,
+              height: `${sp.size}px`,
+              top: sp.top,
+              left: sp.left,
+              animationDelay: sp.delay,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  // -------------------------------------------------------------------------
+  // RENDER: TK IT (Playful Glass Soap Bubbles)
+  // -------------------------------------------------------------------------
   return (
     <div
       aria-hidden="true"
       className="absolute inset-0 overflow-hidden pointer-events-none z-0 select-none"
     >
       {/* Layer 1: Ambient Deep Bokeh Orbs */}
-      {currentConfig.bokehOrbs.map((orb) => (
+      {tkConfig.bokehOrbs.map((orb) => (
         <div
           key={`orb-${orb.id}`}
           className={`absolute rounded-full ${orb.color} ${orb.blur} ${orb.anim} pointer-events-none`}
@@ -457,8 +519,8 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
         />
       ))}
 
-      {/* Layer 2: Handcrafted 3D Glass Soap Bubbles (Retained for SD) */}
-      {currentConfig.bubbles.map((b) => (
+      {/* Layer 2: Handcrafted 3D Glass Soap Bubbles (Retained for TK) */}
+      {tkConfig.bubbles.map((b) => (
         <div
           key={`bubble-${b.id}`}
           className={`absolute rounded-full border backdrop-blur-[1.5px] ${b.borderColor} ${b.gradientFill} ${b.glowColor} ${b.animationClass}`}
@@ -487,7 +549,7 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
       ))}
 
       {/* Layer 3: Floating Micro-Luminous Pearls & Sparkles */}
-      {currentConfig.sparkles.map((sp) => (
+      {tkConfig.sparkles.map((sp) => (
         <div
           key={`sparkle-${sp.id}`}
           className={`absolute rounded-full shadow-[0_0_12px_rgba(255,255,255,0.6)] animate-bubble-sparkle ${sp.color}`}
