@@ -464,26 +464,65 @@ export default function AffiliatePublicPage() {
             </div>
 
             {/* 3 Unit Commission Cards matching Section 4 Card Colors */}
-            <div className="pt-3 max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 text-left sm:text-center">
-              <div className="p-4 rounded-2xl bg-[#1c432f]/85 border border-dashed border-amber-400/40 shadow-lg relative overflow-hidden transition-all text-left sm:text-center">
-                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 font-black text-[9px] uppercase tracking-wide">
-                  Segera Hadir
+            <div className="pt-3 max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-3.5">
+              {/* Card 1: TK IT Al-Afiyah (Tahap Penetapan) */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#1c432f]/85 border border-dashed border-amber-400/50 shadow-lg flex flex-col items-center justify-between text-center transition-all hover:border-amber-400/80">
+                <div className="mb-2">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 font-black text-[9.5px] uppercase tracking-wider shadow-xs">
+                    Segera Hadir
+                  </span>
                 </div>
-                <span className="text-[11px] font-bold text-emerald-200/90 uppercase tracking-wider block">TK IT Al-Afiyah</span>
-                <p className="text-base sm:text-lg font-bold text-amber-300 mt-1 leading-tight">Tahap Penetapan</p>
-                <span className="text-[10px] text-emerald-300/70 block mt-0.5">skema segera diumumkan</span>
+                <div>
+                  <span className="text-[11.5px] sm:text-xs font-bold text-emerald-200/90 uppercase tracking-wider block">
+                    TK IT Al-Afiyah
+                  </span>
+                  <p className="text-base sm:text-lg font-bold text-amber-300 mt-1 leading-tight">
+                    Tahap Penetapan
+                  </p>
+                </div>
+                <span className="text-[10px] sm:text-[11px] text-emerald-300/70 block mt-1.5">
+                  skema segera diumumkan
+                </span>
               </div>
-              <div className="p-4 rounded-2xl bg-[#1c432f] border-2 border-[#cbf738] shadow-2xl relative overflow-hidden scale-102">
-                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-[#cbf738] text-slate-950 font-black text-[9px] uppercase tracking-wide shadow-xs">Tertinggi</div>
-                <span className="text-[11px] font-black text-[#cbf738] uppercase tracking-wider block">SDIT Al-Afiyah</span>
-                <p className="text-xl font-black text-[#cbf738] font-mono mt-0.5">Rp 150.000</p>
-                <span className="text-[11px] text-emerald-100 font-semibold">per calon siswa</span>
+
+              {/* Card 2: SDIT Al-Afiyah (Komisi Tertinggi Rp 150.000) */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#1c432f] border-2 border-[#cbf738] shadow-2xl flex flex-col items-center justify-between text-center transition-all sm:scale-[1.02] hover:scale-[1.04]">
+                <div className="mb-2">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#cbf738] text-slate-950 font-black text-[9.5px] uppercase tracking-wider shadow-xs">
+                    Tertinggi
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[11.5px] sm:text-xs font-black text-[#cbf738] uppercase tracking-wider block">
+                    SDIT Al-Afiyah
+                  </span>
+                  <p className="text-xl sm:text-2xl font-black text-[#cbf738] font-mono mt-1 leading-tight">
+                    Rp 150.000
+                  </p>
+                </div>
+                <span className="text-[10.5px] sm:text-[11px] text-emerald-100 font-semibold block mt-1.5">
+                  per calon siswa
+                </span>
               </div>
-              <div className="p-4 rounded-2xl bg-[#1c432f] border-2 border-[#cbf738] shadow-2xl relative overflow-hidden scale-102">
-                <div className="absolute top-2 right-2.5 px-2 py-0.5 rounded-full bg-[#cbf738] text-slate-950 font-black text-[9px] uppercase tracking-wide shadow-xs">Tertinggi</div>
-                <span className="text-[11px] font-black text-[#cbf738] uppercase tracking-wider block">SMP IT Al-Afiyah</span>
-                <p className="text-xl font-black text-[#cbf738] font-mono mt-0.5">Rp 150.000</p>
-                <span className="text-[11px] text-emerald-100 font-semibold">per calon siswa</span>
+
+              {/* Card 3: SMP IT Al-Afiyah (Komisi Tertinggi Rp 150.000) */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#1c432f] border-2 border-[#cbf738] shadow-2xl flex flex-col items-center justify-between text-center transition-all sm:scale-[1.02] hover:scale-[1.04]">
+                <div className="mb-2">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#cbf738] text-slate-950 font-black text-[9.5px] uppercase tracking-wider shadow-xs">
+                    Tertinggi
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[11.5px] sm:text-xs font-black text-[#cbf738] uppercase tracking-wider block">
+                    SMP IT Al-Afiyah
+                  </span>
+                  <p className="text-xl sm:text-2xl font-black text-[#cbf738] font-mono mt-1 leading-tight">
+                    Rp 150.000
+                  </p>
+                </div>
+                <span className="text-[10.5px] sm:text-[11px] text-emerald-100 font-semibold block mt-1.5">
+                  per calon siswa
+                </span>
               </div>
             </div>
           </motion.div>
