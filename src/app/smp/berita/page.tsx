@@ -137,39 +137,91 @@ const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
 ];
 
 export default async function SmpBeritaPage() {
-  let articles: NewsArticle[] = DEFAULT_SMP_ARTICLES;
+  let articles: NewsArticle[] = [...DEFAULT_SMP_ARTICLES];
 
   try {
-    const dbPosts = await prisma.newsPost.findMany({
-      where: {
-        school: { slug: 'smp' },
-        isPublished: true,
-      },
-      orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-      take: 12,
+    const [dbPosts, dbAchievements] = await Promise.all([
+      prisma.newsPost.findMany({
+        where: {
+          school: { slug: 'smp' },
+          isPublished: true,
+        },
+        orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+        take: 12,
+      }),
+      prisma.studentAchievement.findMany({
+        where: {
+          school: { slug: 'smp' },
+        },
+        orderBy: [{ createdAt: 'desc' }],
+      }),
+    ]);
+
+    const postArticles: NewsArticle[] = (dbPosts && dbPosts.length > 0)
+      ? dbPosts.map((post) => ({
+          id: post.id,
+          title: post.title,
+          slug: post.slug,
+          category: post.category || 'Kabar Sekolah',
+          excerpt: post.excerpt,
+          content: post.content,
+          author: post.author || 'Humas SMP IT',
+          date: new Date(post.publishedAt).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          }),
+          schoolName: 'SMP IT Al-Afiyah',
+          readingTime: '3 menit baca',
+          imageUrl: post.coverImage || '/images/smp-spmb-poster.png',
+        }))
+      : DEFAULT_SMP_ARTICLES.filter((a) => a.category !== 'Prestasi');
+
+    const rankLabelMap: Record<string, string> = {
+      JUARA_1: 'Juara 1 (Emas)',
+      JUARA_2: 'Juara 2 (Perak)',
+      JUARA_3: 'Juara 3 (Perunggu)',
+      HARAPAN_1: 'Juara Harapan 1',
+      HARAPAN_2: 'Juara Harapan 2',
+      HARAPAN_3: 'Juara Harapan 3',
+      FAVORIT: 'Juara Favorit',
+      FINALIS: 'Finalis',
+    };
+
+    const achievementArticles: NewsArticle[] = (dbAchievements || []).map((ach) => {
+      const rankLabel = rankLabelMap[ach.rank] || ach.rank || 'Prestasi Gemilang';
+      return {
+        id: `ach-${ach.id}`,
+        title: `Prestasi Santri: ${ach.studentName} Raih ${rankLabel} ${ach.title}`,
+        slug: `prestasi-${ach.id}`,
+        category: 'Prestasi',
+        excerpt: ach.description || `${ach.studentName} berhasil menorehkan prestasi membanggakan sebagai ${rankLabel} dalam ajang ${ach.title} (${ach.level}, Tahun ${ach.year}).`,
+        author: 'Tim Prestasi & Kesiswaan SMP IT',
+        date: `${ach.year}`,
+        schoolName: 'SMP IT Al-Afiyah',
+        readingTime: '2 menit baca',
+        imageUrl: ach.imageUrl || '/images/smp-hero-pesantren.jpg',
+        paragraphs: [
+          `Alhamdulillah, kabar membanggakan datang dari santri SMP IT Al-Afiyah. Ananda ${ach.studentName} berhasil meraih torehan gemilang sebagai ${rankLabel} pada kejuaraan ${ach.title}.`,
+          ach.description ? `${ach.description}. Prestasi ini diraih berkat kedisiplinan belajar, ketekunan berlatih, serta bimbingan intensif dari para asatidz pembina di lingkungan sekolah.` : `Pencapaian di tingkat ${ach.level} ini merupakan bukti nyata komitmen pembinaan karakter, adab, dan keunggulan potensi santri di SMP IT Al-Afiyah.`,
+          'Segenap pimpinan yayasan, dewan asatidz, dan keluarga besar SMP IT Al-Afiyah mengucapkan selamat dan doa berkah atas prestasi yang telah diraih. Semoga senantiasa rendah hati, berakhlak mulia, dan terus bersemangat mengukir prestasi demi kemuliaan Islam.',
+        ],
+        keyHighlights: [
+          `Nama Santri: ${ach.studentName}`,
+          `Capaian: ${rankLabel} (${ach.level})`,
+          `Tahun: ${ach.year}`,
+          `Kategori: ${ach.category}`,
+        ],
+      };
     });
 
-    if (dbPosts && dbPosts.length > 0) {
-      articles = dbPosts.map((post) => ({
-        id: post.id,
-        title: post.title,
-        slug: post.slug,
-        category: post.category || 'Kabar Sekolah',
-        excerpt: post.excerpt,
-        content: post.content,
-        author: post.author || 'Humas SMP IT',
-        date: new Date(post.publishedAt).toLocaleDateString('id-ID', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-        }),
-        schoolName: 'SMP IT Al-Afiyah',
-        readingTime: '3 menit baca',
-        imageUrl: post.coverImage || '/images/smp-spmb-poster.png',
-      }));
-    }
+    const fallbackPrestasi = DEFAULT_SMP_ARTICLES.filter((a) => a.category === 'Prestasi');
+    const finalPrestasiArticles = achievementArticles.length > 0 ? achievementArticles : fallbackPrestasi;
+
+    articles = [...postArticles, ...finalPrestasiArticles];
   } catch (err) {
     console.error('Error fetching SMP news from DB:', err);
+    articles = DEFAULT_SMP_ARTICLES;
   }
 
   return (

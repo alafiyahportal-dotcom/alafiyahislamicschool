@@ -552,6 +552,13 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     return defaultFacilities.filter((item) => item.category === galleryCategory);
   }, [defaultFacilities, galleryCategory]);
 
+  const displayedFacilities = useMemo(() => {
+    if (school.slug === 'sd' && (galleryCategory === 'all' || galleryCategory === 'Semua')) {
+      return filteredFacilities.slice(0, 6);
+    }
+    return filteredFacilities;
+  }, [school.slug, galleryCategory, filteredFacilities]);
+
   return (
     <div className={`${school.slug === 'sd' ? 'theme-sd ' : ''}min-h-screen flex flex-col soft-mesh-bg selection:bg-emerald-100 selection:text-emerald-900 overflow-x-clip w-full max-w-full`}>
       {/* Top Unified Navbar */}
@@ -1634,7 +1641,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredFacilities.map((fac, idx) => (
+            {displayedFacilities.map((fac, idx) => (
               <ScrollReveal
                 key={idx}
                 delay={(idx % 3) * 0.12}
@@ -1706,7 +1713,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm shadow-xs transition-all active:scale-95"
               >
                 <Camera className="w-4 h-4 text-[#00A651]" />
-                <span>Buka Seluruh Halaman Dokumentasi &amp; Belajar SDIT</span>
+                <span>Buka Galeri Lengkap Dokumentasi Belajar SDIT (12+ Potret Nyata)</span>
                 <ArrowRight className="w-4 h-4 text-emerald-700" />
               </Link>
             </div>

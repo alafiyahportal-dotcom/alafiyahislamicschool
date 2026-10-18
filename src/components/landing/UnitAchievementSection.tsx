@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Trophy, Medal, Award, Sparkles, ArrowRight, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { Trophy, Medal, Award, ArrowRight, ExternalLink } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import AchievementShowcaseModal from './AchievementShowcaseModal';
 
@@ -40,6 +41,13 @@ export default function UnitAchievementSection({
 }: UnitAchievementSectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const achievements = initialAchievements;
+
+  const prestasiUrl =
+    schoolSlug === 'smp'
+      ? '/smp/berita?cat=prestasi'
+      : schoolSlug === 'sd'
+      ? '/sd/berita?cat=prestasi'
+      : '/berita?cat=prestasi';
 
   const getRankBadge = (rank: string) => {
     switch (rank) {
@@ -125,16 +133,15 @@ export default function UnitAchievementSection({
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-95 shrink-0 cursor-pointer"
+          <Link
+            href={prestasiUrl}
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-95 shrink-0"
             style={{ backgroundColor: primaryColor }}
           >
-            <Sparkles className="w-4 h-4 text-amber-300" />
+            <Trophy className="w-4 h-4 text-amber-300" />
             <span>Buka Galeri Prestasi Lengkap</span>
             <ArrowRight className="w-4 h-4 text-white/80" />
-          </button>
+          </Link>
         </ScrollReveal>
 
         {/* Achievement Grid */}
@@ -151,8 +158,8 @@ export default function UnitAchievementSection({
                 duration={500}
                 className="h-full"
               >
-                <div 
-                  onClick={() => setIsModalOpen(true)}
+                <Link 
+                  href={prestasiUrl}
                   className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full group cursor-pointer"
                 >
                   {/* Photo / Visual Container */}
@@ -225,12 +232,12 @@ export default function UnitAchievementSection({
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-500 group-hover:text-slate-900 transition-colors">
                       <span className="inline-flex items-center gap-1">
                         <ExternalLink className="w-3.5 h-3.5 text-amber-500" />
-                        <span>Lihat Detail Prestasi</span>
+                        <span>Lihat di Warta &amp; Prestasi</span>
                       </span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
-                </div>
+                </Link>
               </ScrollReveal>
             );
           })}

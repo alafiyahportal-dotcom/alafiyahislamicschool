@@ -157,27 +157,29 @@ export default function AchievementShowcaseModal({
                 />
               </div>
 
-              {/* Unit Selector */}
-              <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 sm:pb-0">
-                {[
-                  { slug: 'all', label: 'Semua Unit' },
-                  { slug: 'tk', label: 'TK IT' },
-                  { slug: 'sd', label: 'SDIT' },
-                  { slug: 'smp', label: 'SMP IT' },
-                ].map((unit) => (
-                  <button
-                    key={unit.slug}
-                    onClick={() => setSelectedUnit(unit.slug)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                      selectedUnit === unit.slug
-                        ? 'bg-[#2D7A70] text-white shadow-xs'
-                        : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
-                    }`}
-                  >
-                    {unit.label}
-                  </button>
-                ))}
-              </div>
+              {/* Unit Selector (Hanya tampil jika diakses dari portal umum/yayasan) */}
+              {defaultUnit === 'all' && (
+                <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 sm:pb-0">
+                  {[
+                    { slug: 'all', label: 'Semua Unit' },
+                    { slug: 'tk', label: 'TK IT' },
+                    { slug: 'sd', label: 'SDIT' },
+                    { slug: 'smp', label: 'SMP IT' },
+                  ].map((unit) => (
+                    <button
+                      key={unit.slug}
+                      onClick={() => setSelectedUnit(unit.slug)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                        selectedUnit === unit.slug
+                          ? 'bg-[#2D7A70] text-white shadow-xs'
+                          : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      {unit.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Category Pills */}

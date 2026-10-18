@@ -79,37 +79,87 @@ export default async function SdNewsPage() {
   let articles: NewsArticle[] = [];
 
   try {
-    const dbPosts = await prisma.newsPost.findMany({
-      where: { 
-        isPublished: true,
-        school: { slug: 'sd' },
-      },
-      orderBy: { publishedAt: 'desc' },
-      include: { school: true },
-      take: 20,
+    const [dbPosts, dbAchievements] = await Promise.all([
+      prisma.newsPost.findMany({
+        where: { 
+          isPublished: true,
+          school: { slug: 'sd' },
+        },
+        orderBy: { publishedAt: 'desc' },
+        include: { school: true },
+        take: 20,
+      }),
+      prisma.studentAchievement.findMany({
+        where: { school: { slug: 'sd' } },
+        orderBy: { createdAt: 'desc' },
+      }),
+    ]);
+
+    const postArticles: NewsArticle[] = (dbPosts && dbPosts.length > 0)
+      ? dbPosts.map((p) => ({
+          id: p.id,
+          title: p.title,
+          slug: p.slug,
+          category: p.category || 'Kegiatan',
+          excerpt: p.excerpt || p.content.slice(0, 150) + '...',
+          author: p.author || 'Humas SDIT Al-Afiyah',
+          date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          }),
+          schoolName: 'SDIT Al-Afiyah',
+          readingTime: '4 menit baca',
+          imageUrl: p.coverImage || undefined,
+          paragraphs: p.content ? p.content.split('\n').filter((l: string) => l.trim().length > 0) : undefined,
+        }))
+      : DEFAULT_SD_ARTICLES.filter((a) => a.category !== 'Prestasi');
+
+    const rankLabelMap: Record<string, string> = {
+      JUARA_1: 'Juara 1 (Emas)',
+      JUARA_2: 'Juara 2 (Perak)',
+      JUARA_3: 'Juara 3 (Perunggu)',
+      HARAPAN_1: 'Juara Harapan 1',
+      HARAPAN_2: 'Juara Harapan 2',
+      HARAPAN_3: 'Juara Harapan 3',
+      FAVORIT: 'Juara Favorit',
+      FINALIS: 'Finalis',
+    };
+
+    const achievementArticles: NewsArticle[] = (dbAchievements || []).map((ach) => {
+      const rankLabel = rankLabelMap[ach.rank] || ach.rank || 'Prestasi Gemilang';
+      return {
+        id: `ach-${ach.id}`,
+        title: `Prestasi Murid: ${ach.studentName} Raih ${rankLabel} ${ach.title}`,
+        slug: `prestasi-${ach.id}`,
+        category: 'Prestasi',
+        excerpt: ach.description || `${ach.studentName} menorehkan prestasi membanggakan sebagai ${rankLabel} dalam ajang ${ach.title} (${ach.level}, Tahun ${ach.year}).`,
+        author: 'Tim Prestasi & Kesiswaan SDIT',
+        date: `${ach.year}`,
+        schoolName: 'SDIT Al-Afiyah',
+        readingTime: '2 menit baca',
+        imageUrl: ach.imageUrl || '/images/sd-hero-greenhouse.jpg',
+        paragraphs: [
+          `Alhamdulillah, kabar gembira dan membanggakan datang dari murid SDIT Al-Afiyah Majalengka. Ananda ${ach.studentName} sukses meraih prestasi gemilang sebagai ${rankLabel} dalam kejuaraan ${ach.title}.`,
+          ach.description ? `${ach.description}. Pencapaian ini merupakan hasil bimbingan para asatidzah serta pembiasaan karakter dan adab belajar di sekolah.` : `Pencapaian di tingkat ${ach.level} ini menunjukkan potensi luar biasa peserta didik SDIT Al-Afiyah di bidang keilmuan, adab, dan bakat.`,
+          'Keluarga besar SDIT Al-Afiyah mengucapkan tahniah dan rasa syukur atas prestasi ananda. Semoga menjadi motivasi untuk senantiasa rendah hati, rajin belajar, dan menjadi teladan sholeh-sholehah.',
+        ],
+        keyHighlights: [
+          `Nama Murid: ${ach.studentName}`,
+          `Capaian: ${rankLabel} (${ach.level})`,
+          `Tahun: ${ach.year}`,
+          `Kategori: ${ach.category}`,
+        ],
+      };
     });
 
-    if (dbPosts && dbPosts.length > 0) {
-      articles = dbPosts.map((p) => ({
-        id: p.id,
-        title: p.title,
-        slug: p.slug,
-        category: p.category || 'Kegiatan',
-        excerpt: p.excerpt || p.content.slice(0, 150) + '...',
-        author: p.author || 'Humas SDIT Al-Afiyah',
-        date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-        }),
-        schoolName: 'SDIT Al-Afiyah',
-        readingTime: '4 menit baca',
-        imageUrl: p.coverImage || undefined,
-        paragraphs: p.content ? p.content.split('\n').filter((l: string) => l.trim().length > 0) : undefined,
-      }));
-    }
+    const fallbackPrestasi = DEFAULT_SD_ARTICLES.filter((a) => a.category === 'Prestasi');
+    const finalPrestasiArticles = achievementArticles.length > 0 ? achievementArticles : fallbackPrestasi;
+
+    articles = [...postArticles, ...finalPrestasiArticles];
   } catch (err) {
     console.error('Error fetching SD news:', err);
+    articles = DEFAULT_SD_ARTICLES;
   }
 
   if (articles.length === 0) {
