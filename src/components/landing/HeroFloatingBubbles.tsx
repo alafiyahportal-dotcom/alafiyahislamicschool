@@ -165,8 +165,8 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
 
   // =========================================================================
   // SD IT: Authentic Educational & Islamic floating elements
-  // (Al-Quran Ungu, Pensil Ceria, Papan Tulis ABC rada ketengah, & Daun Segar Hijau)
-  // Pesawat kertas & buku terbuka dihapus sesuai instruksi; daun SMP ditambahkan.
+  // (Al-Quran Ungu, Pensil Ceria, Papan Tulis ABC rada ketengah)
+  // Bersih, fokus, responsif tanpa tabrakan teks.
   // =========================================================================
   const sdHeroElements = useMemo<FloatingHeroElement[]>(() => [
     // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah
@@ -213,51 +213,6 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
       glowClass: 'drop-shadow-[0_12px_28px_rgba(234,179,8,0.36)] drop-shadow-[0_4px_12px_rgba(16,185,129,0.22)]',
       style: {
         animationDelay: '1.5s',
-      },
-    },
-    // 4. Daun Segar Hijau Sedang (Menggantikan pesawat di langit atas kanan)
-    {
-      id: 'sd-leaf-medium',
-      src: '/images/hero/smp-elem-leaf.png',
-      alt: 'Daun Segar Prestasi SDIT',
-      width: 475,
-      height: 410,
-      wrapperClass: 'top-[9%] right-[22%] sm:top-[12%] sm:right-[24%] lg:top-[13%] lg:right-[25%]',
-      tiltClass: 'rotate-12',
-      className: 'w-[44px] xs:w-[50px] sm:w-[58px] md:w-[68px] lg:w-[76px] animate-poster-leaf-1 select-none',
-      glowClass: 'drop-shadow-[0_10px_22px_rgba(16,185,129,0.32)]',
-      style: {
-        animationDelay: '0.8s',
-      },
-    },
-    // 5. Daun Segar Kecil Samping Kanan (Aksen melayang lembut antara Quran dan ABC)
-    {
-      id: 'sd-leaf-small-right',
-      src: '/images/hero/smp-elem-leaf.png',
-      alt: 'Daun Kecil Al-Afiyah',
-      width: 475,
-      height: 410,
-      wrapperClass: 'top-[38%] right-[5%] sm:top-[40%] sm:right-[7%] lg:top-[42%] lg:right-[8%]',
-      tiltClass: '-rotate-45',
-      className: 'w-[30px] xs:w-[34px] sm:w-[40px] md:w-[46px] lg:w-[50px] opacity-80 animate-poster-leaf-2 select-none',
-      glowClass: 'drop-shadow-[0_8px_18px_rgba(16,185,129,0.25)]',
-      style: {
-        animationDelay: '1.8s',
-      },
-    },
-    // 6. Daun Segar Kecil Kiri (Aksen lembut di sisi kiri judul)
-    {
-      id: 'sd-leaf-small-left',
-      src: '/images/hero/smp-elem-leaf.png',
-      alt: 'Daun Kecil Aksen SDIT',
-      width: 475,
-      height: 410,
-      wrapperClass: 'top-[22%] left-[3%] sm:top-[20%] sm:left-[4%] lg:top-[22%] lg:left-[4%]',
-      tiltClass: 'rotate-45',
-      className: 'w-[26px] xs:w-[30px] sm:w-[36px] md:w-[42px] lg:w-[46px] opacity-70 animate-poster-float-slow select-none',
-      glowClass: 'drop-shadow-[0_8px_16px_rgba(16,185,129,0.2)]',
-      style: {
-        animationDelay: '1.2s',
       },
     },
   ], []);
