@@ -116,29 +116,6 @@ export default function Hero3DStatCards({ stats, unitSlug }: Hero3DStatCardsProp
         </div>
       )}
 
-      {/* SD IT: Foreground Floating Open Book placed gracefully at the top edge of the card where it's empty / no text */}
-      {unitSlug === 'sd' && (
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none z-20 select-none overflow-visible"
-        >
-          {/* Open Book: Placed at the top edge of Card 0 in the clear space where there is no text */}
-          <div className="absolute left-2 xs:left-3 sm:left-4 lg:left-6 -top-5 sm:-top-6 pointer-events-none transition-transform duration-700 ease-out">
-            <div className="relative drop-shadow-[0_12px_24px_rgba(251,146,60,0.35)] drop-shadow-[0_4px_10px_rgba(255,255,255,0.22)]">
-              <Image
-                src="/images/hero/sd-elem-book.png"
-                alt="Buku Pelajaran Terbuka SDIT"
-                width={285}
-                height={239}
-                className="w-[44px] xs:w-[50px] sm:w-[58px] md:w-[68px] lg:w-[76px] rotate-6 animate-poster-leaf-2 select-none"
-                priority
-                unoptimized
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-10">
         {stats.map((stat, idx) => (
           <StatCard key={stat.label + idx} stat={stat} unitSlug={unitSlug} index={idx} />

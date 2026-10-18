@@ -165,9 +165,8 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
 
   // =========================================================================
   // SD IT: Authentic Educational & Islamic floating elements
-  // (Al-Quran Ungu, Pesawat Kertas Cita-Cita, Papan Tulis ABC, Pensil Ceria)
-  // Responsively positioned & scaled so laptop & mobile have zero text collision.
-  // Note: Buku Terbuka is rendered in Hero3DStatCards in the foreground over the cards.
+  // (Al-Quran Ungu, Pensil Ceria, Papan Tulis ABC rada ketengah, & Daun Segar Hijau)
+  // Pesawat kertas & buku terbuka dihapus sesuai instruksi; daun SMP ditambahkan.
   // =========================================================================
   const sdHeroElements = useMemo<FloatingHeroElement[]>(() => [
     // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah
@@ -186,37 +185,7 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
         animationDelay: '0s',
       },
     },
-    // 2. Pesawat Kertas Cita-Cita (Soaring dreams & creativity with dotted loop trail)
-    {
-      id: 'sd-plane-motion',
-      src: '/images/hero/sd-elem-plane.png',
-      alt: 'Pesawat Kertas Cita-Cita SDIT',
-      width: 193,
-      height: 287,
-      wrapperClass: 'top-[7%] right-[22%] sm:top-[11%] sm:right-[26%] lg:top-[12%] lg:right-[27%]',
-      tiltClass: 'rotate-6',
-      className: 'w-[52px] xs:w-[62px] sm:w-[84px] md:w-[102px] lg:w-[120px] animate-poster-leaf-1 select-none',
-      glowClass: 'drop-shadow-[0_10px_24px_rgba(52,211,153,0.36)] drop-shadow-[0_3px_10px_rgba(255,255,255,0.3)]',
-      style: {
-        animationDelay: '0.8s',
-      },
-    },
-    // 3. Papan Tulis Mini ABC (Early literacy & joyful classroom foundation - above buttons)
-    {
-      id: 'sd-board-abc',
-      src: '/images/hero/sd-elem-board.png',
-      alt: 'Papan Tulis Ceria ABC SDIT',
-      width: 237,
-      height: 170,
-      wrapperClass: 'top-[46%] right-[3%] sm:top-[56%] sm:right-[4%] lg:top-[56%] lg:right-[5%]',
-      tiltClass: 'rotate-3',
-      className: 'w-[68px] xs:w-[78px] sm:w-[104px] md:w-[124px] lg:w-[140px] animate-poster-pendulum select-none',
-      glowClass: 'drop-shadow-[0_12px_28px_rgba(234,179,8,0.36)] drop-shadow-[0_4px_12px_rgba(16,185,129,0.22)]',
-      style: {
-        animationDelay: '1.5s',
-      },
-    },
-    // 4. Pensil Ceria (Slim, compact, tilted playfully diagonally ~30deg, safely in-bounds on mobile, center on laptop)
+    // 2. Pensil Ceria (Slim, compact, tilted playfully diagonally ~30deg, safely in-bounds on mobile, center on laptop)
     {
       id: 'sd-pencil-creative',
       src: '/images/hero/sd-elem-pencil.png',
@@ -229,6 +198,66 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
       glowClass: 'drop-shadow-[0_10px_22px_rgba(251,191,36,0.38)] drop-shadow-[0_2px_8px_rgba(239,68,68,0.22)]',
       style: {
         animationDelay: '0.4s',
+      },
+    },
+    // 3. Papan Tulis Mini ABC (Geser rada ke tengah pada laptop, disesuaikan proporsional di HP)
+    {
+      id: 'sd-board-abc',
+      src: '/images/hero/sd-elem-board.png',
+      alt: 'Papan Tulis Ceria ABC SDIT',
+      width: 237,
+      height: 170,
+      wrapperClass: 'top-[46%] right-[8%] sm:top-[56%] sm:right-[15%] lg:top-[56%] lg:right-[20%]',
+      tiltClass: 'rotate-3',
+      className: 'w-[64px] xs:w-[72px] sm:w-[94px] md:w-[114px] lg:w-[128px] animate-poster-pendulum select-none',
+      glowClass: 'drop-shadow-[0_12px_28px_rgba(234,179,8,0.36)] drop-shadow-[0_4px_12px_rgba(16,185,129,0.22)]',
+      style: {
+        animationDelay: '1.5s',
+      },
+    },
+    // 4. Daun Segar Hijau Sedang (Menggantikan pesawat di langit atas kanan)
+    {
+      id: 'sd-leaf-medium',
+      src: '/images/hero/smp-elem-leaf.png',
+      alt: 'Daun Segar Prestasi SDIT',
+      width: 475,
+      height: 410,
+      wrapperClass: 'top-[9%] right-[22%] sm:top-[12%] sm:right-[24%] lg:top-[13%] lg:right-[25%]',
+      tiltClass: 'rotate-12',
+      className: 'w-[44px] xs:w-[50px] sm:w-[58px] md:w-[68px] lg:w-[76px] animate-poster-leaf-1 select-none',
+      glowClass: 'drop-shadow-[0_10px_22px_rgba(16,185,129,0.32)]',
+      style: {
+        animationDelay: '0.8s',
+      },
+    },
+    // 5. Daun Segar Kecil Samping Kanan (Aksen melayang lembut antara Quran dan ABC)
+    {
+      id: 'sd-leaf-small-right',
+      src: '/images/hero/smp-elem-leaf.png',
+      alt: 'Daun Kecil Al-Afiyah',
+      width: 475,
+      height: 410,
+      wrapperClass: 'top-[38%] right-[5%] sm:top-[40%] sm:right-[7%] lg:top-[42%] lg:right-[8%]',
+      tiltClass: '-rotate-45',
+      className: 'w-[30px] xs:w-[34px] sm:w-[40px] md:w-[46px] lg:w-[50px] opacity-80 animate-poster-leaf-2 select-none',
+      glowClass: 'drop-shadow-[0_8px_18px_rgba(16,185,129,0.25)]',
+      style: {
+        animationDelay: '1.8s',
+      },
+    },
+    // 6. Daun Segar Kecil Kiri (Aksen lembut di sisi kiri judul)
+    {
+      id: 'sd-leaf-small-left',
+      src: '/images/hero/smp-elem-leaf.png',
+      alt: 'Daun Kecil Aksen SDIT',
+      width: 475,
+      height: 410,
+      wrapperClass: 'top-[22%] left-[3%] sm:top-[20%] sm:left-[4%] lg:top-[22%] lg:left-[4%]',
+      tiltClass: 'rotate-45',
+      className: 'w-[26px] xs:w-[30px] sm:w-[36px] md:w-[42px] lg:w-[46px] opacity-70 animate-poster-float-slow select-none',
+      glowClass: 'drop-shadow-[0_8px_16px_rgba(16,185,129,0.2)]',
+      style: {
+        animationDelay: '1.2s',
       },
     },
   ], []);
