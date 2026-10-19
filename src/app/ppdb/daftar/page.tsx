@@ -38,6 +38,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { extractSubdomain, getSchoolUrl } from '@/lib/domain';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
+import { convertHeicIfNeeded } from '@/lib/image-compress';
 import IslamicToast from '@/components/common/IslamicToast';
 
 interface SchoolOption {
@@ -270,11 +271,14 @@ function PPDBFormContent() {
     setUploadingDocType(docType);
     setUploadError(null);
 
-    const body = new FormData();
-    body.append('file', file);
-    body.append('docType', docType);
-
     try {
+      // Auto-convert Apple iOS HEIC/HEIF photos to JPEG so all browsers can view them
+      const processedFile = await convertHeicIfNeeded(file);
+
+      const body = new FormData();
+      body.append('file', processedFile);
+      body.append('docType', docType);
+
       const res = await fetch('/api/upload', {
         method: 'POST',
         body,
@@ -1813,7 +1817,7 @@ function PPDBFormContent() {
                   <input
                     type="file"
                     id="upload-kk"
-                    accept=".pdf,.jpg,.jpeg,.png,.webp"
+                    accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,image/*"
                     className="hidden"
                     onChange={(e) => handleFileUpload(e, 'KK')}
                   />
@@ -1856,7 +1860,7 @@ function PPDBFormContent() {
                   <input
                     type="file"
                     id="upload-akta"
-                    accept=".pdf,.jpg,.jpeg,.png,.webp"
+                    accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,image/*"
                     className="hidden"
                     onChange={(e) => handleFileUpload(e, 'AKTA')}
                   />
@@ -1899,7 +1903,7 @@ function PPDBFormContent() {
                   <input
                     type="file"
                     id="upload-foto"
-                    accept=".pdf,.jpg,.jpeg,.png,.webp"
+                    accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,image/*"
                     className="hidden"
                     onChange={(e) => handleFileUpload(e, 'FOTO')}
                   />

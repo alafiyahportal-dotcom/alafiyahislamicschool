@@ -65,11 +65,25 @@ export function verifyFileBuffer(buffer: Buffer): VerifiedFile {
     return { isValid: true, mime: 'image/gif', ext: '.gif' };
   }
 
+  // 6. HEIC / HEIF (Apple iPhone/iOS photo format): ....ftyp(heic|heix|hevc|hevx|mif1|msf1)
+  if (
+    buffer.length >= 12 &&
+    buffer[4] === 0x66 && // 'f'
+    buffer[5] === 0x74 && // 't'
+    buffer[6] === 0x79 && // 'y'
+    buffer[7] === 0x70    // 'p'
+  ) {
+    const brand = buffer.toString('ascii', 8, 12).toLowerCase();
+    if (['heic', 'heix', 'hevc', 'hevx', 'mif1', 'msf1'].includes(brand)) {
+      return { isValid: true, mime: 'image/heic', ext: '.heic' };
+    }
+  }
+
   return {
     isValid: false,
     mime: '',
     ext: '',
-    error: 'Format isi file tidak valid. Hanya berkas PDF, JPG, PNG, atau WebP yang diperbolehkan.',
+    error: 'Format isi file tidak valid. Hanya berkas PDF, JPG, PNG, WebP, atau HEIC yang diperbolehkan.',
   };
 }
 

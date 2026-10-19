@@ -1031,7 +1031,7 @@ export default function CMSEditorClient({
                   <span>{isUploading ? 'Unggah...' : 'Unggah Foto'}</span>
                   <input
                     type="file"
-                    accept="image/*"
+                    accept="image/*,.heic,.heif"
                     disabled={isUploading}
                     className="hidden"
                     onChange={async (e) => {
@@ -3152,7 +3152,7 @@ export default function CMSEditorClient({
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                      accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,.heic,.heif,image/heic,image/heif"
                       className="hidden"
                       onChange={async (e) => {
                         const file = e.target.files?.[0];

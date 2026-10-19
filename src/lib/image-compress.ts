@@ -12,15 +12,65 @@ export interface CompressionResult {
   sizeBytes: number;
 }
 
+/**
+ * Detects if a file is in HEIC/HEIF format (Apple iOS / iPhone photos)
+ */
+export function isHeicFile(file: File): boolean {
+  if (!file) return false;
+  const name = file.name?.toLowerCase() || '';
+  const type = file.type?.toLowerCase() || '';
+  return (
+    type === 'image/heic' ||
+    type === 'image/heif' ||
+    type === 'image/heic-sequence' ||
+    type === 'image/heif-sequence' ||
+    name.endsWith('.heic') ||
+    name.endsWith('.heif')
+  );
+}
+
+/**
+ * Converts Apple iOS HEIC/HEIF files to standard JPEG in the browser using heic2any.
+ * If the file is not HEIC, returns the original file untouched.
+ */
+export async function convertHeicIfNeeded(file: File): Promise<File> {
+  if (!isHeicFile(file) || typeof window === 'undefined') {
+    return file;
+  }
+
+  try {
+    const heic2anyModule = await import('heic2any');
+    const heic2any = heic2anyModule.default || heic2anyModule;
+    const result = await heic2any({
+      blob: file,
+      toType: 'image/jpeg',
+      quality: 0.9,
+    });
+
+    const blob = Array.isArray(result) ? result[0] : result;
+    const cleanName = file.name.replace(/\.(heic|heif)$/i, '.jpg');
+    return new File([blob], cleanName, {
+      type: 'image/jpeg',
+      lastModified: Date.now(),
+    });
+  } catch (err) {
+    console.warn('Gagal mengonversi berkas HEIC via heic2any:', err);
+    return file;
+  }
+}
+
 export async function compressImageClient(
-  file: File,
+  inputFile: File,
   maxWidth = 1600,
   maxHeight = 1200,
   quality = 0.82
 ): Promise<CompressionResult> {
+  // Convert Apple iOS HEIC/HEIF photos to JPEG first so the browser canvas can decode them
+  const file = await convertHeicIfNeeded(inputFile);
+
   return new Promise((resolve, reject) => {
     // If not an image or is SVG, return original
-    if (!file.type.startsWith('image/') || file.type === 'image/svg+xml') {
+    if ((!file.type.startsWith('image/') && !isHeicFile(file)) || file.type === 'image/svg+xml') {
       const reader = new FileReader();
       reader.onload = () => {
         resolve({

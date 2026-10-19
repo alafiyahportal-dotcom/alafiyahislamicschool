@@ -825,14 +825,14 @@ export default function AchievementManagerClient({
                           )}
                           <input
                             type="file"
-                            accept="image/*"
+                            accept="image/*,.heic,.heif"
                             disabled={isUploadingImage}
                             onChange={handleImageFileChange}
                             className="hidden"
                           />
                         </label>
                         <p className="text-[9.5px] text-slate-500 mt-1 truncate">
-                          Kompresi otomatis WebP/JPG (&lt; 200KB)
+                          Kompresi otomatis WebP/JPG • Mendukung JPG, PNG &amp; HEIC (iOS)
                         </p>
                       </div>
                     </div>

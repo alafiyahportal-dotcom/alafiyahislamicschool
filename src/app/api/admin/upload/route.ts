@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     const verified = verifyFileBuffer(buffer);
     if (!verified.isValid || verified.mime === 'application/pdf') {
       return NextResponse.json(
-        { error: 'Format file tidak didukung. Hanya menerima gambar JPG, PNG, WebP, atau GIF.' },
+        { error: 'Format file tidak didukung. Hanya menerima gambar JPG, PNG, WebP, GIF, atau HEIC.' },
         { status: 400 }
       );
     }

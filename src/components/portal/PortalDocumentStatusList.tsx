@@ -13,6 +13,7 @@ import {
   FileCheck,
   Check
 } from 'lucide-react';
+import { convertHeicIfNeeded } from '@/lib/image-compress';
 
 export interface DocumentItem {
   id: string;
@@ -87,9 +88,12 @@ export default function PortalDocumentStatusList({
     setUploadingDocId(docId);
 
     try {
-      // 1. Upload file fisik ke /api/upload
+      // 1. Convert iOS HEIC to JPEG if needed
+      const processedFile = await convertHeicIfNeeded(file);
+
+      // 2. Upload file fisik ke /api/upload
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', processedFile);
       formData.append('docType', docType);
 
       const uploadRes = await fetch('/api/upload', {
@@ -330,7 +334,7 @@ export default function PortalDocumentStatusList({
                     <div className="p-4 rounded-2xl border-2 border-dashed border-[#2D7A70]/40 bg-[#E8F3F1]/40 text-center relative hover:border-[#2D7A70] transition-colors">
                       <input
                         type="file"
-                        accept=".pdf,image/png,image/jpeg,image/webp"
+                        accept=".pdf,image/png,image/jpeg,image/webp,image/heic,.heic,.heif"
                         disabled={isUploadingThis}
                         onChange={(e) => {
                           const file = e.target.files?.[0];
@@ -356,7 +360,7 @@ export default function PortalDocumentStatusList({
                               Klik atau seret berkas baru ke sini untuk mengunggah
                             </p>
                             <p className="text-[11px] text-slate-500 mt-0.5">
-                              Format: PDF, JPG, PNG, atau WEBP (Maksimal 5 MB)
+                              Format: PDF, JPG, PNG, WEBP, atau HEIC (iPhone) • Maksimal 5 MB
                             </p>
                           </>
                         )}

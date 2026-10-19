@@ -575,13 +575,13 @@ export default function NewsManagerClient({
                         <input
                           id="news-cover-upload"
                           type="file"
-                          accept="image/*"
+                          accept="image/*,.heic,.heif"
                           onChange={handleImageFileChange}
                           disabled={isUploadingImage}
                           className="hidden"
                         />
                         <p className="text-[11px] text-slate-500 mt-1.5 leading-snug">
-                          Format JPG, PNG, atau WebP. Foto otomatis dikompresi agar loading kilat di web publik.
+                          Format JPG, PNG, WebP, atau HEIC (iPhone). Foto otomatis dikonversi &amp; dikompresi agar loading kilat di web publik.
                         </p>
                       </div>
                     ) : (
