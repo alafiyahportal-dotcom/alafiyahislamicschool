@@ -237,25 +237,16 @@ export default function AchievementShowcaseModal({
                           title: item.title,
                           studentName: item.studentName,
                         })}
-                        className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden bg-slate-950 relative shrink-0 border border-slate-200 cursor-pointer group/thumb"
+                        className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden bg-stone-100 relative shrink-0 border border-slate-200 cursor-pointer group/thumb"
                         title="Klik untuk melihat foto penuh"
                       >
-                        <Image
-                          src={item.imageUrl || '/images/arc-tahfidz.jpg'}
-                          alt=""
-                          aria-hidden="true"
-                          fill
-                          sizes="96px"
-                          unoptimized={Boolean(item.imageUrl?.startsWith('data:'))}
-                          className="object-cover scale-125 blur-xs opacity-40"
-                        />
                         <Image
                           src={item.imageUrl || '/images/arc-tahfidz.jpg'}
                           alt={item.studentName}
                           fill
                           sizes="96px"
                           unoptimized={Boolean(item.imageUrl?.startsWith('data:'))}
-                          className="object-contain p-1 z-10 group-hover/thumb:scale-105 transition-transform duration-300"
+                          className="object-cover group-hover/thumb:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute top-1 left-1 z-20">
                           <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-sm bg-black/70 text-white backdrop-blur-xs uppercase tracking-wider">

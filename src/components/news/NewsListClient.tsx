@@ -257,36 +257,14 @@ export default function NewsListClient({
             >
               {/* Cover Image */}
               {art.imageUrl && (
-                <div 
-                  className="relative w-full h-56 sm:h-64 overflow-hidden bg-slate-950 shrink-0 group/img cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxImage({
-                      url: art.imageUrl!,
-                      title: art.title,
-                      author: art.author,
-                      date: art.date,
-                    });
-                  }}
-                  title="Klik untuk membuka foto penuh (fullscreen)"
-                >
-                  {/* Layer 1: Ambient Blurred Background */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={art.imageUrl}
-                    alt=""
-                    aria-hidden="true"
-                    className="w-full h-full object-cover scale-125 blur-lg opacity-40 transition-transform duration-500 group-hover/img:scale-135"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                  {/* Layer 2: Main Image (Uncropped with object-contain) */}
+                <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-slate-100 shrink-0 group/img">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={art.imageUrl}
                     alt={art.title}
-                    className="absolute inset-0 w-full h-full object-contain p-2 transition-transform duration-300 group-hover/img:scale-[1.03]"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 pointer-events-none" />
 
                   {/* School Name Badge */}
                   {art.schoolName && (
@@ -296,16 +274,28 @@ export default function NewsListClient({
                   )}
 
                   {/* Zoom Badge Button on Top Right */}
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1 px-2.5 py-1 rounded-lg bg-black/70 hover:bg-black/90 text-white text-[10px] font-bold backdrop-blur-md border border-white/20 transition-all hover:scale-105 shadow-sm">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setLightboxImage({
+                        url: art.imageUrl!,
+                        title: art.title,
+                        author: art.author,
+                        date: art.date,
+                      });
+                    }}
+                    className="absolute top-3 right-3 z-10 flex items-center gap-1 px-2.5 py-1 rounded-lg bg-black/60 hover:bg-black/85 text-white text-[10px] font-bold backdrop-blur-md border border-white/20 transition-all hover:scale-105 shadow-sm cursor-pointer"
+                    title="Buka Foto Penuh (Fullscreen)"
+                  >
                     <ZoomIn className="w-3.5 h-3.5 text-amber-300" />
                     <span>Perbesar Foto</span>
-                  </div>
+                  </button>
 
                   {/* Bottom Action Badge */}
-                  <div className="absolute bottom-2.5 right-3 z-10 text-[10px] font-bold text-white/95 bg-black/70 px-2.5 py-1 rounded-md backdrop-blur-xs flex items-center gap-1 border border-white/10">
-                    <span>Lihat &amp; Baca</span>
-                    <ArrowRight className="w-3 h-3 text-amber-300" />
-                  </div>
+                  <span className="absolute bottom-2.5 right-3 text-[10px] font-bold text-white/90 bg-black/50 px-2 py-0.5 rounded-md backdrop-blur-xs z-10 pointer-events-none">
+                    Klik untuk baca →
+                  </span>
                 </div>
               )}
 
@@ -425,29 +415,18 @@ export default function NewsListClient({
                   author: selectedArticle.author,
                   date: selectedArticle.date,
                 })}
-                className="relative w-full bg-slate-950 flex items-center justify-center overflow-hidden min-h-[260px] max-h-[480px] cursor-zoom-in group/modalImg"
+                className="relative w-full bg-slate-100 flex items-center justify-center overflow-hidden max-h-[420px] cursor-zoom-in group/modalImg"
                 title="Klik untuk membuka foto penuh (fullscreen)"
               >
-                {/* Ambient Blurred Background */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={selectedArticle.imageUrl}
-                  alt=""
-                  aria-hidden="true"
-                  className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-35"
-                />
-                <div className="absolute inset-0 bg-black/30" />
-
-                {/* Main Uncropped Image */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={selectedArticle.imageUrl}
                   alt={selectedArticle.title}
-                  className="relative z-10 w-full h-auto max-h-[480px] object-contain p-2 group-hover/modalImg:scale-[1.02] transition-transform duration-300"
+                  className="w-full h-auto max-h-[420px] object-cover group-hover/modalImg:scale-[1.01] transition-transform duration-300"
                 />
 
                 {/* Floating Zoom Cue */}
-                <div className="absolute bottom-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/20 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg group-hover/modalImg:bg-black/90 group-hover/modalImg:scale-105 transition-all">
+                <div className="absolute bottom-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg group-hover/modalImg:bg-black/90 group-hover/modalImg:scale-105 transition-all">
                   <ZoomIn className="w-3.5 h-3.5 text-amber-300" />
                   <span>Perbesar Foto Penuh</span>
                 </div>
