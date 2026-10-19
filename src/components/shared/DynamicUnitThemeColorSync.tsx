@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation';
 
 export const UNIT_THEME_COLORS = {
   smp: '#030164',        // SMP IT Deep Navy
-  sd: '#00A651',         // SDIT Emerald Green Identity
+  sd: '#064E3B',         // SDIT Deep Forest Green Identity (Pekat)
   tk: '#0284c7',         // TK IT Sky Blue
-  foundation: '#184F48', // Yayasan Forest Green
-  yayasan: '#184F48',
+  foundation: '#064E3B', // Yayasan Deep Forest Green
+  yayasan: '#064E3B',
 };
 
 export type ActiveUnitType = 'smp' | 'sd' | 'tk' | 'yayasan';

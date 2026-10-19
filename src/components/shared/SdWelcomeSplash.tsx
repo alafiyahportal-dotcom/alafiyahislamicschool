@@ -8,9 +8,10 @@ const SD_SPLASH_SESSION_KEY = 'alafiyah_sd_welcome_seen';
 
 export default function SdWelcomeSplash() {
   const [isVisible, setIsVisible] = useState(false);
-  const [hasCheckedSession, setHasCheckedSession] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     try {
       if (typeof window === 'undefined') return;
 
@@ -40,16 +41,14 @@ export default function SdWelcomeSplash() {
           sessionStorage.setItem(SD_SPLASH_SESSION_KEY, '1');
         } catch {}
 
-        // Automatically hide splash after 2.0 seconds
+        // Automatically hide splash after 2.5 seconds with smooth fade out
         const timer = setTimeout(() => {
           setIsVisible(false);
-        }, 2000);
+        }, 2500);
         return () => clearTimeout(timer);
       }
     } catch {
       // Ignore sessionStorage errors
-    } finally {
-      setHasCheckedSession(true);
     }
   }, []);
 
@@ -62,19 +61,19 @@ export default function SdWelcomeSplash() {
     setIsVisible(false);
   };
 
-  if (!hasCheckedSession || !isVisible) {
+  if (!mounted) {
     return null;
   }
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isVisible && (
         <motion.div
           key="sdit-welcome-splash"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.02 }}
-          transition={{ duration: 0.45, ease: 'easeInOut' }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
           onClick={dismissSplash}
           role="dialog"
           aria-modal="true"
@@ -96,16 +95,16 @@ export default function SdWelcomeSplash() {
           {/* Top Spacer for Clean Balanced Alignment */}
           <div className="pt-8" />
 
-          {/* Center Content: Clean Official Emblem & Titles (No AI Kolom, No Arabic, No Slogan Text) */}
+          {/* Center Content: Clean Official Emblem & Titles with Staggered Fade-in Animation */}
           <div className="flex-1 flex flex-col items-center justify-center my-auto z-10 max-w-lg px-2">
-            {/* Animated Logo Container */}
+            
+            {/* 1. Animated Logo Container - Fade in & subtle scale */}
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+              initial={{ opacity: 0, scale: 0.88 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{
-                type: 'spring',
-                stiffness: 240,
-                damping: 22,
+                duration: 0.7,
+                ease: [0.16, 1, 0.3, 1],
               }}
               className="relative mb-6"
             >
@@ -122,30 +121,58 @@ export default function SdWelcomeSplash() {
               </div>
             </motion.div>
 
-            {/* Clean Welcome Greeting & School Title */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.5 }}
-              className="space-y-1.5"
-            >
-              <h2 className="text-sm sm:text-base font-medium text-emerald-100/90 tracking-wide">
+            {/* 2. Welcome Greeting & School Title - Sequenced Fade-in */}
+            <div className="space-y-2">
+              <motion.h2
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.22,
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="text-sm sm:text-base font-medium text-emerald-100/90 tracking-wide"
+              >
                 Selamat Datang di Website Resmi
-              </h2>
-              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight drop-shadow-md">
+              </motion.h2>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.35,
+                  duration: 0.65,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight drop-shadow-md"
+              >
                 SDIT AL-AFIYAH MAJALENGKA
-              </h1>
-              <p className="text-xs sm:text-sm font-semibold text-amber-300 tracking-wide pt-0.5">
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.48,
+                  duration: 0.55,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="text-xs sm:text-sm font-semibold text-amber-300 tracking-wide pt-0.5"
+              >
                 Smart • Akhlak • Fitrah
-              </p>
-            </motion.div>
+              </motion.p>
+            </div>
           </div>
 
-          {/* Bottom Branding Footer (Exact Match for Unit Identity Pattern) */}
+          {/* 3. Bottom Branding Footer - Fade-in */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.5 }}
+            transition={{
+              delay: 0.62,
+              duration: 0.6,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className="z-10 pb-4 space-y-2 w-full max-w-xs"
           >
             <div className="h-px w-20 bg-white/15 mx-auto" />
