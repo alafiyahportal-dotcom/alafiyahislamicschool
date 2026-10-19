@@ -878,3 +878,46 @@ h1, h2, h3, h4, h5, h6 {
     animation: none !important;
   }
 }
+
+/* ===================================================
+   A4 PRINT PREVIEW AND ISOLATION STYLES
+   Prevents blank pages and overflow clipping during window.print()
+   =================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  html, body {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    height: auto !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:p-0 {
+    padding: 0 !important;
+  }
+
+  .print\:border-none {
+    border: none !important;
+  }
+
+  .print\:break-after-page {
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
+  .page-break {
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+}

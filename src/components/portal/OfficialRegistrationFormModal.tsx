@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { Printer, X, FileText, CheckSquare, ShieldCheck, QrCode } from 'lucide-react';
+import React, { useState } from 'react';
+import { Printer, X, FileText, CheckSquare, ShieldCheck, QrCode, ExternalLink, Loader2 } from 'lucide-react';
 
 interface OfficialRegistrationFormModalProps {
   isOpen: boolean;
@@ -38,10 +38,166 @@ export default function OfficialRegistrationFormModal({
   parentData = {},
   createdAt,
 }: OfficialRegistrationFormModalProps) {
+  const [isPrinting, setIsPrinting] = useState(false);
+
   if (!isOpen) return null;
 
   const handlePrint = () => {
-    window.print();
+    const printArea = document.getElementById('printable-official-form');
+    if (!printArea) {
+      window.print();
+      return;
+    }
+
+    setIsPrinting(true);
+
+    try {
+      // Create isolated printing iframe
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      iframe.setAttribute('title', 'Cetak Formulir A4');
+      document.body.appendChild(iframe);
+
+      const frameDoc = iframe.contentWindow?.document;
+      if (!frameDoc) {
+        setIsPrinting(false);
+        window.print();
+        return;
+      }
+
+      // Collect all stylesheets from host document
+      const headStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+        .map((el) => el.outerHTML)
+        .join('\n');
+
+      const contentHtml = printArea.innerHTML;
+
+      frameDoc.open();
+      frameDoc.write(`
+        <!DOCTYPE html>
+        <html lang="id">
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>${schoolSlug === 'smp' ? 'Formulir-F-SPMB-SMP-IT' : 'Formulir-F-PPDB-SDIT'}_${regNo}_${studentName.replace(/\\s+/g, '_')}</title>
+            ${headStyles}
+            <style>
+              @page {
+                size: A4 portrait;
+                margin: 8mm 10mm;
+              }
+              * {
+                box-sizing: border-box !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+              }
+              html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+                width: 100% !important;
+              }
+              .page-break {
+                page-break-after: always !important;
+                break-after: page !important;
+              }
+              table {
+                border-collapse: collapse !important;
+                width: 100% !important;
+              }
+              .print-container {
+                max-width: 210mm;
+                margin: 0 auto;
+                padding: 4mm;
+                background: #ffffff;
+              }
+            </style>
+          </head>
+          <body class="bg-white text-slate-900">
+            <div class="print-container">
+              ${contentHtml}
+            </div>
+          </body>
+        </html>
+      `);
+      frameDoc.close();
+
+      setTimeout(() => {
+        try {
+          iframe.contentWindow?.focus();
+          iframe.contentWindow?.print();
+        } catch (err) {
+          console.error('Iframe print error, falling back:', err);
+          window.print();
+        } finally {
+          setTimeout(() => {
+            setIsPrinting(false);
+            if (document.body.contains(iframe)) {
+              document.body.removeChild(iframe);
+            }
+          }, 1500);
+        }
+      }, 350);
+    } catch (e) {
+      console.error('Print error:', e);
+      setIsPrinting(false);
+      window.print();
+    }
+  };
+
+  const handleOpenNewTab = () => {
+    const printArea = document.getElementById('printable-official-form');
+    if (!printArea) return;
+    const newWin = window.open('', '_blank');
+    if (!newWin) return;
+    const headStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+      .map((el) => el.outerHTML)
+      .join('\n');
+    newWin.document.write(`
+      <!DOCTYPE html>
+      <html lang="id">
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>${schoolSlug === 'smp' ? 'Formulir-F-SPMB-SMP-IT' : 'Formulir-F-PPDB-SDIT'}_${regNo}_${studentName.replace(/\\s+/g, '_')}</title>
+          ${headStyles}
+          <style>
+            @page { size: A4 portrait; margin: 8mm 10mm; }
+            * { box-sizing: border-box !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            body { margin: 0; padding: 20px; background: #e2e8f0; font-family: sans-serif; }
+            .a4-doc { max-width: 210mm; margin: 0 auto; background: white; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; }
+            .page-break { page-break-after: always; break-after: page; }
+            @media print {
+              body { background: white; padding: 0; }
+              .a4-doc { box-shadow: none; padding: 0; max-width: 100%; border-radius: 0; }
+              .no-print { display: none !important; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="no-print" style="max-width: 210mm; margin: 0 auto 16px auto; display: flex; justify-content: space-between; align-items: center; background: ${schoolSlug === 'smp' ? '#030164' : '#064E3B'}; color: white; padding: 12px 20px; border-radius: 12px; font-family: sans-serif;">
+            <div>
+              <strong style="font-size: 14px; display: block;">Dokumen Siap Cetak / Simpan PDF</strong>
+              <span style="font-size: 11px; opacity: 0.9;">Gunakan menu cetak untuk menyimpan sebagai PDF ukuran A4</span>
+            </div>
+            <button onclick="window.print()" style="background: ${schoolSlug === 'smp' ? '#ffd51e' : '#10B981'}; color: ${schoolSlug === 'smp' ? '#030164' : '#ffffff'}; font-weight: bold; font-size: 12px; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer;">
+              🖨️ Cetak / Simpan PDF Sekarang
+            </button>
+          </div>
+          <div class="a4-doc">
+            ${printArea.innerHTML}
+          </div>
+        </body>
+      </html>
+    `);
+    newWin.document.close();
   };
 
   const formattedDob = dob
@@ -68,7 +224,6 @@ export default function OfficialRegistrationFormModal({
         year: 'numeric',
       });
     }
-    // Return original string if already formatted like "13 Okt 2026"
     return val;
   };
 
@@ -99,14 +254,35 @@ export default function OfficialRegistrationFormModal({
             <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
+                onClick={handleOpenNewTab}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
+                title="Buka Formulir di Tab Baru untuk Pratinjau & Cetak Terpisah"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Buka di Tab Baru</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={handlePrint}
+                disabled={isPrinting}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl ${
                   isSmp ? 'bg-[#030164] hover:bg-[#090580]' : 'bg-[#064E3B] hover:bg-emerald-900'
-                } text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer`}
+                } text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer disabled:opacity-75`}
               >
-                <Printer className="w-3.5 h-3.5" />
-                <span>Cetak / Unduh PDF</span>
+                {isPrinting ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Mempersiapkan...</span>
+                  </>
+                ) : (
+                  <>
+                    <Printer className="w-3.5 h-3.5" />
+                    <span>Cetak / Unduh PDF</span>
+                  </>
+                )}
               </button>
+
               <button
                 type="button"
                 onClick={onClose}
@@ -119,10 +295,10 @@ export default function OfficialRegistrationFormModal({
           </div>
 
         {/* Printable Document Paper (A4 Style) */}
-        <div className="p-3.5 sm:p-8 md:p-12 print:p-6 text-slate-900 font-sans max-w-[210mm] mx-auto bg-white overflow-x-hidden">
+        <div id="printable-official-form" className="p-3.5 sm:p-8 md:p-12 print:p-0 text-slate-900 font-sans max-w-[210mm] mx-auto bg-white overflow-x-hidden">
           
           {/* ================= HALAMAN 1 ================= */}
-          <div className="space-y-5 pb-8 border-b-2 border-dashed border-slate-300 print:border-none print:pb-0 print:break-after-page">
+          <div className="space-y-5 pb-8 border-b-2 border-dashed border-slate-300 print:border-none print:pb-0 page-break print:break-after-page">
             
             {/* Kop Surat Yayasan / Satuan */}
             {schoolSlug === 'sd' ? (

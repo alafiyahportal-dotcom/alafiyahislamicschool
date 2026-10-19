@@ -20,12 +20,14 @@ import {
   Activity,
   FileCheck,
   Compass,
-  Download
+  Download,
+  Eye
 } from 'lucide-react';
 import { calculateAgePerJuly2027 } from '@/types/sdit-form';
 import { ApplicantItem } from './PPDBVerificationClient';
 import OfficialRegistrationFormModal from '@/components/portal/OfficialRegistrationFormModal';
 import EditBiodataModal from '@/components/portal/EditBiodataModal';
+import DocumentViewerModal from './DocumentViewerModal';
 
 interface ApplicantDetailBiodataModalProps {
   isOpen: boolean;
@@ -43,6 +45,7 @@ export default function ApplicantDetailBiodataModal({
   const [activeTab, setActiveTab] = useState<'ANAK' | 'ORTU' | 'PENDIDIKAN' | 'BERKAS'>('ANAK');
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [viewingDoc, setViewingDoc] = useState<any>(null);
 
   if (!isOpen || !applicant) return null;
 
@@ -684,17 +687,27 @@ export default function ApplicantDetailBiodataModal({
                                 {doc.fileName}
                               </p>
                             </div>
-                            <a
-                              href={doc.fileUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className={`mt-3 inline-flex items-center justify-center space-x-1.5 w-full py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 ${
-                                isSmp ? 'hover:text-[#030164] hover:border-blue-300' : 'hover:text-emerald-700 hover:border-emerald-300'
-                              } shadow-2xs transition-colors`}
-                            >
-                              <ExternalLink className="w-3.5 h-3.5" />
-                              <span>Buka Dokumen</span>
-                            </a>
+                            <div className="mt-3 flex items-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => setViewingDoc(doc)}
+                                className={`flex-1 py-1.5 px-2.5 rounded-lg ${
+                                  isSmp ? 'bg-[#030164] hover:bg-[#090580] text-white' : 'bg-[#064E3B] hover:bg-emerald-900 text-white'
+                                } text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer`}
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                                <span>Periksa / Buka</span>
+                              </button>
+                              <a
+                                href={doc.fileUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors shadow-2xs shrink-0"
+                                title="Buka Dokumen di Tab Baru"
+                              >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -811,6 +824,20 @@ export default function ApplicantDetailBiodataModal({
           parentData={parent}
           onSuccess={() => {
             setIsEditModalOpen(false);
+            if (onDataUpdated) onDataUpdated();
+          }}
+        />
+      )}
+
+      {/* Sub-Modal: Lightbox Document Viewer (KK, Akta, Pas Foto) */}
+      {viewingDoc && (
+        <DocumentViewerModal
+          isOpen={!!viewingDoc}
+          onClose={() => setViewingDoc(null)}
+          document={viewingDoc}
+          studentName={applicant.studentName}
+          regNo={applicant.registrationNo}
+          onStatusUpdated={(docId, newStatus, notes) => {
             if (onDataUpdated) onDataUpdated();
           }}
         />

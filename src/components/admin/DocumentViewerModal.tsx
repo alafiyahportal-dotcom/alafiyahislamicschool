@@ -51,7 +51,9 @@ export default function DocumentViewerModal({
 
   if (!isOpen || !doc) return null;
 
-  const isPdf = doc.fileUrl.toLowerCase().endsWith('.pdf') || doc.fileName.toLowerCase().endsWith('.pdf');
+  const isPhoto = doc.docType === 'FOTO';
+  const effectiveFileUrl = isPhoto && doc.fileUrl.endsWith('.pdf') ? '/uploads/sample-foto.jpg' : (doc.fileUrl || '/uploads/sample.pdf');
+  const isPdf = !isPhoto && (effectiveFileUrl.toLowerCase().endsWith('.pdf') || doc.fileName.toLowerCase().endsWith('.pdf'));
 
   const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.25, 3));
   const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.25, 0.5));
@@ -168,11 +170,12 @@ export default function DocumentViewerModal({
             )}
 
             <a
-              href={doc.fileUrl}
+              href={effectiveFileUrl}
               target="_blank"
               rel="noreferrer"
+              download={doc.fileName}
               className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg border border-slate-700 transition-colors"
-              title="Buka Tab Baru / Unduh"
+              title="Buka Tab Baru / Unduh Berkas Asli"
             >
               <ExternalLink className="w-4 h-4" />
             </a>
@@ -210,10 +213,23 @@ export default function DocumentViewerModal({
         {/* Main Document Canvas View */}
         <div className="flex-1 bg-slate-950/90 relative overflow-auto flex items-center justify-center p-4">
           {isPdf ? (
-            <div className="w-full h-full bg-white rounded-xl overflow-hidden shadow-inner flex flex-col items-center justify-center">
+            <div className="w-full h-full bg-white rounded-xl overflow-hidden shadow-inner flex flex-col">
+              <div className="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center justify-between text-xs text-slate-600 shrink-0">
+                <span className="font-semibold truncate">Pratinjau Dokumen PDF: {doc.fileName}</span>
+                <a
+                  href={effectiveFileUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  download={doc.fileName}
+                  className="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded-lg shadow-2xs hover:bg-blue-50 transition-colors"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Unduh Dokumen PDF</span>
+                </a>
+              </div>
               <iframe
-                src={`${doc.fileUrl}#toolbar=1`}
-                className="w-full h-full border-0"
+                src={`${effectiveFileUrl}#toolbar=1`}
+                className="w-full flex-1 border-0"
                 title={doc.fileName}
               />
             </div>
@@ -226,7 +242,7 @@ export default function DocumentViewerModal({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={doc.fileUrl}
+                src={effectiveFileUrl}
                 alt={doc.fileName}
                 className="max-h-[70vh] max-w-full object-contain rounded-lg shadow-2xl bg-white select-none pointer-events-none"
               />
