@@ -163,16 +163,25 @@ export default function UnitAchievementSection({
                   className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full group cursor-pointer"
                 >
                   {/* Photo / Visual Container */}
-                  <div className="relative aspect-[16/10] bg-stone-100 overflow-hidden">
+                  <div className="relative aspect-[16/10] bg-slate-950 overflow-hidden">
+                    <Image
+                      src={item.imageUrl || '/images/arc-tahfidz.jpg'}
+                      alt=""
+                      aria-hidden="true"
+                      fill
+                      sizes="200px"
+                      unoptimized={Boolean(item.imageUrl?.startsWith('data:'))}
+                      className="object-cover scale-125 blur-md opacity-35"
+                    />
                     <Image
                       src={item.imageUrl || '/images/arc-tahfidz.jpg'}
                       alt={item.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       unoptimized={Boolean(item.imageUrl?.startsWith('data:'))}
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-contain p-1.5 z-10 group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent z-10 pointer-events-none" />
 
                     {/* Rank Badge */}
                     <div className="absolute top-3 left-3">

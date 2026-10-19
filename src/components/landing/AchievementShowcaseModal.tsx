@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Award, Trophy, Medal, Search, Filter, Calendar } from 'lucide-react';
+import { X, Award, Trophy, Medal, Search, Filter, Calendar, ZoomIn, Download } from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -38,6 +38,7 @@ export default function AchievementShowcaseModal({
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedUnit, setSelectedUnit] = useState(defaultUnit);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; title: string; studentName: string } | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -230,19 +231,39 @@ export default function AchievementShowcaseModal({
                       className="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-2xs hover:shadow-md transition-all hover:border-[#2D7A70]/40 flex gap-4 group"
                     >
                       {/* Thumbnail photo */}
-                      <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden bg-stone-100 relative shrink-0 border border-slate-200">
+                      <div 
+                        onClick={() => setSelectedPhoto({
+                          url: item.imageUrl || '/images/arc-tahfidz.jpg',
+                          title: item.title,
+                          studentName: item.studentName,
+                        })}
+                        className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden bg-slate-950 relative shrink-0 border border-slate-200 cursor-pointer group/thumb"
+                        title="Klik untuk melihat foto penuh"
+                      >
+                        <Image
+                          src={item.imageUrl || '/images/arc-tahfidz.jpg'}
+                          alt=""
+                          aria-hidden="true"
+                          fill
+                          sizes="96px"
+                          unoptimized={Boolean(item.imageUrl?.startsWith('data:'))}
+                          className="object-cover scale-125 blur-xs opacity-40"
+                        />
                         <Image
                           src={item.imageUrl || '/images/arc-tahfidz.jpg'}
                           alt={item.studentName}
                           fill
                           sizes="96px"
                           unoptimized={Boolean(item.imageUrl?.startsWith('data:'))}
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="object-contain p-1 z-10 group-hover/thumb:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute top-1 left-1">
+                        <div className="absolute top-1 left-1 z-20">
                           <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-sm bg-black/70 text-white backdrop-blur-xs uppercase tracking-wider">
                             {item.school?.slug.toUpperCase() || 'AL-AFIYAH'}
                           </span>
+                        </div>
+                        <div className="absolute bottom-1 right-1 z-20 w-5 h-5 rounded-md bg-black/70 backdrop-blur-xs flex items-center justify-center text-amber-300 opacity-0 group-hover/thumb:opacity-100 transition-opacity">
+                          <ZoomIn className="w-3 h-3" />
                         </div>
                       </div>
 
@@ -300,6 +321,78 @@ export default function AchievementShowcaseModal({
           </div>
         </motion.div>
       </div>
+
+      {/* Direct Photo Lightbox Modal */}
+      {selectedPhoto && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-6 animate-in fade-in duration-200 select-none"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div
+            className="flex items-center justify-between gap-3 text-white max-w-5xl mx-auto w-full z-20 pb-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="min-w-0 pr-4">
+              <h3 className="text-sm sm:text-base font-bold text-white truncate">
+                {selectedPhoto.title}
+              </h3>
+              <p className="text-xs text-amber-300 font-semibold truncate">
+                👤 {selectedPhoto.studentName}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  try {
+                    const a = document.createElement('a');
+                    a.href = selectedPhoto.url;
+                    a.download = `prestasi_${selectedPhoto.studentName.replace(/[^a-z0-9]/gi, '_')}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                  } catch {
+                    window.open(selectedPhoto.url, '_blank');
+                  }
+                }}
+                className="p-2 sm:px-3 sm:py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                title="Unduh / Simpan Foto"
+              >
+                <Download className="w-4 h-4 text-emerald-400" />
+                <span className="hidden sm:inline">Unduh</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedPhoto(null)}
+                className="p-2 sm:p-2.5 rounded-xl bg-white/15 hover:bg-red-500/80 text-white transition-colors cursor-pointer border border-white/20"
+                title="Tutup (Esc)"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          <div
+            className="flex-1 flex items-center justify-center overflow-auto my-auto relative w-full"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setSelectedPhoto(null);
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={selectedPhoto.url}
+              alt={selectedPhoto.title}
+              className="max-w-[95vw] max-h-[84vh] object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+
+          <div className="text-center text-[11px] text-slate-400 pt-2 z-20">
+            <span>💡 Foto prestasi &amp; karya santri Al-Afiyah Majalengka • Klik di luar atau tombol X untuk menutup</span>
+          </div>
+        </div>
+      )}
     </AnimatePresence>
   );
 }
