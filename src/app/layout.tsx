@@ -24,6 +24,7 @@ import Script from "next/script";
 import ReferralTracker from "@/components/shared/ReferralTracker";
 import DynamicUnitThemeColorSync from "@/components/shared/DynamicUnitThemeColorSync";
 import SdWelcomeSplash from "@/components/shared/SdWelcomeSplash";
+import WebsiteVisitorTracker from "@/components/shared/WebsiteVisitorTracker";
 import GoogleStructuredData from "@/components/seo/GoogleStructuredData";
 
 export const viewport: Viewport = {
@@ -149,6 +150,7 @@ export default function RootLayout({
           <ReferralTracker />
           <DynamicUnitThemeColorSync />
           <SdWelcomeSplash />
+          <WebsiteVisitorTracker />
         </Suspense>
         {children}
       </body>

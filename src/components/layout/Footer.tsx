@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Phone, MapPin, Mail, ShieldCheck } from 'lucide-react';
 import { getSchoolUrl, extractSubdomain, SchoolSlug } from '@/lib/domain';
+import FooterVisitorBadge from '@/components/shared/FooterVisitorBadge';
 
 export interface FooterProps {
   schoolSlug?: 'tk' | 'sd' | 'smp' | 'foundation';
@@ -426,12 +427,14 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
           </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div className="pt-8 text-center text-xs text-slate-500">
-          <p className="leading-relaxed">
+        {/* Bottom copyright & Visitor Counter */}
+        <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p className="leading-relaxed text-center sm:text-left">
             <span>{current.bottomCopyright.replace(/Seluruh Hak Cipta Dilindungi\./, '').trim()}</span>{' '}
             <span className="block sm:inline whitespace-nowrap">Seluruh Hak Cipta Dilindungi.</span>
           </p>
+
+          <FooterVisitorBadge unitSlug={activeSlug} />
         </div>
       </div>
     </footer>

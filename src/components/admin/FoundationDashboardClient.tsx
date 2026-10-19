@@ -24,6 +24,7 @@ import EdukaSplineChart from './EdukaSplineChart';
 import EdukaDonutChart from './EdukaDonutChart';
 import EdukaUnitTable from './EdukaUnitTable';
 import EdukaRecentStudents from './EdukaRecentStudents';
+import UnitVisitorStatsCards from '@/components/shared/UnitVisitorStatsCards';
 import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
 import IslamicToast from '@/components/common/IslamicToast';
 
@@ -297,6 +298,9 @@ export default function FoundationDashboardClient({
         targetQuota={currentSchoolTargetQuota}
         schoolSlug={currentSchoolSlug}
       />
+
+      {/* VISITOR COUNTER STATS FOR ALL UNITS */}
+      <UnitVisitorStatsCards />
 
       {/* 2. MIDDLE ROW: COURSES / UNIT SEKOLAH (7 COLS) & INTERACTIVE SPLINE CHART (5 COLS) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">

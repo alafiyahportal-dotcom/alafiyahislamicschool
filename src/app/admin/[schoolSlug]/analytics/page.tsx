@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
 import AnalyticsDashboardClient from '@/components/admin/AnalyticsDashboardClient';
+import UnitVisitorStatsCards from '@/components/shared/UnitVisitorStatsCards';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -306,7 +307,8 @@ export default async function SchoolAnalyticsPage({
           currentSchoolSlug={schoolSlug as 'tk' | 'sd' | 'smp'}
         />
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full space-y-6">
+          <UnitVisitorStatsCards />
           <AnalyticsDashboardClient
             initialData={analyticsData}
             initialSelectedUnit={schoolSlug}

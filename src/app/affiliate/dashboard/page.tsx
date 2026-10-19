@@ -1192,14 +1192,6 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                   );
                 })()}
               </div>
-
-              {/* Islamic Tip Card */}
-              <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-xs text-emerald-950 flex items-start gap-2.5">
-                <span className="text-base">💡</span>
-                <p className="text-[11px] leading-relaxed text-emerald-900">
-                  <strong>Tips Memperbesar Konversi:</strong> Bagikan tautan disertai penjelasan singkat keunggulan tahfidz dan pembinaan karakter di SDIT / SMP IT Al-Afiyah ke grup keluarga atau kajian.
-                </p>
-              </div>
             </div>
 
             {/* Col 2: Grafik Tren Kunjungan 7 Hari Terakhir */}
