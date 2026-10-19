@@ -7,7 +7,7 @@ export const SMP_OG_IMAGE = {
   url: '/images/smp-og.jpg',
   width: 1200,
   height: 630,
-  alt: 'Kelulusan SMP IT Al-Afiyah Majalengka',
+  alt: 'Halaqah Tahfidz Santri Ikhwan SMP IT Al-Afiyah Majalengka',
 };
 
 export const SD_OG_IMAGE = {
