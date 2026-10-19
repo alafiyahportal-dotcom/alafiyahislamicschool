@@ -46,6 +46,7 @@ export default function ApplicantDetailBiodataModal({
 
   if (!isOpen || !applicant) return null;
 
+  const isSmp = applicant.schoolSlug === 'smp' || applicant.registrationNo.toUpperCase().includes('SMP');
   const parent = applicant.parentDataRaw || {};
   const specific = applicant.schoolSpecificDataRaw || applicant.schoolSpecificDetails || {};
   const AgePerJuly2027 = calculateAgePerJuly2027(applicant.dob || '2021-05-14');
@@ -61,7 +62,7 @@ export default function ApplicantDetailBiodataModal({
   const cleanPhone = (applicant.parentPhone || parent.motherPhone || parent.fatherPhone || '').replace(/\D/g, '');
   const waUrl = cleanPhone
     ? `https://wa.me/${cleanPhone.startsWith('0') ? '62' + cleanPhone.slice(1) : cleanPhone}?text=${encodeURIComponent(
-        `Assalamu'alaikum Warahmatullahi Wabarakatuh, Panitia PPDB ${applicant.schoolName} menghubungi Ayah/Bunda dari ananda ${applicant.studentName} (No. Reg: ${applicant.registrationNo})...`
+        `Assalamu'alaikum Warahmatullahi Wabarakatuh, Panitia ${isSmp ? 'SPMB' : 'PPDB'} ${applicant.schoolName} menghubungi Ayah/Bunda dari ananda ${applicant.studentName} (No. Reg: ${applicant.registrationNo})...`
       )}`
     : null;
 
@@ -71,7 +72,9 @@ export default function ApplicantDetailBiodataModal({
         <div className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200/90 overflow-hidden my-auto flex flex-col max-h-[94vh]">
           
           {/* Header Dialog - Clean & Minimalist */}
-          <div className="px-4 sm:px-6 py-3.5 sm:py-4 bg-[#064E3B] text-white flex items-center justify-between shrink-0 shadow-sm relative overflow-hidden">
+          <div className={`px-4 sm:px-6 py-3.5 sm:py-4 ${
+            isSmp ? 'bg-[#030164]' : 'bg-[#064E3B]'
+          } text-white flex items-center justify-between shrink-0 shadow-sm relative overflow-hidden`}>
             <div className="min-w-0 pr-2">
               <div className="flex items-center gap-2">
                 <span className="font-mono text-[11px] font-bold text-white bg-black/25 px-2 py-0.5 rounded-md border border-white/15">
@@ -81,7 +84,7 @@ export default function ApplicantDetailBiodataModal({
               <h2 className="text-base sm:text-lg font-bold text-white tracking-tight mt-1 truncate">
                 {applicant.studentName}
               </h2>
-              <p className="text-[11px] sm:text-xs text-emerald-100/90 font-medium truncate">
+              <p className={`text-[11px] sm:text-xs ${isSmp ? 'text-blue-100/90' : 'text-emerald-100/90'} font-medium truncate`}>
                 {applicant.schoolName} • Jalur {applicant.registrationPath} • Terdaftar {applicant.createdAt}
               </p>
             </div>
@@ -101,11 +104,13 @@ export default function ApplicantDetailBiodataModal({
               <button
                 type="button"
                 onClick={() => setIsPrintModalOpen(true)}
-                className="px-3 sm:px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-                title="Cetak Formulir Resmi F-PPDB (A4)"
+                className={`px-3 sm:px-3.5 py-1.5 rounded-xl ${
+                  isSmp ? 'bg-[#ffd51e] hover:bg-amber-300 text-slate-950' : 'bg-emerald-500 hover:bg-emerald-400 text-slate-950'
+                } font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-xs`}
+                title={isSmp ? "Cetak Formulir Resmi F-SPMB (A4)" : "Cetak Formulir Resmi F-PPDB (A4)"}
               >
                 <Printer className="w-3.5 h-3.5 text-slate-950" />
-                <span className="hidden sm:inline">Cetak / Unduh F-PPDB</span>
+                <span className="hidden sm:inline">{isSmp ? "Cetak / Unduh F-SPMB" : "Cetak / Unduh F-PPDB"}</span>
               </button>
 
               <button
@@ -128,12 +133,12 @@ export default function ApplicantDetailBiodataModal({
                 onClick={() => setActiveTab('ANAK')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                   activeTab === 'ANAK'
-                    ? 'bg-[#064E3B] text-white shadow-xs'
+                    ? isSmp ? 'bg-[#030164] text-white shadow-xs' : 'bg-[#064E3B] text-white shadow-xs'
                     : 'bg-white border border-slate-200/90 text-slate-700 hover:bg-slate-50'
                 }`}
               >
                 <User className="w-3.5 h-3.5" />
-                <span>1. Data Murid (1-17)</span>
+                <span>1. Data {isSmp ? 'Santri' : 'Murid'} (1-17)</span>
               </button>
 
               <button
@@ -141,7 +146,7 @@ export default function ApplicantDetailBiodataModal({
                 onClick={() => setActiveTab('ORTU')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                   activeTab === 'ORTU'
-                    ? 'bg-[#064E3B] text-white shadow-xs'
+                    ? isSmp ? 'bg-[#030164] text-white shadow-xs' : 'bg-[#064E3B] text-white shadow-xs'
                     : 'bg-white border border-slate-200/90 text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -154,7 +159,7 @@ export default function ApplicantDetailBiodataModal({
                 onClick={() => setActiveTab('PENDIDIKAN')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                   activeTab === 'PENDIDIKAN'
-                    ? 'bg-[#064E3B] text-white shadow-xs'
+                    ? isSmp ? 'bg-[#030164] text-white shadow-xs' : 'bg-[#064E3B] text-white shadow-xs'
                     : 'bg-white border border-slate-200/90 text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -167,7 +172,7 @@ export default function ApplicantDetailBiodataModal({
                 onClick={() => setActiveTab('BERKAS')}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                   activeTab === 'BERKAS'
-                    ? 'bg-[#064E3B] text-white shadow-xs'
+                    ? isSmp ? 'bg-[#030164] text-white shadow-xs' : 'bg-[#064E3B] text-white shadow-xs'
                     : 'bg-white border border-slate-200/90 text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -182,7 +187,9 @@ export default function ApplicantDetailBiodataModal({
                 href={waUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition-colors shadow-2xs self-start sm:self-auto cursor-pointer"
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl ${
+                  isSmp ? 'bg-[#030164] hover:bg-[#090580]' : 'bg-emerald-700 hover:bg-emerald-800'
+                } text-white text-xs font-semibold transition-colors shadow-2xs self-start sm:self-auto cursor-pointer`}
               >
                 <Phone className="w-3 h-3 text-white" />
                 <span>Hubungi Orang Tua ({cleanPhone})</span>
@@ -193,14 +200,16 @@ export default function ApplicantDetailBiodataModal({
           {/* Modal Body / Tab Contents */}
           <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5 bg-slate-50/60">
             
-            {/* TAB 1: KETERANGAN ANAK (Poin 1-17) */}
+            {/* TAB 1: KETERANGAN ANAK / SANTRI (Poin 1-17) */}
             {activeTab === 'ANAK' && (
               <div className="space-y-4 sm:space-y-5 animate-in fade-in duration-150">
                 {/* Age Qualification Card */}
                 <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center space-x-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                      AgePerJuly2027.isEligible ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                      isSmp
+                        ? 'bg-blue-100 text-[#030164]'
+                        : AgePerJuly2027.isEligible ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
                     }`}>
                       <Calendar className="w-5 h-5" />
                     </div>
@@ -212,26 +221,30 @@ export default function ApplicantDetailBiodataModal({
                     </div>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold text-center ${
-                    AgePerJuly2027.isEligible
+                    isSmp
+                      ? 'bg-blue-100 text-[#030164] border border-blue-300'
+                      : AgePerJuly2027.isEligible
                       ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                       : 'bg-amber-100 text-amber-800 border border-amber-300'
                   }`}>
-                    {AgePerJuly2027.isEligible ? '✓ Memenuhi Syarat (Min. 6 Tahun)' : 'Perlu Observasi Khusus (<6 Tahun)'}
+                    {isSmp
+                      ? '✓ Memenuhi Syarat Jenjang SMP'
+                      : AgePerJuly2027.isEligible ? '✓ Memenuhi Syarat (Min. 6 Tahun)' : 'Perlu Observasi Khusus (<6 Tahun)'}
                   </span>
                 </div>
 
-                {/* Section A: Identitas Calon Murid (Butir 1 s/d 10) */}
+                {/* Section A: Identitas Calon Murid/Santri (Butir 1 s/d 10) */}
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
                     <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                      A. Identitas Calon Murid (Butir 1 s/d 10)
+                      A. Identitas Calon {isSmp ? 'Santri' : 'Murid'} (Butir 1 s/d 10)
                     </h3>
                   </div>
 
                   <div className="divide-y divide-slate-100 text-xs">
                     <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
                       <div className="px-5 py-3 flex flex-col justify-center">
-                        <span className="text-[11px] font-medium text-slate-400">1. Nama Lengkap Murid</span>
+                        <span className="text-[11px] font-medium text-slate-400">1. Nama Lengkap {isSmp ? 'Santri' : 'Murid'}</span>
                         <span className="text-sm font-semibold text-slate-900 mt-0.5">{applicant.studentName}</span>
                       </div>
                       <div className="px-5 py-3 flex flex-col justify-center">
@@ -508,28 +521,37 @@ export default function ApplicantDetailBiodataModal({
                       <div className="px-5 py-3">
                         <span className="text-[11px] font-medium text-slate-400 block">22. Masuk Sekolah Sebagai</span>
                         <span className="font-semibold text-slate-900 mt-0.5 block">
-                          {specific.admissionAs || 'Murid Kelas 1 (Baru)'}
+                          {specific.admissionAs || (isSmp ? 'Santri Baru (Kelas 7)' : 'Murid Kelas 1 (Baru)')}
                         </span>
                       </div>
                     </div>
 
                     <div className="px-5 py-3">
-                      <span className="text-[11px] font-medium text-slate-400 block">23. Asal Sekolah (TK / BA / RA / PAUD)</span>
+                      <span className="text-[11px] font-medium text-slate-400 block">
+                        {isSmp ? '23. Asal Sekolah (SD / MI / Sederajat)' : '23. Asal Sekolah (TK / BA / RA / PAUD)'}
+                      </span>
                       <span className="text-sm font-semibold text-slate-900 mt-0.5 block">
-                        {specific.originSchoolName || 'TK IT Al-Afiyah Majalengka / RA'}
+                        {specific.originSchoolName || specific.previousSchool || (isSmp ? 'SDIT Al-Afiyah Majalengka' : 'TK IT Al-Afiyah Majalengka / RA')}
                       </span>
                       {specific.originSchoolAddress && (
-                        <p className="text-[11px] text-slate-500 mt-1">Alamat TK: {specific.originSchoolAddress}</p>
+                        <p className="text-[11px] text-slate-500 mt-1">
+                          {isSmp ? 'Alamat SD/MI: ' : 'Alamat TK: '}
+                          {specific.originSchoolAddress}
+                        </p>
                       )}
                     </div>
 
-                    {/* Jika Murid Pindahan SD */}
+                    {/* Jika Murid/Santri Pindahan */}
                     {(specific.admissionAs?.includes('Pindahan') || specific.transferSchoolName) && (
                       <div className="px-5 py-3 bg-amber-50/50">
-                        <span className="text-amber-800 font-bold block text-[11px]">24 &amp; 25. Data Pindahan SD / MI:</span>
+                        <span className="text-amber-800 font-bold block text-[11px]">
+                          {isSmp ? '24 & 25. Data Pindahan SMP / MTs:' : '24 & 25. Data Pindahan SD / MI:'}
+                        </span>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
                           <div>
-                            <span className="text-slate-500 text-[10px] block">Asal SD/MI:</span>
+                            <span className="text-slate-500 text-[10px] block">
+                              {isSmp ? 'Asal SMP/MTs:' : 'Asal SD/MI:'}
+                            </span>
                             <span className="font-semibold text-slate-900">{specific.transferSchoolName || '-'}</span>
                           </div>
                           <div>
@@ -550,7 +572,7 @@ export default function ApplicantDetailBiodataModal({
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
                     <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                      D. Kesiapan Belajar, Tahfidz &amp; Motivasi (Butir 26 s/d 28)
+                      {isSmp ? 'D. Prestasi, Tahfidz & Minat Bakat (Butir 26 s/d 28)' : 'D. Kesiapan Belajar, Tahfidz & Motivasi (Butir 26 s/d 28)'}
                     </h3>
                   </div>
 
@@ -558,25 +580,33 @@ export default function ApplicantDetailBiodataModal({
                     <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
                       <div className="px-5 py-3">
                         <span className="text-[11px] font-medium text-slate-400 block">Penguasaan Iqro / Al-Qur&apos;an</span>
-                        <span className="font-semibold text-slate-900 mt-0.5 block">{specific.iqro || 'Jilid 3 - 4'}</span>
+                        <span className="font-semibold text-slate-900 mt-0.5 block">{specific.iqro || 'Al-Qur\'an Juz 30'}</span>
                       </div>
                       <div className="px-5 py-3">
-                        <span className="text-[11px] font-medium text-slate-400 block">Kesiapan Calistung (Huruf Latin)</span>
-                        <span className="font-semibold text-slate-900 mt-0.5 block">{specific.reading || 'Sudah Lancar Kata'}</span>
+                        <span className="text-[11px] font-medium text-slate-400 block">
+                          {isSmp ? 'Keminatan / Ekstrakurikuler' : 'Kesiapan Calistung (Huruf Latin)'}
+                        </span>
+                        <span className="font-semibold text-slate-900 mt-0.5 block">
+                          {specific.reading || (isSmp ? 'Pramuka, Memanah, Hadroh & IT' : 'Sudah Lancar Kata')}
+                        </span>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
                       <div className="px-5 py-3">
-                        <span className="text-[11px] font-medium text-slate-400 block">27. Info Pertama Mengenal SDIT</span>
+                        <span className="text-[11px] font-medium text-slate-400 block">
+                          {isSmp ? '27. Info Pertama Mengenal SMP IT' : '27. Info Pertama Mengenal SDIT'}
+                        </span>
                         <span className="font-semibold text-slate-900 mt-0.5 block">
                           {specific.firstKnownSource || 'Media Sosial / Rekomendasi Saudara'}
                         </span>
                       </div>
                       <div className="px-5 py-3">
-                        <span className="text-[11px] font-medium text-slate-400 block">28. Alasan Utama Memilih SDIT</span>
+                        <span className="text-[11px] font-medium text-slate-400 block">
+                          {isSmp ? '28. Alasan Utama Memilih SMP IT' : '28. Alasan Utama Memilih SDIT'}
+                        </span>
                         <span className="font-semibold text-slate-900 mt-0.5 block">
-                          {specific.mainReason || 'Pembinaan Karakter Islami & Tahfidz Al-Qur\'an'}
+                          {specific.mainReason || (isSmp ? 'Kurikulum Berasrama/Tahfidz & Pembinaan Karakter' : 'Pembinaan Karakter Islami & Tahfidz Al-Qur\'an')}
                         </span>
                       </div>
                     </div>
@@ -598,17 +628,21 @@ export default function ApplicantDetailBiodataModal({
                 {/* Status Biaya Registrasi */}
                 <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-center justify-between flex-wrap gap-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-sm">
+                    <div className={`w-10 h-10 rounded-xl ${
+                      isSmp ? 'bg-blue-100 text-[#030164]' : 'bg-emerald-100 text-emerald-800'
+                    } flex items-center justify-center font-bold text-sm`}>
                       Rp
                     </div>
                     <div>
                       <p className="text-[11px] font-medium text-slate-500">Biaya Formulir Registrasi Gelombang 1:</p>
                       <p className="text-base font-bold text-slate-900">
-                        Rp {applicant.registrationFee ? applicant.registrationFee.toLocaleString('id-ID') : '250.000'}
+                        Rp {isSmp ? '200.000' : (applicant.registrationFee ? applicant.registrationFee.toLocaleString('id-ID') : '250.000')}
                       </p>
                     </div>
                   </div>
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    isSmp ? 'bg-blue-100 text-[#030164] border border-blue-300' : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                  }`}>
                     Status: {applicant.status}
                   </span>
                 </div>
@@ -627,7 +661,7 @@ export default function ApplicantDetailBiodataModal({
                         <FileText className="w-8 h-8 mx-auto mb-2 text-slate-300" />
                         <p className="font-semibold text-xs text-slate-600">Belum ada dokumen digital yang diunggah</p>
                         <p className="text-[11px] text-slate-400 mt-0.5">
-                          Calon siswa dapat menyerahkan berkas fisik langsung saat observasi atau menyusul via portal murid.
+                          Calon {isSmp ? 'santri' : 'siswa'} dapat menyerahkan berkas fisik langsung saat {isSmp ? 'tes/wawancara' : 'observasi'} atau menyusul via portal {isSmp ? 'santri' : 'murid'}.
                         </p>
                       </div>
                     ) : (
@@ -639,7 +673,9 @@ export default function ApplicantDetailBiodataModal({
                           >
                             <div>
                               <div className="flex items-center justify-between mb-2">
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                                  isSmp ? 'bg-blue-100 text-[#030164]' : 'bg-emerald-100 text-emerald-800'
+                                }`}>
                                   {doc.docType}
                                 </span>
                                 <span className="text-[10px] text-slate-400">Digital</span>
@@ -652,7 +688,9 @@ export default function ApplicantDetailBiodataModal({
                               href={doc.fileUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="mt-3 inline-flex items-center justify-center space-x-1.5 w-full py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:border-emerald-300 shadow-2xs transition-colors"
+                              className={`mt-3 inline-flex items-center justify-center space-x-1.5 w-full py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 ${
+                                isSmp ? 'hover:text-[#030164] hover:border-blue-300' : 'hover:text-emerald-700 hover:border-emerald-300'
+                              } shadow-2xs transition-colors`}
                             >
                               <ExternalLink className="w-3.5 h-3.5" />
                               <span>Buka Dokumen</span>
@@ -668,22 +706,36 @@ export default function ApplicantDetailBiodataModal({
                 <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
                   <div className="px-5 py-3.5 bg-slate-50/80 border-b border-slate-200/90 flex items-center justify-between">
                     <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                      Checklist Dokumen Fisik Arsip Sekolah (Formulir F-PPDB)
+                      Checklist Dokumen Fisik Arsip Sekolah (Formulir {isSmp ? 'F-SPMB' : 'F-PPDB'})
                     </h3>
                   </div>
                   <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                    {[
-                      'Kuitansi Asli Pendaftaran Rp 250.000',
-                      'Fotokopi Akta Kelahiran Murid (2 Lembar)',
-                      'Fotokopi Kartu Keluarga (KK) (2 Lembar)',
-                      'Fotokopi KTP Kedua Orang Tua / Wali',
-                      'Pas Foto 3x4 Calon Murid (3 Lembar)',
-                      'Surat Keterangan Lulus / Ijazah TK (Bila Sudah Ada)',
-                      'Surat Pindah & Buku Rapor Asli (Khusus Pindahan)',
-                      'Surat Rekomendasi Psikolog (Khusus Usia <6 Tahun)'
-                    ].map((item, idx) => (
+                    {(isSmp
+                      ? [
+                          'Kuitansi Asli Pendaftaran Rp 200.000',
+                          'Fotokopi Ijazah / SKL SD/MI Legalisir (1 Lembar)',
+                          'Fotokopi Rapor SD/MI Kelas 4-6 Semester 1 (1 Rangkap)',
+                          'Fotokopi Kartu Keluarga (KK) (2 Lembar)',
+                          'Fotokopi Akta Kelahiran Santri (2 Lembar)',
+                          'Fotokopi KTP Kedua Orang Tua / Wali',
+                          'Pas Foto 3x4 Calon Santri Busana Muslim/ah (3 Lembar)',
+                          'Cetak Bukti NISN Resmi Kemdikbud (1 Lembar)',
+                          'Surat Pindah & Buku Rapor Asli (Khusus Santri Pindahan)',
+                          'Piagam / Sertifikat Prestasi atau Tahfidz (Jika Ada)',
+                        ]
+                      : [
+                          'Kuitansi Asli Pendaftaran Rp 250.000',
+                          'Fotokopi Akta Kelahiran Murid (2 Lembar)',
+                          'Fotokopi Kartu Keluarga (KK) (2 Lembar)',
+                          'Fotokopi KTP Kedua Orang Tua / Wali',
+                          'Pas Foto 3x4 Calon Murid (3 Lembar)',
+                          'Surat Keterangan Lulus / Ijazah TK (Bila Sudah Ada)',
+                          'Surat Pindah & Buku Rapor Asli (Khusus Pindahan)',
+                          'Surat Rekomendasi Psikolog (Khusus Usia <6 Tahun)'
+                        ]
+                    ).map((item, idx) => (
                       <div key={idx} className="flex items-center space-x-2 p-2 rounded-lg bg-slate-50/80 border border-slate-100">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
+                        <CheckCircle2 className={`w-4 h-4 ${isSmp ? 'text-[#030164]' : 'text-emerald-700'} shrink-0`} />
                         <span className="text-slate-700 font-medium">{item}</span>
                       </div>
                     ))}
@@ -709,10 +761,12 @@ export default function ApplicantDetailBiodataModal({
               <button
                 type="button"
                 onClick={() => setIsPrintModalOpen(true)}
-                className="px-4 py-2 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
+                className={`px-4 py-2 rounded-xl ${
+                  isSmp ? 'bg-[#030164] hover:bg-[#090580]' : 'bg-[#064E3B] hover:bg-emerald-900'
+                } text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer`}
               >
                 <Printer className="w-3.5 h-3.5" />
-                <span>Cetak / Unduh F-PPDB (A4)</span>
+                <span>{isSmp ? 'Cetak / Unduh F-SPMB (A4)' : 'Cetak / Unduh F-PPDB (A4)'}</span>
               </button>
             </div>
           </div>

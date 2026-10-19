@@ -114,15 +114,19 @@ export default async function SchoolPPDBAdmissionsPage({
       <AdminSidebar
         schoolSlug={school.slug as 'tk' | 'sd' | 'smp'}
         schoolName={school.name}
-        userName={`Panitia PPDB ${school.name}`}
+        userName={school.slug === 'smp' ? `Panitia SPMB ${school.name}` : `Panitia PPDB ${school.name}`}
         currentRole={roleName}
       />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
-          title={`Verifikasi & Seleksi PPDB ${school.name}`}
-          subtitle="Panel Penelaahan Berkas Persyaratan, Jadwal Observasi, & Keputusan Kelulusan Murid"
+          title={school.slug === 'smp' ? `Verifikasi & Seleksi SPMB ${school.name}` : `Verifikasi & Seleksi PPDB ${school.name}`}
+          subtitle={
+            school.slug === 'smp'
+              ? 'Panel Penelaahan Berkas Persyaratan, Jadwal Tes & Wawancara, & Keputusan Kelulusan Santri'
+              : 'Panel Penelaahan Berkas Persyaratan, Jadwal Observasi, & Keputusan Kelulusan Murid'
+          }
           currentSchoolSlug={school.slug as 'tk' | 'sd' | 'smp'}
         />
 

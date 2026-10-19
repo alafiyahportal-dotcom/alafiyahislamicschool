@@ -73,6 +73,7 @@ export default function OfficialRegistrationFormModal({
   };
 
   const registrationDate = getFormattedDate(createdAt);
+  const isSmp = schoolSlug === 'smp' || regNo.toUpperCase().includes('SMP');
 
   const getUnitLevel = () => {
     if (schoolSlug === 'tk') return 'PAUD / TK IT (Taman Kanak-Kanak Islam Terpadu)';
@@ -89,7 +90,7 @@ export default function OfficialRegistrationFormModal({
           <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-white border-b border-slate-200 print:hidden">
             <div className="min-w-0 pr-2">
               <span className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight block truncate">
-                Pratinjau Formulir F-PPDB (A4)
+                {isSmp ? 'Pratinjau Formulir F-SPMB (A4)' : 'Pratinjau Formulir F-PPDB (A4)'}
               </span>
               <span className="text-[10px] sm:text-[11px] text-slate-500 font-mono">
                 {regNo} &bull; {studentName}
@@ -99,7 +100,9 @@ export default function OfficialRegistrationFormModal({
               <button
                 type="button"
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#064E3B] hover:bg-emerald-900 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl ${
+                  isSmp ? 'bg-[#030164] hover:bg-[#090580]' : 'bg-[#064E3B] hover:bg-emerald-900'
+                } text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer`}
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>Cetak / Unduh PDF</span>
@@ -121,7 +124,7 @@ export default function OfficialRegistrationFormModal({
           {/* ================= HALAMAN 1 ================= */}
           <div className="space-y-5 pb-8 border-b-2 border-dashed border-slate-300 print:border-none print:pb-0 print:break-after-page">
             
-            {/* Kop Surat Yayasan / Satuan SDIT */}
+            {/* Kop Surat Yayasan / Satuan */}
             {schoolSlug === 'sd' ? (
               <div className="border-b-2 border-slate-900 pb-3 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -190,7 +193,7 @@ export default function OfficialRegistrationFormModal({
 
                 <div className="text-right flex-shrink-0">
                   <span className="inline-block px-2.5 py-1 rounded border border-slate-900 text-[11px] font-mono font-extrabold uppercase">
-                    F-PPDB 2026
+                    {isSmp ? 'F-SPMB 2027/2028' : 'F-PPDB 2026'}
                   </span>
                   <div className="text-[10px] text-slate-500 mt-1 font-mono">
                     No: {regNo}
@@ -202,7 +205,9 @@ export default function OfficialRegistrationFormModal({
             {/* Judul Formulir */}
             <div className="text-center pt-2">
               <h2 className="text-sm sm:text-base font-black uppercase tracking-wider text-slate-900 underline decoration-slate-400">
-                {schoolSlug === 'sd'
+                {isSmp
+                  ? 'LEMBAR FORMULIR PENDAFTARAN SANTRI BARU (SPMB) SMP IT AL-AFIYAH'
+                  : schoolSlug === 'sd'
                   ? 'FORMULIR PENDAFTARAN CALON PESERTA DIDIK BARU SDIT AL AFIYAH'
                   : 'Lembar Formulir Pendaftaran Peserta Didik Baru'}
               </h2>
@@ -219,18 +224,20 @@ export default function OfficialRegistrationFormModal({
               </div>
               <div>
                 <span className="text-slate-500 text-[10px] block">Gelombang Pendaftaran:</span>
-                <span className="font-bold text-slate-900">Gelombang 1 (Rp 250.000)</span>
+                <span className="font-bold text-slate-900">
+                  {isSmp ? 'Gelombang 1 (Rp 200.000)' : 'Gelombang 1 (Rp 250.000)'}
+                </span>
               </div>
               <div>
                 <span className="text-slate-500 text-[10px] block">Jalur Masuk:</span>
-                <span className="font-bold text-[#184F48]">{admissionTrack}</span>
+                <span className={`font-bold ${isSmp ? 'text-[#030164]' : 'text-[#184F48]'}`}>{admissionTrack}</span>
               </div>
             </div>
 
-            {/* Bagian A: Identitas Anak (Poin 1-17) */}
+            {/* Bagian A: Identitas Anak / Santri (Poin 1-17) */}
             <div className="space-y-2">
-              <div className="bg-slate-800 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider">
-                A. KETERANGAN ANAK
+              <div className={`${isSmp ? 'bg-[#030164]' : 'bg-slate-800'} text-white px-3 py-1 text-xs font-bold uppercase tracking-wider`}>
+                {isSmp ? 'A. KETERANGAN SANTRI' : 'A. KETERANGAN ANAK'}
               </div>
 
               <div className="flex flex-col-reverse sm:flex-row print:flex-row gap-3 sm:gap-4 items-center sm:items-start print:items-start">
@@ -335,7 +342,7 @@ export default function OfficialRegistrationFormModal({
 
             {/* Bagian B: Data Orang Tua / Wali (Poin 18 - 20) */}
             <div className="space-y-2">
-              <div className="bg-slate-800 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider">
+              <div className={`${isSmp ? 'bg-[#030164]' : 'bg-slate-800'} text-white px-3 py-1 text-xs font-bold uppercase tracking-wider`}>
                 B. KETERANGAN ORANG TUA / WALI
               </div>
 
@@ -398,7 +405,7 @@ export default function OfficialRegistrationFormModal({
               {parentData.hasGuardian === 'true' && parentData.guardianName && (
                 <div className="border border-slate-300 p-2.5 rounded bg-white text-xs space-y-1 mt-2">
                   <div className="font-bold text-slate-900 border-b border-slate-200 pb-1 text-[11px] uppercase">
-                    20. Data Wali Murid
+                    {isSmp ? '20. Data Wali Santri' : '20. Data Wali Murid'}
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex justify-between">
@@ -416,7 +423,7 @@ export default function OfficialRegistrationFormModal({
 
             {/* Bagian C: Keterangan Lain-Lain (Poin 21 - 28) */}
             <div className="space-y-2">
-              <div className="bg-slate-800 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider">
+              <div className={`${isSmp ? 'bg-[#030164]' : 'bg-slate-800'} text-white px-3 py-1 text-xs font-bold uppercase tracking-wider`}>
                 C. KETERANGAN LAIN-LAIN
               </div>
 
@@ -428,32 +435,48 @@ export default function OfficialRegistrationFormModal({
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-600">22. Masuk Sekolah Sebagai:</span>
-                    <span className="font-bold text-slate-900">{(schoolSpecificData.admissionAs as string) || 'Murid Kelas 1 (Baru)'}</span>
+                    <span className="font-bold text-slate-900">
+                      {(schoolSpecificData.admissionAs as string) || (isSmp ? 'Santri Baru (Kelas 7)' : 'Murid Kelas 1 (Baru)')}
+                    </span>
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-600">23. Asal Sekolah (TK/BA/RA/DA):</span>
-                  <span className="font-bold text-slate-900">{(schoolSpecificData.originSchoolName as string) || (schoolSpecificData.previousSchool as string) || 'TK IT / RA Al-Afiyah'}</span>
+                  <span className="text-slate-600">
+                    {isSmp ? '23. Asal Sekolah (SD/MI/Sederajat):' : '23. Asal Sekolah (TK/BA/RA/DA):'}
+                  </span>
+                  <span className="font-bold text-slate-900">
+                    {(schoolSpecificData.originSchoolName as string) ||
+                      (schoolSpecificData.previousSchool as string) ||
+                      (isSmp ? 'SDIT Al-Afiyah' : 'TK IT / RA Al-Afiyah')}
+                  </span>
                 </div>
                 {(schoolSpecificData.transferSchoolName as string) && (
                   <div className="flex justify-between">
-                    <span className="text-slate-600">24. Pindahan dari SD/MI:</span>
+                    <span className="text-slate-600">
+                      {isSmp ? '24. Pindahan dari SMP/MTs:' : '24. Pindahan dari SD/MI:'}
+                    </span>
                     <span className="font-bold text-slate-900">{schoolSpecificData.transferSchoolName as string}</span>
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span className="text-slate-600">27. Info Pertama Mengenal SDIT:</span>
+                  <span className="text-slate-600">
+                    {isSmp ? '27. Info Pertama Mengenal SMP IT:' : '27. Info Pertama Mengenal SDIT:'}
+                  </span>
                   <span className="text-slate-900">{(schoolSpecificData.firstKnownSource as string) || 'Media Sosial / Rekomendasi'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-600">28. Alasan Utama Memilih SDIT:</span>
-                  <span className="font-bold text-slate-900">{(schoolSpecificData.mainReason as string) || 'Kurikulum Islam Terpadu & Tahfidz Al-Qur\'an'}</span>
+                  <span className="text-slate-600">
+                    {isSmp ? '28. Alasan Utama Memilih SMP IT:' : '28. Alasan Utama Memilih SDIT:'}
+                  </span>
+                  <span className="font-bold text-slate-900">
+                    {(schoolSpecificData.mainReason as string) || (isSmp ? 'Kurikulum Berasrama/Tahfidz & Pembinaan Karakter Disiplin' : 'Kurikulum Islam Terpadu & Tahfidz Al-Qur\'an')}
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="text-[10px] text-slate-400 text-right italic">
-              Hal. 1 dari 2 &mdash; Formulir Resmi SDIT AL AFIYAH Majalengka
+              Hal. 1 dari 2 &mdash; Formulir Resmi {isSmp ? 'SMP IT AL-AFIYAH' : 'SDIT AL AFIYAH'} Majalengka
             </div>
           </div>
 
@@ -463,14 +486,16 @@ export default function OfficialRegistrationFormModal({
             {/* Header Mini Halaman 2 */}
             <div className="border-b border-slate-300 pb-2 flex justify-between items-center text-xs">
               <span className="font-bold text-slate-700">
-                PERSYARATAN &amp; KELENGKAPAN PENDAFTARAN SISWA BARU SDIT AL AFIYAH 2027/2028
+                {isSmp
+                  ? 'PERSYARATAN & KELENGKAPAN PENDAFTARAN SANTRI BARU SMP IT AL AFIYAH 2027/2028'
+                  : 'PERSYARATAN & KELENGKAPAN PENDAFTARAN SISWA BARU SDIT AL AFIYAH 2027/2028'}
               </span>
               <span className="font-mono text-slate-400 text-[10px]">
                 Hal. 2 dari 2
               </span>
             </div>
 
-            {/* Kotak Ringkasan Murid Halaman 2 */}
+            {/* Kotak Ringkasan Murid/Santri Halaman 2 */}
             <div className="grid grid-cols-1 sm:grid-cols-3 print:grid-cols-3 gap-2 p-2.5 bg-slate-50 border border-slate-300 text-xs">
               <div>
                 <span className="text-slate-500 text-[10px] block">NO. PENDAFTARAN:</span>
@@ -478,19 +503,25 @@ export default function OfficialRegistrationFormModal({
               </div>
               <div>
                 <span className="text-slate-500 text-[10px] block">GELOMBANG PENDAFTARAN:</span>
-                <span className="font-bold text-slate-900">Gelombang 1</span>
+                <span className="font-bold text-slate-900">
+                  {isSmp ? 'Gelombang 1 (Rp 200.000)' : 'Gelombang 1 (Rp 250.000)'}
+                </span>
               </div>
               <div>
-                <span className="text-slate-500 text-[10px] block">NAMA PESERTA DIDIK:</span>
+                <span className="text-slate-500 text-[10px] block">
+                  {isSmp ? 'NAMA SANTRI:' : 'NAMA PESERTA DIDIK:'}
+                </span>
                 <span className="font-bold text-slate-900 uppercase truncate block">{studentName}</span>
               </div>
             </div>
 
             <p className="text-[11px] text-slate-700 leading-snug">
-              Orang tua calon peserta didik baru/pindahan SDIT AL AFIYAH mendaftarkan putra - putrinya dengan kelengkapan persyaratan sebagai berikut:
+              {isSmp
+                ? 'Orang tua calon santri baru/pindahan SMP IT AL-AFIYAH mendaftarkan putra - putrinya dengan kelengkapan persyaratan sebagai berikut:'
+                : 'Orang tua calon peserta didik baru/pindahan SDIT AL AFIYAH mendaftarkan putra - putrinya dengan kelengkapan persyaratan sebagai berikut:'}
             </p>
 
-            {/* Tabel 12 Butir Persyaratan Resmi Dokumen Fisik SDIT */}
+            {/* Tabel 12 Butir Persyaratan Resmi Dokumen Fisik */}
             <div className="space-y-2">
               <table className="w-full text-xs border border-slate-300 border-collapse">
                 <thead className="bg-slate-100 text-slate-800 font-bold">
@@ -501,87 +532,166 @@ export default function OfficialRegistrationFormModal({
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">1</td>
-                    <td className="border border-slate-300 p-1.5">Usia minimal SD kelas 1 per 1 Juli 2027 adalah enam tahun</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ Lengkap</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">2</td>
-                    <td className="border border-slate-300 p-1.5">Membayar biaya pendaftaran sebesar Rp250.000,00 (gelombang 1), Rp275.000,00 (gelombang 2), atau Rp300.000,00 (gelombang 3)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ LUNAS</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">3</td>
-                    <td className="border border-slate-300 p-1.5">Mengisi formulir pendaftaran</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ Lengkap</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">4</td>
-                    <td className="border border-slate-300 p-1.5">Menyerahkan foto copy ijazah/surat keterangan Tamat dari TK/RA/BA (1 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">5</td>
-                    <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Kartu Keluarga (2 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">6</td>
-                    <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Akta Kelahiran (2 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">7</td>
-                    <td className="border border-slate-300 p-1.5">Menyerahkan pas foto berwarna 3x4 (2 lembar)</td>
-                    <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">8</td>
-                    <td className="border border-slate-300 p-1.5">Surat pengantar dari sekolah sebelumnya (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">9</td>
-                    <td className="border border-slate-300 p-1.5">Raport terakhir dari sekolah sebelumnya (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">10</td>
-                    <td className="border border-slate-300 p-1.5">NISN (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">11</td>
-                    <td className="border border-slate-300 p-1.5">Surat kelakuan baik (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-300 p-1.5 text-center">12</td>
-                    <td className="border border-slate-300 p-1.5">Surat Akreditasi sekolah (bagi pindahan)</td>
-                    <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
-                  </tr>
+                  {isSmp ? (
+                    <>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">1</td>
+                        <td className="border border-slate-300 p-1.5">Telah lulus / menyelesaikan pendidikan jenjang SD / MI / Sederajat</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-[#030164]">✓ Memenuhi</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">2</td>
+                        <td className="border border-slate-300 p-1.5">Membayar biaya pendaftaran sebesar Rp200.000,00 (Gelombang 1)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-[#030164]">✓ LUNAS</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">3</td>
+                        <td className="border border-slate-300 p-1.5">Mengisi formulir pendaftaran SPMB secara lengkap &amp; benar</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-[#030164]">✓ Lengkap</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">4</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan foto copy ijazah / Surat Keterangan Lulus (SKL) SD/MI yang telah dilegalisir (1 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">5</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Raport SD/MI Kelas 4 - 6 Semester 1 (1 rangkap)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">6</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Kartu Keluarga (2 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">7</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Akta Kelahiran (2 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">8</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan pas foto berwarna 3x4 Calon Santri berbusana muslim/muslimah rapi (3 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">9</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan cetak bukti NISN (Nomor Induk Siswa Nasional) resmi Kemdikbud (1 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">10</td>
+                        <td className="border border-slate-300 p-1.5">Piagam / sertifikat kejuaraan lomba atau hafalan Al-Qur&apos;an (bila ada)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-500">— Terlampir (Bila Ada)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">11</td>
+                        <td className="border border-slate-300 p-1.5">Surat mutasi / surat keterangan pindah dari SMP/MTs sebelumnya (khusus santri pindahan)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">12</td>
+                        <td className="border border-slate-300 p-1.5">Raport asli dan surat kelakuan baik dari SMP/MTs asal (khusus santri pindahan)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
+                      </tr>
+                    </>
+                  ) : (
+                    <>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">1</td>
+                        <td className="border border-slate-300 p-1.5">Usia minimal SD kelas 1 per 1 Juli 2027 adalah enam tahun</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ Lengkap</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">2</td>
+                        <td className="border border-slate-300 p-1.5">Membayar biaya pendaftaran sebesar Rp250.000,00 (gelombang 1), Rp275.000,00 (gelombang 2), atau Rp300.000,00 (gelombang 3)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ LUNAS</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">3</td>
+                        <td className="border border-slate-300 p-1.5">Mengisi formulir pendaftaran</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-emerald-800">✓ Lengkap</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">4</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan foto copy ijazah/surat keterangan Tamat dari TK/RA/BA (1 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">5</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Kartu Keluarga (2 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">6</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan foto copy Akta Kelahiran (2 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">7</td>
+                        <td className="border border-slate-300 p-1.5">Menyerahkan pas foto berwarna 3x4 (2 lembar)</td>
+                        <td className="border border-slate-300 p-1.5 text-center font-bold text-slate-700">✓ Terlampir</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">8</td>
+                        <td className="border border-slate-300 p-1.5">Surat pengantar dari sekolah sebelumnya (bagi pindahan)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">9</td>
+                        <td className="border border-slate-300 p-1.5">Raport terakhir dari sekolah sebelumnya (bagi pindahan)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">10</td>
+                        <td className="border border-slate-300 p-1.5">NISN (bagi pindahan)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">11</td>
+                        <td className="border border-slate-300 p-1.5">Surat kelakuan baik (bagi pindahan)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
+                      </tr>
+                      <tr>
+                        <td className="border border-slate-300 p-1.5 text-center">12</td>
+                        <td className="border border-slate-300 p-1.5">Surat Akreditasi sekolah (bagi pindahan)</td>
+                        <td className="border border-slate-300 p-1.5 text-center text-slate-400">— (Pindahan)</td>
+                      </tr>
+                    </>
+                  )}
                 </tbody>
               </table>
             </div>
 
             {/* Stopmap Notice */}
-            <div className="p-3 bg-amber-50/70 border border-amber-200 rounded text-[11px] text-amber-950 font-medium leading-relaxed">
-              Semua persyaratan tersebut dimasukkan ke dalam <strong>1 stopmap</strong> dan dikumpulkan pada waktu mengembalikan formulir, paling lambat diserahkan pada saat <strong>tiga hari sebelum pelaksanaan Tes PPDB 2027/2028</strong>.
+            <div className={`p-3 ${isSmp ? 'bg-blue-50/70 border-blue-200 text-blue-950' : 'bg-amber-50/70 border-amber-200 text-amber-950'} border rounded text-[11px] font-medium leading-relaxed`}>
+              {isSmp ? (
+                <>
+                  Semua persyaratan tersebut dimasukkan ke dalam <strong>1 map (Biru untuk Ikhwan / Hijau untuk Akhwat)</strong> dan diserahkan kepada Panitia SPMB saat mengembalikan formulir, paling lambat diserahkan pada saat <strong>tiga hari sebelum pelaksanaan Tes SPMB 2027/2028</strong>.
+                </>
+              ) : (
+                <>
+                  Semua persyaratan tersebut dimasukkan ke dalam <strong>1 stopmap</strong> dan dikumpulkan pada waktu mengembalikan formulir, paling lambat diserahkan pada saat <strong>tiga hari sebelum pelaksanaan Tes PPDB 2027/2028</strong>.
+                </>
+              )}
             </div>
 
             {/* Area Tanda Tangan */}
             <div className="pt-4 grid grid-cols-2 gap-3 sm:gap-8 text-xs">
-              {/* Panitia PPDB SDIT AL AFIYAH */}
+              {/* Panitia SPMB SMP IT / Panitia PPDB SDIT */}
               <div className="text-center space-y-12 sm:space-y-16">
                 <div>
                   <p className="text-slate-600 text-[11px] sm:text-xs">Majalengka, {registrationDate}</p>
-                  <p className="font-bold text-slate-900 text-xs sm:text-sm">Panitia PPDB SDIT AL AFIYAH</p>
+                  <p className="font-bold text-slate-900 text-xs sm:text-sm">
+                    {isSmp ? 'Panitia SPMB SMP IT AL-AFIYAH' : 'Panitia PPDB SDIT AL AFIYAH'}
+                  </p>
                   <p className="text-[10px] text-slate-500">Penerima Berkas,</p>
                 </div>
                 <div>
                   <div className="w-28 sm:w-48 mx-auto border-b border-slate-900 pb-1">
-                    <span className="text-[11px] text-transparent select-none">( Panitia )</span>
+                    <span className="text-[11px] text-transparent select-none">
+                      {isSmp ? '( Panitia SPMB )' : '( Panitia PPDB )'}
+                    </span>
                   </div>
                   <p className="text-[10px] text-slate-500 mt-1">Tanda Tangan &amp; Nama Terang</p>
                 </div>
@@ -591,7 +701,9 @@ export default function OfficialRegistrationFormModal({
               <div className="text-center space-y-12 sm:space-y-16">
                 <div>
                   <p className="text-slate-600 text-[11px] sm:text-xs">Majalengka, {registrationDate}</p>
-                  <p className="font-bold text-slate-900 text-xs sm:text-sm">Orang Tua / Wali Calon Murid,</p>
+                  <p className="font-bold text-slate-900 text-xs sm:text-sm">
+                    {isSmp ? 'Orang Tua / Wali Calon Santri,' : 'Orang Tua / Wali Calon Murid,'}
+                  </p>
                 </div>
                 <div>
                   <div className="w-32 sm:w-52 mx-auto border-b border-slate-900 pb-1">
@@ -606,8 +718,12 @@ export default function OfficialRegistrationFormModal({
 
             {/* Footer Nota */}
             <div className="pt-6 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-500 font-mono">
-              <span>Dicetak melalui Portal Murid Al-Afiyah: {regNo}</span>
-              <span>Dokumen Sah Panitia PPDB TA 2027/2028</span>
+              <span>
+                {isSmp ? `Dicetak melalui Portal Santri Al-Afiyah: ${regNo}` : `Dicetak melalui Portal Murid Al-Afiyah: ${regNo}`}
+              </span>
+              <span>
+                {isSmp ? 'Dokumen Sah Panitia SPMB TA 2027/2028' : 'Dokumen Sah Panitia PPDB TA 2027/2028'}
+              </span>
             </div>
 
           </div>

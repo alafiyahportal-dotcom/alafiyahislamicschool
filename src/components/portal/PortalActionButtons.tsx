@@ -260,8 +260,20 @@ export function PrintRegistrationFormButton({
   variant = 'outline',
 }: PrintRegistrationFormButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const isSmp = schoolSlug === 'smp' || regNo.toUpperCase().includes('SMP');
 
   const getButtonClass = () => {
+    if (isSmp) {
+      switch (variant) {
+        case 'primary':
+          return 'bg-gradient-to-r from-[#030164] to-[#090580] hover:opacity-95 text-white shadow-sm';
+        case 'secondary':
+          return 'bg-[#030164] hover:bg-[#090580] text-white shadow-sm';
+        case 'outline':
+        default:
+          return 'bg-white border border-[#030164]/40 text-[#030164] hover:bg-blue-50/70 shadow-2xs';
+      }
+    }
     switch (variant) {
       case 'primary':
         return 'bg-gradient-to-r from-[#184F48] to-[#2D7A70] hover:opacity-95 text-white shadow-sm';
@@ -280,8 +292,8 @@ export function PrintRegistrationFormButton({
         onClick={() => setIsOpen(true)}
         className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 flex-shrink-0 cursor-pointer ${getButtonClass()}`}
       >
-        <FileText className="w-3.5 h-3.5 text-[#2D7A70]" />
-        <span>Cetak Formulir (F-PPDB A4)</span>
+        <FileText className={`w-3.5 h-3.5 ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'}`} />
+        <span>{isSmp ? 'Cetak Formulir (F-SPMB A4)' : 'Cetak Formulir (F-PPDB A4)'}</span>
       </button>
 
       <OfficialRegistrationFormModal
@@ -335,8 +347,22 @@ export function EditBiodataButton({
   buttonText = 'Lengkapi / Susulkan Biodata 28 Poin',
 }: EditBiodataButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const isSmp = schoolSlug === 'smp' || regNo.toUpperCase().includes('SMP');
 
   const getButtonClass = () => {
+    if (isSmp) {
+      switch (variant) {
+        case 'primary':
+          return 'bg-[#030164] hover:bg-[#090580] text-white shadow-sm';
+        case 'amber':
+          return 'bg-[#ffd51e] hover:bg-amber-300 text-slate-950 font-bold shadow-xs';
+        case 'secondary':
+          return 'bg-blue-50 hover:bg-blue-100 text-[#030164] border border-blue-200 shadow-2xs';
+        case 'outline':
+        default:
+          return 'bg-white border border-[#030164]/40 text-[#030164] hover:bg-blue-50 shadow-2xs';
+      }
+    }
     switch (variant) {
       case 'primary':
         return 'bg-[#184F48] hover:bg-[#133f3a] text-white shadow-sm';
@@ -357,7 +383,7 @@ export function EditBiodataButton({
         onClick={() => setIsOpen(true)}
         className={`py-2 px-3.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 flex-shrink-0 cursor-pointer ${getButtonClass()}`}
       >
-        <FileEdit className="w-3.5 h-3.5 text-[#2D7A70]" />
+        <FileEdit className={`w-3.5 h-3.5 ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'}`} />
         <span>{buttonText}</span>
       </button>
 

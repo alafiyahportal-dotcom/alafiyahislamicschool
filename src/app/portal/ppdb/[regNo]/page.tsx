@@ -61,6 +61,8 @@ export default async function ApplicantPortalPage({
     // fallback
   }
 
+  const isSmp = reg.school.slug === 'smp' || reg.registrationNo.toUpperCase().includes('SMP');
+
   return (
     <div className="min-h-screen soft-mesh-bg flex flex-col justify-between">
       <Navbar
@@ -74,7 +76,11 @@ export default async function ApplicantPortalPage({
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#184F48] uppercase tracking-wide bg-[#E8F3F1] px-3 py-1 rounded-full border border-[#2D7A70]/30">
+              <div className={`inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full border ${
+                isSmp
+                  ? 'text-[#030164] bg-blue-50 border-blue-200'
+                  : 'text-[#184F48] bg-[#E8F3F1] border-[#2D7A70]/30'
+              }`}>
                 {reg.school.slug === 'smp' && (
                   <img
                     src="/images/smp-logo.png"
@@ -89,7 +95,7 @@ export default async function ApplicantPortalPage({
                     className="w-4 h-4 object-contain shrink-0"
                   />
                 )}
-                <span>Portal Resmi Murid {reg.school.name}</span>
+                <span>Portal Resmi {isSmp ? 'Santri' : 'Murid'} {reg.school.name}</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
                 {reg.studentName}
@@ -108,13 +114,15 @@ export default async function ApplicantPortalPage({
                     <span>ALHAMDULILLAH, DITERIMA</span>
                   </span>
                 ) : reg.status === 'INTERVIEW_SCHEDULED' ? (
-                  <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-blue-100 text-blue-800 text-xs font-bold border border-blue-300">
-                    <Calendar className="w-4 h-4 text-blue-600" />
-                    <span>JADWAL OBSERVASI DITETAPKAN</span>
+                  <span className={`inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full ${isSmp ? 'bg-blue-100 text-[#030164] border-blue-300' : 'bg-blue-100 text-blue-800 border-blue-300'} text-xs font-bold border`}>
+                    <Calendar className={`w-4 h-4 ${isSmp ? 'text-[#030164]' : 'text-blue-600'}`} />
+                    <span>{isSmp ? 'JADWAL TES SPMB DITETAPKAN' : 'JADWAL OBSERVASI DITETAPKAN'}</span>
                   </span>
                 ) : isPaid ? (
-                  <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-[#E8F3F1] text-[#184F48] text-xs font-bold border border-[#2D7A70]/30">
-                    <CheckCircle2 className="w-4 h-4 text-[#2D7A70]" />
+                  <span className={`inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full ${
+                    isSmp ? 'bg-blue-50 text-[#030164] border border-blue-200' : 'bg-[#E8F3F1] text-[#184F48] border border-[#2D7A70]/30'
+                  } text-xs font-bold`}>
+                    <CheckCircle2 className={`w-4 h-4 ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'}`} />
                     <span>BERKAS LUNAS & TERVERIFIKASI</span>
                   </span>
                 ) : (
@@ -182,7 +190,7 @@ export default async function ApplicantPortalPage({
                 />
                 <Link
                   href={`/portal/ppdb/${reg.registrationNo}/daftar-ulang`}
-                  className="px-3.5 py-2 rounded-xl bg-[#184F48] hover:bg-[#133f3a] text-white text-xs font-bold inline-flex items-center space-x-1.5 shadow-sm transition-all flex-shrink-0"
+                  className={`px-3.5 py-2 rounded-xl ${isSmp ? 'bg-[#030164] hover:bg-[#090580]' : 'bg-[#184F48] hover:bg-[#133f3a]'} text-white text-xs font-bold inline-flex items-center space-x-1.5 shadow-sm transition-all flex-shrink-0`}
                 >
                   <Shirt className="w-3.5 h-3.5 text-amber-300" />
                   <span>{reg.reRegistration ? 'Ubah Seragam' : 'Daftar Ulang'}</span>
@@ -195,12 +203,12 @@ export default async function ApplicantPortalPage({
           {reg.status === 'ACCEPTED' && (
             <div className={`mt-4 p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
               reg.reRegistration
-                ? 'bg-emerald-50/60 border-emerald-200'
+                ? isSmp ? 'bg-blue-50/60 border-blue-200' : 'bg-emerald-50/60 border-emerald-200'
                 : 'bg-amber-50/80 border-amber-200 animate-pulse'
             }`}>
               <div className="flex items-start space-x-3">
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                  reg.reRegistration ? 'bg-emerald-600 text-white' : 'bg-amber-500 text-white'
+                  reg.reRegistration ? (isSmp ? 'bg-[#030164] text-white' : 'bg-emerald-600 text-white') : 'bg-amber-500 text-white'
                 }`}>
                   <Shirt className="w-5 h-5" />
                 </div>
@@ -212,8 +220,8 @@ export default async function ApplicantPortalPage({
                   </div>
                   <p className="text-[11px] text-slate-600 mt-0.5">
                     {reg.reRegistration
-                      ? 'Spesifikasi ukuran seragam murid telah tercatat di sistem logistik. Anda dapat mengubah data atau mencetak tanda terima resmi.'
-                      : 'Batas waktu daftar ulang: 1 - 10 Oktober 2026. Pilih ukuran seragam anak (S-XXL) dan skema pembayaran biaya pangkal.'}
+                      ? `Spesifikasi ukuran seragam ${isSmp ? 'santri' : 'murid'} telah tercatat di sistem logistik. Anda dapat mengubah data atau mencetak tanda terima resmi.`
+                      : `Batas waktu daftar ulang: 1 - 10 Oktober 2026. Pilih ukuran seragam ${isSmp ? 'santri' : 'anak'} (S-XXL) dan skema pembayaran biaya pangkal.`}
                   </p>
                 </div>
               </div>
@@ -222,7 +230,7 @@ export default async function ApplicantPortalPage({
                 href={`/portal/ppdb/${reg.registrationNo}/daftar-ulang`}
                 className={`px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5 transition-all flex-shrink-0 ${
                   reg.reRegistration
-                    ? 'bg-[#E8F3F1] hover:bg-[#D4EBE7] text-[#184F48]'
+                    ? isSmp ? 'bg-blue-100 hover:bg-blue-200 text-[#030164]' : 'bg-[#E8F3F1] hover:bg-[#D4EBE7] text-[#184F48]'
                     : 'bg-amber-500 hover:bg-amber-600 text-white shadow-sm'
                 }`}
               >
@@ -236,8 +244,8 @@ export default async function ApplicantPortalPage({
             {/* Rincian Murid */}
             <div className="space-y-3">
               <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-                <User className="w-3.5 h-3.5 text-[#2D7A70]" />
-                <span>Biodata Calon Murid</span>
+                <User className={`w-3.5 h-3.5 ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'}`} />
+                <span>Biodata Calon {isSmp ? 'Santri' : 'Murid'}</span>
               </h3>
               <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-200/80 text-xs space-y-2">
                 <div className="flex justify-between items-center">
@@ -261,7 +269,7 @@ export default async function ApplicantPortalPage({
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">NIK Murid:</span>
+                  <span className="text-slate-500">NIK {isSmp ? 'Santri' : 'Murid'}:</span>
                   <span className="font-mono text-slate-900">{reg.nik}</span>
                 </div>
                 <div className="flex justify-between">
@@ -270,11 +278,11 @@ export default async function ApplicantPortalPage({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Orang Tua / Wali:</span>
-                  <span className="text-slate-900">{parentData.fatherName || parentData.motherName || 'Wali Murid'}</span>
+                  <span className="text-slate-900">{parentData.fatherName || parentData.motherName || (isSmp ? 'Wali Santri' : 'Wali Murid')}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">WhatsApp:</span>
-                  <span className="font-mono text-[#2D7A70] font-semibold">
+                  <span className={`font-mono ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'} font-semibold`}>
                     {parentData.phone || parentData.whatsapp || parentData.motherPhone || '-'}
                   </span>
                 </div>
@@ -301,7 +309,7 @@ export default async function ApplicantPortalPage({
             {/* Rincian Tagihan */}
             <div className="space-y-3">
               <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-                <FileText className="w-3.5 h-3.5 text-[#2D7A70]" />
+                <FileText className={`w-3.5 h-3.5 ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'}`} />
                 <span>Status Tagihan Formulir</span>
               </h3>
               <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-200/80 text-xs space-y-2">
@@ -324,16 +332,16 @@ export default async function ApplicantPortalPage({
                   </span>
                 </div>
                 {!isPaid && (
-                  <div className="mt-3 pt-3 border-t border-slate-200/80 bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200/80 space-y-2">
+                  <div className={`mt-3 pt-3 border-t border-slate-200/80 ${isSmp ? 'bg-blue-50/70 border-blue-200/80' : 'bg-emerald-50/70 border-emerald-200/80'} p-3.5 rounded-xl border space-y-2`}>
                     {reg.school.bankAccountNumber ? (
                       <>
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-emerald-950 text-xs">Rekening Resmi {reg.school.name}:</span>
-                          <span className="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded-full font-bold">
+                          <span className={`font-bold ${isSmp ? 'text-blue-950' : 'text-emerald-950'} text-xs`}>Rekening Resmi {reg.school.name}:</span>
+                          <span className={`text-[10px] ${isSmp ? 'bg-[#030164]' : 'bg-emerald-700'} text-white px-2 py-0.5 rounded-full font-bold`}>
                             {reg.school.bankName}
                           </span>
                         </div>
-                        <div className="bg-white p-2.5 rounded-lg border border-emerald-200 flex items-center justify-between">
+                        <div className="bg-white p-2.5 rounded-lg border border-slate-200 flex items-center justify-between">
                           <div>
                             <span className="text-[10px] text-slate-500 block">No. Rekening Transfer:</span>
                             <strong className="font-mono text-sm font-bold text-slate-900">
@@ -349,7 +357,7 @@ export default async function ApplicantPortalPage({
                       </p>
                     )}
                     <p className="text-[10px] text-slate-500 leading-relaxed">
-                      Cantumkan no. registrasi <strong>{reg.registrationNo}</strong> pada berita transfer dan kirimkan bukti setor ke panitia PPDB unit.
+                      Cantumkan no. registrasi <strong>{reg.registrationNo}</strong> pada berita transfer dan kirimkan bukti setor ke panitia {isSmp ? 'SPMB' : 'PPDB'} unit.
                     </p>
                   </div>
                 )}
@@ -363,7 +371,7 @@ export default async function ApplicantPortalPage({
                       amount={invoice.amount}
                       paymentMethod={invoice.paymentMethod || 'Midtrans QRIS'}
                       paidAt={invoice.paidAt ? invoice.paidAt.toISOString() : undefined}
-                      parentName={parentData.fatherName || parentData.motherName || 'Wali Murid'}
+                      parentName={parentData.fatherName || parentData.motherName || (isSmp ? 'Wali Santri' : 'Wali Murid')}
                       schoolSlug={reg.school.slug}
                     />
                   </div>
@@ -375,13 +383,15 @@ export default async function ApplicantPortalPage({
           {/* Agenda Ujian & Wawancara */}
           <div className="mt-6 pt-6 border-t border-slate-100">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center space-x-1.5">
-              <Calendar className="w-3.5 h-3.5 text-[#2D7A70]" />
-              <span>Jadwal Observasi & Wawancara Murid</span>
+              <Calendar className={`w-3.5 h-3.5 ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'}`} />
+              <span>{isSmp ? 'Jadwal Tes Seleksi & Observasi Santri' : 'Jadwal Observasi & Wawancara Murid'}</span>
             </h3>
-            <div className="bg-[#E8F3F1]/60 rounded-2xl p-4 border border-[#2D7A70]/30 text-xs text-[#184F48] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className={`${isSmp ? 'bg-blue-50/70 border-blue-200 text-blue-950' : 'bg-[#E8F3F1]/60 border-[#2D7A70]/30 text-[#184F48]'} rounded-2xl p-4 border text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3`}>
               <div>
-                <p className="font-bold text-sm">Observasi Gelombang 1: Sabtu, 28 Maret 2026</p>
-                <p className="text-[#2D7A70] mt-0.5">
+                <p className="font-bold text-sm">
+                  {isSmp ? 'Tes SPMB & Wawancara Gelombang 1: Sabtu, 28 Maret 2026' : 'Observasi Gelombang 1: Sabtu, 28 Maret 2026'}
+                </p>
+                <p className={`${isSmp ? 'text-blue-700' : 'text-[#2D7A70]'} mt-0.5`}>
                   Waktu: Pukul 08.00 - 11.30 WIB • Ruang: Gedung Utama Al-Afiyah Majalengka
                 </p>
               </div>
@@ -440,17 +450,19 @@ export default async function ApplicantPortalPage({
           {/* Official WhatsApp Group */}
           <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs text-slate-600">
-              <span className="font-bold text-slate-900 block mb-0.5">Grup Komunikasi Calon Wali Murid:</span>
-              Dapatkan info terkini jadwal observasi, seragam, dan buku pegangan murid.
+              <span className="font-bold text-slate-900 block mb-0.5">
+                Grup Komunikasi Calon Wali {isSmp ? 'Santri' : 'Murid'}:
+              </span>
+              Dapatkan info terkini jadwal {isSmp ? 'tes SPMB' : 'observasi'}, seragam, dan buku pegangan {isSmp ? 'santri' : 'murid'}.
             </div>
             <a
               href="https://chat.whatsapp.com/alafiyah-ppdb-2026"
               target="_blank"
               rel="noreferrer"
-              className="py-2.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center space-x-2 transition-colors flex-shrink-0 shadow-xs"
+              className={`py-2.5 px-5 rounded-xl ${isSmp ? 'bg-[#030164] hover:bg-[#090580]' : 'bg-emerald-600 hover:bg-emerald-700'} text-white text-xs font-bold flex items-center space-x-2 transition-colors flex-shrink-0 shadow-xs`}
             >
               <MessageCircle className="w-4 h-4" />
-              <span>Gabung Grup WhatsApp</span>
+              <span>Gabung Grup WhatsApp SPMB</span>
             </a>
           </div>
         </div>

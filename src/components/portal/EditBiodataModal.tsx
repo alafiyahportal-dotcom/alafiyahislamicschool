@@ -49,6 +49,7 @@ export default function EditBiodataModal({
   parentData = {},
   onSuccess,
 }: EditBiodataModalProps) {
+  const isSmp = schoolSlug === 'smp' || regNo.toUpperCase().includes('SMP');
   const [activeTab, setActiveTab] = useState<'ANAK' | 'ORTU' | 'LAINNYA' | 'BERKAS'>('ANAK');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -59,10 +60,10 @@ export default function EditBiodataModal({
   const [nik, setNik] = useState(initialNik || '');
   const [gender, setGender] = useState(initialGender || 'L');
   const [pob, setPob] = useState(initialPob || 'Majalengka');
-  const [dob, setDob] = useState(initialDob ? initialDob.substring(0, 10) : '2019-05-14');
+  const [dob, setDob] = useState(initialDob ? initialDob.substring(0, 10) : (isSmp ? '2014-01-01' : '2019-05-14'));
   const [address, setAddress] = useState(initialAddress || '');
 
-  // Specific SDIT Form State
+  // Specific Form State
   const [sdData, setSdData] = useState({
     nickname: schoolSpecificData.nickname || '',
     religion: schoolSpecificData.religion || 'Islam',
@@ -112,8 +113,8 @@ export default function EditBiodataModal({
 
     // Lain-lain
     transportation: schoolSpecificData.transportation || 'Diantar Orang Tua',
-    admissionAs: schoolSpecificData.admissionAs || 'Murid Baru Kelas 1',
-    originSchoolName: schoolSpecificData.originSchoolName || 'TK / RA Al-Afiyah',
+    admissionAs: schoolSpecificData.admissionAs || (isSmp ? 'Santri Baru Kelas 7' : 'Murid Baru Kelas 1'),
+    originSchoolName: schoolSpecificData.originSchoolName || schoolSpecificData.previousSchool || (isSmp ? 'SDIT Al-Afiyah' : 'TK / RA Al-Afiyah'),
     originSchoolAddress: schoolSpecificData.originSchoolAddress || 'Majalengka',
     originSchoolPhone: schoolSpecificData.originSchoolPhone || '',
 
@@ -124,7 +125,7 @@ export default function EditBiodataModal({
 
     otherNotes: schoolSpecificData.otherNotes || '',
     firstKnownSource: schoolSpecificData.firstKnownSource || 'Keluarga & Sahabat',
-    mainReason: schoolSpecificData.mainReason || 'Program Tahfidz Al-Qur’an & Adab Islami',
+    mainReason: schoolSpecificData.mainReason || (isSmp ? 'Kurikulum Berasrama/Tahfidz & Pembinaan Karakter Disiplin' : 'Program Tahfidz Al-Qur’an & Adab Islami'),
 
     // Checklist
     checkIjazahTk: Boolean(schoolSpecificData.checkIjazahTk),
@@ -256,15 +257,17 @@ export default function EditBiodataModal({
       <div className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden my-6 border border-slate-200">
         
         {/* Header Modal */}
-        <div className="px-6 py-5 bg-gradient-to-r from-[#184F48] to-[#2D7A70] text-white flex items-center justify-between">
+        <div className={`px-6 py-5 ${
+          isSmp ? 'bg-gradient-to-r from-[#030164] via-[#090580] to-[#01003d]' : 'bg-gradient-to-r from-[#184F48] to-[#2D7A70]'
+        } text-white flex items-center justify-between`}>
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-              <FileText className="w-5 h-5 text-amber-300" />
+              <FileText className={`w-5 h-5 ${isSmp ? 'text-[#ffd51e]' : 'text-amber-300'}`} />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
-                  Formulir Resmi SDIT Al-Afiyah
+                <span className={`text-xs font-bold uppercase tracking-wider ${isSmp ? 'text-[#ffd51e]' : 'text-amber-300'}`}>
+                  {isSmp ? 'Formulir Resmi SMP IT Al-Afiyah' : 'Formulir Resmi SDIT Al-Afiyah'}
                 </span>
                 <span className="text-[10px] font-mono bg-white/20 px-2 py-0.5 rounded-full">
                   {regNo}
@@ -291,40 +294,40 @@ export default function EditBiodataModal({
             onClick={() => setActiveTab('ANAK')}
             className={`py-3 px-4 border-b-2 transition-all whitespace-nowrap ${
               activeTab === 'ANAK'
-                ? 'border-[#184F48] text-[#184F48] bg-white'
+                ? isSmp ? 'border-[#030164] text-[#030164] bg-white' : 'border-[#184F48] text-[#184F48] bg-white'
                 : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
-            A. Keterangan Anak (1-17)
+            A. Keterangan {isSmp ? 'Santri' : 'Anak'} (1-17)
           </button>
           <button
             type="button"
             onClick={() => setActiveTab('ORTU')}
             className={`py-3 px-4 border-b-2 transition-all whitespace-nowrap ${
               activeTab === 'ORTU'
-                ? 'border-[#184F48] text-[#184F48] bg-white'
+                ? isSmp ? 'border-[#030164] text-[#030164] bg-white' : 'border-[#184F48] text-[#184F48] bg-white'
                 : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
-            B. Orang Tua & Wali (18-20)
+            B. Orang Tua &amp; Wali (18-20)
           </button>
           <button
             type="button"
             onClick={() => setActiveTab('LAINNYA')}
             className={`py-3 px-4 border-b-2 transition-all whitespace-nowrap ${
               activeTab === 'LAINNYA'
-                ? 'border-[#184F48] text-[#184F48] bg-white'
+                ? isSmp ? 'border-[#030164] text-[#030164] bg-white' : 'border-[#184F48] text-[#184F48] bg-white'
                 : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
-            C. Asal Sekolah & Lainnya (21-28)
+            C. Asal Sekolah &amp; Lainnya (21-28)
           </button>
           <button
             type="button"
             onClick={() => setActiveTab('BERKAS')}
             className={`py-3 px-4 border-b-2 transition-all whitespace-nowrap ${
               activeTab === 'BERKAS'
-                ? 'border-[#184F48] text-[#184F48] bg-white'
+                ? isSmp ? 'border-[#030164] text-[#030164] bg-white' : 'border-[#184F48] text-[#184F48] bg-white'
                 : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
@@ -353,14 +356,16 @@ export default function EditBiodataModal({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    1. Nama Lengkap Murid *
+                    1. Nama Lengkap {isSmp ? 'Santri' : 'Murid'} *
                   </label>
                   <input
                     type="text"
                     required
                     value={studentName}
                     onChange={(e) => setStudentName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#2D7A70] focus:outline-none"
+                    className={`w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs ${
+                      isSmp ? 'focus:ring-2 focus:ring-[#030164]' : 'focus:ring-2 focus:ring-[#2D7A70]'
+                    } focus:outline-none`}
                     placeholder="Sesuai Akta Kelahiran"
                   />
                 </div>
@@ -887,31 +892,47 @@ export default function EditBiodataModal({
                   <select
                     value={sdData.admissionAs}
                     onChange={(e) => updateSd('admissionAs', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-[#2D7A70]"
+                    className={`w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs ${
+                      isSmp ? 'focus:ring-2 focus:ring-[#030164]' : 'focus:ring-2 focus:ring-[#2D7A70]'
+                    }`}
                   >
-                    <option value="Murid Baru Kelas 1">Murid Baru Kelas 1 (Satu)</option>
-                    <option value="Pindahan Kelas 2">Pindahan (Kelas 2)</option>
-                    <option value="Pindahan Kelas 3">Pindahan (Kelas 3)</option>
-                    <option value="Pindahan Kelas 4">Pindahan (Kelas 4)</option>
-                    <option value="Pindahan Kelas 5">Pindahan (Kelas 5)</option>
+                    {isSmp ? (
+                      <>
+                        <option value="Santri Baru Kelas 7">Santri Baru Kelas 7 (Tujuh)</option>
+                        <option value="Pindahan Kelas 8">Pindahan (Kelas 8)</option>
+                        <option value="Pindahan Kelas 9">Pindahan (Kelas 9)</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="Murid Baru Kelas 1">Murid Baru Kelas 1 (Satu)</option>
+                        <option value="Pindahan Kelas 2">Pindahan (Kelas 2)</option>
+                        <option value="Pindahan Kelas 3">Pindahan (Kelas 3)</option>
+                        <option value="Pindahan Kelas 4">Pindahan (Kelas 4)</option>
+                        <option value="Pindahan Kelas 5">Pindahan (Kelas 5)</option>
+                      </>
+                    )}
                   </select>
                 </div>
               </div>
 
-              {/* 23. Asal Sekolah TK/RA */}
-              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-3">
-                <span className="text-xs font-extrabold text-[#184F48] uppercase block">
-                  23. Asal Sekolah TK / BA / RA / DA
+              {/* 23. Asal Sekolah SD/MI atau TK/RA */}
+              <div className={`p-4 rounded-2xl ${
+                isSmp ? 'bg-blue-50/60 border-blue-200' : 'bg-emerald-50/60 border-emerald-200'
+              } border space-y-3`}>
+                <span className={`text-xs font-extrabold ${isSmp ? 'text-[#030164]' : 'text-[#184F48]'} uppercase block`}>
+                  {isSmp ? '23. Asal Sekolah SD / MI / Sederajat' : '23. Asal Sekolah TK / BA / RA / DA'}
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Nama Sekolah TK/RA</label>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">
+                      {isSmp ? 'Nama SD / MI Asal' : 'Nama Sekolah TK/RA'}
+                    </label>
                     <input
                       type="text"
                       value={sdData.originSchoolName}
                       onChange={(e) => updateSd('originSchoolName', e.target.value)}
                       className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs"
-                      placeholder="misal: TK IT Al-Afiyah"
+                      placeholder={isSmp ? 'misal: SDIT Al-Afiyah / SDN 1 Majalengka' : 'misal: TK IT Al-Afiyah'}
                     />
                   </div>
                   <div>
@@ -924,7 +945,9 @@ export default function EditBiodataModal({
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Telepon / Kontak TK</label>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">
+                      {isSmp ? 'Telepon / Kontak SD/MI' : 'Telepon / Kontak TK'}
+                    </label>
                     <input
                       type="text"
                       value={sdData.originSchoolPhone}
@@ -935,15 +958,17 @@ export default function EditBiodataModal({
                 </div>
               </div>
 
-              {/* 24-25. Khusus Siswa Pindahan */}
-              {sdData.admissionAs !== 'Murid Baru Kelas 1' && (
+              {/* 24-25. Khusus Siswa/Santri Pindahan */}
+              {sdData.admissionAs !== (isSmp ? 'Santri Baru Kelas 7' : 'Murid Baru Kelas 1') && (
                 <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-3">
                   <span className="text-xs font-extrabold text-amber-900 uppercase block">
-                    24 - 25. Khusus Murid Pindahan dari SD / MI
+                    {isSmp ? '24 - 25. Khusus Santri Pindahan dari SMP / MTs' : '24 - 25. Khusus Murid Pindahan dari SD / MI'}
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Nama SD / MI Asal</label>
+                      <label className="block text-[11px] font-bold text-slate-600 mb-1">
+                        {isSmp ? 'Nama SMP / MTs Asal' : 'Nama SD / MI Asal'}
+                      </label>
                       <input
                         type="text"
                         value={sdData.transferSchoolName}
@@ -976,7 +1001,7 @@ export default function EditBiodataModal({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    27. Informasi Pertama Kali Mengenal SDIT AL AFIYAH
+                    {isSmp ? '27. Informasi Pertama Kali Mengenal SMP IT AL-AFIYAH' : '27. Informasi Pertama Kali Mengenal SDIT AL AFIYAH'}
                   </label>
                   <input
                     type="text"
@@ -988,14 +1013,14 @@ export default function EditBiodataModal({
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
-                    28. Alasan Paling Utama Memasukkan Anak ke SDIT
+                    {isSmp ? '28. Alasan Paling Utama Memasukkan Anak ke SMP IT' : '28. Alasan Paling Utama Memasukkan Anak ke SDIT'}
                   </label>
                   <input
                     type="text"
                     value={sdData.mainReason}
                     onChange={(e) => updateSd('mainReason', e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs"
-                    placeholder="misal: Hafalan Al-Qur'an mutqin & adab islami"
+                    placeholder={isSmp ? "misal: Hafalan Al-Qur'an & pembinaan karakter mandiri" : "misal: Hafalan Al-Qur'an mutqin & adab islami"}
                   />
                 </div>
               </div>
@@ -1018,20 +1043,33 @@ export default function EditBiodataModal({
           {/* TAB D: PERSYARATAN & KELENGKAPAN CHECKLIST (12 POIN) */}
           {activeTab === 'BERKAS' && (
             <div className="space-y-4">
-              <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 leading-relaxed">
-                <strong>Catatan Panitia:</strong> Berkas fisik dapat dimasukkan ke dalam <strong>1 stopmap</strong> dan dikumpulkan saat verifikasi formulir, paling lambat <strong>3 hari sebelum pelaksanaan Tes Observasi PPDB 2027/2028</strong>.
+              <div className={`p-3.5 rounded-xl ${
+                isSmp ? 'bg-blue-50 border-blue-200 text-blue-900' : 'bg-blue-50 border-blue-200 text-blue-900'
+              } border text-xs leading-relaxed`}>
+                <strong>Catatan Panitia:</strong> Berkas fisik dapat dimasukkan ke dalam <strong>1 map {isSmp ? '(Biru Ikhwan / Hijau Akhwat)' : 'stopmap'}</strong> dan dikumpulkan saat verifikasi formulir, paling lambat <strong>3 hari sebelum pelaksanaan Tes {isSmp ? 'SPMB' : 'Observasi PPDB'} 2027/2028</strong>.
               </div>
 
               <div className="space-y-2.5">
-                {[
-                  { key: 'checkIjazahTk', label: '4. Fotocopy Ijazah / Surat Tamat TK/RA/BA (1 Lembar)' },
-                  { key: 'checkKK', label: '5. Fotocopy Kartu Keluarga (2 Lembar)' },
-                  { key: 'checkAkta', label: '6. Fotocopy Akta Kelahiran (2 Lembar)' },
-                  { key: 'checkPasFoto', label: '7. Pas Foto Berwarna 3x4 (2 Lembar)' },
-                  { key: 'checkSuratPindah', label: '8. Surat Pengantar dari Sekolah Asal (Bagi Murid Pindahan)' },
-                  { key: 'checkRaportPindah', label: '9. Raport Terakhir dari Sekolah Sebelumnya (Bagi Murid Pindahan)' },
-                  { key: 'checkNisnPindah', label: '10. Bukti Nomor Induk Siswa Nasional / NISN (Bagi Pindahan)' },
-                ].map((item) => (
+                {(isSmp
+                  ? [
+                      { key: 'checkIjazahTk', label: '4. Fotocopy Ijazah / Surat Keterangan Lulus (SKL) SD/MI Legalisir (1 Lembar)' },
+                      { key: 'checkKK', label: '5. Fotocopy Kartu Keluarga (2 Lembar)' },
+                      { key: 'checkAkta', label: '6. Fotocopy Akta Kelahiran (2 Lembar)' },
+                      { key: 'checkPasFoto', label: '7. Pas Foto Calon Santri Busana Muslim/ah 3x4 (3 Lembar)' },
+                      { key: 'checkRaportPindah', label: '8. Fotocopy Raport SD/MI Kelas 4 - 6 Semester 1 (1 Rangkap)' },
+                      { key: 'checkNisnPindah', label: '9. Cetak Bukti Nomor Induk Siswa Nasional / NISN Resmi Kemdikbud (1 Lembar)' },
+                      { key: 'checkSuratPindah', label: '10. Surat Keterangan Pindah & Buku Rapor Asli (Khusus Santri Pindahan)' },
+                    ]
+                  : [
+                      { key: 'checkIjazahTk', label: '4. Fotocopy Ijazah / Surat Tamat TK/RA/BA (1 Lembar)' },
+                      { key: 'checkKK', label: '5. Fotocopy Kartu Keluarga (2 Lembar)' },
+                      { key: 'checkAkta', label: '6. Fotocopy Akta Kelahiran (2 Lembar)' },
+                      { key: 'checkPasFoto', label: '7. Pas Foto Berwarna 3x4 (2 Lembar)' },
+                      { key: 'checkSuratPindah', label: '8. Surat Pengantar dari Sekolah Asal (Bagi Murid Pindahan)' },
+                      { key: 'checkRaportPindah', label: '9. Raport Terakhir dari Sekolah Sebelumnya (Bagi Murid Pindahan)' },
+                      { key: 'checkNisnPindah', label: '10. Bukti Nomor Induk Siswa Nasional / NISN (Bagi Pindahan)' },
+                    ]
+                ).map((item) => (
                   <label
                     key={item.key}
                     className="flex items-center space-x-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors"
@@ -1040,7 +1078,9 @@ export default function EditBiodataModal({
                       type="checkbox"
                       checked={Boolean((sdData as any)[item.key])}
                       onChange={(e) => updateSd(item.key, e.target.checked)}
-                      className="w-4 h-4 text-[#184F48] rounded border-slate-300 focus:ring-[#2D7A70]"
+                      className={`w-4 h-4 rounded border-slate-300 ${
+                        isSmp ? 'text-[#030164] focus:ring-[#030164]' : 'text-[#184F48] focus:ring-[#2D7A70]'
+                      }`}
                     />
                     <span className="text-xs font-semibold text-slate-800">{item.label}</span>
                   </label>
@@ -1052,7 +1092,7 @@ export default function EditBiodataModal({
           {/* Footer Submit Buttons */}
           <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-[11px] text-slate-500">
-              * Data akan tersimpan resmi di sistem pendaftaran dan langsung tercermin pada cetakan Formulir F-PPDB A4.
+              * Data akan tersimpan resmi di sistem pendaftaran dan langsung tercermin pada cetakan Formulir {isSmp ? 'F-SPMB' : 'F-PPDB'} A4.
             </p>
             <div className="flex items-center space-x-2 w-full sm:w-auto">
               <button
@@ -1065,7 +1105,11 @@ export default function EditBiodataModal({
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#184F48] to-[#2D7A70] hover:opacity-95 text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center space-x-2 disabled:opacity-50"
+                className={`w-full sm:w-auto px-6 py-2.5 rounded-xl ${
+                  isSmp
+                    ? 'bg-gradient-to-r from-[#030164] to-[#090580] hover:bg-[#030164]'
+                    : 'bg-gradient-to-r from-[#184F48] to-[#2D7A70] hover:opacity-95'
+                } text-white text-xs font-bold transition-all shadow-sm flex items-center justify-center space-x-2 disabled:opacity-50`}
               >
                 {isLoading ? (
                   <>
