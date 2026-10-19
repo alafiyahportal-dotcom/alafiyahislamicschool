@@ -63,6 +63,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Manifest files should NOT be aggressively cached so updates propagate immediately
+        source: "/:path*manifest*.json",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
+          },
+        ],
+      },
+      {
         // Comprehensive Security headers for all pages and APIs (Point 19)
         source: "/(.*)",
         headers: [

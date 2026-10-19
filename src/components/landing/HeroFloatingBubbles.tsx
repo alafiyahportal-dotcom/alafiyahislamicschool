@@ -164,58 +164,9 @@ export default function HeroFloatingBubbles({ slug }: HeroFloatingBubblesProps) 
   }), []);
 
   // =========================================================================
-  // SD IT: Authentic Educational & Islamic floating elements
-  // (Al-Quran Ungu, Pensil Ceria, Papan Tulis ABC rada ketengah)
-  // Bersih, fokus, responsif tanpa tabrakan teks.
+  // SD IT: Clean minimalist hero without cluttered floating elements
   // =========================================================================
-  const sdHeroElements = useMemo<FloatingHeroElement[]>(() => [
-    // 1. Primary Spiritual & Academic Anchor: Al-Qur'an Ungu Al-Afiyah
-    // On mobile: shifted to top-[25%] in the empty space beside the 3 lower lines of text
-    {
-      id: 'sd-quran-main',
-      src: '/images/hero/sd-elem-quran.png',
-      alt: "Mushaf Al-Qur'an SDIT Al-Afiyah",
-      width: 262,
-      height: 276,
-      wrapperClass: 'top-[25%] right-[3%] sm:top-[19%] sm:right-[6%] lg:top-[20%] lg:right-[8%]',
-      tiltClass: '-rotate-6',
-      className: 'w-[74px] xs:w-[84px] sm:w-[115px] md:w-[135px] lg:w-[155px] animate-poster-float-slow select-none',
-      glowClass: 'drop-shadow-[0_14px_30px_rgba(168,85,247,0.38)] drop-shadow-[0_4px_12px_rgba(255,213,30,0.28)]',
-      style: {
-        animationDelay: '0s',
-      },
-    },
-    // 2. Pensil Ceria (Slim, compact, tilted playfully diagonally ~30deg, safely in-bounds on mobile, center on laptop)
-    {
-      id: 'sd-pencil-creative',
-      src: '/images/hero/sd-elem-pencil.png',
-      alt: 'Pensil Kreatif Belajar SDIT',
-      width: 140,
-      height: 348,
-      wrapperClass: 'top-[11%] right-[16%] sm:top-[15%] sm:left-[47%] sm:right-auto lg:top-[16%] lg:left-[49%]',
-      tiltClass: 'rotate-[30deg]',
-      className: 'w-[17px] xs:w-[20px] sm:w-[32px] md:w-[38px] lg:w-[44px] animate-poster-float-medium select-none',
-      glowClass: 'drop-shadow-[0_10px_22px_rgba(251,191,36,0.38)] drop-shadow-[0_2px_8px_rgba(239,68,68,0.22)]',
-      style: {
-        animationDelay: '0.4s',
-      },
-    },
-    // 3. Papan Tulis Mini ABC (Geser rada ke tengah pada laptop, disesuaikan proporsional di HP)
-    {
-      id: 'sd-board-abc',
-      src: '/images/hero/sd-elem-board.png',
-      alt: 'Papan Tulis Ceria ABC SDIT',
-      width: 237,
-      height: 170,
-      wrapperClass: 'top-[46%] right-[8%] sm:top-[56%] sm:right-[15%] lg:top-[56%] lg:right-[20%]',
-      tiltClass: 'rotate-3',
-      className: 'w-[64px] xs:w-[72px] sm:w-[94px] md:w-[114px] lg:w-[128px] animate-poster-pendulum select-none',
-      glowClass: 'drop-shadow-[0_12px_28px_rgba(234,179,8,0.36)] drop-shadow-[0_4px_12px_rgba(16,185,129,0.22)]',
-      style: {
-        animationDelay: '1.5s',
-      },
-    },
-  ], []);
+  const sdHeroElements = useMemo<FloatingHeroElement[]>(() => [], []);
 
   // Ambient orbs & sparkles for SD IT
   const sdAmbient = useMemo(() => ({
