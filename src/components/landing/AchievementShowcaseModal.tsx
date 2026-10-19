@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Award, Trophy, Medal, Search, Filter, Calendar, ZoomIn, Download } from 'lucide-react';
+import { X, Award, Trophy, Medal, Search, Filter, Calendar, ZoomIn, Download, Share2 } from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -38,7 +38,7 @@ export default function AchievementShowcaseModal({
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedUnit, setSelectedUnit] = useState(defaultUnit);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; title: string; studentName: string } | null>(null);
+  const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -228,17 +228,13 @@ export default function AchievementShowcaseModal({
                   return (
                     <div
                       key={item.id}
-                      className="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-2xs hover:shadow-md transition-all hover:border-[#2D7A70]/40 flex gap-4 group"
+                      onClick={() => setSelectedAchievement(item)}
+                      className="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-2xs hover:shadow-md transition-all hover:border-[#2D7A70]/40 flex gap-4 group cursor-pointer"
                     >
                       {/* Thumbnail photo */}
                       <div 
-                        onClick={() => setSelectedPhoto({
-                          url: item.imageUrl || '/images/arc-tahfidz.jpg',
-                          title: item.title,
-                          studentName: item.studentName,
-                        })}
-                        className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden bg-stone-100 relative shrink-0 border border-slate-200 cursor-pointer group/thumb"
-                        title="Klik untuk melihat foto penuh"
+                        className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden bg-stone-100 relative shrink-0 border border-slate-200 group/thumb"
+                        title="Klik untuk melihat foto & cerita lengkap"
                       >
                         <Image
                           src={item.imageUrl || '/images/arc-tahfidz.jpg'}
@@ -313,74 +309,154 @@ export default function AchievementShowcaseModal({
         </motion.div>
       </div>
 
-      {/* Direct Photo Lightbox Modal */}
-      {selectedPhoto && (
+      {/* Detail Modal: Unified Full Image + Complete Caption/Words */}
+      {selectedAchievement && (
         <div
-          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-6 animate-in fade-in duration-200 select-none"
-          onClick={() => setSelectedPhoto(null)}
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-200"
+          onClick={() => setSelectedAchievement(null)}
         >
           <div
-            className="flex items-center justify-between gap-3 text-white max-w-5xl mx-auto w-full z-20 pb-3"
+            className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-hidden shadow-2xl border border-slate-200/90 flex flex-col md:flex-row relative text-left"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="min-w-0 pr-4">
-              <h3 className="text-sm sm:text-base font-bold text-white truncate">
-                {selectedPhoto.title}
-              </h3>
-              <p className="text-xs text-amber-300 font-semibold truncate">
-                👤 {selectedPhoto.studentName}
-              </p>
+            {/* Close Button Top-Right */}
+            <button
+              type="button"
+              onClick={() => setSelectedAchievement(null)}
+              className="absolute top-3.5 right-3.5 z-30 w-9 h-9 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition-colors cursor-pointer border border-white/20"
+              title="Tutup (Esc)"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Left Column: Photo Showcase */}
+            <div className="md:w-5/12 lg:w-1/2 bg-slate-950 flex flex-col items-center justify-center relative overflow-hidden shrink-0 min-h-[260px] sm:min-h-[320px] md:min-h-full p-4 sm:p-6 group/photo">
+              {/* Blurred Ambient Backdrop */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={selectedAchievement.imageUrl || '/images/arc-tahfidz.jpg'}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-35 pointer-events-none"
+              />
+              <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+              {/* Main Photo (object-contain so never cropped) */}
+              <div className="relative z-10 w-full h-full max-h-[380px] md:max-h-[75vh] flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={selectedAchievement.imageUrl || '/images/arc-tahfidz.jpg'}
+                  alt={selectedAchievement.title}
+                  className="w-full h-auto max-h-[360px] md:max-h-[72vh] object-contain rounded-xl shadow-2xl"
+                />
+              </div>
+
+              {/* Bottom Photo Pill */}
+              <div className="absolute bottom-3 left-4 z-20">
+                <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-black/70 text-white backdrop-blur-xs border border-white/10 uppercase tracking-wider">
+                  {selectedAchievement.school?.slug.toUpperCase() || 'AL-AFIYAH'}
+                </span>
+              </div>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() => {
-                  try {
-                    const a = document.createElement('a');
-                    a.href = selectedPhoto.url;
-                    a.download = `prestasi_${selectedPhoto.studentName.replace(/[^a-z0-9]/gi, '_')}.jpg`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                  } catch {
-                    window.open(selectedPhoto.url, '_blank');
-                  }
-                }}
-                className="p-2 sm:px-3 sm:py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-                title="Unduh / Simpan Foto"
-              >
-                <Download className="w-4 h-4 text-emerald-400" />
-                <span className="hidden sm:inline">Unduh</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedPhoto(null)}
-                className="p-2 sm:p-2.5 rounded-xl bg-white/15 hover:bg-red-500/80 text-white transition-colors cursor-pointer border border-white/20"
-                title="Tutup (Esc)"
-              >
-                <X className="w-5 h-5" />
-              </button>
+            {/* Right Column: Full Caption & Information */}
+            <div className="flex-1 p-5 sm:p-7 md:p-8 overflow-y-auto space-y-4 bg-white flex flex-col justify-between">
+              <div className="space-y-4">
+                {/* Badges */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  {(() => {
+                    const rankInfo = getRankBadge(selectedAchievement.rank);
+                    const RankIcon = rankInfo.icon;
+                    return (
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${rankInfo.bg}`}>
+                        <RankIcon className={`w-3.5 h-3.5 ${rankInfo.iconColor}`} />
+                        <span>{rankInfo.label}</span>
+                      </span>
+                    );
+                  })()}
+                  <span className="text-xs font-bold text-slate-600 uppercase tracking-wider bg-slate-100 px-2.5 py-1 rounded-full">
+                    Tingkat {selectedAchievement.level}
+                  </span>
+                  <span className="text-xs text-slate-500 font-semibold bg-amber-50 text-amber-900 border border-amber-200 px-2.5 py-1 rounded-full">
+                    Tahun {selectedAchievement.year}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-lg sm:text-2xl font-black text-slate-900 leading-snug tracking-tight">
+                  {selectedAchievement.title}
+                </h3>
+
+                {/* Student Name */}
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                      Nama Santri / Peraih Prestasi:
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-[#184F48]">
+                      {selectedAchievement.studentName}
+                    </span>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-600">
+                    {selectedAchievement.school?.name || 'Al-Afiyah'}
+                  </span>
+                </div>
+
+                {/* Full Description / Caption Box */}
+                <div>
+                  <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                    Keterangan &amp; Ulasan Prestasi:
+                  </h5>
+                  <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100/80 text-emerald-950 text-xs sm:text-sm leading-relaxed font-medium">
+                    {selectedAchievement.description || 'Pencapaian membanggakan dari santri Al-Afiyah yang diraih melalui kedisiplinan dan pembiasaan adab mulia.'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions Footer */}
+              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 mt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const text = `🏆 *Prestasi Santri Al-Afiyah*\n\n*${selectedAchievement.title}*\n👤 Santri: ${selectedAchievement.studentName}\n🏅 Capaian: ${getRankBadge(selectedAchievement.rank).label} (Tingkat ${selectedAchievement.level})\n🏫 Satuan: ${selectedAchievement.school?.name || 'SMP IT / SDIT Al-Afiyah'}\n\n${selectedAchievement.description || ''}\n\nSelengkapnya kunjungi: https://alafiyah.sch.id`;
+                    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+                  }}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#1EBE5D] transition-colors shadow-sm cursor-pointer"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>Bagikan ke WhatsApp</span>
+                </button>
+
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const url = selectedAchievement.imageUrl || '/images/arc-tahfidz.jpg';
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = `prestasi_${selectedAchievement.studentName.replace(/[^a-z0-9]/gi, '_')}.jpg`;
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                    }}
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <Download className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Unduh Foto</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedAchievement(null)}
+                    className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Tutup
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div
-            className="flex-1 flex items-center justify-center overflow-auto my-auto relative w-full"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setSelectedPhoto(null);
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={selectedPhoto.url}
-              alt={selectedPhoto.title}
-              className="max-w-[95vw] max-h-[84vh] object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-
-          <div className="text-center text-[11px] text-slate-400 pt-2 z-20">
-            <span>💡 Foto prestasi &amp; karya santri Al-Afiyah Majalengka • Klik di luar atau tombol X untuk menutup</span>
           </div>
         </div>
       )}

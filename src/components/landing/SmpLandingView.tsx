@@ -182,36 +182,42 @@ const SMP_DOKUMENTASI_CARDS = [
     category: 'Kepanduan SIT',
     title: 'Pramuka SIT & Kepanduan Karakter Outdoor di Alam Terbuka',
     badge: 'Kepanduan & Karakter',
+    desc: 'Kegiatan kepanduan Pramuka SIT melatih ketangkasan fisik, kemandirian di alam terbuka, kerja sama regu, dan kecintaan pada tadabbur ciptaan Allah SWT.',
   },
   {
     image: '/images/smp-kelas-literasi.jpg',
     category: 'Akademik & Literasi',
     title: 'Pembelajaran Aktif di Ruang Kelas Berwawasan Global',
     badge: 'Kelas Interaktif',
+    desc: 'Suasana kelas yang kondusif dengan metode pembelajaran aktif, interaktif, dan terintegrasi nilai-nilai keislaman untuk membangun nalar kritis santri.',
   },
   {
     image: '/images/smp-perpustakaan-literasi.jpg',
     category: 'Akademik & Literasi',
     title: 'Budaya Literasi & Riset Mandiri di Perpustakaan Sekolah',
     badge: 'Pojok Literasi',
+    desc: 'Penyediaan referensi buku bermutu, kitab-kitab dasar, dan ruang baca nyaman untuk menumbuhkan gemar membaca dan riset mandiri santri.',
   },
   {
     image: '/images/smp-kelulusan-angkatan-3.jpg',
     category: 'Wisuda & Prestasi',
     title: 'Haflah Kelulusan & Kenaikan Santri Angkatan ke-3 (2025/2026)',
     badge: 'Kelulusan Santri',
+    desc: 'Momen penuh haru dan kebanggaan haflah kelulusan santri SMP IT Al-Afiyah angkatan ke-3 dengan capaian hafalan Al-Qur\'an mutqin dan prestasi gemilang.',
   },
   {
     image: '/images/smp-santri-ikhwan-wisuda.jpg',
     category: 'Karakter & Adab',
     title: 'Generasi Pemimpin Berakhlak Qur\'ani, Mandiri & Siap Berkompetisi',
     badge: 'Karakter & Disiplin',
+    desc: 'Santri ikhwan ditempa menjadi pribadi yang berintegritas, mandiri, beradab mulia, dan memiliki visi kepemimpinan masa depan berlandaskan Al-Qur\'an dan As-Sunnah.',
   },
   {
     image: '/images/smp-tubing-1.jpg',
     category: 'Rihlah & Outing',
     title: 'Petualangan River Tubing Cikadongdong & Tadabbur Alam',
     badge: 'Rihlah & Outing',
+    desc: 'Aktivitas petualangan river tubing di Sungai Cikadongdong sebagai sarana rihlah tadabbur alam, mempererat ukhuwah antar santri, dan melatih keberanian fisik.',
   },
 ];
 
@@ -241,7 +247,7 @@ const SMP_FAQS = [
 export default function SmpLandingView({ teachers = [], newsPosts = [], achievements = [], cmsData }: SmpLandingViewProps) {
   const [activePoster, setActivePoster] = useState(SMP_POSTERS[0]);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [selectedPhotoItem, setSelectedPhotoItem] = useState<{ image: string; title: string; desc?: string; category?: string } | null>(null);
   const [smpGender, setSmpGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
   const [smpDiscountType, setSmpDiscountType] = useState<'sdit' | 'umum' | 'normal'>('sdit');
   const [copiedBank, setCopiedBank] = useState(false);
@@ -1058,7 +1064,12 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                 className="h-full flex flex-col"
               >
                 <div
-                  onClick={() => setSelectedPhoto(fac.image)}
+                  onClick={() => setSelectedPhotoItem({
+                    image: fac.image,
+                    title: fac.title,
+                    desc: fac.desc,
+                    category: fac.category,
+                  })}
                   className="group rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-2xs hover:shadow-md hover:border-[#030164]/40 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
                 >
                   <div className="aspect-[4/3] overflow-hidden bg-slate-200 relative">
@@ -1165,7 +1176,12 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
               <div
                 key={idx}
                 className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md aspect-[4/3] group relative cursor-pointer transition-all duration-300"
-                onClick={() => setSelectedPhoto(item.image)}
+                onClick={() => setSelectedPhotoItem({
+                  image: item.image,
+                  title: item.title,
+                  desc: item.desc,
+                  category: item.badge,
+                })}
               >
                 <img
                   src={item.image}
@@ -1574,30 +1590,67 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
         </div>
       )}
 
-      {/* Lightbox Modal for Photo Gallery */}
-      {selectedPhoto && (
+      {/* Lightbox Modal with Full Image and Complete Caption */}
+      {selectedPhotoItem && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4 backdrop-blur-sm"
-          onClick={() => setSelectedPhoto(null)}
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-3 sm:p-5 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setSelectedPhotoItem(null)}
         >
           <div
-            className="relative max-w-4xl w-full max-h-[90vh] bg-white rounded-3xl overflow-hidden p-4 flex flex-col"
+            className="relative max-w-3xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col text-left"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-              <h4 className="text-xs sm:text-sm font-bold text-slate-900">
-                Dokumentasi Kegiatan &amp; Haflah Kelulusan SMP IT Al-Afiyah
-              </h4>
+            {/* Header bar */}
+            <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-white">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-1 rounded-md text-[11px] font-bold bg-blue-50 text-[#030164] border border-blue-200">
+                  {selectedPhotoItem.category || 'Dokumentasi SMP IT'}
+                </span>
+                <span className="text-xs font-semibold text-slate-500 hidden sm:inline">
+                  SMP IT Al-Afiyah
+                </span>
+              </div>
               <button
                 type="button"
-                onClick={() => setSelectedPhoto(null)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 cursor-pointer"
+                onClick={() => setSelectedPhotoItem(null)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 transition-colors cursor-pointer"
+                title="Tutup (Esc)"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="flex-1 overflow-auto my-2 max-h-[75vh] flex items-center justify-center">
-              <img src={selectedPhoto} alt="Dokumentasi SMP IT Al-Afiyah" className="max-h-[72vh] w-auto object-contain rounded-xl" />
+
+            {/* Photo Canvas */}
+            <div className="relative aspect-[16/10] sm:aspect-[16/9] bg-slate-950 flex items-center justify-center overflow-hidden">
+              {/* Blurred background */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={selectedPhotoItem.image}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-40 pointer-events-none"
+              />
+              {/* Contained clean image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={selectedPhotoItem.image}
+                alt={selectedPhotoItem.title}
+                className="relative z-10 max-h-full max-w-full object-contain"
+              />
+            </div>
+
+            {/* Caption & Description */}
+            <div className="p-5 sm:p-6 bg-white space-y-2">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                {selectedPhotoItem.title}
+              </h3>
+              {selectedPhotoItem.desc && (
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {selectedPhotoItem.desc}
+                </p>
+              )}
             </div>
           </div>
         </div>
