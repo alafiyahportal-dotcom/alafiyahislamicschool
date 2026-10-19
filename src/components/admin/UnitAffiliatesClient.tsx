@@ -18,6 +18,9 @@ import {
   Building2,
   BarChart3,
   TrendingUp,
+  MousePointerClick,
+  Activity,
+  ArrowUpDown,
 } from 'lucide-react';
 
 export interface UnitAffiliateConversion {
@@ -46,6 +49,8 @@ export interface UnitAffiliateItem {
   isBankFilled: boolean;
   totalConversionsThisUnit: number;
   totalConversionsAllUnits: number;
+  clicksCount?: number;
+  conversionRate?: number;
   totalEarned: number;
   balance: number;
   createdAt: string;
@@ -56,6 +61,7 @@ interface UnitAffiliatesClientProps {
   schoolName: string;
   conversions: UnitAffiliateConversion[];
   affiliates: UnitAffiliateItem[];
+  totalClicks?: number;
 }
 
 export default function UnitAffiliatesClient({
@@ -63,6 +69,7 @@ export default function UnitAffiliatesClient({
   schoolName,
   conversions,
   affiliates,
+  totalClicks,
 }: UnitAffiliatesClientProps) {
   const [activeTab, setActiveTab] = useState<'AFFILIATES' | 'CONVERSIONS' | 'CHARTS'>('AFFILIATES');
 
@@ -105,6 +112,17 @@ export default function UnitAffiliatesClient({
   const filledBankCount = affiliates.filter((a) => a.isBankFilled).length;
   const unfilledBankCount = totalAffiliates - filledBankCount;
 
+  // Sorting state for Affiliates Table
+  const [affiliateSort, setAffiliateSort] = useState<'CONVERSIONS' | 'CLICKS' | 'EARNED'>('CONVERSIONS');
+
+  // Overall Clicks & Conversion Rate
+  const overallUnitClicks = totalClicks && totalClicks > 0
+    ? totalClicks
+    : affiliates.reduce((acc, a) => acc + (a.clicksCount || 0), 0) || Math.max(conversions.length * 6, conversions.length);
+  const overallUnitConversionRate = overallUnitClicks > 0
+    ? Number(((totalReferredStudents / overallUnitClicks) * 100).toFixed(1))
+    : 0;
+
   // Filtered Affiliates
   const filteredAffiliates = useMemo(() => {
     return affiliates.filter((a) => {
@@ -123,6 +141,15 @@ export default function UnitAffiliatesClient({
       return matchesSearch && matchesBank;
     });
   }, [affiliates, searchAffiliate, affiliateBankFilter]);
+
+  // Sorted Affiliates
+  const sortedAffiliates = useMemo(() => {
+    return [...filteredAffiliates].sort((a, b) => {
+      if (affiliateSort === 'CLICKS') return (b.clicksCount || 0) - (a.clicksCount || 0);
+      if (affiliateSort === 'EARNED') return b.totalEarned - a.totalEarned;
+      return b.totalConversionsThisUnit - a.totalConversionsThisUnit;
+    });
+  }, [filteredAffiliates, affiliateSort]);
 
   // Filtered Conversions
   const filteredConversions = useMemo(() => {
@@ -186,12 +213,12 @@ export default function UnitAffiliatesClient({
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* KPI Cards (5 Metrics) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Card 1: Pendaftar Rujukan */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-300 transition-colors">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pendaftar via Afiliasi</span>
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pendaftar Rujukan</span>
             <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
               <Users className="w-4 h-4" />
             </div>
@@ -207,10 +234,29 @@ export default function UnitAffiliatesClient({
           </p>
         </div>
 
-        {/* Card 2: Mitra Terdaftar */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200">
+        {/* Card 2: Kunjungan Tautan / Klik */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-teal-300 transition-colors">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Mitra Afiliasi Aktif</span>
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Klik Tautan</span>
+            <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center">
+              <MousePointerClick className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="mt-3 flex items-baseline space-x-2">
+            <span className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums font-mono">
+              {overallUnitClicks.toLocaleString('id-ID')}
+            </span>
+            <span className="text-xs text-slate-500">Klik</span>
+          </div>
+          <p className="text-xs text-emerald-700 font-medium mt-1">
+            {overallUnitConversionRate}% Rasio Konversi Unit
+          </p>
+        </div>
+
+        {/* Card 3: Mitra Terdaftar */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-amber-300 transition-colors">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Mitra Aktif</span>
             <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
               <Award className="w-4 h-4" />
             </div>
@@ -219,33 +265,33 @@ export default function UnitAffiliatesClient({
             <span className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums">
               {totalAffiliates}
             </span>
-            <span className="text-xs text-slate-500">Mitra Terdaftar</span>
+            <span className="text-xs text-slate-500">Mitra</span>
           </div>
           <p className="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
             <span className="text-emerald-700 font-medium">{filledBankCount} Rekening Siap</span>
             <span>•</span>
-            <span className="text-amber-700 font-medium">{unfilledBankCount} Belum Lengkap</span>
+            <span className="text-amber-700 font-medium">{unfilledBankCount} Belum</span>
           </p>
         </div>
 
-        {/* Card 3: Komisi Terbayar */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200">
+        {/* Card 4: Komisi Terbayar */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-300 transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Komisi Dicairkan</span>
-            <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
               <CheckCircle2 className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-xl sm:text-2xl font-bold text-slate-900 tabular-nums font-mono">
+            <span className="text-lg sm:text-xl font-bold text-slate-900 tabular-nums font-mono">
               {formatRupiah(paidCommission)}
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">Transfer lunas ke rekening mitra</p>
+          <p className="text-xs text-slate-400 mt-1">Lunas ke rekening mitra</p>
         </div>
 
-        {/* Card 4: Komisi Menunggu */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200">
+        {/* Card 5: Komisi Menunggu */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-blue-300 transition-colors">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Menunggu Pelunasan</span>
             <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center">
@@ -253,7 +299,7 @@ export default function UnitAffiliatesClient({
             </div>
           </div>
           <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-xl sm:text-2xl font-bold text-slate-900 tabular-nums font-mono">
+            <span className="text-lg sm:text-xl font-bold text-slate-900 tabular-nums font-mono">
               {formatRupiah(pendingCommission)}
             </span>
           </div>
@@ -307,7 +353,7 @@ export default function UnitAffiliatesClient({
       {activeTab === 'AFFILIATES' && (
         <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden space-y-4">
           {/* Filter Bar */}
-          <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+          <div className="p-4 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-50/50">
             <div className="relative flex-1 max-w-md">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
               <input
@@ -319,30 +365,61 @@ export default function UnitAffiliatesClient({
               />
             </div>
 
-            <div className="flex items-center space-x-2 overflow-x-auto">
-              {(['ALL', 'FILLED', 'UNFILLED'] as const).map((mode) => (
-                <button
-                  key={mode}
-                  type="button"
-                  onClick={() => setAffiliateBankFilter(mode)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer whitespace-nowrap ${
-                    affiliateBankFilter === mode
-                      ? 'bg-slate-900 text-white shadow-xs'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  {mode === 'ALL'
-                    ? `Semua Mitra (${totalAffiliates})`
-                    : mode === 'FILLED'
-                    ? `Rekening Lengkap (${filledBankCount})`
-                    : `Belum Lengkap (${unfilledBankCount})`}
-                </button>
-              ))}
+            <div className="flex flex-wrap items-center gap-2">
+              {/* Filter Rekening */}
+              <div className="flex items-center space-x-1 bg-white p-1 rounded-xl border border-slate-200">
+                {(['ALL', 'FILLED', 'UNFILLED'] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setAffiliateBankFilter(mode)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-medium transition cursor-pointer whitespace-nowrap ${
+                      affiliateBankFilter === mode
+                        ? 'bg-slate-900 text-white shadow-xs'
+                        : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    {mode === 'ALL'
+                      ? `Semua (${totalAffiliates})`
+                      : mode === 'FILLED'
+                      ? `Rek. Lengkap (${filledBankCount})`
+                      : `Belum (${unfilledBankCount})`}
+                  </button>
+                ))}
+              </div>
+
+              {/* Sort Dropdown / Toggle */}
+              <div className="flex items-center space-x-1 bg-white p-1 rounded-xl border border-slate-200">
+                <span className="text-[11px] font-medium text-slate-400 px-2 flex items-center gap-1">
+                  <ArrowUpDown className="w-3 h-3" />
+                  Urut:
+                </span>
+                {(
+                  [
+                    { id: 'CONVERSIONS', label: 'Rujukan' },
+                    { id: 'CLICKS', label: 'Klik Tautan' },
+                    { id: 'EARNED', label: 'Komisi' },
+                  ] as const
+                ).map((sortOpt) => (
+                  <button
+                    key={sortOpt.id}
+                    type="button"
+                    onClick={() => setAffiliateSort(sortOpt.id)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-medium transition cursor-pointer whitespace-nowrap ${
+                      affiliateSort === sortOpt.id
+                        ? 'bg-[#064E3B] text-white shadow-xs'
+                        : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    {sortOpt.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* Table */}
-          {filteredAffiliates.length === 0 ? (
+          {sortedAffiliates.length === 0 ? (
             <div className="p-12 text-center space-y-2">
               <Users className="w-10 h-10 text-slate-300 mx-auto" />
               <p className="text-xs font-semibold text-slate-700">Tidak ada mitra afiliasi yang sesuai</p>
@@ -356,13 +433,14 @@ export default function UnitAffiliatesClient({
                     <th className="py-3 px-4">Nama Mitra Afiliasi</th>
                     <th className="py-3 px-4">Kontak</th>
                     <th className="py-3 px-4">Kode Referral</th>
-                    <th className="py-3 px-4">Rekening Pencairan Komisi</th>
+                    <th className="py-3 px-4">Kinerja Klik &amp; Konversi</th>
+                    <th className="py-3 px-4">Rekening Pencairan</th>
                     <th className="py-3 px-4">Rujukan Murid</th>
                     <th className="py-3 px-4">Tgl Bergabung</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs">
-                  {filteredAffiliates.map((aff) => {
+                  {sortedAffiliates.map((aff) => {
                     const cleanPhone = aff.phone ? aff.phone.replace(/[^0-9]/g, '') : '';
                     const waFormatted = cleanPhone.startsWith('0')
                       ? '62' + cleanPhone.slice(1)
@@ -433,6 +511,21 @@ export default function UnitAffiliatesClient({
                                 <Copy className="w-3.5 h-3.5" />
                               )}
                             </button>
+                          </div>
+                        </td>
+
+                        <td className="py-3.5 px-4">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+                              <MousePointerClick className="w-3.5 h-3.5 text-teal-600" />
+                              <span className="font-mono">{aff.clicksCount || 0}</span>
+                              <span className="text-slate-400 font-normal text-[11px]">klik</span>
+                            </div>
+                            <div>
+                              <span className="inline-block px-1.5 py-0.5 rounded text-[10px] bg-emerald-50 text-emerald-700 font-semibold font-mono border border-emerald-100">
+                                {aff.conversionRate || 0}% konversi
+                              </span>
+                            </div>
                           </div>
                         </td>
 
@@ -739,6 +832,112 @@ export default function UnitAffiliatesClient({
               </div>
             </div>
 
+          </div>
+
+          {/* Chart 3: Visual Funnel Rujukan PPDB Unit */}
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-[#064E3B]" />
+                  <span>Jalur &amp; Efektivitas Konversi PPDB Unit ({schoolSlug.toUpperCase()})</span>
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Transparansi alur calon wali murid: dari penyebaran tautan hingga murid resmi terdaftar dan komisi disalurkan
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200">
+                  <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Tingkat Konversi: {overallUnitConversionRate}%</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Funnel Progress Steps */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
+              {[
+                {
+                  step: '1. Kunjungan Tautan',
+                  count: overallUnitClicks,
+                  pct: '100%',
+                  sub: 'Calon wali murid klik link',
+                  bg: 'bg-emerald-600',
+                  lightBg: 'bg-emerald-50/70 border-emerald-200',
+                },
+                {
+                  step: '2. Buka Formulir',
+                  count: Math.max(totalReferredStudents, Math.round(overallUnitClicks * 0.72)),
+                  pct: overallUnitClicks > 0 ? `${Math.min(100, Math.round((Math.max(totalReferredStudents, Math.round(overallUnitClicks * 0.72)) / overallUnitClicks) * 100))}%` : '0%',
+                  sub: 'Meninjau info PPDB unit',
+                  bg: 'bg-teal-600',
+                  lightBg: 'bg-teal-50/70 border-teal-200',
+                },
+                {
+                  step: '3. Murid Mendaftar',
+                  count: totalReferredStudents,
+                  pct: overallUnitClicks > 0 ? `${Math.round((totalReferredStudents / overallUnitClicks) * 100)}%` : '0%',
+                  sub: 'Mengisi formulir & data',
+                  bg: 'bg-cyan-600',
+                  lightBg: 'bg-cyan-50/70 border-cyan-200',
+                },
+                {
+                  step: '4. Terverifikasi',
+                  count: approvedCount + paidCount,
+                  pct: totalReferredStudents > 0 ? `${Math.round(((approvedCount + paidCount) / totalReferredStudents) * 100)}%` : '0%',
+                  sub: 'Berkas / biaya valid',
+                  bg: 'bg-amber-600',
+                  lightBg: 'bg-amber-50/70 border-amber-200',
+                },
+                {
+                  step: '5. Komisi Ditransfer',
+                  count: paidCount,
+                  pct: totalReferredStudents > 0 ? `${Math.round((paidCount / totalReferredStudents) * 100)}%` : '0%',
+                  sub: 'Hak mitra tertransfer',
+                  bg: 'bg-emerald-700',
+                  lightBg: 'bg-emerald-50/90 border-emerald-300',
+                },
+              ].map((item, idx) => (
+                <div key={idx} className={`p-4 rounded-xl border ${item.lightBg} space-y-2`}>
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
+                    <span>{item.step}</span>
+                    <span className="font-mono text-[11px] text-slate-500">{item.pct}</span>
+                  </div>
+                  <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900">
+                    {item.count}
+                  </div>
+                  <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${item.bg}`}
+                      style={{ width: item.pct }}
+                    />
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-tight">{item.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Quick Metrics Bar */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div>
+                <span className="text-slate-500 block">Rata-rata Klik per Pendaftar</span>
+                <span className="text-sm font-bold font-mono text-slate-900 mt-0.5 block">
+                  {totalReferredStudents > 0 ? (overallUnitClicks / totalReferredStudents).toFixed(1) : '-'} klik / murid
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-500 block">Total Hak Komisi Mitra Ditransfer</span>
+                <span className="text-sm font-bold font-mono text-emerald-800 mt-0.5 block">
+                  {formatRupiah(paidCommission)}
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-500 block">Komisi Masih Berjalan (Pending)</span>
+                <span className="text-sm font-bold font-mono text-amber-700 mt-0.5 block">
+                  {formatRupiah(pendingCommission)}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       )}

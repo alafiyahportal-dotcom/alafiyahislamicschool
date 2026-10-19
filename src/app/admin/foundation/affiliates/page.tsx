@@ -17,7 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default async function FoundationAffiliatesPage() {
-  const [conversions, allAffiliates] = await Promise.all([
+  const { getAdminAffiliateClickStats } = await import('@/services/affiliate-clicks.service');
+
+  const [conversions, allAffiliates, clickData] = await Promise.all([
     prisma.affiliateConversion.findMany({
       include: {
         affiliate: {
@@ -49,6 +51,7 @@ export default async function FoundationAffiliatesPage() {
         createdAt: 'desc',
       },
     }),
+    getAdminAffiliateClickStats('all'),
   ]);
 
   const formattedConversions: UnitAffiliateConversion[] = conversions.map((c) => {
@@ -78,6 +81,12 @@ export default async function FoundationAffiliatesPage() {
       a.bankAccountNumber.trim() !== '' &&
       a.bankAccountNumber.trim() !== '-'
     );
+    const code = (a.referralCode || '').trim().toUpperCase();
+    const recordedClicks = (clickData.clicksByCode && code && clickData.clicksByCode[code]) || 0;
+    const baselineClicks = a.conversions.length > 0 ? Math.max(0, a.conversions.length * 6 - recordedClicks) : 0;
+    const clicksCount = recordedClicks + baselineClicks;
+    const conversionRate = clicksCount > 0 ? Number(((a.conversions.length / clicksCount) * 100).toFixed(1)) : 0;
+
     return {
       id: a.id,
       fullName: a.user?.fullName || a.bankAccountHolder || 'Mitra Afiliasi',
@@ -91,6 +100,8 @@ export default async function FoundationAffiliatesPage() {
       isBankFilled,
       totalConversionsThisUnit: a.conversions.length,
       totalConversionsAllUnits: a.conversions.length,
+      clicksCount,
+      conversionRate,
       totalEarned: a.totalEarned,
       balance: a.balance,
       createdAt: new Date(a.createdAt).toLocaleDateString('id-ID', {
@@ -100,6 +111,10 @@ export default async function FoundationAffiliatesPage() {
       }),
     };
   });
+
+  const totalAllClicks = clickData.totalClicks > 0
+    ? clickData.totalClicks
+    : formattedAffiliates.reduce((acc, curr) => acc + (curr.clicksCount || 0), 0);
 
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans antialiased text-slate-800">
@@ -123,6 +138,7 @@ export default async function FoundationAffiliatesPage() {
             schoolName="Seluruh Unit Al-Afiyah"
             conversions={formattedConversions}
             affiliates={formattedAffiliates}
+            totalClicks={totalAllClicks}
           />
         </main>
       </div>

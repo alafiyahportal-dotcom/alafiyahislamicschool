@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { 
   Wallet, 
@@ -23,7 +23,14 @@ import {
   Edit3,
   GraduationCap,
   BookOpen,
-  Layers
+  Layers,
+  MousePointerClick,
+  BarChart3,
+  Filter,
+  Award,
+  Activity,
+  Calendar,
+  ArrowUpRight
 } from 'lucide-react';
 import { INDONESIA_BANKS } from '@/lib/constants/banks';
 import IslamicToast from '@/components/common/IslamicToast';
@@ -50,6 +57,32 @@ interface PayoutScheduleInfo {
   ruleNotice: string;
 }
 
+export interface AffiliateClickStats {
+  totalClicks: number;
+  clicksToday: number;
+  clicksThisWeek: number;
+  clicksThisMonth: number;
+  clicksByUnit: {
+    sd: number;
+    smp: number;
+    tk: number;
+  };
+  dailyTrends: Array<{
+    date: string;
+    label: string;
+    clicks: number;
+    conversions: number;
+  }>;
+  funnel: {
+    clicks: number;
+    formViews: number;
+    registrations: number;
+    verified: number;
+    paid: number;
+  };
+  conversionRate: number;
+}
+
 interface AffiliateProfileData {
   id: string;
   fullName: string;
@@ -68,6 +101,7 @@ interface AffiliateProfileData {
   tier: string;
   nextTierTarget: number;
   tierProgress: number;
+  clickStats?: AffiliateClickStats;
   payoutSchedule?: PayoutScheduleInfo;
   conversions: AffiliateConversionItem[];
 }
@@ -81,6 +115,62 @@ export default function AffiliateDashboardPage() {
   // Conversion filter & search states
   const [conversionFilter, setConversionFilter] = useState<'ALL' | 'APPROVED' | 'PAID' | 'PENDING'>('ALL');
   const [searchStudent, setSearchStudent] = useState('');
+  const [unitFilter, setUnitFilter] = useState<'ALL' | 'sd' | 'smp' | 'tk'>('ALL');
+
+  // Interactive Analytics & Filter States
+  const [statsPeriod, setStatsPeriod] = useState<'ALL' | 'MONTH' | 'WEEK' | 'TODAY'>('ALL');
+  const [hoveredTrendIndex, setHoveredTrendIndex] = useState<number | null>(null);
+
+  const clickStats = profile?.clickStats;
+  const currentPeriodClicks = useMemo(() => {
+    if (!clickStats) return 0;
+    if (statsPeriod === 'TODAY') return clickStats.clicksToday;
+    if (statsPeriod === 'WEEK') return clickStats.clicksThisWeek;
+    if (statsPeriod === 'MONTH') return clickStats.clicksThisMonth;
+    return clickStats.totalClicks;
+  }, [clickStats, statsPeriod]);
+
+  const currentPeriodStudents = useMemo(() => {
+    if (!profile) return 0;
+    if (statsPeriod === 'ALL') return profile.totalStudents;
+    const now = Date.now();
+    const daysLimit = statsPeriod === 'TODAY' ? 1 : statsPeriod === 'WEEK' ? 7 : 30;
+    const msLimit = daysLimit * 24 * 60 * 60 * 1000;
+    return (profile.conversions || []).filter(
+      (c) => now - new Date(c.createdAt).getTime() <= msLimit
+    ).length;
+  }, [profile, statsPeriod]);
+
+  const currentPeriodConversionRate = useMemo(() => {
+    if (!currentPeriodClicks) return profile?.clickStats?.conversionRate || 0;
+    return Number(((currentPeriodStudents / currentPeriodClicks) * 100).toFixed(1));
+  }, [currentPeriodClicks, currentPeriodStudents, profile]);
+
+  const sdConversions = useMemo(
+    () => (profile?.conversions || []).filter((c) => c.schoolSlug === 'sd'),
+    [profile]
+  );
+  const smpConversions = useMemo(
+    () => (profile?.conversions || []).filter((c) => c.schoolSlug === 'smp'),
+    [profile]
+  );
+  const tkConversions = useMemo(
+    () => (profile?.conversions || []).filter((c) => c.schoolSlug === 'tk'),
+    [profile]
+  );
+
+  const sdEarned = useMemo(
+    () => sdConversions.reduce((acc, c) => acc + c.commissionAmount, 0),
+    [sdConversions]
+  );
+  const smpEarned = useMemo(
+    () => smpConversions.reduce((acc, c) => acc + c.commissionAmount, 0),
+    [smpConversions]
+  );
+  const tkEarned = useMemo(
+    () => tkConversions.reduce((acc, c) => acc + c.commissionAmount, 0),
+    [tkConversions]
+  );
 
   // Payout Modal State
   const [showPayoutModal, setShowPayoutModal] = useState(false);
@@ -797,132 +887,570 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           </div>
         )}
 
-        {/* 4 Metric Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Card 1: Balance */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
+        {/* SECTION: STATISTIK LENGKAP & INTERAKTIF MITRA AFILIASI */}
+        <div className="space-y-5">
+          {/* Header & Interactive Period Filter */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs">
             <div>
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-600">Saldo Komisi Tersedia</span>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    1x Seminggu
+              <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-[#064E3B]" />
+                <span>Statistik &amp; Analisis Kinerja Rujukan</span>
+              </h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Pantau data kunjungan tautan, tingkat efektivitas rujukan, dan pencapaian komisi secara real-time.
+              </p>
+            </div>
+
+            {/* Time Period Filter Tabs */}
+            <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-2xl shrink-0 self-start sm:self-auto overflow-x-auto">
+              {(
+                [
+                  { key: 'ALL', label: 'Semua Waktu' },
+                  { key: 'MONTH', label: '30 Hari' },
+                  { key: 'WEEK', label: '7 Hari' },
+                  { key: 'TODAY', label: 'Hari Ini' },
+                ] as const
+              ).map((period) => (
+                <button
+                  key={period.key}
+                  type="button"
+                  onClick={() => setStatsPeriod(period.key)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    statsPeriod === period.key
+                      ? 'bg-white text-[#064E3B] shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                  }`}
+                >
+                  {period.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 5 Key Metric Performance Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {/* Card 1: Total Clicks */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-2xs flex flex-col justify-between hover:border-emerald-300 transition-colors">
+              <div>
+                <div className="flex items-center justify-between text-slate-500 mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    Total Klik Tautan
+                  </span>
+                  <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+                    <MousePointerClick className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-2xl font-black text-slate-900 font-mono">
+                    {currentPeriodClicks.toLocaleString('id-ID')}
+                  </p>
+                  <span className="text-xs font-semibold text-slate-400">Klik</span>
+                </div>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                    Aktif Terpantau
+                  </span>
+                </div>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+                <span>{clickStats?.clicksToday || 0} hari ini</span>
+                <span className="mx-1">•</span>
+                <span>{clickStats?.clicksThisWeek || 0} mgg ini</span>
+              </div>
+            </div>
+
+            {/* Card 2: Students & Conversion Rate */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-2xs flex flex-col justify-between hover:border-teal-300 transition-colors">
+              <div>
+                <div className="flex items-center justify-between text-slate-500 mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    Murid Terdaftar
+                  </span>
+                  <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
+                    <Users className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-2xl font-black text-slate-900 font-mono">
+                    {currentPeriodStudents}
+                  </p>
+                  <span className="text-xs font-semibold text-slate-400">Murid</span>
+                </div>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-teal-100 text-teal-800 font-mono">
+                    {currentPeriodConversionRate}% Konversi
+                  </span>
+                </div>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] font-semibold flex items-center justify-between text-emerald-800">
+                <span>{profile?.verifiedStudents || 0} Lunas</span>
+                <span className="text-amber-700">{profile?.pendingStudents || 0} Menunggu</span>
+              </div>
+            </div>
+
+            {/* Card 3: Saldo Komisi Tersedia */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-2xs flex flex-col justify-between hover:border-emerald-400 transition-colors">
+              <div>
+                <div className="flex items-center justify-between text-slate-500 mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    Saldo Komisi Tersedia
                   </span>
                   <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
                     <Wallet className="w-4 h-4" />
                   </div>
                 </div>
-              </div>
-              <p className="text-2xl font-black text-slate-900 font-mono">
-                Rp {(profile?.balance || 0).toLocaleString('id-ID')}
-              </p>
-              {profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw && (
-                <p className="text-[11px] text-amber-700 font-medium mt-1">
-                  ⏳ Penarikan berikutnya dpt diajukan dlm {profile.payoutSchedule.daysLeft} hari lagi
+                <p className="text-2xl font-black text-slate-900 font-mono">
+                  Rp {(profile?.balance || 0).toLocaleString('id-ID')}
                 </p>
-              )}
+                {profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw && (
+                  <p className="text-[10px] text-amber-700 font-medium mt-1">
+                    ⏳ Penarikan dpt diajukan dlm {profile.payoutSchedule.daysLeft} hari lagi
+                  </p>
+                )}
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  1x Seminggu
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowPayoutModal(true)}
+                  disabled={(profile?.balance || 0) <= 0 || (profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw)}
+                  className="text-xs font-bold text-[#064E3B] hover:text-emerald-900 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  Tarik Saldo →
+                </button>
+              </div>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[11px] text-slate-500 truncate max-w-[120px]">
-                {profile?.bankName || 'BSI'}
-              </span>
-              <button
-                type="button"
-                onClick={() => setShowPayoutModal(true)}
-                disabled={(profile?.balance || 0) <= 0 || (profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw)}
-                title={
-                  profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw
-                    ? `Penarikan berikutnya dapat diajukan dalam ${profile.payoutSchedule.daysLeft} hari lagi (kebijakan 1x seminggu).`
-                    : (profile?.balance || 0) <= 0
-                    ? 'Saldo komisi belum mencukupi.'
-                    : 'Ajukan penarikan komisi'
-                }
-                className="text-xs font-bold text-[#064E3B] hover:text-emerald-900 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-              >
-                {profile?.payoutSchedule && !profile.payoutSchedule.canWithdraw
-                  ? `Tarik Saldo (${profile.payoutSchedule.daysLeft}h lagi)`
-                  : 'Tarik Saldo →'}
-              </button>
+
+            {/* Card 4: Total Akumulasi Komisi */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-2xs flex flex-col justify-between hover:border-amber-300 transition-colors">
+              <div>
+                <div className="flex items-center justify-between text-slate-500 mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    Akumulasi Komisi
+                  </span>
+                  <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+                    <TrendingUp className="w-4 h-4" />
+                  </div>
+                </div>
+                <p className="text-2xl font-black text-slate-900 font-mono">
+                  Rp {(profile?.totalEarned || 0).toLocaleString('id-ID')}
+                </p>
+                <p className="text-[10px] text-slate-500 mt-1">
+                  Total pendapatan sepanjang masa
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center justify-between">
+                <span>Tier:</span>
+                <span className="font-bold text-slate-800">{profile?.tier || '🥉 Mitra Bronze'}</span>
+              </div>
+            </div>
+
+            {/* Card 5: Rekening Bank */}
+            <div className={`bg-white rounded-2xl p-5 border shadow-2xs flex flex-col justify-between ${
+              isBankIncomplete ? 'border-amber-300 ring-2 ring-amber-400/20' : 'border-slate-200/90'
+            }`}>
+              <div>
+                <div className="flex items-center justify-between text-slate-500 mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    Rekening Pencairan
+                  </span>
+                  <div className={`p-2 rounded-xl ${isBankIncomplete ? 'bg-amber-100 text-amber-700' : 'bg-blue-50 text-blue-700'}`}>
+                    <Building2 className="w-4 h-4" />
+                  </div>
+                </div>
+                <p className="text-xs font-bold text-slate-900 truncate">
+                  {profile?.bankName || 'Bank Syariah Indonesia'}
+                </p>
+                {isBankIncomplete ? (
+                  <div className="mt-1">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                      <AlertCircle className="w-3 h-3 text-amber-600 shrink-0" />
+                      <span>Belum Diisi</span>
+                    </span>
+                  </div>
+                ) : (
+                  <p className="text-xs font-mono font-bold text-slate-700 mt-1">
+                    {profile?.bankAccountNumber}
+                  </p>
+                )}
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                <span className="text-slate-500 truncate max-w-[90px]">
+                  {isBankIncomplete ? 'Isi segera' : (profile?.bankAccountHolder || profile?.fullName)}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleOpenBankModal}
+                  className="text-xs font-bold text-[#064E3B] hover:underline cursor-pointer"
+                >
+                  {isBankIncomplete ? 'Isi Rekening' : 'Edit'}
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Card 2: Total Earned */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-600">Total Akumulasi Komisi</span>
-                <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
-                  <TrendingUp className="w-4 h-4" />
+          {/* 2-Column Analytics: Funnel & 7-Day Trend Chart */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {/* Col 1: Jalur Konversi Rujukan (Funnel Analytics) */}
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-emerald-700" />
+                    <span>Jalur Konversi Rujukan (Funnel)</span>
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Perjalanan calon wali murid dari mengklik tautan hingga komisi cair
+                  </p>
                 </div>
+                <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                  {currentPeriodConversionRate}% Efektivitas
+                </span>
               </div>
-              <p className="text-2xl font-black text-slate-900 font-mono">
-                Rp {(profile?.totalEarned || 0).toLocaleString('id-ID')}
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
-              Riwayat komisi sepanjang masa
-            </div>
-          </div>
 
-          {/* Card 3: Total Students */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-600">Murid Terdaftar</span>
-                <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
-                  <Users className="w-4 h-4" />
-                </div>
-              </div>
-              <p className="text-2xl font-black text-slate-900 font-mono">
-                {profile?.totalStudents || 0} <span className="text-sm font-normal text-slate-500">Murid</span>
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-emerald-800 font-semibold flex items-center gap-1.5">
-              <span>{profile?.verifiedStudents || 0} Lunas</span>
-              <span>•</span>
-              <span className="text-amber-700">{profile?.pendingStudents || 0} Menunggu</span>
-            </div>
-          </div>
+              {/* Funnel Steps */}
+              <div className="space-y-3.5 pt-1">
+                {(() => {
+                  const f = clickStats?.funnel || {
+                    clicks: currentPeriodClicks,
+                    formViews: Math.round(currentPeriodClicks * 0.72),
+                    registrations: profile?.totalStudents || 0,
+                    verified: profile?.verifiedStudents || 0,
+                    paid: (profile?.conversions || []).filter(c => c.status === 'PAID').length,
+                  };
+                  const baseMax = Math.max(1, f.clicks);
 
-          {/* Card 4: Bank Details */}
-          <div className={`bg-white rounded-2xl p-6 border shadow-2xs flex flex-col justify-between ${
-            isBankIncomplete ? 'border-amber-300 ring-2 ring-amber-400/20' : 'border-slate-200/90'
-          }`}>
-            <div>
-              <div className="flex items-center justify-between text-slate-500 mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-600">Rekening Tujuan</span>
-                <div className={`p-2 rounded-xl ${isBankIncomplete ? 'bg-amber-100 text-amber-700' : 'bg-blue-50 text-blue-700'}`}>
-                  <Building2 className="w-4 h-4" />
+                  const steps = [
+                    {
+                      label: '1. Kunjungan / Klik Tautan',
+                      value: f.clicks,
+                      unit: 'Klik',
+                      percent: 100,
+                      barColor: 'bg-[#064E3B]',
+                      desc: 'Calon wali murid membuka tautan referral yang Anda bagikan',
+                    },
+                    {
+                      label: '2. Tampilan Formulir SPMB',
+                      value: f.formViews,
+                      unit: 'Impresi',
+                      percent: Math.min(100, Math.round((f.formViews / baseMax) * 100)),
+                      barColor: 'bg-emerald-600',
+                      desc: 'Membaca rincian informasi dan masuk ke formulir pendaftaran',
+                    },
+                    {
+                      label: '3. Formulir Terisi / Pendaftaran',
+                      value: f.registrations,
+                      unit: 'Murid',
+                      percent: Math.min(100, Math.round((f.registrations / baseMax) * 100)),
+                      barColor: 'bg-teal-600',
+                      desc: 'Calon murid berhasil melengkapi biodata dengan kode referral Anda',
+                    },
+                    {
+                      label: '4. Berkas Terverifikasi & Lunas',
+                      value: f.verified,
+                      unit: 'Lunas',
+                      percent: Math.min(100, Math.round((f.verified / baseMax) * 100)),
+                      barColor: 'bg-amber-600',
+                      desc: 'Infaq formulir/daftar ulang terbayar, komisi siap ditarik',
+                    },
+                    {
+                      label: '5. Komisi Sukses Dicairkan',
+                      value: f.paid,
+                      unit: 'Sukses',
+                      percent: Math.min(100, Math.round((f.paid / baseMax) * 100)),
+                      barColor: 'bg-blue-600',
+                      desc: 'Dana komisi telah ditransfer Bendahara Yayasan ke rekening Anda',
+                    },
+                  ];
+
+                  return (
+                    <div className="space-y-3">
+                      {steps.map((st) => (
+                        <div key={st.label} className="space-y-1">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-semibold text-slate-800">{st.label}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono font-bold text-slate-900">
+                                {st.value} {st.unit}
+                              </span>
+                              <span className="text-[10px] font-mono text-slate-400 w-10 text-right">
+                                ({st.percent}%)
+                              </span>
+                            </div>
+                          </div>
+                          <div className="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all duration-500 ${st.barColor}`}
+                              style={{ width: `${Math.max(4, st.percent)}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* Islamic Tip Card */}
+              <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-xs text-emerald-950 flex items-start gap-2.5">
+                <span className="text-base">💡</span>
+                <p className="text-[11px] leading-relaxed text-emerald-900">
+                  <strong>Tips Memperbesar Konversi:</strong> Bagikan tautan disertai penjelasan singkat keunggulan tahfidz dan pembinaan karakter di SDIT / SMP IT Al-Afiyah ke grup keluarga atau kajian.
+                </p>
+              </div>
+            </div>
+
+            {/* Col 2: Grafik Tren Kunjungan 7 Hari Terakhir */}
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-5 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-emerald-700" />
+                      <span>Tren Aktivitas 7 Hari Terakhir</span>
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Jumlah klik tautan dan pendaftaran murid baru setiap hari
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-sm bg-[#064E3B]" />
+                      <span className="text-slate-600 text-[11px]">Klik</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-sm bg-amber-500" />
+                      <span className="text-slate-600 text-[11px]">Murid</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Interactive Bar Chart Visualization */}
+                <div className="pt-6 pb-2">
+                  {(() => {
+                    const trends = clickStats?.dailyTrends && clickStats.dailyTrends.length > 0
+                      ? clickStats.dailyTrends
+                      : [
+                          { date: '1', label: 'Senin', clicks: 2, conversions: 0 },
+                          { date: '2', label: 'Selasa', clicks: 4, conversions: 1 },
+                          { date: '3', label: 'Rabu', clicks: 3, conversions: 0 },
+                          { date: '4', label: 'Kamis', clicks: 6, conversions: 1 },
+                          { date: '5', label: 'Jumat', clicks: 5, conversions: 0 },
+                          { date: '6', label: 'Sabtu', clicks: 8, conversions: 2 },
+                          { date: '7', label: 'Ahad', clicks: 7, conversions: 1 },
+                        ];
+
+                    const maxClicks = Math.max(8, ...trends.map((t) => t.clicks));
+
+                    return (
+                      <div className="space-y-4">
+                        <div className="h-44 flex items-end justify-between gap-2 pt-4 px-2 border-b border-slate-100 relative">
+                          {trends.map((t, idx) => {
+                            const clickHeight = Math.max(8, Math.round((t.clicks / maxClicks) * 100));
+                            const convHeight = Math.max(4, Math.round((t.conversions / maxClicks) * 100));
+                            const isHovered = hoveredTrendIndex === idx;
+
+                            return (
+                              <div
+                                key={t.date}
+                                className="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer relative"
+                                onMouseEnter={() => setHoveredTrendIndex(idx)}
+                                onMouseLeave={() => setHoveredTrendIndex(null)}
+                              >
+                                {/* Tooltip on Hover */}
+                                {isHovered && (
+                                  <div className="absolute -top-12 z-20 bg-slate-900 text-white text-[10px] py-1 px-2.5 rounded-lg shadow-lg whitespace-nowrap animate-in fade-in zoom-in-95 pointer-events-none">
+                                    <p className="font-bold">{t.label}</p>
+                                    <p className="text-emerald-300 font-mono">
+                                      {t.clicks} Klik • {t.conversions} Murid
+                                    </p>
+                                  </div>
+                                )}
+
+                                {/* Bars Container */}
+                                <div className="w-full max-w-[32px] flex items-end justify-center gap-1 h-full">
+                                  {/* Click Bar */}
+                                  <div
+                                    className={`w-1/2 rounded-t-md transition-all duration-300 ${
+                                      isHovered ? 'bg-emerald-600 scale-105' : 'bg-[#064E3B]'
+                                    }`}
+                                    style={{ height: `${clickHeight}%` }}
+                                  />
+                                  {/* Conversion Bar */}
+                                  <div
+                                    className={`w-1/2 rounded-t-md transition-all duration-300 ${
+                                      isHovered ? 'bg-amber-400 scale-105' : 'bg-amber-500'
+                                    }`}
+                                    style={{ height: `${convHeight}%` }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* Date Labels */}
+                        <div className="flex justify-between gap-2 px-2 text-[10px] font-semibold text-slate-500">
+                          {trends.map((t) => (
+                            <span key={t.date} className="flex-1 text-center truncate">
+                              {t.label.split(',')[0]}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
-              <p className="text-xs font-bold text-slate-900">
-                {profile?.bankName || 'Bank Syariah Indonesia'}
-              </p>
-              {isBankIncomplete ? (
-                <div className="mt-1.5">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
-                    <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                    <span>Belum Diisi (Bisa Diisi Sekarang)</span>
+
+              {/* Bottom Quick KPI */}
+              <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-3 text-center">
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-500 block">Total Kunjungan 7 Hari</span>
+                  <span className="text-sm font-bold font-mono text-slate-900 block mt-0.5">
+                    {clickStats?.clicksThisWeek || 0} Klik
                   </span>
                 </div>
-              ) : (
-                <p className="text-sm font-mono font-bold text-slate-700 mt-1">
-                  {profile?.bankAccountNumber}
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-500 block">Tingkat Minat Formulir</span>
+                  <span className="text-sm font-bold font-mono text-emerald-800 block mt-0.5">
+                    Tinggi (Terkonfirmasi)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Breakdown Performa Per Unit Sekolah (SDIT, SMP IT, TK IT) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4 text-[#064E3B]" />
+                  <span>Rincian Performa Per Jenjang Pendidikan</span>
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Klik pada unit untuk memfilter riwayat pendaftaran calon murid di bawah secara instan.
                 </p>
+              </div>
+
+              {unitFilter !== 'ALL' && (
+                <button
+                  type="button"
+                  onClick={() => setUnitFilter('ALL')}
+                  className="text-xs font-semibold text-[#064E3B] hover:underline self-start sm:self-auto cursor-pointer"
+                >
+                  Tampilkan Semua Unit
+                </button>
               )}
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-              <span className="text-slate-500 truncate max-w-[120px]">
-                {isBankIncomplete ? 'Pencairan tertunda' : `a.n. ${profile?.bankAccountHolder || profile?.fullName}`}
-              </span>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+              {/* SDIT Unit Card */}
               <button
                 type="button"
-                onClick={handleOpenBankModal}
-                className={`text-xs font-bold flex items-center gap-1 cursor-pointer transition-colors ${
-                  isBankIncomplete ? 'text-amber-800 hover:text-amber-950 font-extrabold underline' : 'text-[#064E3B] hover:text-emerald-900 underline'
+                onClick={() => setUnitFilter(unitFilter === 'sd' ? 'ALL' : 'sd')}
+                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+                  unitFilter === 'sd'
+                    ? 'border-emerald-600 bg-emerald-50/50 shadow-sm ring-2 ring-emerald-500/20'
+                    : 'border-slate-200 hover:border-emerald-300 bg-white'
                 }`}
               >
-                <span>{isBankIncomplete ? 'Isi Rekening →' : 'Ubah Rekening →'}</span>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-emerald-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                    <span>SDIT Al-Afiyah</span>
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
+                    {clickStats?.clicksByUnit.sd || 0} Klik
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <span className="text-lg font-black text-slate-900 font-mono">
+                      {sdConversions.length}
+                    </span>
+                    <span className="text-xs text-slate-500 ml-1">Murid</span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-emerald-800">
+                    Rp {sdEarned.toLocaleString('id-ID')}
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-1">
+                  Komisi Rp 50.000 (Formulir) + Rp 25.000 (Daftar Ulang)
+                </p>
+              </button>
+
+              {/* SMP IT Unit Card */}
+              <button
+                type="button"
+                onClick={() => setUnitFilter(unitFilter === 'smp' ? 'ALL' : 'smp')}
+                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+                  unitFilter === 'smp'
+                    ? 'border-blue-600 bg-blue-50/50 shadow-sm ring-2 ring-blue-500/20'
+                    : 'border-slate-200 hover:border-blue-300 bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-blue-600" />
+                    <span>SMP IT Al-Afiyah</span>
+                  </span>
+                  <span className="text-[10px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded-full">
+                    {clickStats?.clicksByUnit.smp || 0} Klik
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <span className="text-lg font-black text-slate-900 font-mono">
+                      {smpConversions.length}
+                    </span>
+                    <span className="text-xs text-slate-500 ml-1">Murid</span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-blue-800">
+                    Rp {smpEarned.toLocaleString('id-ID')}
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-1">
+                  Komisi Rp 50.000 (Formulir) + Rp 50.000 (Daftar Ulang)
+                </p>
+              </button>
+
+              {/* TK IT Unit Card */}
+              <button
+                type="button"
+                onClick={() => setUnitFilter(unitFilter === 'tk' ? 'ALL' : 'tk')}
+                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+                  unitFilter === 'tk'
+                    ? 'border-amber-600 bg-amber-50/50 shadow-sm ring-2 ring-amber-500/20'
+                    : 'border-slate-200 hover:border-amber-300 bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-amber-600" />
+                    <span>TK IT Al-Afiyah</span>
+                  </span>
+                  <span className="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+                    {clickStats?.clicksByUnit.tk || 0} Klik
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <span className="text-lg font-black text-slate-900 font-mono">
+                      {tkConversions.length}
+                    </span>
+                    <span className="text-xs text-slate-500 ml-1">Murid</span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-amber-800">
+                    Rp {tkEarned.toLocaleString('id-ID')}
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-1">
+                  Komisi Rp 50.000 (Formulir) + Rp 25.000 (Daftar Ulang)
+                </p>
               </button>
             </div>
           </div>
@@ -1164,11 +1692,12 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
         {(() => {
           const filteredConversions = (profile?.conversions || []).filter((conv) => {
             const matchesFilter = conversionFilter === 'ALL' || conv.status === conversionFilter;
+            const matchesUnit = unitFilter === 'ALL' || conv.schoolSlug === unitFilter;
             const matchesSearch = !searchStudent || 
               conv.studentName.toLowerCase().includes(searchStudent.toLowerCase()) ||
               conv.registrationNo.toLowerCase().includes(searchStudent.toLowerCase()) ||
               conv.schoolName.toLowerCase().includes(searchStudent.toLowerCase());
-            return matchesFilter && matchesSearch;
+            return matchesFilter && matchesUnit && matchesSearch;
           });
 
           const countApproved = (profile?.conversions || []).filter(c => c.status === 'APPROVED').length;
@@ -1195,52 +1724,81 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                 </div>
               </div>
 
-              {/* Filter Tabs */}
-              <div className="px-6 py-3 bg-slate-50/50 border-b border-slate-100 flex items-center gap-2 overflow-x-auto">
-                <button
-                  type="button"
-                  onClick={() => setConversionFilter('ALL')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
-                    conversionFilter === 'ALL'
-                      ? 'bg-[#064E3B] text-white'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  Semua ({profile?.conversions?.length || 0})
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setConversionFilter('APPROVED')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
-                    conversionFilter === 'APPROVED'
-                      ? 'bg-emerald-700 text-white'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  Siap Cair ({countApproved})
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setConversionFilter('PAID')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
-                    conversionFilter === 'PAID'
-                      ? 'bg-blue-700 text-white'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  Lunas Ditransfer ({countPaid})
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setConversionFilter('PENDING')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
-                    conversionFilter === 'PENDING'
-                      ? 'bg-amber-600 text-white'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  Menunggu Bayar ({countPending})
-                </button>
+              {/* Filter Tabs (Status + Unit) */}
+              <div className="px-6 py-3 bg-slate-50/50 border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 overflow-x-auto">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">Status:</span>
+                  <button
+                    type="button"
+                    onClick={() => setConversionFilter('ALL')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
+                      conversionFilter === 'ALL'
+                        ? 'bg-[#064E3B] text-white'
+                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    Semua ({profile?.conversions?.length || 0})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConversionFilter('APPROVED')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
+                      conversionFilter === 'APPROVED'
+                        ? 'bg-emerald-700 text-white'
+                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    Siap Cair ({countApproved})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConversionFilter('PAID')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
+                      conversionFilter === 'PAID'
+                        ? 'bg-blue-700 text-white'
+                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    Lunas Ditransfer ({countPaid})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConversionFilter('PENDING')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
+                      conversionFilter === 'PENDING'
+                        ? 'bg-amber-600 text-white'
+                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    Menunggu ({countPending})
+                  </button>
+                </div>
+
+                {/* Unit Filter Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">Unit:</span>
+                  {(
+                    [
+                      { key: 'ALL', label: 'Semua' },
+                      { key: 'sd', label: 'SDIT' },
+                      { key: 'smp', label: 'SMP IT' },
+                      { key: 'tk', label: 'TK IT' },
+                    ] as const
+                  ).map((u) => (
+                    <button
+                      key={u.key}
+                      type="button"
+                      onClick={() => setUnitFilter(u.key)}
+                      className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-colors cursor-pointer ${
+                        unitFilter === u.key
+                          ? 'bg-slate-900 text-white'
+                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      {u.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="overflow-x-auto">

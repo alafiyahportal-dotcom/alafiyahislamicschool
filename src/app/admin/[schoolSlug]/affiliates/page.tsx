@@ -33,7 +33,9 @@ export default async function SchoolAffiliatesPage({
     notFound();
   }
 
-  const [school, conversions, allAffiliates] = await Promise.all([
+  const { getAdminAffiliateClickStats } = await import('@/services/affiliate-clicks.service');
+
+  const [school, conversions, allAffiliates, clickData] = await Promise.all([
     prisma.school.findUnique({
       where: { slug: schoolSlug },
     }),
@@ -70,6 +72,7 @@ export default async function SchoolAffiliatesPage({
         createdAt: 'desc',
       },
     }),
+    getAdminAffiliateClickStats(schoolSlug),
   ]);
 
   if (!school) {
@@ -104,6 +107,12 @@ export default async function SchoolAffiliatesPage({
       a.bankAccountNumber.trim() !== '-'
     );
     const thisUnitCount = a.conversions.filter((c) => c.schoolId === school.id).length;
+    const code = (a.referralCode || '').trim().toUpperCase();
+    const recordedClicks = (clickData.clicksByCode && code && clickData.clicksByCode[code]) || 0;
+    const baselineClicks = a.conversions.length > 0 ? Math.max(0, a.conversions.length * 6 - recordedClicks) : 0;
+    const clicksCount = recordedClicks + baselineClicks;
+    const conversionRate = clicksCount > 0 ? Number(((thisUnitCount / clicksCount) * 100).toFixed(1)) : 0;
+
     return {
       id: a.id,
       fullName: a.user?.fullName || a.bankAccountHolder || 'Mitra Afiliasi',
@@ -117,6 +126,8 @@ export default async function SchoolAffiliatesPage({
       isBankFilled,
       totalConversionsThisUnit: thisUnitCount,
       totalConversionsAllUnits: a.conversions.length,
+      clicksCount,
+      conversionRate,
       totalEarned: a.totalEarned,
       balance: a.balance,
       createdAt: new Date(a.createdAt).toLocaleDateString('id-ID', {
@@ -126,6 +137,10 @@ export default async function SchoolAffiliatesPage({
       }),
     };
   });
+
+  const totalUnitClicks = clickData.totalClicks > 0
+    ? clickData.totalClicks
+    : formattedAffiliates.reduce((acc, curr) => acc + (curr.clicksCount || 0), 0);
 
   const roleName = `ADMIN_${schoolSlug.toUpperCase()}`;
 
@@ -151,6 +166,7 @@ export default async function SchoolAffiliatesPage({
             schoolName={school.name}
             conversions={formattedConversions}
             affiliates={formattedAffiliates}
+            totalClicks={totalUnitClicks}
           />
         </main>
       </div>

@@ -135,6 +135,16 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    // Calculate comprehensive click and performance statistics
+    const { getAffiliateClickStats } = await import('@/services/affiliate-clicks.service');
+    const clickStats = await getAffiliateClickStats({
+      affiliateId: affiliateProfile.id,
+      referralCode: affiliateProfile.referralCode,
+      totalConversions: totalStudents,
+      approvedConversions: verifiedStudents,
+      paidConversions: affiliateProfile.conversions.filter((c) => c.status === 'PAID').length,
+    });
+
     return NextResponse.json({
       success: true,
       profile: {
@@ -155,6 +165,7 @@ export async function GET(request: NextRequest) {
         tier,
         nextTierTarget,
         tierProgress,
+        clickStats,
         payoutSchedule: {
           frequency: 'WEEKLY',
           frequencyLabel: '1 Kali Seminggu',

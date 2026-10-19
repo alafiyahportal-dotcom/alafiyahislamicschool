@@ -71,6 +71,26 @@ export async function GET(
     }
   }
 
+  // Record click event asynchronously
+  try {
+    const { recordAffiliateClick } = await import('@/services/affiliate-clicks.service');
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
+    const userAgent = request.headers.get('user-agent') || '';
+    const referrer = request.headers.get('referer') || '';
+    
+    // Non-blocking execution
+    recordAffiliateClick({
+      referralCode,
+      schoolSlug,
+      isDirectForm,
+      ip,
+      userAgent,
+      referrer,
+    }).catch(() => {});
+  } catch {
+    // Non-blocking
+  }
+
   const redirectUrl = new URL(`${targetPath}?ref=${encodeURIComponent(referralCode)}`, request.url);
   const response = NextResponse.redirect(redirectUrl);
 
@@ -90,3 +110,4 @@ export async function GET(
 
   return response;
 }
+

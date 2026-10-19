@@ -23,6 +23,7 @@ import { Suspense } from "react";
 import Script from "next/script";
 import ReferralTracker from "@/components/shared/ReferralTracker";
 import DynamicUnitThemeColorSync from "@/components/shared/DynamicUnitThemeColorSync";
+import SdWelcomeSplash from "@/components/shared/SdWelcomeSplash";
 import GoogleStructuredData from "@/components/seo/GoogleStructuredData";
 
 export const viewport: Viewport = {
@@ -147,6 +148,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <ReferralTracker />
           <DynamicUnitThemeColorSync />
+          <SdWelcomeSplash />
         </Suspense>
         {children}
       </body>

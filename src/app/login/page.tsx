@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { 
   ArrowLeft,
   Loader2,
@@ -21,7 +22,10 @@ interface UnitTheme {
   label: string;
   badge: string;
   name: string;
+  fullName: string;
   subtitle: string;
+  welcomeSubtitle: string;
+  footerLabel: string;
   logo: string;
   primaryColor: string;
   accentColor: string;
@@ -39,7 +43,10 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     label: 'SDIT',
     badge: 'SDIT AL-AFIYAH MAJALENGKA',
     name: 'SDIT Al-Afiyah',
+    fullName: 'SDIT Al-Afiyah Majalengka',
     subtitle: 'Smart • Akhlak • Fitrah',
+    welcomeSubtitle: 'Portal Resmi Akademik & SPMB SDIT Al-Afiyah Majalengka',
+    footerLabel: 'SDIT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol',
     logo: '/images/sd-logo.png',
     primaryColor: '#00A651',
     accentColor: '#D97706',
@@ -55,7 +62,10 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     label: 'SMP IT',
     badge: 'SMP IT AL-AFIYAH MAJALENGKA',
     name: 'SMP IT Al-Afiyah',
+    fullName: 'SMP IT Al-Afiyah Majalengka',
     subtitle: 'Be Smart & Religious',
+    welcomeSubtitle: 'Portal Resmi Akademik & SPMB SMP IT Al-Afiyah Majalengka',
+    footerLabel: 'SMP IT Al-Afiyah • Yayasan Pendidikan Imam Bonjol',
     logo: '/images/smp-logo.png',
     primaryColor: '#030164',
     accentColor: '#ffd51e',
@@ -71,7 +81,10 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     label: 'TK IT',
     badge: 'TK IT AL-AFIYAH MAJALENGKA',
     name: 'TK IT Al-Afiyah',
+    fullName: 'TK IT Al-Afiyah Majalengka',
     subtitle: 'Pondasi Karakter Usia Dini',
+    welcomeSubtitle: 'Portal Resmi Akademik & SPMB TK IT Al-Afiyah Majalengka',
+    footerLabel: 'TK IT Al-Afiyah • Yayasan Pendidikan Imam Bonjol',
     logo: '/images/sd-logo.png',
     primaryColor: '#0284c7',
     accentColor: '#FBBF24',
@@ -87,7 +100,10 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     label: 'Yayasan',
     badge: 'YAYASAN PENDIDIKAN IMAM BONJOL',
     name: 'Yayasan Imam Bonjol',
+    fullName: 'Yayasan Pendidikan Imam Bonjol Majalengka',
     subtitle: 'Pendidikan Islam Terpadu Al-Afiyah',
+    welcomeSubtitle: 'Portal Pusat Administrasi & Kemitraan Seluruh Unit Pendidikan',
+    footerLabel: 'Yayasan Pendidikan Imam Bonjol Majalengka',
     logo: '/images/sd-logo.png',
     primaryColor: '#184F48',
     accentColor: '#D97706',
@@ -242,19 +258,29 @@ export default function LoginPage() {
         </span>
       </header>
 
-      {/* Main Container: Modern Mobile Card Layout */}
-      <main className="max-w-md mx-auto w-full my-auto">
+      {/* Main Container: Modern Mobile Card Layout with Framer Motion */}
+      <motion.main
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="max-w-md mx-auto w-full my-auto"
+      >
         <div className="rounded-[32px] overflow-hidden shadow-xl border border-slate-200/80 bg-white">
           
           {/* Top Brand Header Section */}
-          <div className={`relative px-6 pt-8 pb-9 sm:pt-9 sm:pb-10 text-center text-white bg-gradient-to-b ${currentTheme.headerBg} relative overflow-hidden transition-colors duration-500`}>
+          <div className={`relative px-6 pt-7 pb-8 sm:pt-8 sm:pb-9 text-center text-white bg-gradient-to-b ${currentTheme.headerBg} relative overflow-hidden transition-colors duration-500`}>
             
             {/* Subtle organic light shape */}
             <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none" />
             <div className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-black/10 blur-xl pointer-events-none" />
 
-            {/* School Logo Badge Card */}
-            <div className="relative z-10 w-20 h-20 mx-auto rounded-2xl bg-white p-2.5 shadow-md flex items-center justify-center border border-white/40 mb-4 transition-transform hover:scale-105 duration-300">
+            {/* School Logo Badge Card with Spring Scale Animation */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 240, damping: 20, delay: 0.1 }}
+              className="relative z-10 w-20 h-20 mx-auto rounded-2xl bg-white p-2.5 shadow-md flex items-center justify-center border border-white/40 mb-3.5 transition-transform hover:scale-105 duration-300"
+            >
               <Image
                 src={currentTheme.logo}
                 alt={currentTheme.name}
@@ -263,16 +289,24 @@ export default function LoginPage() {
                 className="object-contain max-h-16 w-auto"
                 priority
               />
-            </div>
+            </motion.div>
 
-            {/* Title & Subtitle */}
-            <div className="relative z-10">
-              <h1 className="text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-snug">
-                Selamat Datang!
-              </h1>
-              <p className="text-xs sm:text-sm text-white/90 font-medium mt-1">
-                Masuk ke akun {currentTheme.name}
+            {/* Islamic Bismillah & Welcome Greetings */}
+            <div className="relative z-10 space-y-1">
+              <p className="font-arabic text-xs sm:text-sm text-amber-200/90 font-medium tracking-wide drop-shadow-xs">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
               </p>
+              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
+                Selamat Datang di Portal Resmi
+              </h1>
+              <p className="text-xs sm:text-sm text-white/95 font-semibold">
+                {currentTheme.fullName}
+              </p>
+              <div className="pt-1">
+                <span className="inline-flex items-center px-3 py-0.5 rounded-full bg-white/15 backdrop-blur-xs text-[10px] sm:text-[11px] font-semibold text-white/90 border border-white/20 tracking-wider">
+                  {currentTheme.subtitle}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -383,7 +417,7 @@ export default function LoginPage() {
             </form>
 
             {/* Divider & Registration Prompt */}
-            <div className="border-t border-slate-100 my-6" />
+            <div className="border-t border-slate-100 my-5" />
 
             <div className="text-center text-xs font-medium text-slate-600 space-y-2">
               <div>
@@ -405,16 +439,23 @@ export default function LoginPage() {
                   Cek Status Pendaftaran Murid
                 </Link>
               </div>
+
+              {/* Bottom Card Identity Footer */}
+              <div className="pt-3 border-t border-slate-100/80">
+                <p className="text-[11px] font-semibold text-slate-500">
+                  {currentTheme.footerLabel}
+                </p>
+              </div>
             </div>
 
           </div>
 
         </div>
-      </main>
+      </motion.main>
 
       {/* Footer Copyright */}
       <footer className="max-w-md mx-auto w-full text-center text-xs text-slate-400 pt-5">
-        © 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Hak Cipta Dilindungi.
+        © 2026 {currentTheme.footerLabel}. Hak Cipta Dilindungi.
       </footer>
 
       {/* Islamic Toast Notification */}
