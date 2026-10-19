@@ -17,9 +17,11 @@ import {
   Languages
 } from 'lucide-react';
 
+import { getDepartmentByRole } from '@/components/landing/SchoolLandingTemplate';
+
 export const metadata: Metadata = {
-  title: 'Dewan Asatidz & Pendidik SMP IT Al-Afiyah',
-  description: 'Profil dewan asatidz pembina tahfidz Al-Qur\'an bersanad, guru bahasa Arab, pengajar sains akademik, dan pelatih Futsal Development Program SMP IT Al-Afiyah Majalengka.',
+  title: 'Struktur Organisasi & Tenaga Pendidik SMP IT Al-Afiyah',
+  description: 'Struktur kepengurusan Yayasan Pendidikan Imam Bonjol, kepala sekolah, komite, pks kurikulum, dewan asatidz tahfidz bersanad, staf tata usaha, dan pengembang sistem digital SMP IT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -29,8 +31,8 @@ export const metadata: Metadata = {
     apple: '/images/smp-icon-192.png',
   },
   openGraph: {
-    title: 'Dewan Asatidz & Pendidik SMP IT Al-Afiyah',
-    description: 'Pendidik berakhlak Qur\'ani, kompeten di bidangnya, dan berdedikasi membina murid.',
+    title: 'Struktur Organisasi & Tenaga Pendidik SMP IT Al-Afiyah',
+    description: 'Tata kelola kepengurusan yayasan, kepala satuan pendidikan, asatidz pembina tahfidz bersanad, sarana prasarana, tata usaha, dan tim sistem IT Al-Afiyah.',
     images: ['/images/smp-og.jpg'],
   },
 };
@@ -167,21 +169,22 @@ export default async function SmpGuruPage() {
               <span>Beranda SMP IT</span>
             </Link>
             <ChevronRight className="w-3 h-3 text-blue-300/50" />
-            <span className="text-[#ffd51e] font-semibold">Dewan Asatidz &amp; Pendidik</span>
+            <span className="text-[#ffd51e] font-semibold">Struktur Organisasi &amp; Tim</span>
           </nav>
 
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
               <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Pendidik Kompeten, Berkarakter &amp; Berdedikasi</span>
+              <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dewan Guru &amp; Asatidzah SMP IT
+              Struktur Kepengurusan &amp; Tenaga Pendidik <br className="hidden sm:inline" />
+              SMP&nbsp;IT Al-Afiyah
             </h1>
 
             <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Para asatidz pembina tahfidz bersanad, sarjana lulusan universitas terkemuka, dan praktisi kepemudaan yang mendampingi tumbuh kembang murid secara personal dan penuh keteladanan.
+              Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, dewan asatidzah tahfidz &amp; kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.
             </p>
           </div>
         </div>
@@ -190,24 +193,27 @@ export default async function SmpGuruPage() {
       {/* Teachers Grid */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-10 sm:space-y-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {teachers.map((teacher) => (
-            <div 
-              key={teacher.id}
-              className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#030164]/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
-            >
-              <div className="space-y-3">
-                <div className="bg-[#030164] text-white rounded-xl p-3 shadow-2xs">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
-                    Amanah Pendidik
-                  </span>
-                  <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
-                    {teacher.role}
-                  </span>
-                </div>
+          {teachers.map((teacher) => {
+            const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
 
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#030164] transition-colors">
-                  {teacher.name}
-                </h3>
+            return (
+              <div 
+                key={teacher.id}
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-[#030164]/40 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
+              >
+                <div className="space-y-3">
+                  <div className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white rounded-xl p-3.5 shadow-2xs relative overflow-hidden">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
+                      {department}
+                    </span>
+                    <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                      {teacher.role}
+                    </span>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#030164] transition-colors">
+                    {teacher.name}
+                  </h3>
 
                 {teacher.specialization && (
                   <div className="mt-3 pt-3 border-t border-slate-100">
@@ -225,7 +231,8 @@ export default async function SmpGuruPage() {
                 )}
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
       </main>
 

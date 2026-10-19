@@ -153,7 +153,7 @@ const SMP_POSTERS = [
   { src: '/images/smp-program-unggulan.png', label: 'Program Unggulan & Fasilitas', file: 'Poster-Program-Unggulan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
 ];
 
-function getDepartmentByRole(role: string = '', specialization: string = ''): string {
+export function getDepartmentByRole(role: string = '', specialization: string = ''): string {
   const text = `${role} ${specialization}`.toLowerCase();
   if (text.includes('yayasan') || text.includes('penyelenggara')) return 'Penyelenggara Lembaga';
   if (text.includes('kepala sekolah') || text.includes('pimpinan')) return 'Pimpinan Satuan Pendidikan';
@@ -1487,7 +1487,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
       {/* Struktur Kepengurusan & Tenaga Pendidik */}
       {school.teachers && school.teachers.length > 0 && (
-        <section id="teachers" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+        <section id="dewan-guru" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
@@ -1883,86 +1883,6 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </section>
       )}
 
-      {/* Dewan Guru & Asatidzah Sekolah */}
-      {school.teachers && school.teachers.length > 0 && (
-        <section id="dewan-guru" className="py-16 sm:py-20 bg-slate-50 border-b border-slate-200/80 scroll-mt-16 sm:scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-700 mb-2">
-                  <span className="w-5 h-[2px] bg-emerald-600 rounded-full inline-block" />
-                  <span>Dewan Guru &amp; Tenaga Pendidik</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                  Dibimbing Langsung oleh Pendidik Berakhlak &amp; Kompeten
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
-                  Para asatidzah pembina tahfidz bersanad, sarjana pendidikan berdedikasi, dan teladan adab mulia yang mendampingi tumbuh kembang ananda di {school.name}.
-                </p>
-              </div>
-
-              <Link
-                href={school.slug === 'sd' ? '/sd/guru' : `/${school.slug}/guru`}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#064e3b] border border-emerald-200 font-bold text-xs shadow-xs transition-all active:scale-95 shrink-0"
-              >
-                <Users className="w-4 h-4 text-[#00A651]" />
-                <span>Lihat Struktur &amp; Pendidik Lengkap</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {school.teachers.slice(0, 8).map((teacher, idx) => (
-                <ScrollReveal
-                  key={teacher.id || idx}
-                  delay={(idx % 4) * 0.1}
-                  yOffset={24}
-                  duration={500}
-                  className="h-full"
-                >
-                  <div className="bg-white rounded-2xl border border-slate-200 hover:border-emerald-500/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5">
-                    <div className="space-y-3">
-                      {/* Header Badge Role */}
-                      <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3 shadow-2xs">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200 block">
-                          Amanah Pendidik
-                        </span>
-                        <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
-                          {teacher.role}
-                        </span>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-emerald-700 transition-colors">
-                          {teacher.name}
-                        </h3>
-                        {teacher.specialization && (
-                          <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                            {teacher.specialization}
-                          </p>
-                        )}
-                        {teacher.bio && (
-                          <p className="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-lg border border-slate-100 leading-relaxed">
-                            &ldquo;{teacher.bio}&rdquo;
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-                      <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                        <span>Aktif Bertugas</span>
-                      </span>
-                      <span className="text-slate-400 text-[10px]">{school.name}</span>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Testimoni Orang Tua */}
       <section

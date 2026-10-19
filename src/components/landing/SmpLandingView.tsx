@@ -40,7 +40,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { getStoredReferralCode } from '@/lib/referral';
-import type { TeacherData, NewsData, FacilityItem } from './SchoolLandingTemplate';
+import { getDepartmentByRole, type TeacherData, type NewsData, type FacilityItem } from './SchoolLandingTemplate';
 import UnitAchievementSection from './UnitAchievementSection';
 
 export interface SmpLandingViewProps {
@@ -1196,7 +1196,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
         </div>
       </section>
 
-      {/* SECTION: DEWAN ASATIDZAH & GURU PEMBINA SMP IT */}
+      {/* SECTION: STRUKTUR KEPENGURUSAN & TENAGA PENDIDIK SMP IT */}
       {teachers && teachers.length > 0 && (
         <section id="dewan-guru" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1204,72 +1204,83 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
               <div>
                 <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
                   <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                  <span>Dewan Guru &amp; Asatidzah SMP IT</span>
+                  <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                  Dibimbing Langsung oleh Asatidz Berdedikasi
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-2 leading-snug">
+                  Struktur Kepengurusan &amp; Tenaga Pendidik <br className="hidden sm:inline" />
+                  <span className="text-[#030164] inline-block">SMP&nbsp;IT Al-Afiyah</span>
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
-                  Para asatidz pembina tahfidz bersanad, sarjana berprestasi, dan pendidik berakhlak mulia yang mendampingi santri secara personal.
+                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
+                  Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, dewan asatidzah tahfidz &amp; kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.
                 </p>
               </div>
-              <Link
-                href="/smp/guru"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#030164] text-white hover:bg-[#030164]/90 text-xs font-bold transition-all shadow-sm shrink-0"
-              >
-                <span>Lihat Seluruh Dewan Guru</span>
-                <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
-              </Link>
+              <div className="flex items-center gap-3 shrink-0 flex-wrap">
+                <span className="text-xs font-semibold text-[#030164] bg-blue-50 border border-blue-200/80 px-3.5 py-2 rounded-xl">
+                  {teachers.length} Struktur &amp; Tenaga Pendidik Aktif
+                </span>
+                <Link
+                  href="/smp/guru"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#030164] text-white hover:bg-[#030164]/90 text-xs font-bold transition-all shadow-sm"
+                >
+                  <Users className="w-4 h-4 text-[#ffd51e]" />
+                  <span>Lihat Struktur &amp; Pendidik Lengkap</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#ffd51e]" />
+                </Link>
+              </div>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {teachers.slice(0, 8).map((teacher, idx) => (
-                <ScrollReveal
-                  key={teacher.id || idx}
-                  delay={(idx % 4) * 0.1}
-                  yOffset={24}
-                  duration={500}
-                  className="h-full"
-                >
-                  <div className="bg-slate-50 rounded-2xl border border-slate-200 hover:border-[#030164]/40 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5">
-                    <div className="space-y-3">
-                      {/* Header Badge Role */}
-                      <div className="bg-[#030164] text-white rounded-xl p-3 shadow-2xs">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
-                          Amanah Pendidik
-                        </span>
-                        <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
-                          {teacher.role}
-                        </span>
+              {teachers.slice(0, 8).map((teacher, idx) => {
+                const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
+
+                return (
+                  <ScrollReveal
+                    key={teacher.id || idx}
+                    delay={(idx % 4) * 0.08}
+                    yOffset={24}
+                    duration={500}
+                    className="h-full flex flex-col"
+                  >
+                    <div className="bg-white rounded-2xl border border-slate-200 hover:border-[#030164]/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5 shadow-xs">
+                      <div className="space-y-3.5">
+                        {/* Header Badge Role - Elegan Navy Blue & Gold */}
+                        <div className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white rounded-xl p-3.5 shadow-2xs relative overflow-hidden">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
+                            {department}
+                          </span>
+                          <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                            {teacher.role}
+                          </span>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-[#030164] transition-colors">
+                            {teacher.name}
+                          </h3>
+                          {teacher.specialization && (
+                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                              {teacher.specialization}
+                            </p>
+                          )}
+                          {teacher.bio && (
+                            <p className="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 leading-relaxed line-clamp-3">
+                              &ldquo;{teacher.bio}&rdquo;
+                            </p>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="space-y-1.5">
-                        <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-[#030164] transition-colors">
-                          {teacher.name}
-                        </h3>
-                        {teacher.specialization && (
-                          <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                            {teacher.specialization}
-                          </p>
-                        )}
-                        {teacher.bio && (
-                          <p className="text-[11px] text-slate-500 italic bg-white p-2.5 rounded-lg border border-slate-200/80 leading-relaxed">
-                            &ldquo;{teacher.bio}&rdquo;
-                          </p>
-                        )}
-                      </div>
+                      <Link
+                        href="/smp/guru"
+                        className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#030164] hover:text-[#090580] transition-colors"
+                      >
+                        <span>Lihat Detail Tim &amp; Struktur</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
+                      </Link>
                     </div>
-
-                    <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-400">
-                      <span className="inline-flex items-center gap-1.5 font-medium text-[#030164]">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                        <span>Aktif Bertugas</span>
-                      </span>
-                      <span className="text-slate-400 text-[10px]">SMP IT Al-Afiyah</span>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
+                  </ScrollReveal>
+                );
+              })}
             </div>
           </div>
         </section>
