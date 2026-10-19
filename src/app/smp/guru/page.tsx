@@ -17,7 +17,7 @@ import {
   Languages
 } from 'lucide-react';
 
-import { getDepartmentByRole } from '@/components/landing/SchoolLandingTemplate';
+import { getDepartmentByRole } from '@/lib/departments';
 
 export const metadata: Metadata = {
   title: 'Struktur Organisasi & Tenaga Pendidik SMP IT Al-Afiyah',
