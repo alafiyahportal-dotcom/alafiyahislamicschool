@@ -300,7 +300,10 @@ export default function FoundationDashboardClient({
       />
 
       {/* VISITOR COUNTER STATS FOR ALL UNITS */}
-      <UnitVisitorStatsCards />
+      <UnitVisitorStatsCards
+        title="Statistik Kunjungan Pengunjung Website per Unit"
+        subtitle="Data riil dan otentik pengunjung masing-masing unit pendidikan dan portal yayasan (terpisah mandiri)"
+      />
 
       {/* 2. MIDDLE ROW: COURSES / UNIT SEKOLAH (7 COLS) & INTERACTIVE SPLINE CHART (5 COLS) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">

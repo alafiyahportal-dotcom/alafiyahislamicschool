@@ -30,16 +30,7 @@ export default function FooterVisitorBadge({ unitSlug = 'foundation' }: FooterVi
       .catch(() => {});
   }, [unitSlug]);
 
-  const defaultBase =
-    unitSlug === 'sd'
-      ? 4320
-      : unitSlug === 'smp'
-      ? 3780
-      : unitSlug === 'tk'
-      ? 1890
-      : 15450;
-
-  const count = visitorCount ?? defaultBase;
+  const count = visitorCount ?? 0;
   const unitLabel =
     unitSlug === 'sd'
       ? 'SDIT'

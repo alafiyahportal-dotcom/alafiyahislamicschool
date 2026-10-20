@@ -274,7 +274,10 @@ export default async function FoundationAnalyticsPage() {
         />
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full space-y-6">
-          <UnitVisitorStatsCards />
+          <UnitVisitorStatsCards
+            title="Statistik Kunjungan Pengunjung Website per Unit"
+            subtitle="Data riil dan otentik pengunjung masing-masing unit pendidikan dan portal yayasan (terpisah mandiri)"
+          />
           <AnalyticsDashboardClient initialData={analyticsData} />
         </main>
       </div>

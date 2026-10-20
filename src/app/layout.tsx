@@ -140,7 +140,7 @@ export default function RootLayout({
                       for (var r of regs) { r.unregister(); }
                     });
                   }
-                  var V = '20261020_0830';
+                  var V = '20261020_1140';
                   var s = localStorage.getItem('alafiyah_deploy_ver');
                   if (s !== V) {
                     if ('caches' in window) {

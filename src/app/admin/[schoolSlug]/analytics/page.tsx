@@ -308,7 +308,11 @@ export default async function SchoolAnalyticsPage({
         />
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full space-y-6">
-          <UnitVisitorStatsCards />
+          <UnitVisitorStatsCards
+            unitFilter={schoolSlug as 'tk' | 'sd' | 'smp'}
+            title={`Statistik Pengunjung Website ${school.name}`}
+            subtitle={`Data riil dan otentik pengunjung halaman resmi ${school.name} (Unit Mandiri)`}
+          />
           <AnalyticsDashboardClient
             initialData={analyticsData}
             initialSelectedUnit={schoolSlug}

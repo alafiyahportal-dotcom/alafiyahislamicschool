@@ -11,9 +11,26 @@ export default function WebsiteVisitorTracker() {
       if (typeof window === 'undefined') return;
 
       const path = pathname || window.location.pathname;
+
+      // DO NOT track admin pages, internal APIs, Next.js assets, or auth routes
+      if (
+        path.startsWith('/admin') ||
+        path.startsWith('/api') ||
+        path.startsWith('/_next') ||
+        path.startsWith('/auth')
+      ) {
+        return;
+      }
+
+      // DO NOT track automated bots or headless browsers
+      const ua = navigator.userAgent || '';
+      if (/bot|crawl|spider|headless|lighthouse/i.test(ua)) {
+        return;
+      }
+
       const host = window.location.hostname.toLowerCase();
 
-      // Determine unit
+      // Determine unit accurately
       let unit = 'foundation';
       if (path.startsWith('/sd') || host.startsWith('sdit.') || host.startsWith('sd.')) {
         unit = 'sd';
@@ -23,14 +40,17 @@ export default function WebsiteVisitorTracker() {
         unit = 'tk';
       }
 
-      // Check if session visit was already logged for this unit in the current browsing session
-      const sessionKey = `alafiyah_visit_logged_${unit}`;
-      if (sessionStorage.getItem(sessionKey)) {
+      // Unique visitor per unit per day: prevent double-counting across refreshes and page hops
+      const todayDate = new Date().toISOString().slice(0, 10);
+      const storageKey = `alafiyah_visit_${unit}_${todayDate}`;
+
+      if (localStorage.getItem(storageKey)) {
         return;
       }
 
-      // Mark logged immediately
-      sessionStorage.setItem(sessionKey, '1');
+      // Mark logged for today for this unit
+      localStorage.setItem(storageKey, '1');
+      sessionStorage.setItem(`alafiyah_visit_logged_${unit}`, '1');
 
       const payload = JSON.stringify({
         unit,

@@ -12,8 +12,23 @@ export async function POST(request: NextRequest) {
       rawUnit === 'sd' || rawUnit === 'smp' || rawUnit === 'tk' ? rawUnit : 'foundation';
 
     const path = typeof body.path === 'string' ? body.path : '/';
+
+    // Ignore admin, internal paths, and bot user-agents
+    if (
+      path.startsWith('/admin') ||
+      path.startsWith('/api') ||
+      path.startsWith('/_next') ||
+      path.startsWith('/auth')
+    ) {
+      return NextResponse.json({ success: true, ignored: true });
+    }
+
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || undefined;
     const ua = request.headers.get('user-agent') || undefined;
+
+    if (ua && /bot|crawl|spider|headless|lighthouse/i.test(ua)) {
+      return NextResponse.json({ success: true, ignored: true });
+    }
 
     // Fire-and-forget record
     await recordWebsiteVisit(unit, path, ip, ua);
