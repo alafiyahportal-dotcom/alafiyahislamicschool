@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-const CURRENT_DEPLOY_VERSION = '20261020_1140';
+const CURRENT_DEPLOY_VERSION = '20261020_1225';
 const VERSION_KEY = 'alafiyah_deploy_ver';
 
 export default function AutoCacheBuster() {

@@ -25,6 +25,7 @@ import EdukaDonutChart from './EdukaDonutChart';
 import EdukaUnitTable from './EdukaUnitTable';
 import EdukaRecentStudents from './EdukaRecentStudents';
 import UnitVisitorStatsCards from '@/components/shared/UnitVisitorStatsCards';
+import { SchoolUnitKey } from '@/services/visitor-counter.service';
 import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
 import IslamicToast from '@/components/common/IslamicToast';
 
@@ -299,10 +300,11 @@ export default function FoundationDashboardClient({
         schoolSlug={currentSchoolSlug}
       />
 
-      {/* VISITOR COUNTER STATS FOR ALL UNITS */}
+      {/* VISITOR COUNTER STATS FOR ACTIVE UNIT */}
       <UnitVisitorStatsCards
-        title="Statistik Kunjungan Pengunjung Website per Unit"
-        subtitle="Data riil dan otentik pengunjung masing-masing unit pendidikan dan portal yayasan (terpisah mandiri)"
+        unitFilter={!isFoundation ? (currentSchoolSlug as SchoolUnitKey) : undefined}
+        title={!isFoundation ? `Statistik Pengunjung Website ${schoolName}` : 'Statistik Kunjungan Pengunjung Website per Unit'}
+        subtitle={!isFoundation ? `Data riil dan otentik pengunjung halaman resmi ${schoolName} (Khusus Unit Mandiri)` : 'Data riil dan otentik pengunjung masing-masing unit pendidikan dan portal yayasan (terpisah mandiri)'}
       />
 
       {/* 2. MIDDLE ROW: COURSES / UNIT SEKOLAH (7 COLS) & INTERACTIVE SPLINE CHART (5 COLS) */}
