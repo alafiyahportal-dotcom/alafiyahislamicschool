@@ -137,10 +137,24 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(function(regs) {
-                  for (var reg of regs) { reg.unregister(); }
-                });
+              if (typeof window !== 'undefined') {
+                if ('serviceWorker' in navigator) {
+                  navigator.serviceWorker.getRegistrations().then(function(regs) {
+                    for (var reg of regs) { reg.unregister(); }
+                  });
+                }
+                if ('caches' in window) {
+                  caches.keys().then(function(names) {
+                    for (var name of names) { caches.delete(name); }
+                  });
+                }
+                var currentVer = 'v2026.10.20_v3';
+                try {
+                  if (localStorage.getItem('alafiyah_cache_ver') !== currentVer) {
+                    localStorage.setItem('alafiyah_cache_ver', currentVer);
+                    sessionStorage.clear();
+                  }
+                } catch(e) {}
               }
             `,
           }}
