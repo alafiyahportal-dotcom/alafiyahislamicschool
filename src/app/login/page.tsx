@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { 
   ArrowLeft,
   Loader2,
@@ -258,29 +257,19 @@ export default function LoginPage() {
         </span>
       </header>
 
-      {/* Main Container: Modern Mobile Card Layout with Framer Motion */}
-      <motion.main
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="max-w-md mx-auto w-full my-auto"
-      >
+      {/* Main Container: Clean Mobile Card Layout (Like SMP / Original) */}
+      <main className="max-w-md mx-auto w-full my-auto">
         <div className="rounded-[32px] overflow-hidden shadow-xl border border-slate-200/80 bg-white">
           
           {/* Top Brand Header Section */}
-          <div className={`relative px-6 pt-7 pb-8 sm:pt-8 sm:pb-9 text-center text-white bg-gradient-to-b ${currentTheme.headerBg} relative overflow-hidden transition-colors duration-500`}>
+          <div className={`relative px-6 pt-8 pb-9 sm:pt-9 sm:pb-10 text-center text-white bg-gradient-to-b ${currentTheme.headerBg} relative overflow-hidden transition-colors duration-500`}>
             
             {/* Subtle organic light shape */}
             <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none" />
             <div className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-black/10 blur-xl pointer-events-none" />
 
-            {/* School Logo Badge Card with Spring Scale Animation */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 240, damping: 20, delay: 0.1 }}
-              className="relative z-10 w-20 h-20 mx-auto rounded-2xl bg-white p-2.5 shadow-md flex items-center justify-center border border-white/40 mb-3.5 transition-transform hover:scale-105 duration-300"
-            >
+            {/* School Logo Badge Card */}
+            <div className="relative z-10 w-20 h-20 mx-auto rounded-2xl bg-white p-2.5 shadow-md flex items-center justify-center border border-white/40 mb-4 transition-transform hover:scale-105 duration-300">
               <Image
                 src={currentTheme.logo}
                 alt={currentTheme.name}
@@ -289,24 +278,16 @@ export default function LoginPage() {
                 className="object-contain max-h-16 w-auto"
                 priority
               />
-            </motion.div>
+            </div>
 
-            {/* Islamic Bismillah & Welcome Greetings */}
-            <div className="relative z-10 space-y-1">
-              <p className="font-arabic text-xs sm:text-sm text-amber-200/90 font-medium tracking-wide drop-shadow-xs">
-                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-              </p>
-              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight leading-snug">
-                Selamat Datang di Portal Resmi
+            {/* Title & Subtitle - Clean, No Arabic, No AI Slop */}
+            <div className="relative z-10">
+              <h1 className="text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-snug">
+                Selamat Datang!
               </h1>
-              <p className="text-xs sm:text-sm text-white/95 font-semibold">
-                {currentTheme.fullName}
+              <p className="text-xs sm:text-sm text-white/90 font-medium mt-1">
+                Masuk ke akun {currentTheme.name}
               </p>
-              <div className="pt-1">
-                <span className="inline-flex items-center px-3 py-0.5 rounded-full bg-white/15 backdrop-blur-xs text-[10px] sm:text-[11px] font-semibold text-white/90 border border-white/20 tracking-wider">
-                  {currentTheme.subtitle}
-                </span>
-              </div>
             </div>
           </div>
 
@@ -451,7 +432,7 @@ export default function LoginPage() {
           </div>
 
         </div>
-      </motion.main>
+      </main>
 
       {/* Footer Copyright */}
       <footer className="max-w-md mx-auto w-full text-center text-xs text-slate-400 pt-5">

@@ -65,17 +65,8 @@ export default function SiakadSplashScreen({
         <GraduationCap className="w-96 h-96 -rotate-12" />
       </div>
 
-      {/* Top Ambient Badge (Clean Minimalist without Star) */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="pt-6 flex justify-center z-10"
-      >
-        <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-bold text-amber-300 tracking-wider uppercase">
-          <span>Sistem Akademik Terpadu</span>
-        </div>
-      </motion.div>
+      {/* Top Spacer */}
+      <div className="pt-6 flex justify-center z-10" />
 
       {/* Center Animated Logo & Identity (Bespoke Minimalist Insignia) */}
       <div className="flex-1 flex flex-col items-center justify-center text-center z-10 my-auto">
@@ -127,9 +118,6 @@ export default function SiakadSplashScreen({
           transition={{ delay: 0.2, duration: 0.6 }}
           className="space-y-1"
         >
-          <p className="font-arabic text-sm text-amber-300 tracking-wider">
-            المَعْهَدُ التَّعْلِيمِيُّ العَافِيَة
-          </p>
           <h1 className="text-3xl font-black text-white tracking-tight drop-shadow-sm">
             SIAKAD Al-Afiyah
           </h1>
