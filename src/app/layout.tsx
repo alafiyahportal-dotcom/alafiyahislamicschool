@@ -20,10 +20,10 @@ const playfairDisplay = Playfair_Display({
 });
 
 import { Suspense } from "react";
-import Script from "next/script";
 import ReferralTracker from "@/components/shared/ReferralTracker";
 import DynamicUnitThemeColorSync from "@/components/shared/DynamicUnitThemeColorSync";
 import WebsiteVisitorTracker from "@/components/shared/WebsiteVisitorTracker";
+import AutoCacheBuster from "@/components/shared/AutoCacheBuster";
 import GoogleStructuredData from "@/components/seo/GoogleStructuredData";
 
 export const viewport: Viewport = {
@@ -129,37 +129,43 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <GoogleStructuredData />
-      </head>
-      <body className="min-h-full flex flex-col w-full max-w-full">
-        <Script
-          id="sw-cleanup"
-          strategy="beforeInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
-              if (typeof window !== 'undefined') {
-                if ('serviceWorker' in navigator) {
-                  navigator.serviceWorker.getRegistrations().then(function(regs) {
-                    for (var reg of regs) { reg.unregister(); }
-                  });
-                }
-                if ('caches' in window) {
-                  caches.keys().then(function(names) {
-                    for (var name of names) { caches.delete(name); }
-                  });
-                }
-                var currentVer = 'v2026.10.20_v3';
+              (function() {
                 try {
-                  if (localStorage.getItem('alafiyah_cache_ver') !== currentVer) {
-                    localStorage.setItem('alafiyah_cache_ver', currentVer);
+                  if (typeof window === 'undefined') return;
+                  if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.getRegistrations().then(function(regs) {
+                      for (var r of regs) { r.unregister(); }
+                    });
+                  }
+                  var V = '20261020_0820';
+                  var s = localStorage.getItem('alafiyah_deploy_ver');
+                  if (s !== V) {
+                    if ('caches' in window) {
+                      caches.keys().then(function(keys) {
+                        for (var k of keys) { caches.delete(k); }
+                      });
+                    }
                     sessionStorage.clear();
+                    localStorage.setItem('alafiyah_deploy_ver', V);
+                    if (s) {
+                      var u = new URL(window.location.href);
+                      u.searchParams.set('_v', V);
+                      window.location.replace(u.toString());
+                    }
                   }
                 } catch(e) {}
-              }
+              })();
             `,
           }}
         />
+        <GoogleStructuredData />
+      </head>
+      <body className="min-h-full flex flex-col w-full max-w-full">
         <Suspense fallback={null}>
+          <AutoCacheBuster />
           <ReferralTracker />
           <DynamicUnitThemeColorSync />
           <WebsiteVisitorTracker />
