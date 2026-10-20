@@ -63,30 +63,12 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Manifest files should NOT be aggressively cached so updates propagate immediately
-        source: "/:path*manifest*.json",
+        // Manifest files should NOT be cached so updates propagate immediately
+        source: "/:file(.*\\.json)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=0, must-revalidate",
-          },
-        ],
-      },
-      {
-        // Force browsers, PWAs and proxies to always fetch fresh HTML pages so updates propagate automatically
-        source: "/((?!_next/static|_next/image|images|icons|favicon.ico).*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
-          },
-          {
-            key: "Pragma",
-            value: "no-cache",
-          },
-          {
-            key: "Expires",
-            value: "0",
+            value: "no-store, no-cache, must-revalidate, max-age=0",
           },
         ],
       },
