@@ -13,11 +13,11 @@ export default function AutoCacheBuster() {
       try {
         const stored = localStorage.getItem(VERSION_KEY);
 
-        // 1. If version mismatch, perform immediate purge
+        // Perform silent one-time cleanup on version upgrade without reloading the page
         if (stored !== CURRENT_DEPLOY_VERSION) {
           localStorage.setItem(VERSION_KEY, CURRENT_DEPLOY_VERSION);
 
-          // Clear any rogue Service Workers
+          // Clear any rogue Service Workers silently
           if ('serviceWorker' in navigator) {
             const regs = await navigator.serviceWorker.getRegistrations();
             for (const r of regs) {
@@ -25,42 +25,12 @@ export default function AutoCacheBuster() {
             }
           }
 
-          // Clear all CacheStorage API caches
+          // Clear all CacheStorage API caches silently
           if ('caches' in window) {
             const keys = await caches.keys();
             for (const k of keys) {
               await caches.delete(k);
             }
-          }
-
-          // Clear session storage so old splash flags are wiped
-          sessionStorage.clear();
-
-          // Only reload if we were transitioning from an older version
-          if (stored) {
-            const url = new URL(window.location.href);
-            url.searchParams.set('_v', CURRENT_DEPLOY_VERSION);
-            window.location.replace(url.toString());
-            return;
-          }
-        }
-
-        // 2. Background check against server version endpoint
-        const res = await fetch('/api/version', { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          if (data?.version && data.version !== CURRENT_DEPLOY_VERSION) {
-            localStorage.setItem(VERSION_KEY, data.version);
-            if ('caches' in window) {
-              const keys = await caches.keys();
-              for (const k of keys) {
-                await caches.delete(k);
-              }
-            }
-            sessionStorage.clear();
-            const url = new URL(window.location.href);
-            url.searchParams.set('_v', data.version);
-            window.location.replace(url.toString());
           }
         }
       } catch {
@@ -69,18 +39,6 @@ export default function AutoCacheBuster() {
     };
 
     checkAndEvictCache();
-
-    // Re-check automatically when user brings the tab / app back into focus
-    const onVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        checkAndEvictCache();
-      }
-    };
-
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    return () => {
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-    };
   }, []);
 
   return null;
