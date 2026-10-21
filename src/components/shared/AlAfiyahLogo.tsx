@@ -104,6 +104,44 @@ export default function AlAfiyahLogo({
     );
   }
 
+  // Render official Yayasan Pendidikan Imam Bonjol (YPIB) emblem when schoolSlug is 'foundation', 'ypib', or 'yayasan'
+  if (schoolSlug === 'foundation' || schoolSlug === 'ypib' || schoolSlug === 'yayasan') {
+    if (variant === 'emblem') {
+      return (
+        <div className={`inline-flex items-center justify-center ${sizeConfig.box} ${className}`}>
+          <img
+            src="/images/ypib-logo.png"
+            alt="Logo Yayasan Pendidikan Imam Bonjol (YPIB)"
+            className="w-full h-full object-contain drop-shadow-sm"
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className={`inline-flex items-center gap-3 ${className}`}>
+        <div className={`relative flex items-center justify-center ${sizeConfig.box} shrink-0`}>
+          <img
+            src="/images/ypib-logo.png"
+            alt="Logo Yayasan Pendidikan Imam Bonjol (YPIB)"
+            className="w-full h-full object-contain drop-shadow-sm"
+          />
+        </div>
+
+        {withText && (
+          <div className="flex flex-col">
+            <span className="font-extrabold tracking-tight text-slate-900 leading-none">
+              YPIB MAJALENGKA
+            </span>
+            <span className="text-[10px] font-semibold text-[#184F48] tracking-wider uppercase mt-0.5">
+              Yayasan Pendidikan Imam Bonjol
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // Render pure vector emblem (Clean, geometric, bespoke Islamic & Modern Educational insignia)
   const renderEmblem = () => (
     <svg

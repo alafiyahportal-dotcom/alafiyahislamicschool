@@ -1100,9 +1100,15 @@ export default function CMSEditorClient({
               alt="Logo SDIT Al-Afiyah"
               className="w-10 h-10 object-contain shrink-0"
             />
+          ) : schoolSlug === 'foundation' ? (
+            <img
+              src="/images/ypib-logo.png"
+              alt="Logo Yayasan Pendidikan Imam Bonjol"
+              className="w-10 h-10 object-contain shrink-0"
+            />
           ) : (
             <div className="w-10 h-10 rounded-xl bg-[#184F48] text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0">
-              {schoolSlug === 'foundation' ? 'YP' : schoolSlug.toUpperCase()}
+              {schoolSlug.toUpperCase()}
             </div>
           )}
           <div>
@@ -1493,9 +1499,15 @@ export default function CMSEditorClient({
                       alt="Logo SDIT Al-Afiyah"
                       className="w-12 h-12 object-contain shrink-0"
                     />
+                  ) : schoolSlug === 'foundation' ? (
+                    <img
+                      src="/images/ypib-logo.png"
+                      alt="Logo Yayasan Pendidikan Imam Bonjol"
+                      className="w-12 h-12 object-contain shrink-0"
+                    />
                   ) : (
                     <div className="w-12 h-12 rounded-xl bg-[#184F48] text-white flex items-center justify-center font-black text-lg shrink-0">
-                      {schoolSlug === 'foundation' ? 'YP' : schoolSlug.toUpperCase()}
+                      {schoolSlug.toUpperCase()}
                     </div>
                   )}
                   <div>

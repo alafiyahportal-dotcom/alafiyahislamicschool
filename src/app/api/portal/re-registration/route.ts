@@ -2,23 +2,37 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { WhatsAppService } from '@/services/whatsapp.service';
 import { awardReRegistrationCommission } from '@/services/affiliate-commission';
+import { sanitizeString } from '@/lib/input-validator';
+import { getSession } from '@/lib/session';
+import { safeErrorResponse } from '@/lib/security';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const regNo = searchParams.get('regNo');
+    const rawRegNo = searchParams.get('regNo');
 
-    if (!regNo) {
+    if (!rawRegNo) {
       return NextResponse.json(
         { success: false, error: 'Nomor registrasi (regNo) wajib disertakan' },
         { status: 400 }
       );
     }
 
+    const regNo = sanitizeString(rawRegNo, 50);
+
     const registration = await prisma.pPDBRegistration.findUnique({
       where: { registrationNo: regNo },
       include: {
-        school: true,
+        school: {
+          select: {
+            id: true,
+            slug: true,
+            name: true,
+            badgeText: true,
+            primaryColor: true,
+            accentColor: true,
+          },
+        },
         reRegistration: true,
       },
     });
@@ -30,27 +44,38 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // 🔒 Privacy & Data Minimization: Mask NIK and omit raw parent data on public GET
+    const safeRegistration = {
+      id: registration.id,
+      registrationNo: registration.registrationNo,
+      studentName: registration.studentName,
+      gender: registration.gender,
+      pob: registration.pob,
+      dob: registration.dob,
+      status: registration.status,
+      school: registration.school,
+      nik: registration.nik ? `${registration.nik.slice(0, 4)}********${registration.nik.slice(-4)}` : null,
+      reRegistration: registration.reRegistration,
+    };
+
     return NextResponse.json({
       success: true,
       data: {
-        registration,
+        registration: safeRegistration,
         reRegistration: registration.reRegistration,
       },
     });
   } catch (error) {
-    console.error('Error fetching re-registration:', error);
-    return NextResponse.json(
-      { success: false, error: 'Gagal mengambil data daftar ulang' },
-      { status: 500 }
-    );
+    return safeErrorResponse(error, 'Gagal mengambil data daftar ulang');
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const {
       registrationNo,
+      nik,
       uniformSize,
       uniformType,
       heightCm,
@@ -62,7 +87,9 @@ export async function POST(request: NextRequest) {
       notes,
     } = body;
 
-    if (!registrationNo || !uniformSize) {
+    const cleanRegNo = sanitizeString(registrationNo, 50);
+
+    if (!cleanRegNo || !uniformSize) {
       return NextResponse.json(
         { success: false, error: 'Nomor registrasi dan ukuran seragam wajib diisi' },
         { status: 400 }
@@ -70,7 +97,7 @@ export async function POST(request: NextRequest) {
     }
 
     const reg = await prisma.pPDBRegistration.findUnique({
-      where: { registrationNo },
+      where: { registrationNo: cleanRegNo },
       include: {
         school: true,
       },
@@ -91,6 +118,23 @@ export async function POST(request: NextRequest) {
         },
         { status: 403 }
       );
+    }
+
+    // 🔒 IDOR Prevention: If caller is not authenticated staff, verify NIK if provided
+    const session = await getSession();
+    const isStaff = session && ['SUPERADMIN', 'ADMIN_TK', 'ADMIN_SD', 'ADMIN_SMP', 'PPDB_OFFICER'].includes(session.role);
+
+    if (!isStaff && nik) {
+      const cleanNik = sanitizeString(nik, 20);
+      if (reg.nik && reg.nik.trim() !== cleanNik.trim()) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Otorisasi gagal: NIK calon murid tidak cocok dengan data pendaftaran.',
+          },
+          { status: 403 }
+        );
+      }
     }
 
     const reReg = await prisma.reRegistration.upsert({

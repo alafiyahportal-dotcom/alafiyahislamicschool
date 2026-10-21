@@ -8,8 +8,6 @@ import SatuanPendidikanSection from '@/components/landing/SatuanPendidikanSectio
 import EdukaAboutMosaic from '@/components/landing/EdukaAboutMosaic';
 import TealStatsCounterBar from '@/components/landing/TealStatsCounterBar';
 import HavenlyArchCarousel from '@/components/landing/HavenlyArchCarousel';
-import VideoTourSection from '@/components/landing/VideoTourSection';
-import TeacherShowcaseSection from '@/components/landing/TeacherShowcaseSection';
 import TestimonialAndCtaSection from '@/components/landing/TestimonialAndCtaSection';
 import CampusLocationMapSection from '@/components/landing/CampusLocationMapSection';
 import ScrollFadeIn from '@/components/landing/ScrollFadeIn';
@@ -31,34 +29,15 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   let foundation = null;
-  let teachersList: any[] = [];
   try {
-    const [foundationData, teachersData] = await Promise.all([
-      prisma.school.findUnique({
-        where: { slug: 'foundation' },
-        include: {
-          cmsSections: true,
-        },
-      }),
-      prisma.teacher.findMany({
-        where: { isActive: true },
-        orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
-        take: 8,
-        include: { school: true },
-      }),
-    ]);
-    foundation = foundationData;
-    if (teachersData && teachersData.length > 0) {
-      teachersList = teachersData.map((t) => ({
-        name: t.name,
-        role: t.role,
-        sanad: t.specialization || (t.school ? `${t.school.name}` : 'Pendidik Berdedikasi'),
-        degree: t.bio || (t.school ? `Tenaga Pendidik ${t.school.name}` : 'Pendidik Al-Afiyah'),
-        image: t.photoUrl || '',
-      }));
-    }
+    foundation = await prisma.school.findUnique({
+      where: { slug: 'foundation' },
+      include: {
+        cmsSections: true,
+      },
+    });
   } catch (err) {
-    console.error('Error fetching foundation or teacher data:', err);
+    console.error('Error fetching foundation data:', err);
   }
 
   const heroSection = foundation?.cmsSections.find((s) => s.sectionKey === 'hero');
@@ -101,12 +80,12 @@ export default async function HomePage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#2D7A70]/5 blur-3xl rounded-full pointer-events-none" />
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#E8F3F1] border border-[#2D7A70]/20 text-[#184F48] text-xs font-bold uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-[#0B332B] text-xs font-bold uppercase tracking-wider mb-3">
               <span>Figur Inspiratif &amp; Karakter Unggul Al-Afiyah</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-normal [word-spacing:0.14em] max-w-3xl mx-auto leading-tight">
               Menumbuhkan Generasi Beradab,{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2D7A70] to-[#184F48]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0B332B] to-[#145347]">
                 Cerdas &amp; Berprestasi Nyata
               </span>
             </h2>
@@ -121,22 +100,12 @@ export default async function HomePage() {
         </section>
       </ScrollFadeIn>
 
-      {/* 5. Full-Width Teal Stats Counter Bar (Mowilex Soft Water Parallax) */}
+      {/* 5. Deep Forest Green Stats & Legitimacy Bar */}
       <ScrollFadeIn>
         <TealStatsCounterBar />
       </ScrollFadeIn>
 
-      {/* 6. Campus Video Tour & Why Choose Us (Pulsating Play Button & 4 Pillars) */}
-      <ScrollFadeIn>
-        <VideoTourSection />
-      </ScrollFadeIn>
-
-      {/* 7. Meet Our Teachers (Dewan Guru Berpengalaman) */}
-      <ScrollFadeIn>
-        <TeacherShowcaseSection teachers={teachersList} />
-      </ScrollFadeIn>
-
-      {/* 8. Parent Testimonials & High-Conversion PPDB Call to Action Banner */}
+      {/* 6. Parent Testimonials & High-Conversion PPDB Call to Action Banner */}
       <ScrollFadeIn>
         <TestimonialAndCtaSection />
       </ScrollFadeIn>

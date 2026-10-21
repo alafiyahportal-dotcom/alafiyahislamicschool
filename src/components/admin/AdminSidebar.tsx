@@ -122,7 +122,7 @@ export default function AdminSidebar({
           ? '/images/smp-logo.png?v=2'
           : schoolSlug === 'sd'
           ? '/images/sd-logo.png?v=2'
-          : '/favicon.ico';
+          : '/images/ypib-logo.png?v=2';
       const iconLinks = document.querySelectorAll<HTMLLinkElement>("link[rel*='icon']");
       if (iconLinks.length === 0) {
         const newLink = document.createElement('link');
@@ -336,8 +336,8 @@ export default function AdminSidebar({
               />
             ) : (
               <img
-                src="/images/sd-logo.png"
-                alt="Logo Yayasan Al-Afiyah"
+                src="/images/ypib-logo.png"
+                alt="Logo Yayasan Pendidikan Imam Bonjol"
                 className="w-10 h-10 object-contain shrink-0"
               />
             )}

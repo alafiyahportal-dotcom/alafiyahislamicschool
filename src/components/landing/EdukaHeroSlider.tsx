@@ -218,7 +218,7 @@ export default function EdukaHeroSlider({ customSlides }: EdukaHeroSliderProps =
 
       {/* Bottom Center Modern Indicator Dots */}
       {slides.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center space-x-2">
+        <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 z-20 flex items-center space-x-2">
           {slides.map((_, idx) => (
             <button
               key={idx}

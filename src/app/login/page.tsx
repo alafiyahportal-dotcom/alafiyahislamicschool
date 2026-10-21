@@ -105,7 +105,7 @@ const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
     subtitle: 'Pendidikan Islam Terpadu Al-Afiyah',
     welcomeSubtitle: 'Portal Pusat Administrasi & Kemitraan Seluruh Unit Pendidikan',
     footerLabel: 'Yayasan Pendidikan Imam Bonjol Majalengka',
-    logo: '/images/sd-logo.png',
+    logo: '/images/ypib-logo.png',
     primaryColor: '#184F48',
     accentColor: '#D97706',
     headerBg: 'from-[#184F48] via-[#123E38] to-[#0d2a26]',

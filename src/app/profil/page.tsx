@@ -177,9 +177,18 @@ export default async function ProfilPage({
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-200 text-xs font-semibold uppercase tracking-wider mb-5">
-            <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
-            <span>Profil Resmi Lembaga</span>
+          <div className="flex flex-col items-center justify-center mb-6">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl p-2.5 shadow-xl flex items-center justify-center mb-4 hover:scale-105 transition-transform">
+              <img
+                src="/images/ypib-logo.png"
+                alt="Logo Resmi Yayasan Pendidikan Imam Bonjol (YPIB)"
+                className="w-full h-full object-contain drop-shadow-md"
+              />
+            </div>
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-200 text-xs font-semibold uppercase tracking-wider">
+              <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
+              <span>Profil Resmi Lembaga Yayasan</span>
+            </div>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
@@ -459,7 +468,12 @@ export default async function ProfilPage({
         <section className="bg-gradient-to-r from-slate-900 to-[#12302C] text-white rounded-3xl p-8 sm:p-10 shadow-lg">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-white/10 text-emerald-200 text-xs font-bold uppercase tracking-wider border border-white/10">
+                <img
+                  src="/images/ypib-logo.png"
+                  alt="Logo YPIB Majalengka"
+                  className="w-4 h-4 object-contain shrink-0 drop-shadow-xs"
+                />
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>Legalitas Resmi &amp; Terpercaya</span>
               </div>

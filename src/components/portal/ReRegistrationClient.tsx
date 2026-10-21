@@ -151,6 +151,7 @@ export default function ReRegistrationClient({ registration }: ReRegistrationCli
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           registrationNo: registration.registrationNo,
+          nik: registration.nik,
           uniformSize,
           uniformType,
           heightCm: Number(heightCm),

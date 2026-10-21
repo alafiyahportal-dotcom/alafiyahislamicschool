@@ -102,11 +102,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/images/sd-logo.png', type: 'image/png' },
+      { url: '/images/ypib-logo.png', type: 'image/png' },
       { url: '/favicon.ico' },
     ],
-    shortcut: '/images/sd-logo.png',
-    apple: '/images/sd-logo.png',
+    shortcut: '/images/ypib-logo.png',
+    apple: '/images/ypib-logo.png',
   },
   manifest: "/manifest.json",
   other: {

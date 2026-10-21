@@ -142,7 +142,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
     foundation: {
       name: 'Yayasan Pendidikan Imam Bonjol',
       subheading: 'Majalengka • Jawa Barat',
-      logoUrl: null,
+      logoUrl: '/images/ypib-logo.png',
       badgeLetter: 'IB',
       description:
         'Mewujudkan ekosistem pendidikan Islam terpadu yang memadukan kedalaman adab dan Al-Qur\'an, kemuliaan akhlakul karimah, serta keunggulan intelektual dan sains modern sejak usia dini hingga menengah.',

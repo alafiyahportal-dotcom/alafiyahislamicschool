@@ -182,7 +182,7 @@ export default function Navbar({
           homeUrl: getUnitHomeUrl('foundation'),
           ppdbLink: '/ppdb/daftar',
           ctaText: 'Info SPMB Online',
-          logoUrl: undefined,
+          logoUrl: '/images/ypib-logo.png',
         };
     }
   })();

@@ -128,7 +128,9 @@ export default function GoogleStructuredData() {
       },
       parentOrganization: {
         '@type': 'EducationalOrganization',
-        name: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka'
+        name: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka',
+        url: siteUrl,
+        logo: `${siteUrl}/images/ypib-logo.png`,
       },
       sameAs: [
         'https://maps.google.com/?q=-6.8367783,108.237785'

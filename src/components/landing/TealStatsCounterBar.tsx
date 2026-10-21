@@ -1,19 +1,16 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import {
   School,
+  BookOpen,
   Users,
-  GraduationCap,
-  Trophy,
-  Award,
-  BookOpen
+  ShieldCheck
 } from 'lucide-react';
 
 interface StatItem {
   id: number;
-  number: string;
+  value: string;
   label: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -22,81 +19,72 @@ interface StatItem {
 const stats: StatItem[] = [
   {
     id: 1,
-    number: '3',
-    label: 'Unit Sekolah Terpadu',
-    description: 'TK IT, SDIT, & SMP IT Terakreditasi Resmi',
+    value: '3 Unit',
+    label: 'Satuan Pendidikan Resmi',
+    description: 'TK IT, SDIT, dan SMP IT Al-Afiyah',
     icon: School
   },
   {
     id: 2,
-    number: '1.250+',
-    label: 'Murid & Alumni',
-    description: 'Tersebar di Majalengka & Nasional',
-    icon: Users
+    value: '30 Juz',
+    label: 'Target Tahfidz Mutqin',
+    description: 'Bimbingan Tahsin & Sanad Berjenjang',
+    icon: BookOpen
   },
   {
     id: 3,
-    number: '65+',
-    label: 'Dewan Guru Berpengalaman',
-    description: 'Pendidik Hafidz & Sarjana Pilihan',
-    icon: GraduationCap
+    value: '2 Rombel',
+    label: 'Kuota Terbatas Tiap Angkatan',
+    description: 'Pendampingan Intensif & Rasio Kelas Ideal',
+    icon: Users
   },
   {
     id: 4,
-    number: '30 Juz',
-    label: 'Program Tahfidz',
-    description: 'Bimbingan Mutqin & Tartil Berjenjang',
-    icon: Trophy
+    value: 'Terakreditasi',
+    label: 'Legalitas Resmi Badan Hukum',
+    description: 'Izin Operasional Kemenag & Kemdikbud RI',
+    icon: ShieldCheck
   }
 ];
 
 export default function TealStatsCounterBar() {
   return (
-    <section className="relative bg-[#184F48] text-white py-14 sm:py-16 overflow-hidden">
-      {/* Background Image with Deep Teal Tint Overlay */}
-      <div className="absolute inset-0 opacity-15">
-        <Image
-          src="/images/eduka-hero-campus.jpg"
-          alt="Latar Belakang Lingkungan Sekolah Al-Afiyah"
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-      </div>
-
-      {/* Decorative Radial Lighting Glows */}
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#2D7A70] rounded-full blur-3xl opacity-40 pointer-events-none" />
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500 rounded-full blur-3xl opacity-20 pointer-events-none" />
+    <section className="relative bg-gradient-to-r from-[#06241D] via-[#0B332B] to-[#072720] text-white py-12 sm:py-16 border-y border-[#124B3F]/50 overflow-hidden" aria-label="Statistik dan Legalitas Resmi Yayasan">
+      {/* Subtle Islamic Geometric Line Pattern Overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.035] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" 
+        aria-hidden="true" 
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {stats.map((item) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
+          {stats.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.id}
-                className="flex flex-col items-center text-center space-y-3 p-4 rounded-2xl bg-white/5 hover:bg-white/10 backdrop-blur-xs border border-white/10 transition-all duration-300 transform hover:-translate-y-1"
+                className={`flex flex-col items-center text-center px-4 sm:px-6 py-2 ${
+                  index !== stats.length - 1 ? 'lg:border-r lg:border-white/10' : ''
+                }`}
               >
-                {/* Circular Golden Badge with Icon (Eduka Style) */}
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-amber-500 to-orange-400 p-0.5 shadow-lg shadow-amber-900/30 flex items-center justify-center">
-                  <div className="w-full h-full rounded-full bg-[#184F48] flex items-center justify-center">
-                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-amber-300" />
-                  </div>
+                {/* Monochromatic Deep Green Minimal Icon Box */}
+                <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 text-emerald-300 flex items-center justify-center mb-3 shadow-xs">
+                  <Icon className="w-5 h-5 text-emerald-200" />
                 </div>
 
-                {/* Counter Metric */}
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-mono text-white tracking-tight drop-shadow-xs">
-                  {item.number}
+                {/* Counter Metric Value */}
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight font-sans">
+                  {item.value}
                 </div>
 
-                {/* Label & Description */}
-                <div>
-                  <div className="font-bold text-sm sm:text-base text-amber-300">
-                    {item.label}
-                  </div>
-                  <div className="text-xs text-emerald-100/70 font-normal mt-0.5">
-                    {item.description}
-                  </div>
+                {/* Label */}
+                <div className="font-bold text-xs sm:text-sm text-emerald-200 mt-1.5">
+                  {item.label}
+                </div>
+
+                {/* Subtext Description */}
+                <div className="text-[11px] sm:text-xs text-emerald-100/70 font-normal mt-0.5 max-w-[220px] leading-snug">
+                  {item.description}
                 </div>
               </div>
             );
