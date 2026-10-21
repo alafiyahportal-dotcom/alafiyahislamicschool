@@ -9,6 +9,19 @@ export default function AutoCacheBuster() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // Clean up any legacy _v parameter left behind in address bar without reloading
+    try {
+      if (window.location.search && window.location.search.includes('_v=')) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('_v');
+        window.history.replaceState(
+          {},
+          '',
+          url.pathname + (url.search ? url.search : '') + url.hash
+        );
+      }
+    } catch {}
+
     const checkAndEvictCache = async () => {
       try {
         const stored = localStorage.getItem(VERSION_KEY);

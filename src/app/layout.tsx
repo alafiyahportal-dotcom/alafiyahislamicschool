@@ -134,38 +134,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="192x192" href="/images/ypib-logo.png?v=3" />
         <link rel="shortcut icon" href="/images/ypib-logo.png?v=3" />
         <link rel="apple-touch-icon" href="/images/ypib-logo.png?v=3" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  if (typeof window === 'undefined') return;
-                  if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.getRegistrations().then(function(regs) {
-                      for (var r of regs) { r.unregister(); }
-                    });
-                  }
-                  var V = '20261020_1225';
-                  var s = localStorage.getItem('alafiyah_deploy_ver');
-                  if (s !== V) {
-                    if ('caches' in window) {
-                      caches.keys().then(function(keys) {
-                        for (var k of keys) { caches.delete(k); }
-                      });
-                    }
-                    sessionStorage.clear();
-                    localStorage.setItem('alafiyah_deploy_ver', V);
-                    if (s) {
-                      var u = new URL(window.location.href);
-                      u.searchParams.set('_v', V);
-                      window.location.replace(u.toString());
-                    }
-                  }
-                } catch(e) {}
-              })();
-            `,
-          }}
-        />
         <GoogleStructuredData />
       </head>
       <body className="min-h-full flex flex-col w-full max-w-full">

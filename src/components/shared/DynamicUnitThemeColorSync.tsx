@@ -89,12 +89,6 @@ export function detectActiveUnit(
     pathname.startsWith('/affiliate') ||
     pathname.startsWith('/ppdb')
   ) {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('alafiyah_active_unit', 'yayasan');
-        document.cookie = 'alafiyah_active_unit=yayasan; path=/; max-age=2592000; SameSite=Lax';
-      } catch {}
-    }
     return 'yayasan';
   }
 
@@ -103,13 +97,9 @@ export function detectActiveUnit(
     try {
       const refUrl = new URL(document.referrer);
       if (refUrl.pathname.startsWith('/smp') || refUrl.host.includes('smp')) {
-        localStorage.setItem('alafiyah_active_unit', 'smp');
-        document.cookie = 'alafiyah_active_unit=smp; path=/; max-age=2592000; SameSite=Lax';
         return 'smp';
       }
       if (refUrl.pathname.startsWith('/sd') || refUrl.host.includes('sd')) {
-        localStorage.setItem('alafiyah_active_unit', 'sd');
-        document.cookie = 'alafiyah_active_unit=sd; path=/; max-age=2592000; SameSite=Lax';
         return 'sd';
       }
     } catch {}
@@ -147,12 +137,16 @@ export function applyThemeColorToDocument(targetColor: string) {
     themeMeta.setAttribute('name', 'theme-color');
     document.head.appendChild(themeMeta);
   }
-  themeMeta.setAttribute('content', targetColor);
+  if (themeMeta.getAttribute('content') !== targetColor) {
+    themeMeta.setAttribute('content', targetColor);
+  }
 
   // 2. Update media-specific theme-color tags (prefers-color-scheme)
   const mediaThemeMetas = document.querySelectorAll('meta[name="theme-color"][media]');
   mediaThemeMetas.forEach((meta) => {
-    meta.setAttribute('content', targetColor);
+    if (meta.getAttribute('content') !== targetColor) {
+      meta.setAttribute('content', targetColor);
+    }
   });
 
   // 3. Apple mobile status bar
@@ -162,7 +156,9 @@ export function applyThemeColorToDocument(targetColor: string) {
     appleMeta.setAttribute('name', 'apple-mobile-web-app-status-bar-style');
     document.head.appendChild(appleMeta);
   }
-  appleMeta.setAttribute('content', 'default');
+  if (appleMeta.getAttribute('content') !== 'default') {
+    appleMeta.setAttribute('content', 'default');
+  }
 
   // 4. Windows phone / IE navbutton
   let msMeta = document.querySelector('meta[name="msapplication-navbutton-color"]');
@@ -171,7 +167,9 @@ export function applyThemeColorToDocument(targetColor: string) {
     msMeta.setAttribute('name', 'msapplication-navbutton-color');
     document.head.appendChild(msMeta);
   }
-  msMeta.setAttribute('content', targetColor);
+  if (msMeta.getAttribute('content') !== targetColor) {
+    msMeta.setAttribute('content', targetColor);
+  }
 }
 
 /**
@@ -238,9 +236,11 @@ export function applyPwaIdentityToDocument(
     manifestLink.rel = 'manifest';
     document.head.appendChild(manifestLink);
   }
-  manifestLink.href = manifestUrl;
+  if (manifestLink.getAttribute('href') !== manifestUrl) {
+    manifestLink.href = manifestUrl;
+  }
 
-  // 2. Synchronize Apple Touch Icon (Primary target for iOS "Add to Home Screen")
+  // 2. Synchronize Apple Touch Icon
   const appleTouchIcons = document.querySelectorAll<HTMLLinkElement>(
     "link[rel='apple-touch-icon'], link[rel='apple-touch-icon-precomposed']"
   );
@@ -251,7 +251,9 @@ export function applyPwaIdentityToDocument(
     document.head.appendChild(appleLink);
   } else {
     appleTouchIcons.forEach((el) => {
-      el.href = iconUrl;
+      if (el.getAttribute('href') !== iconUrl) {
+        el.href = iconUrl;
+      }
     });
   }
 
@@ -260,7 +262,9 @@ export function applyPwaIdentityToDocument(
     "link[rel='icon'], link[rel='shortcut icon']"
   );
   standardIcons.forEach((el) => {
-    el.href = iconUrl;
+    if (el.getAttribute('href') !== iconUrl) {
+      el.href = iconUrl;
+    }
   });
 
   // 4. Synchronize App Titles for Home Screen
@@ -270,7 +274,9 @@ export function applyPwaIdentityToDocument(
     appleTitleMeta.name = 'apple-mobile-web-app-title';
     document.head.appendChild(appleTitleMeta);
   }
-  appleTitleMeta.content = appTitle;
+  if (appleTitleMeta.content !== appTitle) {
+    appleTitleMeta.content = appTitle;
+  }
 
   let appNameMeta = document.querySelector<HTMLMetaElement>('meta[name="application-name"]');
   if (!appNameMeta) {
@@ -278,7 +284,9 @@ export function applyPwaIdentityToDocument(
     appNameMeta.name = 'application-name';
     document.head.appendChild(appNameMeta);
   }
-  appNameMeta.content = appTitle;
+  if (appNameMeta.content !== appTitle) {
+    appNameMeta.content = appTitle;
+  }
 
   // 5. Synchronize Theme Colors
   applyThemeColorToDocument(themeColor);
@@ -290,6 +298,10 @@ export default function DynamicUnitThemeColorSync() {
   useEffect(() => {
     const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     const activeUnit = detectActiveUnit(pathname, searchParams);
+    try {
+      localStorage.setItem('alafiyah_active_unit', activeUnit);
+      document.cookie = `alafiyah_active_unit=${activeUnit}; path=/; max-age=2592000; SameSite=Lax`;
+    } catch {}
     applyPwaIdentityToDocument(activeUnit, pathname);
   }, [pathname]);
 
