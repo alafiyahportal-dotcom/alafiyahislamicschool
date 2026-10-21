@@ -102,11 +102,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/images/ypib-logo.png', type: 'image/png' },
-      { url: '/favicon.ico' },
+      { url: '/images/ypib-logo.png?v=3', type: 'image/png', sizes: '32x32' },
+      { url: '/images/ypib-logo.png?v=3', type: 'image/png', sizes: '192x192' },
+      { url: '/images/ypib-logo.png?v=3', type: 'image/png' },
     ],
-    shortcut: '/images/ypib-logo.png',
-    apple: '/images/ypib-logo.png',
+    shortcut: '/images/ypib-logo.png?v=3',
+    apple: '/images/ypib-logo.png?v=3',
   },
   manifest: "/manifest.json",
   other: {
@@ -129,6 +130,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/ypib-logo.png?v=3" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/images/ypib-logo.png?v=3" />
+        <link rel="shortcut icon" href="/images/ypib-logo.png?v=3" />
+        <link rel="apple-touch-icon" href="/images/ypib-logo.png?v=3" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

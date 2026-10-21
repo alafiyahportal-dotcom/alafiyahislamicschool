@@ -170,6 +170,24 @@ export function proxy(request: NextRequest) {
       }
     }
 
+    if (subdomain === 'sd') {
+      if (pathname === '/favicon.ico') {
+        const url = request.nextUrl.clone();
+        url.pathname = '/sd-favicon.ico';
+        return NextResponse.rewrite(url);
+      }
+      if (pathname === '/apple-icon.png') {
+        const url = request.nextUrl.clone();
+        url.pathname = '/images/sd-logo.png';
+        return NextResponse.rewrite(url);
+      }
+      if (pathname === '/icon.png') {
+        const url = request.nextUrl.clone();
+        url.pathname = '/images/sd-icon-192.png';
+        return NextResponse.rewrite(url);
+      }
+    }
+
     // If visitor lands on /tk while already on tk subdomain, clean up URL to /
     if (pathname === `/${subdomain}`) {
       const url = request.nextUrl.clone();

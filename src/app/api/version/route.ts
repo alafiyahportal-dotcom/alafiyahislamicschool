@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   return NextResponse.json({
-    version: '20261020_1225',
+    version: '20261021_0825',
     timestamp: Date.now(),
   }, {
     headers: {

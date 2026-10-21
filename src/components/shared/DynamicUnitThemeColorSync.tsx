@@ -79,7 +79,26 @@ export function detectActiveUnit(
   if (pathname.startsWith('/tk') || pathname.startsWith('/admin/tk')) return 'tk';
   if (pathname.startsWith('/admin/foundation')) return 'yayasan';
 
-  // 4. Document Referrer check (e.g. user navigated from /smp to /affiliate/register or /login)
+  // 4. Specific Foundation / Root Web pages (explicitly yayasan, never sd!)
+  if (
+    pathname === '/' ||
+    pathname.startsWith('/profil') ||
+    pathname.startsWith('/satuan-pendidikan') ||
+    pathname.startsWith('/kontak') ||
+    pathname.startsWith('/doa-dzikir') ||
+    pathname.startsWith('/affiliate') ||
+    pathname.startsWith('/ppdb')
+  ) {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('alafiyah_active_unit', 'yayasan');
+        document.cookie = 'alafiyah_active_unit=yayasan; path=/; max-age=2592000; SameSite=Lax';
+      } catch {}
+    }
+    return 'yayasan';
+  }
+
+  // 5. Document Referrer check (e.g. user navigated from /smp to /affiliate/register or /login)
   if (typeof document !== 'undefined' && document.referrer) {
     try {
       const refUrl = new URL(document.referrer);
@@ -96,17 +115,17 @@ export function detectActiveUnit(
     } catch {}
   }
 
-  // 5. User-persisted preference in localStorage / cookies
+  // 6. User-persisted preference in localStorage / cookies
   if (typeof window !== 'undefined') {
     try {
       const stored = localStorage.getItem('alafiyah_active_unit');
-      if (stored === 'smp' || stored === 'sd' || stored === 'tk') {
+      if (stored === 'smp' || stored === 'sd' || stored === 'tk' || stored === 'yayasan') {
         return stored as ActiveUnitType;
       }
     } catch {}
   }
 
-  return 'sd';
+  return 'yayasan';
 }
 
 export function getActiveUnitColor(
@@ -115,7 +134,7 @@ export function getActiveUnitColor(
   host?: string
 ): string {
   const unit = detectActiveUnit(pathname, searchParams, host);
-  return UNIT_THEME_COLORS[unit] || UNIT_THEME_COLORS.sd;
+  return UNIT_THEME_COLORS[unit] || UNIT_THEME_COLORS.foundation;
 }
 
 export function applyThemeColorToDocument(targetColor: string) {
@@ -169,9 +188,9 @@ export function applyPwaIdentityToDocument(
   const isLogin = pathname.startsWith('/login');
 
   let manifestUrl = '/manifest.json';
-  let appTitle = 'Al-Afiyah';
-  let iconUrl = '/icons/icon-192.png';
-  let themeColor = UNIT_THEME_COLORS[unit] || UNIT_THEME_COLORS.sd;
+  let appTitle = 'Yayasan Pendidikan Imam Bonjol';
+  let iconUrl = '/images/ypib-logo.png?v=3';
+  let themeColor = UNIT_THEME_COLORS[unit] || UNIT_THEME_COLORS.foundation;
 
   if (unit === 'smp') {
     iconUrl = '/icons/smp-192.png';
@@ -199,6 +218,17 @@ export function applyPwaIdentityToDocument(
       manifestUrl = '/sd-manifest.json';
       appTitle = 'SDIT Al-Afiyah';
     }
+  } else if (unit === 'tk') {
+    iconUrl = '/images/ypib-logo.png?v=3';
+    themeColor = UNIT_THEME_COLORS.tk;
+    manifestUrl = '/manifest.json';
+    appTitle = 'TK IT Al-Afiyah';
+  } else {
+    // Yayasan / Foundation / Root Web
+    iconUrl = '/images/ypib-logo.png?v=3';
+    themeColor = UNIT_THEME_COLORS.foundation;
+    manifestUrl = '/manifest.json';
+    appTitle = 'Yayasan Pendidikan Imam Bonjol';
   }
 
   // 1. Synchronize Web App Manifest

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/sd-favicon.ico', sizes: 'any' },
     ],
     shortcut: '/images/sd-logo.png',
     apple: '/images/sd-apple-icon.png',
@@ -73,7 +73,7 @@ export default function SdLayout({
     <>
       <head>
         <link rel="icon" type="image/png" sizes="192x192" href="/images/sd-logo.png" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/sd-favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/images/sd-apple-icon.png" />
         <script
           type="application/ld+json"

@@ -55,7 +55,7 @@ const features: FeatureCardItem[] = [
 
 export default function FloatingFeatureCards() {
   return (
-    <section className="relative z-20 -mt-6 sm:-mt-10 lg:-mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Keunggulan Utama Al-Afiyah">
+    <section className="relative z-20 pt-10 pb-12 sm:pt-14 sm:pb-16 lg:pt-16 lg:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Keunggulan Utama Al-Afiyah">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {features.map((item) => {
           const Icon = item.icon;
