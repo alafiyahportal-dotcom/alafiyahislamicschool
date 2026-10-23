@@ -155,8 +155,8 @@ export default function GoogleStructuredData() {
         },
         {
           '@type': 'SiteNavigationElement',
-          name: 'Program Afiliasi',
-          description: 'Program kemitraan dakwah syariah Al-Afiyah terbuka untuk umum, wali murid, dan alumni.',
+          name: 'Affiliate Al-Afiyah',
+          description: 'Program Affiliate Al-Afiyah terbuka untuk umum, wali murid, dan alumni.',
           url: `${siteUrl}/affiliate`
         },
         {

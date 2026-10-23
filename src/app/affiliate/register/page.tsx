@@ -42,8 +42,8 @@ export default function AffiliateRegisterPage() {
       setOriginUrl(window.location.origin);
       applyPwaIdentityToDocument(unit, '/affiliate/register');
       document.title = unit === 'smp' 
-        ? 'Daftar Mitra Afiliasi SMP IT | Al-Afiyah' 
-        : 'Daftar Mitra Afiliasi | Al-Afiyah Islamic School';
+        ? 'Daftar Affiliate Al-Afiyah SMP IT' 
+        : 'Daftar Affiliate Al-Afiyah';
     }
   }, []);
 
@@ -142,7 +142,7 @@ export default function AffiliateRegisterPage() {
         throw new Error(data.error || 'Gagal mendaftar akun afiliasi.');
       }
 
-      const generatedCode = data.profile?.referralCode || 'MITRA';
+      const generatedCode = data.profile?.referralCode || 'AFIYAH';
       const baseOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://alafiyah.sch.id';
       const unitQuery = activeUnit === 'smp' ? '&unit=smp' : activeUnit === 'sd' ? '&unit=sd' : '';
       const generatedLink = `${baseOrigin}/ppdb/daftar?ref=${encodeURIComponent(generatedCode)}${unitQuery}`;
@@ -168,7 +168,7 @@ export default function AffiliateRegisterPage() {
         isOpen: true,
         type: 'success',
         title: 'Alhamdulillah, Pendaftaran Berhasil!',
-        message: 'Akun mitra afiliasi Anda telah aktif. Silakan simpan kode referral dan ikuti langkah berikutnya.',
+        message: 'Akun Affiliate Al-Afiyah Anda telah aktif. Silakan simpan kode referral dan ikuti langkah berikutnya.',
       });
     } catch (err: unknown) {
       const error = err as Error;
@@ -198,7 +198,7 @@ export default function AffiliateRegisterPage() {
 
       <main className="flex-1 flex flex-col justify-center items-center py-8 sm:py-14 px-4 w-full">
         {/* ========================================================================= */}
-        {/* SUCCESS STATE & LANGKAH BERIKUTNYA (ONBOARDING MITRA AFILIASI)            */}
+        {/* SUCCESS STATE & LANGKAH BERIKUTNYA (ONBOARDING AFFILIATE AL-AFIYAH)       */}
         {/* ========================================================================= */}
         {isSuccess && registeredData ? (
           <div className="w-full max-w-xl bg-white rounded-3xl p-6 sm:p-9 shadow-2xl border border-emerald-100 text-slate-800 animate-fadeIn">
@@ -212,10 +212,10 @@ export default function AffiliateRegisterPage() {
                 <span>Pendaftaran Berhasil &amp; Akun Aktif</span>
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Ahlan wa Sahlan, Mitra Afiliasi!
+                Ahlan wa Sahlan di Affiliate Al-Afiyah!
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-md mx-auto leading-relaxed">
-                Akun kemitraan atas nama <strong className="text-slate-900 font-bold">{registeredData.fullName}</strong> ({registeredData.email}) telah siap. Anda sekarang resmi menjadi bagian dari syiar dakwah &amp; pendidikan Al-Afiyah.
+                Akun Affiliate Al-Afiyah atas nama <strong className="text-slate-900 font-bold">{registeredData.fullName}</strong> ({registeredData.email}) telah siap. Anda sekarang resmi menjadi bagian dari syiar dakwah &amp; pendidikan Al-Afiyah.
               </p>
             </div>
 
@@ -529,10 +529,10 @@ export default function AffiliateRegisterPage() {
                     {isLoading ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
-                        <span>Mendaftarkan Akun Mitra...</span>
+                        <span>Mendaftarkan Akun Affiliate...</span>
                       </>
                     ) : (
-                      <span>Daftar Jadi Affiliator — Gratis</span>
+                      <span>Daftar Affiliate Al-Afiyah — Gratis</span>
                     )}
                   </button>
                 </div>

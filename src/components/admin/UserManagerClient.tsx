@@ -141,7 +141,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
       case 'AFFILIATE':
         return (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">
-            Mitra Afiliasi
+            Affiliate Al-Afiyah
           </span>
         );
       default:
@@ -370,7 +370,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
             <option value="ADMIN_SMP">Admin SMP IT</option>
             <option value="FINANCE">Bendahara / Kasir</option>
             <option value="PPDB_OFFICER">Petugas Seleksi PPDB</option>
-            <option value="AFFILIATE">Mitra Afiliasi</option>
+            <option value="AFFILIATE">Affiliate Al-Afiyah</option>
           </select>
         </div>
 
@@ -702,7 +702,7 @@ export default function UserManagerClient({ initialUsers, schools }: UserManager
                     <option value="PPDB_OFFICER">Petugas Seleksi PPDB</option>
                     <option value="FINANCE">Bendahara / Kasir Tata Usaha</option>
                     <option value="SUPERADMIN">Superadmin Yayasan (Pusat)</option>
-                    <option value="AFFILIATE">Mitra Afiliasi</option>
+                    <option value="AFFILIATE">Affiliate Al-Afiyah</option>
                   </select>
                 </div>
 

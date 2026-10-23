@@ -203,13 +203,13 @@ async function main() {
     },
   });
 
-  // E. Mitra Afiliasi
+  // E. Affiliate Al-Afiyah
   const affiliateAhmad = await prisma.user.create({
     data: {
       email: 'afiliasi@alafiyah.id',
       phone: '6281322446688',
       passwordHash: defaultPassword,
-      fullName: 'Mitra Afiliasi',
+      fullName: 'Affiliate Al-Afiyah',
       role: 'AFFILIATE',
       schoolId: null,
     },
@@ -217,10 +217,10 @@ async function main() {
 
   const affiliateFatimah = await prisma.user.create({
     data: {
-      email: 'mitra@alafiyah.id',
+      email: 'affiliate@alafiyah.id',
       phone: '6281399887766',
       passwordHash: defaultPassword,
-      fullName: 'Mitra Berkah',
+      fullName: 'Affiliate Berkah',
       role: 'AFFILIATE',
       schoolId: null,
     },
@@ -245,8 +245,8 @@ async function main() {
   await prisma.affiliateProfile.create({
     data: {
       userId: affiliateFatimah.id,
-      referralCode: 'MITRA-BERKAH',
-      customSlug: 'mitra-berkah',
+      referralCode: 'AFIYAH-BERKAH',
+      customSlug: 'afiyah-berkah',
       bankName: 'Bank Syariah Indonesia (BSI)',
       bankAccountNumber: '7988776655',
       bankAccountHolder: 'Fatimah Azzahra',

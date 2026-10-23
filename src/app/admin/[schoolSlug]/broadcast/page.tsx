@@ -16,7 +16,7 @@ export async function generateMetadata({
   const { schoolSlug } = await params;
   return {
     title: `WhatsApp Broadcast Center | ${schoolSlug.toUpperCase()} IT Al-Afiyah`,
-    description: 'Pusat siaran notifikasi massal WhatsApp untuk calon wali murid dan mitra afiliasi.',
+    description: 'Pusat siaran notifikasi massal WhatsApp untuk calon wali murid dan Affiliate Al-Afiyah.',
   };
 }
 

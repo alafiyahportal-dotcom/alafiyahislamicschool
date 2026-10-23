@@ -100,9 +100,9 @@ Jazakumullah Khairan Katsiran.
 _Panitia PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`,
   },
   MOTIVASI_AFILIASI: {
-    title: '🤝 Kabar & Evaluasi Kemitraan Afiliasi',
+    title: '🤝 Kabar & Evaluasi Affiliate Al-Afiyah',
     text: `Assalamu'alaikum Warahmatullahi Wabarakatuh.
-Yth. Mitra Afiliasi Al-Afiyah Majalengka {nama_murid},
+Yth. Anggota Affiliate Al-Afiyah Majalengka {nama_murid},
 
 Alhamdulillah, antusiasme pendaftaran murid baru Al-Afiyah Majalengka terus meningkat.
 
@@ -110,22 +110,22 @@ Terima kasih atas syiar dan rekomendasi yang telah Anda bagikan. Pantau peroleha
 🔗 https://alafiyah.id/affiliate/dashboard
 
 Mari terus perluas keberkahan dakwah pendidikan Al-Qur'an bersama Al-Afiyah!
-_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`,
+_Tim Affiliate Al-Afiyah Majalengka_`,
   },
   PENGINGAT_REKENING_AFILIASI: {
-    title: '💳 Pengingat Rekening Mitra Afiliasi',
+    title: '💳 Pengingat Rekening Affiliate Al-Afiyah',
     text: `Assalamu'alaikum Warahmatullahi Wabarakatuh.
-Yth. Mitra Afiliasi Al-Afiyah Majalengka {nama_murid},
+Yth. Anggota Affiliate Al-Afiyah Majalengka {nama_murid},
 
-Terima kasih telah bergabung sebagai Mitra Afiliasi Al-Afiyah Majalengka.
+Terima kasih telah bergabung dalam program Affiliate Al-Afiyah Majalengka.
 
-Kami melihat data nomor rekening pencairan komisi Anda belum dilengkapi di dasbor afiliasi. Silakan buka dasbor Anda di tautan resmi:
+Kami melihat data nomor rekening pencairan komisi Anda belum dilengkapi di dashboard affiliate. Silakan buka dashboard Anda di tautan resmi:
 🔗 https://alafiyah.id/affiliate/dashboard?action=rekening
 
 Lalu lengkapi nomor rekening BSI/Muamalat/BCA/lainnya agar komisi PPDB Anda dapat langsung kami transfer saat ada calon murid yang mendaftar.
 
 Jazakumullah Khairan Katsiran.
-_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`,
+_Tim Affiliate Al-Afiyah Majalengka_`,
   },
 };
 
@@ -279,7 +279,7 @@ export default function BroadcastManagerClient({
             WhatsApp Broadcast Center
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-            Kirimkan notifikasi massal terarah kepada kelompok calon wali murid dan mitra afiliasi dalam 1-klik.
+            Kirimkan notifikasi massal terarah kepada kelompok calon wali murid dan anggota Affiliate Al-Afiyah dalam 1-klik.
           </p>
         </div>
 
@@ -416,7 +416,7 @@ export default function BroadcastManagerClient({
           <p className="text-[11px] text-slate-500 mt-0.5">Seluruh Pendaftar PPDB</p>
         </button>
 
-        {/* Button Segment 5: Mitra Afiliasi */}
+        {/* Button Segment 5: Affiliate Al-Afiyah */}
         <button
           onClick={() => setSegment('AFFILIATE_ACTIVE')}
           className={`p-4 rounded-2xl border text-left transition-all ${
@@ -427,14 +427,14 @@ export default function BroadcastManagerClient({
         >
           <div className="flex items-center justify-between mb-1">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-              Mitra Afiliasi
+              Affiliate Al-Afiyah
             </span>
             <Share2 className="w-4 h-4 text-amber-500" />
           </div>
           <div className="text-2xl font-bold tracking-tight text-slate-900 tabular-nums">
             {counts.AFFILIATE_ACTIVE}
           </div>
-          <p className="text-[11px] text-slate-500 mt-0.5">Guru &amp; Alumni Mitra</p>
+          <p className="text-[11px] text-slate-500 mt-0.5">Guru, Alumni &amp; Umum</p>
         </button>
       </div>
 

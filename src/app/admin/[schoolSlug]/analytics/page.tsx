@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { schoolSlug } = await params;
   return {
     title: `Analitik & Corong PPDB | ${schoolSlug.toUpperCase()} IT Al-Afiyah`,
-    description: 'Pemantauan performa corong konversi PPDB, perolehan pendaftar, dan efektivitas mitra afiliasi.',
+    description: 'Pemantauan performa corong konversi PPDB, perolehan pendaftar, dan efektivitas Affiliate Al-Afiyah.',
   };
 }
 
@@ -215,7 +215,7 @@ export default async function SchoolAnalyticsPage({
   const topAffiliates = affiliates
     .map((aff) => ({
       id: aff.id,
-      name: aff.user?.fullName || 'Mitra Afiliasi',
+      name: aff.user?.fullName || 'Affiliate Al-Afiyah',
       referralCode: aff.referralCode,
       referredCount: aff.conversions.length,
       totalEarned: aff.totalEarned,

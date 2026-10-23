@@ -12,8 +12,8 @@ import { reRegCommissionForSchool } from '@/services/affiliate-commission';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Kemitraan Afiliasi Yayasan | Yayasan Pendidikan Imam Bonjol',
-  description: 'Pemantauan pusat kemitraan afiliasi seluruh unit (TK, SDIT, SMP IT) Al-Afiyah Majalengka.',
+  title: 'Affiliate Al-Afiyah Yayasan | Yayasan Pendidikan Imam Bonjol',
+  description: 'Pemantauan pusat Affiliate Al-Afiyah seluruh unit (TK, SDIT, SMP IT) Al-Afiyah Majalengka.',
 };
 
 export default async function FoundationAffiliatesPage() {
@@ -61,7 +61,7 @@ export default async function FoundationAffiliatesPage() {
       id: c.id,
       registrationNo: c.registration?.registrationNo || '-',
       studentName: `${c.registration?.studentName || 'Calon Peserta Didik'} (${c.school?.slug.toUpperCase()} - ${stageLabel})`,
-      affiliateName: c.affiliate?.user?.fullName || 'Mitra Afiliasi',
+      affiliateName: c.affiliate?.user?.fullName || 'Affiliate Al-Afiyah',
       referralCode: c.affiliate?.referralCode || '-',
       commissionAmount: c.commissionAmount,
       status: c.status,
@@ -89,7 +89,7 @@ export default async function FoundationAffiliatesPage() {
 
     return {
       id: a.id,
-      fullName: a.user?.fullName || a.bankAccountHolder || 'Mitra Afiliasi',
+      fullName: a.user?.fullName || a.bankAccountHolder || 'Affiliate Al-Afiyah',
       email: a.user?.email || '-',
       phone: a.user?.phone || '-',
       referralCode: a.referralCode,
@@ -127,8 +127,8 @@ export default async function FoundationAffiliatesPage() {
 
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
-          title="Pusat Kemitraan Afiliasi Yayasan"
-          subtitle="Pemantauan Terpadu Mitra Afiliasi & Komisi Seluruh Unit TK IT, SDIT, dan SMP IT Al-Afiyah"
+          title="Pusat Affiliate Al-Afiyah Yayasan"
+          subtitle="Pemantauan Terpadu Affiliate Al-Afiyah & Komisi Seluruh Unit TK IT, SDIT, dan SMP IT Al-Afiyah"
           currentSchoolSlug="foundation"
         />
 

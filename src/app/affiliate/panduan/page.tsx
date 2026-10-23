@@ -124,10 +124,10 @@ export default function AffiliateGuidePage() {
               Petunjuk Operasional Singkat
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight pt-1">
-              Cara Pendaftaran &amp; Login Akun Mitra Afiliasi
+              Cara Pendaftaran &amp; Login Akun Affiliate Al-Afiyah
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-              Panduan ringkas bagi wali murid, dewan guru, dan simpatisan untuk bergabung sebagai mitra syiar dakwah SDIT Al-Afiyah.
+              Panduan ringkas bagi wali murid, dewan guru, dan simpatisan untuk bergabung dalam program Affiliate Al-Afiyah.
             </p>
           </div>
 
@@ -147,7 +147,7 @@ export default function AffiliateGuidePage() {
             <div className="flex items-center space-x-2 pb-2 border-b border-slate-200">
               <UserPlus className="w-5 h-5 text-emerald-700" />
               <h3 className="text-base font-extrabold text-[#064E3B]">
-                A. Cara Pendaftaran Akun Mitra Afiliasi Baru (Hanya 2 Menit)
+                A. Cara Pendaftaran Akun Affiliate Al-Afiyah Baru (Hanya 2 Menit)
               </h3>
             </div>
 
@@ -159,7 +159,7 @@ export default function AffiliateGuidePage() {
                 <div>
                   <h4 className="text-xs font-bold text-slate-900">Buka Link Pendaftaran</h4>
                   <p className="text-[11px] text-slate-600 mt-0.5">
-                    Kunjungi <strong>alafiyah.id/affiliate</strong> atau klik menu <em>&quot;Mitra Afiliasi&quot;</em> di bagian footer website sekolah.
+                    Kunjungi <strong>alafiyah.id/affiliate</strong> atau klik menu <em>&quot;Affiliate Al-Afiyah&quot;</em> di bagian footer website sekolah.
                   </p>
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function AffiliateGuidePage() {
                 <thead className="bg-slate-100 text-slate-900 border-b border-slate-200 font-bold">
                   <tr>
                     <th className="p-3">Tahapan</th>
-                    <th className="p-3">Yang Dilakukan Mitra</th>
+                    <th className="p-3">Yang Dilakukan Anggota Affiliate</th>
                     <th className="p-3">Yang Dilakukan Sistem Digital</th>
                   </tr>
                 </thead>
@@ -262,7 +262,7 @@ export default function AffiliateGuidePage() {
                   <tr>
                     <td className="p-3 font-bold text-emerald-800">1. Salin Link</td>
                     <td className="p-3 text-slate-700">Buka dasbor di HP, klik tombol <em>&quot;Salin Tautan Afiliasi&quot;</em>.</td>
-                    <td className="p-3 text-slate-600">Sistem mengunci kode unik referral mitra (contoh: <code>?ref=AHMAD</code>).</td>
+                    <td className="p-3 text-slate-600">Sistem mengunci kode unik referral Anda (contoh: <code>?ref=AHMAD</code>).</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-emerald-800">2. Bagikan Info</td>
@@ -272,16 +272,16 @@ export default function AffiliateGuidePage() {
                   <tr>
                     <td className="p-3 font-bold text-emerald-800">3. Pendaftaran</td>
                     <td className="p-3 text-slate-700">Calon murid mengisi formulir PPDB online dan melunasi biaya formulir.</td>
-                    <td className="p-3 text-slate-600">Sistem otomatis mencatat data pendaftar baru atas nama mitra.</td>
+                    <td className="p-3 text-slate-600">Sistem otomatis mencatat data pendaftar baru atas nama akun Anda.</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-emerald-800">4. Pantau Hasil</td>
-                    <td className="p-3 text-slate-700">Mitra membuka dasbor kapan saja untuk melihat nama pendaftar dan saldo komisi.</td>
+                    <td className="p-3 text-slate-700">Buka dashboard kapan saja untuk melihat nama pendaftar dan saldo komisi.</td>
                     <td className="p-3 text-slate-600">Data ditampilkan 100% transparan dan anti-sengketa.</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-emerald-800">5. Pencairan</td>
-                    <td className="p-3 text-slate-700">Mengajukan transfer ke rekening bank mitra (dijadwalkan <strong>1x seminggu</strong> oleh Bendahara Yayasan), atau dialihkan sebagai <strong>pemotong SPP</strong> ananda.</td>
+                    <td className="p-3 text-slate-700">Mengajukan transfer ke rekening bank Anda (dijadwalkan <strong>1x seminggu</strong> oleh Bendahara Yayasan), atau dialihkan sebagai <strong>pemotong SPP</strong> ananda.</td>
                     <td className="p-3 text-slate-600">Terekonsiliasi otomatis dengan laporan kas Bendahara Yayasan secara berkala.</td>
                   </tr>
                 </tbody>
@@ -289,7 +289,7 @@ export default function AffiliateGuidePage() {
             </div>
           </div>
 
-          {/* BAGIAN 4: BESARAN & ESTIMASI POTENSI KOMISI MITRA */}
+          {/* BAGIAN 4: BESARAN & ESTIMASI POTENSI KOMISI AFFILIATE AL-AFIYAH */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2 pb-2 border-b border-slate-200">
               <Wallet className="w-5 h-5 text-emerald-700" />
@@ -387,7 +387,7 @@ export default function AffiliateGuidePage() {
                     <td className="p-2.5 font-bold text-slate-900">10 Murid Baru</td>
                     <td className="p-2.5 font-mono text-[11px]">10 × Rp 150.000</td>
                     <td className="p-2.5 font-bold text-emerald-700">Rp 1.500.000</td>
-                    <td className="p-2.5 text-slate-600">Bagi hasil syiar berkah cair ke rekening mitra</td>
+                    <td className="p-2.5 text-slate-600">Komisi berkah cair ke rekening bank Anda</td>
                   </tr>
                   <tr className="bg-amber-50/40">
                     <td className="p-2.5 font-bold text-slate-900">20 Murid (1 Rombel)</td>
@@ -410,13 +410,13 @@ export default function AffiliateGuidePage() {
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                 <span className="font-bold text-[#064E3B] block mb-1">1. Transfer Rekening Bank Tunai (1x Seminggu)</span>
                 <p className="text-slate-600 text-[11px] leading-relaxed">
-                  Ditransfer langsung ke rekening bank mitra (BSI, Mandiri, BRI, dll) dengan jadwal penarikan <strong>1 (satu) kali seminggu secara berkala</strong> oleh Bagian Keuangan / Bendahara Yayasan agar rekapitulasi kas tetap rapi dan tidak membebani bagian bendahara.
+                  Ditransfer langsung ke rekening bank Anda (BSI, Mandiri, BRI, dll) dengan jadwal penarikan <strong>1 (satu) kali seminggu secara berkala</strong> oleh Bagian Keuangan / Bendahara Yayasan agar rekapitulasi kas tetap rapi dan tidak membebani bagian bendahara.
                 </p>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                 <span className="font-bold text-[#064E3B] block mb-1">2. Pemotong SPP Bulanan Murid</span>
                 <p className="text-slate-600 text-[11px] leading-relaxed">
-                  Khusus mitra dari kalangan wali murid aktif, komisi dapat langsung dialihkan sebagai pemotong SPP bulanan ananda sehingga meringankan biaya pendidikan.
+                  Khusus kalangan wali murid aktif, komisi dapat langsung dialihkan sebagai pemotong SPP bulanan ananda sehingga meringankan biaya pendidikan.
                 </p>
               </div>
             </div>
@@ -428,7 +428,7 @@ export default function AffiliateGuidePage() {
                 <strong className="block font-bold text-emerald-900 mb-0.5">
                   Ketentuan Jadwal Penarikan: Maksimal 1 Kali dalam Seminggu
                 </strong>
-                Demi efisiensi kerja dan kenyamanan operasional Bendahara Yayasan dalam mengelola pembukuan kas sekolah, pengajuan penarikan dana komisi oleh setiap mitra dibatasi maksimal 1 kali dalam 7 hari (seminggu sekali).
+                Demi efisiensi kerja dan kenyamanan operasional Bendahara Yayasan dalam mengelola pembukuan kas sekolah, pengajuan penarikan dana komisi dibatasi maksimal 1 kali dalam 7 hari (seminggu sekali).
               </div>
             </div>
           </div>

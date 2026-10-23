@@ -167,8 +167,8 @@ export default function NotificationLogClient({ initialLogs }: NotificationLogCl
                 <option value="PAYMENT_CONFIRMED">Kuitansi Pembayaran Lunas</option>
                 <option value="TEST_SCHEDULED">Jadwal Ujian Observasi</option>
                 <option value="ADMISSION_ANNOUNCED">Hasil Seleksi / Kelulusan</option>
-                <option value="COMMISSION_EARNED">Bonus Komisi Afiliasi</option>
-                <option value="PAYOUT_TRANSFERRED">Pencairan Komisi Mitra</option>
+                <option value="COMMISSION_EARNED">Komisi Affiliate Al-Afiyah</option>
+                <option value="PAYOUT_TRANSFERRED">Pencairan Komisi Affiliate</option>
               </select>
             </div>
 

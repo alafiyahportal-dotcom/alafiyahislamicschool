@@ -7,7 +7,7 @@ import BroadcastManagerClient from '@/components/admin/BroadcastManagerClient';
 
 export const metadata: Metadata = {
   title: 'WhatsApp Broadcast Center | Yayasan Pendidikan Imam Bonjol',
-  description: 'Pusat siaran notifikasi massal WhatsApp untuk calon wali murid dan mitra afiliasi Yayasan Imam Bonjol Majalengka.',
+  description: 'Pusat siaran notifikasi massal WhatsApp untuk calon wali murid dan Affiliate Al-Afiyah Yayasan Imam Bonjol Majalengka.',
 };
 
 export const dynamic = 'force-dynamic';

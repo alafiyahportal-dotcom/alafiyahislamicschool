@@ -423,8 +423,8 @@ export default function AffiliateDashboardPage() {
   // Strip school subdomain so affiliate central links resolve cleanly
   const rootDomain = host ? host.replace(/^(www|sdit|smpit|tkit|sd|smp|tk)\./i, '') : 'localhost:3000';
   const rootOrigin = typeof window !== 'undefined' ? `${protocol}//${rootDomain}` : 'http://localhost:3000';
-  const customSlug = profile?.customSlug || 'mitra-ahmad';
-  const referralCode = profile?.referralCode || 'MITRA-AHMAD';
+  const customSlug = profile?.customSlug || 'afiyah-ahmad';
+  const referralCode = profile?.referralCode || 'AFIYAH-AHMAD';
 
   // Landing page links (unit-specific profiles)
   const tkLink = `${rootOrigin}/ref/tk/${customSlug}`;
@@ -681,7 +681,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
                 Dashboard Afiliasi Al-Afiyah
               </h1>
               <p className="text-[11px] text-slate-500">
-                {activeUnit === 'smp' ? 'Mitra SMP IT Al-Afiyah • Yayasan Pendidikan Imam Bonjol' : 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka'}
+                {activeUnit === 'smp' ? 'Affiliate Al-Afiyah SMP IT • Yayasan Pendidikan Imam Bonjol' : 'Yayasan Pendidikan Imam Bonjol Al-Afiyah Majalengka'}
               </p>
             </div>
           </div>
@@ -702,7 +702,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
 
             <div className="hidden sm:block text-right border-l border-slate-200 pl-3">
               <span className="text-xs font-bold text-slate-900 block truncate max-w-[140px]">
-                {profile?.fullName || 'Mitra Afiliasi'}
+                {profile?.fullName || 'Affiliate Al-Afiyah'}
               </span>
               <span className="text-[11px] font-mono text-slate-500 block">
                 ID: {referralCode}
@@ -727,7 +727,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5">
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
-                Selamat Datang, {profile?.fullName || 'Mitra Afiliasi'}
+                Selamat Datang, {profile?.fullName || 'Affiliate Al-Afiyah'}
               </h2>
               <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed max-w-2xl">
                 Pantau rujukan pendaftaran dan pencairan komisi resmi pendaftaran murid baru Al-Afiyah secara transparan.
@@ -887,7 +887,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
           </div>
         )}
 
-        {/* SECTION: STATISTIK LENGKAP & INTERAKTIF MITRA AFILIASI */}
+        {/* SECTION: STATISTIK LENGKAP & INTERAKTIF AFFILIATE AL-AFIYAH */}
         <div className="space-y-5">
           {/* Header & Interactive Period Filter */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs">
@@ -1043,7 +1043,7 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center justify-between">
                 <span>Tier:</span>
-                <span className="font-bold text-slate-800">{profile?.tier || '🥉 Mitra Bronze'}</span>
+                <span className="font-bold text-slate-800">{profile?.tier || '🥉 Affiliate Bronze'}</span>
               </div>
             </div>
 
@@ -2206,12 +2206,12 @@ Wassalamu'alaikum Warahmatullahi Wabarakatuh.`;
 
               <div className="pt-2 border-t border-slate-100">
                 <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block mb-2">
-                  Informasi Kontak Mitra
+                  Informasi Kontak Affiliate
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Nama Lengkap Mitra
+                      Nama Lengkap Affiliate
                     </label>
                     <input
                       type="text"

@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
             recipientPhone: reRegResult.phone,
             recipientName: reRegResult.name,
             eventType: 'COMMISSION_EARNED',
-            messageContent: `Assalamu'alaikum Warahmatullahi Wabarakatuh.\nYth. ${reRegResult.name},\n\nAlhamdulillah! Murid rujukan Anda atas nama *${reg.studentName}* telah resmi menyelesaikan proses *DAFTAR ULANG* di *${reg.school.name}*.\n\n🎉 *Bonus Komisi Tahap 2 (Daftar Ulang):* Rp ${reRegResult.commission.toLocaleString('id-ID')}\n📊 *Status:* DIVERIFIKASI & SIAP DICAIRKAN\n\nCek akumulasi saldo komisi di Dasbor Mitra Anda:\n🔗 https://alafiyah.id/affiliate/dashboard\n\nJazakumullah Khairan atas kontribusi dan sinergi dakwah pendidikan bersama Yayasan Pendidikan Al-Afiyah!`,
+            messageContent: `Assalamu'alaikum Warahmatullahi Wabarakatuh.\nYth. ${reRegResult.name},\n\nAlhamdulillah! Murid rujukan Anda atas nama *${reg.studentName}* telah resmi menyelesaikan proses *DAFTAR ULANG* di *${reg.school.name}*.\n\n🎉 *Bonus Komisi Tahap 2 (Daftar Ulang):* Rp ${reRegResult.commission.toLocaleString('id-ID')}\n📊 *Status:* DIVERIFIKASI & SIAP DICAIRKAN\n\nCek akumulasi saldo komisi di Dashboard Affiliate Al-Afiyah Anda:\n🔗 https://alafiyah.id/affiliate/dashboard\n\nJazakumullah Khairan atas kontribusi dan sinergi dakwah pendidikan bersama Yayasan Pendidikan Al-Afiyah!`,
             metadata: { studentName: reg.studentName, amount: reRegResult.commission, stage: 'DAFTAR_ULANG' },
           });
         }

@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     if (segment === 'AFFILIATE_ACTIVE') {
       if (auth.session.role !== 'SUPERADMIN') {
         return NextResponse.json(
-          { error: 'Akses ditolak: Hanya SUPERADMIN yang dapat menyiarkan ke mitra afiliasi.' },
+          { error: 'Akses ditolak: Hanya SUPERADMIN yang dapat menyiarkan ke anggota Affiliate Al-Afiyah.' },
           { status: 403 }
         );
       }
@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
       recipients = affiliates.map((aff) => ({
         id: aff.id,
         studentName: aff.user.fullName,
-        parentName: 'Mitra Afiliasi',
+        parentName: 'Affiliate Al-Afiyah',
         phone: aff.user.phone || '6281200000000',
         registrationNo: aff.referralCode,
         schoolName: 'Al-Afiyah Majalengka',
@@ -165,7 +165,7 @@ export async function POST(request: NextRequest) {
     if (segment === 'AFFILIATE_ACTIVE') {
       if (auth.session.role !== 'SUPERADMIN') {
         return NextResponse.json(
-          { error: 'Akses ditolak: Hanya SUPERADMIN yang dapat menyiarkan ke mitra afiliasi.' },
+          { error: 'Akses ditolak: Hanya SUPERADMIN yang dapat menyiarkan ke anggota Affiliate Al-Afiyah.' },
           { status: 403 }
         );
       }
@@ -178,7 +178,7 @@ export async function POST(request: NextRequest) {
       targetRecipients = affiliates.map((aff) => ({
         id: aff.id,
         studentName: aff.user.fullName,
-        parentName: 'Mitra Afiliasi',
+        parentName: 'Affiliate Al-Afiyah',
         phone: aff.user.phone || '6281200000000',
         registrationNo: aff.referralCode,
         schoolName: 'Yayasan Imam Bonjol',

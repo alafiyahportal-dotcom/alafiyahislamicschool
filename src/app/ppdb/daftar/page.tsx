@@ -893,7 +893,7 @@ function PPDBFormContent() {
               {/* Persistent Referral Code */}
               <div className="pt-2">
                 <label className="block text-xs font-bold text-slate-700 mb-2">
-                  Kode Rujukan / Referral Mitra Afiliasi (Opsional)
+                  Kode Referral Affiliate Al-Afiyah (Opsional)
                 </label>
                 <div className="relative max-w-sm">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -904,7 +904,7 @@ function PPDBFormContent() {
                     value={formData.referralCode}
                     readOnly={Boolean(autoDetectedRef)}
                     onChange={(e) => !autoDetectedRef && updateField('referralCode', e.target.value.toUpperCase())}
-                    placeholder="Contoh: MITRA-AHMAD"
+                    placeholder="Contoh: AFIYAH-AHMAD"
                     className={`w-full pl-10 pr-9 py-3 text-xs sm:text-sm uppercase font-mono border rounded-xl transition-all shadow-2xs font-semibold ${
                       autoDetectedRef
                         ? 'bg-emerald-50/90 border-emerald-300 text-emerald-950 cursor-not-allowed select-none'
@@ -912,7 +912,7 @@ function PPDBFormContent() {
                     }`}
                   />
                   {autoDetectedRef && (
-                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none" title="Terkunci dari cookie/link referral mitra">
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none" title="Terkunci dari link Affiliate Al-Afiyah">
                       <Lock className="w-4 h-4 text-emerald-600" />
                     </div>
                   )}
@@ -922,7 +922,7 @@ function PPDBFormContent() {
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>
                       {autoDetectedRef && formData.referralCode === autoDetectedRef
-                        ? '🔒 Terkunci Otomatis dari Link / Cookie Mitra Afiliasi: '
+                        ? '🔒 Terkunci Otomatis dari Link Affiliate Al-Afiyah: '
                         : 'Rujukan Terverifikasi: '}
                       <strong className="font-mono text-emerald-950 underline decoration-emerald-400">{formData.referralCode}</strong>
                     </span>
@@ -2015,7 +2015,7 @@ function PPDBFormContent() {
                 </div>
                 {formData.referralCode && (
                   <div className="flex items-center justify-between text-xs text-emerald-900">
-                    <span className="font-medium">Rujukan Mitra Afiliasi:</span>
+                    <span className="font-medium">Affiliate Al-Afiyah:</span>
                     <span className="font-mono font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-md border border-amber-200">
                       {formData.referralCode}
                     </span>

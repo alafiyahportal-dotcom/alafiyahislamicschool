@@ -62,7 +62,7 @@ export default function EdukaDonutChart({
         dotColor: 'bg-[#F59E0B]',
       },
       {
-        name: 'Akun Mitra Afiliasi',
+        name: 'Akun Affiliate Al-Afiyah',
         count: totalAffiliates,
         percentage: calcPercent(totalAffiliates),
         color: '#8B5CF6',
@@ -84,7 +84,7 @@ export default function EdukaDonutChart({
             Statistik Komunitas &amp; Pendaftar {unitName}
           </h3>
           <p className="text-xs text-slate-500 font-medium">
-            Komposisi peserta didik, wali murid, dewan guru, &amp; mitra edukasi
+            Komposisi peserta didik, wali murid, dewan guru, &amp; affiliate
           </p>
         </div>
 

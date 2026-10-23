@@ -149,7 +149,7 @@ export default function AffiliatePublicPage() {
   // State: Referral Link Copy
   const [heroCopied, setHeroCopied] = useState(false);
   const handleHeroCopy = () => {
-    navigator.clipboard.writeText('https://alafiyah.id/ref/MITRA-BERKAH');
+    navigator.clipboard.writeText('https://alafiyah.id/ref/AFIYAH-BERKAH');
     setHeroCopied(true);
     setTimeout(() => setHeroCopied(false), 2500);
   };
@@ -272,7 +272,7 @@ export default function AffiliatePublicPage() {
 
       const data = await res.json();
       if (!res.ok) {
-        setErrorMessage(data.error || 'Gagal mendaftarkan akun mitra afiliasi.');
+        setErrorMessage(data.error || 'Gagal mendaftarkan akun Affiliate Al-Afiyah.');
         setIsLoading(false);
         return;
       }
@@ -287,7 +287,7 @@ export default function AffiliatePublicPage() {
         // ignore
       }
 
-      setSuccessMessage('Pendaftaran berhasil! Mengalihkan ke dasbor mitra...');
+      setSuccessMessage('Pendaftaran berhasil! Mengalihkan ke dashboard Affiliate Al-Afiyah...');
       setTimeout(() => {
         router.push(data.redirectUrl || '/affiliate/dashboard');
       }, 1200);
@@ -310,7 +310,7 @@ export default function AffiliatePublicPage() {
       why: 'Sebagai orang tua yang merasakan langsung lingkungan islami, tahfidz mutqin, dan kenyamanan belajar di Al-Afiyah, cerita Anda sangat dipercaya oleh sanak kerabat.',
       earningExample: 'Rekomendasikan 3 kerabat masuk SDIT = Rp 450.000 (bisa menutup biaya seragam atau SPP peserta didik).',
       template:
-        "Assalamu'alaikum wr. wb. Ayah/Bunda, bagi yang sedang mencari sekolah Islam berkualitas dengan bimbingan tahfidz intensif dan karakter qurani di Majalengka, PPDB Al-Afiyah (TK, SD, SMP) kini sudah dibuka. Informasi dan pendaftaran resmi: https://alafiyah.id/ref/KODE-MITRA",
+        "Assalamu'alaikum wr. wb. Ayah/Bunda, bagi yang sedang mencari sekolah Islam berkualitas dengan bimbingan tahfidz intensif dan karakter qurani di Majalengka, PPDB Al-Afiyah (TK, SD, SMP) kini sudah dibuka. Informasi dan pendaftaran resmi: https://alafiyah.id/ref/KODE-AFFILIATE",
     },
     guru: {
       badge: 'Dewan Guru & Asatidz',
@@ -323,7 +323,7 @@ export default function AffiliatePublicPage() {
       why: 'Guru dan asatidz memiliki peran sentral dalam mengarahkan masa depan peserta didik. Setiap peserta didik yang Anda bimbing diapresiasi dengan hak komisi yang halal.',
       earningExample: 'Rekomendasikan 5 peserta didik lulusan melanjutkan ke SMP IT = Rp 2.750.000 langsung cair ke rekening pendidik.',
       template:
-        "Bismillah. Untuk wali murid dan adik-adik peserta didik yang mencari kelanjutan sekolah terpadu dengan kurikulum unggul, hafalan Al-Qur'an, dan adab harian, kami merekomendasikan Ma'had Al-Afiyah. Pendaftaran: https://alafiyah.id/ref/KODE-MITRA",
+        "Bismillah. Untuk wali murid dan adik-adik peserta didik yang mencari kelanjutan sekolah terpadu dengan kurikulum unggul, hafalan Al-Qur'an, dan adab harian, kami merekomendasikan Ma'had Al-Afiyah. Pendaftaran: https://alafiyah.id/ref/KODE-AFFILIATE",
     },
     alumni: {
       badge: 'Alumni Peserta Didik',
@@ -336,7 +336,7 @@ export default function AffiliatePublicPage() {
       why: 'Anda adalah bukti hidup kualitas pendidikan karakter Al-Afiyah. Ajak adik kandung, sepupu, atau rekan di majelis untuk merasakan manfaat belajar di Al-Afiyah.',
       earningExample: "Ajak 3 sanak famili bergabung di Ma'had Al-Afiyah = Rp 1.150.000 siap ditransfer ke rekening mahasiswa Anda.",
       template:
-        'Hai semuanya! Buat yang nanya sekolah Islam favorit di Majalengka yang lingkungan belajarnya asik dan fokus tahfidz, aku sangat rekomendasikan Al-Afiyah: https://alafiyah.id/ref/KODE-MITRA',
+        'Hai semuanya! Buat yang nanya sekolah Islam favorit di Majalengka yang lingkungan belajarnya asik dan fokus tahfidz, aku sangat rekomendasikan Al-Afiyah: https://alafiyah.id/ref/KODE-AFFILIATE',
     },
     relawan: {
       badge: 'Penggiat Dakwah',

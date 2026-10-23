@@ -8,14 +8,14 @@ export async function POST(request: NextRequest) {
 
     if (!session || !session.id) {
       return NextResponse.json(
-        { error: 'Unauthorized: Harap login sebagai mitra afiliasi untuk mengajukan pencairan dana.' },
+        { error: 'Unauthorized: Harap login sebagai akun affiliate untuk mengajukan pencairan dana.' },
         { status: 401 }
       );
     }
 
     if (session.role !== 'AFFILIATE' && session.role !== 'SUPERADMIN') {
       return NextResponse.json(
-        { error: 'Forbidden: Hanya mitra afiliasi yang dapat mengajukan pencairan komisi.' },
+        { error: 'Forbidden: Hanya akun affiliate yang dapat mengajukan pencairan komisi.' },
         { status: 403 }
       );
     }
@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
           recipientPhone: affiliateProfile.user.phone || '6281234567890',
           recipientName: affiliateProfile.user.fullName,
           eventType: 'COMMISSION_PAYOUT_REQUESTED',
-          messageContent: `Permintaan pencairan komisi mitra afiliasi an. ${affiliateProfile.user.fullName} sebesar Rp ${withdrawAmount.toLocaleString('id-ID')} ke rekening ${affiliateProfile.bankName} (${affiliateProfile.bankAccountNumber} a.n ${affiliateProfile.bankAccountHolder}) telah diterima dalam jadwal batch mingguan dan sedang diproses oleh Bagian Keuangan / Bendahara Yayasan Imam Bonjol Majalengka.`,
+          messageContent: `Permintaan pencairan komisi Affiliate Al-Afiyah an. ${affiliateProfile.user.fullName} sebesar Rp ${withdrawAmount.toLocaleString('id-ID')} ke rekening ${affiliateProfile.bankName} (${affiliateProfile.bankAccountNumber} a.n ${affiliateProfile.bankAccountHolder}) telah diterima dalam jadwal batch mingguan dan sedang diproses oleh Bagian Keuangan / Bendahara Yayasan Imam Bonjol Majalengka.`,
           status: 'SENT',
           metadata: JSON.stringify({
             affiliateId: affiliateProfile.id,

@@ -13,7 +13,7 @@ export async function GET(
 
   // Default schoolSlug: use detected subdomain if present (e.g. smpit.alafiyah.id -> 'smp'), else fallback to 'sd'
   let schoolSlug: SchoolSlug = (detectedSubdomain as SchoolSlug) || 'sd';
-  let referralCode = 'MITRA-AHMAD';
+  let referralCode = 'AFIYAH-AHMAD';
   let isDirectForm = false;
 
   // Handle various formats:

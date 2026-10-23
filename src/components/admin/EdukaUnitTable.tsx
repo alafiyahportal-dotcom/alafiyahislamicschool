@@ -102,10 +102,10 @@ export default function EdukaUnitTable({
     },
     {
       id: '4',
-      name: 'Program Kemitraan Afiliasi',
-      headmaster: 'Koordinator Kemitraan Dakwah',
+      name: 'Affiliate Al-Afiyah',
+      headmaster: 'Koordinator Affiliate Al-Afiyah',
       slug: 'foundation',
-      badgeTag: 'Mitra Yayasan',
+      badgeTag: 'Affiliate Yayasan',
       iconType: 'users',
       levelInfo: 'Jejaring Majelis & Guru',
       studentsCount: 18,

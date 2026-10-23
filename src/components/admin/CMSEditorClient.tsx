@@ -1346,7 +1346,7 @@ export default function CMSEditorClient({
           )}
           {activeTab === 'affiliate' && (
             <span>
-              <strong>Landing Page Kemitraan Afiliasi:</strong> Tampil pada halaman publik <strong>/affiliate</strong>. Anda dapat mengedit headline, 3 kolase foto hero, running text pita, narasi program, dan nominal tarif bagi hasil komisi.
+              <strong>Landing Page Affiliate Al-Afiyah:</strong> Tampil pada halaman publik <strong>/affiliate</strong>. Anda dapat mengedit headline, 3 kolase foto hero, running text pita, narasi program, dan nominal tarif bagi hasil komisi.
             </span>
           )}
           {activeTab === 'sd_karakter' && (
@@ -1383,7 +1383,7 @@ export default function CMSEditorClient({
               <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
               <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
               <span className="text-xs font-mono text-slate-300 ml-2">
-                Pratinjau: {publicUrl} — {activeTab === 'hero' ? 'Hero Banner' : activeTab === 'identity' ? 'Profil & Kontak' : activeTab === 'stats' ? 'Counter Statistik' : activeTab === 'values' ? 'Nilai Keunggulan' : activeTab === 'programs' ? 'Program Pilihan' : activeTab === 'facilities' ? 'Fasilitas Sekolah' : activeTab === 'testimonials' ? 'Testimoni Wali Murid' : activeTab === 'tuition' ? 'Biaya PPDB' : activeTab === 'affiliate' ? 'Kemitraan Afiliasi' : activeTab === 'sd_karakter' ? 'Pilar Karakter & Nilai Islami SDIT' : activeTab === 'sd_profil' ? 'Profil, Visi Misi & Legalitas SDIT' : 'Pratinjau'}
+                Pratinjau: {publicUrl} — {activeTab === 'hero' ? 'Hero Banner' : activeTab === 'identity' ? 'Profil & Kontak' : activeTab === 'stats' ? 'Counter Statistik' : activeTab === 'values' ? 'Nilai Keunggulan' : activeTab === 'programs' ? 'Program Pilihan' : activeTab === 'facilities' ? 'Fasilitas Sekolah' : activeTab === 'testimonials' ? 'Testimoni Wali Murid' : activeTab === 'tuition' ? 'Biaya PPDB' : activeTab === 'affiliate' ? 'Affiliate Al-Afiyah' : activeTab === 'sd_karakter' ? 'Pilar Karakter & Nilai Islami SDIT' : activeTab === 'sd_profil' ? 'Profil, Visi Misi & Legalitas SDIT' : 'Pratinjau'}
               </span>
             </div>
             <span className="text-[11px] font-bold bg-white/10 px-2.5 py-1 rounded text-emerald-400">Live Interactive</span>
@@ -2432,9 +2432,9 @@ export default function CMSEditorClient({
             <div className="p-8 text-center space-y-4">
               <div className="max-w-md mx-auto p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
                 <Share2 className="w-10 h-10 text-emerald-800 mx-auto" />
-                <h4 className="font-extrabold text-slate-900 text-base">Halaman Publik Kemitraan Afiliasi</h4>
+                <h4 className="font-extrabold text-slate-900 text-base">Halaman Publik Affiliate Al-Afiyah</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Pratinjau lengkap dengan seluruh simulator interaktif, kalkulator komisi, dan formulir kemitraan dapat dilihat langsung pada rute publik.
+                  Pratinjau lengkap dengan seluruh simulator interaktif, kalkulator komisi, dan formulir pendaftaran affiliate dapat dilihat langsung pada rute publik.
                 </p>
                 <a
                   href="/affiliate"
@@ -4226,10 +4226,10 @@ export default function CMSEditorClient({
                   </div>
                   <div>
                     <h3 className="text-sm font-extrabold text-slate-900">
-                      Editor Landing Page Kemitraan Afiliasi (/affiliate)
+                      Editor Landing Page Affiliate Al-Afiyah (/affiliate)
                     </h3>
                     <p className="text-xs text-slate-600 mt-0.5">
-                      Kelola 3 foto bento hero, teks berjalan (marquee ticker), foto seksi pengenalan, dan tarif bagi hasil komisi syirkah.
+                      Kelola 3 foto bento hero, teks berjalan (marquee ticker), foto seksi pengenalan, dan tarif komisi Affiliate Al-Afiyah.
                     </p>
                   </div>
                 </div>
@@ -4266,7 +4266,7 @@ export default function CMSEditorClient({
                       type="text"
                       value={formData.affiliate?.heroBadge || ''}
                       onChange={(e) => updateAffiliate('heroBadge', e.target.value)}
-                      placeholder="Program Kemitraan Dakwah & Kebaikan"
+                      placeholder="Program Affiliate Al-Afiyah"
                       className="w-full text-xs font-semibold text-slate-900 border border-slate-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-[#2D7A70]/30"
                     />
                   </div>
@@ -4400,12 +4400,12 @@ export default function CMSEditorClient({
                 </div>
               </div>
 
-              {/* CARD 3: ABOUT SECTION ("MENGENAL PROGRAM KEMITRAAN") */}
+              {/* CARD 3: ABOUT SECTION ("MENGENAL AFFILIATE AL-AFIYAH") */}
               <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
                 <div className="border-b border-slate-100 pb-4">
                   <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
                     <BookOpen className="w-4 h-4 text-[#184F48]" />
-                    <span>3. Seksi "Mengenal Kemitraan" (About &amp; Narasi)</span>
+                    <span>3. Seksi "Mengenal Affiliate" (About &amp; Narasi)</span>
                   </h4>
                   <p className="text-xs text-slate-500 mt-1">
                     Atur narasi sinergi dakwah dan 2 foto bertumpuk di sebelah kiri seksi kedua.

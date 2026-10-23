@@ -81,7 +81,7 @@ export default async function FoundationFinancePage() {
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
           title="Rekonsiliasi Kas & Keuangan Yayasan"
-          subtitle="Konsolidasi Kas Masuk PPDB Seluruh Unit & Verifikasi Pencairan Mitra Afiliasi"
+          subtitle="Konsolidasi Kas Masuk PPDB Seluruh Unit & Verifikasi Pencairan Affiliate Al-Afiyah"
         />
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full">

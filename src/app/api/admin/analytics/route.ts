@@ -187,7 +187,7 @@ export async function GET() {
     const topAffiliates = affiliates
       .map((aff) => ({
         id: aff.id,
-        name: aff.user?.fullName || 'Mitra Afiliasi',
+        name: aff.user?.fullName || 'Affiliate Al-Afiyah',
         referralCode: aff.referralCode,
         referredCount: aff.conversions.length,
         totalEarned: aff.totalEarned,

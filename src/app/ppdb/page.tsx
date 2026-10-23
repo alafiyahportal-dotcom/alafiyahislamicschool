@@ -173,10 +173,10 @@ export default function PPDBHubPage() {
     },
     {
       id: 'afiliasi',
-      title: 'Jalur Rujukan Mitra Afiliasi',
+      title: 'Jalur Rujukan Affiliate Al-Afiyah',
       tag: 'Kode Referral Khusus',
-      desc: 'Pendaftaran melalui tautan Mitra Afiliasi Al-Afiyah (alumni, guru, wali murid). Mempercepat proses verifikasi dan pendampingan formulir.',
-      benefit: 'Pendampingan langsung oleh mitra afiliasi resmi sekolah.',
+      desc: 'Pendaftaran melalui tautan Affiliate Al-Afiyah (alumni, guru, wali murid). Mempercepat proses verifikasi dan pendampingan formulir.',
+      benefit: 'Pendampingan langsung melalui program Affiliate Al-Afiyah.',
       color: 'border-emerald-200 bg-emerald-50/50',
     },
   ];
@@ -275,8 +275,8 @@ export default function PPDBHubPage() {
       a: 'Ya, Yayasan menyediakan skema angsuran syariah bebas riba. Uang muka daftar ulang sebesar 40%, dan sisa 60% dapat diangsur dalam 2 termin selama semester pertama.',
     },
     {
-      q: 'Apakah wali murid atau alumni bisa menjadi Mitra Afiliasi untuk merekomendasikan murid baru?',
-      a: 'Sangat bisa! Yayasan membuka program Mitra Afiliasi Resmi Al-Afiyah di mana setiap rujukan calon murid yang diterima dan lunas akan mendapatkan bagi hasil komisi berkah hingga Rp 500.000/murid yang cair langsung ke rekening bank Anda.',
+      q: 'Apakah wali murid atau alumni bisa bergabung di Affiliate Al-Afiyah untuk merekomendasikan murid baru?',
+      a: 'Sangat bisa! Yayasan membuka program Affiliate Al-Afiyah di mana setiap rujukan calon murid yang mendaftar akan mendapatkan komisi yang cair langsung ke rekening bank Anda.',
     },
   ];
 
@@ -335,7 +335,7 @@ export default function PPDBHubPage() {
               className="px-5 py-3.5 rounded-2xl bg-emerald-800/80 hover:bg-emerald-800 border border-emerald-700 text-amber-200 font-semibold text-xs sm:text-sm transition-colors inline-flex items-center space-x-2"
             >
               <Share2 className="w-4 h-4 text-amber-300" />
-              <span>Program Mitra Afiliasi</span>
+              <span>Affiliate Al-Afiyah</span>
             </Link>
           </div>
         </div>
@@ -881,7 +881,7 @@ export default function PPDBHubPage() {
             <div className="space-y-3 max-w-2xl text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 text-amber-900 text-xs font-bold border border-amber-400/30">
                 <Gift className="w-3.5 h-3.5 text-amber-800" />
-                <span>Program Mitra Afiliasi Al-Afiyah</span>
+                <span>Affiliate Al-Afiyah</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
                 Ikut Menyiarkan Kebaikan, Raih Komisi Berkah Hingga Rp 500.000 / Murid
@@ -896,14 +896,14 @@ export default function PPDBHubPage() {
                 href="/affiliate/register"
                 className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#064E3B] hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm shadow-md transition-all inline-flex items-center justify-center space-x-2 cursor-pointer"
               >
-                <span>Daftar Mitra Afiliasi (Gratis)</span>
+                <span>Daftar Affiliate Al-Afiyah (Gratis)</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/affiliate"
                 className="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold text-xs sm:text-sm transition-colors text-center"
               >
-                Pelajari Program Kemitraan
+                Pelajari Affiliate Al-Afiyah
               </Link>
             </div>
           </div>

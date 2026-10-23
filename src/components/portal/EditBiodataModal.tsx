@@ -1008,7 +1008,7 @@ export default function EditBiodataModal({
                     value={sdData.firstKnownSource}
                     onChange={(e) => updateSd('firstKnownSource', e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs"
-                    placeholder="misal: Kerabat, Spanduk, Media Sosial, Mitra Afiliasi"
+                    placeholder="misal: Kerabat, Spanduk, Media Sosial, Affiliate Al-Afiyah"
                   />
                 </div>
                 <div>

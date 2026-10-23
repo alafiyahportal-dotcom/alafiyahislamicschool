@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
         profile: {
           referralCode: publicAffiliate.referralCode,
           customSlug: publicAffiliate.customSlug,
-          name: publicAffiliate.user?.fullName || 'Mitra Resmi Al-Afiyah',
+          name: publicAffiliate.user?.fullName || 'Affiliate Al-Afiyah',
         },
       });
     }
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     // ─── 2. Authenticated Dashboard Access (Strict Session Verification) ────
     if (!session || !session.id) {
       return NextResponse.json(
-        { success: false, error: 'Sesi autentikasi diperlukan untuk mengakses dasbor mitra.' },
+        { success: false, error: 'Sesi autentikasi diperlukan untuk mengakses dashboard Affiliate Al-Afiyah.' },
         { status: 401 }
       );
     }
@@ -90,20 +90,20 @@ export async function GET(request: NextRequest) {
     ).length;
 
     // Tier calculation: Bronze (0-2), Silver (3-5), Gold (6-10), Platinum (11+)
-    let tier = '🥉 Mitra Bronze';
+    let tier = '🥉 Affiliate Bronze';
     let nextTierTarget = 3;
     let tierProgress = Math.min(100, Math.round((totalStudents / 3) * 100));
 
     if (totalStudents >= 11) {
-      tier = '💎 Mitra Platinum';
+      tier = '💎 Affiliate Platinum';
       nextTierTarget = 20;
       tierProgress = 100;
     } else if (totalStudents >= 6) {
-      tier = '🥇 Mitra Gold';
+      tier = '🥇 Affiliate Gold';
       nextTierTarget = 11;
       tierProgress = Math.min(100, Math.round(((totalStudents - 6) / 5) * 100));
     } else if (totalStudents >= 3) {
-      tier = '🥈 Mitra Silver';
+      tier = '🥈 Affiliate Silver';
       nextTierTarget = 6;
       tierProgress = Math.min(100, Math.round(((totalStudents - 3) / 3) * 100));
     }
@@ -150,7 +150,7 @@ export async function GET(request: NextRequest) {
       profile: {
         id: affiliateProfile.id,
         fullName: affiliateProfile.user?.fullName || affiliateProfile.bankAccountHolder,
-        email: affiliateProfile.user?.email || 'mitra@alafiyah.id',
+        email: affiliateProfile.user?.email || 'affiliate@alafiyah.id',
         phone: affiliateProfile.user?.phone || null,
         referralCode: affiliateProfile.referralCode,
         customSlug: affiliateProfile.customSlug,

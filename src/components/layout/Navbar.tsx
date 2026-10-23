@@ -319,7 +319,7 @@ export default function Navbar({
       href: '#',
       hasDropdown: true,
       items: [
-        { label: 'Affiliate Al-Afiyah', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi mitra rujukan pendidikan' },
+        { label: 'Affiliate Al-Afiyah', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi rujukan Affiliate Al-Afiyah' },
         { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir'), desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
         { 
           label: activeSlug === 'smp' ? 'Konsultasi Panitia SMP IT' : 'Tanya Ustadz & Konsultasi', 

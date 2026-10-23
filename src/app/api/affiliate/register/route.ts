@@ -58,10 +58,10 @@ export async function POST(request: NextRequest) {
     const userProvidedCode = referralCode ? sanitizeString(referralCode, 30).trim() : '';
     let cleanCode = userProvidedCode
       ? userProvidedCode.toUpperCase().replace(/[^A-Z0-9-]/g, '')
-      : (cleanFullName.split(/\s+/)[0] || 'MITRA').toUpperCase().replace(/[^A-Z0-9]/g, '');
+      : (cleanFullName.split(/\s+/)[0] || 'AFIYAH').toUpperCase().replace(/[^A-Z0-9]/g, '');
 
     if (!cleanCode) {
-      cleanCode = 'MITRA-' + Math.floor(1000 + Math.random() * 9000);
+      cleanCode = 'AFIYAH-' + Math.floor(1000 + Math.random() * 9000);
     } else if (!userProvidedCode) {
       cleanCode = `${cleanCode}-${Math.floor(100 + Math.random() * 900)}`;
     }
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
 
     if (existingRef && userProvidedCode) {
       return NextResponse.json(
-        { success: false, error: 'Kode referral atau tautan ini sudah dipakai mitra lain. Silakan pilih kode lain.' },
+        { success: false, error: 'Kode referral atau tautan ini sudah dipakai member affiliate lain. Silakan pilih kode lain.' },
         { status: 409 }
       );
     }
@@ -160,6 +160,6 @@ export async function POST(request: NextRequest) {
       redirectUrl: '/affiliate/dashboard',
     });
   } catch (error) {
-    return safeErrorResponse(error, 'Gagal memproses pendaftaran mitra afiliasi');
+    return safeErrorResponse(error, 'Gagal memproses pendaftaran Affiliate Al-Afiyah');
   }
 }

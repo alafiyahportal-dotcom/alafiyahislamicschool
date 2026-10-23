@@ -191,13 +191,13 @@ export default function UnitAffiliatesClient({
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold text-[#064E3B] uppercase tracking-wider mb-1">
             <Share2 className="w-3.5 h-3.5 text-emerald-700" />
-            <span>Pusat Kemitraan &amp; Afiliasi Unit</span>
+            <span>Pusat Affiliate Al-Afiyah</span>
           </div>
           <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-            Kemitraan Afiliasi - {schoolName}
+            Affiliate Al-Afiyah - {schoolName}
           </h1>
           <p className="text-xs text-slate-500 mt-1 max-w-2xl leading-relaxed">
-            Pantau arus pendaftaran calon murid baru dari para asatidz, alumni, dan relawan dakwah sekolah beserta status rekening pencairan komisi mitra.
+            Pantau arus pendaftaran calon murid baru dari para asatidz, alumni, dan simpatisan sekolah beserta status rekening pencairan komisi affiliate.
           </p>
         </div>
 
@@ -253,10 +253,10 @@ export default function UnitAffiliatesClient({
           </p>
         </div>
 
-        {/* Card 3: Mitra Terdaftar */}
+        {/* Card 3: Anggota Affiliate Terdaftar */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-amber-300 transition-colors">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Mitra Aktif</span>
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Affiliate Aktif</span>
             <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
               <Award className="w-4 h-4" />
             </div>
@@ -265,7 +265,7 @@ export default function UnitAffiliatesClient({
             <span className="text-2xl sm:text-3xl font-bold text-slate-900 tabular-nums">
               {totalAffiliates}
             </span>
-            <span className="text-xs text-slate-500">Mitra</span>
+            <span className="text-xs text-slate-500">Akun</span>
           </div>
           <p className="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
             <span className="text-emerald-700 font-medium">{filledBankCount} Rekening Siap</span>
@@ -287,7 +287,7 @@ export default function UnitAffiliatesClient({
               {formatRupiah(paidCommission)}
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">Lunas ke rekening mitra</p>
+          <p className="text-xs text-slate-400 mt-1">Lunas ke rekening affiliate</p>
         </div>
 
         {/* Card 5: Komisi Menunggu */}
@@ -319,7 +319,7 @@ export default function UnitAffiliatesClient({
           }`}
         >
           <Award className="w-4 h-4" />
-          <span>Daftar Akun Mitra Afiliasi ({affiliates.length})</span>
+          <span>Daftar Akun Affiliate Al-Afiyah ({affiliates.length})</span>
         </button>
 
         <button
@@ -349,7 +349,7 @@ export default function UnitAffiliatesClient({
         </button>
       </div>
 
-      {/* TAB 1: MITRA AFILIASI TERDAFTAR */}
+      {/* TAB 1: AKUN AFFILIATE TERDAFTAR */}
       {activeTab === 'AFFILIATES' && (
         <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden space-y-4">
           {/* Filter Bar */}
@@ -360,7 +360,7 @@ export default function UnitAffiliatesClient({
                 type="text"
                 value={searchAffiliate}
                 onChange={(e) => setSearchAffiliate(e.target.value)}
-                placeholder="Cari nama mitra, email, WA, atau kode referral..."
+                placeholder="Cari nama affiliate, email, WA, atau kode referral..."
                 className="w-full pl-9 pr-4 py-2 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#064E3B] focus:ring-1 focus:ring-[#064E3B]"
               />
             </div>
@@ -422,7 +422,7 @@ export default function UnitAffiliatesClient({
           {sortedAffiliates.length === 0 ? (
             <div className="p-12 text-center space-y-2">
               <Users className="w-10 h-10 text-slate-300 mx-auto" />
-              <p className="text-xs font-semibold text-slate-700">Tidak ada mitra afiliasi yang sesuai</p>
+              <p className="text-xs font-semibold text-slate-700">Tidak ada akun affiliate yang sesuai</p>
               <p className="text-xs text-slate-400">Coba ubah kata kunci pencarian atau ganti filter status di atas.</p>
             </div>
           ) : (
@@ -430,7 +430,7 @@ export default function UnitAffiliatesClient({
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-slate-50/80 border-b border-slate-200 text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                    <th className="py-3 px-4">Nama Mitra Afiliasi</th>
+                    <th className="py-3 px-4">Nama Affiliate</th>
                     <th className="py-3 px-4">Kontak</th>
                     <th className="py-3 px-4">Kode Referral</th>
                     <th className="py-3 px-4">Kinerja Klik &amp; Konversi</th>
@@ -454,12 +454,12 @@ export default function UnitAffiliatesClient({
 
                     const reminderWaText = encodeURIComponent(
                       `Assalamu'alaikum Warahmatullahi Wabarakatuh ${aff.fullName} 🙏\n\n` +
-                      `Terima kasih telah bergabung sebagai Mitra Afiliasi Al-Afiyah Majalengka (Kode: ${aff.referralCode}).\n\n` +
-                      `Kami melihat data nomor rekening pencairan komisi Anda belum dilengkapi di dasbor. Silakan buka tautan resmi dasbor Anda di:\n` +
+                      `Terima kasih telah bergabung dalam program Affiliate Al-Afiyah Majalengka (Kode: ${aff.referralCode}).\n\n` +
+                      `Kami melihat data nomor rekening pencairan komisi Anda belum dilengkapi di dashboard. Silakan buka tautan resmi dashboard Anda di:\n` +
                       `🔗 ${baseUrl}/affiliate/dashboard?code=${aff.referralCode}&action=rekening\n\n` +
                       `Lalu masukkan nomor rekening BSI/Muamalat/BCA/lainnya agar komisi PPDB Anda dapat langsung kami transfer saat ada calon murid yang mendaftar.\n\n` +
                       `Jazakumullah Khairan Katsiran.\n` +
-                      `_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`
+                      `_Tim Affiliate Al-Afiyah Majalengka_`
                     );
 
                     return (
@@ -586,7 +586,7 @@ export default function UnitAffiliatesClient({
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Cari nama peserta didik, no registrasi, atau nama mitra..."
+                placeholder="Cari nama peserta didik, no registrasi, atau nama affiliate..."
                 className="w-full pl-9 pr-4 py-2 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#064E3B] focus:ring-1 focus:ring-[#064E3B]"
               />
             </div>
@@ -625,7 +625,7 @@ export default function UnitAffiliatesClient({
                 Belum Ada Pendaftar Calon Murid via Jalur Afiliasi
               </h3>
               <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
-                Saat calon wali murid mendaftar menggunakan tautan atau kode referral dari mitra resmi, data calon murid beserta nama dan nomor registrasi akan langsung tampil di sini.
+                Saat calon wali murid mendaftar menggunakan tautan atau kode referral dari anggota affiliate resmi, data calon murid beserta nama dan nomor registrasi akan langsung tampil di sini.
               </p>
             </div>
           ) : (
@@ -634,7 +634,7 @@ export default function UnitAffiliatesClient({
                 <thead>
                   <tr className="bg-slate-50/80 border-b border-slate-200 text-xs font-semibold text-slate-600 uppercase tracking-wider">
                     <th className="py-3 px-4">Calon Peserta Didik</th>
-                    <th className="py-3 px-4">Mitra Perujuk</th>
+                    <th className="py-3 px-4">Affiliate Perujuk</th>
                     <th className="py-3 px-4">Kode Referral</th>
                     <th className="py-3 px-4">Komisi</th>
                     <th className="py-3 px-4">Status Komisi</th>
@@ -704,16 +704,16 @@ export default function UnitAffiliatesClient({
         <div className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {/* Chart 1: Leaderboard Top Mitra Afiliasi */}
+            {/* Chart 1: Leaderboard Top Affiliate */}
             <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-5">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                     <Award className="w-4 h-4 text-emerald-700" />
-                    <span>Peringkat Mitra Teraktif ({schoolSlug.toUpperCase()})</span>
+                    <span>Peringkat Affiliate Teraktif ({schoolSlug.toUpperCase()})</span>
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Mitra dengan rujukan calon murid tertinggi
+                    Affiliate dengan rujukan calon murid tertinggi
                   </p>
                 </div>
               </div>
@@ -760,7 +760,7 @@ export default function UnitAffiliatesClient({
                     <span>Komposisi Status Komisi PPDB</span>
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Progres pelunasan pendaftar &amp; pencairan komisi mitra
+                    Progres pelunasan pendaftar &amp; pencairan komisi affiliate
                   </p>
                 </div>
                 <span className="text-xs font-mono font-semibold text-slate-700">
@@ -820,9 +820,9 @@ export default function UnitAffiliatesClient({
                 <div className="flex items-center gap-3">
                   <Building2 className="w-5 h-5 text-slate-500" />
                   <div>
-                    <span className="text-xs font-semibold text-slate-900 block">Kesiapan Rekening Mitra</span>
+                    <span className="text-xs font-semibold text-slate-900 block">Kesiapan Rekening Affiliate</span>
                     <span className="text-xs text-slate-500">
-                      {filledBankCount} dari {totalAffiliates} mitra telah mengisi nomor rekening
+                      {filledBankCount} dari {totalAffiliates} akun telah mengisi nomor rekening
                     </span>
                   </div>
                 </div>
@@ -893,7 +893,7 @@ export default function UnitAffiliatesClient({
                   step: '5. Komisi Ditransfer',
                   count: paidCount,
                   pct: totalReferredStudents > 0 ? `${Math.round((paidCount / totalReferredStudents) * 100)}%` : '0%',
-                  sub: 'Hak mitra tertransfer',
+                  sub: 'Hak affiliate tertransfer',
                   bg: 'bg-emerald-700',
                   lightBg: 'bg-emerald-50/90 border-emerald-300',
                 },
@@ -926,7 +926,7 @@ export default function UnitAffiliatesClient({
                 </span>
               </div>
               <div>
-                <span className="text-slate-500 block">Total Hak Komisi Mitra Ditransfer</span>
+                <span className="text-slate-500 block">Total Komisi Affiliate Ditransfer</span>
                 <span className="text-sm font-bold font-mono text-emerald-800 mt-0.5 block">
                   {formatRupiah(paidCommission)}
                 </span>

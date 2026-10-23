@@ -234,7 +234,7 @@ export default function FinanceConsoleClient({
 
       const columns: ExcelColumn[] = [
         { header: 'No', key: 'no', width: 6, align: 'center' },
-        { header: 'Nama Mitra Afiliasi', key: 'affiliateName', width: 26, align: 'left' },
+        { header: 'Nama Affiliate', key: 'affiliateName', width: 26, align: 'left' },
         { header: 'No. WhatsApp', key: 'affiliatePhone', width: 18, align: 'center' },
         { header: 'Bank Tujuan', key: 'bankName', width: 16, align: 'center' },
         { header: 'Nomor Rekening', key: 'bankAccountNumber', width: 20, align: 'center' },
@@ -269,9 +269,9 @@ export default function FinanceConsoleClient({
       }));
 
       exportToExcel({
-        fileName: `Pencairan_Komisi_Mitra_${timestamp}`,
-        sheetName: 'Komisi Mitra Afiliasi',
-        title: 'DAFTAR PENCAIRAN KOMISI MITRA AFILIASI',
+        fileName: `Pencairan_Komisi_Affiliate_${timestamp}`,
+        sheetName: 'Komisi Affiliate Al-Afiyah',
+        title: 'DAFTAR PENCAIRAN KOMISI AFFILIATE AL-AFIYAH',
         subtitle: 'Yayasan Pendidikan Imam Bonjol Majalengka',
         columns,
         data: exportRows,
@@ -335,7 +335,7 @@ export default function FinanceConsoleClient({
         {/* Komisi Afiliasi Pending */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Pencairan Komisi Mitra</span>
+            <span className="text-xs font-semibold text-slate-500">Pencairan Komisi Affiliate</span>
             <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center">
               <Share2 className="w-4 h-4" />
             </div>
@@ -399,7 +399,7 @@ export default function FinanceConsoleClient({
           }`}
         >
           <Share2 className="w-4 h-4" />
-          <span>Pencairan Komisi Mitra Afiliasi</span>
+          <span>Pencairan Komisi Affiliate Al-Afiyah</span>
           <span className="ml-1.5 px-2 py-0.5 rounded-full text-[10px] bg-purple-100 text-purple-700 font-bold">
             {payouts.filter((p) => p.status === 'PENDING').length} Baru
           </span>
@@ -420,7 +420,7 @@ export default function FinanceConsoleClient({
                 placeholder={
                   activeTab === 'invoices'
                     ? 'Cari no tagihan, nama murid, atau no reg...'
-                    : 'Cari nama mitra, rekening bank, murid...'
+                    : 'Cari nama affiliate, rekening bank, murid...'
                 }
                 className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-[#2D7A70] focus:ring-1 focus:ring-[#2D7A70]"
               />
@@ -574,7 +574,7 @@ export default function FinanceConsoleClient({
                 <div>
                   <h4 className="font-bold text-purple-950">Kebijakan Penarikan: Batch Mingguan (1x Seminggu)</h4>
                   <p className="text-[11px] text-purple-800 mt-0.5">
-                    Mitra dibatasi mengajukan penarikan maksimal 1x per minggu agar Bendahara Yayasan dapat merekapitulasi dan mentransfer dana komisi secara terjadwal tanpa beban kerja harian.
+                    Pengajuan penarikan dana komisi dibatasi maksimal 1x per minggu agar Bendahara Yayasan dapat merekapitulasi dan mentransfer dana komisi secara terjadwal tanpa beban kerja harian.
                   </p>
                 </div>
               </div>
@@ -587,7 +587,7 @@ export default function FinanceConsoleClient({
             <table className="w-full text-left text-xs text-slate-600 min-w-[780px]">
               <thead className="bg-slate-100/70 border-b border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider">
                 <tr>
-                  <th className="py-3 px-4 whitespace-nowrap">Nama Mitra &amp; Kontak</th>
+                  <th className="py-3 px-4 whitespace-nowrap">Nama Affiliate &amp; Kontak</th>
                   <th className="py-3 px-4 whitespace-nowrap">Rekening Tujuan</th>
                   <th className="py-3 px-4 whitespace-nowrap">Murid Rujukan</th>
                   <th className="py-3 px-4 whitespace-nowrap">Besaran Komisi</th>

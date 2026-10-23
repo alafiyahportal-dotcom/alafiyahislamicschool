@@ -183,7 +183,7 @@ export default async function SdSpmbInfoPage() {
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer-delay bg-gradient-to-r from-transparent via-white/45 to-transparent"
                 />
-                <span className="relative z-10">Daftar Mitra Afiliasi</span>
+                <span className="relative z-10">Daftar Affiliate Al-Afiyah</span>
                 <span className="relative z-10 font-mono transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow">→</span>
               </Link>
             </div>

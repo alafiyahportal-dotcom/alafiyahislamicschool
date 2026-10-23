@@ -157,7 +157,7 @@ export default function AnalyticsDashboardClient({
             Analitik & Corong Konversi PPDB
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Pantau pergerakan calon murid, efektivitas saluran kemitraan, dan rekonsiliasi keterisian kuota terpadu.
+            Pantau pergerakan calon murid, efektivitas Affiliate Al-Afiyah, dan rekonsiliasi keterisian kuota terpadu.
           </p>
         </div>
 
@@ -307,7 +307,7 @@ export default function AnalyticsDashboardClient({
         {/* Card 4: Affiliate Contribution */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500">Kemitraan Afiliasi</span>
+            <span className="text-xs font-semibold text-slate-500">Affiliate Al-Afiyah</span>
             <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-700">
               <Share2 className="w-4 h-4" />
             </div>
@@ -322,7 +322,7 @@ export default function AnalyticsDashboardClient({
               </span>
             </div>
             <p className="text-[11px] text-slate-500 mt-2">
-              Didorong oleh {data.overview.totalAffiliates} Mitra Afiliasi aktif.
+              Didorong oleh {data.overview.totalAffiliates} Affiliate aktif.
             </p>
           </div>
         </div>
@@ -485,7 +485,7 @@ export default function AnalyticsDashboardClient({
               <div>
                 <div className="flex justify-between text-xs font-semibold mb-1">
                   <span className="text-purple-700 font-bold flex items-center space-x-1">
-                    <span>🔗 Rujukan Mitra Afiliasi (Guru & Alumni)</span>
+                    <span>🔗 Rujukan Affiliate Al-Afiyah (Guru & Alumni)</span>
                   </span>
                   <span className="text-slate-900">
                     {data.sourceAttribution.affiliateCount} ({data.sourceAttribution.affiliatePercentage}%)
@@ -521,7 +521,7 @@ export default function AnalyticsDashboardClient({
             {/* Top Affiliates List */}
             <div className="mt-5">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
-                Top 3 Mitra Afiliasi Berkinerja Tinggi
+                Top 3 Affiliate Berkinerja Tinggi
               </span>
               <div className="space-y-2">
                 {data.sourceAttribution.topAffiliates.length > 0 ? (
@@ -547,7 +547,7 @@ export default function AnalyticsDashboardClient({
                     </div>
                   ))
                 ) : (
-                  <p className="text-xs text-slate-400 italic">Belum ada rujukan mitra tercatat.</p>
+                  <p className="text-xs text-slate-400 italic">Belum ada rujukan affiliate tercatat.</p>
                 )}
               </div>
             </div>
@@ -622,7 +622,7 @@ export default function AnalyticsDashboardClient({
             <div className="mt-5 p-3 rounded-xl bg-[#E8F3F1] border border-[#2D7A70]/20 flex items-start space-x-2.5">
               <Lightbulb className="w-4 h-4 text-[#2D7A70] flex-shrink-0 mt-0.5" />
               <p className="text-xs text-[#184F48] leading-relaxed">
-                <strong>Rekomendasi Yayasan:</strong> Jalur Tahfidz & kemitraan guru menunjukkan tingkat retensi berkas tertinggi. Disarankan memperkuat sosialisasi gelombang lanjutan di majelis taklim sekitar Majalengka.
+                <strong>Rekomendasi Yayasan:</strong> Jalur Tahfidz & afiliasi guru menunjukkan tingkat retensi berkas tertinggi. Disarankan memperkuat sosialisasi gelombang lanjutan di majelis taklim sekitar Majalengka.
               </p>
             </div>
           </div>

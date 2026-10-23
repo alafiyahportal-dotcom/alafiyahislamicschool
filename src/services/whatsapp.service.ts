@@ -143,11 +143,11 @@ Kabar gembira! Murid rujukan Anda atas nama *${params.studentName}* telah meluna
 🎉 *Bonus Komisi Masuk:* Rp ${params.commissionAmount.toLocaleString('id-ID')}
 📊 *Status:* DIVERIFIKASI & SIAP DICAIRKAN
 
-Pantau akumulasi saldo komisi dan ajukan pencairan ke rekening bank melalui Dasbor Mitra:
+Pantau akumulasi saldo komisi dan ajukan pencairan ke rekening bank melalui Dashboard Affiliate Al-Afiyah:
 🔗 https://alafiyah.id/affiliate/dashboard
 
 Terima kasih atas kontribusi dakwah dan syiar bersama Al-Afiyah!
-_Tim Kemitraan Afiliasi Al-Afiyah Majalengka_`;
+_Tim Affiliate Al-Afiyah Majalengka_`;
 
     return this.sendNotification({
       recipientPhone: params.affiliatePhone,
@@ -246,7 +246,7 @@ _Panitia PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`;
   }
 
   /**
-   * Template Notifikasi Pencairan Komisi Mitra Ditransfer
+   * Template Notifikasi Pencairan Komisi Affiliate Ditransfer
    */
   static async notifyPayoutTransferred(params: {
     affiliatePhone: string;
@@ -257,19 +257,19 @@ _Panitia PPDB Yayasan Pendidikan Imam Bonjol Majalengka_`;
   }) {
     const content = 
 `Assalamu'alaikum Warahmatullahi Wabarakatuh.
-Yth. Mitra Afiliasi ${params.affiliateName},
+Yth. ${params.affiliateName} (Affiliate Al-Afiyah),
 
-Dana komisi kemitraan rujukan murid Anda telah *BERHASIL DITRANSFER* oleh Bagian Keuangan Yayasan Pendidikan Imam Bonjol Majalengka:
+Dana komisi rujukan murid Anda telah *BERHASIL DITRANSFER* oleh Bagian Keuangan Yayasan Pendidikan Imam Bonjol Majalengka:
 
 💵 *Jumlah Ditransfer:* Rp ${params.amount.toLocaleString('id-ID')}
 🏦 *Bank Tujuan:* ${params.bankName}
 💳 *No. Rekening:* ${params.bankAccount}
 ✅ *Status:* LUNAS & BERHASIL
 
-Silakan cek mutasi rekening Anda dan pantau riwayat pencairan melalui Dasbor Mitra:
+Silakan cek mutasi rekening Anda dan pantau riwayat pencairan melalui Dashboard Affiliate Al-Afiyah:
 🔗 https://alafiyah.id/affiliate/dashboard
 
-Jazakumullah Khairan Katsiran atas kebersamaan dan kemitraan dakwah.
+Jazakumullah Khairan Katsiran atas kebersamaan dan sinergi dakwah bersama Al-Afiyah.
 _Bagian Keuangan Yayasan Pendidikan Imam Bonjol Majalengka_`;
 
     return this.sendNotification({

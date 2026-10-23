@@ -16,8 +16,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { schoolSlug } = await params;
   return {
-    title: `Kemitraan Afiliasi | ${schoolSlug.toUpperCase()} IT Al-Afiyah`,
-    description: 'Pemantauan rujukan pendaftaran murid dan komisi mitra afiliasi.',
+    title: `Affiliate Al-Afiyah | ${schoolSlug.toUpperCase()} IT Al-Afiyah`,
+    description: 'Pemantauan rujukan pendaftaran murid dan komisi Affiliate Al-Afiyah.',
   };
 }
 
@@ -86,7 +86,7 @@ export default async function SchoolAffiliatesPage({
       id: c.id,
       registrationNo: c.registration?.registrationNo || '-',
       studentName: `${c.registration?.studentName || 'Pendaftar Peserta Didik'} (${stageLabel})`,
-      affiliateName: c.affiliate?.user?.fullName || 'Mitra Afiliasi',
+      affiliateName: c.affiliate?.user?.fullName || 'Affiliate Al-Afiyah',
       referralCode: c.affiliate?.referralCode || '-',
       commissionAmount: c.commissionAmount,
       status: c.status,
@@ -115,7 +115,7 @@ export default async function SchoolAffiliatesPage({
 
     return {
       id: a.id,
-      fullName: a.user?.fullName || a.bankAccountHolder || 'Mitra Afiliasi',
+      fullName: a.user?.fullName || a.bankAccountHolder || 'Affiliate Al-Afiyah',
       email: a.user?.email || '-',
       phone: a.user?.phone || '-',
       referralCode: a.referralCode,
@@ -155,8 +155,8 @@ export default async function SchoolAffiliatesPage({
 
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader
-          title={`Kemitraan Afiliasi - ${school.name}`}
-          subtitle="Pemantauan Pendaftaran Rujukan Calon Murid, Kode Referral & Status Komisi Mitra"
+          title={`Affiliate Al-Afiyah - ${school.name}`}
+          subtitle="Pemantauan Pendaftaran Rujukan Calon Murid, Kode Referral & Status Komisi Affiliate"
           currentSchoolSlug={schoolSlug as 'tk' | 'sd' | 'smp'}
         />
 

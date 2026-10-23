@@ -183,7 +183,7 @@ export default function AdminSidebar({
       active: pathname.endsWith('/finance')
     },
     {
-      name: 'Kemitraan Afiliasi',
+      name: 'Affiliate Al-Afiyah',
       href: schoolSlug === 'foundation' ? '/admin/foundation/affiliates' : `/admin/${schoolSlug}/affiliates`,
       icon: Share2,
       active: pathname.includes('/affiliate')
