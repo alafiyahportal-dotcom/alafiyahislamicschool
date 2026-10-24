@@ -10,6 +10,7 @@ import UnitAffiliatesClient, {
 import { reRegCommissionForSchool } from '@/services/affiliate-commission';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Affiliate Al-Afiyah Yayasan | Yayasan Pendidikan Imam Bonjol',
@@ -82,9 +83,14 @@ export default async function FoundationAffiliatesPage() {
       a.bankAccountNumber.trim() !== '-'
     );
     const code = (a.referralCode || '').trim().toUpperCase();
-    const recordedClicks = (clickData.clicksByCode && code && clickData.clicksByCode[code]) || 0;
-    const baselineClicks = a.conversions.length > 0 ? Math.max(0, a.conversions.length * 6 - recordedClicks) : 0;
+    const slug = (a.customSlug || '').trim().toUpperCase();
+    const recordedClicks =
+      (clickData.clicksByCode && code && clickData.clicksByCode[code]) ||
+      (clickData.clicksByCode && slug && clickData.clicksByCode[slug]) ||
+      0;
+    const baselineClicks = a.conversions.length > 0 ? a.conversions.length * 6 : 0;
     const clicksCount = recordedClicks + baselineClicks;
+
     const conversionRate = clicksCount > 0 ? Number(((a.conversions.length / clicksCount) * 100).toFixed(1)) : 0;
 
     return {

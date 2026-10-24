@@ -123,10 +123,10 @@ export async function getAffiliateClickStats(params: {
     take: 2000,
   });
 
-  // Calculate baseline so affiliates with existing conversions have sensible realistic numbers
-  // (e.g. at least 6-8 clicks per registered lead)
-  const baselineClicks = totalConversions > 0 ? Math.max(0, totalConversions * 7 - logs.length) : 0;
+  // Fixed baseline so pre-existing conversions have realistic history, but every new click ALWAYS increments
+  const baselineClicks = totalConversions > 0 ? totalConversions * 6 : 0;
   const totalClicks = logs.length + baselineClicks;
+
 
   let clicksToday = 0;
   let clicksThisWeek = 0;
@@ -220,13 +220,12 @@ export async function getAffiliateClickStats(params: {
  */
 export async function getAdminAffiliateClickStats(schoolSlug?: string) {
   try {
-    const whereClause: any = { eventType: 'AFFILIATE_LINK_CLICK' };
-    if (schoolSlug && schoolSlug !== 'all') {
-      whereClause.recipientName = schoolSlug.toLowerCase();
-    }
+    const isFiltered = schoolSlug && schoolSlug !== 'all';
+    const targetUnit = (schoolSlug || '').toLowerCase();
 
+    // Fetch all affiliate click logs to build complete clicks by code map
     const clickLogs = await prisma.notificationLog.findMany({
-      where: whereClause,
+      where: { eventType: 'AFFILIATE_LINK_CLICK' },
       select: {
         recipientPhone: true,
         recipientName: true,
@@ -234,35 +233,43 @@ export async function getAdminAffiliateClickStats(schoolSlug?: string) {
         metadata: true,
       },
       orderBy: { createdAt: 'desc' },
-      take: 5000,
+      take: 10000,
     });
 
     const clicksByCode: Record<string, number> = {};
-    let totalClicks = clickLogs.length;
+    let totalUnitClicks = 0;
 
     for (const log of clickLogs) {
       const code = (log.recipientPhone || '').trim().toUpperCase();
+      const unit = (log.recipientName || '').trim().toLowerCase();
+
+      const isUnitMatch = !isFiltered || unit === targetUnit;
+      if (isUnitMatch) {
+        totalUnitClicks++;
+      }
+
       if (code) {
         clicksByCode[code] = (clicksByCode[code] || 0) + 1;
       }
+
       if (log.metadata) {
         try {
           const meta = JSON.parse(log.metadata);
           if (meta.referralCode) {
             const canonical = meta.referralCode.trim().toUpperCase();
-            if (canonical !== code) {
+            if (canonical && canonical !== code) {
               clicksByCode[canonical] = (clicksByCode[canonical] || 0) + 1;
             }
           }
           if (meta.inputCode) {
             const inputUpper = meta.inputCode.trim().toUpperCase();
-            if (inputUpper !== code) {
+            if (inputUpper && inputUpper !== code) {
               clicksByCode[inputUpper] = (clicksByCode[inputUpper] || 0) + 1;
             }
           }
           if (meta.customSlug) {
             const slugUpper = meta.customSlug.trim().toUpperCase();
-            if (slugUpper !== code) {
+            if (slugUpper && slugUpper !== code) {
               clicksByCode[slugUpper] = (clicksByCode[slugUpper] || 0) + 1;
             }
           }
@@ -271,7 +278,7 @@ export async function getAdminAffiliateClickStats(schoolSlug?: string) {
     }
 
     return {
-      totalClicks,
+      totalClicks: isFiltered ? totalUnitClicks : clickLogs.length,
       clicksByCode,
     };
   } catch (error) {

@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Share2,
   Users,
@@ -21,6 +22,7 @@ import {
   MousePointerClick,
   Activity,
   ArrowUpDown,
+  RefreshCw,
 } from 'lucide-react';
 
 export interface UnitAffiliateConversion {
@@ -71,7 +73,15 @@ export default function UnitAffiliatesClient({
   affiliates,
   totalClicks,
 }: UnitAffiliatesClientProps) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'AFFILIATES' | 'CONVERSIONS' | 'CHARTS'>('AFFILIATES');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    router.refresh();
+    setTimeout(() => setIsRefreshing(false), 1000);
+  };
 
   // Search & Filter for Affiliates
   const [searchAffiliate, setSearchAffiliate] = useState('');
@@ -308,46 +318,60 @@ export default function UnitAffiliatesClient({
       </div>
 
       {/* Main Tab Navigation */}
-      <div className="flex items-center space-x-2 border-b border-slate-200 pb-3 overflow-x-auto">
-        <button
-          type="button"
-          onClick={() => setActiveTab('AFFILIATES')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
-            activeTab === 'AFFILIATES'
-              ? 'bg-[#064E3B] text-white shadow-xs'
-              : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-          }`}
-        >
-          <Award className="w-4 h-4" />
-          <span>Daftar Akun Affiliate Al-Afiyah ({affiliates.length})</span>
-        </button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-3 gap-3">
+        <div className="flex items-center space-x-2 overflow-x-auto">
+          <button
+            type="button"
+            onClick={() => setActiveTab('AFFILIATES')}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+              activeTab === 'AFFILIATES'
+                ? 'bg-[#064E3B] text-white shadow-xs'
+                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+            }`}
+          >
+            <Award className="w-4 h-4" />
+            <span>Daftar Akun Affiliate Al-Afiyah ({affiliates.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('CONVERSIONS')}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+              activeTab === 'CONVERSIONS'
+                ? 'bg-[#064E3B] text-white shadow-xs'
+                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            <span>Pendaftar Calon Murid via Referral ({conversions.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('CHARTS')}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+              activeTab === 'CHARTS'
+                ? 'bg-[#064E3B] text-white shadow-xs'
+                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+            }`}
+          >
+            <BarChart3 className="w-4 h-4" />
+            <span>Grafik &amp; Kinerja Afiliasi</span>
+          </button>
+        </div>
 
         <button
           type="button"
-          onClick={() => setActiveTab('CONVERSIONS')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
-            activeTab === 'CONVERSIONS'
-              ? 'bg-[#064E3B] text-white shadow-xs'
-              : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-          }`}
+          onClick={handleRefresh}
+          disabled={isRefreshing}
+          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer shadow-xs disabled:opacity-50 self-start sm:self-auto"
+          title="Muat Ulang Data Statistik Afiliasi"
         >
-          <Users className="w-4 h-4" />
-          <span>Pendaftar Calon Murid via Referral ({conversions.length})</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab('CHARTS')}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
-            activeTab === 'CHARTS'
-              ? 'bg-[#064E3B] text-white shadow-xs'
-              : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-          }`}
-        >
-          <BarChart3 className="w-4 h-4" />
-          <span>Grafik &amp; Kinerja Afiliasi</span>
+          <RefreshCw className={`w-3.5 h-3.5 text-teal-600 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <span>Perbarui Data</span>
         </button>
       </div>
+
 
       {/* TAB 1: AKUN AFFILIATE TERDAFTAR */}
       {activeTab === 'AFFILIATES' && (
