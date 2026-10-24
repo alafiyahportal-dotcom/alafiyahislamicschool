@@ -431,11 +431,11 @@ export default function AffiliateDashboardPage() {
   const sdLink = `${rootOrigin}/ref/sd/${customSlug}`;
   const smpLink = `${rootOrigin}/ref/smp/${customSlug}`;
 
-  // Direct registration form links
-  const smpFormLink = `${rootOrigin}/smp/spmb/daftar?ref=${referralCode}`;
-  const sdFormLink = `${rootOrigin}/sd/spmb/daftar?ref=${referralCode}`;
+  // Direct registration form links (routed through /ref to track clicks)
+  const smpFormLink = `${rootOrigin}/ref/smp/daftar/${customSlug}`;
+  const sdFormLink = `${rootOrigin}/ref/sd/daftar/${customSlug}`;
   // General hub link (multi-unit: parents choose TK, SD, or SMP)
-  const generalLink = `${rootOrigin}/ppdb?ref=${referralCode}`;
+  const generalLink = `${rootOrigin}/ref/ppdb/${customSlug}`;
 
   // Broadcast WhatsApp State & Generator
   const [selectedBroadcastUnit, setSelectedBroadcastUnit] = useState<'SD' | 'SMP' | 'TK' | 'ALL'>('SD');

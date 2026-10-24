@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { recordWebsiteVisit, getWebsiteVisitorStats, SchoolUnitKey } from '@/services/visitor-counter.service';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,17 +24,30 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, ignored: true });
     }
 
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || undefined;
+    const ip =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      request.headers.get('x-real-ip') ||
+      undefined;
     const ua = request.headers.get('user-agent') || undefined;
 
     if (ua && /bot|crawl|spider|headless|lighthouse/i.test(ua)) {
       return NextResponse.json({ success: true, ignored: true });
     }
 
-    // Fire-and-forget record
+    // Record visit in database
     await recordWebsiteVisit(unit, path, ip, ua);
 
-    return NextResponse.json({ success: true });
+    // Fetch and return the freshly updated visitor statistics
+    const stats = await getWebsiteVisitorStats();
+
+    return NextResponse.json(
+      { success: true, stats },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+        },
+      }
+    );
   } catch (error) {
     return NextResponse.json({ success: false }, { status: 500 });
   }
@@ -42,10 +56,17 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const stats = await getWebsiteVisitorStats();
-    return NextResponse.json({
-      success: true,
-      stats,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        stats,
+      },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+        },
+      }
+    );
   } catch (error) {
     return NextResponse.json(
       { success: false, error: 'Failed to retrieve visitor statistics' },

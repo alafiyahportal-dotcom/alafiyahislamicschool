@@ -40,33 +40,38 @@ export default function WebsiteVisitorTracker() {
         unit = 'tk';
       }
 
-      // Unique visitor per unit per day: prevent double-counting across refreshes and page hops
-      const todayDate = new Date().toISOString().slice(0, 10);
-      const storageKey = `alafiyah_visit_${unit}_${todayDate}`;
-
-      if (localStorage.getItem(storageKey)) {
+      // Session deduplication: counts unique visit per session per unit
+      const sessionKey = `alafiyah_visit_session_${unit}`;
+      if (sessionStorage.getItem(sessionKey)) {
         return;
       }
 
-      // Mark logged for today for this unit
-      localStorage.setItem(storageKey, '1');
-      sessionStorage.setItem(`alafiyah_visit_logged_${unit}`, '1');
+      // Mark session as counted
+      sessionStorage.setItem(sessionKey, '1');
 
       const payload = JSON.stringify({
         unit,
         path,
       });
 
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/api/analytics/visitor-hit', new Blob([payload], { type: 'application/json' }));
-      } else {
-        fetch('/api/analytics/visitor-hit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: payload,
-          keepalive: true,
-        }).catch(() => {});
-      }
+      fetch('/api/analytics/visitor-hit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data?.success && data?.stats) {
+            // Dispatch live update so FooterVisitorBadge & dashboards update immediately
+            window.dispatchEvent(
+              new CustomEvent('alafiyah_visitor_stats_updated', {
+                detail: { stats: data.stats },
+              })
+            );
+          }
+        })
+        .catch(() => {});
     } catch {
       // Ignore
     }
@@ -74,3 +79,4 @@ export default function WebsiteVisitorTracker() {
 
   return null;
 }
+

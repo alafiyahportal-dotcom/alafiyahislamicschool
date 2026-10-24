@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractSubdomain, SchoolSlug } from '@/lib/domain';
+import { recordAffiliateClick } from '@/services/affiliate-clicks.service';
 
 export async function GET(
   request: NextRequest,
@@ -15,17 +16,27 @@ export async function GET(
   let schoolSlug: SchoolSlug = (detectedSubdomain as SchoolSlug) || 'sd';
   let referralCode = 'AFIYAH-AHMAD';
   let isDirectForm = false;
+  let isHub = false;
 
   // Handle various formats:
   // - /ref/KAREEM
   // - /ref/smp/KAREEM
   // - /ref/smp/daftar/KAREEM
   // - /ref/daftar/KAREEM
+  // - /ref/ppdb/KAREEM (hub / multi-unit)
   if (slugParts.length >= 3) {
     const p0 = slugParts[0].toLowerCase();
     const p1 = slugParts[1].toLowerCase();
     if (p0 === 'tk' || p0 === 'sd' || p0 === 'smp') {
       schoolSlug = p0;
+      if (p1 === 'daftar') {
+        isDirectForm = true;
+        referralCode = slugParts[2].toUpperCase();
+      } else {
+        referralCode = slugParts[1].toUpperCase();
+      }
+    } else if (p0 === 'ppdb' || p0 === 'hub' || p0 === 'all') {
+      isHub = true;
       if (p1 === 'daftar') {
         isDirectForm = true;
         referralCode = slugParts[2].toUpperCase();
@@ -38,6 +49,9 @@ export async function GET(
     if (p0 === 'tk' || p0 === 'sd' || p0 === 'smp') {
       schoolSlug = p0;
       referralCode = slugParts[1].toUpperCase();
+    } else if (p0 === 'ppdb' || p0 === 'hub' || p0 === 'all') {
+      isHub = true;
+      referralCode = slugParts[1].toUpperCase();
     } else if (p0 === 'daftar') {
       isDirectForm = true;
       referralCode = slugParts[1].toUpperCase();
@@ -48,6 +62,8 @@ export async function GET(
     const p0 = slugParts[0].toLowerCase();
     if (p0 === 'tk' || p0 === 'sd' || p0 === 'smp') {
       schoolSlug = p0;
+    } else if (p0 === 'ppdb' || p0 === 'hub' || p0 === 'all') {
+      isHub = true;
     } else {
       referralCode = slugParts[0].toUpperCase();
     }
@@ -60,38 +76,38 @@ export async function GET(
   }
 
   // Determine redirection target
-  let targetPath = `/${schoolSlug}`;
+  let targetPath = isHub ? '/ppdb' : `/${schoolSlug}`;
   if (isDirectForm) {
     if (schoolSlug === 'smp') {
       targetPath = '/smp/spmb/daftar';
     } else if (schoolSlug === 'sd') {
       targetPath = '/sd/spmb/daftar';
+    } else if (isHub) {
+      targetPath = '/ppdb/daftar';
     } else {
       targetPath = '/tk';
     }
   }
 
-  // Record click event asynchronously
+  // Record click event in database (AWAIT to ensure persistent recording before redirect)
   try {
-    const { recordAffiliateClick } = await import('@/services/affiliate-clicks.service');
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || request.headers.get('x-real-ip') || '127.0.0.1';
     const userAgent = request.headers.get('user-agent') || '';
     const referrer = request.headers.get('referer') || '';
-    
-    // Non-blocking execution
-    recordAffiliateClick({
+
+    await recordAffiliateClick({
       referralCode,
-      schoolSlug,
+      schoolSlug: isHub ? 'foundation' : schoolSlug,
       isDirectForm,
       ip,
       userAgent,
       referrer,
-    }).catch(() => {});
-  } catch {
-    // Non-blocking
+    });
+  } catch (err) {
+    console.error('Failed to record affiliate click in /ref route:', err);
   }
 
-  const redirectUrl = new URL(`${targetPath}?ref=${encodeURIComponent(referralCode)}`, request.url);
+  const redirectUrl = new URL(`${targetPath}?ref=${encodeURIComponent(referralCode)}&tracked=1`, request.url);
   const response = NextResponse.redirect(redirectUrl);
 
   const hostname = host.split(':')[0].toLowerCase();
@@ -110,4 +126,5 @@ export async function GET(
 
   return response;
 }
+
 

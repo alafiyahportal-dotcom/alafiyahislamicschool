@@ -49,14 +49,14 @@ export async function recordWebsiteVisit(
       return;
     }
 
-    // Server-side IP deduplication within 15 minutes per unit to prevent rapid double-counting
+    // Server-side IP deduplication within 2 minutes per unit to prevent rapid double-counting/spam
     if (ip) {
-      const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
+      const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
       const recentSameIpVisit = await prisma.notificationLog.findFirst({
         where: {
           eventType: 'WEBSITE_VISITOR_HIT',
           recipientPhone: unit,
-          createdAt: { gte: fifteenMinutesAgo },
+          createdAt: { gte: twoMinutesAgo },
           metadata: {
             contains: ip,
           },

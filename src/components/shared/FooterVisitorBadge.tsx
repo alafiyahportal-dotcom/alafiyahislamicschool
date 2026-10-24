@@ -10,25 +10,43 @@ interface FooterVisitorBadgeProps {
 export default function FooterVisitorBadge({ unitSlug = 'foundation' }: FooterVisitorBadgeProps) {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
+  const applyStats = (stats: any) => {
+    if (!stats) return;
+    const u = (unitSlug || 'foundation').toLowerCase();
+    if (u === 'sd') {
+      setVisitorCount(stats.units?.sd?.total ?? null);
+    } else if (u === 'smp') {
+      setVisitorCount(stats.units?.smp?.total ?? null);
+    } else if (u === 'tk') {
+      setVisitorCount(stats.units?.tk?.total ?? null);
+    } else {
+      setVisitorCount(stats.totalAllUnits ?? null);
+    }
+  };
+
   useEffect(() => {
-    fetch('/api/analytics/visitor-hit')
+    fetch('/api/analytics/visitor-hit', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.stats) {
-          const u = (unitSlug || 'foundation').toLowerCase();
-          if (u === 'sd') {
-            setVisitorCount(data.stats.units.sd.total);
-          } else if (u === 'smp') {
-            setVisitorCount(data.stats.units.smp.total);
-          } else if (u === 'tk') {
-            setVisitorCount(data.stats.units.tk.total);
-          } else {
-            setVisitorCount(data.stats.totalAllUnits);
-          }
+          applyStats(data.stats);
         }
       })
       .catch(() => {});
+
+    const handleStatsUpdated = (event: Event) => {
+      const customEvent = event as CustomEvent<{ stats: any }>;
+      if (customEvent.detail?.stats) {
+        applyStats(customEvent.detail.stats);
+      }
+    };
+
+    window.addEventListener('alafiyah_visitor_stats_updated', handleStatsUpdated);
+    return () => {
+      window.removeEventListener('alafiyah_visitor_stats_updated', handleStatsUpdated);
+    };
   }, [unitSlug]);
+
 
   const count = visitorCount ?? 0;
   const unitLabel =

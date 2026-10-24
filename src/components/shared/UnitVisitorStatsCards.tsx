@@ -39,7 +39,7 @@ export default function UnitVisitorStatsCards({
 
   useEffect(() => {
     if (!initialStats) {
-      fetch('/api/analytics/visitor-hit')
+      fetch('/api/analytics/visitor-hit', { cache: 'no-store' })
         .then((res) => res.json())
         .then((data) => {
           if (data.success && data.stats) {
@@ -49,6 +49,19 @@ export default function UnitVisitorStatsCards({
         .catch(() => {})
         .finally(() => setIsLoading(false));
     }
+
+    const handleStatsUpdated = (event: Event) => {
+      const customEvent = event as CustomEvent<{ stats: WebsiteVisitorStats }>;
+      if (customEvent.detail?.stats) {
+        setStats(customEvent.detail.stats);
+        setIsLoading(false);
+      }
+    };
+
+    window.addEventListener('alafiyah_visitor_stats_updated', handleStatsUpdated);
+    return () => {
+      window.removeEventListener('alafiyah_visitor_stats_updated', handleStatsUpdated);
+    };
   }, [initialStats]);
 
   if (!stats) {

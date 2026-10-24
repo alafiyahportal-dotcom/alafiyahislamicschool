@@ -42,27 +42,31 @@ export async function recordAffiliateClick(params: {
     const cleanCode = params.referralCode.trim().toUpperCase();
     const cleanUnit = (params.schoolSlug || 'sd').toLowerCase();
 
-    // Find affiliate profile
+    // Find affiliate profile by referralCode or customSlug (case-insensitive)
     const profile = await prisma.affiliateProfile.findFirst({
       where: {
         OR: [
-          { referralCode: cleanCode },
-          { customSlug: cleanCode.toLowerCase() },
+          { referralCode: { equals: cleanCode, mode: 'insensitive' } },
+          { customSlug: { equals: cleanCode.toLowerCase(), mode: 'insensitive' } },
         ],
       },
-      select: { id: true, referralCode: true },
+      select: { id: true, referralCode: true, customSlug: true },
     });
+
+    const canonicalCode = profile?.referralCode ? profile.referralCode.trim().toUpperCase() : cleanCode;
 
     await prisma.notificationLog.create({
       data: {
         eventType: 'AFFILIATE_LINK_CLICK',
-        recipientPhone: cleanCode,
+        recipientPhone: canonicalCode,
         recipientName: cleanUnit,
-        messageContent: `Kunjungan referral ${cleanCode} (${cleanUnit.toUpperCase()})`,
+        messageContent: `Kunjungan referral ${canonicalCode} (${cleanUnit.toUpperCase()})`,
         status: 'RECORDED',
         metadata: JSON.stringify({
           affiliateId: profile?.id || null,
-          referralCode: cleanCode,
+          referralCode: canonicalCode,
+          inputCode: cleanCode,
+          customSlug: profile?.customSlug || null,
           schoolSlug: cleanUnit,
           isDirectForm: Boolean(params.isDirectForm),
           ip: params.ip || '127.0.0.1',
@@ -73,7 +77,6 @@ export async function recordAffiliateClick(params: {
       },
     });
   } catch (error) {
-    // Non-blocking: fail quietly to avoid interrupting user redirect
     console.error('Failed to log affiliate click:', error);
   }
 }
@@ -95,17 +98,29 @@ export async function getAffiliateClickStats(params: {
   const startOfWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
   const startOfMonth = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
+  // Fetch affiliate customSlug to match legacy records that might have logged customSlug
+  const affiliate = await prisma.affiliateProfile.findUnique({
+    where: { id: affiliateId },
+    select: { customSlug: true },
+  });
+  const customSlugUpper = affiliate?.customSlug?.trim().toUpperCase();
+
+  const orFilters: any[] = [
+    { recipientPhone: referralCode.toUpperCase() },
+    { metadata: { contains: affiliateId } },
+  ];
+  if (customSlugUpper) {
+    orFilters.push({ recipientPhone: customSlugUpper });
+  }
+
   // Query actual click logs from notification logs
   const logs = await prisma.notificationLog.findMany({
     where: {
       eventType: 'AFFILIATE_LINK_CLICK',
-      OR: [
-        { recipientPhone: referralCode.toUpperCase() },
-        { metadata: { contains: affiliateId } },
-      ],
+      OR: orFilters,
     },
     orderBy: { createdAt: 'desc' },
-    take: 1000,
+    take: 2000,
   });
 
   // Calculate baseline so affiliates with existing conversions have sensible realistic numbers
@@ -219,7 +234,7 @@ export async function getAdminAffiliateClickStats(schoolSlug?: string) {
         metadata: true,
       },
       orderBy: { createdAt: 'desc' },
-      take: 2500,
+      take: 5000,
     });
 
     const clicksByCode: Record<string, number> = {};
@@ -229,6 +244,29 @@ export async function getAdminAffiliateClickStats(schoolSlug?: string) {
       const code = (log.recipientPhone || '').trim().toUpperCase();
       if (code) {
         clicksByCode[code] = (clicksByCode[code] || 0) + 1;
+      }
+      if (log.metadata) {
+        try {
+          const meta = JSON.parse(log.metadata);
+          if (meta.referralCode) {
+            const canonical = meta.referralCode.trim().toUpperCase();
+            if (canonical !== code) {
+              clicksByCode[canonical] = (clicksByCode[canonical] || 0) + 1;
+            }
+          }
+          if (meta.inputCode) {
+            const inputUpper = meta.inputCode.trim().toUpperCase();
+            if (inputUpper !== code) {
+              clicksByCode[inputUpper] = (clicksByCode[inputUpper] || 0) + 1;
+            }
+          }
+          if (meta.customSlug) {
+            const slugUpper = meta.customSlug.trim().toUpperCase();
+            if (slugUpper !== code) {
+              clicksByCode[slugUpper] = (clicksByCode[slugUpper] || 0) + 1;
+            }
+          }
+        } catch {}
       }
     }
 
