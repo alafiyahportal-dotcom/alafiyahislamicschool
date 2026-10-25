@@ -48,3 +48,7 @@ prisma/*.db
 prisma/*.db-journal
 *.db
 /.backups/
+
+# heavy raw media (keep compressed web .mp4 in public)
+*.MOV
+*.mov
