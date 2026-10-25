@@ -127,24 +127,24 @@ export default function WelcomeVideoModal({
         </button>
       )}
 
-      {/* Modal Video Pembuka (Optimized Portrait Story / Reels Style - Tanpa Icon AI) */}
+      {/* Modal Video Pembuka (Translucent Frosted Glass Theme SDIT) */}
       {isOpen && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-300"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-emerald-950/35 backdrop-blur-md sm:backdrop-blur-lg animate-in fade-in duration-300"
           onClick={(e) => {
             if (e.target === e.currentTarget) handleClose();
           }}
         >
-          <div className="relative w-full max-w-[390px] sm:max-w-[420px] max-h-[92vh] bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/30 flex flex-col">
-            {/* Header Modal (Tanpa Icon) */}
-            <div className="flex items-center justify-between px-4 py-3 bg-slate-900/95 border-b border-white/10 text-white shrink-0">
+          <div className="relative w-full max-w-[390px] sm:max-w-[420px] max-h-[92vh] bg-emerald-950/90 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_25px_60px_-15px_rgba(6,78,59,0.5)] border border-emerald-400/35 flex flex-col">
+            {/* Header Modal (Khas SDIT Al-Afiyah) */}
+            <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-emerald-900/90 via-emerald-800/90 to-teal-900/90 border-b border-emerald-500/25 text-white shrink-0">
               <div className="min-w-0 pr-2">
-                <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider truncate">
+                <div className="text-[10px] font-bold text-emerald-300 uppercase tracking-wider truncate">
                   {schoolName}
                 </div>
-                <h3 className="text-xs font-semibold text-slate-100 truncate">
+                <h3 className="text-xs font-semibold text-white truncate">
                   {title}
                 </h3>
               </div>
@@ -153,7 +153,7 @@ export default function WelcomeVideoModal({
               <button
                 onClick={handleClose}
                 aria-label="Tutup Video Pembuka"
-                className="p-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                className="p-1.5 rounded-full text-emerald-200 hover:text-white hover:bg-white/15 transition-colors cursor-pointer shrink-0"
                 title="Tutup (Esc)"
               >
                 <X className="w-5 h-5" />
@@ -183,22 +183,22 @@ export default function WelcomeVideoModal({
             </div>
 
             {/* Progress Bar Bawah */}
-            <div className="w-full bg-slate-900 h-1 relative overflow-hidden shrink-0">
+            <div className="w-full bg-emerald-950/80 h-1 relative overflow-hidden shrink-0">
               <div
-                className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-amber-400 transition-all duration-150"
+                className="h-full bg-gradient-to-r from-amber-400 via-teal-300 to-emerald-400 transition-all duration-150"
                 style={{ width: `${progress}%` }}
               />
             </div>
 
             {/* Footer Modal: Timer & Tombol Lewati */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-950 text-slate-300 text-xs border-t border-white/5 shrink-0">
-              <span className="font-mono text-[11px] text-slate-400">
+            <div className="flex items-center justify-between px-4 py-2.5 bg-emerald-950/95 text-emerald-100 text-xs border-t border-emerald-500/20 shrink-0">
+              <span className="font-mono text-[11px] text-emerald-200/90 font-medium">
                 {formatTime(currentTime)} / {formatTime(duration || 27)}
               </span>
 
               <button
                 onClick={handleClose}
-                className="px-3.5 py-1.5 rounded-lg bg-emerald-600/90 hover:bg-emerald-600 text-white font-medium text-xs transition-colors cursor-pointer"
+                className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-md shadow-emerald-900/40 transition-colors cursor-pointer"
               >
                 Lewati Video (X)
               </button>
