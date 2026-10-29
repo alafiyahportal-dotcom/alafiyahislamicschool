@@ -412,20 +412,13 @@ export default function UnitHeroSlider({
           <div className="bg-white rounded-[26px] sm:rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.14)] border border-slate-100 p-5 sm:p-8 lg:p-9">
             {/* Top Row: SPMB Title + Live Red Countdown Boxes */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-              {/* Left: Official SDIT Logo & Title */}
-              <div className="flex items-center gap-3.5 sm:gap-4">
-                <img
-                  src="/images/sd-logo.png"
-                  alt="Logo SDIT Al-Afiyah"
-                  className="w-11 h-11 sm:w-12 sm:h-12 object-contain shrink-0 drop-shadow-xs"
-                />
-                <div>
-                  <div className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                    SPMB T.A 2027/2028
-                  </div>
-                  <div className="text-lg sm:text-2xl font-black text-[#007a55] tracking-tight leading-tight mt-0.5">
-                    DIBUKA!
-                  </div>
+              {/* Left: SPMB Title */}
+              <div>
+                <div className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                  SPMB T.A 2027/2028
+                </div>
+                <div className="text-lg sm:text-2xl font-black text-[#007a55] tracking-tight leading-tight mt-0.5">
+                  DIBUKA!
                 </div>
               </div>
 
