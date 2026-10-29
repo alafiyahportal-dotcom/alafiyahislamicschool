@@ -53,7 +53,7 @@ export function extractSubdomain(host: string): SchoolSlug | null {
  * Returns the root domain without subdomain
  */
 export function getCleanRootDomain(host?: string): string {
-  const targetHost = host || (typeof window !== 'undefined' ? window.location.host : (process.env.NEXT_PUBLIC_ROOT_DOMAIN || 'localhost:3000'));
+  const targetHost = host || (typeof window !== 'undefined' ? window.location.host : (process.env.NEXT_PUBLIC_ROOT_DOMAIN || 'alafiyah.id'));
   const [hostname, port] = targetHost.split(':');
   const portSuffix = port ? `:${port}` : '';
 
@@ -84,15 +84,19 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
     const [currentHostname, port] = currentHost.split(':');
     const portSuffix = port ? `:${port}` : '';
 
-    // If accessed via vercel.app or numerical IP, nested subdomains (e.g. sd.project.vercel.app) do not resolve
+    // If accessed via vercel.app, localhost, or numerical IP, use clean path-based routing (/sd, /smp, /tk)
     const isVercelDomain = currentHostname.endsWith('.vercel.app');
+    const isLocalhost =
+      currentHostname === 'localhost' ||
+      currentHostname === '127.0.0.1' ||
+      currentHostname.endsWith('.localhost');
     const isIpAddress = /^(\d{1,3}\.){3}\d{1,3}$/.test(currentHostname);
 
-    if (isVercelDomain || isIpAddress) {
+    if (isVercelDomain || isLocalhost || isIpAddress) {
       if (slug === 'foundation') {
-        return `${protocol}//${currentHost}${normalizedPath || '/'}`;
+        return normalizedPath || '/';
       }
-      return `${protocol}//${currentHost}/${slug}${normalizedPath}`;
+      return `/${slug}${normalizedPath}`;
     }
 
     // Get root host (without school or www prefix) — prevents sdit.www.alafiyah.id
@@ -110,17 +114,23 @@ export function getSchoolUrl(slug: SchoolSlug | 'foundation', path: string = '')
     return `${protocol}//${targetSub}.${rootHost}${normalizedPath || '/'}`;
   }
 
-  // Server-side / SSR resolution
-  const envRoot = process.env.NEXT_PUBLIC_ROOT_DOMAIN || 'localhost:3000';
-  const protocol = envRoot.includes('localhost') ? 'http:' : 'https:';
-
-  if (envRoot.endsWith('.vercel.app')) {
+  // Server-side / SSR resolution:
+  // Always return clean relative paths during SSR unless a custom production root domain is explicitly configured.
+  // Never fallback to 'localhost' in SSR HTML so deployed pages never contain localhost links.
+  const envRoot = process.env.NEXT_PUBLIC_ROOT_DOMAIN?.trim();
+  if (
+    !envRoot ||
+    envRoot.includes('localhost') ||
+    envRoot.includes('127.0.0.1') ||
+    envRoot.endsWith('.vercel.app')
+  ) {
     if (slug === 'foundation') {
-      return `${protocol}//${envRoot}${normalizedPath || '/'}`;
+      return normalizedPath || '/';
     }
-    return `${protocol}//${envRoot}/${slug}${normalizedPath}`;
+    return `/${slug}${normalizedPath}`;
   }
 
+  const protocol = 'https:';
   if (slug === 'foundation') {
     return `${protocol}//${envRoot}${normalizedPath || '/'}`;
   }

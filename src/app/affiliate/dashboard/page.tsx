@@ -421,8 +421,8 @@ export default function AffiliateDashboardPage() {
   const host = typeof window !== 'undefined' ? window.location.host : '';
   const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
   // Strip school subdomain so affiliate central links resolve cleanly
-  const rootDomain = host ? host.replace(/^(www|sdit|smpit|tkit|sd|smp|tk)\./i, '') : 'localhost:3000';
-  const rootOrigin = typeof window !== 'undefined' ? `${protocol}//${rootDomain}` : 'http://localhost:3000';
+  const rootDomain = host ? host.replace(/^(www|sdit|smpit|tkit|sd|smp|tk)\./i, '') : 'alafiyah.id';
+  const rootOrigin = typeof window !== 'undefined' ? `${protocol}//${rootDomain}` : 'https://alafiyah.id';
   const customSlug = profile?.customSlug || 'afiyah-ahmad';
   const referralCode = profile?.referralCode || 'AFIYAH-AHMAD';
 
