@@ -621,7 +621,7 @@ export default function UnitHeroSlider({
             </a>
           )}
 
-          {(slug === 'sd' || slug === 'smp') && (
+          {slug === 'smp' && (
             <Link
               href={`/affiliate/register?unit=${slug}`}
               className="group relative overflow-hidden col-span-2 sm:col-span-1 inline-flex h-12 items-center justify-center gap-2 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-slate-950 text-xs sm:text-sm font-black shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 animate-cta-glow-amber"
