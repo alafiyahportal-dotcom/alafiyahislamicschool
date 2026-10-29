@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowRight, MessageCircle, ArrowDownCircle, Zap, FileText, Download, BookOpen, Sparkles } from 'lucide-react';
+import { ArrowRight, MessageCircle, ArrowDownCircle, Zap, FileText, Download, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getStoredReferralCode } from '@/lib/referral';
 import HeroFloatingBubbles from './HeroFloatingBubbles';
@@ -456,7 +456,7 @@ export default function UnitHeroSlider({
                 href={effectiveCtaLink}
                 className="w-full py-3.5 px-5 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-95"
               >
-                <Sparkles className="w-4 h-4 shrink-0" />
+                <FileText className="w-4 h-4 shrink-0" />
                 <span>Daftar Online PPDB</span>
               </Link>
 
