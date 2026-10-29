@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowRight, MessageCircle, ArrowDownCircle, Zap, FileText, Download, BookOpen } from 'lucide-react';
+import { ArrowRight, MessageCircle, ArrowDownCircle, FileText, Download, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getStoredReferralCode } from '@/lib/referral';
 import HeroFloatingBubbles from './HeroFloatingBubbles';
@@ -412,11 +412,13 @@ export default function UnitHeroSlider({
           <div className="bg-white rounded-[26px] sm:rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.14)] border border-slate-100 p-5 sm:p-8 lg:p-9">
             {/* Top Row: SPMB Title + Live Red Countdown Boxes */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-              {/* Left: Lightning Badge & Title */}
+              {/* Left: Official SDIT Logo & Title */}
               <div className="flex items-center gap-3.5 sm:gap-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-50 border border-amber-200/70 flex items-center justify-center shrink-0 shadow-2xs">
-                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-[#f59e0b] fill-[#f59e0b]" />
-                </div>
+                <img
+                  src="/images/sd-logo.png"
+                  alt="Logo SDIT Al-Afiyah"
+                  className="w-11 h-11 sm:w-12 sm:h-12 object-contain shrink-0 drop-shadow-xs"
+                />
                 <div>
                   <div className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
                     SPMB T.A 2027/2028
