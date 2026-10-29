@@ -32,9 +32,9 @@ const DEFAULT_SD_TEACHERS: TeacherItem[] = [
   },
   {
     id: 't-sd-2',
-    name: 'Febrian Fauzi, S.Pd',
+    name: 'Febrian Fauzi, S.Pd., M.Pd.',
     role: 'Kepala Sekolah SDIT Al-Afiyah Majalengka',
-    degrees: 'S.Pd',
+    degrees: 'S.Pd., M.Pd.',
     specialization: 'Kepemimpinan Sekolah & Mutu Pendidikan',
     bio: 'Mendidik dengan keteladanan dan menanamkan adab sebelum ilmu agar proses belajar anak senantiasa berkah dan membahagiakan.',
   },
@@ -136,7 +136,13 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
     else if (cleanRole === 'Wakasek Kesiswaan') cleanRole = 'Wakasek Kesiswaan SDIT Al-Afiyah';
     else if (cleanRole === 'Tata Usaha Sekolah') cleanRole = 'Tata Usaha SDIT Al-Afiyah';
     else if (cleanRole === 'Bendahara') cleanRole = 'Bendahara SDIT Al-Afiyah';
-    return { ...t, role: cleanRole };
+    const isFauzi = t.name.toLowerCase().includes('febrian fauzi');
+    return {
+      ...t,
+      name: isFauzi ? 'Febrian Fauzi, S.Pd., M.Pd.' : t.name,
+      degrees: isFauzi ? 'S.Pd., M.Pd.' : t.degrees,
+      role: cleanRole,
+    };
   });
 
   return (

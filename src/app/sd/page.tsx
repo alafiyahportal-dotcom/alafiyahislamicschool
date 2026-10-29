@@ -195,7 +195,7 @@ export default async function SdLandingPage() {
     },
     {
       id: 't-sd-2',
-      name: 'Febrian Fauzi, S.Pd',
+      name: 'Febrian Fauzi, S.Pd., M.Pd.',
       role: 'Kepala Sekolah SDIT Al-Afiyah Majalengka',
       specialization: 'Kepemimpinan Sekolah & Mutu Pendidikan',
       bio: 'Mendidik dengan keteladanan dan menanamkan adab sebelum ilmu agar proses belajar anak senantiasa berkah dan membahagiakan.',
@@ -262,7 +262,7 @@ export default async function SdLandingPage() {
   let rawTeachers: TeacherData[] = (dbSchool?.teachers && dbSchool.teachers.length > 0)
     ? dbSchool.teachers.map((t) => ({
         id: t.id,
-        name: t.name,
+        name: t.name.toLowerCase().includes('febrian fauzi') ? 'Febrian Fauzi, S.Pd., M.Pd.' : t.name,
         role: t.role,
         specialization: t.specialization,
         photoUrl: t.photoUrl,

@@ -192,7 +192,7 @@ export default async function SdProfilPage() {
                   <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <p className="font-extrabold text-slate-900 text-sm sm:text-base">
-                        Febrian Fauzi, S.Pd
+                        Febrian Fauzi, S.Pd., M.Pd.
                       </p>
                       <p className="text-xs text-emerald-700 font-semibold mt-0.5">
                         Kepala Sekolah SDIT Al-Afiyah

@@ -65,7 +65,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
             <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
               <div>
                 <p className="text-xs text-slate-500">Wassalamu’alaikum Warahmatullahi Wabarakatuh,</p>
-                <p className="text-base font-black text-slate-900 mt-1">Ust. Febrian Fauzi, S.Pd.</p>
+                <p className="text-base font-black text-slate-900 mt-1">Ust. Febrian Fauzi, S.Pd., M.Pd.</p>
                 <p className="text-xs text-[#064e3b] font-semibold">Kepala Sekolah SDIT Al-Afiyah Majalengka</p>
                 <p className="text-[11px] text-slate-400 mt-0.5">Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka</p>
               </div>
