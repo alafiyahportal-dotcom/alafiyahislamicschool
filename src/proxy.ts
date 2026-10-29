@@ -101,7 +101,7 @@ export function proxy(request: NextRequest) {
     let routeKey = 'general';
 
     if (pathname.startsWith('/api/auth/login')) {
-      limitConfig = { windowMs: 15 * 60 * 1000, maxRequests: 10 };
+      limitConfig = { windowMs: 15 * 60 * 1000, maxRequests: 100 };
       routeKey = 'auth-login';
     } else if (pathname.startsWith('/api/ppdb/register')) {
       limitConfig = { windowMs: 60 * 1000, maxRequests: 15 };

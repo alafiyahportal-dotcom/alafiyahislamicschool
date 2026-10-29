@@ -4,10 +4,11 @@ import { NextResponse } from 'next/server';
  * ─── 1. ALLOWED ORIGINS & CORS (Point 2) ─────────────────────────────────────
  */
 export const ALLOWED_ORIGIN_PATTERNS = [
-  /^https?:\/\/localhost(:\d+)?$/,
+  /^https?:\/\/([a-zA-Z0-9-]+\.)?localhost(:\d+)?$/,
   /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
-  /^https:\/\/([a-zA-Z0-9-]+\.)?alafiyah\.id$/,
-  /^https:\/\/([a-zA-Z0-9-]+\.)?vercel\.app$/,
+  /^https?:\/\/(\d{1,3}\.){3}\d{1,3}(:\d+)?$/,
+  /^https?:\/\/([a-zA-Z0-9-]+\.)?alafiyah\.id(:\d+)?$/,
+  /^https?:\/\/([a-zA-Z0-9-]+\.)?vercel\.app$/,
 ];
 
 export function isAllowedOrigin(origin: string | null): boolean {
@@ -17,7 +18,7 @@ export function isAllowedOrigin(origin: string | null): boolean {
 
 export function getCorsHeaders(origin: string | null): Record<string, string> {
   const isAllowed = isAllowedOrigin(origin);
-  const allowOrigin = isAllowed && origin ? origin : 'https://alafiyah.id';
+  const allowOrigin = isAllowed && origin ? origin : (origin || 'https://alafiyah.id');
 
   return {
     'Access-Control-Allow-Origin': allowOrigin,
@@ -39,24 +40,58 @@ export function validateCsrfOrigin(request: Request): boolean {
     return true;
   }
 
+  const reqHost = (
+    request.headers.get('x-forwarded-host') ||
+    request.headers.get('host') ||
+    ''
+  )
+    .split(',')[0]
+    .trim()
+    .toLowerCase();
+
   const origin = request.headers.get('origin');
-  if (origin) {
-    return isAllowedOrigin(origin);
+  if (origin && origin !== 'null') {
+    try {
+      const originUrl = new URL(origin);
+      // Always allow same-host requests
+      if (reqHost && originUrl.host.toLowerCase() === reqHost) {
+        return true;
+      }
+      // Also allow same root domain (e.g. sdit.alafiyah.id -> alafiyah.id)
+      if (
+        reqHost &&
+        originUrl.hostname.toLowerCase().endsWith(reqHost.split(':')[0].replace(/^www\./, ''))
+      ) {
+        return true;
+      }
+    } catch {
+      // fall through
+    }
+    if (isAllowedOrigin(origin)) {
+      return true;
+    }
   }
 
   const referer = request.headers.get('referer');
   if (referer) {
     try {
       const url = new URL(referer);
-      return isAllowedOrigin(url.origin);
+      if (reqHost && url.host.toLowerCase() === reqHost) {
+        return true;
+      }
+      if (isAllowedOrigin(url.origin)) {
+        return true;
+      }
     } catch {
-      return false;
+      // fall through
     }
   }
 
-  // If both origin and referer are missing, allow same-host serverless calls or browser navigations,
-  // but reject if Sec-Fetch-Site indicates cross-site
+  // Allow same-origin or same-site browser requests
   const fetchSite = request.headers.get('sec-fetch-site');
+  if (fetchSite === 'same-origin' || fetchSite === 'same-site' || fetchSite === 'none') {
+    return true;
+  }
   if (fetchSite === 'cross-site') {
     return false;
   }

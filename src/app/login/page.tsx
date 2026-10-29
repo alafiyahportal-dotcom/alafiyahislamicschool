@@ -188,7 +188,11 @@ export default function LoginPage() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: targetEmail, password: targetPass }),
+        body: JSON.stringify({
+          email: targetEmail,
+          password: targetPass,
+          unit: activeUnit,
+        }),
       });
 
       const data = await res.json();
@@ -310,19 +314,19 @@ export default function LoginPage() {
             {/* Login Form */}
             <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="space-y-4">
               
-              {/* Email Input */}
+              {/* ID / Email Input */}
               <div>
                 <label htmlFor="email" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                  Alamat Email
+                  ID / Email Admin
                 </label>
                 <input
                   id="email"
-                  type="email"
+                  type="text"
                   required
-                  autoComplete="email"
+                  autoComplete="username"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="contoh@email.com"
+                  placeholder="admin"
                   className={`w-full px-4 py-3 text-sm rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 font-medium focus:bg-white focus:outline-none transition-all ${currentTheme.focusRing}`}
                 />
               </div>
