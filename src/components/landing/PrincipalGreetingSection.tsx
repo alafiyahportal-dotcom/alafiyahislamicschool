@@ -9,6 +9,8 @@ interface PrincipalGreetingProps {
   schoolSlug?: string;
 }
 
+const SLIDE_DURATION_MS = 12000; // 12 detik per slide agar nyaman dibaca
+
 /* ─── Authentic Vector Illustrations from the Principal's Graphic Slides ─── */
 
 function TreeIllustration({ className = 'w-16 h-16' }: { className?: string }) {
@@ -182,17 +184,21 @@ function renderIllustration(type: SlideTopic['iconType'], className = 'w-14 h-14
 
 export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: PrincipalGreetingProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
 
   const totalSlides = CHARACTER_SLIDES.length;
   const activeSlide = CHARACTER_SLIDES[activeIndex];
+  const isPaused = isHovered || isLocked;
 
-  // Pure automatic rotation without buttons or interruptions
+  // Auto-advance every 12 seconds, automatically pauses when hovered, touched, or clicked
   useEffect(() => {
+    if (isPaused) return;
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % totalSlides);
-    }, 5500);
+    }, SLIDE_DURATION_MS);
     return () => clearInterval(timer);
-  }, [totalSlides]);
+  }, [isPaused, totalSlides, activeIndex]);
 
   return (
     <section className="py-16 sm:py-24 bg-[#f7f9f5] relative overflow-hidden border-b border-emerald-900/10">
@@ -267,8 +273,16 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                 </div>
               </div>
 
-              {/* Minimalist Auto-Rotating Motion Stage (No Buttons, No Pills, Pure Editorial Flow) */}
-              <div className="pt-10 min-h-[240px] sm:min-h-[210px] flex items-center">
+              {/* Minimalist Auto-Rotating Motion Stage (Hover / Touch / Click to Hold & Read) */}
+              <div
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onTouchStart={() => setIsHovered(true)}
+                onTouchEnd={() => setIsHovered(false)}
+                onClick={() => setIsLocked((prev) => !prev)}
+                title={isPaused ? 'Klik untuk melanjutkan putar otomatis' : 'Arahkan kursor atau klik untuk menahan bacaan'}
+                className="pt-10 min-h-[250px] sm:min-h-[220px] flex flex-col justify-between cursor-pointer select-text"
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeSlide.id}
@@ -385,6 +399,47 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                     </div>
                   </motion.div>
                 </AnimatePresence>
+
+                {/* Ultra-Minimalist Segmented Progress Lines (Click any line to view that slide) */}
+                <div
+                  className="grid grid-cols-6 gap-2.5 pt-10"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {CHARACTER_SLIDES.map((slide, idx) => {
+                    const isCurrent = idx === activeIndex;
+                    const isPast = idx < activeIndex;
+                    return (
+                      <button
+                        key={slide.id}
+                        type="button"
+                        onClick={() => setActiveIndex(idx)}
+                        aria-label={slide.title}
+                        className="group py-2 focus:outline-none"
+                      >
+                        <div className="h-[3px] w-full bg-white/15 overflow-hidden rounded-full">
+                          {isCurrent ? (
+                            <motion.div
+                              key={`${slide.id}-${isPaused ? 'paused' : 'playing'}`}
+                              initial={{ width: isPaused ? '100%' : '0%' }}
+                              animate={{ width: '100%' }}
+                              transition={{
+                                duration: isPaused ? 0.15 : SLIDE_DURATION_MS / 1000,
+                                ease: 'linear',
+                              }}
+                              className="h-full bg-[#facc15]"
+                            />
+                          ) : (
+                            <div
+                              className={`h-full transition-colors ${
+                                isPast ? 'w-full bg-white/45' : 'w-0 group-hover:w-full group-hover:bg-white/30'
+                              }`}
+                            />
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
