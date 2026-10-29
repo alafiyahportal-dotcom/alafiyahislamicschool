@@ -225,12 +225,10 @@ export default function LoginPage() {
         sessionStorage.setItem('alafiyah_pwa_splash_seen', '1');
       } catch {}
 
-      // Smooth transition to destination
-      setTimeout(() => {
-        if (data.redirectUrl) {
-          window.location.replace(data.redirectUrl);
-        }
-      }, 500);
+      // Immediate transition to destination
+      if (data.redirectUrl) {
+        window.location.replace(data.redirectUrl);
+      }
     } catch {
       const netError = 'Terjadi gangguan jaringan, silakan periksa koneksi Anda.';
       setErrorMsg(netError);

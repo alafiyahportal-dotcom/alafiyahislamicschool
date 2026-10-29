@@ -74,18 +74,6 @@ export default function AdminSidebar({
     setIsMobileOpen(false);
   }, [pathname]);
 
-  // Preload primary dashboard sibling features into client cache for instant tab jumps
-  useEffect(() => {
-    try {
-      const base = schoolSlug === 'foundation' ? '/admin/foundation' : `/admin/${schoolSlug}`;
-      router.prefetch(schoolSlug === 'foundation' ? '/admin/foundation' : `${base}/dashboard`);
-      router.prefetch(`${base}/ppdb`);
-      router.prefetch(`${base}/cms`);
-      router.prefetch(`${base}/finance`);
-      router.prefetch(`${base}/news`);
-    } catch {}
-  }, [schoolSlug, router]);
-
   // Dynamically synchronize browser tab title & favicon based on active unit
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -416,9 +404,7 @@ export default function AdminSidebar({
                 )}
                 <Link
                   href={item.href}
-                  prefetch={true}
-                  onMouseEnter={() => router.prefetch(item.href)}
-                  onTouchStart={() => router.prefetch(item.href)}
+                  prefetch={false}
                   onClick={() => {
                     if (isMobileDrawer) setIsMobileOpen(false);
                   }}

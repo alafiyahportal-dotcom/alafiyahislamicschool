@@ -3,6 +3,10 @@ import { prisma } from '@/lib/prisma';
 import { setSession, getRedirectUrlForRole, UserSession } from '@/lib/session';
 import bcrypt from 'bcryptjs';
 
+// Fast in-memory cache for resolved unit admin users to make login near-instant
+const unitAdminCache = new Map<string, { sessionUser: UserSession; expiresAt: number }>();
+const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -76,6 +80,23 @@ export async function POST(request: NextRequest) {
 
     const isMasterPassMatch =
       rawPass === 'admin' || rawPass === 'password123' || rawPass === 'admin123';
+
+    // Fast path: if unit admin is cached in memory and master password matches, return immediately
+    if (targetUnitSlug && isMasterPassMatch) {
+      const cached = unitAdminCache.get(targetEmail);
+      if (cached && cached.expiresAt > Date.now()) {
+        await setSession(cached.sessionUser);
+        const redirectUrl = getRedirectUrlForRole(
+          cached.sessionUser.role,
+          cached.sessionUser.schoolSlug
+        );
+        return NextResponse.json({
+          success: true,
+          user: cached.sessionUser,
+          redirectUrl,
+        });
+      }
+    }
 
     let user = await prisma.user
       .findUnique({
@@ -202,6 +223,13 @@ export async function POST(request: NextRequest) {
       schoolId: user.schoolId,
       schoolSlug: effectiveSchoolSlug,
     };
+
+    if (targetUnitSlug && isMasterPassMatch) {
+      unitAdminCache.set(targetEmail, {
+        sessionUser,
+        expiresAt: Date.now() + CACHE_TTL_MS,
+      });
+    }
 
     await setSession(sessionUser);
     const redirectUrl = getRedirectUrlForRole(effectiveRole, effectiveSchoolSlug);
