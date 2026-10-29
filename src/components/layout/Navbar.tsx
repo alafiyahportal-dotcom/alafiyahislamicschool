@@ -149,6 +149,7 @@ export default function Navbar({
           homeUrl: getUnitHomeUrl('tk'),
           ppdbLink: '/ppdb/daftar?school=tk',
           ctaText: 'Info SPMB TK IT',
+          secondaryLogoUrl: undefined,
           logoUrl: undefined,
         };
       case 'sd':
@@ -156,10 +157,11 @@ export default function Navbar({
           code: 'SD',
           arabic: '',
           title: 'SDIT AL-AFIYAH',
-          subtitle: 'Smart Akhlak Fitrah • YPIB Majalengka',
+          subtitle: 'SMART AKHLAK FITRAH',
           homeUrl: getUnitHomeUrl('sd'),
           ppdbLink: '/sd/spmb/daftar',
           ctaText: 'DAFTAR',
+          secondaryLogoUrl: '/images/ypib-logo.png',
           logoUrl: '/images/sd-logo.png',
         };
       case 'smp':
@@ -171,6 +173,7 @@ export default function Navbar({
           homeUrl: getUnitHomeUrl('smp'),
           ppdbLink: '/smp/spmb/daftar',
           ctaText: 'Daftar SPMB Online',
+          secondaryLogoUrl: undefined,
           logoUrl: '/images/smp-logo.png',
         };
       default:
@@ -182,6 +185,7 @@ export default function Navbar({
           homeUrl: getUnitHomeUrl('foundation'),
           ppdbLink: '/ppdb/daftar',
           ctaText: 'Info SPMB Online',
+          secondaryLogoUrl: undefined,
           logoUrl: '/images/ypib-logo.png',
         };
     }
@@ -397,13 +401,22 @@ export default function Navbar({
                 }}
                 className="flex items-center gap-2 xs:gap-2.5 sm:gap-3.5 min-w-0 flex-1 mr-2 sm:mr-6 xl:mr-10 py-1 group cursor-pointer"
               >
-                {brandConfig.logoUrl && (
-                  <img
-                    src={brandConfig.logoUrl}
-                    alt={brandConfig.title}
-                    className="w-9 h-9 xs:w-10 xs:h-10 sm:w-[46px] sm:h-[46px] lg:w-[52px] lg:h-[52px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
-                  />
-                )}
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  {brandConfig.secondaryLogoUrl && (
+                    <img
+                      src={brandConfig.secondaryLogoUrl}
+                      alt="Logo Yayasan Pendidikan Imam Bonjol"
+                      className="w-9 h-9 xs:w-10 xs:h-10 sm:w-[44px] sm:h-[44px] lg:w-[50px] lg:h-[50px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
+                    />
+                  )}
+                  {brandConfig.logoUrl && (
+                    <img
+                      src={brandConfig.logoUrl}
+                      alt={brandConfig.title}
+                      className="w-9 h-9 xs:w-10 xs:h-10 sm:w-[46px] sm:h-[46px] lg:w-[52px] lg:h-[52px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
+                    />
+                  )}
+                </div>
                 <div className="min-w-0 flex flex-col justify-center">
                   {brandConfig.arabic ? (
                     <>
@@ -453,20 +466,14 @@ export default function Navbar({
                       {brandConfig.subtitle && (
                         <div className="mt-0.5">
                           <span
-                            className={`text-[9px] xs:text-[10px] sm:text-[11px] lg:text-[11.5px] transition-colors truncate block ${
-                              activeSlug === 'sd'
-                                ? shouldBeTransparent
-                                  ? 'italic font-medium text-emerald-200/95 drop-shadow-xs'
-                                  : 'italic font-semibold text-[#00684e]'
-                                : `font-bold uppercase tracking-wider ${
-                                    shouldBeTransparent
-                                      ? activeSlug === 'smp'
-                                        ? 'text-[#ffd51e] drop-shadow-xs'
-                                        : 'text-emerald-300 drop-shadow-xs'
-                                      : activeSlug === 'smp'
-                                      ? 'text-[#030164]'
-                                      : 'text-[#007638]'
-                                  }`
+                            className={`text-[9px] xs:text-[10px] sm:text-[11px] lg:text-[11.5px] font-bold uppercase tracking-wider transition-colors truncate block ${
+                              shouldBeTransparent
+                                ? activeSlug === 'smp'
+                                  ? 'text-[#ffd51e] drop-shadow-xs'
+                                  : 'text-emerald-200/95 drop-shadow-xs'
+                                : activeSlug === 'smp'
+                                ? 'text-[#030164]'
+                                : 'text-[#00684e]'
                             }`}
                           >
                             {brandConfig.subtitle}
@@ -834,13 +841,22 @@ export default function Navbar({
             <div>
               <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
                 <div className="flex items-center gap-3">
-                  {brandConfig.logoUrl && (
-                    <img
-                      src={brandConfig.logoUrl}
-                      alt={brandConfig.title}
-                      className="w-11 h-11 xs:w-12 xs:h-12 object-contain shrink-0"
-                    />
-                  )}
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {brandConfig.secondaryLogoUrl && (
+                      <img
+                        src={brandConfig.secondaryLogoUrl}
+                        alt="Logo Yayasan Pendidikan Imam Bonjol"
+                        className="w-10 h-10 xs:w-11 xs:h-11 object-contain shrink-0"
+                      />
+                    )}
+                    {brandConfig.logoUrl && (
+                      <img
+                        src={brandConfig.logoUrl}
+                        alt={brandConfig.title}
+                        className="w-11 h-11 xs:w-12 xs:h-12 object-contain shrink-0"
+                      />
+                    )}
+                  </div>
                   <div>
                     {brandConfig.arabic ? (
                       <div className="text-base font-bold text-softwater-dark">
