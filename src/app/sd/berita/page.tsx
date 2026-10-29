@@ -8,6 +8,8 @@ import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { Newspaper, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES } from '@/lib/news-media';
+import { getSchoolNewsConfig } from '@/lib/news-config-server';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SDIT Al-Afiyah Majalengka',
@@ -51,7 +53,7 @@ const DEFAULT_SD_ARTICLES: NewsArticle[] = [
     id: 'sd-warta-3',
     title: 'Field Study & Observasi Alam: Mengenal Ciptaan Allah di Kebun Edukasi Majalengka',
     slug: 'field-study-alam-sdit-al-afiyah',
-    category: 'Kegiatan',
+    category: 'Field Study',
     excerpt: 'Pendidikan tidak hanya di dalam kelas. Murid-murid kelas 2 dan 3 diajak bertadabbur alam memahami ekosistem tumbuhan dan sains terpadu.',
     author: 'Wali Kelas 3 SDIT',
     date: '15 Sep 2026',
@@ -63,7 +65,7 @@ const DEFAULT_SD_ARTICLES: NewsArticle[] = [
     id: 'sd-warta-4',
     title: 'Adab Penuntut Ilmu: Menghormati Guru dan Menjaga Kesucian Majelis Belajar',
     slug: 'adab-penuntut-ilmu-sdit',
-    category: 'Artikel & Kajian',
+    category: 'Kajian',
     excerpt: 'Imam Malik rahimahullah berkata: "Pelajarilah adab sebelum engkau mempelajari ilmu." Mengapa penanaman adab menjadi prioritas utama di SDIT Al-Afiyah.',
     author: 'Tim Bina Karakter SDIT',
     date: '5 Sep 2026',
@@ -77,9 +79,14 @@ export const revalidate = 60;
 
 export default async function SdNewsPage() {
   let articles: NewsArticle[] = [];
+  let newsCategories: string[] = DEFAULT_NEWS_CATEGORIES;
 
   try {
-    const [dbPosts, dbAchievements] = await Promise.all([
+    const [sdSchool, dbPosts, dbAchievements] = await Promise.all([
+      prisma.school.findUnique({
+        where: { slug: 'sd' },
+        select: { id: true, name: true },
+      }),
       prisma.newsPost.findMany({
         where: { 
           isPublished: true,
@@ -87,7 +94,7 @@ export default async function SdNewsPage() {
         },
         orderBy: { publishedAt: 'desc' },
         include: { school: true },
-        take: 20,
+        take: 40,
       }),
       prisma.studentAchievement.findMany({
         where: { school: { slug: 'sd' } },
@@ -95,24 +102,36 @@ export default async function SdNewsPage() {
       }),
     ]);
 
+    if (sdSchool) {
+      const cfg = await getSchoolNewsConfig(sdSchool.id, sdSchool.name);
+      newsCategories = cfg.categories;
+    }
+
     const postArticles: NewsArticle[] = (dbPosts && dbPosts.length > 0)
-      ? dbPosts.map((p) => ({
-          id: p.id,
-          title: p.title,
-          slug: p.slug,
-          category: p.category || 'Kegiatan',
-          excerpt: p.excerpt || p.content.slice(0, 150) + '...',
-          author: p.author || 'Humas SDIT Al-Afiyah',
-          date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-          }),
-          schoolName: 'SDIT Al-Afiyah',
-          readingTime: '4 menit baca',
-          imageUrl: p.coverImage || undefined,
-          paragraphs: p.content ? p.content.split('\n').filter((l: string) => l.trim().length > 0) : undefined,
-        }))
+      ? dbPosts.map((p) => {
+          const parsed = parseNewsMedia(p.content, p.coverImage);
+          return {
+            id: p.id,
+            title: p.title,
+            slug: p.slug,
+            category: p.category || 'Kegiatan',
+            excerpt: p.excerpt || parsed.cleanContent.slice(0, 150) + '...',
+            author: p.author || 'Humas SDIT Al-Afiyah',
+            date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            }),
+            schoolName: 'SDIT Al-Afiyah',
+            readingTime: '4 menit baca',
+            imageUrl: p.coverImage || undefined,
+            rawContent: p.content,
+            mediaItems: parsed.allMedia,
+            paragraphs: parsed.cleanContent
+              ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)
+              : undefined,
+          };
+        })
       : DEFAULT_SD_ARTICLES.filter((a) => a.category !== 'Prestasi');
 
     const rankLabelMap: Record<string, string> = {
@@ -205,7 +224,11 @@ export default async function SdNewsPage() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-6 relative z-20">
         <ScrollReveal yOffset={24} duration={500}>
-          <NewsListClient initialArticles={articles} />
+          <NewsListClient
+            initialArticles={articles}
+            schoolSlug="sd"
+            initialCategories={newsCategories}
+          />
         </ScrollReveal>
       </main>
 

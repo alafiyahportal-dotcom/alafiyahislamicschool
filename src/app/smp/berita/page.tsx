@@ -7,6 +7,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { Newspaper, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { parseNewsMedia } from '@/lib/news-media';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SMP IT Al-Afiyah',
@@ -158,23 +159,30 @@ export default async function SmpBeritaPage() {
     ]);
 
     const postArticles: NewsArticle[] = (dbPosts && dbPosts.length > 0)
-      ? dbPosts.map((post) => ({
-          id: post.id,
-          title: post.title,
-          slug: post.slug,
-          category: post.category || 'Kabar Sekolah',
-          excerpt: post.excerpt,
-          content: post.content,
-          author: post.author || 'Humas SMP IT',
-          date: new Date(post.publishedAt).toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-          }),
-          schoolName: 'SMP IT Al-Afiyah',
-          readingTime: '3 menit baca',
-          imageUrl: post.coverImage || '/images/smp-spmb-poster.png',
-        }))
+      ? dbPosts.map((post) => {
+          const parsed = parseNewsMedia(post.content, post.coverImage);
+          return {
+            id: post.id,
+            title: post.title,
+            slug: post.slug,
+            category: post.category || 'Kegiatan',
+            excerpt: post.excerpt || parsed.cleanContent.slice(0, 150) + '...',
+            rawContent: post.content,
+            mediaItems: parsed.allMedia,
+            paragraphs: parsed.cleanContent
+              ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)
+              : undefined,
+            author: post.author || 'Humas SMP IT',
+            date: new Date(post.publishedAt).toLocaleDateString('id-ID', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            }),
+            schoolName: 'SMP IT Al-Afiyah',
+            readingTime: '3 menit baca',
+            imageUrl: post.coverImage || '/images/smp-spmb-poster.png',
+          };
+        })
       : DEFAULT_SMP_ARTICLES.filter((a) => a.category !== 'Prestasi');
 
     const rankLabelMap: Record<string, string> = {

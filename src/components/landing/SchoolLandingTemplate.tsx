@@ -34,10 +34,19 @@ import {
   Tag,
   CreditCard,
   Search,
-  MapPin
+  MapPin,
+  ChevronLeft,
+  ChevronRight,
+  Film,
+  ImageIcon,
 } from 'lucide-react';
 
 import { getStoredReferralCode } from '@/lib/referral';
+import {
+  DEFAULT_NEWS_CATEGORIES,
+  mergeUniqueStrings,
+  parseNewsMedia,
+} from '@/lib/news-media';
 import UnitHeroSlider, { UnitSlideData } from './UnitHeroSlider';
 import InteractiveBubbleCard from './InteractiveBubbleCard';
 import CampusLocationMapSection from './CampusLocationMapSection';
@@ -97,6 +106,7 @@ export interface SchoolData {
   facilities?: FacilityItem[];
   teachers?: TeacherData[];
   newsPosts?: NewsData[];
+  newsCategories?: string[];
   achievements?: any[];
   bankName?: string;
   bankAccountNumber?: string;
@@ -161,17 +171,29 @@ export { getDepartmentByRole };
 
 export default function SchoolLandingTemplate({ school }: { school: SchoolData }) {
   const [selectedNews, setSelectedNews] = useState<NewsData | null>(null);
+  const [selectedNewsSlideIndex, setSelectedNewsSlideIndex] = useState<number>(0);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const unitPosters = useMemo(() => (school.slug === 'smp' ? SMP_POSTERS : SPMB_POSTERS), [school.slug]);
   const [activePoster, setActivePoster] = useState(unitPosters[0]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FacilityItem | null>(null);
   const [galleryCategory, setGalleryCategory] = useState<string>('all');
-  const [newsFilter, setNewsFilter] = useState<'all' | 'Pengumuman' | 'Kegiatan'>('all');
+  const [newsFilter, setNewsFilter] = useState<string>('all');
   const [copiedBankAcc, setCopiedBankAcc] = useState(false);
   const [refCode, setRefCode] = useState<string | null>(null);
   const [isOpeningSpmb, setIsOpeningSpmb] = useState(false);
   const [smpGender, setSmpGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
   const [smpDiscountType, setSmpDiscountType] = useState<'sdit' | 'umum' | 'normal'>('sdit');
+
+  const availableNewsCategories = useMemo(() => {
+    const base =
+      school.newsCategories && school.newsCategories.length > 0
+        ? school.newsCategories
+        : DEFAULT_NEWS_CATEGORIES;
+    const fromPosts = (school.newsPosts || [])
+      .map((p) => (p.category || '').trim())
+      .filter(Boolean);
+    return mergeUniqueStrings(base, fromPosts);
+  }, [school.newsCategories, school.newsPosts]);
 
   useEffect(() => {
     setActivePoster(unitPosters[0]);
@@ -1737,41 +1759,40 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 </p>
               </div>
 
-              {/* Tab Filter Kategori Pengumuman / Kegiatan */}
-              <div className="mt-4 md:mt-0 flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200/80">
+              {/* Tab Filter Kategori Dinamis (Sinkron dengan Admin) */}
+              <div className="mt-4 md:mt-0 flex flex-wrap items-center gap-1.5 p-1.5 bg-slate-100 rounded-2xl border border-slate-200/80">
                 <button
                   type="button"
                   onClick={() => setNewsFilter('all')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     newsFilter === 'all'
-                      ? 'bg-white text-emerald-800 shadow-2xs'
+                      ? 'bg-[#064e3b] text-white shadow-2xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  Semua Warta
+                  Semua ({school.newsPosts.length})
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setNewsFilter('Pengumuman')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    newsFilter === 'Pengumuman'
-                      ? 'bg-emerald-800 text-white shadow-2xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Tab Pengumuman
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setNewsFilter('Kegiatan')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    newsFilter === 'Kegiatan'
-                      ? 'bg-white text-emerald-800 shadow-2xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Kegiatan &amp; Prestasi
-                </button>
+                {availableNewsCategories.map((cat) => {
+                  const count = (school.newsPosts || []).filter(
+                    (p) => (p.category || '').trim().toLowerCase() === cat.trim().toLowerCase()
+                  ).length;
+                  const isActive =
+                    newsFilter.trim().toLowerCase() === cat.trim().toLowerCase();
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setNewsFilter(cat)}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-[#064e3b] text-white shadow-2xs'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {cat} ({count})
+                    </button>
+                  );
+                })}
               </div>
             </ScrollReveal>
 
@@ -1779,82 +1800,109 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               {school.newsPosts
                 .filter((post) => {
                   if (newsFilter === 'all') return true;
-                  if (newsFilter === 'Pengumuman') return post.category.toLowerCase().includes('pengumuman');
-                  return !post.category.toLowerCase().includes('pengumuman');
+                  return (
+                    (post.category || '').trim().toLowerCase() ===
+                    newsFilter.trim().toLowerCase()
+                  );
                 })
-                .map((post, idx) => (
-                <ScrollReveal
-                  key={post.id}
-                  delay={(idx % 3) * 0.15}
-                  yOffset={24}
-                  duration={500}
-                  className="h-full flex flex-col"
-                >
-                  <div
-                    className="bg-slate-50/70 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-500/50 transition-all flex flex-col overflow-hidden group h-full"
-                  >
-                    <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
-                      <img
-                        src={
-                          post.coverImage ||
-                          '/images/sd-activity-classroom-6b.jpg'
-                        }
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-3 left-3">
-                        <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/90 text-slate-800 shadow-xs backdrop-blur-xs">
-                          {post.category}
-                        </span>
-                      </div>
-                    </div>
+                .map((post, idx) => {
+                  const parsed = parseNewsMedia(post.content, post.coverImage);
+                  const totalSlides = parsed.allMedia.length;
+                  const videoCount = parsed.allMedia.filter((m) => m.type === 'video').length;
 
-                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
-                          <Calendar className="w-3.5 h-3.5" />
-                          <span>
-                            {new Date(post.publishedAt).toLocaleDateString('id-ID', {
-                              dateStyle: 'medium',
-                            })}
-                          </span>
-                          <span>•</span>
-                          <span>{post.author}</span>
+                  return (
+                    <ScrollReveal
+                      key={post.id}
+                      delay={(idx % 3) * 0.15}
+                      yOffset={24}
+                      duration={500}
+                      className="h-full flex flex-col"
+                    >
+                      <div
+                        onClick={() => {
+                          setSelectedNews(post);
+                          setSelectedNewsSlideIndex(0);
+                        }}
+                        className="bg-slate-50/70 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-500/50 transition-all flex flex-col overflow-hidden group h-full cursor-pointer"
+                      >
+                        <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
+                          <img
+                            src={
+                              post.coverImage ||
+                              '/images/sd-activity-classroom-6b.jpg'
+                            }
+                            alt={post.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
+                            <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/95 text-slate-800 shadow-xs backdrop-blur-xs">
+                              {post.category}
+                            </span>
+                            {totalSlides > 1 && (
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-700/90 text-white shadow-xs backdrop-blur-xs">
+                                <ImageIcon className="w-3 h-3" />
+                                {totalSlides} Slide
+                                {videoCount > 0 ? ` (${videoCount} Video)` : ''}
+                              </span>
+                            )}
+                          </div>
                         </div>
 
-                        <h3 className="font-bold text-slate-900 line-clamp-2 text-base leading-snug group-hover:text-emerald-700 transition-colors">
-                          {sanitizeAdabText(post.title)}
-                        </h3>
+                        <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
+                              <Calendar className="w-3.5 h-3.5" />
+                              <span>
+                                {new Date(post.publishedAt).toLocaleDateString('id-ID', {
+                                  dateStyle: 'medium',
+                                })}
+                              </span>
+                              <span>•</span>
+                              <span>{post.author}</span>
+                            </div>
 
-                        <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
-                          {sanitizeAdabText(post.excerpt)}
-                        </p>
-                      </div>
+                            <h3 className="font-bold text-slate-900 line-clamp-2 text-base leading-snug group-hover:text-emerald-700 transition-colors">
+                              {sanitizeAdabText(post.title)}
+                            </h3>
 
-                      <div className="pt-4 border-t border-slate-200/70 flex items-center justify-between">
-                        <button
-                          onClick={() => setSelectedNews(post)}
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
-                        >
-                          <span>Baca Selengkapnya</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                        {post.coverImage && (post.coverImage.includes('spmb') || post.coverImage.includes('poster')) && (
-                          <a
-                            href={post.coverImage}
-                            download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2027-2028.jpg`}
-                            className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors"
-                            title="Unduh Poster"
-                          >
-                            <Download className="w-3 h-3 text-emerald-600" />
-                            <span>Unduh</span>
-                          </a>
-                        )}
+                            <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                              {sanitizeAdabText(
+                                parseNewsMedia(post.excerpt || parsed.cleanContent).cleanContent
+                              )}
+                            </p>
+                          </div>
+
+                          <div className="pt-4 border-t border-slate-200/70 flex items-center justify-between">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedNews(post);
+                                setSelectedNewsSlideIndex(0);
+                              }}
+                              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors cursor-pointer"
+                            >
+                              <span>Baca Selengkapnya</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                            {post.coverImage && (post.coverImage.includes('spmb') || post.coverImage.includes('poster')) && (
+                              <a
+                                href={post.coverImage}
+                                onClick={(e) => e.stopPropagation()}
+                                download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2027-2028.jpg`}
+                                className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors"
+                                title="Unduh Poster"
+                              >
+                                <Download className="w-3 h-3 text-emerald-600" />
+                                <span>Unduh</span>
+                              </a>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
+                    </ScrollReveal>
+                  );
+                })}
             </div>
 
             {/* Tombol Buka Halaman Khusus Warta */}
@@ -1946,101 +1994,224 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </div>
       </section>
 
-      {/* Modal Dialog Baca Artikel Lengkap */}
-      {selectedNews && (
-        <div 
-          onClick={() => setSelectedNews(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in cursor-pointer overflow-y-auto"
-        >
-          {/* Floating always-visible close button */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedNews(null);
-            }}
-            className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[70] inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-900/95 hover:bg-black text-white font-bold text-xs sm:text-sm shadow-2xl border border-white/20 transition-all hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-md"
-            title="Kembali ke Halaman (ESC)"
+      {/* Modal Dialog Baca Artikel Lengkap (Full-Area + Multi-Foto & Video Carousel) */}
+      {selectedNews && (() => {
+        const parsedModal = parseNewsMedia(selectedNews.content, selectedNews.coverImage);
+        const slides =
+          parsedModal.allMedia.length > 0
+            ? parsedModal.allMedia
+            : [
+                {
+                  type: 'image' as const,
+                  url: selectedNews.coverImage || '/images/sd-activity-classroom-6b.jpg',
+                },
+              ];
+        const currentSlide = slides[selectedNewsSlideIndex] || slides[0];
+
+        return (
+          <div
+            onClick={() => setSelectedNews(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-1.5 sm:p-3 md:p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in cursor-pointer overflow-hidden"
           >
-            <X className="w-4 h-4 text-emerald-300" />
-            <span>Kembali / Tutup</span>
-          </button>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl sm:rounded-3xl w-[97vw] max-w-[1480px] h-[94vh] max-h-[94vh] border border-slate-200 shadow-2xl overflow-hidden flex flex-col cursor-default"
+            >
+              {/* Top Modal Header */}
+              <div className="bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3.5 border-b border-slate-100 flex items-center justify-between shrink-0 z-20">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#E8F3F1] text-[#184F48]">
+                    {selectedNews.category}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900">
+                    {school.name}
+                  </span>
+                  {slides.length > 1 && (
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                      Slide {selectedNewsSlideIndex + 1} dari {slides.length}
+                    </span>
+                  )}
+                </div>
 
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[86vh] cursor-default my-auto"
-          >
-            <div className="relative h-48 sm:h-56 w-full bg-slate-100 flex-shrink-0">
-              <img
-                src={
-                  selectedNews.coverImage ||
-                  '/images/sd-activity-classroom-6b.jpg'
-                }
-                alt={selectedNews.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-4 left-4">
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/90 text-slate-800 shadow-sm backdrop-blur-xs">
-                  {selectedNews.category}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedNews(null)}
-                className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/75 hover:bg-slate-900 text-white font-bold text-xs transition-colors shadow-sm cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-                <span>Kembali</span>
-              </button>
-            </div>
-
-            <div className="p-5 sm:p-7 overflow-y-auto space-y-4 flex-1">
-              <div className="flex items-center gap-3 text-xs text-slate-400 font-medium">
-                <Calendar className="w-4 h-4 text-slate-400" />
-                <span>
-                  {new Date(selectedNews.publishedAt).toLocaleDateString('id-ID', {
-                    dateStyle: 'full',
-                  })}
-                </span>
-                <span>•</span>
-                <User className="w-4 h-4 text-slate-400" />
-                <span>{selectedNews.author}</span>
+                <button
+                  type="button"
+                  onClick={() => setSelectedNews(null)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-colors shadow-sm cursor-pointer"
+                >
+                  <X className="w-4 h-4 text-emerald-300" />
+                  <span>Tutup</span>
+                </button>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">
-                {sanitizeAdabText(selectedNews.title)}
-              </h2>
+              {/* 2-Column Body: Left Media Carousel + Right Full Article Text */}
+              <div className="flex-1 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row min-h-0">
+                {/* Left Column: Interactive Media Carousel */}
+                <div className="md:w-7/12 lg:w-[56%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 min-h-[280px] sm:min-h-[360px] md:min-h-full select-none">
+                  <div className="relative flex-1 w-full h-full flex items-center justify-center p-2 sm:p-4 overflow-hidden">
+                    {currentSlide.type === 'image' && (
+                      <img
+                        src={currentSlide.url}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-35 pointer-events-none"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-              <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-line space-y-3 pt-2 border-t border-slate-100 font-normal">
-                {sanitizeAdabText(selectedNews.content)}
-              </div>
-            </div>
+                    {currentSlide.type === 'video' ? (
+                      <video
+                        key={currentSlide.url}
+                        src={currentSlide.url}
+                        controls
+                        playsInline
+                        className="relative z-10 w-full h-full max-h-[360px] md:max-h-[74vh] object-contain rounded-xl shadow-2xl bg-black"
+                      />
+                    ) : (
+                      <img
+                        key={currentSlide.url}
+                        src={currentSlide.url}
+                        alt={selectedNews.title}
+                        className="relative z-10 w-full h-auto max-h-[350px] md:max-h-[72vh] object-contain rounded-xl shadow-2xl"
+                      />
+                    )}
 
-            <div className="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
-              <div className="flex items-center gap-2">
-                {selectedNews.coverImage && (selectedNews.coverImage.includes('poster') || selectedNews.coverImage.includes('spmb') || selectedNews.category.toLowerCase().includes('pengumuman')) && (
-                  <a
-                    href={selectedNews.coverImage}
-                    download={`Dokumen-Resmi-${selectedNews.slug || 'al-afiyah'}.jpg`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-800 hover:bg-emerald-900 text-white shadow-2xs transition-all"
-                  >
-                    <Download className="w-3.5 h-3.5 text-emerald-300" />
-                    <span>Unduh Gambar / Poster</span>
-                  </a>
-                )}
+                    {/* Prev / Next Navigation Buttons */}
+                    {slides.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setSelectedNewsSlideIndex((prev) =>
+                              prev === 0 ? slides.length - 1 : prev - 1
+                            )
+                          }
+                          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/70 hover:bg-[#00A651] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
+                          title="Slide Sebelumnya"
+                        >
+                          <ChevronLeft className="w-6 h-6" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setSelectedNewsSlideIndex((prev) =>
+                              prev === slides.length - 1 ? 0 : prev + 1
+                            )
+                          }
+                          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/70 hover:bg-[#00A651] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
+                          title="Slide Berikutnya"
+                        >
+                          <ChevronRight className="w-6 h-6" />
+                        </button>
+                      </>
+                    )}
+
+                    {slides.length > 1 && (
+                      <div className="absolute top-3 left-3 z-20 px-3 py-1 rounded-xl bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-bold">
+                        Slide {selectedNewsSlideIndex + 1} / {slides.length}
+                        {selectedNewsSlideIndex === 0 ? ' • Sampul Utama' : ''}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Thumbnail Strip */}
+                  {slides.length > 1 && (
+                    <div className="relative z-20 bg-slate-900/95 border-t border-white/10 px-4 py-2.5 flex items-center gap-2 overflow-x-auto">
+                      {slides.map((media, idx) => (
+                        <button
+                          key={`${media.url}-${idx}`}
+                          type="button"
+                          onClick={() => setSelectedNewsSlideIndex(idx)}
+                          className={`relative w-16 h-12 rounded-lg overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
+                            idx === selectedNewsSlideIndex
+                              ? 'border-emerald-400 ring-2 ring-emerald-400/40 scale-105'
+                              : 'border-white/20 opacity-60 hover:opacity-100'
+                          }`}
+                        >
+                          {media.type === 'video' ? (
+                            <div className="w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
+                              <Film className="w-4 h-4 text-emerald-400" />
+                              <span className="text-[8px] font-bold mt-0.5">VIDEO</span>
+                            </div>
+                          ) : (
+                            <img
+                              src={media.url}
+                              alt={`Slide ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                          {idx === 0 && (
+                            <span className="absolute bottom-0 inset-x-0 bg-emerald-600/90 text-[8px] font-bold text-white text-center leading-tight py-0.5">
+                              SAMPUL
+                            </span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Column: Full Article Text */}
+                <div className="flex-1 p-5 sm:p-7 md:p-9 overflow-y-auto space-y-5 bg-white flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 font-medium">
+                      <span className="flex items-center gap-1.5">
+                        <User className="w-3.5 h-3.5 text-[#184F48]" />
+                        <strong className="text-slate-700">{selectedNews.author}</strong>
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                        <span>
+                          {new Date(selectedNews.publishedAt).toLocaleDateString('id-ID', {
+                            dateStyle: 'full',
+                          })}
+                        </span>
+                      </span>
+                    </div>
+
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 leading-tight">
+                      {sanitizeAdabText(selectedNews.title)}
+                    </h2>
+
+                    {selectedNews.excerpt && (
+                      <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100/80 text-emerald-950 text-xs sm:text-sm font-medium leading-relaxed">
+                        {sanitizeAdabText(parseNewsMedia(selectedNews.excerpt).cleanContent)}
+                      </div>
+                    )}
+
+                    <div className="text-sm sm:text-base text-slate-700 leading-relaxed whitespace-pre-line space-y-3 pt-2 border-t border-slate-100 font-normal">
+                      {sanitizeAdabText(parsedModal.cleanContent)}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 shrink-0">
+                    <div className="flex items-center gap-2">
+                      {currentSlide.type === 'image' && (
+                        <a
+                          href={currentSlide.url}
+                          download={`Dokumentasi-${selectedNews.slug || 'al-afiyah'}.jpg`}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-800 hover:bg-emerald-900 text-white shadow-2xs transition-all"
+                        >
+                          <Download className="w-3.5 h-3.5 text-emerald-300" />
+                          <span>Unduh Foto Ini</span>
+                        </a>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedNews(null)}
+                      className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl transition-colors cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5 text-slate-600" />
+                      <span>Kembali ke Halaman</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedNews(null)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl transition-colors cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5 text-slate-600" />
-                <span>Kembali ke Halaman</span>
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Lightbox Modal Full Screen Preview & Unduh Poster SPMB */}
       {isPosterModalOpen && (

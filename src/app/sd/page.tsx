@@ -36,7 +36,7 @@ export default async function SdLandingPage() {
           newsPosts: {
             where: { isPublished: true },
             orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-            take: 6,
+            take: 24,
           },
         },
       }),
@@ -313,6 +313,9 @@ export default async function SdLandingPage() {
         ],
     teachers: rawTeachers,
     newsPosts: (dbSchool?.newsPosts && dbSchool.newsPosts.length > 0) ? dbSchool.newsPosts : defaultSdNewsPosts,
+    newsCategories: Array.isArray(sectionsMap.news_config?.categories)
+      ? sectionsMap.news_config.categories
+      : undefined,
     achievements,
   };
 

@@ -5,8 +5,10 @@ import { requireAuth } from '@/lib/auth-guard';
 import { verifyFileBuffer, generateSafeFileName } from '@/lib/file-security';
 
 const ALLOWED_SCHOOL_SLUGS = ['tk', 'sd', 'smp', 'general', 'foundation'];
-const MAX_SIZE_MB = 5;
-const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+const MAX_IMAGE_SIZE_MB = 5;
+const MAX_VIDEO_SIZE_MB = 25;
+const MAX_IMAGE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+const MAX_VIDEO_BYTES = MAX_VIDEO_SIZE_MB * 1024 * 1024;
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,10 +29,10 @@ export async function POST(request: NextRequest) {
       ? rawSlug.toLowerCase()
       : 'general';
 
-    // Validate size
-    if (file.size > MAX_SIZE_BYTES) {
+    // Validate maximum possible size before reading buffer
+    if (file.size > MAX_VIDEO_BYTES) {
       return NextResponse.json(
-        { error: `Ukuran file terlalu besar. Maksimal ${MAX_SIZE_MB}MB.` },
+        { error: `Ukuran file terlalu besar. Maksimal ${MAX_VIDEO_SIZE_MB}MB untuk video atau ${MAX_IMAGE_SIZE_MB}MB untuk foto.` },
         { status: 400 }
       );
     }
@@ -38,11 +40,19 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Verify magic bytes
-    const verified = verifyFileBuffer(buffer);
+    // Verify magic bytes (including video formats)
+    const verified = verifyFileBuffer(buffer, { allowVideo: true });
     if (!verified.isValid || verified.mime === 'application/pdf') {
       return NextResponse.json(
-        { error: 'Format file tidak didukung. Hanya menerima gambar JPG, PNG, WebP, GIF, atau HEIC.' },
+        { error: 'Format file tidak didukung. Hanya menerima foto (JPG, PNG, WebP, GIF, HEIC) atau video (MP4, MOV, WebM).' },
+        { status: 400 }
+      );
+    }
+
+    const isVideo = verified.mime.startsWith('video/');
+    if (!isVideo && file.size > MAX_IMAGE_BYTES) {
+      return NextResponse.json(
+        { error: `Ukuran foto terlalu besar. Maksimal ${MAX_IMAGE_SIZE_MB}MB.` },
         { status: 400 }
       );
     }
@@ -78,6 +88,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       url: publicUrl,
+      mediaType: isVideo ? 'video' : 'image',
       filename,
       label: file.name.replace(/\.[^/.]+$/, ''),
       size: file.size,

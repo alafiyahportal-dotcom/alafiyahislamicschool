@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
 import NewsManagerClient from '@/components/admin/NewsManagerClient';
+import { getSchoolNewsConfig } from '@/lib/news-config-server';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -40,6 +41,7 @@ export default async function SchoolNewsPage({
     notFound();
   }
 
+  const newsConfig = await getSchoolNewsConfig(school.id, school.name);
   const roleName = `ADMIN_${schoolSlug.toUpperCase()}`;
 
   return (
@@ -64,6 +66,8 @@ export default async function SchoolNewsPage({
             schoolSlug={schoolSlug}
             schoolName={school.name}
             schoolId={school.id}
+            initialCategories={newsConfig.categories}
+            initialAuthors={newsConfig.authors}
           />
         </main>
       </div>

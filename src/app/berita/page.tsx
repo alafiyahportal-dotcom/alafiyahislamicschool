@@ -7,6 +7,8 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { prisma } from '@/lib/prisma';
 import { Newspaper } from 'lucide-react';
+import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES } from '@/lib/news-media';
+import { getGlobalNewsCategories } from '@/lib/news-config-server';
 
 export const revalidate = 60;
 
@@ -392,36 +394,48 @@ export default async function BeritaPage({
   }
 
   let articles: NewsArticle[] = [];
+  let newsCategories: string[] = DEFAULT_NEWS_CATEGORIES;
 
   try {
-    const dbPosts = await prisma.newsPost.findMany({
-      where: { 
-        isPublished: true,
-        ...(isSd ? { school: { slug: 'sd' } } : {}),
-      },
-      orderBy: { publishedAt: 'desc' },
-      include: { school: true },
-      take: 20,
-    });
+    const [dbPosts, globalCats] = await Promise.all([
+      prisma.newsPost.findMany({
+        where: { 
+          isPublished: true,
+          ...(isSd ? { school: { slug: 'sd' } } : {}),
+        },
+        orderBy: { publishedAt: 'desc' },
+        include: { school: true },
+        take: 40,
+      }),
+      getGlobalNewsCategories(),
+    ]);
+    newsCategories = globalCats;
 
     if (dbPosts && dbPosts.length > 0) {
-      articles = dbPosts.map((p) => ({
-        id: p.id,
-        title: p.title,
-        slug: p.slug,
-        category: p.category || 'Kabar Sekolah',
-        excerpt: p.excerpt || p.content.slice(0, 150) + '...',
-        author: p.author || (isSd ? 'Humas SDIT Al-Afiyah' : 'Humas Al-Afiyah'),
-        date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-        }),
-        schoolName: p.school?.name || (isSd ? 'SDIT Al-Afiyah' : undefined),
-        readingTime: '4 menit baca',
-        imageUrl: p.coverImage || undefined,
-        paragraphs: p.content ? p.content.split('\n').filter((l: string) => l.trim().length > 0) : undefined,
-      }));
+      articles = dbPosts.map((p) => {
+        const parsed = parseNewsMedia(p.content, p.coverImage);
+        return {
+          id: p.id,
+          title: p.title,
+          slug: p.slug,
+          category: p.category || 'Kegiatan',
+          excerpt: p.excerpt || parsed.cleanContent.slice(0, 150) + '...',
+          author: p.author || (isSd ? 'Humas SDIT Al-Afiyah' : 'Humas Al-Afiyah'),
+          date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          }),
+          schoolName: p.school?.name || (isSd ? 'SDIT Al-Afiyah' : undefined),
+          readingTime: '4 menit baca',
+          imageUrl: p.coverImage || undefined,
+          rawContent: p.content,
+          mediaItems: parsed.allMedia,
+          paragraphs: parsed.cleanContent
+            ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)
+            : undefined,
+        };
+      });
     }
   } catch (err) {
     console.error('Error fetching news from database:', err);
@@ -465,7 +479,10 @@ export default async function BeritaPage({
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
-        <NewsListClient initialArticles={articles} />
+        <NewsListClient
+          initialArticles={articles}
+          initialCategories={newsCategories}
+        />
       </main>
 
       <Footer schoolSlug={schoolSlug as any} />

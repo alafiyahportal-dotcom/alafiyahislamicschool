@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
 import { revalidatePath } from 'next/cache';
+import { parseNewsMedia } from '@/lib/news-media';
 
 function generateSlug(title: string): string {
   return title
@@ -80,6 +81,7 @@ export async function POST(request: Request) {
     }
 
     const finalSlug = slug?.trim() || `${generateSlug(title)}-${Date.now().toString().slice(-4)}`;
+    const cleanText = parseNewsMedia(content).cleanContent;
 
     const news = await prisma.newsPost.create({
       data: {
@@ -87,7 +89,7 @@ export async function POST(request: Request) {
         title,
         slug: finalSlug,
         category: category || 'Kegiatan',
-        excerpt: excerpt || content.slice(0, 150) + '...',
+        excerpt: excerpt || cleanText.slice(0, 150) + '...',
         content,
         coverImage: coverImage || '/images/sd-activity-classroom-6b.jpg',
         author: author || 'Humas Al-Afiyah',

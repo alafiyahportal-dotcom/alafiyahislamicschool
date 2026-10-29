@@ -8,9 +8,12 @@ export interface VerifiedFile {
 }
 
 /**
- * Checks buffer magic bytes against allowed image and document types.
+ * Checks buffer magic bytes against allowed image, document, and (optionally) video types.
  */
-export function verifyFileBuffer(buffer: Buffer): VerifiedFile {
+export function verifyFileBuffer(
+  buffer: Buffer,
+  options?: { allowVideo?: boolean }
+): VerifiedFile {
   if (buffer.length < 12) {
     return { isValid: false, mime: '', ext: '', error: 'Ukuran file terlalu kecil atau rusak.' };
   }
@@ -65,7 +68,7 @@ export function verifyFileBuffer(buffer: Buffer): VerifiedFile {
     return { isValid: true, mime: 'image/gif', ext: '.gif' };
   }
 
-  // 6. HEIC / HEIF (Apple iPhone/iOS photo format): ....ftyp(heic|heix|hevc|hevx|mif1|msf1)
+  // 6. ISO Base Media File Format (ftyp): HEIC/HEIF or MP4/MOV
   if (
     buffer.length >= 12 &&
     buffer[4] === 0x66 && // 'f'
@@ -77,13 +80,32 @@ export function verifyFileBuffer(buffer: Buffer): VerifiedFile {
     if (['heic', 'heix', 'hevc', 'hevx', 'mif1', 'msf1'].includes(brand)) {
       return { isValid: true, mime: 'image/heic', ext: '.heic' };
     }
+    if (options?.allowVideo) {
+      if (brand === 'qt  ') {
+        return { isValid: true, mime: 'video/quicktime', ext: '.mov' };
+      }
+      return { isValid: true, mime: 'video/mp4', ext: '.mp4' };
+    }
+  }
+
+  // 7. WebM / Matroska video: 0x1A 0x45 0xDF 0xA3
+  if (
+    options?.allowVideo &&
+    buffer[0] === 0x1A &&
+    buffer[1] === 0x45 &&
+    buffer[2] === 0xDF &&
+    buffer[3] === 0xA3
+  ) {
+    return { isValid: true, mime: 'video/webm', ext: '.webm' };
   }
 
   return {
     isValid: false,
     mime: '',
     ext: '',
-    error: 'Format isi file tidak valid. Hanya berkas PDF, JPG, PNG, WebP, atau HEIC yang diperbolehkan.',
+    error: options?.allowVideo
+      ? 'Format isi file tidak valid. Hanya berkas JPG, PNG, WebP, HEIC, MP4, MOV, atau WebM yang diperbolehkan.'
+      : 'Format isi file tidak valid. Hanya berkas PDF, JPG, PNG, WebP, atau HEIC yang diperbolehkan.',
   };
 }
 
