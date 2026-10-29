@@ -72,15 +72,11 @@ export default function SmpLayout({
 }) {
   return (
     <>
-      <head>
-        <link rel="icon" type="image/png" sizes="192x192" href="/images/smp-icon-192.png" />
-        <link rel="icon" type="image/x-icon" href="/smp-favicon.ico" />
-        <link rel="apple-touch-icon" href="/images/smp-apple-icon.png" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(smpWebSiteSchema) }}
-        />
-      </head>
+      <script
+        id="smp-website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(smpWebSiteSchema) }}
+      />
       <SmpThemeColorSync />
       {children}
     </>

@@ -71,15 +71,11 @@ export default function SdLayout({
 }) {
   return (
     <>
-      <head>
-        <link rel="icon" type="image/png" sizes="192x192" href="/images/sd-logo.png" />
-        <link rel="icon" href="/sd-favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/images/sd-apple-icon.png" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(sdWebSiteSchema) }}
-        />
-      </head>
+      <script
+        id="sd-website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(sdWebSiteSchema) }}
+      />
       <DynamicUnitThemeColorSync />
       {children}
     </>
