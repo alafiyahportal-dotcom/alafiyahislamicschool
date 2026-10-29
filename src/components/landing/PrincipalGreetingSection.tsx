@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
-import { ArrowRight, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 interface PrincipalGreetingProps {
   schoolSlug?: string;
@@ -386,32 +385,6 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                     </div>
                   </motion.div>
                 </AnimatePresence>
-              </div>
-
-              {/* Clean Bottom Sign-off & Links */}
-              <div className="mt-10 pt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <p className="text-xs text-emerald-200/80">
-                  Wassalamu’alaikum Warahmatullahi Wabarakatuh • Yayasan Pendidikan Imam Bonjol Majalengka
-                </p>
-
-                <div className="flex flex-wrap items-center gap-5">
-                  <Link
-                    href="/sd/profil"
-                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white hover:text-[#facc15] transition-colors"
-                  >
-                    <span>Lihat Profil Lengkap SDIT</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Kepala%20Sekolah%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendidikan%20ananda"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-black text-[#facc15] hover:text-white transition-colors"
-                  >
-                    <span>Konsultasi via WhatsApp</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
