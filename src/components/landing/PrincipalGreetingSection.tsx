@@ -8,7 +8,7 @@ interface PrincipalGreetingProps {
   schoolSlug?: string;
 }
 
-const SLIDE_DURATION_MS = 12000; // 12 detik per slide agar nyaman dibaca
+const SLIDE_DURATION_MS = 7500; // Auto-slide mulus setiap 7.5 detik tanpa tertahan kursor
 
 interface SlideTopic {
   id: string;
@@ -102,20 +102,17 @@ const CHARACTER_SLIDES: SlideTopic[] = [
 
 export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: PrincipalGreetingProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isLocked, setIsLocked] = useState(false);
 
   const totalSlides = CHARACTER_SLIDES.length;
   const activeSlide = CHARACTER_SLIDES[activeIndex];
-  const isPaused = isHovered || isLocked;
 
+  // Pure non-stop auto-slide
   useEffect(() => {
-    if (isPaused) return;
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % totalSlides);
     }, SLIDE_DURATION_MS);
     return () => clearInterval(timer);
-  }, [isPaused, totalSlides, activeIndex]);
+  }, [totalSlides]);
 
   return (
     <section className="py-16 sm:py-24 bg-[#FAF8F3] relative overflow-hidden border-b border-stone-200/80">
@@ -162,24 +159,16 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
               </div>
             </div>
 
-            {/* Focused Reading Stage — Warm Sage Canvas where the Words Take Center Stage */}
-            <div
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onTouchStart={() => setIsHovered(true)}
-              onTouchEnd={() => setIsHovered(false)}
-              onClick={() => setIsLocked((prev) => !prev)}
-              title={isPaused ? 'Klik untuk melanjutkan putar otomatis' : 'Arahkan kursor atau klik untuk menahan bacaan'}
-              className="bg-[#F3F7F2] p-7 sm:p-12 lg:p-14 cursor-pointer select-text transition-colors"
-            >
+            {/* Pure Auto-Slide Reading Stage */}
+            <div className="bg-[#F3F7F2] p-7 sm:p-12 lg:p-14 overflow-hidden">
               <div className="min-h-[220px] sm:min-h-[195px] flex flex-col justify-center">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeSlide.id}
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -14 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                     className="border-l-4 border-[#064e3b] pl-5 sm:pl-8 space-y-4"
                   >
                     <div>
@@ -191,14 +180,12 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                       </p>
                     </div>
 
-                    {/* Large, Focused Typography for the Core Message */}
                     {activeSlide.quoteOrLead && (
                       <p className="text-base sm:text-lg lg:text-[20px] text-slate-800 leading-[1.75] font-normal max-w-4xl">
                         {activeSlide.quoteOrLead}
                       </p>
                     )}
 
-                    {/* Slide 1: 3 Principles */}
                     {activeSlide.principles && (
                       <ol className="space-y-3 pt-1">
                         {activeSlide.principles.map((item, idx) => (
@@ -215,7 +202,6 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                       </ol>
                     )}
 
-                    {/* Slide 2: Two-Column Comparison */}
                     {activeSlide.comparison && (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 pt-2">
                         <div className="space-y-2.5">
@@ -255,47 +241,6 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                     )}
                   </motion.div>
                 </AnimatePresence>
-              </div>
-
-              {/* Minimalist Segmented Progress Lines */}
-              <div
-                className="grid grid-cols-6 gap-2.5 pt-8"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {CHARACTER_SLIDES.map((slide, idx) => {
-                  const isCurrent = idx === activeIndex;
-                  const isPast = idx < activeIndex;
-                  return (
-                    <button
-                      key={slide.id}
-                      type="button"
-                      onClick={() => setActiveIndex(idx)}
-                      aria-label={slide.title}
-                      className="group py-2 focus:outline-none"
-                    >
-                      <div className="h-[3px] w-full bg-stone-300/80 overflow-hidden rounded-full">
-                        {isCurrent ? (
-                          <motion.div
-                            key={`${slide.id}-${isPaused ? 'paused' : 'playing'}`}
-                            initial={{ width: isPaused ? '100%' : '0%' }}
-                            animate={{ width: '100%' }}
-                            transition={{
-                              duration: isPaused ? 0.15 : SLIDE_DURATION_MS / 1000,
-                              ease: 'linear',
-                            }}
-                            className="h-full bg-[#064e3b]"
-                          />
-                        ) : (
-                          <div
-                            className={`h-full transition-colors ${
-                              isPast ? 'w-full bg-[#00A651]/60' : 'w-0 group-hover:w-full group-hover:bg-stone-400'
-                            }`}
-                          />
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
               </div>
             </div>
           </div>
