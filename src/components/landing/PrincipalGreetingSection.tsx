@@ -73,8 +73,11 @@ interface SlideTopic {
   shortLabel: string;
   title: string;
   subtitle: string;
-  accentColor: string;
-  badgeBg: string;
+  cardGradient: string;
+  glowColor: string;
+  progressGradient: string;
+  tabActiveClass: string;
+  badgeClass: string;
   iconBg: string;
   iconType: 'tree' | 'equality' | 'heart' | 'brain' | 'podium' | 'growth';
   description: string[];
@@ -97,9 +100,12 @@ const CHARACTER_SLIDES: SlideTopic[] = [
     shortLabel: 'Karakter Nabawiyah',
     title: 'Pendidikan Karakter Nabawiyah',
     subtitle: 'Metode Generasi Terbaik: Rasulullah ﷺ, Para Sahabat, Tabi’in & Tabi’ut Tabi’in',
-    accentColor: 'from-[#064e3b] to-[#00A651]',
-    badgeBg: 'bg-emerald-50 text-emerald-900 border-emerald-200',
-    iconBg: 'bg-emerald-900 text-emerald-100',
+    cardGradient: 'bg-gradient-to-br from-[#0a4b29] via-[#064e3b] to-[#043322]',
+    glowColor: 'bg-emerald-400/20',
+    progressGradient: 'from-[#00A651] via-emerald-400 to-amber-400',
+    tabActiveClass: 'bg-[#0a4b29] text-white border-[#0a4b29]',
+    badgeClass: 'bg-emerald-400/20 text-emerald-100 border-emerald-300/30',
+    iconBg: 'bg-emerald-100 text-[#064e3b]',
     iconType: 'tree',
     description: [
       'SDIT Al-Afiyah meyakini bahwa setiap anak lahir dalam keadaan fitrah, yaitu memiliki kecenderungan untuk menerima kebenaran dan mengamalkannya. Oleh karena itu, sekolah tidak hanya menjadi ruang transfer ilmu, tetapi menjadi lingkungan tumbuh yang aman, menyenangkan, dan penuh makna.',
@@ -117,9 +123,12 @@ const CHARACTER_SLIDES: SlideTopic[] = [
     shortLabel: 'Sama & Unik',
     title: '2 Kadar Karakter Pembawaan Anak',
     subtitle: 'Keseimbangan antara Nilai yang Ditumbuhkan Bersama & Keunikan Tiap Pribadi Anak',
-    accentColor: 'from-teal-800 to-emerald-600',
-    badgeBg: 'bg-teal-50 text-teal-900 border-teal-200',
-    iconBg: 'bg-teal-800 text-teal-100',
+    cardGradient: 'bg-gradient-to-br from-[#0d543e] via-[#064e3b] to-[#073b3a]',
+    glowColor: 'bg-amber-400/20',
+    progressGradient: 'from-emerald-500 via-teal-400 to-amber-400',
+    tabActiveClass: 'bg-[#0d543e] text-white border-[#0d543e]',
+    badgeClass: 'bg-amber-400/20 text-amber-100 border-amber-300/30',
+    iconBg: 'bg-amber-400 text-slate-950',
     iconType: 'equality',
     description: [
       'Karakter pembawaan yang telah ada pada diri manusia—terkait dengan kadar kesamaan karakter antarpribadi anak—terbagi menjadi dua dimensi utama yang ditumbuhkan secara selaras:',
@@ -149,9 +158,12 @@ const CHARACTER_SLIDES: SlideTopic[] = [
     shortLabel: 'Karakter Iman',
     title: 'Karakter Iman',
     subtitle: 'Pondasi Tauhid, Kecintaan Ibadah, dan Ilmu sebagai Dasar Seluruh Perilaku',
-    accentColor: 'from-rose-700 to-red-600',
-    badgeBg: 'bg-rose-50 text-rose-900 border-rose-200',
-    iconBg: 'bg-rose-600 text-white',
+    cardGradient: 'bg-gradient-to-br from-[#0b4d2c] via-[#064e3b] to-[#1e3a2f]',
+    glowColor: 'bg-rose-500/20',
+    progressGradient: 'from-rose-500 via-red-400 to-amber-400',
+    tabActiveClass: 'bg-rose-600 text-white border-rose-600',
+    badgeClass: 'bg-rose-500/25 text-rose-100 border-rose-300/30',
+    iconBg: 'bg-rose-500 text-white',
     iconType: 'heart',
     description: [
       'Setiap anak memiliki karakter iman, yaitu setiap anak dilahirkan dalam keadaan mentauhidkan Allah ﷻ serta memiliki kecenderungan fitrah untuk mencintai kebenaran.',
@@ -165,9 +177,12 @@ const CHARACTER_SLIDES: SlideTopic[] = [
     shortLabel: 'Karakter Belajar',
     title: 'Karakter Belajar',
     subtitle: 'Menumbuhkan Rasa Ingin Tahu dalam Lingkungan yang Aman & Menyenangkan',
-    accentColor: 'from-slate-800 to-emerald-800',
-    badgeBg: 'bg-slate-100 text-slate-900 border-slate-300',
-    iconBg: 'bg-slate-800 text-white',
+    cardGradient: 'bg-gradient-to-br from-[#084c3a] via-[#0f5156] to-[#063940]',
+    glowColor: 'bg-cyan-400/20',
+    progressGradient: 'from-teal-400 via-cyan-400 to-emerald-400',
+    tabActiveClass: 'bg-[#0f5156] text-white border-[#0f5156]',
+    badgeClass: 'bg-cyan-400/20 text-cyan-100 border-cyan-300/30',
+    iconBg: 'bg-white text-[#064e3b]',
     iconType: 'brain',
     description: [
       'Anak ditumbuhkan rasa ingin tahunya, menampakkan gaya belajar anak, semangat menjelajah, keberanian mencoba, dan ketangguhan dalam proses belajar.',
@@ -181,9 +196,12 @@ const CHARACTER_SLIDES: SlideTopic[] = [
     shortLabel: 'Karakter Bakat',
     title: 'Karakter Bakat',
     subtitle: 'Setiap Anak Akan Menghebat pada Waktunya & Berperan bagi Peradaban',
-    accentColor: 'from-amber-700 to-emerald-700',
-    badgeBg: 'bg-amber-50 text-amber-950 border-amber-200',
-    iconBg: 'bg-amber-600 text-white',
+    cardGradient: 'bg-gradient-to-br from-[#0b4f2b] via-[#14532d] to-[#052e16]',
+    glowColor: 'bg-amber-400/25',
+    progressGradient: 'from-amber-400 via-yellow-400 to-emerald-400',
+    tabActiveClass: 'bg-amber-600 text-white border-amber-600',
+    badgeClass: 'bg-amber-400/25 text-amber-100 border-amber-300/40',
+    iconBg: 'bg-amber-400 text-slate-950',
     iconType: 'podium',
     description: [
       'Setiap anak dianugerahi oleh Allah bakat yang hebat dengan potensi unik. Sekolah membantu mereka menjaga fitrahnya dan mengembangkan bakatnya tanpa terburu-buru, karena setiap anak akan menghebat pada waktunya. Tugas kita adalah menumbuhkan kemandirian anak dalam melaksanakan segala sesuatu yang dipelajarinya.',
@@ -197,9 +215,12 @@ const CHARACTER_SLIDES: SlideTopic[] = [
     shortLabel: 'Karakter Perkembangan',
     title: 'Karakter Perkembangan',
     subtitle: 'Perubahan Bertahap, Sistematis, dan Berkesinambungan Menuju Kedewasaan',
-    accentColor: 'from-emerald-800 to-teal-700',
-    badgeBg: 'bg-emerald-50 text-emerald-900 border-emerald-200',
-    iconBg: 'bg-emerald-800 text-white',
+    cardGradient: 'bg-gradient-to-br from-[#0a5230] via-[#047857] to-[#064e3b]',
+    glowColor: 'bg-lime-400/20',
+    progressGradient: 'from-lime-400 via-emerald-400 to-teal-400',
+    tabActiveClass: 'bg-[#047857] text-white border-[#047857]',
+    badgeClass: 'bg-lime-300/20 text-lime-100 border-lime-300/30',
+    iconBg: 'bg-emerald-200 text-[#064e3b]',
     iconType: 'growth',
     description: [
       'Setiap manusia akan mengalami fase perkembangan dalam hidupnya, mulai dari penciptaan sampai usia dewasa hingga tutup usia.',
@@ -258,15 +279,15 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
   }, [isPaused, handleNext]);
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-emerald-50/30 to-white relative overflow-hidden border-b border-slate-200/70">
+    <section className="py-16 sm:py-24 bg-gradient-to-b from-emerald-50/50 via-white to-emerald-50/30 relative overflow-hidden border-b border-emerald-100">
       {/* Subtle Ambient Background */}
-      <div className="absolute top-12 right-[-120px] w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-12 left-[-120px] w-96 h-96 bg-teal-100/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-12 right-[-120px] w-96 h-96 bg-emerald-200/35 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-12 left-[-120px] w-96 h-96 bg-amber-100/40 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
-        <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-3 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80">
+        <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-3 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300/70">
             <span className="w-2 h-2 rounded-full bg-[#00A651]" />
             <span>Sambutan Kepala Sekolah &amp; Filosofi Pendidikan</span>
           </div>
@@ -287,104 +308,37 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
         {/* Main Card Container */}
         <ScrollReveal delay={0.1} yOffset={24} duration={500}>
           <div
-            className="bg-white rounded-3xl shadow-sm border border-slate-200/90 relative overflow-hidden"
+            className="bg-gradient-to-b from-white via-emerald-50/25 to-white rounded-3xl shadow-md border border-emerald-200/80 relative overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Top Accent Ribbon */}
-            <div className="h-1.5 w-full bg-gradient-to-r from-[#064e3b] via-[#00A651] to-[#f59e0b]" />
+            <div className="h-2 w-full bg-gradient-to-r from-[#064e3b] via-[#00A651] to-[#f59e0b]" />
 
             <div className="p-6 sm:p-10 lg:p-12">
-              {/* Top Editorial Introduction (Core Message of the Principal) */}
-              <div className="relative pb-8 mb-8 border-b border-slate-200/80">
-                <Quote className="hidden sm:block absolute top-0 right-0 w-14 h-14 text-emerald-100/90 pointer-events-none" />
+              {/* Top Editorial Introduction (Full-Width, Clean without Side Map Box) */}
+              <div className="relative pb-7 mb-7 border-b border-emerald-200/70">
+                <Quote className="hidden sm:block absolute top-0 right-0 w-14 h-14 text-emerald-100 pointer-events-none" />
 
-                <div className="text-xs font-extrabold text-[#064e3b] tracking-wider uppercase mb-1.5">
+                <div className="inline-block text-xs font-extrabold text-[#064e3b] bg-emerald-100/80 px-3 py-1 rounded-lg tracking-wider uppercase mb-2.5">
                   Bismillaahirrohmaanirrohiim
                 </div>
                 <h3 className="text-base sm:text-xl font-extrabold text-slate-900 mb-4">
                   Assalamu’alaikum Warahmatullahi Wabarakatuh
                 </h3>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                  <div className="lg:col-span-8 space-y-3 text-xs sm:text-sm lg:text-[15px] text-slate-700 leading-relaxed">
-                    <p>
-                      <strong className="text-slate-900">SDIT Al-Afiyah</strong> meyakini bahwa setiap anak lahir dalam keadaan <strong className="text-[#064e3b]">fitrah</strong>, yaitu memiliki kecenderungan alami untuk menerima kebenaran dan mengamalkannya. Setiap anak memiliki <strong className="text-slate-900">karakter iman</strong> (dilahirkan dalam keadaan mentauhidkan Allah ﷻ), dikaruniai <strong className="text-slate-900">karakter belajar</strong> serta <strong className="text-slate-900">karakter perkembangan</strong>, dan dianugerahi <strong className="text-slate-900">bakat yang unik</strong> dengan potensi hebat yang akan tumbuh pada waktunya.
-                    </p>
-                    <p>
-                      Oleh karena itu, sekolah tidak hanya menjadi ruang transfer ilmu, tetapi menjadi <span className="bg-emerald-50 text-emerald-950 font-semibold px-2 py-0.5 rounded border border-emerald-200">lingkungan tumbuh yang aman, menyenangkan, dan penuh makna</span> dengan mengusung konsep <strong>Metode Pendidikan Karakter Nabawiyah</strong> yang dibawa oleh generasi terbaik: generasi Nabi Muhammad ﷺ, para Sahabat, Tabi’in, dan Tabi’ut Tabi’in.
-                    </p>
-                  </div>
-
-                  {/* Interactive Visual Map of the 5 Pillars (Matching the Principal's Diagram) */}
-                  <div className="lg:col-span-4 bg-gradient-to-br from-[#064e3b] via-[#053d2e] to-[#022c22] rounded-2xl p-5 text-white shadow-inner relative overflow-hidden">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 mb-3 text-center">
-                      Peta Konsep Karakter Fitrah
-                    </div>
-
-                    {/* Top Node: Pendidikan Karakter Nabawiyah */}
-                    <button
-                      type="button"
-                      onClick={() => handleSelectSlide(0)}
-                      className={`w-full flex items-center gap-3 p-2.5 rounded-xl border transition-all text-left mb-3 ${
-                        activeIndex === 0 || activeIndex === 1
-                          ? 'bg-white/15 border-amber-400 shadow-sm'
-                          : 'bg-white/5 border-white/10 hover:bg-white/10'
-                      }`}
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-emerald-200/20 text-emerald-200 flex items-center justify-center shrink-0">
-                        <TreeIcon className="w-5 h-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs font-extrabold text-white truncate">
-                          Pendidikan Karakter Nabawiyah
-                        </div>
-                        <div className="text-[10px] text-emerald-200/90 truncate">
-                          Klik untuk lihat prinsip &amp; kadar karakter
-                        </div>
-                      </div>
-                    </button>
-
-                    {/* 4 Pillar Nodes Grid */}
-                    <div className="grid grid-cols-2 gap-2">
-                      {[
-                        { idx: 2, label: 'Karakter Iman', icon: <HeartIcon className="w-4 h-4 text-rose-400" /> },
-                        { idx: 3, label: 'Karakter Belajar', icon: <BrainIcon className="w-4 h-4 text-slate-200" /> },
-                        { idx: 4, label: 'Karakter Bakat', icon: <PodiumIcon className="w-4 h-4 text-amber-300" /> },
-                        { idx: 5, label: 'Perkembangan', icon: <GrowthStageIcon className="w-4 h-4 text-emerald-300" /> },
-                      ].map((node) => {
-                        const isNodeActive = activeIndex === node.idx;
-                        return (
-                          <button
-                            key={node.idx}
-                            type="button"
-                            onClick={() => handleSelectSlide(node.idx)}
-                            className={`flex items-center gap-2 p-2 rounded-xl border text-left transition-all ${
-                              isNodeActive
-                                ? 'bg-white text-slate-900 border-white font-bold shadow-xs scale-[1.02]'
-                                : 'bg-white/5 text-white/90 border-white/10 hover:bg-white/10'
-                            }`}
-                          >
-                            <div
-                              className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
-                                isNodeActive ? 'bg-slate-900' : 'bg-white/10'
-                              }`}
-                            >
-                              {node.icon}
-                            </div>
-                            <span className="text-[11px] font-bold leading-tight line-clamp-2">
-                              {node.label}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                <div className="space-y-3.5 text-xs sm:text-sm lg:text-[15px] text-slate-700 leading-relaxed">
+                  <p>
+                    <strong className="text-[#064e3b]">SDIT Al-Afiyah</strong> meyakini bahwa setiap anak lahir dalam keadaan <strong className="text-[#064e3b]">fitrah</strong>, yaitu memiliki kecenderungan alami untuk menerima kebenaran dan mengamalkannya. Setiap anak memiliki <strong className="text-slate-900">karakter iman</strong> (dilahirkan dalam keadaan mentauhidkan Allah ﷻ), dikaruniai <strong className="text-slate-900">karakter belajar</strong> serta <strong className="text-slate-900">karakter perkembangan</strong>, dan dianugerahi <strong className="text-slate-900">bakat yang unik</strong> dengan potensi hebat yang akan tumbuh pada waktunya.
+                  </p>
+                  <p>
+                    Oleh karena itu, sekolah tidak hanya menjadi ruang transfer ilmu, tetapi menjadi <span className="bg-emerald-100/90 text-emerald-950 font-semibold px-2 py-0.5 rounded-md border border-emerald-300/80">lingkungan tumbuh yang aman, menyenangkan, dan penuh makna</span> dengan mengusung konsep <strong>Metode Pendidikan Karakter Nabawiyah</strong> yang dibawa oleh generasi terbaik: generasi Nabi Muhammad ﷺ, para Sahabat, Tabi’in, dan Tabi’ut Tabi’in.
+                  </p>
                 </div>
               </div>
 
               {/* Interactive Motion Carousel Header & Pill Tabs */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div className="flex items-center gap-2 overflow-x-auto pb-1.5 sm:pb-0 no-scrollbar">
                   {CHARACTER_SLIDES.map((slide, idx) => {
                     const isActive = idx === activeIndex;
@@ -395,13 +349,13 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                         onClick={() => handleSelectSlide(idx)}
                         className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 border ${
                           isActive
-                            ? 'bg-[#064e3b] text-white border-[#064e3b] shadow-xs'
-                            : 'bg-slate-50 text-slate-600 border-slate-200/80 hover:bg-slate-100 hover:text-slate-900'
+                            ? `${slide.tabActiveClass} shadow-sm scale-[1.02]`
+                            : 'bg-emerald-50/70 text-emerald-950 border-emerald-200/80 hover:bg-emerald-100/80'
                         }`}
                       >
                         <span
                           className={`text-[10px] font-black px-1.5 py-0.5 rounded ${
-                            isActive ? 'bg-white/20 text-white' : 'bg-slate-200/80 text-slate-700'
+                            isActive ? 'bg-white/20 text-white' : 'bg-emerald-200/80 text-emerald-900'
                           }`}
                         >
                           {slide.stepNumber}
@@ -417,16 +371,16 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                   <button
                     type="button"
                     onClick={() => setIsPaused((p) => !p)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-200/80 text-xs font-semibold transition-colors"
                     title={isPaused ? 'Jalankan Otomatis' : 'Jeda Pergantian Otomatis'}
                   >
-                    {isPaused ? <Play className="w-3.5 h-3.5 text-[#00A651]" /> : <Pause className="w-3.5 h-3.5 text-slate-600" />}
+                    {isPaused ? <Play className="w-3.5 h-3.5 text-[#00A651]" /> : <Pause className="w-3.5 h-3.5 text-[#064e3b]" />}
                     <span>{isPaused ? 'Putar Otomatis' : 'Berganti Otomatis'}</span>
                   </button>
                   <button
                     type="button"
                     onClick={handlePrev}
-                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                    className="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-200/80 transition-colors"
                     aria-label="Materi Sebelumnya"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -434,7 +388,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                    className="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-200/80 transition-colors"
                     aria-label="Materi Selanjutnya"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -443,21 +397,27 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
               </div>
 
               {/* Animated Progress Bar */}
-              <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden mb-6">
+              <div className="w-full h-1.5 bg-emerald-100 rounded-full overflow-hidden mb-5">
                 <motion.div
                   key={`${activeSlide.id}-${isPaused ? 'paused' : 'playing'}`}
                   initial={{ width: '0%' }}
-                  animate={{ width: isPaused ? '100%' : '100%' }}
+                  animate={{ width: '100%' }}
                   transition={{
                     duration: isPaused ? 0.2 : 6.5,
                     ease: 'linear',
                   }}
-                  className={`h-full bg-gradient-to-r ${activeSlide.accentColor}`}
+                  className={`h-full bg-gradient-to-r ${activeSlide.progressGradient}`}
                 />
               </div>
 
-              {/* Animated Slide Content Box */}
-              <div className="relative min-h-[290px] sm:min-h-[260px] rounded-2xl bg-slate-50/80 border border-slate-200/90 p-5 sm:p-8 overflow-hidden">
+              {/* Colorful Animated Slide Content Box (Matching Principal's Green Presentation Deck) */}
+              <div
+                className={`relative min-h-[290px] sm:min-h-[260px] rounded-2xl ${activeSlide.cardGradient} text-white border border-emerald-700/50 p-6 sm:p-8 shadow-lg overflow-hidden transition-colors duration-500`}
+              >
+                {/* Decorative Glow Orbs inside Card */}
+                <div className={`absolute -top-20 -right-20 w-72 h-72 ${activeSlide.glowColor} rounded-full blur-3xl pointer-events-none`} />
+                <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-emerald-300/10 rounded-full blur-3xl pointer-events-none" />
+
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.div
                     key={activeSlide.id}
@@ -466,29 +426,29 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                     animate={{ opacity: 1, x: 0, y: 0 }}
                     exit={{ opacity: 0, x: direction * -36, y: -6 }}
                     transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-                    className="space-y-5"
+                    className="relative z-10 space-y-5"
                   >
                     {/* Slide Header */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80">
-                      <div className="flex items-start sm:items-center gap-3.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/15">
+                      <div className="flex items-start sm:items-center gap-4">
                         <motion.div
                           initial={{ scale: 0.8, rotate: -6 }}
                           animate={{ scale: 1, rotate: 0 }}
                           transition={{ duration: 0.35 }}
-                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${activeSlide.iconBg} flex items-center justify-center shadow-sm shrink-0`}
+                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${activeSlide.iconBg} flex items-center justify-center shadow-md shrink-0`}
                         >
                           {renderTopicIcon(activeSlide.iconType, 'w-7 h-7 sm:w-8 sm:h-8')}
                         </motion.div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className={`text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${activeSlide.badgeBg}`}>
+                            <span className={`text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${activeSlide.badgeClass}`}>
                               Materi {activeSlide.stepNumber} / 06
                             </span>
                           </div>
-                          <h4 className="text-lg sm:text-2xl font-black text-slate-900 mt-1">
+                          <h4 className="text-lg sm:text-2xl font-black text-white mt-1">
                             {activeSlide.title}
                           </h4>
-                          <p className="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                          <p className="text-xs sm:text-sm font-medium text-emerald-100/90 mt-0.5">
                             {activeSlide.subtitle}
                           </p>
                         </div>
@@ -496,7 +456,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                     </div>
 
                     {/* Slide Paragraphs */}
-                    <div className="space-y-3 text-xs sm:text-sm lg:text-[15px] text-slate-700 leading-relaxed">
+                    <div className="space-y-3 text-xs sm:text-sm lg:text-[15px] text-emerald-50/95 leading-relaxed">
                       {activeSlide.description.map((para, i) => (
                         <p key={i}>{para}</p>
                       ))}
@@ -504,19 +464,19 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
 
                     {/* Optional Numbered Principles (Slide 1) */}
                     {activeSlide.numberedPrinciples && (
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-1">
                         {activeSlide.numberedPrinciples.map((principle, idx) => (
                           <motion.div
                             key={idx}
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.08 * (idx + 1), duration: 0.3 }}
-                            className="bg-white rounded-xl p-4 border border-emerald-200/80 shadow-2xs flex flex-col justify-between"
+                            className="bg-white/12 backdrop-blur-xs rounded-xl p-4 border border-white/20 flex flex-col justify-between"
                           >
-                            <div className="w-7 h-7 rounded-lg bg-[#064e3b] text-white text-xs font-black flex items-center justify-center mb-2.5">
+                            <div className="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 text-xs font-black flex items-center justify-center mb-2.5 shadow-xs">
                               {idx + 1}
                             </div>
-                            <p className="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
+                            <p className="text-xs sm:text-sm font-semibold text-white leading-relaxed">
                               {principle}
                             </p>
                           </motion.div>
@@ -531,22 +491,22 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                           initial={{ opacity: 0, x: -16 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.1, duration: 0.35 }}
-                          className="bg-white rounded-2xl p-4 sm:p-5 border border-emerald-200 shadow-2xs"
+                          className="bg-white/12 backdrop-blur-xs rounded-2xl p-4 sm:p-5 border border-emerald-300/30"
                         >
-                          <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
-                            <h5 className="text-sm sm:text-base font-black text-slate-900">
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/15">
+                            <h5 className="text-sm sm:text-base font-black text-white">
                               {activeSlide.comparisonColumns.leftTitle}
                             </h5>
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-900 border border-emerald-200 text-[11px] font-extrabold">
-                              <Check className="w-3.5 h-3.5 text-[#00A651]" />
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-400 text-slate-950 text-[11px] font-extrabold shadow-2xs">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
                               {activeSlide.comparisonColumns.leftBadge}
                             </span>
                           </div>
                           <ul className="space-y-2">
                             {activeSlide.comparisonColumns.leftItems.map((item, i) => (
-                              <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                                <span className="w-5 h-5 rounded-full bg-emerald-100 text-[#064e3b] flex items-center justify-center shrink-0 mt-0.5">
-                                  <Check className="w-3 h-3" />
+                              <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-50 font-medium">
+                                <span className="w-5 h-5 rounded-full bg-emerald-400/25 text-emerald-200 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-3 h-3 stroke-[2.5]" />
                                 </span>
                                 <span>{item}</span>
                               </li>
@@ -558,22 +518,22 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                           initial={{ opacity: 0, x: 16 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.18, duration: 0.35 }}
-                          className="bg-white rounded-2xl p-4 sm:p-5 border border-amber-200 shadow-2xs"
+                          className="bg-white/12 backdrop-blur-xs rounded-2xl p-4 sm:p-5 border border-amber-300/35"
                         >
-                          <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
-                            <h5 className="text-sm sm:text-base font-black text-slate-900">
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/15">
+                            <h5 className="text-sm sm:text-base font-black text-white">
                               {activeSlide.comparisonColumns.rightTitle}
                             </h5>
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-950 border border-amber-200 text-[11px] font-extrabold">
-                              <Check className="w-3.5 h-3.5 text-amber-600" />
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400 text-slate-950 text-[11px] font-extrabold shadow-2xs">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
                               {activeSlide.comparisonColumns.rightBadge}
                             </span>
                           </div>
                           <ul className="space-y-2">
                             {activeSlide.comparisonColumns.rightItems.map((item, i) => (
-                              <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                                <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
-                                  <Check className="w-3 h-3" />
+                              <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-50 font-medium">
+                                <span className="w-5 h-5 rounded-full bg-amber-400/25 text-amber-200 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-3 h-3 stroke-[2.5]" />
                                 </span>
                                 <span>{item}</span>
                               </li>
@@ -588,9 +548,9 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                       {activeSlide.highlights.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-800 shadow-2xs"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/15 border border-white/25 text-xs font-bold text-white"
                         >
-                          <Check className="w-3.5 h-3.5 text-[#00A651]" />
+                          <Check className="w-3.5 h-3.5 text-amber-300 stroke-[2.5]" />
                           <span>{tag}</span>
                         </span>
                       ))}
@@ -600,7 +560,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
               </div>
 
               {/* Footer Sign-off & CTA */}
-              <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+              <div className="mt-8 pt-6 border-t border-emerald-200/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
                 <div>
                   <p className="text-xs text-slate-500">Wassalamu’alaikum Warahmatullahi Wabarakatuh,</p>
                   <p className="text-base sm:text-lg font-black text-slate-900 mt-1">
@@ -609,7 +569,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                   <p className="text-xs text-[#064e3b] font-semibold">
                     Kepala Sekolah SDIT Al-Afiyah Majalengka
                   </p>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
+                  <p className="text-[11px] text-slate-500 mt-0.5">
                     Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka
                   </p>
                 </div>
@@ -617,7 +577,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
                     href="/sd/profil"
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-200 text-xs font-bold transition-all"
                   >
                     <span>Lihat Profil SDIT</span>
                     <ArrowRight className="w-3.5 h-3.5" />
