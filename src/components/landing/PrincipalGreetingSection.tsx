@@ -146,17 +146,6 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                   Oleh karena itu, sekolah tidak hanya menjadi ruang transfer ilmu, tetapi menjadi <strong className="text-[#064e3b] font-bold">lingkungan tumbuh yang aman, menyenangkan, dan penuh makna</strong> dengan mengusung konsep <strong className="text-slate-900 font-bold">Metode Pendidikan Karakter Nabawiyah</strong> yang dibawa oleh generasi terbaik, yaitu generasi Nabi Muhammad ﷺ, para sahabatnya, tabi’in, dan tabi’ut tabi’in.
                 </p>
               </div>
-
-              <div className="mt-6 pt-5 border-t border-stone-100 flex items-center justify-between">
-                <div>
-                  <p className="text-sm sm:text-base font-black text-slate-900">
-                    Ust. Febrian Fauzi, S.Pd., M.Pd.
-                  </p>
-                  <p className="text-xs text-[#064e3b] font-semibold">
-                    Kepala Sekolah SDIT Al-Afiyah Majalengka
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* Pure Auto-Slide Reading Stage */}
@@ -241,6 +230,15 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                     )}
                   </motion.div>
                 </AnimatePresence>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-stone-200/80">
+                <p className="text-sm sm:text-base font-black text-slate-900">
+                  Ust. Febrian Fauzi, S.Pd., M.Pd.
+                </p>
+                <p className="text-xs text-[#064e3b] font-semibold mt-0.5">
+                  Kepala Sekolah SDIT Al-Afiyah Majalengka
+                </p>
               </div>
             </div>
           </div>
