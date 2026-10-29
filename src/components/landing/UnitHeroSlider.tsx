@@ -294,8 +294,9 @@ export default function UnitHeroSlider({
                   SDIT AL-AFIYAH
                 </h1>
 
-                <p className="mt-4 sm:mt-5 text-base sm:text-lg lg:text-xl text-white/95 leading-relaxed max-w-xl font-semibold">
-                  Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh.
+                <p className="mt-4 sm:mt-5 text-lg sm:text-2xl lg:text-[26px] xl:text-[28px] text-white/95 leading-snug font-bold">
+                  <span className="block">Bukan Sekadar Tempat Belajar,</span>
+                  <span className="block mt-1">Namun Juga Tempat Bertumbuh.</span>
                 </p>
 
                 {/* Hashtags Row */}

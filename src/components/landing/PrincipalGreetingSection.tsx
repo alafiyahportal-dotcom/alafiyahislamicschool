@@ -127,9 +127,9 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                   Sambutan Kepala Sekolah SDIT Al-Afiyah
                 </p>
 
-                <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-slate-900 tracking-tight leading-[1.15]">
-                  Bukan Sekadar Tempat Belajar,{' '}
-                  <span className="text-[#064e3b] underline decoration-[#facc15] decoration-4 underline-offset-4">
+                <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-black text-slate-900 tracking-tight leading-[1.15]">
+                  <span className="block">Bukan Sekadar Tempat Belajar,</span>
+                  <span className="block mt-1 text-[#064e3b] underline decoration-[#facc15] decoration-4 underline-offset-4">
                     Namun Juga Tempat Bertumbuh.
                   </span>
                 </h2>
