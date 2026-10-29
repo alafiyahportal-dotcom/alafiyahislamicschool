@@ -1,17 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Pause,
-  Play,
-  Check,
-} from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 
 interface PrincipalGreetingProps {
   schoolSlug?: string;
@@ -68,7 +61,6 @@ function GrowthStageIllustration({ className = 'w-16 h-16' }: { className?: stri
 
 interface SlideTopic {
   id: string;
-  navLabel: string;
   title: string;
   subtitle: string;
   iconColor: string;
@@ -89,15 +81,12 @@ interface SlideTopic {
 const CHARACTER_SLIDES: SlideTopic[] = [
   {
     id: 'nabawiyah',
-    navLabel: 'Pendidikan Karakter Nabawiyah',
     title: 'Pendidikan Karakter Nabawiyah',
     subtitle: 'Metode Generasi Terbaik: Rasulullah ﷺ, Para Sahabat, Tabi’in & Tabi’ut Tabi’in',
     iconColor: 'text-[#d9f99d]',
     accentLineColor: 'bg-[#facc15]',
     iconType: 'tree',
-    description: [
-      'Sekolah tidak hanya menjadi ruang transfer ilmu, tetapi menjadi lingkungan tumbuh yang aman, menyenangkan, dan penuh makna dengan berpijak pada tiga prinsip utama:',
-    ],
+    description: [],
     numberedPrinciples: [
       'Pendidikan karakter adalah pendidikan yang meyakini bahwa setiap anak terlahir dalam keadaan fitrah.',
       'Pendidikan karakter adalah pendidikan yang menjaga dan menumbuhkan karakter-karakter yang sudah ada pada diri anak.',
@@ -106,7 +95,6 @@ const CHARACTER_SLIDES: SlideTopic[] = [
   },
   {
     id: 'kadar-karakter',
-    navLabel: 'Kesamaan & Keunikan Anak',
     title: 'Kadar Kesamaan Karakter Antarpribadi Anak',
     subtitle: 'Karakter pembawaan yang telah ada pada diri manusia terbagi menjadi dua:',
     iconColor: 'text-[#d9f99d]',
@@ -132,7 +120,6 @@ const CHARACTER_SLIDES: SlideTopic[] = [
   },
   {
     id: 'iman',
-    navLabel: 'Karakter Iman',
     title: 'Karakter Iman',
     subtitle: 'Pondasi Tauhid, Kecintaan Syariat & Ilmu sebagai Dasar Perilaku',
     iconColor: 'text-[#ff3b30]',
@@ -144,7 +131,6 @@ const CHARACTER_SLIDES: SlideTopic[] = [
   },
   {
     id: 'belajar',
-    navLabel: 'Karakter Belajar',
     title: 'Karakter Belajar',
     subtitle: 'Menumbuhkan Rasa Ingin Tahu & Ketangguhan Belajar',
     iconColor: 'text-[#f1f5f9]',
@@ -156,7 +142,6 @@ const CHARACTER_SLIDES: SlideTopic[] = [
   },
   {
     id: 'bakat',
-    navLabel: 'Karakter Bakat',
     title: 'Karakter Bakat',
     subtitle: 'Menghebat pada Waktunya & Berperan bagi Peradaban',
     iconColor: 'text-[#facc15]',
@@ -169,7 +154,6 @@ const CHARACTER_SLIDES: SlideTopic[] = [
   },
   {
     id: 'perkembangan',
-    navLabel: 'Karakter Perkembangan',
     title: 'Karakter Perkembangan',
     subtitle: 'Proses Bertahap, Sistematis & Berkesinambungan Menuju Kedewasaan',
     iconColor: 'text-[#cbd5e1]',
@@ -199,50 +183,29 @@ function renderIllustration(type: SlideTopic['iconType'], className = 'w-14 h-14
 
 export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: PrincipalGreetingProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [direction, setDirection] = useState<1 | -1>(1);
 
   const totalSlides = CHARACTER_SLIDES.length;
   const activeSlide = CHARACTER_SLIDES[activeIndex];
 
-  const handleNext = useCallback(() => {
-    setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % totalSlides);
-  }, [totalSlides]);
-
-  const handlePrev = useCallback(() => {
-    setDirection(-1);
-    setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
-  }, [totalSlides]);
-
-  const handleSelectSlide = (index: number) => {
-    setDirection(index >= activeIndex ? 1 : -1);
-    setActiveIndex(index);
-  };
-
+  // Pure automatic rotation without buttons or interruptions
   useEffect(() => {
-    if (isPaused) return;
     const timer = setInterval(() => {
-      handleNext();
-    }, 6500);
+      setActiveIndex((prev) => (prev + 1) % totalSlides);
+    }, 5500);
     return () => clearInterval(timer);
-  }, [isPaused, handleNext]);
+  }, [totalSlides]);
 
   return (
     <section className="py-16 sm:py-24 bg-[#f7f9f5] relative overflow-hidden border-b border-emerald-900/10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal yOffset={24} duration={500}>
-          {/* Pro Graphic Design Canvas — Deep Forest Green Editorial Poster */}
-          <div
-            className="rounded-[28px] bg-[#0d4a22] text-white shadow-2xl relative overflow-hidden"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            {/* Subtle Graphic Design Background Art (Organic Leaf & Geometry) */}
+          {/* Minimalist Pro Graphic Design Canvas — Deep Forest Green Editorial Poster */}
+          <div className="rounded-[28px] bg-[#0d4a22] text-white shadow-2xl relative overflow-hidden">
+            {/* Subtle Graphic Design Background Art */}
             <svg
               viewBox="0 0 800 600"
               fill="none"
-              className="absolute inset-0 w-full h-full object-cover opacity-[0.07] pointer-events-none"
+              className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
               preserveAspectRatio="xMidYMid slice"
             >
               <circle cx="720" cy="80" r="260" stroke="#ffffff" strokeWidth="2" />
@@ -305,89 +268,15 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                 </div>
               </div>
 
-              {/* Clean Graphic Editorial Navigation Bar (No AI-slop number boxes or pills) */}
-              <div className="pt-8 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-6 overflow-x-auto pb-2 sm:pb-0 no-scrollbar border-b border-white/10 sm:border-b-0">
-                  {CHARACTER_SLIDES.map((slide, idx) => {
-                    const isActive = idx === activeIndex;
-                    return (
-                      <button
-                        key={slide.id}
-                        type="button"
-                        onClick={() => handleSelectSlide(idx)}
-                        className={`relative py-2 text-xs sm:text-sm font-bold transition-colors shrink-0 ${
-                          isActive
-                            ? 'text-[#facc15]'
-                            : 'text-emerald-100/60 hover:text-white'
-                        }`}
-                      >
-                        <span>{slide.navLabel}</span>
-                        {isActive && (
-                          <motion.div
-                            layoutId="principalSlideIndicator"
-                            className="absolute bottom-0 inset-x-0 h-[3px] bg-[#facc15] rounded-full"
-                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                          />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Minimalist Motion Controls */}
-                <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                  <button
-                    type="button"
-                    onClick={() => setIsPaused((p) => !p)}
-                    className="p-2 rounded-full text-emerald-100/80 hover:text-white hover:bg-white/10 transition-colors"
-                    title={isPaused ? 'Putar Otomatis' : 'Jeda Otomatis'}
-                    aria-label={isPaused ? 'Putar Otomatis' : 'Jeda Otomatis'}
-                  >
-                    {isPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    className="p-2 rounded-full text-emerald-100/80 hover:text-white hover:bg-white/10 transition-colors"
-                    aria-label="Sebelumnya"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    className="p-2 rounded-full text-emerald-100/80 hover:text-white hover:bg-white/10 transition-colors"
-                    aria-label="Selanjutnya"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Thin Animated Progress Line */}
-              <div className="w-full h-[2px] bg-white/10 overflow-hidden mb-8">
-                <motion.div
-                  key={`${activeSlide.id}-${isPaused ? 'paused' : 'playing'}`}
-                  initial={{ width: '0%' }}
-                  animate={{ width: '100%' }}
-                  transition={{
-                    duration: isPaused ? 0.2 : 6.5,
-                    ease: 'linear',
-                  }}
-                  className={`h-full ${activeSlide.accentLineColor}`}
-                />
-              </div>
-
-              {/* Graphic Design Motion Stage (Pure Typography & Vector Art, Zero Badges) */}
-              <div className="min-h-[250px] sm:min-h-[220px] flex items-center">
-                <AnimatePresence mode="wait" custom={direction}>
+              {/* Minimalist Auto-Rotating Motion Stage (No Buttons, No Pills, Pure Editorial Flow) */}
+              <div className="pt-10 min-h-[240px] sm:min-h-[210px] flex items-center">
+                <AnimatePresence mode="wait">
                   <motion.div
                     key={activeSlide.id}
-                    custom={direction}
-                    initial={{ opacity: 0, x: direction * 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: direction * -40 }}
-                    transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -18 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                     className="w-full"
                   >
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -396,7 +285,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                         <motion.div
                           initial={{ scale: 0.85, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: 0.35 }}
+                          transition={{ duration: 0.38 }}
                           className={`${activeSlide.iconColor} mb-4`}
                         >
                           {renderIllustration(activeSlide.iconType, 'w-16 h-16 sm:w-20 sm:h-20')}
@@ -423,7 +312,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
 
                         {/* Slide 1: 3 Principles in Clean Typographic List */}
                         {activeSlide.numberedPrinciples && (
-                          <div className="space-y-4 pt-1">
+                          <div className="space-y-4">
                             {activeSlide.numberedPrinciples.map((principle, idx) => (
                               <motion.div
                                 key={idx}
@@ -443,9 +332,9 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                           </div>
                         )}
 
-                        {/* Slide 2: Two-Column Editorial Comparison (Semua Anak Sama vs Masing-Masing Anak Berbeda) */}
+                        {/* Slide 2: Two-Column Editorial Comparison */}
                         {activeSlide.comparisonColumns && (
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-1">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <motion.div
                               initial={{ opacity: 0, y: 12 }}
                               animate={{ opacity: 1, y: 0 }}
@@ -499,13 +388,13 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                 </AnimatePresence>
               </div>
 
-              {/* Clean Bottom Action Links */}
+              {/* Clean Bottom Sign-off & Links */}
               <div className="mt-10 pt-6 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <p className="text-xs text-emerald-200/80">
                   Wassalamu’alaikum Warahmatullahi Wabarakatuh • Yayasan Pendidikan Imam Bonjol Majalengka
                 </p>
 
-                <div className="flex flex-wrap items-center gap-4">
+                <div className="flex flex-wrap items-center gap-5">
                   <Link
                     href="/sd/profil"
                     className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white hover:text-[#facc15] transition-colors"
@@ -517,7 +406,7 @@ export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: Principa
                     href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Kepala%20Sekolah%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendidikan%20ananda"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#facc15] hover:bg-[#fde047] text-slate-950 text-xs sm:text-sm font-black transition-all shadow-md active:scale-95"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-black text-[#facc15] hover:text-white transition-colors"
                   >
                     <span>Konsultasi via WhatsApp</span>
                     <ArrowRight className="w-4 h-4" />
