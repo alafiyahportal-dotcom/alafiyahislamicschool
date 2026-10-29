@@ -271,7 +271,7 @@ export default function Navbar({
         ]
       : [
           {
-            name: 'Program & Keunggulan',
+            name: 'Program',
             href: activeSlug === 'sd' ? '/sd/program' : activeSlug === 'smp' ? '/smp/program' : `${brandConfig.homeUrl}#programs`,
             hasDropdown: true,
             items: activeSlug === 'sd'
@@ -399,7 +399,7 @@ export default function Navbar({
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
-                className="flex items-center gap-2 xs:gap-2.5 sm:gap-3.5 min-w-0 flex-1 mr-2 sm:mr-6 xl:mr-10 py-1 group cursor-pointer"
+                className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 min-w-0 lg:shrink-0 mr-2 sm:mr-4 py-1 group cursor-pointer"
               >
                 <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                   {brandConfig.secondaryLogoUrl && (
@@ -450,7 +450,7 @@ export default function Navbar({
                       {/* Latin Name as Primary Headline on Top */}
                       <div>
                         <span
-                          className={`text-[12px] xs:text-[13px] sm:text-[14.5px] lg:text-[16px] font-black uppercase tracking-wider transition-colors truncate block leading-tight ${
+                          className={`text-[12px] xs:text-[13px] sm:text-[14.5px] lg:text-[16px] font-black uppercase tracking-wider transition-colors truncate lg:overflow-visible lg:whitespace-nowrap block leading-tight ${
                             shouldBeTransparent
                               ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                               : activeSlug === 'smp'
@@ -466,7 +466,7 @@ export default function Navbar({
                       {brandConfig.subtitle && (
                         <div className="mt-0.5">
                           <span
-                            className={`text-[9px] xs:text-[10px] sm:text-[11px] lg:text-[11.5px] font-bold uppercase tracking-wider transition-colors truncate block ${
+                            className={`text-[9px] xs:text-[10px] sm:text-[11px] lg:text-[11.5px] font-bold uppercase tracking-wider transition-colors truncate lg:overflow-visible lg:whitespace-nowrap block ${
                               shouldBeTransparent
                                 ? activeSlug === 'smp'
                                   ? 'text-[#ffd51e] drop-shadow-xs'
