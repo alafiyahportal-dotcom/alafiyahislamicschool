@@ -1,92 +1,637 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from './ScrollReveal';
-import { Quote, ArrowRight, HeartHandshake } from 'lucide-react';
+import {
+  Quote,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
+  Check,
+} from 'lucide-react';
 
 interface PrincipalGreetingProps {
   schoolSlug?: string;
 }
 
-export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: PrincipalGreetingProps) {
-  return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-white via-slate-50/60 to-white relative overflow-hidden border-b border-slate-200/70">
-      {/* Decorative ambient background rings */}
-      <div className="absolute top-10 right-[-100px] w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-[-100px] w-96 h-96 bg-teal-100/30 rounded-full blur-3xl pointer-events-none" />
+/* ─── Authentic Custom SVG Icons Matching the Principal's Presentation ─── */
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-2">
-            <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
-            <span>Sambutan Kepala Sekolah</span>
-            <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
+function TreeIcon({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M32 6c-6.2 0-11.4 4.1-13.1 9.7C13.3 16.5 9 21.3 9 27.2c0 4.4 2.5 8.3 6.2 10.2-.2.9-.2 1.8-.2 2.6 0 5.5 4.5 10 10 10 1.4 0 2.8-.3 4-.9V56c0 1.1-.9 2-2 2h-2v2h14v-2h-2c-1.1 0-2-.9-2-2v-6.9c1.2.6 2.6.9 4 .9 5.5 0 10-4.5 10-10 0-.8-.1-1.7-.2-2.6 3.7-1.9 6.2-5.8 6.2-10.2 0-5.9-4.3-10.7-9.9-11.5C43.4 10.1 38.2 6 32 6zm-3 36.2c-2.2-1.8-3.8-4.2-4.5-6.9h2.6c.6 1.7 1.6 3.2 2.9 4.4v2.5zm6 0v-2.5c1.3-1.2 2.3-2.7 2.9-4.4h2.6c-.7 2.7-2.3 5.1-4.5 6.9z" />
+    </svg>
+  );
+}
+
+function HeartIcon({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M32 56.6l-3.9-3.5C14.4 40.7 6 33.1 6 22.9 6 14.8 12.3 8.5 20.4 8.5c4.6 0 9 2.1 11.6 5.5 2.6-3.4 7-5.5 11.6-5.5C51.7 8.5 58 14.8 58 22.9c0 10.2-8.4 17.8-22.1 30.2L32 56.6z" />
+    </svg>
+  );
+}
+
+function BrainIcon({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M32 10c-4.5 0-8.4 2.5-10.4 6.2C16.2 16.9 12 21.5 12 27c0 2.8 1.1 5.4 2.9 7.3-.6 1.4-.9 3-.9 4.7 0 6.1 4.9 11 11 11h3v6h4V46c0-4.4 3.6-8 8-8h2v-4h-2c-3.5 0-6.6 1.5-8.8 3.9V30h5.2l3.4-3.4-2.8-2.8L33 28.2V22h-4v8.2l-4.4-4.4-2.8 2.8L26.2 33H29v13h-4c-3.9 0-7-3.1-7-7 0-1.3.4-2.6 1.1-3.6l.8-1.2-1-.9C17.1 31.7 16 29.4 16 27c0-3.9 3.1-7 7-7h1.3l.6-1.2C26.3 15.9 29 14 32 14s5.7 1.9 7.1 4.8l.6 1.2H41c3.9 0 7 3.1 7 7 0 2.4-1.1 4.7-2.9 6.3l-1 .9.8 1.2c.7 1 1.1 2.3 1.1 3.6 0 3.9-3.1 7-7 7h-3v6h4v-2.1c5.1-.5 9-4.8 9-9.9 0-1.7-.3-3.3-.9-4.7 1.8-1.9 2.9-4.5 2.9-7.3 0-5.5-4.2-10.1-9.6-10.8C40.4 12.5 36.5 10 32 10z" />
+    </svg>
+  );
+}
+
+function PodiumIcon({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" fill="currentColor" className={className} aria-hidden="true">
+      <circle cx="32" cy="11" r="4" />
+      <path d="M23 14l5 5h8l5-5 2.5 2.5-6.5 6.5V35h-3v-7h-4v7h-3V23l-6.5-6.5L23 14z" />
+      <circle cx="15" cy="19" r="3.5" />
+      <path d="M11 25h8c1.7 0 3 1.3 3 3v7h-2.5v6h-9v-6H8v-7c0-1.7 1.3-3 3-3z" />
+      <circle cx="49" cy="21" r="3.5" />
+      <path d="M45 27h8c1.7 0 3 1.3 3 3v7h-2.5v6h-9v-6H42v-7c0-1.7 1.3-3 3-3z" />
+      <path d="M6 43h16v-6h20v8h16v11H6V43z" />
+    </svg>
+  );
+}
+
+function GrowthStageIcon({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" fill="currentColor" className={className} aria-hidden="true">
+      <circle cx="46" cy="18" r="7.5" />
+      <path d="M22 28c4.5 0 11 1.5 15 5l6 10c1 1.7.4 3.8-1.3 4.8-1.7 1-3.8.4-4.8-1.3l-4.6-7.7-8.3-1.3v9.5c0 2.2-1.8 4-4 4h-7c-2.2 0-4-1.8-4-4s1.8-4 4-4h3v-7c0-4.4 3.6-8 6-8z" />
+    </svg>
+  );
+}
+
+interface SlideTopic {
+  id: string;
+  stepNumber: string;
+  shortLabel: string;
+  title: string;
+  subtitle: string;
+  accentColor: string;
+  badgeBg: string;
+  iconBg: string;
+  iconType: 'tree' | 'equality' | 'heart' | 'brain' | 'podium' | 'growth';
+  description: string[];
+  highlights: string[];
+  comparisonColumns?: {
+    leftTitle: string;
+    leftBadge: string;
+    leftItems: string[];
+    rightTitle: string;
+    rightBadge: string;
+    rightItems: string[];
+  };
+  numberedPrinciples?: string[];
+}
+
+const CHARACTER_SLIDES: SlideTopic[] = [
+  {
+    id: 'nabawiyah',
+    stepNumber: '01',
+    shortLabel: 'Karakter Nabawiyah',
+    title: 'Pendidikan Karakter Nabawiyah',
+    subtitle: 'Metode Generasi Terbaik: Rasulullah ﷺ, Para Sahabat, Tabi’in & Tabi’ut Tabi’in',
+    accentColor: 'from-[#064e3b] to-[#00A651]',
+    badgeBg: 'bg-emerald-50 text-emerald-900 border-emerald-200',
+    iconBg: 'bg-emerald-900 text-emerald-100',
+    iconType: 'tree',
+    description: [
+      'SDIT Al-Afiyah meyakini bahwa setiap anak lahir dalam keadaan fitrah, yaitu memiliki kecenderungan untuk menerima kebenaran dan mengamalkannya. Oleh karena itu, sekolah tidak hanya menjadi ruang transfer ilmu, tetapi menjadi lingkungan tumbuh yang aman, menyenangkan, dan penuh makna.',
+    ],
+    numberedPrinciples: [
+      'Pendidikan karakter adalah pendidikan yang meyakini bahwa setiap anak terlahir dalam keadaan fitrah.',
+      'Pendidikan karakter adalah pendidikan yang menjaga dan menumbuhkan karakter-karakter baik yang sudah ada pada diri anak.',
+      'Pendidikan karakter menggunakan metode pembelajaran yang telah diwahyukan kepada Rasulullah ﷺ.',
+    ],
+    highlights: ['Berbasis Fitrah Anak', 'Menjaga & Menumbuhkan', 'Metode Wahyu Nabawiyah'],
+  },
+  {
+    id: 'kadar-karakter',
+    stepNumber: '02',
+    shortLabel: 'Sama & Unik',
+    title: '2 Kadar Karakter Pembawaan Anak',
+    subtitle: 'Keseimbangan antara Nilai yang Ditumbuhkan Bersama & Keunikan Tiap Pribadi Anak',
+    accentColor: 'from-teal-800 to-emerald-600',
+    badgeBg: 'bg-teal-50 text-teal-900 border-teal-200',
+    iconBg: 'bg-teal-800 text-teal-100',
+    iconType: 'equality',
+    description: [
+      'Karakter pembawaan yang telah ada pada diri manusia—terkait dengan kadar kesamaan karakter antarpribadi anak—terbagi menjadi dua dimensi utama yang ditumbuhkan secara selaras:',
+    ],
+    comparisonColumns: {
+      leftTitle: '1. Semua Anak Sama',
+      leftBadge: 'Ditumbuhkan ke Semua Anak',
+      leftItems: [
+        'Kecintaan kepada Allah ﷻ',
+        'Kecintaan kepada Ibadah',
+        'Adab dan Akhlak Mulia',
+        'Kecintaan Belajar & Karakter Perkembangan',
+      ],
+      rightTitle: '2. Masing-Masing Anak Berbeda',
+      rightBadge: 'Anak Menjadi Unik • Menyesuaikan Keunikan Anak',
+      rightItems: [
+        'Allah Ta’ala memberikan karunia karakter yang berbeda-beda pada setiap anak',
+        'Gaya belajar dan bakat yang berbeda pada masing-masing anak',
+        'Penumbuhannya menyesuaikan keunikan setiap anak tanpa diseragamkan secara kaku',
+      ],
+    },
+    highlights: ['Ditumbuhkan ke Semua Anak', 'Anak Menjadi Unik', 'Menyesuaikan Keunikan Anak'],
+  },
+  {
+    id: 'iman',
+    stepNumber: '03',
+    shortLabel: 'Karakter Iman',
+    title: 'Karakter Iman',
+    subtitle: 'Pondasi Tauhid, Kecintaan Ibadah, dan Ilmu sebagai Dasar Seluruh Perilaku',
+    accentColor: 'from-rose-700 to-red-600',
+    badgeBg: 'bg-rose-50 text-rose-900 border-rose-200',
+    iconBg: 'bg-rose-600 text-white',
+    iconType: 'heart',
+    description: [
+      'Setiap anak memiliki karakter iman, yaitu setiap anak dilahirkan dalam keadaan mentauhidkan Allah ﷻ serta memiliki kecenderungan fitrah untuk mencintai kebenaran.',
+      'Dengan sepenuh hati, guru menyajikan pendidikan iman, menumbuhkan kecintaan dan kesadaran terhadap syariat agama, mencintai ibadah, berakhlak mulia, dan menjadikan ilmu sebagai dasar seluruh perilaku.',
+    ],
+    highlights: ['Mentauhidkan Allah ﷻ', 'Cinta Syariat & Ibadah', 'Ilmu Dasar Seluruh Perilaku'],
+  },
+  {
+    id: 'belajar',
+    stepNumber: '04',
+    shortLabel: 'Karakter Belajar',
+    title: 'Karakter Belajar',
+    subtitle: 'Menumbuhkan Rasa Ingin Tahu dalam Lingkungan yang Aman & Menyenangkan',
+    accentColor: 'from-slate-800 to-emerald-800',
+    badgeBg: 'bg-slate-100 text-slate-900 border-slate-300',
+    iconBg: 'bg-slate-800 text-white',
+    iconType: 'brain',
+    description: [
+      'Anak ditumbuhkan rasa ingin tahunya, menampakkan gaya belajar anak, semangat menjelajah, keberanian mencoba, dan ketangguhan dalam proses belajar.',
+      'Di sekolah, anak merasa aman meski berbuat salah, karena kesalahan adalah bagian dari perjalanan tumbuh—sebab Allah Ta’ala menciptakan setiap manusia sebagai pembelajar yang tangguh. Apabila kecintaan sudah tumbuh, maka anak akan belajar dengan sendirinya.',
+    ],
+    highlights: ['Rasa Ingin Tahu & Menjelajah', 'Aman Mencoba Tanpa Takut Salah', 'Belajar Mandiri karena Cinta'],
+  },
+  {
+    id: 'bakat',
+    stepNumber: '05',
+    shortLabel: 'Karakter Bakat',
+    title: 'Karakter Bakat',
+    subtitle: 'Setiap Anak Akan Menghebat pada Waktunya & Berperan bagi Peradaban',
+    accentColor: 'from-amber-700 to-emerald-700',
+    badgeBg: 'bg-amber-50 text-amber-950 border-amber-200',
+    iconBg: 'bg-amber-600 text-white',
+    iconType: 'podium',
+    description: [
+      'Setiap anak dianugerahi oleh Allah bakat yang hebat dengan potensi unik. Sekolah membantu mereka menjaga fitrahnya dan mengembangkan bakatnya tanpa terburu-buru, karena setiap anak akan menghebat pada waktunya. Tugas kita adalah menumbuhkan kemandirian anak dalam melaksanakan segala sesuatu yang dipelajarinya.',
+      'Setelah kecintaan telah tumbuh, sifat pembelajar telah tumbuh, dan kemandirian telah tumbuh, maka diharapkan anak sudah mulai berperan pada peradaban sebagaimana seorang yang tumbuh dewasa—berperan sebagai pribadi yang memiliki akhlak mulia, kreatif, dan produktif.',
+    ],
+    highlights: ['Menghebat pada Waktunya', 'Kemandirian Mengamalkan Ilmu', 'Kreatif & Produktif bagi Peradaban'],
+  },
+  {
+    id: 'perkembangan',
+    stepNumber: '06',
+    shortLabel: 'Karakter Perkembangan',
+    title: 'Karakter Perkembangan',
+    subtitle: 'Perubahan Bertahap, Sistematis, dan Berkesinambungan Menuju Kedewasaan',
+    accentColor: 'from-emerald-800 to-teal-700',
+    badgeBg: 'bg-emerald-50 text-emerald-900 border-emerald-200',
+    iconBg: 'bg-emerald-800 text-white',
+    iconType: 'growth',
+    description: [
+      'Setiap manusia akan mengalami fase perkembangan dalam hidupnya, mulai dari penciptaan sampai usia dewasa hingga tutup usia.',
+      'Perkembangan manusia adalah proses terjadinya berbagai perubahan bertahap yang dialami individu menuju tingkat kedewasaan atau kematangan, yang berlangsung secara sistematis, berproses, dan berkesinambungan—baik secara fisik maupun psikis.',
+    ],
+    highlights: ['Fase Tumbuh Bertahap', 'Sistematis & Berkesinambungan', 'Kematangan Fisik & Psikis'],
+  },
+];
+
+function renderTopicIcon(type: SlideTopic['iconType'], className = 'w-6 h-6') {
+  switch (type) {
+    case 'tree':
+    case 'equality':
+      return <TreeIcon className={className} />;
+    case 'heart':
+      return <HeartIcon className={className} />;
+    case 'brain':
+      return <BrainIcon className={className} />;
+    case 'podium':
+      return <PodiumIcon className={className} />;
+    case 'growth':
+      return <GrowthStageIcon className={className} />;
+  }
+}
+
+export default function PrincipalGreetingSection({ schoolSlug = 'sd' }: PrincipalGreetingProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState<1 | -1>(1);
+
+  const totalSlides = CHARACTER_SLIDES.length;
+  const activeSlide = CHARACTER_SLIDES[activeIndex];
+
+  const handleNext = useCallback(() => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
+  const handlePrev = useCallback(() => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  const handleSelectSlide = (index: number) => {
+    setDirection(index >= activeIndex ? 1 : -1);
+    setActiveIndex(index);
+  };
+
+  // Auto-advance every 6.5 seconds unless paused
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      handleNext();
+    }, 6500);
+    return () => clearInterval(timer);
+  }, [isPaused, handleNext]);
+
+  return (
+    <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-emerald-50/30 to-white relative overflow-hidden border-b border-slate-200/70">
+      {/* Subtle Ambient Background */}
+      <div className="absolute top-12 right-[-120px] w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-12 left-[-120px] w-96 h-96 bg-teal-100/30 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Heading */}
+        <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-3 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80">
+            <span className="w-2 h-2 rounded-full bg-[#00A651]" />
+            <span>Sambutan Kepala Sekolah &amp; Filosofi Pendidikan</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mt-3">
-            Mendidik dengan Keteladanan, <br className="hidden sm:inline" />
+
+          <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-black text-slate-900 tracking-tight leading-[1.15]">
+            SDIT Al-Afiyah: Bukan Sekadar{' '}
+            <span className="text-[#00A651]">Tempat Belajar</span>, Namun Juga{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#064e3b] via-[#047857] to-[#00A651]">
-              Menanamkan Adab Sebelum Ilmu
+              Tempat Bertumbuh
             </span>
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-            Pesan hangat dan komitmen pendidikan dari Mudir / Kepala Sekolah SDIT Al-Afiyah Majalengka untuk ayah bunda sekalian.
+
+          <p className="text-xs sm:text-sm lg:text-base text-slate-600 mt-3 leading-relaxed">
+            Literasi konsep <strong>Pendidikan Karakter Nabawiyah</strong> oleh Kepala Sekolah SDIT Al-Afiyah Majalengka dalam menjaga fitrah, iman, belajar, bakat, dan tumbuh kembang setiap anak.
           </p>
         </ScrollReveal>
 
-        {/* Direct Editorial Message Card (Tanpa Tab Profil Terpisah Sesuai Arahan User) */}
-        <ScrollReveal delay={0.15} yOffset={24} duration={500}>
-          <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-sm border border-slate-200/90 relative overflow-hidden">
-            <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#064e3b] via-[#047857] to-[#00A651]" />
-            <Quote className="absolute top-6 right-6 sm:top-8 sm:right-8 w-12 h-12 text-emerald-100/80 pointer-events-none" />
+        {/* Main Card Container */}
+        <ScrollReveal delay={0.1} yOffset={24} duration={500}>
+          <div
+            className="bg-white rounded-3xl shadow-sm border border-slate-200/90 relative overflow-hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Top Accent Ribbon */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#064e3b] via-[#00A651] to-[#f59e0b]" />
 
-            <div className="text-xs font-extrabold text-[#064e3b] tracking-wider uppercase mb-2">
-              Bismillaahirrohmaanirrohiim
-            </div>
-            <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mb-5 leading-snug">
-              Assalamu’alaikum Warahmatullahi Wabarakatuh
-            </h3>
+            <div className="p-6 sm:p-10 lg:p-12">
+              {/* Top Editorial Introduction (Core Message of the Principal) */}
+              <div className="relative pb-8 mb-8 border-b border-slate-200/80">
+                <Quote className="hidden sm:block absolute top-0 right-0 w-14 h-14 text-emerald-100/90 pointer-events-none" />
 
-            <div className="space-y-4 text-xs sm:text-sm sm:text-[15px] text-slate-700 leading-relaxed font-normal">
-              <p>
-                Segala puji hanya bagi Allah Ta’ala yang telah melimpahkan nikmat iman, islam, dan kesehatan kepada kita semua. Shalawat serta salam semoga senantiasa tercurah kepada uswah hasanah kita, Nabi Muhammad ﷺ, beserta keluarga, sahabat, dan pengikutnya hingga akhir zaman.
-              </p>
-              <p>
-                Ayah dan Bunda yang dirahmati Allah, mendidik anak di era modern ini bukan sekadar mengejar angka dan keunggulan akademis kognitif semata. Lebih dari itu, tantangan terpenting kita adalah <strong className="text-slate-900 font-semibold">menjaga fitrah keimanan</strong> anak agar tetap murni serta membekali mereka dengan akhlakul karimah.
-              </p>
-              <p>
-                Di SDIT Al-Afiyah Majalengka, kami memegang teguh prinsip <span className="bg-emerald-50 text-emerald-950 font-semibold px-2 py-0.5 rounded border border-emerald-200">“Adab Sebelum Ilmu, dan Iman Sebelum Al-Qur’an”</span>. Melalui kurikulum Smart Akhlak Fitrah dan suasana sekolah yang asri di Lingkungan Giri Asih Majalengka Wetan, kami berikhtiar menciptakan atmosfer belajar yang membahagiakan, ramah anak, dan bebas dari perundungan.
-              </p>
-              <p>
-                Kami menyambut hangat kehadiran putra-putri tercinta Ayah dan Bunda untuk bertumbuh bersama keluarga besar SDIT Al-Afiyah, menjadi generasi sholeh-sholehah yang mencintai Al-Qur’an dan berbakti kepada orang tua.
-              </p>
-            </div>
+                <div className="text-xs font-extrabold text-[#064e3b] tracking-wider uppercase mb-1.5">
+                  Bismillaahirrohmaanirrohiim
+                </div>
+                <h3 className="text-base sm:text-xl font-extrabold text-slate-900 mb-4">
+                  Assalamu’alaikum Warahmatullahi Wabarakatuh
+                </h3>
 
-            <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-              <div>
-                <p className="text-xs text-slate-500">Wassalamu’alaikum Warahmatullahi Wabarakatuh,</p>
-                <p className="text-base font-black text-slate-900 mt-1">Ust. Febrian Fauzi, S.Pd., M.Pd.</p>
-                <p className="text-xs text-[#064e3b] font-semibold">Kepala Sekolah SDIT Al-Afiyah Majalengka</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka</p>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                  <div className="lg:col-span-8 space-y-3 text-xs sm:text-sm lg:text-[15px] text-slate-700 leading-relaxed">
+                    <p>
+                      <strong className="text-slate-900">SDIT Al-Afiyah</strong> meyakini bahwa setiap anak lahir dalam keadaan <strong className="text-[#064e3b]">fitrah</strong>, yaitu memiliki kecenderungan alami untuk menerima kebenaran dan mengamalkannya. Setiap anak memiliki <strong className="text-slate-900">karakter iman</strong> (dilahirkan dalam keadaan mentauhidkan Allah ﷻ), dikaruniai <strong className="text-slate-900">karakter belajar</strong> serta <strong className="text-slate-900">karakter perkembangan</strong>, dan dianugerahi <strong className="text-slate-900">bakat yang unik</strong> dengan potensi hebat yang akan tumbuh pada waktunya.
+                    </p>
+                    <p>
+                      Oleh karena itu, sekolah tidak hanya menjadi ruang transfer ilmu, tetapi menjadi <span className="bg-emerald-50 text-emerald-950 font-semibold px-2 py-0.5 rounded border border-emerald-200">lingkungan tumbuh yang aman, menyenangkan, dan penuh makna</span> dengan mengusung konsep <strong>Metode Pendidikan Karakter Nabawiyah</strong> yang dibawa oleh generasi terbaik: generasi Nabi Muhammad ﷺ, para Sahabat, Tabi’in, dan Tabi’ut Tabi’in.
+                    </p>
+                  </div>
+
+                  {/* Interactive Visual Map of the 5 Pillars (Matching the Principal's Diagram) */}
+                  <div className="lg:col-span-4 bg-gradient-to-br from-[#064e3b] via-[#053d2e] to-[#022c22] rounded-2xl p-5 text-white shadow-inner relative overflow-hidden">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 mb-3 text-center">
+                      Peta Konsep Karakter Fitrah
+                    </div>
+
+                    {/* Top Node: Pendidikan Karakter Nabawiyah */}
+                    <button
+                      type="button"
+                      onClick={() => handleSelectSlide(0)}
+                      className={`w-full flex items-center gap-3 p-2.5 rounded-xl border transition-all text-left mb-3 ${
+                        activeIndex === 0 || activeIndex === 1
+                          ? 'bg-white/15 border-amber-400 shadow-sm'
+                          : 'bg-white/5 border-white/10 hover:bg-white/10'
+                      }`}
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-emerald-200/20 text-emerald-200 flex items-center justify-center shrink-0">
+                        <TreeIcon className="w-5 h-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs font-extrabold text-white truncate">
+                          Pendidikan Karakter Nabawiyah
+                        </div>
+                        <div className="text-[10px] text-emerald-200/90 truncate">
+                          Klik untuk lihat prinsip &amp; kadar karakter
+                        </div>
+                      </div>
+                    </button>
+
+                    {/* 4 Pillar Nodes Grid */}
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { idx: 2, label: 'Karakter Iman', icon: <HeartIcon className="w-4 h-4 text-rose-400" /> },
+                        { idx: 3, label: 'Karakter Belajar', icon: <BrainIcon className="w-4 h-4 text-slate-200" /> },
+                        { idx: 4, label: 'Karakter Bakat', icon: <PodiumIcon className="w-4 h-4 text-amber-300" /> },
+                        { idx: 5, label: 'Perkembangan', icon: <GrowthStageIcon className="w-4 h-4 text-emerald-300" /> },
+                      ].map((node) => {
+                        const isNodeActive = activeIndex === node.idx;
+                        return (
+                          <button
+                            key={node.idx}
+                            type="button"
+                            onClick={() => handleSelectSlide(node.idx)}
+                            className={`flex items-center gap-2 p-2 rounded-xl border text-left transition-all ${
+                              isNodeActive
+                                ? 'bg-white text-slate-900 border-white font-bold shadow-xs scale-[1.02]'
+                                : 'bg-white/5 text-white/90 border-white/10 hover:bg-white/10'
+                            }`}
+                          >
+                            <div
+                              className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+                                isNodeActive ? 'bg-slate-900' : 'bg-white/10'
+                              }`}
+                            >
+                              {node.icon}
+                            </div>
+                            <span className="text-[11px] font-bold leading-tight line-clamp-2">
+                              {node.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <Link
-                  href="/sd/profil"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
-                >
-                  <span>Lihat Profil SDIT</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <Link
-                  href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Kepala%20Sekolah%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendidikan%20ananda"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#064e3b] hover:bg-[#047857] text-white text-xs font-bold transition-all shadow-sm hover:shadow active:scale-95"
-                >
-                  <span>Konsultasi via WhatsApp</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+              {/* Interactive Motion Carousel Header & Pill Tabs */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                <div className="flex items-center gap-2 overflow-x-auto pb-1.5 sm:pb-0 no-scrollbar">
+                  {CHARACTER_SLIDES.map((slide, idx) => {
+                    const isActive = idx === activeIndex;
+                    return (
+                      <button
+                        key={slide.id}
+                        type="button"
+                        onClick={() => handleSelectSlide(idx)}
+                        className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 border ${
+                          isActive
+                            ? 'bg-[#064e3b] text-white border-[#064e3b] shadow-xs'
+                            : 'bg-slate-50 text-slate-600 border-slate-200/80 hover:bg-slate-100 hover:text-slate-900'
+                        }`}
+                      >
+                        <span
+                          className={`text-[10px] font-black px-1.5 py-0.5 rounded ${
+                            isActive ? 'bg-white/20 text-white' : 'bg-slate-200/80 text-slate-700'
+                          }`}
+                        >
+                          {slide.stepNumber}
+                        </span>
+                        <span>{slide.shortLabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Auto-play & Prev/Next Controls */}
+                <div className="flex items-center justify-end gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setIsPaused((p) => !p)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+                    title={isPaused ? 'Jalankan Otomatis' : 'Jeda Pergantian Otomatis'}
+                  >
+                    {isPaused ? <Play className="w-3.5 h-3.5 text-[#00A651]" /> : <Pause className="w-3.5 h-3.5 text-slate-600" />}
+                    <span>{isPaused ? 'Putar Otomatis' : 'Berganti Otomatis'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                    aria-label="Materi Sebelumnya"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                    aria-label="Materi Selanjutnya"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Animated Progress Bar */}
+              <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden mb-6">
+                <motion.div
+                  key={`${activeSlide.id}-${isPaused ? 'paused' : 'playing'}`}
+                  initial={{ width: '0%' }}
+                  animate={{ width: isPaused ? '100%' : '100%' }}
+                  transition={{
+                    duration: isPaused ? 0.2 : 6.5,
+                    ease: 'linear',
+                  }}
+                  className={`h-full bg-gradient-to-r ${activeSlide.accentColor}`}
+                />
+              </div>
+
+              {/* Animated Slide Content Box */}
+              <div className="relative min-h-[290px] sm:min-h-[260px] rounded-2xl bg-slate-50/80 border border-slate-200/90 p-5 sm:p-8 overflow-hidden">
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={activeSlide.id}
+                    custom={direction}
+                    initial={{ opacity: 0, x: direction * 36, y: 6 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    exit={{ opacity: 0, x: direction * -36, y: -6 }}
+                    transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                    className="space-y-5"
+                  >
+                    {/* Slide Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80">
+                      <div className="flex items-start sm:items-center gap-3.5">
+                        <motion.div
+                          initial={{ scale: 0.8, rotate: -6 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ duration: 0.35 }}
+                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${activeSlide.iconBg} flex items-center justify-center shadow-sm shrink-0`}
+                        >
+                          {renderTopicIcon(activeSlide.iconType, 'w-7 h-7 sm:w-8 sm:h-8')}
+                        </motion.div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className={`text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${activeSlide.badgeBg}`}>
+                              Materi {activeSlide.stepNumber} / 06
+                            </span>
+                          </div>
+                          <h4 className="text-lg sm:text-2xl font-black text-slate-900 mt-1">
+                            {activeSlide.title}
+                          </h4>
+                          <p className="text-xs sm:text-sm font-medium text-slate-600 mt-0.5">
+                            {activeSlide.subtitle}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Slide Paragraphs */}
+                    <div className="space-y-3 text-xs sm:text-sm lg:text-[15px] text-slate-700 leading-relaxed">
+                      {activeSlide.description.map((para, i) => (
+                        <p key={i}>{para}</p>
+                      ))}
+                    </div>
+
+                    {/* Optional Numbered Principles (Slide 1) */}
+                    {activeSlide.numberedPrinciples && (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                        {activeSlide.numberedPrinciples.map((principle, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.08 * (idx + 1), duration: 0.3 }}
+                            className="bg-white rounded-xl p-4 border border-emerald-200/80 shadow-2xs flex flex-col justify-between"
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-[#064e3b] text-white text-xs font-black flex items-center justify-center mb-2.5">
+                              {idx + 1}
+                            </div>
+                            <p className="text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
+                              {principle}
+                            </p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Optional Two-Column Comparison (Slide 2: Semua Anak Sama vs Masing-Masing Anak Berbeda) */}
+                    {activeSlide.comparisonColumns && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                        <motion.div
+                          initial={{ opacity: 0, x: -16 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1, duration: 0.35 }}
+                          className="bg-white rounded-2xl p-4 sm:p-5 border border-emerald-200 shadow-2xs"
+                        >
+                          <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
+                            <h5 className="text-sm sm:text-base font-black text-slate-900">
+                              {activeSlide.comparisonColumns.leftTitle}
+                            </h5>
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-900 border border-emerald-200 text-[11px] font-extrabold">
+                              <Check className="w-3.5 h-3.5 text-[#00A651]" />
+                              {activeSlide.comparisonColumns.leftBadge}
+                            </span>
+                          </div>
+                          <ul className="space-y-2">
+                            {activeSlide.comparisonColumns.leftItems.map((item, i) => (
+                              <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                                <span className="w-5 h-5 rounded-full bg-emerald-100 text-[#064e3b] flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-3 h-3" />
+                                </span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, x: 16 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.18, duration: 0.35 }}
+                          className="bg-white rounded-2xl p-4 sm:p-5 border border-amber-200 shadow-2xs"
+                        >
+                          <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
+                            <h5 className="text-sm sm:text-base font-black text-slate-900">
+                              {activeSlide.comparisonColumns.rightTitle}
+                            </h5>
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-950 border border-amber-200 text-[11px] font-extrabold">
+                              <Check className="w-3.5 h-3.5 text-amber-600" />
+                              {activeSlide.comparisonColumns.rightBadge}
+                            </span>
+                          </div>
+                          <ul className="space-y-2">
+                            {activeSlide.comparisonColumns.rightItems.map((item, i) => (
+                              <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+                                <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-3 h-3" />
+                                </span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      </div>
+                    )}
+
+                    {/* Slide Highlights */}
+                    <div className="flex flex-wrap items-center gap-2 pt-2">
+                      {activeSlide.highlights.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-800 shadow-2xs"
+                        >
+                          <Check className="w-3.5 h-3.5 text-[#00A651]" />
+                          <span>{tag}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Footer Sign-off & CTA */}
+              <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+                <div>
+                  <p className="text-xs text-slate-500">Wassalamu’alaikum Warahmatullahi Wabarakatuh,</p>
+                  <p className="text-base sm:text-lg font-black text-slate-900 mt-1">
+                    Ust. Febrian Fauzi, S.Pd., M.Pd.
+                  </p>
+                  <p className="text-xs text-[#064e3b] font-semibold">
+                    Kepala Sekolah SDIT Al-Afiyah Majalengka
+                  </p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/sd/profil"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all"
+                  >
+                    <span>Lihat Profil SDIT</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                  <Link
+                    href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Kepala%20Sekolah%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendidikan%20ananda"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#064e3b] hover:bg-[#047857] text-white text-xs font-bold transition-all shadow-sm hover:shadow active:scale-95"
+                  >
+                    <span>Konsultasi via WhatsApp</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import PrincipalGreetingSection from '@/components/landing/PrincipalGreetingSection';
 import { prisma } from '@/lib/prisma';
 import { 
   Building2, 
@@ -150,67 +151,8 @@ export default async function SdProfilPage() {
           </div>
         </section>
 
-        {/* Sambutan Kepala Sekolah SDIT Al Afiyah */}
-        <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-slate-50/70 border-b border-slate-200/80">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500}>
-              <div className="rounded-2xl bg-white border border-slate-200/80 shadow-xs p-6 sm:p-10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-50/80 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-                
-                <div className="relative z-10">
-                  <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651]">
-                      <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-                      <span>Sambutan Kepala Sekolah SDIT Al-Afiyah</span>
-                    </div>
-                    <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-xl border border-emerald-200/80">
-                      🌱 Tempat Bertumbuh
-                    </span>
-                  </div>
-
-                  <div className="space-y-4 text-xs sm:text-sm lg:text-base text-slate-700 leading-relaxed font-normal">
-                    <p className="font-bold text-emerald-950 text-base sm:text-lg">
-                      Bismillahirrahmanirrahim.
-                    </p>
-                    <p>
-                      Selamat datang di <strong>SDIT Al-Afiyah</strong>, tempat kami meyakini bahwa setiap anak adalah amanah Allah ﷻ dengan potensi, keunikan, dan fitrahnya masing-masing.
-                    </p>
-                    <p>
-                      Bagi kami, pendidikan bukan sekadar tentang nilai dan prestasi. Pendidikan adalah tentang menemani anak bertumbuh, mengenal dirinya, mencintai kebaikan, serta berkembang sesuai fitrahnya dalam lingkungan yang penuh iman, ilmu, dan kasih sayang.
-                    </p>
-                    <blockquote className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border-l-4 border-[#00A651] text-emerald-950 font-semibold italic text-sm sm:text-base">
-                      &ldquo;Karena itu, SDIT Al-Afiyah bukan sekadar tempat belajar, namun juga tempat bertumbuh.&rdquo;
-                    </blockquote>
-                    <p>
-                      Kami mengajak Ayah Bunda untuk bersama-sama memilih lingkungan pendidikan terbaik bagi putra-putri tercinta. Mari tumbuhkan iman, karakter, potensi, dan kecintaan belajar mereka bersama kami.
-                    </p>
-                    <p>
-                      Mari bergabung bersama SDIT Al-Afiyah — tempat anak belajar dengan bahagia, bertumbuh dengan cinta, dan berkembang menjadi pribadi yang bermanfaat.
-                    </p>
-                  </div>
-
-                  <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                      <p className="font-extrabold text-slate-900 text-sm sm:text-base">
-                        Febrian Fauzi, S.Pd., M.Pd.
-                      </p>
-                      <p className="text-xs text-emerald-700 font-semibold mt-0.5">
-                        Kepala Sekolah SDIT Al-Afiyah
-                      </p>
-                    </div>
-                    <Link
-                      href="/sd/spmb"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-sm transition-all active:scale-95 shrink-0"
-                    >
-                      <span>Informasi SPMB SDIT</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
+        {/* Sambutan Kepala Sekolah SDIT Al Afiyah (Interactive Motion & Karakter Nabawiyah) */}
+        <PrincipalGreetingSection schoolSlug="sd" />
 
         {/* Selayang Pandang & Legalitas Sekolah */}
         <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80">
