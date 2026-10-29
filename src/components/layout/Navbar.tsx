@@ -156,10 +156,10 @@ export default function Navbar({
           code: 'SD',
           arabic: '',
           title: 'SDIT AL-AFIYAH',
-          subtitle: 'SMART AKHLAK FITRAH',
+          subtitle: 'Smart Akhlak Fitrah • YPIB Majalengka',
           homeUrl: getUnitHomeUrl('sd'),
-          ppdbLink: '/sd/spmb',
-          ctaText: 'Info SPMB SDIT',
+          ppdbLink: '/sd/spmb/daftar',
+          ctaText: 'DAFTAR',
           logoUrl: '/images/sd-logo.png',
         };
       case 'smp':
@@ -377,7 +377,9 @@ export default function Navbar({
         <header
           className={`w-full max-w-full select-none transition-all duration-300 border-b overflow-x-clip ${
             shouldBeTransparent
-              ? 'bg-transparent border-white/10 shadow-none'
+              ? activeSlug === 'sd'
+                ? 'bg-[#004d3a]/90 backdrop-blur-sm border-white/10 shadow-none'
+                : 'bg-transparent border-white/10 shadow-none'
               : 'bg-white/95 backdrop-blur-md shadow-md border-slate-200/90'
           }`}
         >
@@ -451,14 +453,20 @@ export default function Navbar({
                       {brandConfig.subtitle && (
                         <div className="mt-0.5">
                           <span
-                            className={`text-[8.5px] xs:text-[9.5px] sm:text-[10.5px] lg:text-[11px] font-bold uppercase tracking-wider transition-colors truncate block ${
-                              shouldBeTransparent
-                                ? activeSlug === 'smp'
-                                  ? 'text-[#ffd51e] drop-shadow-xs'
-                                  : 'text-emerald-300 drop-shadow-xs'
-                                : activeSlug === 'smp'
-                                ? 'text-[#030164]'
-                                : 'text-[#007638]'
+                            className={`text-[9px] xs:text-[10px] sm:text-[11px] lg:text-[11.5px] transition-colors truncate block ${
+                              activeSlug === 'sd'
+                                ? shouldBeTransparent
+                                  ? 'italic font-medium text-emerald-200/95 drop-shadow-xs'
+                                  : 'italic font-semibold text-[#00684e]'
+                                : `font-bold uppercase tracking-wider ${
+                                    shouldBeTransparent
+                                      ? activeSlug === 'smp'
+                                        ? 'text-[#ffd51e] drop-shadow-xs'
+                                        : 'text-emerald-300 drop-shadow-xs'
+                                      : activeSlug === 'smp'
+                                      ? 'text-[#030164]'
+                                      : 'text-[#007638]'
+                                  }`
                             }`}
                           >
                             {brandConfig.subtitle}
@@ -632,8 +640,8 @@ export default function Navbar({
                 })}
               </nav>
 
-              {/* Desktop Actions: Search & Login */}
-              <div className="hidden lg:flex items-center gap-2 xl:gap-3 flex-shrink-0">
+              {/* Desktop Actions: Search, Daftar & Login */}
+              <div className="hidden lg:flex items-center gap-2 xl:gap-2.5 flex-shrink-0">
                 {/* Search Modal Trigger Button */}
                 <button
                   type="button"
@@ -646,22 +654,49 @@ export default function Navbar({
                       : 'text-slate-600 hover:text-softwater-dark hover:bg-slate-100'
                   }`}
                 >
-                  <Search className="w-4 h-4 xl:w-5 xl:h-5" />
+                  <Search className="w-4 h-4 xl:w-4.5 xl:h-4.5" />
                 </button>
 
-                {/* Login Link (Clean Text Only) */}
-                <Link
-                  href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
-                  prefetch={true}
-                  title="Masuk ke Portal Layanan & Sistem Akademik"
-                  className={`px-3 py-1.5 xl:py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 ${
-                    shouldBeTransparent
-                      ? 'text-white/90 hover:text-amber-300 hover:bg-white/10'
-                      : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100'
-                  }`}
-                >
-                  <span>Login</span>
-                </Link>
+                {activeSlug === 'sd' ? (
+                  <>
+                    <Link
+                      href={brandConfig.ppdbLink}
+                      prefetch={true}
+                      className="px-4 py-2 rounded-full bg-[#f59e0b] hover:bg-[#d97706] text-white text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0"
+                    >
+                      <GraduationCap className="w-3.5 h-3.5 stroke-[2.3]" />
+                      <span>DAFTAR</span>
+                    </Link>
+                    <Link
+                      href="/login?unit=sd"
+                      prefetch={true}
+                      title="Masuk ke Portal Layanan & Sistem Akademik"
+                      className="px-4 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-200/90 text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0"
+                    >
+                      <svg className="w-3.5 h-3.5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect width="7" height="7" x="3" y="3" rx="1" />
+                        <rect width="7" height="7" x="14" y="3" rx="1" />
+                        <rect width="7" height="7" x="14" y="14" rx="1" />
+                        <rect width="7" height="7" x="3" y="14" rx="1" />
+                      </svg>
+                      <span>LOGIN</span>
+                    </Link>
+                  </>
+                ) : (
+                  /* Login Link (Clean Text Only) */
+                  <Link
+                    href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
+                    prefetch={true}
+                    title="Masuk ke Portal Layanan & Sistem Akademik"
+                    className={`px-3 py-1.5 xl:py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 ${
+                      shouldBeTransparent
+                        ? 'text-white/90 hover:text-amber-300 hover:bg-white/10'
+                        : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100'
+                    }`}
+                  >
+                    <span>Login</span>
+                  </Link>
+                )}
               </div>
 
               {/* Mobile & Tablet Right Actions (Search + Hamburger Drawer Trigger) */}

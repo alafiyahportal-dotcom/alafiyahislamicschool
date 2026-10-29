@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowRight, MessageCircle } from 'lucide-react';
+import { ArrowRight, MessageCircle, ArrowDownCircle, Zap, FileText, Download, BookOpen, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getStoredReferralCode } from '@/lib/referral';
 import HeroFloatingBubbles from './HeroFloatingBubbles';
@@ -84,6 +84,24 @@ function renderHeroHeadline(
   );
 }
 
+const SD_POLAROID_PHOTOS = [
+  {
+    src: '/images/sd-field-study-banner.jpg',
+    title: 'Murid SDIT Al-Afiyah',
+    subtitle: 'Mencetak Generasi Qur\'ani & Sains',
+  },
+  {
+    src: '/images/sd-seedling-care.jpg',
+    title: 'Observasi Greenhouse & Sains',
+    subtitle: 'Outdoor Learning • Smart Akhlak Fitrah',
+  },
+  {
+    src: '/images/sd-hero-students.jpg',
+    title: 'Praktik Agro-Sains Terpadu',
+    subtitle: 'Mendidik dengan Keteladanan & Adab',
+  },
+];
+
 export default function UnitHeroSlider({
   slug,
   schoolName,
@@ -94,10 +112,48 @@ export default function UnitHeroSlider({
   statsCards
 }: UnitHeroSliderProps) {
   const [refCode, setRefCode] = useState<string | null>(null);
+  const [polaroidIdx, setPolaroidIdx] = useState(0);
+  const [countdown, setCountdown] = useState({ days: 62, hours: 14, minutes: 56, seconds: 22 });
 
   useEffect(() => {
     setRefCode(getStoredReferralCode());
   }, []);
+
+  // Live countdown timer for SD SPMB card
+  useEffect(() => {
+    if (slug !== 'sd') return;
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      // Target: End of Gelombang 1 (30 Dec 2026), fallback to Gelombang 2 (3 Apr 2027), fallback to Gelombang 3 (26 Jun 2027)
+      const wave1End = new Date('2026-12-30T23:59:59+07:00').getTime();
+      const wave2End = new Date('2027-04-03T23:59:59+07:00').getTime();
+      const wave3End = new Date('2027-06-26T23:59:59+07:00').getTime();
+
+      const target = now < wave1End ? wave1End : now < wave2End ? wave2End : wave3End;
+      const diff = Math.max(0, target - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      setCountdown({ days, hours, minutes, seconds });
+    };
+
+    updateTimer();
+    const timer = setInterval(updateTimer, 1000);
+    return () => clearInterval(timer);
+  }, [slug]);
+
+  // Subtle auto-cycle for polaroid photo every 6 seconds on SD
+  useEffect(() => {
+    if (slug !== 'sd') return;
+    const interval = setInterval(() => {
+      setPolaroidIdx((prev) => (prev + 1) % SD_POLAROID_PHOTOS.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [slug]);
 
   const ppdbUrl = slug === 'sd' ? '/sd/spmb/daftar' : slug === 'smp' ? '/smp/spmb/daftar' : `/ppdb/daftar?school=${slug}`;
   const waUrl = `https://wa.me/${waCenterPhone}?text=${encodeURIComponent(
@@ -202,8 +258,270 @@ export default function UnitHeroSlider({
   }, [slug]);
 
   let effectiveCtaLink = slide.primaryCtaLink || ppdbUrl;
-  if (refCode && effectiveCtaLink.includes('/ppdb/daftar')) {
+  if (refCode && (effectiveCtaLink.includes('/ppdb/daftar') || effectiveCtaLink.includes('/spmb/daftar'))) {
     effectiveCtaLink += `${effectiveCtaLink.includes('?') ? '&' : '?'}ref=${encodeURIComponent(refCode)}`;
+  }
+
+  // ============================================================================
+  // BESPOKE SD HERO LAYOUT (Polaroid Red Pushpin + Curved Wave + Floating SPMB Card)
+  // ============================================================================
+  if (slug === 'sd') {
+    const activePolaroid = SD_POLAROID_PHOTOS[polaroidIdx] || SD_POLAROID_PHOTOS[0];
+
+    return (
+      <div className="relative w-full bg-white select-none overflow-hidden">
+        {/* Top Deep Emerald Hero Area */}
+        <section className="relative w-full bg-gradient-to-b from-[#005742] via-[#00634b] to-[#00684e] text-white pt-24 sm:pt-32 lg:pt-36 pb-32 sm:pb-44 lg:pb-48 overflow-hidden">
+          {/* Subtle ambient radial glow */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-emerald-400/10 blur-3xl"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/4 right-0 w-[420px] h-[420px] rounded-full bg-teal-300/10 blur-3xl"
+          />
+
+          <div className="relative z-10 max-w-6xl xl:max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 xl:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+              {/* Left Column: Typography, Hashtags & Selengkapnya Pill */}
+              <div className="lg:col-span-7 text-left">
+                <p className="text-emerald-200/95 italic font-medium text-sm sm:text-base lg:text-[17px] mb-2.5 sm:mb-3 tracking-wide">
+                  Ahlan wa Sahlan di Official Website
+                </p>
+
+                <h1 className="text-[2.5rem] xs:text-[2.85rem] sm:text-5xl lg:text-[3.6rem] xl:text-[4rem] font-black uppercase text-white leading-[1.06] tracking-tight drop-shadow-xs">
+                  SDIT AL-AFIYAH
+                </h1>
+
+                <p className="mt-4 sm:mt-5 text-base sm:text-lg lg:text-xl text-white/95 leading-relaxed max-w-xl font-semibold">
+                  Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh.
+                </p>
+
+                {/* Hashtags Row */}
+                <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-xs sm:text-sm font-extrabold tracking-wide">
+                  <span>
+                    <span className="text-[#f59e0b]">#</span>
+                    <span className="text-white">SmartAkhlakFitrah</span>
+                  </span>
+                  <span>
+                    <span className="text-[#f59e0b]">#</span>
+                    <span className="text-white">JagoTahfidz</span>
+                  </span>
+                </div>
+
+                {/* White Pill CTA Button */}
+                <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-3">
+                  <a
+                    href="#pengumuman"
+                    className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white hover:bg-emerald-50 text-[#005c45] font-extrabold text-xs sm:text-[13px] uppercase tracking-wider shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-95"
+                  >
+                    <ArrowDownCircle className="w-4 h-4 text-[#005c45] stroke-[2.3] transition-transform duration-200 group-hover:translate-y-0.5" />
+                    <span>SELENGKAPNYA</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Stacked Polaroid Frame with Red 3D Pushpin */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end mt-2 lg:mt-0">
+                <div
+                  onClick={() => setPolaroidIdx((prev) => (prev + 1) % SD_POLAROID_PHOTOS.length)}
+                  title="Klik untuk melihat foto kegiatan murid lainnya"
+                  className="relative w-full max-w-[360px] sm:max-w-[400px] cursor-pointer group"
+                >
+                  {/* Back Stacked Polaroid Card */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-white/90 rounded-[22px] rotate-[-6deg] translate-x-2 translate-y-2 shadow-xl transition-transform duration-500 group-hover:rotate-[-8deg]"
+                  />
+
+                  {/* Main Front Polaroid Card */}
+                  <div className="relative bg-white rounded-[22px] p-3.5 sm:p-4 pb-5 sm:pb-6 shadow-[0_25px_55px_-12px_rgba(0,0,0,0.4)] rotate-[2deg] group-hover:rotate-[0.5deg] transition-all duration-500">
+                    {/* 3D Red Pushpin SVG */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute -top-5 left-1/2 -translate-x-1/2 z-20 drop-shadow-[0_6px_6px_rgba(0,0,0,0.35)]"
+                    >
+                      <svg width="34" height="42" viewBox="0 0 34 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        {/* Metallic needle */}
+                        <path d="M17 26L17 40" stroke="#94A3B8" strokeWidth="2.6" strokeLinecap="round" />
+                        <path d="M17 26L17 34" stroke="#475569" strokeWidth="2.6" strokeLinecap="round" />
+                        {/* Pin base collar */}
+                        <ellipse cx="17" cy="24" rx="9" ry="4.5" fill="#B91C1C" />
+                        {/* Pin body cylinder */}
+                        <path d="M11 11L9 23C9 25 12.5 26.5 17 26.5C21.5 26.5 25 25 25 23L23 11H11Z" fill="#DC2626" />
+                        {/* Pin top cap */}
+                        <ellipse cx="17" cy="10" rx="8.5" ry="5.5" fill="#EF4444" />
+                        {/* Glossy highlight */}
+                        <ellipse cx="14.5" cy="8.5" rx="3.5" ry="2" fill="#FCA5A5" opacity="0.75" />
+                      </svg>
+                    </div>
+
+                    {/* Photo Container */}
+                    <div className="relative rounded-xl overflow-hidden aspect-[4/3] bg-slate-100">
+                      <img
+                        src={activePolaroid.src}
+                        alt={activePolaroid.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      {/* Subtle slide dots */}
+                      <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 bg-black/35 backdrop-blur-xs px-2 py-1 rounded-full">
+                        {SD_POLAROID_PHOTOS.map((_, i) => (
+                          <span
+                            key={i}
+                            className={`h-1.5 rounded-full transition-all ${i === polaroidIdx ? 'w-4 bg-white' : 'w-1.5 bg-white/50'
+                              }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Polaroid Caption */}
+                    <div className="mt-3.5 sm:mt-4 text-center px-2">
+                      <h3 className="text-sm sm:text-[15px] font-extrabold text-slate-900 tracking-tight">
+                        {activePolaroid.title}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs font-medium text-[#00684e]/85 mt-0.5">
+                        {activePolaroid.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Smooth Curved White Wave Divider at Bottom of Hero */}
+          <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-10">
+            <svg
+              className="relative block w-full h-[65px] sm:h-[95px] lg:h-[120px]"
+              viewBox="0 0 1440 120"
+              preserveAspectRatio="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0,64 C240,12 480,108 720,88 C960,68 1200,24 1440,56 L1440,120 L0,120 Z"
+                fill="#ffffff"
+              />
+            </svg>
+          </div>
+        </section>
+
+        {/* Overlapping Floating SPMB Card */}
+        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 sm:-mt-28 lg:-mt-32 pb-8 sm:pb-12">
+          <div className="bg-white rounded-[26px] sm:rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.14)] border border-slate-100 p-5 sm:p-8 lg:p-9">
+            {/* Top Row: SPMB Title + Live Red Countdown Boxes */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+              {/* Left: Lightning Badge & Title */}
+              <div className="flex items-center gap-3.5 sm:gap-4">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-50 border border-amber-200/70 flex items-center justify-center shrink-0 shadow-2xs">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-[#f59e0b] fill-[#f59e0b]" />
+                </div>
+                <div>
+                  <div className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    SPMB T.A 2027/2028
+                  </div>
+                  <div className="text-lg sm:text-2xl font-black text-[#007a55] tracking-tight leading-tight mt-0.5">
+                    DIBUKA!
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: 4 Crimson Countdown Boxes */}
+              <div className="flex items-center gap-2 sm:gap-2.5 self-start sm:self-auto">
+                {[
+                  { value: countdown.days, label: 'Hari' },
+                  { value: countdown.hours, label: 'Jam' },
+                  { value: countdown.minutes, label: 'Menit' },
+                  { value: countdown.seconds, label: 'Detik' },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="w-[52px] sm:w-[60px] py-2 sm:py-2.5 rounded-xl bg-[#dc2626] text-white flex flex-col items-center justify-center shadow-sm"
+                  >
+                    <span className="text-base sm:text-xl font-black leading-none tracking-tight tabular-nums">
+                      {String(item.value).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] font-semibold text-white/90 mt-1">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Middle Row: 3 Pill CTA Buttons */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-7">
+              <Link
+                href={effectiveCtaLink}
+                className="w-full py-3.5 px-5 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-95"
+              >
+                <Sparkles className="w-4 h-4 shrink-0" />
+                <span>Daftar Online PPDB</span>
+              </Link>
+
+              <a
+                href="#pengumuman"
+                className="w-full py-3.5 px-5 rounded-full bg-[#f59e0b] hover:bg-[#d97706] text-white font-bold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-95"
+              >
+                <Download className="w-4 h-4 shrink-0" />
+                <span>Unduh Brosur &amp; Biaya</span>
+              </a>
+
+              <Link
+                href="/sd/program"
+                className="w-full py-3.5 px-5 rounded-full bg-[#00684e] hover:bg-[#00523d] text-white font-bold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-95"
+              >
+                <BookOpen className="w-4 h-4 shrink-0" />
+                <span>Panduan Kurikulum</span>
+              </Link>
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="border-t border-slate-100 my-5 sm:my-6" />
+
+            {/* Bottom Row: 4 Schedule Info Boxes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="bg-slate-50/90 border border-slate-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-slate-800">
+                  Masa Pendaftaran Gel. 1
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
+                  1 Oktober s/d 30 Desember 2026
+                </div>
+              </div>
+
+              <div className="bg-slate-50/90 border border-slate-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-slate-800">
+                  Gelombang 2 &amp; Observasi
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
+                  1 Jan – 3 Apr 2027 (Tes &amp; Observasi)
+                </div>
+              </div>
+
+              <div className="bg-slate-50/90 border border-slate-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-slate-800">
+                  Gelombang 3
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
+                  6 April – 26 Juni 2027
+                </div>
+              </div>
+
+              <div className="bg-slate-50/90 border border-slate-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-slate-800">
+                  Daftar Ulang &amp; Kuota
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
+                  Kuota Terbatas Hanya 2 Rombel
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
