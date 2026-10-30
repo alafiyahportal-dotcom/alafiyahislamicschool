@@ -39,6 +39,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
     sd: {
       name: 'SDIT Al-Afiyah',
       subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
+      secondaryLogoUrl: '/images/ypib-logo.png',
       logoUrl: '/images/sd-logo.png',
       badgeLetter: 'SD',
       description:
@@ -74,6 +75,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
     tk: {
       name: 'TK IT Al-Afiyah',
       subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
+      secondaryLogoUrl: null,
       logoUrl: null,
       badgeLetter: 'TK',
       description:
@@ -106,6 +108,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
     smp: {
       name: 'SMP IT Al-Afiyah',
       subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
+      secondaryLogoUrl: '/images/ypib-logo.png',
       logoUrl: '/images/smp-logo.png',
       badgeLetter: 'SMP',
       description:
@@ -142,6 +145,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
     foundation: {
       name: 'Yayasan Pendidikan Imam Bonjol',
       subheading: 'Majalengka • Jawa Barat',
+      secondaryLogoUrl: null,
       logoUrl: '/images/ypib-logo.png',
       badgeLetter: 'IB',
       description:
@@ -180,11 +184,22 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center space-x-3.5">
               {current.logoUrl ? (
-                <img
-                  src={current.logoUrl}
-                  alt={`Logo ${current.name}`}
-                  className="w-14 h-14 object-contain shrink-0 drop-shadow-sm"
-                />
+                <div className="flex items-center gap-2 shrink-0">
+                  {current.secondaryLogoUrl && (
+                    <img
+                      src={current.secondaryLogoUrl}
+                      alt="Logo Yayasan Pendidikan Imam Bonjol"
+                      className="w-12 h-12 object-contain shrink-0 drop-shadow-sm"
+                    />
+                  )}
+                  <img
+                    src={current.logoUrl}
+                    alt={`Logo ${current.name}`}
+                    className={`${
+                      current.secondaryLogoUrl ? 'w-[46px] h-[46px]' : 'w-14 h-14'
+                    } object-contain shrink-0 drop-shadow-sm`}
+                  />
+                </div>
               ) : (
                 <div className="w-12 h-12 rounded-xl luxury-gradient flex items-center justify-center text-white font-bold text-lg shadow-sm shrink-0">
                   {current.badgeLetter}
