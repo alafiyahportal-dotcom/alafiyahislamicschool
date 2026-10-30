@@ -173,7 +173,7 @@ export default function Navbar({
           homeUrl: getUnitHomeUrl('smp'),
           ppdbLink: '/smp/spmb/daftar',
           ctaText: 'Daftar SPMB Online',
-          secondaryLogoUrl: undefined,
+          secondaryLogoUrl: '/images/ypib-logo.png',
           logoUrl: '/images/smp-logo.png',
         };
       default:
@@ -406,14 +406,18 @@ export default function Navbar({
                     <img
                       src={brandConfig.secondaryLogoUrl}
                       alt="Logo Yayasan Pendidikan Imam Bonjol"
-                      className="w-9 h-9 xs:w-10 xs:h-10 sm:w-[44px] sm:h-[44px] lg:w-[50px] lg:h-[50px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
+                      className="w-8 h-8 xs:w-[34px] xs:h-[34px] sm:w-9 sm:h-9 lg:w-[40px] lg:h-[40px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
                     />
                   )}
                   {brandConfig.logoUrl && (
                     <img
                       src={brandConfig.logoUrl}
                       alt={brandConfig.title}
-                      className="w-9 h-9 xs:w-10 xs:h-10 sm:w-[46px] sm:h-[46px] lg:w-[52px] lg:h-[52px] object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm"
+                      className={`${
+                        brandConfig.secondaryLogoUrl
+                          ? 'w-[30px] h-[30px] xs:w-8 xs:h-8 sm:w-[34px] sm:h-[34px] lg:w-[38px] lg:h-[38px]'
+                          : 'w-9 h-9 xs:w-10 xs:h-10 sm:w-[44px] sm:h-[44px] lg:w-[48px] lg:h-[48px]'
+                      } object-contain shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-sm`}
                     />
                   )}
                 </div>
@@ -846,14 +850,16 @@ export default function Navbar({
                       <img
                         src={brandConfig.secondaryLogoUrl}
                         alt="Logo Yayasan Pendidikan Imam Bonjol"
-                        className="w-10 h-10 xs:w-11 xs:h-11 object-contain shrink-0"
+                        className="w-9 h-9 object-contain shrink-0"
                       />
                     )}
                     {brandConfig.logoUrl && (
                       <img
                         src={brandConfig.logoUrl}
                         alt={brandConfig.title}
-                        className="w-11 h-11 xs:w-12 xs:h-12 object-contain shrink-0"
+                        className={`${
+                          brandConfig.secondaryLogoUrl ? 'w-[34px] h-[34px]' : 'w-10 h-10'
+                        } object-contain shrink-0`}
                       />
                     )}
                   </div>
