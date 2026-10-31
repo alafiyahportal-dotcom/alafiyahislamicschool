@@ -20,9 +20,8 @@ import {
   Loader2
 } from 'lucide-react';
 import EdukaStatCards from './EdukaStatCards';
-import EdukaSplineChart from './EdukaSplineChart';
+import EdukaBarChart from './EdukaBarChart';
 import EdukaDonutChart from './EdukaDonutChart';
-import EdukaUnitTable from './EdukaUnitTable';
 import EdukaRecentStudents from './EdukaRecentStudents';
 import UnitVisitorStatsCards from '@/components/shared/UnitVisitorStatsCards';
 import { SchoolUnitKey } from '@/services/visitor-counter.service';
@@ -307,15 +306,12 @@ export default function FoundationDashboardClient({
         subtitle={!isFoundation ? `Data riil dan otentik pengunjung halaman resmi ${schoolName} (Khusus Unit Mandiri)` : 'Data riil dan otentik pengunjung masing-masing unit pendidikan dan portal yayasan (terpisah mandiri)'}
       />
 
-      {/* 2. MIDDLE ROW: COURSES / UNIT SEKOLAH (7 COLS) & INTERACTIVE SPLINE CHART (5 COLS) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-7 flex flex-col">
-          <EdukaUnitTable schools={schools} schoolSlug={currentSchoolSlug} />
-        </div>
-        <div className="lg:col-span-5 flex flex-col">
-          <EdukaSplineChart applicants={filteredApplicants} schoolSlug={currentSchoolSlug} />
-        </div>
-      </div>
+      {/* 2. MIDDLE ROW: INTERACTIVE BAR CHART (DIAGRAM BATANG PENDAFTARAN) */}
+      <EdukaBarChart
+        applicants={filteredApplicants}
+        schoolSlug={currentSchoolSlug}
+        targetQuota={currentSchoolTargetQuota}
+      />
 
       {/* 3. THIRD ROW: RECENT STUDENTS PARTICIPATION (7 COLS) & DONUT DISTRIBUTION (5 COLS) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
