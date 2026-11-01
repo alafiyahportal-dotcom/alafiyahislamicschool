@@ -304,172 +304,282 @@ export default function AdminSidebar({
         selectFocus: 'focus:border-emerald-500',
       };
 
-  const renderSidebarContent = (isMobileDrawer: boolean) => (
-    <div className="flex flex-col h-full justify-between min-h-0 bg-white">
-      <div className="flex flex-col flex-1 min-h-0">
-        {/* Clean Unified Unit Header - No redundant alafiyah YPIB or repeated words */}
-        <div className="h-16 sm:h-20 flex-shrink-0 flex items-center justify-between px-5 border-b border-slate-100 bg-white gap-3">
-          <div className="flex items-center space-x-3 min-w-0">
-            {schoolSlug === 'smp' ? (
-              <img
-                src="/images/smp-logo.png"
-                alt="Logo SMP IT Al-Afiyah"
-                className="w-10 h-10 object-contain shrink-0"
-              />
-            ) : schoolSlug === 'sd' ? (
-              <img
-                src="/images/sd-logo.png"
-                alt="Logo SDIT Al-Afiyah"
-                className="w-10 h-10 object-contain shrink-0"
-              />
-            ) : (
-              <img
-                src="/images/ypib-logo.png"
-                alt="Logo Yayasan Pendidikan Imam Bonjol"
-                className="w-10 h-10 object-contain shrink-0"
-              />
-            )}
+  const renderSidebarContent = (isMobileDrawer: boolean) => {
+    if (isSd) {
+      return (
+        <div className="flex flex-col h-full justify-between min-h-0 bg-[#064E3B] text-white">
+          <div className="flex flex-col flex-1 min-h-0">
+            {/* SDIT Deep Forest Green Centered Header */}
+            <div className="relative pt-7 pb-5 px-5 flex flex-col items-center text-center border-b border-white/10">
+              {isMobileDrawer && (
+                <button
+                  type="button"
+                  onClick={() => setIsMobileOpen(false)}
+                  aria-label="Tutup Navigasi"
+                  className="absolute right-4 top-4 p-1.5 text-emerald-200 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
 
-            <div className="min-w-0">
-              <h2 className="text-sm font-bold text-slate-900 tracking-tight truncate leading-tight">
-                {schoolSlug === 'tk'
-                  ? 'TK IT Al-Afiyah'
-                  : schoolSlug === 'sd'
-                  ? 'SDIT Al-Afiyah'
-                  : schoolSlug === 'smp'
-                  ? 'SMP IT Al-Afiyah'
-                  : schoolName || 'Yayasan Al-Afiyah'}
+              <div className="group w-14 h-14 rounded-full bg-white p-2 shadow-lg shadow-black/20 flex items-center justify-center transition-transform duration-500 hover:scale-110 hover:rotate-6">
+                <img
+                  src="/images/sd-logo.png"
+                  alt="Logo SDIT Al-Afiyah"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
+              <h2 className="mt-3 text-base font-extrabold text-white tracking-tight">
+                SDIT Al-Afiyah
               </h2>
-              <p className="text-[10px] text-slate-400 font-medium truncate mt-0.5">
-                {currentRole === 'FINANCE'
-                  ? 'Portal Keuangan'
-                  : currentRole === 'PPDB_OFFICER'
-                  ? 'Panitia SPMB'
-                  : 'Portal Administrasi'}
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#A3E635] mt-0.5">
+                PANEL ADMIN
               </p>
             </div>
+
+            {/* Navigation Items */}
+            <nav className="p-3.5 space-y-1.5 flex-1 min-h-0 overflow-y-auto overscroll-contain">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <React.Fragment key={item.name}>
+                    {'sectionLabel' in item && item.sectionLabel && (
+                      <div className="pt-3 pb-1 px-3 flex items-center gap-2">
+                        <div className="flex-1 h-px bg-white/10" />
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-300/70 whitespace-nowrap">
+                          {item.sectionLabel}
+                        </span>
+                        <div className="flex-1 h-px bg-white/10" />
+                      </div>
+                    )}
+                    <Link
+                      href={item.href}
+                      prefetch={false}
+                      onClick={() => {
+                        if (isMobileDrawer) setIsMobileOpen(false);
+                      }}
+                      className={`group relative flex items-center justify-between px-4 py-3 rounded-2xl text-xs transition-all duration-300 ${
+                        item.active
+                          ? 'bg-white text-[#064E3B] font-extrabold shadow-lg shadow-black/15 scale-[1.01]'
+                          : 'text-emerald-100/90 font-semibold hover:text-white hover:bg-white/12 hover:translate-x-1.5'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-3 truncate">
+                        <Icon
+                          className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+                            item.active
+                              ? 'text-[#064E3B]'
+                              : 'text-emerald-300 group-hover:text-[#A3E635]'
+                          }`}
+                        />
+                        <span className="truncate">
+                          {item.name === 'Dashboard' ? 'Overview' : item.name}
+                        </span>
+                      </div>
+
+                      {'badge' in item && item.badge && (
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold flex-shrink-0 ${
+                            item.active
+                              ? 'bg-[#064E3B] text-white'
+                              : 'bg-[#A3E635] text-[#064E3B]'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </Link>
+                  </React.Fragment>
+                );
+              })}
+            </nav>
           </div>
 
-          {isMobileDrawer && (
+          {/* Bottom User & Logout Section */}
+          <div className="flex-shrink-0 p-4 border-t border-white/10 bg-[#053F30]">
             <button
               type="button"
-              onClick={() => setIsMobileOpen(false)}
-              aria-label="Tutup Navigasi"
-              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg cursor-pointer"
+              onClick={handleLogout}
+              className="group w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-left hover:bg-white/10 transition-all duration-300 cursor-pointer"
             >
-              <X className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-full bg-slate-950/80 border border-white/15 flex items-center justify-center text-white font-extrabold text-xs shrink-0 transition-transform duration-300 group-hover:scale-110">
+                {(userName || 'A')[0].toUpperCase()}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-extrabold text-white truncate group-hover:text-[#A3E635] transition-colors">
+                  Keluar / Logout
+                </p>
+                <p className="text-[10px] text-emerald-200/75 truncate">
+                  {userName}
+                </p>
+              </div>
+              <LogOut className="w-4 h-4 text-emerald-200 group-hover:text-rose-300 group-hover:translate-x-0.5 transition-all shrink-0" />
             </button>
-          )}
-        </div>
-
-        {/* Optional Superadmin Switcher (Shown cleanly only for Superadmin) */}
-        {isFoundation && currentRole === 'SUPERADMIN' && (
-          <div className="flex-shrink-0 px-4 py-2.5 bg-slate-50/70 border-b border-slate-100">
-            <div className="relative">
-              <select
-                value={schoolSlug}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val === 'foundation') router.push('/admin/foundation');
-                  else router.push(`/admin/${val}/dashboard`);
-                  if (isMobileDrawer) setIsMobileOpen(false);
-                }}
-                aria-label="Pilih Unit Sekolah"
-                className={`w-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none ${sidebarTheme.selectFocus} cursor-pointer shadow-2xs`}
-              >
-                <option value="foundation">Yayasan Pusat</option>
-                <option value="tk">TK IT Al-Afiyah</option>
-                <option value="sd">SDIT Al-Afiyah</option>
-                <option value="smp">SMP IT Al-Afiyah</option>
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
-            </div>
           </div>
-        )}
-        {/* Navigation Items (Scrollable Middle Section) */}
-        <nav className="p-3 space-y-0.5 flex-1 min-h-0 overflow-y-auto overscroll-contain">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <React.Fragment key={item.name}>
-                {/* Section Divider Label (e.g. SIAKAD — Akademik) */}
-                {'sectionLabel' in item && item.sectionLabel && (
-                  <div className="pt-3 pb-1 px-4 flex items-center gap-2">
-                    <div className="flex-1 h-px bg-slate-100" />
-                    <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 whitespace-nowrap">
-                      {item.sectionLabel}
-                    </span>
-                    <div className="flex-1 h-px bg-slate-100" />
-                  </div>
-                )}
-                <Link
-                  href={item.href}
-                  prefetch={false}
-                  onClick={() => {
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex flex-col h-full justify-between min-h-0 bg-white">
+        <div className="flex flex-col flex-1 min-h-0">
+          {/* Clean Unified Unit Header - No redundant alafiyah YPIB or repeated words */}
+          <div className="h-16 sm:h-20 flex-shrink-0 flex items-center justify-between px-5 border-b border-slate-100 bg-white gap-3">
+            <div className="flex items-center space-x-3 min-w-0">
+              {schoolSlug === 'smp' ? (
+                <img
+                  src="/images/smp-logo.png"
+                  alt="Logo SMP IT Al-Afiyah"
+                  className="w-10 h-10 object-contain shrink-0"
+                />
+              ) : (
+                <img
+                  src="/images/ypib-logo.png"
+                  alt="Logo Yayasan Pendidikan Imam Bonjol"
+                  className="w-10 h-10 object-contain shrink-0"
+                />
+              )}
+
+              <div className="min-w-0">
+                <h2 className="text-sm font-bold text-slate-900 tracking-tight truncate leading-tight">
+                  {schoolSlug === 'tk'
+                    ? 'TK IT Al-Afiyah'
+                    : schoolSlug === 'smp'
+                    ? 'SMP IT Al-Afiyah'
+                    : schoolName || 'Yayasan Al-Afiyah'}
+                </h2>
+                <p className="text-[10px] text-slate-400 font-medium truncate mt-0.5">
+                  {currentRole === 'FINANCE'
+                    ? 'Portal Keuangan'
+                    : currentRole === 'PPDB_OFFICER'
+                    ? 'Panitia SPMB'
+                    : 'Portal Administrasi'}
+                </p>
+              </div>
+            </div>
+
+            {isMobileDrawer && (
+              <button
+                type="button"
+                onClick={() => setIsMobileOpen(false)}
+                aria-label="Tutup Navigasi"
+                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+
+          {/* Optional Superadmin Switcher (Shown cleanly only for Superadmin) */}
+          {isFoundation && currentRole === 'SUPERADMIN' && (
+            <div className="flex-shrink-0 px-4 py-2.5 bg-slate-50/70 border-b border-slate-100">
+              <div className="relative">
+                <select
+                  value={schoolSlug}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === 'foundation') router.push('/admin/foundation');
+                    else router.push(`/admin/${val}/dashboard`);
                     if (isMobileDrawer) setIsMobileOpen(false);
                   }}
-                  className={`relative flex items-center justify-between px-4 py-2.5 rounded-xl text-xs transition-all duration-200 ${
-                    item.active
-                      ? `${sidebarTheme.activeText} ${sidebarTheme.activeBg}`
-                      : `text-slate-600 font-medium ${sidebarTheme.hoverClass}`
-                  }`}
+                  aria-label="Pilih Unit Sekolah"
+                  className={`w-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 pr-7 appearance-none focus:outline-none ${sidebarTheme.selectFocus} cursor-pointer shadow-2xs`}
                 >
-                  {/* Eduka Active Indicator: Vertical Bar on far-left */}
-                  {item.active && (
-                    <span className={`absolute left-0 top-2 bottom-2 w-1 ${sidebarTheme.activeBar} rounded-r-full`} />
+                  <option value="foundation">Yayasan Pusat</option>
+                  <option value="tk">TK IT Al-Afiyah</option>
+                  <option value="sd">SDIT Al-Afiyah</option>
+                  <option value="smp">SMP IT Al-Afiyah</option>
+                </select>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
+              </div>
+            </div>
+          )}
+          {/* Navigation Items (Scrollable Middle Section) */}
+          <nav className="p-3 space-y-0.5 flex-1 min-h-0 overflow-y-auto overscroll-contain">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <React.Fragment key={item.name}>
+                  {/* Section Divider Label (e.g. SIAKAD — Akademik) */}
+                  {'sectionLabel' in item && item.sectionLabel && (
+                    <div className="pt-3 pb-1 px-4 flex items-center gap-2">
+                      <div className="flex-1 h-px bg-slate-100" />
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 whitespace-nowrap">
+                        {item.sectionLabel}
+                      </span>
+                      <div className="flex-1 h-px bg-slate-100" />
+                    </div>
                   )}
+                  <Link
+                    href={item.href}
+                    prefetch={false}
+                    onClick={() => {
+                      if (isMobileDrawer) setIsMobileOpen(false);
+                    }}
+                    className={`relative flex items-center justify-between px-4 py-2.5 rounded-xl text-xs transition-all duration-200 ${
+                      item.active
+                        ? `${sidebarTheme.activeText} ${sidebarTheme.activeBg}`
+                        : `text-slate-600 font-medium ${sidebarTheme.hoverClass}`
+                    }`}
+                  >
+                    {/* Eduka Active Indicator: Vertical Bar on far-left */}
+                    {item.active && (
+                      <span className={`absolute left-0 top-2 bottom-2 w-1 ${sidebarTheme.activeBar} rounded-r-full`} />
+                    )}
 
-                  <div className="flex items-center space-x-3 truncate">
-                    <Icon
-                      className={`w-4 h-4 flex-shrink-0 transition-colors ${
-                        item.active ? sidebarTheme.activeIcon : 'text-slate-400'
-                      }`}
-                    />
-                    <span className="truncate">{item.name}</span>
-                  </div>
+                    <div className="flex items-center space-x-3 truncate">
+                      <Icon
+                        className={`w-4 h-4 flex-shrink-0 transition-colors ${
+                          item.active ? sidebarTheme.activeIcon : 'text-slate-400'
+                        }`}
+                      />
+                      <span className="truncate">{item.name}</span>
+                    </div>
 
-                  {/* Badge if any */}
-                  {'badge' in item && item.badge && (
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex-shrink-0 ${sidebarTheme.badgeClass}`}>
-                      {item.badge}
-                    </span>
-                  )}
-                </Link>
-              </React.Fragment>
-            );
-          })}
-        </nav>
-      </div>
+                    {/* Badge if any */}
+                    {'badge' in item && item.badge && (
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex-shrink-0 ${sidebarTheme.badgeClass}`}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                </React.Fragment>
+              );
+            })}
+          </nav>
+        </div>
 
-      {/* Bottom Section: Support & User Info / Logout (Pinned at bottom, never lost below!) */}
-      <div className="flex-shrink-0 p-4 border-t border-slate-100 bg-white space-y-2">
-        <a
-          href="https://wa.me/6282123456789"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center space-x-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
-        >
-          <HelpCircle className="w-4 h-4 text-slate-400" />
-          <span>Bantuan &amp; Dukungan IT</span>
-        </a>
-
-        <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-          <div className="truncate pr-2">
-            <p className="text-xs font-bold text-slate-900 truncate">{userName}</p>
-            <p className="text-[10px] text-slate-400 uppercase font-medium truncate">{currentRole}</p>
-          </div>
-          <button
-            onClick={handleLogout}
-            title="Keluar dari sesi"
-            aria-label="Keluar dari sesi"
-            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer flex-shrink-0"
+        {/* Bottom Section: Support & User Info / Logout (Pinned at bottom, never lost below!) */}
+        <div className="flex-shrink-0 p-4 border-t border-slate-100 bg-white space-y-2">
+          <a
+            href="https://wa.me/6282123456789"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
           >
-            <LogOut className="w-4 h-4" />
-          </button>
+            <HelpCircle className="w-4 h-4 text-slate-400" />
+            <span>Bantuan &amp; Dukungan IT</span>
+          </a>
+
+          <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <div className="truncate pr-2">
+              <p className="text-xs font-bold text-slate-900 truncate">{userName}</p>
+              <p className="text-[10px] text-slate-400 uppercase font-medium truncate">{currentRole}</p>
+            </div>
+            <button
+              onClick={handleLogout}
+              title="Keluar dari sesi"
+              aria-label="Keluar dari sesi"
+              className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer flex-shrink-0"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <>

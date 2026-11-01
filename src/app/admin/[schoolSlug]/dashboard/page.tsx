@@ -61,7 +61,7 @@ export default async function SchoolUnitAdminPage({
     });
   });
 
-  const targetQuota = schoolSlug === 'tk' ? 50 : schoolSlug === 'sd' ? 90 : 120;
+  const targetQuota = schoolSlug === 'tk' ? 50 : schoolSlug === 'sd' ? 60 : 120;
 
   const schoolStat = [
     {

@@ -23,6 +23,7 @@ import EdukaStatCards from './EdukaStatCards';
 import EdukaBarChart from './EdukaBarChart';
 import EdukaDonutChart from './EdukaDonutChart';
 import EdukaRecentStudents from './EdukaRecentStudents';
+import SdBentoDashboard from './SdBentoDashboard';
 import UnitVisitorStatsCards from '@/components/shared/UnitVisitorStatsCards';
 import { SchoolUnitKey } from '@/services/visitor-counter.service';
 import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
@@ -291,44 +292,65 @@ export default function FoundationDashboardClient({
 
   return (
     <div className="space-y-8">
-      {/* 1. TOP ROW: 4 VIBRANT GRADIENT EDUKA STAT CARDS */}
-      <EdukaStatCards
-        stats={stats}
-        totalTeachers={totalTeachers ?? 0}
-        targetQuota={currentSchoolTargetQuota}
-        schoolSlug={currentSchoolSlug}
-      />
+      {currentSchoolSlug === 'sd' ? (
+        <>
+          <SdBentoDashboard
+            stats={stats}
+            applicants={filteredApplicants}
+            targetQuota={currentSchoolTargetQuota}
+            onStatusChange={handleStatusChange}
+            isUpdating={isUpdating}
+          />
 
-      {/* VISITOR COUNTER STATS FOR ACTIVE UNIT */}
-      <UnitVisitorStatsCards
-        unitFilter={!isFoundation ? (currentSchoolSlug as SchoolUnitKey) : undefined}
-        title={!isFoundation ? `Statistik Pengunjung Website ${schoolName}` : 'Statistik Kunjungan Pengunjung Website per Unit'}
-        subtitle={!isFoundation ? `Data riil dan otentik pengunjung halaman resmi ${schoolName} (Khusus Unit Mandiri)` : 'Data riil dan otentik pengunjung masing-masing unit pendidikan dan portal yayasan (terpisah mandiri)'}
-      />
-
-      {/* 2. MIDDLE ROW: INTERACTIVE BAR CHART (DIAGRAM BATANG PENDAFTARAN) */}
-      <EdukaBarChart
-        applicants={filteredApplicants}
-        schoolSlug={currentSchoolSlug}
-        targetQuota={currentSchoolTargetQuota}
-      />
-
-      {/* 3. THIRD ROW: RECENT STUDENTS PARTICIPATION (7 COLS) & DONUT DISTRIBUTION (5 COLS) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-7 flex flex-col">
-          <EdukaRecentStudents applicants={applicants} schoolSlug={currentSchoolSlug} />
-        </div>
-        <div className="lg:col-span-5 flex flex-col">
-          <EdukaDonutChart
-            totalStudents={filteredApplicants.length}
+          {/* VISITOR COUNTER STATS FOR SDIT */}
+          <UnitVisitorStatsCards
+            unitFilter="sd"
+            title={`Statistik Pengunjung Website ${schoolName}`}
+            subtitle={`Data riil dan otentik pengunjung halaman resmi ${schoolName} (Khusus Unit Mandiri)`}
+          />
+        </>
+      ) : (
+        <>
+          {/* 1. TOP ROW: 4 VIBRANT GRADIENT EDUKA STAT CARDS */}
+          <EdukaStatCards
+            stats={stats}
             totalTeachers={totalTeachers ?? 0}
-            totalParents={distinctParentsCount}
-            totalAffiliates={stats.totalAffiliates || 0}
             targetQuota={currentSchoolTargetQuota}
             schoolSlug={currentSchoolSlug}
           />
-        </div>
-      </div>
+
+          {/* VISITOR COUNTER STATS FOR ACTIVE UNIT */}
+          <UnitVisitorStatsCards
+            unitFilter={!isFoundation ? (currentSchoolSlug as SchoolUnitKey) : undefined}
+            title={!isFoundation ? `Statistik Pengunjung Website ${schoolName}` : 'Statistik Kunjungan Pengunjung Website per Unit'}
+            subtitle={!isFoundation ? `Data riil dan otentik pengunjung halaman resmi ${schoolName} (Khusus Unit Mandiri)` : 'Data riil dan otentik pengunjung masing-masing unit pendidikan dan portal yayasan (terpisah mandiri)'}
+          />
+
+          {/* 2. MIDDLE ROW: INTERACTIVE BAR CHART (DIAGRAM BATANG PENDAFTARAN) */}
+          <EdukaBarChart
+            applicants={filteredApplicants}
+            schoolSlug={currentSchoolSlug}
+            targetQuota={currentSchoolTargetQuota}
+          />
+
+          {/* 3. THIRD ROW: RECENT STUDENTS PARTICIPATION (7 COLS) & DONUT DISTRIBUTION (5 COLS) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div className="lg:col-span-7 flex flex-col">
+              <EdukaRecentStudents applicants={applicants} schoolSlug={currentSchoolSlug} />
+            </div>
+            <div className="lg:col-span-5 flex flex-col">
+              <EdukaDonutChart
+                totalStudents={filteredApplicants.length}
+                totalTeachers={totalTeachers ?? 0}
+                totalParents={distinctParentsCount}
+                totalAffiliates={stats.totalAffiliates || 0}
+                targetQuota={currentSchoolTargetQuota}
+                schoolSlug={currentSchoolSlug}
+              />
+            </div>
+          </div>
+        </>
+      )}
 
       {/* 4. DETAIL REGISTRATIONS TABLE & STATUS MANAGEMENT CONSOLE */}
       <div id="pendaftar" className="bg-white rounded-[24px] p-6 sm:p-7 border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between relative overflow-hidden">
