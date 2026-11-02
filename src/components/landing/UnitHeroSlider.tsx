@@ -590,14 +590,9 @@ export default function UnitHeroSlider({
 
           <div className="relative z-10 max-w-6xl xl:max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 xl:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-              {/* Left Column: Typography, Accreditation Pill, Hashtags & Selengkapnya Pill */}
+              {/* Left Column: Typography, Hashtags & Selengkapnya Pill */}
               <div className="lg:col-span-7 text-left">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-[#ffd51e]/35 text-[11px] sm:text-xs font-extrabold tracking-wider text-[#ffd51e] uppercase mb-3 backdrop-blur-xs">
-                  <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
-                  <span>TERAKREDITASI A RESMI • SK BAN-PDM 2025</span>
-                </div>
-
-                <p className="text-blue-200/95 italic font-medium text-sm sm:text-base lg:text-[17px] mb-2 tracking-wide">
+                <p className="text-blue-200/95 italic font-medium text-sm sm:text-base lg:text-[17px] mb-2.5 sm:mb-3 tracking-wide">
                   Ahlan wa Sahlan di Official Website
                 </p>
 
