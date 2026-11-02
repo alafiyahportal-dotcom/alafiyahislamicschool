@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function SdLandingPage() {
   let dbSchool = null;
@@ -312,11 +313,23 @@ export default async function SdLandingPage() {
           }
         ],
     teachers: rawTeachers,
-    newsPosts: (dbSchool?.newsPosts && dbSchool.newsPosts.length > 0) ? dbSchool.newsPosts : defaultSdNewsPosts,
+    newsPosts: (dbSchool?.newsPosts && dbSchool.newsPosts.length > 0
+      ? dbSchool.newsPosts
+      : defaultSdNewsPosts
+    ).filter(
+      (p) =>
+        !p.slug?.toLowerCase().includes('juara-mhq-juz-30') &&
+        !p.title?.toLowerCase().includes('tiga murid sdit') &&
+        !p.author?.toLowerCase().includes('kordinator tahfidz sdit')
+    ),
     newsCategories: Array.isArray(sectionsMap.news_config?.categories)
       ? sectionsMap.news_config.categories
       : undefined,
-    achievements,
+    achievements: (achievements || []).filter(
+      (ach) =>
+        !ach.title?.toLowerCase().includes('mhq juz 30 tingkat kabupaten') &&
+        !ach.studentName?.toLowerCase().includes('tiga murid sdit')
+    ),
   };
 
   return (

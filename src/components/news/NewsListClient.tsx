@@ -73,30 +73,45 @@ export default function NewsListClient({
   const isSmp = schoolSlug === 'smp';
   const isSd = schoolSlug === 'sd';
 
+  const cleanArticles = useMemo(() => {
+    return (initialArticles || []).filter((art) => {
+      const t = (art.title || '').toLowerCase();
+      const s = (art.slug || '').toLowerCase();
+      const a = (art.author || '').toLowerCase();
+      return !(
+        art.id === 'sd-warta-2' ||
+        s.includes('juara-mhq-juz-30') ||
+        t.includes('tiga murid sdit') ||
+        t.includes('mhq juz 30 tingkat kabupaten') ||
+        a.includes('kordinator tahfidz sdit')
+      );
+    });
+  }, [initialArticles]);
+
   // Synchronized Categories: combines school's configured categories + categories present in articles
   const categories = useMemo(() => {
     const base =
       initialCategories && initialCategories.length > 0
         ? initialCategories
         : DEFAULT_NEWS_CATEGORIES;
-    const fromArticles = initialArticles
+    const fromArticles = cleanArticles
       .map((a) => (a.category || '').trim())
       .filter(Boolean);
     return ['Semua', ...mergeUniqueStrings(base, fromArticles)];
-  }, [initialCategories, initialArticles]);
+  }, [initialCategories, cleanArticles]);
 
   // Count articles per category for badge display
   const categoryCountMap = useMemo(() => {
-    const map: Record<string, number> = { Semua: initialArticles.length };
+    const map: Record<string, number> = { Semua: cleanArticles.length };
     for (const cat of categories) {
       if (cat === 'Semua') continue;
       const lower = cat.trim().toLowerCase();
-      map[cat] = initialArticles.filter(
+      map[cat] = cleanArticles.filter(
         (art) => (art.category || '').trim().toLowerCase() === lower
       ).length;
     }
     return map;
-  }, [categories, initialArticles]);
+  }, [categories, cleanArticles]);
 
   // Helper to resolve all media slides for an article (Slide #1 is always Cover Image)
   const getArticleMediaList = (art: NewsArticle): NewsMediaItem[] => {
@@ -216,7 +231,7 @@ export default function NewsListClient({
   }, [categories]);
 
   const filteredArticles = useMemo(() => {
-    return initialArticles.filter((article) => {
+    return cleanArticles.filter((article) => {
       const artCat = (article.category || '').trim().toLowerCase();
       const selCat = selectedCategory.trim().toLowerCase();
 
@@ -233,7 +248,7 @@ export default function NewsListClient({
 
       return matchesCategory && matchesQuery;
     });
-  }, [initialArticles, selectedCategory, searchQuery]);
+  }, [cleanArticles, selectedCategory, searchQuery]);
 
   const handleShare = (art: NewsArticle) => {
     if (typeof navigator !== 'undefined' && navigator.share) {

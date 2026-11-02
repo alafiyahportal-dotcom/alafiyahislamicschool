@@ -10,7 +10,8 @@ import { Newspaper } from 'lucide-react';
 import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES } from '@/lib/news-media';
 import { getGlobalNewsCategories } from '@/lib/news-config-server';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Warta & Kajian Islam Al-Afiyah | Berita, Prestasi & Artikel Edukasi',
@@ -412,7 +413,14 @@ export default async function BeritaPage({
     newsCategories = globalCats;
 
     if (dbPosts && dbPosts.length > 0) {
-      articles = dbPosts.map((p) => {
+      articles = dbPosts
+        .filter(
+          (p) =>
+            !p.slug?.toLowerCase().includes('juara-mhq-juz-30') &&
+            !p.title?.toLowerCase().includes('tiga murid sdit') &&
+            !p.author?.toLowerCase().includes('kordinator tahfidz sdit')
+        )
+        .map((p) => {
         const parsed = parseNewsMedia(p.content, p.coverImage);
         return {
           id: p.id,

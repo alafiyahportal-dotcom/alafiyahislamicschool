@@ -24,13 +24,47 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+function isDummyMhqArticle(item: {
+  id?: string;
+  title?: string | null;
+  slug?: string | null;
+  author?: string | null;
+  studentName?: string | null;
+}): boolean {
+  const t = (item.title || '').toLowerCase();
+  const s = (item.slug || '').toLowerCase();
+  const a = (item.author || '').toLowerCase();
+  const st = (item.studentName || '').toLowerCase();
+  return (
+    item.id === 'sd-warta-2' ||
+    s.includes('juara-mhq-juz-30') ||
+    t.includes('tiga murid sdit') ||
+    t.includes('mhq juz 30 tingkat kabupaten') ||
+    t.includes('raih juara mhq') ||
+    a.includes('kordinator tahfidz sdit') ||
+    st.includes('tiga murid sdit')
+  );
+}
 
 export default async function SdNewsPage() {
   let articles: NewsArticle[] = [];
   let newsCategories: string[] = DEFAULT_NEWS_CATEGORIES;
 
   try {
+    // Hapus permanen jika ada sisa data dummy AI MHQ di database
+    await prisma.newsPost.deleteMany({
+      where: {
+        OR: [
+          { slug: { contains: 'juara-mhq-juz-30', mode: 'insensitive' } },
+          { title: { contains: 'Tiga Murid SDIT Al-Afiyah Raih Juara MHQ', mode: 'insensitive' } },
+          { author: { contains: 'Kordinator Tahfidz SDIT', mode: 'insensitive' } },
+        ],
+      },
+    }).catch(() => {});
+
     const [sdSchool, dbPosts, dbAchievements] = await Promise.all([
       prisma.school.findUnique({
         where: { slug: 'sd' },
@@ -57,11 +91,7 @@ export default async function SdNewsPage() {
     }
 
     const postArticles: NewsArticle[] = (dbPosts || [])
-      .filter(
-        (p) =>
-          !p.slug?.includes('juara-mhq-juz-30') &&
-          !p.title?.toLowerCase().includes('tiga murid sdit al-afiyah raih juara mhq')
-      )
+      .filter((p) => !isDummyMhqArticle(p))
       .map((p) => {
         const parsed = parseNewsMedia(p.content, p.coverImage);
         return {
