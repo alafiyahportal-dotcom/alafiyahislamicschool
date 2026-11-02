@@ -62,28 +62,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Target upload directory: /public/uploads/ppdb/
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'ppdb');
-    await mkdir(uploadDir, { recursive: true });
-
     // Generate safe UUID-based filename derived from verified extension
     const finalFileName = generateSafeFileName(safeDocType, verified.ext);
-    const filePath = path.join(uploadDir, finalFileName);
+    let publicUrl = `/uploads/ppdb/${finalFileName}`;
 
-    // 🔒 Path Traversal Prevention (Point 5)
-    const normalizedUploadDir = path.resolve(uploadDir);
-    const normalizedFilePath = path.resolve(filePath);
-    if (!normalizedFilePath.startsWith(normalizedUploadDir)) {
-      return NextResponse.json(
-        { success: false, error: 'Deteksi pelanggaran jalur penyimpanan berkas (Path Traversal).' },
-        { status: 403 }
-      );
+    try {
+      // Target upload directory: /public/uploads/ppdb/
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'ppdb');
+      await mkdir(uploadDir, { recursive: true });
+      const filePath = path.join(uploadDir, finalFileName);
+
+      // 🔒 Path Traversal Prevention (Point 5)
+      const normalizedUploadDir = path.resolve(uploadDir);
+      const normalizedFilePath = path.resolve(filePath);
+      if (!normalizedFilePath.startsWith(normalizedUploadDir)) {
+        return NextResponse.json(
+          { success: false, error: 'Deteksi pelanggaran jalur penyimpanan berkas (Path Traversal).' },
+          { status: 403 }
+        );
+      }
+
+      // Write file to disk
+      await writeFile(filePath, buffer);
+    } catch (fsError) {
+      console.warn('PPDB upload filesystem read-only, using Base64 fallback:', fsError);
+      publicUrl = `data:${verified.mime};base64,${buffer.toString('base64')}`;
     }
-
-    // Write file to disk
-    await writeFile(filePath, buffer);
-
-    const publicUrl = `/uploads/ppdb/${finalFileName}`;
 
     return NextResponse.json({
       success: true,

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import confetti from 'canvas-confetti';
 import { 
@@ -12,13 +12,45 @@ import {
   Copy,
   MessageCircle,
   Loader2,
-  ExternalLink
+  ExternalLink,
+  Upload,
+  FileText,
+  CheckCircle2
 } from 'lucide-react';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
+import { convertHeicIfNeeded } from '@/lib/image-compress';
 import IslamicToast from '@/components/common/IslamicToast';
 
+type DocKey = 'IJAZAH' | 'FOTO' | 'AKTA' | 'KK';
+
+const REQUIRED_DOCS_LIST: {
+  key: DocKey;
+  title: string;
+  subtitle: string;
+}[] = [
+  {
+    key: 'IJAZAH',
+    title: 'FC Ijazah / Ket. Tamat TK/RA',
+    subtitle: '1 Lembar (Bisa disusulkan)',
+  },
+  {
+    key: 'FOTO',
+    title: 'Pas Photo 3x4 (2 Lembar)',
+    subtitle: 'Berwarna (Bisa disusulkan)',
+  },
+  {
+    key: 'AKTA',
+    title: 'FC Akta Kelahiran',
+    subtitle: '2 Lembar (Bisa disusulkan)',
+  },
+  {
+    key: 'KK',
+    title: 'FC Kartu Keluarga (KK)',
+    subtitle: '2 Lembar (Bisa disusulkan)',
+  },
+];
+
 export default function SdRegistrationClient() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const initialRef = searchParams.get('ref') || searchParams.get('referral') || '';
 
@@ -26,6 +58,12 @@ export default function SdRegistrationClient() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [copiedBank, setCopiedBank] = useState(false);
+  const [deferDocsLater, setDeferDocsLater] = useState(false);
+  const [uploadingDocType, setUploadingDocType] = useState<DocKey | null>(null);
+  const [uploadedFiles, setUploadedFiles] = useState<
+    Partial<Record<DocKey, { fileName: string; fileUrl: string; size: number }>>
+  >({});
+
   const [regResult, setRegResult] = useState<{
     registrationNo: string;
     studentName: string;
@@ -46,7 +84,7 @@ export default function SdRegistrationClient() {
     message: '',
   });
 
-  // Formulir Pokok Sederhana (Hanya Data Dasar Saja)
+  // Formulir Pokok Sederhana + Berkas Utama
   const [formData, setFormData] = useState({
     schoolSlug: 'sd',
     admissionTrack: 'REGULER',
@@ -63,7 +101,7 @@ export default function SdRegistrationClient() {
     address: '',
   });
 
-  // Silent Referral Detection - Tanpa menampilkan kode rujukan di UI
+  // Silent Referral Detection
   useEffect(() => {
     const qRef = searchParams.get('ref') || searchParams.get('referral') || initialRef;
     let found = qRef ? saveReferralCode(qRef) : null;
@@ -82,6 +120,44 @@ export default function SdRegistrationClient() {
     navigator.clipboard.writeText(bankNumber);
     setCopiedBank(true);
     setTimeout(() => setCopiedBank(false), 2000);
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, docType: DocKey) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingDocType(docType);
+    setErrorMessage('');
+
+    try {
+      const processedFile = await convertHeicIfNeeded(file);
+      const body = new FormData();
+      body.append('file', processedFile);
+      body.append('docType', docType);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body,
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setUploadedFiles((prev) => ({
+          ...prev,
+          [docType]: {
+            fileName: file.name || data.fileName,
+            fileUrl: data.fileUrl,
+            size: data.fileSize || file.size,
+          },
+        }));
+        setDeferDocsLater(false);
+      } else {
+        setErrorMessage(data.error || 'Gagal mengunggah berkas');
+      }
+    } catch {
+      setErrorMessage('Terjadi gangguan jaringan saat mengunggah berkas');
+    } finally {
+      setUploadingDocType(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -110,12 +186,21 @@ export default function SdRegistrationClient() {
       return;
     }
     if (!formData.address.trim()) {
-      setErrorMessage('Alamat tinggal wajib diisi.');
+      setErrorMessage('Alamat singkat wajib diisi.');
       setIsLoading(false);
       return;
     }
 
     const fallbackNik = `3210${Math.floor(100000000000 + Math.random() * 900000000000)}`;
+
+    const uploadedDocsPayload = REQUIRED_DOCS_LIST.map((item) => {
+      const uploaded = uploadedFiles[item.key];
+      return {
+        docType: item.key,
+        fileName: uploaded?.fileName || `Disusulkan Nanti (${item.title})`,
+        fileUrl: uploaded?.fileUrl || '/uploads/sample.pdf',
+      };
+    });
 
     try {
       const res = await fetch('/api/ppdb/register', {
@@ -134,11 +219,15 @@ export default function SdRegistrationClient() {
             admissionTrack: 'REGULER',
             previousSchool: formData.previousSchool.trim(),
             programInterest: 'SDIT Smart Akhlak Fitrah',
+            docsDeferred: deferDocsLater ? 'Disusulkan Nanti' : 'Sebagian/Lengkap Diunggah',
           },
           parentData: {
             fatherName: formData.parentName.trim(),
             fatherPhone: formData.parentPhone.trim(),
+            motherPhone: formData.parentPhone.trim(),
+            phone: formData.parentPhone.trim(),
           },
+          uploadedDocs: uploadedDocsPayload,
         }),
       });
 
@@ -215,7 +304,7 @@ export default function SdRegistrationClient() {
               Smart Akhlak Fitrah • Majalengka
             </p>
 
-            {/* CTA Daftar Affiliate di Banner Awal (Minimalis, Tanpa Icon AI) */}
+            {/* CTA Daftar Affiliate di Banner Awal */}
             <div className="mt-4 pt-3.5 border-t border-white/15 flex flex-wrap items-center justify-between gap-2.5">
               <span className="text-xs text-emerald-100">
                 Mau bagi hasil berkah dengan mereferensikan calon murid?
@@ -286,7 +375,7 @@ export default function SdRegistrationClient() {
 
             {/* Note Berkas Susulan */}
             <p className="text-xs text-slate-500 max-w-md mx-auto">
-              Scan KK &amp; Akta Kelahiran dapat disusulkan via Portal Murid atau saat jadwal observasi di sekolah.
+              Berkas persyaratan yang belum diunggah dapat disusulkan via Portal Murid atau diserahkan dalam 1 stopmap saat jadwal observasi di sekolah.
             </p>
 
             {/* Tombol Aksi */}
@@ -311,11 +400,11 @@ export default function SdRegistrationClient() {
             </div>
           </div>
         ) : (
-          /* ================= FORM PENDAFTARAN SEDERHANA ================= */
+          /* ================= FORM PENDAFTARAN RINGKAS + BERKAS UTAMA ================= */
           <form onSubmit={handleSubmit} className="p-5 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-6">
-            {/* Banner Singkat: Minimalis, Tanpa Icon AI */}
+            {/* Banner Singkat */}
             <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200/70 text-xs text-emerald-950 font-medium">
-              Isi data dasar di bawah ini. Berkas KK &amp; Akta dapat disusulkan setelah pendaftaran.
+              Isi data dasar di bawah ini. Berkas persyaratan utama dapat diunggah langsung atau <strong>disusulkan nanti</strong>.
             </div>
 
             {errorMessage && (
@@ -324,7 +413,7 @@ export default function SdRegistrationClient() {
               </div>
             )}
 
-            {/* 1. Jalur Pendaftaran (Minimalis, Tanpa Icon Sekolah) */}
+            {/* 1. Jalur Pendaftaran */}
             <div className="space-y-2">
               <span className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
                 1. Jalur Pendaftaran
@@ -465,7 +554,113 @@ export default function SdRegistrationClient() {
               </div>
             </div>
 
-            {/* 4. Rekening Pembayaran Infaq */}
+            {/* 4. Berkas Utama Persyaratan (FC Ijazah, Pas Photo 3x4 2 Lembar, FC Akta, FC KK) */}
+            <div className="space-y-3.5 pt-3 border-t border-slate-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
+                    4. Berkas Utama Persyaratan
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Unggah foto/PDF berkas sekarang atau pilih opsi <strong>Disusulkan Nanti</strong>.
+                  </p>
+                </div>
+
+                {/* Opsi Toggle Susulkan Nanti */}
+                <button
+                  type="button"
+                  onClick={() => setDeferDocsLater((prev) => !prev)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer inline-flex items-center gap-1.5 self-start sm:self-auto ${
+                    deferDocsLater
+                      ? 'bg-[#064e3b] text-white border-[#064e3b]'
+                      : 'bg-emerald-50 text-emerald-900 border-emerald-200 hover:bg-emerald-100'
+                  }`}
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>{deferDocsLater ? '✓ Berkas Disusulkan Nanti' : 'Opsi: Susulkan Nanti'}</span>
+                </button>
+              </div>
+
+              {deferDocsLater ? (
+                <div className="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-xs text-emerald-950 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-bold">Berkas Persyaratan Akan Disusulkan Nanti</p>
+                    <p className="text-[11px] text-emerald-800 mt-0.5">
+                      FC Ijazah TK/RA, Pas Photo 3x4 (2 lembar), FC Akta Kelahiran, dan FC KK dapat diunggah kemudian via Portal Murid atau dibawa saat jadwal observasi.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setDeferDocsLater(false)}
+                    className="px-2.5 py-1.5 rounded-lg bg-white border border-emerald-200 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 shrink-0 cursor-pointer"
+                  >
+                    Unggah Sekarang
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {REQUIRED_DOCS_LIST.map((doc) => {
+                    const uploaded = uploadedFiles[doc.key];
+                    const isUploading = uploadingDocType === doc.key;
+                    const inputId = `sd-doc-${doc.key.toLowerCase()}`;
+
+                    return (
+                      <div
+                        key={doc.key}
+                        className={`p-3 rounded-xl border transition-all flex items-center justify-between gap-2.5 ${
+                          uploaded
+                            ? 'border-emerald-500 bg-emerald-50/40'
+                            : 'border-slate-200 bg-slate-50/60 hover:bg-slate-50'
+                        }`}
+                      >
+                        <input
+                          type="file"
+                          id={inputId}
+                          accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,image/*"
+                          className="hidden"
+                          onChange={(e) => handleFileUpload(e, doc.key)}
+                        />
+                        <div className="min-w-0 flex items-center gap-2.5">
+                          <div
+                            className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                              uploaded
+                                ? 'bg-emerald-600 text-white'
+                                : 'bg-white border border-slate-200 text-slate-600'
+                            }`}
+                          >
+                            {isUploading ? (
+                              <Loader2 className="w-4 h-4 animate-spin text-[#00A651]" />
+                            ) : uploaded ? (
+                              <Check className="w-4 h-4" />
+                            ) : (
+                              <FileText className="w-4 h-4" />
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-slate-900 truncate">
+                              {doc.title}
+                            </p>
+                            <p className="text-[10px] text-slate-500 truncate">
+                              {uploaded ? uploaded.fileName : doc.subtitle}
+                            </p>
+                          </div>
+                        </div>
+
+                        <label
+                          htmlFor={inputId}
+                          className="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-[11px] font-bold text-[#064e3b] shrink-0 cursor-pointer inline-flex items-center gap-1"
+                        >
+                          <Upload className="w-3 h-3" />
+                          <span>{uploaded ? 'Ganti' : 'Pilih'}</span>
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* 5. Rekening Pembayaran Infaq */}
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
               <div>
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
