@@ -2011,11 +2011,11 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         return (
           <div
             onClick={() => setSelectedNews(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-1.5 sm:p-3 md:p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in cursor-pointer overflow-hidden"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-0 bg-slate-950/90 backdrop-blur-md animate-in fade-in cursor-pointer overflow-hidden"
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl sm:rounded-3xl w-[97vw] max-w-[1480px] h-[94vh] max-h-[94vh] border border-slate-200 shadow-2xl overflow-hidden flex flex-col cursor-default"
+              className="bg-white rounded-none w-screen h-[100dvh] max-w-none max-h-none border-0 shadow-2xl overflow-hidden flex flex-col cursor-default"
             >
               {/* Top Modal Header */}
               <div className="bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3.5 border-b border-slate-100 flex items-center justify-between shrink-0 z-20">
@@ -2046,8 +2046,8 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               {/* 2-Column Body: Left Media Carousel + Right Full Article Text */}
               <div className="flex-1 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row min-h-0">
                 {/* Left Column: Interactive Media Carousel */}
-                <div className="md:w-7/12 lg:w-[56%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 min-h-[280px] sm:min-h-[360px] md:min-h-full select-none">
-                  <div className="relative flex-1 w-full h-full flex items-center justify-center p-2 sm:p-4 overflow-hidden">
+                <div className="md:w-7/12 lg:w-[56%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 h-[340px] sm:h-[420px] md:h-full select-none">
+                  <div className="relative flex-1 w-full h-full flex items-center justify-center p-1 sm:p-2 overflow-hidden min-h-0">
                     {currentSlide.type === 'image' && (
                       <img
                         src={currentSlide.url}
@@ -2064,14 +2064,14 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                         src={currentSlide.url}
                         controls
                         playsInline
-                        className="relative z-10 w-full h-full max-h-[360px] md:max-h-[74vh] object-contain rounded-xl shadow-2xl bg-black"
+                        className="relative z-10 w-full h-full object-contain rounded-lg shadow-2xl bg-black"
                       />
                     ) : (
                       <img
                         key={currentSlide.url}
                         src={currentSlide.url}
                         alt={selectedNews.title}
-                        className="relative z-10 w-full h-auto max-h-[350px] md:max-h-[72vh] object-contain rounded-xl shadow-2xl"
+                        className="relative z-10 w-full h-full object-contain rounded-lg shadow-2xl"
                       />
                     )}
 

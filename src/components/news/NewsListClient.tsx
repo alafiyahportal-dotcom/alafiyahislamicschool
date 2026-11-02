@@ -499,11 +499,11 @@ export default function NewsListClient({
         typeof document !== 'undefined' &&
         createPortal(
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-0 sm:p-3 md:p-5 lg:p-6 overflow-hidden animate-in fade-in duration-200"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-0 overflow-hidden animate-in fade-in duration-200"
             onClick={() => setSelectedArticle(null)}
           >
             <div
-              className="bg-white rounded-none sm:rounded-3xl w-full sm:w-[96vw] max-w-[1380px] h-[100dvh] sm:h-[90vh] md:h-[88vh] md:max-h-[860px] overflow-hidden shadow-2xl border-0 sm:border border-slate-200/90 text-left relative flex flex-col"
+              className="bg-white rounded-none w-screen h-[100dvh] max-w-none max-h-none overflow-hidden shadow-2xl border-0 text-left relative flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header Bar (Always visible at top) */}
@@ -561,13 +561,13 @@ export default function NewsListClient({
               <div className="flex-1 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row min-h-0">
                 {/* Left Column: Multi-Photo & Video Carousel (Cover Image is Always Slide #1) */}
                 {selectedArticleMedia.length > 0 ? (
-                  <div className="md:w-7/12 lg:w-[55%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 h-[300px] sm:h-[360px] md:h-full select-none">
+                  <div className="md:w-7/12 lg:w-[56%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 h-[340px] sm:h-[420px] md:h-full select-none">
                     {(() => {
                       const currentMedia =
                         selectedArticleMedia[activeSlideIndex] || selectedArticleMedia[0];
 
                       return (
-                        <div className="relative flex-1 w-full h-full flex items-center justify-center p-2 sm:p-4 overflow-hidden min-h-0">
+                        <div className="relative flex-1 w-full h-full flex items-center justify-center p-1 sm:p-2 overflow-hidden min-h-0">
                           {/* Ambient Blurred Backdrop for Images */}
                           {currentMedia.type === 'image' && (
                             /* eslint-disable-next-line @next/next/no-img-element */
@@ -587,7 +587,7 @@ export default function NewsListClient({
                                 src={currentMedia.url}
                                 controls
                                 playsInline
-                                className="w-full h-full max-h-[230px] sm:max-h-[290px] md:max-h-[66vh] object-contain rounded-xl shadow-2xl bg-black"
+                                className="w-full h-full object-contain rounded-lg shadow-2xl bg-black"
                               />
                             </div>
                           ) : (
@@ -609,7 +609,7 @@ export default function NewsListClient({
                                 key={currentMedia.url}
                                 src={currentMedia.url}
                                 alt={selectedArticle.title}
-                                className="w-full h-full max-h-[225px] sm:max-h-[285px] md:max-h-[65vh] object-contain rounded-xl shadow-2xl transition-transform duration-300 group-hover/zoomTrigger:scale-[1.01]"
+                                className="w-full h-full object-contain rounded-lg shadow-2xl transition-transform duration-300 group-hover/zoomTrigger:scale-[1.01]"
                               />
 
                               {/* Bottom floating hint */}

@@ -24,57 +24,6 @@ export const metadata: Metadata = {
   },
 };
 
-const DEFAULT_SD_ARTICLES: NewsArticle[] = [
-  {
-    id: 'sd-warta-1',
-    title: 'Kemeriahan Market Day & Cooking Day: Melatih Jiwa Kewirausahaan Islami Murid SDIT',
-    slug: 'market-day-cooking-day-sdit-al-afiyah',
-    category: 'Kegiatan',
-    excerpt: 'Murid SDIT Al-Afiyah belajar adab bermuamalah, kejujuran dalam berdagang, dan melatih kemandirian finansial sejak dini melalui simulasi pasar syariah.',
-    author: 'Humas SDIT Al-Afiyah',
-    date: '4 Okt 2026',
-    schoolName: 'SDIT Al-Afiyah',
-    readingTime: '3 menit baca',
-    imageUrl: '/images/hero-building.jpg',
-  },
-  {
-    id: 'sd-warta-2',
-    title: 'Alhamdulillah! Tiga Murid SDIT Al-Afiyah Raih Juara MHQ Juz 30 Tingkat Kabupaten',
-    slug: 'juara-mhq-juz-30-kabupaten-majalengka',
-    category: 'Prestasi',
-    excerpt: 'Prestasi membanggakan kembali ditorehkan ananda dalam ajang Musabaqah Hifdzil Qur’an. Berkat bimbingan intensif dan muraja’ah berkala.',
-    author: 'Kordinator Tahfidz SDIT',
-    date: '28 Sep 2026',
-    schoolName: 'SDIT Al-Afiyah',
-    readingTime: '4 menit baca',
-    imageUrl: '/images/students-learning.jpg',
-  },
-  {
-    id: 'sd-warta-3',
-    title: 'Field Study & Observasi Alam: Mengenal Ciptaan Allah di Kebun Edukasi Majalengka',
-    slug: 'field-study-alam-sdit-al-afiyah',
-    category: 'Field Study',
-    excerpt: 'Pendidikan tidak hanya di dalam kelas. Murid-murid kelas 2 dan 3 diajak bertadabbur alam memahami ekosistem tumbuhan dan sains terpadu.',
-    author: 'Wali Kelas 3 SDIT',
-    date: '15 Sep 2026',
-    schoolName: 'SDIT Al-Afiyah',
-    readingTime: '5 menit baca',
-    imageUrl: '/images/school-gate.jpg',
-  },
-  {
-    id: 'sd-warta-4',
-    title: 'Adab Penuntut Ilmu: Menghormati Guru dan Menjaga Kesucian Majelis Belajar',
-    slug: 'adab-penuntut-ilmu-sdit',
-    category: 'Kajian',
-    excerpt: 'Imam Malik rahimahullah berkata: "Pelajarilah adab sebelum engkau mempelajari ilmu." Mengapa penanaman adab menjadi prioritas utama di SDIT Al-Afiyah.',
-    author: 'Tim Bina Karakter SDIT',
-    date: '5 Sep 2026',
-    schoolName: 'SDIT Al-Afiyah',
-    readingTime: '6 menit baca',
-    imageUrl: '/images/hero-building.jpg',
-  }
-];
-
 export const revalidate = 60;
 
 export default async function SdNewsPage() {
@@ -107,32 +56,36 @@ export default async function SdNewsPage() {
       newsCategories = cfg.categories;
     }
 
-    const postArticles: NewsArticle[] = (dbPosts && dbPosts.length > 0)
-      ? dbPosts.map((p) => {
-          const parsed = parseNewsMedia(p.content, p.coverImage);
-          return {
-            id: p.id,
-            title: p.title,
-            slug: p.slug,
-            category: p.category || 'Kegiatan',
-            excerpt: p.excerpt || parsed.cleanContent.slice(0, 150) + '...',
-            author: p.author || 'Humas SDIT Al-Afiyah',
-            date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            }),
-            schoolName: 'SDIT Al-Afiyah',
-            readingTime: '4 menit baca',
-            imageUrl: p.coverImage || undefined,
-            rawContent: p.content,
-            mediaItems: parsed.allMedia,
-            paragraphs: parsed.cleanContent
-              ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)
-              : undefined,
-          };
-        })
-      : DEFAULT_SD_ARTICLES.filter((a) => a.category !== 'Prestasi');
+    const postArticles: NewsArticle[] = (dbPosts || [])
+      .filter(
+        (p) =>
+          !p.slug?.includes('juara-mhq-juz-30') &&
+          !p.title?.toLowerCase().includes('tiga murid sdit al-afiyah raih juara mhq')
+      )
+      .map((p) => {
+        const parsed = parseNewsMedia(p.content, p.coverImage);
+        return {
+          id: p.id,
+          title: p.title,
+          slug: p.slug,
+          category: p.category || 'Kegiatan',
+          excerpt: p.excerpt || parsed.cleanContent.slice(0, 150) + '...',
+          author: p.author || 'Humas SDIT Al-Afiyah',
+          date: new Date(p.publishedAt).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          }),
+          schoolName: 'SDIT Al-Afiyah',
+          readingTime: '4 menit baca',
+          imageUrl: p.coverImage || undefined,
+          rawContent: p.content,
+          mediaItems: parsed.allMedia,
+          paragraphs: parsed.cleanContent
+            ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)
+            : undefined,
+        };
+      });
 
     const rankLabelMap: Record<string, string> = {
       JUARA_1: 'Juara 1 (Emas)',
@@ -145,44 +98,43 @@ export default async function SdNewsPage() {
       FINALIS: 'Finalis',
     };
 
-    const achievementArticles: NewsArticle[] = (dbAchievements || []).map((ach) => {
-      const rankLabel = rankLabelMap[ach.rank] || ach.rank || 'Prestasi Gemilang';
-      return {
-        id: `ach-${ach.id}`,
-        title: `Prestasi Murid: ${ach.studentName} Raih ${rankLabel} ${ach.title}`,
-        slug: `prestasi-${ach.id}`,
-        category: 'Prestasi',
-        excerpt: ach.description || `${ach.studentName} menorehkan prestasi membanggakan sebagai ${rankLabel} dalam ajang ${ach.title} (${ach.level}, Tahun ${ach.year}).`,
-        author: 'Tim Prestasi & Kesiswaan SDIT',
-        date: `${ach.year}`,
-        schoolName: 'SDIT Al-Afiyah',
-        readingTime: '2 menit baca',
-        imageUrl: ach.imageUrl || '/images/sd-hero-greenhouse.jpg',
-        paragraphs: [
-          `Alhamdulillah, kabar gembira dan membanggakan datang dari murid SDIT Al-Afiyah Majalengka. Ananda ${ach.studentName} sukses meraih prestasi gemilang sebagai ${rankLabel} dalam kejuaraan ${ach.title}.`,
-          ach.description ? `${ach.description}. Pencapaian ini merupakan hasil bimbingan para asatidzah serta pembiasaan karakter dan adab belajar di sekolah.` : `Pencapaian di tingkat ${ach.level} ini menunjukkan potensi luar biasa peserta didik SDIT Al-Afiyah di bidang keilmuan, adab, dan bakat.`,
-          'Keluarga besar SDIT Al-Afiyah mengucapkan tahniah dan rasa syukur atas prestasi ananda. Semoga menjadi motivasi untuk senantiasa rendah hati, rajin belajar, dan menjadi teladan sholeh-sholehah.',
-        ],
-        keyHighlights: [
-          `Nama Murid: ${ach.studentName}`,
-          `Capaian: ${rankLabel} (${ach.level})`,
-          `Tahun: ${ach.year}`,
-          `Kategori: ${ach.category}`,
-        ],
-      };
-    });
+    const achievementArticles: NewsArticle[] = (dbAchievements || [])
+      .filter(
+        (ach) =>
+          !ach.title?.toLowerCase().includes('mhq juz 30 tingkat kabupaten') &&
+          !ach.studentName?.toLowerCase().includes('tiga murid sdit')
+      )
+      .map((ach) => {
+        const rankLabel = rankLabelMap[ach.rank] || ach.rank || 'Prestasi Gemilang';
+        return {
+          id: `ach-${ach.id}`,
+          title: `Prestasi Murid: ${ach.studentName} Raih ${rankLabel} ${ach.title}`,
+          slug: `prestasi-${ach.id}`,
+          category: 'Prestasi',
+          excerpt: ach.description || `${ach.studentName} menorehkan prestasi membanggakan sebagai ${rankLabel} dalam ajang ${ach.title} (${ach.level}, Tahun ${ach.year}).`,
+          author: 'Tim Prestasi & Kesiswaan SDIT',
+          date: `${ach.year}`,
+          schoolName: 'SDIT Al-Afiyah',
+          readingTime: '2 menit baca',
+          imageUrl: ach.imageUrl || '/images/sd-hero-greenhouse.jpg',
+          paragraphs: [
+            `Alhamdulillah, kabar gembira dan membanggakan datang dari murid SDIT Al-Afiyah Majalengka. Ananda ${ach.studentName} sukses meraih prestasi gemilang sebagai ${rankLabel} dalam kejuaraan ${ach.title}.`,
+            ach.description ? `${ach.description}. Pencapaian ini merupakan hasil bimbingan para asatidzah serta pembiasaan karakter dan adab belajar di sekolah.` : `Pencapaian di tingkat ${ach.level} ini menunjukkan potensi luar biasa peserta didik SDIT Al-Afiyah di bidang keilmuan, adab, dan bakat.`,
+            'Keluarga besar SDIT Al-Afiyah mengucapkan tahniah dan rasa syukur atas prestasi ananda. Semoga menjadi motivasi untuk senantiasa rendah hati, rajin belajar, dan menjadi teladan sholeh-sholehah.',
+          ],
+          keyHighlights: [
+            `Nama Murid: ${ach.studentName}`,
+            `Capaian: ${rankLabel} (${ach.level})`,
+            `Tahun: ${ach.year}`,
+            `Kategori: ${ach.category}`,
+          ],
+        };
+      });
 
-    const fallbackPrestasi = DEFAULT_SD_ARTICLES.filter((a) => a.category === 'Prestasi');
-    const finalPrestasiArticles = achievementArticles.length > 0 ? achievementArticles : fallbackPrestasi;
-
-    articles = [...postArticles, ...finalPrestasiArticles];
+    articles = [...postArticles, ...achievementArticles];
   } catch (err) {
     console.error('Error fetching SD news:', err);
-    articles = DEFAULT_SD_ARTICLES;
-  }
-
-  if (articles.length === 0) {
-    articles = DEFAULT_SD_ARTICLES;
+    articles = [];
   }
 
   return (
