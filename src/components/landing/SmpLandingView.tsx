@@ -676,7 +676,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
           </div>
 
           {/* Official Posters & Bank Payment Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div id="brosur" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start scroll-mt-24">
             {/* Left: Official Posters */}
             <div className="lg:col-span-6 bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-7 space-y-4">
               <div className="flex items-center justify-between">

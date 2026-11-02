@@ -102,6 +102,29 @@ const SD_POLAROID_PHOTOS = [
   },
 ];
 
+const SMP_SHOWCASE_PHOTOS = [
+  {
+    src: '/images/smp-masjid-pusat-halaqah.jpg',
+    title: 'Tahfidz 3–5+ Juz & Bahasa Arab',
+    subtitle: 'Pusat Halaqah & Bi\'ah Lughawiyyah',
+  },
+  {
+    src: '/images/smp-kelas-literasi.jpg',
+    title: 'Pembelajaran Aktif & Sains Modern',
+    subtitle: 'Ruang Kelas Ber-AC • Be Smart & Religious',
+  },
+  {
+    src: '/images/smp-pramuka-outdoor.jpg',
+    title: 'Student Character Development (SCD)',
+    subtitle: 'Kepemimpinan, Kemandirian & Adab Nabawi',
+  },
+  {
+    src: '/images/smp-kelulusan-angkatan-3.jpg',
+    title: 'Haflah & Prestasi Santri SMP IT',
+    subtitle: 'Terakreditasi A Resmi • BAN-PDM',
+  },
+];
+
 export default function UnitHeroSlider({
   slug,
   schoolName,
@@ -119,12 +142,28 @@ export default function UnitHeroSlider({
     setRefCode(getStoredReferralCode());
   }, []);
 
-  // Live countdown timer for SD SPMB card
+  // Live countdown timer for SD & SMP SPMB card
   useEffect(() => {
-    if (slug !== 'sd') return;
+    if (slug !== 'sd' && slug !== 'smp') return;
 
     const updateTimer = () => {
       const now = new Date().getTime();
+      if (slug === 'smp') {
+        // SMP Gelombang 1: 1 Okt 2026 - 28 Feb 2027, Gelombang 2: 1 Mar 2027 - 30 Jun 2027
+        const smpWave1End = new Date('2027-02-28T23:59:59+07:00').getTime();
+        const smpWave2End = new Date('2027-06-30T23:59:59+07:00').getTime();
+        const target = now < smpWave1End ? smpWave1End : smpWave2End;
+        const diff = Math.max(0, target - now);
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        setCountdown({ days, hours, minutes, seconds });
+        return;
+      }
+
       // Target: End of Gelombang 1 (30 Dec 2026), fallback to Gelombang 2 (3 Apr 2027), fallback to Gelombang 3 (26 Jun 2027)
       const wave1End = new Date('2026-12-30T23:59:59+07:00').getTime();
       const wave2End = new Date('2027-04-03T23:59:59+07:00').getTime();
@@ -146,11 +185,12 @@ export default function UnitHeroSlider({
     return () => clearInterval(timer);
   }, [slug]);
 
-  // Subtle auto-cycle for polaroid photo every 6 seconds on SD
+  // Subtle auto-cycle for polaroid/showcase photo every 6 seconds on SD & SMP
   useEffect(() => {
-    if (slug !== 'sd') return;
+    if (slug !== 'sd' && slug !== 'smp') return;
+    const totalPhotos = slug === 'smp' ? SMP_SHOWCASE_PHOTOS.length : SD_POLAROID_PHOTOS.length;
     const interval = setInterval(() => {
-      setPolaroidIdx((prev) => (prev + 1) % SD_POLAROID_PHOTOS.length);
+      setPolaroidIdx((prev) => (prev + 1) % totalPhotos);
     }, 6000);
     return () => clearInterval(interval);
   }, [slug]);
@@ -520,6 +560,301 @@ export default function UnitHeroSlider({
     );
   }
 
+  // ============================================================================
+  // BESPOKE SMP HERO LAYOUT (Royal Navy + Gold Medallion Frame + Floating SPMB Card)
+  // ============================================================================
+  if (slug === 'smp') {
+    const activeShowcase = SMP_SHOWCASE_PHOTOS[polaroidIdx % SMP_SHOWCASE_PHOTOS.length] || SMP_SHOWCASE_PHOTOS[0];
+
+    return (
+      <div className="relative w-full bg-white select-none overflow-hidden">
+        {/* Top Royal Navy Hero Area */}
+        <section className="relative w-full bg-gradient-to-b from-[#04026b] via-[#030164] to-[#020046] text-white pt-24 sm:pt-32 lg:pt-36 pb-32 sm:pb-44 lg:pb-48 overflow-hidden">
+          {/* Subtle ambient radial glow & geometric grid accent */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-indigo-500/15 blur-3xl"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/4 right-0 w-[420px] h-[420px] rounded-full bg-[#ffd51e]/10 blur-3xl"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: 'radial-gradient(#ffffff 1.25px, transparent 1.25px)',
+              backgroundSize: '28px 28px',
+            }}
+          />
+
+          <div className="relative z-10 max-w-6xl xl:max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 xl:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+              {/* Left Column: Typography, Accreditation Pill, Hashtags & Selengkapnya Pill */}
+              <div className="lg:col-span-7 text-left">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-[#ffd51e]/35 text-[11px] sm:text-xs font-extrabold tracking-wider text-[#ffd51e] uppercase mb-3 backdrop-blur-xs">
+                  <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
+                  <span>TERAKREDITASI A RESMI • SK BAN-PDM 2025</span>
+                </div>
+
+                <p className="text-blue-200/95 italic font-medium text-sm sm:text-base lg:text-[17px] mb-2 tracking-wide">
+                  Ahlan wa Sahlan di Official Website
+                </p>
+
+                <h1 className="text-[2.5rem] xs:text-[2.85rem] sm:text-5xl lg:text-[3.6rem] xl:text-[4rem] font-black uppercase text-white leading-[1.06] tracking-tight drop-shadow-xs">
+                  SMP IT AL-AFIYAH
+                </h1>
+
+                <p className="mt-4 sm:mt-5 text-lg sm:text-2xl lg:text-[26px] xl:text-[28px] text-white/95 leading-snug font-bold">
+                  <span className="block">Mencetak Generasi <span className="text-[#ffd51e]">Smart &amp; Religious</span>,</span>
+                  <span className="block mt-1">Unggul Tahfidz &amp; Berakhlak Qur’ani.</span>
+                </p>
+
+                {/* Hashtags Row */}
+                <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-xs sm:text-sm font-extrabold tracking-wide">
+                  <span>
+                    <span className="text-[#ffd51e]">#</span>
+                    <span className="text-white">BeSmartAndReligious</span>
+                  </span>
+                  <span>
+                    <span className="text-[#ffd51e]">#</span>
+                    <span className="text-white">Tahfidz3Sampai5Juz</span>
+                  </span>
+                  <span>
+                    <span className="text-[#ffd51e]">#</span>
+                    <span className="text-white">FasihBahasaArab</span>
+                  </span>
+                </div>
+
+                {/* White & Gold Pill CTA Buttons */}
+                <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-3">
+                  <a
+                    href="#spmb"
+                    className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#ffd51e] hover:bg-yellow-300 text-[#030164] font-extrabold text-xs sm:text-[13px] uppercase tracking-wider shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-95"
+                  >
+                    <ArrowDownCircle className="w-4 h-4 text-[#030164] stroke-[2.3] transition-transform duration-200 group-hover:translate-y-0.5" />
+                    <span>SELENGKAPNYA</span>
+                  </a>
+                  <a
+                    href={waUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-[13px] uppercase tracking-wider backdrop-blur-xs transition-all duration-200 hover:scale-[1.02] active:scale-95"
+                  >
+                    <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
+                    <span>Konsultasi Admin WA</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Distinctive SMP Royal Gold-Accent Showcase Frame with Gold Seal */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end mt-2 lg:mt-0">
+                <div
+                  onClick={() => setPolaroidIdx((prev) => (prev + 1) % SMP_SHOWCASE_PHOTOS.length)}
+                  title="Klik untuk melihat dokumentasi kegiatan santri SMP IT lainnya"
+                  className="relative w-full max-w-[360px] sm:max-w-[400px] cursor-pointer group"
+                >
+                  {/* Back Stacked Gold-Tinted Card (Tilted opposite to SD for distinct identity) */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-br from-[#ffd51e] to-amber-500 rounded-[24px] rotate-[5deg] -translate-x-2 translate-y-2 shadow-xl opacity-90 transition-transform duration-500 group-hover:rotate-[7deg]"
+                  />
+
+                  {/* Main Front Showcase Card */}
+                  <div className="relative bg-white rounded-[24px] p-3.5 sm:p-4 pb-5 sm:pb-6 shadow-[0_25px_55px_-12px_rgba(0,0,0,0.45)] border-2 border-[#ffd51e]/60 rotate-[-1.5deg] group-hover:rotate-[0deg] transition-all duration-500">
+                    {/* Floating 3D Royal Gold Accreditation Medallion Badge at Top-Right (Distinct from SD's Red Pushpin) */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute -top-4 -right-3 z-20 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#030164] via-[#090580] to-[#030164] text-[#ffd51e] border-2 border-[#ffd51e] shadow-[0_8px_20px_rgba(3,1,100,0.45)]"
+                    >
+                      <svg className="w-3.5 h-3.5 fill-[#ffd51e]" viewBox="0 0 24 24">
+                        <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z" />
+                      </svg>
+                      <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-white">
+                        AKREDITASI <span className="text-[#ffd51e]">A</span>
+                      </span>
+                    </div>
+
+                    {/* Top Metallic Clip Bar */}
+                    <div
+                      aria-hidden="true"
+                      className="mx-auto mb-2.5 w-14 h-1.5 rounded-full bg-slate-200"
+                    />
+
+                    {/* Photo Container */}
+                    <div className="relative rounded-xl overflow-hidden aspect-[4/3] bg-slate-100 ring-1 ring-slate-200">
+                      <img
+                        src={activeShowcase.src}
+                        alt={activeShowcase.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      {/* Category tag bottom-left */}
+                      <div className="absolute bottom-2.5 left-2.5 bg-[#030164]/85 backdrop-blur-xs text-[#ffd51e] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full border border-[#ffd51e]/30">
+                        SMP IT Al-Afiyah
+                      </div>
+                      {/* Subtle slide dots */}
+                      <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5 bg-black/45 backdrop-blur-xs px-2 py-1 rounded-full">
+                        {SMP_SHOWCASE_PHOTOS.map((_, i) => (
+                          <span
+                            key={i}
+                            className={`h-1.5 rounded-full transition-all ${
+                              i === polaroidIdx % SMP_SHOWCASE_PHOTOS.length ? 'w-4 bg-[#ffd51e]' : 'w-1.5 bg-white/60'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Showcase Caption */}
+                    <div className="mt-3.5 sm:mt-4 text-center px-2">
+                      <h3 className="text-sm sm:text-[15px] font-extrabold text-slate-900 tracking-tight">
+                        {activeShowcase.title}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs font-semibold text-[#030164]/85 mt-0.5">
+                        {activeShowcase.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Smooth Curved White Wave Divider at Bottom of Hero */}
+          <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-10">
+            <svg
+              className="relative block w-full h-[65px] sm:h-[95px] lg:h-[120px]"
+              viewBox="0 0 1440 120"
+              preserveAspectRatio="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0,64 C240,12 480,108 720,88 C960,68 1200,24 1440,56 L1440,120 L0,120 Z"
+                fill="#ffffff"
+              />
+            </svg>
+          </div>
+        </section>
+
+        {/* Overlapping Floating SPMB Card for SMP IT */}
+        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 sm:-mt-28 lg:-mt-32 pb-8 sm:pb-12">
+          <div className="bg-white rounded-[26px] sm:rounded-[32px] shadow-[0_20px_60px_-15px_rgba(3,1,100,0.16)] border border-slate-100 p-5 sm:p-8 lg:p-9">
+            {/* Top Row: SPMB Title + Live Countdown Boxes */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+              {/* Left: SPMB Title */}
+              <div>
+                <div className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-amber-600 bg-amber-50 border border-amber-200/70 px-2.5 py-0.5 rounded-full mb-1.5">
+                  <span>★ GELOMBANG 1 • DISKON UANG BANGUNAN S.D. 70%</span>
+                </div>
+                <div className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                  SPMB SMP IT T.A 2027/2028
+                </div>
+                <div className="text-lg sm:text-2xl font-black text-[#030164] tracking-tight leading-tight mt-0.5">
+                  DIBUKA!
+                </div>
+              </div>
+
+              {/* Right: 4 Royal Navy & Crimson Countdown Boxes */}
+              <div className="flex items-center gap-2 sm:gap-2.5 self-start sm:self-auto">
+                {[
+                  { value: countdown.days, label: 'Hari' },
+                  { value: countdown.hours, label: 'Jam' },
+                  { value: countdown.minutes, label: 'Menit' },
+                  { value: countdown.seconds, label: 'Detik' },
+                ].map((item, idx) => (
+                  <div
+                    key={item.label}
+                    className={`w-[52px] sm:w-[60px] py-2 sm:py-2.5 rounded-xl text-white flex flex-col items-center justify-center shadow-sm ${
+                      idx === 3 ? 'bg-[#dc2626]' : 'bg-[#030164] border border-[#ffd51e]/40'
+                    }`}
+                  >
+                    <span className={`text-base sm:text-xl font-black leading-none tracking-tight tabular-nums ${
+                      idx === 3 ? 'text-white' : 'text-[#ffd51e]'
+                    }`}>
+                      {String(item.value).padStart(2, '0')}
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] font-semibold text-white/90 mt-1">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Middle Row: 3 Pill CTA Buttons */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-7">
+              <Link
+                href={effectiveCtaLink}
+                className="w-full py-3.5 px-5 rounded-full bg-[#030164] hover:bg-[#08058a] text-white font-bold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-95"
+              >
+                <FileText className="w-4 h-4 text-[#ffd51e] shrink-0" />
+                <span>Daftar Online SPMB</span>
+              </Link>
+
+              <a
+                href="#brosur"
+                className="w-full py-3.5 px-5 rounded-full bg-[#f59e0b] hover:bg-[#d97706] text-white font-bold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-95"
+              >
+                <Download className="w-4 h-4 shrink-0" />
+                <span>Unduh Brosur &amp; Biaya</span>
+              </a>
+
+              <Link
+                href="/affiliate/register?unit=smp"
+                className="w-full py-3.5 px-5 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs sm:text-[13px] flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-95"
+              >
+                <Users className="w-4 h-4 shrink-0" />
+                <span>Daftar Affiliate</span>
+              </Link>
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="border-t border-slate-100 my-5 sm:my-6" />
+
+            {/* Bottom Row: 4 SMP Schedule & Scholarship Info Boxes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="bg-slate-50/90 border border-slate-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-slate-800">
+                  Masa Pendaftaran Gel. 1
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
+                  1 Oktober 2026 s/d 28 Februari 2027
+                </div>
+              </div>
+
+              <div className="bg-indigo-50/60 border border-indigo-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-[#030164]">
+                  Diskon Lulusan SDIT Al-Afiyah
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-600 mt-1 font-semibold">
+                  FREE 70% Uang Bangunan (Hemat Rp 1,75 Jt)
+                </div>
+              </div>
+
+              <div className="bg-amber-50/60 border border-amber-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-amber-900">
+                  Diskon Pendaftar Umum
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-600 mt-1 font-semibold">
+                  FREE 50% Uang Bangunan (Hemat Rp 1,25 Jt)
+                </div>
+              </div>
+
+              <div className="bg-slate-50/90 border border-slate-100 rounded-2xl p-3.5 sm:p-4">
+                <div className="text-xs font-extrabold text-slate-800">
+                  Gelombang 2 &amp; Kuota
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
+                  1 Mar – 30 Jun 2027 • Kuota Terbatas
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section
       className={`relative text-white overflow-hidden select-none w-full flex flex-col min-h-screen min-h-[100svh] ${theme.bgClass}`}
@@ -596,7 +931,7 @@ export default function UnitHeroSlider({
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent"
             />
-            <span className="relative z-10 truncate">{slug === 'smp' ? 'Daftar SPMB' : slide.primaryCtaText || 'Daftar SPMB'}</span>
+            <span className="relative z-10 truncate">{slide.primaryCtaText || 'Daftar SPMB'}</span>
             <ArrowRight className="relative z-10 w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow" />
           </Link>
 
@@ -615,21 +950,6 @@ export default function UnitHeroSlider({
               <MessageCircle className="w-4 h-4 text-[#ffd51e] shrink-0 animate-cta-wiggle group-hover:scale-110 transition-transform duration-200" />
               <span className="truncate">Konsultasi WA</span>
             </a>
-          )}
-
-          {slug === 'smp' && (
-            <Link
-              href={`/affiliate/register?unit=${slug}`}
-              className="group relative overflow-hidden col-span-2 sm:col-span-1 inline-flex h-12 items-center justify-center gap-2 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-slate-950 text-xs sm:text-sm font-black shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 animate-cta-glow-amber"
-            >
-              {/* Delayed Shimmer Beam for natural choreography */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer-delay bg-gradient-to-r from-transparent via-white/45 to-transparent"
-              />
-              <span className="relative z-10">Daftar Affiliate Al-Afiyah</span>
-              <span className="relative z-10 font-mono transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow">→</span>
-            </Link>
           )}
         </div>
 
