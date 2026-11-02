@@ -25,16 +25,39 @@ export default function FooterVisitorBadge({ unitSlug = 'foundation' }: FooterVi
   };
 
   useEffect(() => {
-    fetch('/api/analytics/visitor-hit', { cache: 'no-store' })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success && data.stats) {
-          applyStats(data.stats);
-        }
-      })
-      .catch(() => {});
+    const u = (unitSlug || 'foundation').toLowerCase();
+    const sessionKey = `alafiyah_visit_session_${u}`;
+    // Only fetch via GET if WebsiteVisitorTracker already recorded this session
+    // (otherwise WebsiteVisitorTracker's POST will dispatch 'alafiyah_visitor_stats_updated' momentarily)
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    try {
+      const alreadyTracked = sessionStorage.getItem(sessionKey);
+      if (alreadyTracked) {
+        fetch('/api/analytics/visitor-hit')
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.stats) {
+              applyStats(data.stats);
+            }
+          })
+          .catch(() => {});
+      } else {
+        // Fallback if POST takes longer than 2.5s
+        timer = setTimeout(() => {
+          fetch('/api/analytics/visitor-hit')
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success && data.stats) {
+                applyStats(data.stats);
+              }
+            })
+            .catch(() => {});
+        }, 2500);
+      }
+    } catch {}
 
     const handleStatsUpdated = (event: Event) => {
+      if (timer) clearTimeout(timer);
       const customEvent = event as CustomEvent<{ stats: any }>;
       if (customEvent.detail?.stats) {
         applyStats(customEvent.detail.stats);
@@ -43,6 +66,7 @@ export default function FooterVisitorBadge({ unitSlug = 'foundation' }: FooterVi
 
     window.addEventListener('alafiyah_visitor_stats_updated', handleStatsUpdated);
     return () => {
+      if (timer) clearTimeout(timer);
       window.removeEventListener('alafiyah_visitor_stats_updated', handleStatsUpdated);
     };
   }, [unitSlug]);

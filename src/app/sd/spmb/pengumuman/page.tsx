@@ -28,30 +28,33 @@ export default async function SdAnnouncementPage() {
   let acceptedList: any[] = [];
 
   try {
-    sdSchoolData = await prisma.school.findFirst({
-      where: { slug: 'sd' },
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        badgeText: true,
-        quota: true,
-        waveName: true,
-        primaryColor: true,
-        accentColor: true,
-      },
-    });
-
-    acceptedList = await prisma.pPDBRegistration.findMany({
-      where: { 
-        status: 'ACCEPTED',
-        school: { slug: 'sd' },
-      },
-      include: { school: true },
-      orderBy: [
-        { registrationNo: 'asc' },
-      ],
-    });
+    const [schoolRes, acceptedRes] = await Promise.all([
+      prisma.school.findFirst({
+        where: { slug: 'sd' },
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          badgeText: true,
+          quota: true,
+          waveName: true,
+          primaryColor: true,
+          accentColor: true,
+        },
+      }),
+      prisma.pPDBRegistration.findMany({
+        where: { 
+          status: 'ACCEPTED',
+          school: { slug: 'sd' },
+        },
+        include: { school: true },
+        orderBy: [
+          { registrationNo: 'asc' },
+        ],
+      }),
+    ]);
+    sdSchoolData = schoolRes;
+    acceptedList = acceptedRes;
   } catch (err) {
     console.error('Error fetching SD announcement data:', err);
   }

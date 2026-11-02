@@ -35,6 +35,11 @@ const nextConfig: NextConfig = {
   },
 
 
+  // ─── Experimental Performance Optimizations ───────────────────────────────
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
+
   // ─── Security & Source Maps ────────────────────────────────────────────────
   // Disable browser source maps in production to keep source code private (Point 16)
   productionBrowserSourceMaps: false,

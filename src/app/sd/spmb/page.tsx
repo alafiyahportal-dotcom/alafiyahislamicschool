@@ -52,17 +52,15 @@ export default async function SdSpmbInfoPage() {
   try {
     const school = await prisma.school.findUnique({
       where: { slug: 'sd' },
-      select: { id: true },
+      include: {
+        cmsSections: {
+          where: { sectionKey: { in: ['tuition', 'identity'] } },
+        },
+      },
     });
     if (school) {
-      const [tuitionSection, identitySection] = await Promise.all([
-        prisma.cMSSection.findUnique({
-          where: { schoolId_sectionKey: { schoolId: school.id, sectionKey: 'tuition' } },
-        }),
-        prisma.cMSSection.findUnique({
-          where: { schoolId_sectionKey: { schoolId: school.id, sectionKey: 'identity' } },
-        }),
-      ]);
+      const tuitionSection = school.cmsSections.find((s) => s.sectionKey === 'tuition');
+      const identitySection = school.cmsSections.find((s) => s.sectionKey === 'identity');
 
       if (tuitionSection?.payload) {
         try {

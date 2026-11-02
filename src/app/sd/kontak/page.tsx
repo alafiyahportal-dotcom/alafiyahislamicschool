@@ -46,32 +46,27 @@ export default async function SdKontakPage() {
   try {
     const school = await prisma.school.findUnique({
       where: { slug: 'sd' },
-      select: { id: true },
-    });
-    if (school) {
-      const section = await prisma.cMSSection.findUnique({
-        where: {
-          schoolId_sectionKey: {
-            schoolId: school.id,
-            sectionKey: 'identity',
-          },
+      include: {
+        cmsSections: {
+          where: { sectionKey: 'identity' },
         },
-      });
-      if (section?.payload) {
-        try {
-          const c = JSON.parse(section.payload);
-          if (c && typeof c === 'object') {
-            if (c.address) address = c.address;
-            if (c.email) email = c.email;
-            if (c.whatsappNumber) {
-              whatsappNumber = c.whatsappNumber.startsWith('62') 
-                ? '0' + c.whatsappNumber.slice(2) 
-                : c.whatsappNumber;
-            }
-            if (c.mapsUrl) mapsUrl = c.mapsUrl;
+      },
+    });
+    const section = school?.cmsSections?.[0];
+    if (section?.payload) {
+      try {
+        const c = JSON.parse(section.payload);
+        if (c && typeof c === 'object') {
+          if (c.address) address = c.address;
+          if (c.email) email = c.email;
+          if (c.whatsappNumber) {
+            whatsappNumber = c.whatsappNumber.startsWith('62') 
+              ? '0' + c.whatsappNumber.slice(2) 
+              : c.whatsappNumber;
           }
-        } catch {}
-      }
+          if (c.mapsUrl) mapsUrl = c.mapsUrl;
+        }
+      } catch {}
     }
   } catch (err) {
     console.error('Failed to load dynamic SD contact info:', err);

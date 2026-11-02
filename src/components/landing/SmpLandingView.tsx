@@ -706,6 +706,8 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                 <img
                   src={activePoster.src}
                   alt={activePoster.label}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-2xs">
@@ -731,7 +733,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                           : 'border-slate-200 bg-white hover:border-slate-300'
                       }`}
                     >
-                      <img src={poster.src} alt="" className="h-16 w-full object-cover object-top rounded-lg" />
+                      <img src={poster.src} alt="" loading="lazy" decoding="async" className="h-16 w-full object-cover object-top rounded-lg" />
                       <span className={`text-[10px] font-bold text-center leading-tight ${isActive ? 'text-[#030164]' : 'text-slate-600'}`}>
                         {poster.label}
                       </span>
@@ -1008,6 +1010,8 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                 <img
                   src="/images/smp-halaqah-tahfidz-quran.jpg"
                   alt="Aktivitas Ibadah dan Karakter SMP IT Al-Afiyah"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
@@ -1186,6 +1190,8 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                 <img
                   src={item.image}
                   alt={item.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3 z-10">

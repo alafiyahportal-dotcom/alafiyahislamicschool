@@ -10,8 +10,7 @@ import { Newspaper } from 'lucide-react';
 import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES } from '@/lib/news-media';
 import { getGlobalNewsCategories } from '@/lib/news-config-server';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Warta & Kajian Islam Al-Afiyah | Berita, Prestasi & Artikel Edukasi',

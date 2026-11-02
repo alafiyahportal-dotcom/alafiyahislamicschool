@@ -403,6 +403,8 @@ export default function UnitHeroSlider({
                       <img
                         src={activePolaroid.src}
                         alt={activePolaroid.title}
+                        fetchPriority="high"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       {/* Subtle slide dots */}
@@ -681,6 +683,8 @@ export default function UnitHeroSlider({
                       <img
                         src={activeShowcase.src}
                         alt={activeShowcase.title}
+                        fetchPriority="high"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       {/* Category tag bottom-left */}

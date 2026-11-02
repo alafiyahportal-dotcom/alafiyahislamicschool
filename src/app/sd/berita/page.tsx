@@ -8,8 +8,7 @@ import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { Newspaper, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
-import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES } from '@/lib/news-media';
-import { getSchoolNewsConfig } from '@/lib/news-config-server';
+import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES, mergeUniqueStrings } from '@/lib/news-media';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SDIT Al-Afiyah Majalengka',
@@ -24,8 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 function isDummyMhqArticle(item: {
   id?: string;
@@ -54,21 +52,14 @@ export default async function SdNewsPage() {
   let newsCategories: string[] = DEFAULT_NEWS_CATEGORIES;
 
   try {
-    // Hapus permanen jika ada sisa data dummy AI MHQ di database
-    await prisma.newsPost.deleteMany({
-      where: {
-        OR: [
-          { slug: { contains: 'juara-mhq-juz-30', mode: 'insensitive' } },
-          { title: { contains: 'Tiga Murid SDIT Al-Afiyah Raih Juara MHQ', mode: 'insensitive' } },
-          { author: { contains: 'Kordinator Tahfidz SDIT', mode: 'insensitive' } },
-        ],
-      },
-    }).catch(() => {});
-
     const [sdSchool, dbPosts, dbAchievements] = await Promise.all([
       prisma.school.findUnique({
         where: { slug: 'sd' },
-        select: { id: true, name: true },
+        include: {
+          cmsSections: {
+            where: { sectionKey: 'news_config' },
+          },
+        },
       }),
       prisma.newsPost.findMany({
         where: { 
@@ -86,8 +77,18 @@ export default async function SdNewsPage() {
     ]);
 
     if (sdSchool) {
-      const cfg = await getSchoolNewsConfig(sdSchool.id, sdSchool.name);
-      newsCategories = cfg.categories;
+      let savedCategories: string[] = DEFAULT_NEWS_CATEGORIES;
+      const cfgSec = sdSchool.cmsSections?.[0];
+      if (cfgSec?.payload) {
+        try {
+          const parsedCfg = JSON.parse(cfgSec.payload);
+          if (Array.isArray(parsedCfg.categories) && parsedCfg.categories.length > 0) {
+            savedCategories = parsedCfg.categories;
+          }
+        } catch {}
+      }
+      const postCategories = (dbPosts || []).map((p) => (p.category || '').trim()).filter(Boolean);
+      newsCategories = mergeUniqueStrings(savedCategories, postCategories);
     }
 
     const postArticles: NewsArticle[] = (dbPosts || [])

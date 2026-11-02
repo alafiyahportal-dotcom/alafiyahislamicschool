@@ -172,7 +172,7 @@ export default function WelcomeVideoModal({
                 onLoadedMetadata={handleLoadedMetadata}
                 onEnded={handleVideoEnded}
                 className="w-full h-full object-cover sm:object-contain bg-black"
-                preload="auto"
+                preload="metadata"
               >
                 {/* 1. Versi kompresi MP4 H.264 ringkas (5.8 MB - Cepat di Android/iPhone/Laptop) */}
                 <source src="/videos/intro-sd-lite.mp4" type="video/mp4" />
