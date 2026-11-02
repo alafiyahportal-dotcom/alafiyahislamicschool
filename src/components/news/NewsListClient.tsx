@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Search,
   Calendar,
@@ -492,61 +493,416 @@ export default function NewsListClient({
       )}
 
       {/* ================================================================================= */}
-      {/* FULL-VIEWPORT ARTICLE READING MODAL (Expanded to Fill Blurred Background + Slide) */}
+      {/* FULL-VIEWPORT ARTICLE READING MODAL (Portaled to document.body to prevent clipping) */}
       {/* ================================================================================= */}
-      {selectedArticle && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-1.5 sm:p-3 md:p-4 overflow-hidden animate-in fade-in duration-200"
-          onClick={() => setSelectedArticle(null)}
-        >
+      {selectedArticle &&
+        typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className="bg-white rounded-2xl sm:rounded-3xl w-[97vw] max-w-[1480px] h-[94vh] max-h-[94vh] overflow-hidden shadow-2xl border border-slate-200/90 text-left relative flex flex-col"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-0 sm:p-3 md:p-5 lg:p-6 overflow-hidden animate-in fade-in duration-200"
+            onClick={() => setSelectedArticle(null)}
           >
-            {/* Modal Header Bar */}
-            <div className="bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3.5 border-b border-slate-100 flex items-center justify-between shrink-0 z-20">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    isSmp
-                      ? 'bg-blue-50 text-[#030164] border border-blue-200'
-                      : 'bg-[#E8F3F1] text-[#184F48]'
-                  }`}
-                >
-                  {selectedArticle.category}
-                </span>
-                {selectedArticle.schoolName && (
-                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900">
-                    {selectedArticle.schoolName}
+            <div
+              className="bg-white rounded-none sm:rounded-3xl w-full sm:w-[96vw] max-w-[1380px] h-[100dvh] sm:h-[90vh] md:h-[88vh] md:max-h-[860px] overflow-hidden shadow-2xl border-0 sm:border border-slate-200/90 text-left relative flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header Bar (Always visible at top) */}
+              <div className="bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3 sm:py-3.5 border-b border-slate-100 flex items-center justify-between shrink-0 z-20 gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap min-w-0">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-bold ${
+                      isSmp
+                        ? 'bg-blue-50 text-[#030164] border border-blue-200'
+                        : 'bg-[#E8F3F1] text-[#184F48]'
+                    }`}
+                  >
+                    {selectedArticle.category}
                   </span>
+                  {selectedArticle.schoolName && (
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900">
+                      {selectedArticle.schoolName}
+                    </span>
+                  )}
+                  {selectedArticleMedia.length > 1 && (
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                      Slide {activeSlideIndex + 1} dari {selectedArticleMedia.length}
+                    </span>
+                  )}
+                  {selectedArticle.readingTime && (
+                    <span className="text-[11px] text-slate-400 items-center gap-1 hidden sm:inline-flex">
+                      <Clock className="w-3 h-3 text-amber-500" />
+                      <span>{selectedArticle.readingTime}</span>
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => handleShare(selectedArticle)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold transition-colors cursor-pointer border border-emerald-200/80"
+                    title="Bagikan ke WhatsApp"
+                  >
+                    <Share2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="hidden sm:inline">Bagikan</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedArticle(null)}
+                    className="p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
+                    title="Tutup (Esc)"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Split Content Area: Unified vertical scroll on mobile, Split columns on desktop */}
+              <div className="flex-1 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row min-h-0">
+                {/* Left Column: Multi-Photo & Video Carousel (Cover Image is Always Slide #1) */}
+                {selectedArticleMedia.length > 0 ? (
+                  <div className="md:w-7/12 lg:w-[55%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 h-[300px] sm:h-[360px] md:h-full select-none">
+                    {(() => {
+                      const currentMedia =
+                        selectedArticleMedia[activeSlideIndex] || selectedArticleMedia[0];
+
+                      return (
+                        <div className="relative flex-1 w-full h-full flex items-center justify-center p-2 sm:p-4 overflow-hidden min-h-0">
+                          {/* Ambient Blurred Backdrop for Images */}
+                          {currentMedia.type === 'image' && (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              src={currentMedia.url}
+                              alt=""
+                              aria-hidden="true"
+                              className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-35 pointer-events-none"
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+                          {currentMedia.type === 'video' ? (
+                            <div className="relative z-10 w-full h-full flex items-center justify-center">
+                              <video
+                                key={currentMedia.url}
+                                src={currentMedia.url}
+                                controls
+                                playsInline
+                                className="w-full h-full max-h-[230px] sm:max-h-[290px] md:max-h-[66vh] object-contain rounded-xl shadow-2xl bg-black"
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              onClick={() =>
+                                setLightboxImage({
+                                  url: currentMedia.url,
+                                  title: selectedArticle.title,
+                                  author: selectedArticle.author,
+                                  date: selectedArticle.date,
+                                  caption: selectedArticle.excerpt,
+                                })
+                              }
+                              className="relative z-10 w-full h-full flex items-center justify-center cursor-zoom-in group/zoomTrigger"
+                              title="Klik untuk perbesar penuh (fullscreen)"
+                            >
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                key={currentMedia.url}
+                                src={currentMedia.url}
+                                alt={selectedArticle.title}
+                                className="w-full h-full max-h-[225px] sm:max-h-[285px] md:max-h-[65vh] object-contain rounded-xl shadow-2xl transition-transform duration-300 group-hover/zoomTrigger:scale-[1.01]"
+                              />
+
+                              {/* Bottom floating hint */}
+                              <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold flex items-center gap-1.5 shadow-lg opacity-90 group-hover/zoomTrigger:opacity-100 transition-opacity whitespace-nowrap">
+                                <ZoomIn className="w-3 h-3 text-amber-300" />
+                                <span>Klik foto untuk perbesar penuh</span>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Prev / Next Slide Buttons */}
+                          {selectedArticleMedia.length > 1 && (
+                            <>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveSlideIndex((prev) =>
+                                    prev === 0
+                                      ? selectedArticleMedia.length - 1
+                                      : prev - 1
+                                  );
+                                }}
+                                className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/70 hover:bg-[#00A651] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
+                                title="Foto/Video Sebelumnya"
+                              >
+                                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveSlideIndex((prev) =>
+                                    prev === selectedArticleMedia.length - 1
+                                      ? 0
+                                      : prev + 1
+                                  );
+                                }}
+                                className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/70 hover:bg-[#00A651] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
+                                title="Foto/Video Berikutnya"
+                              >
+                                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                              </button>
+                            </>
+                          )}
+
+                          {/* Top-left Slide Counter Badge */}
+                          {selectedArticleMedia.length > 1 && (
+                            <div className="absolute top-2.5 left-2.5 z-20 px-2.5 py-1 rounded-xl bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-bold">
+                              Slide {activeSlideIndex + 1} / {selectedArticleMedia.length}
+                              {activeSlideIndex === 0 ? ' • Sampul Utama' : ''}
+                            </div>
+                          )}
+
+                          {/* Top-right Quick Download on Image */}
+                          {currentMedia.type === 'image' && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDownloadImage(
+                                  currentMedia.url,
+                                  selectedArticle.title
+                                );
+                              }}
+                              className="absolute top-2.5 right-2.5 z-20 p-2 rounded-xl bg-black/60 hover:bg-black/85 text-white backdrop-blur-md border border-white/20 transition-all shadow-md cursor-pointer"
+                              title="Unduh Foto Ini"
+                            >
+                              <Download className="w-3.5 h-3.5 text-emerald-400" />
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })()}
+
+                    {/* Bottom Thumbnail Strip when Multiple Slides Exist */}
+                    {selectedArticleMedia.length > 1 && (
+                      <div className="relative z-20 bg-slate-900/95 border-t border-white/10 px-3 sm:px-4 py-2 flex items-center gap-2 overflow-x-auto shrink-0">
+                        {selectedArticleMedia.map((media, idx) => (
+                          <button
+                            key={`${media.url}-${idx}`}
+                            type="button"
+                            onClick={() => setActiveSlideIndex(idx)}
+                            className={`relative w-14 h-10 sm:w-16 sm:h-11 rounded-lg overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
+                              idx === activeSlideIndex
+                                ? 'border-emerald-400 ring-2 ring-emerald-400/40 scale-105'
+                                : 'border-white/20 opacity-60 hover:opacity-100'
+                            }`}
+                          >
+                            {media.type === 'video' ? (
+                              <div className="w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
+                                <Film className="w-3.5 h-3.5 text-emerald-400" />
+                                <span className="text-[8px] font-bold mt-0.5">VIDEO</span>
+                              </div>
+                            ) : (
+                              /* eslint-disable-next-line @next/next/no-img-element */
+                              <img
+                                src={media.url}
+                                alt={`Slide ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            )}
+                            {idx === 0 && (
+                              <span className="absolute bottom-0 inset-x-0 bg-emerald-600/90 text-[8px] font-bold text-white text-center leading-tight py-0.5">
+                                SAMPUL
+                              </span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="md:w-5/12 lg:w-1/2 bg-gradient-to-br from-[#064e3b] to-[#047857] flex flex-col items-center justify-center text-white p-8 shrink-0 min-h-[200px]">
+                    <BookOpen className="w-14 h-14 text-amber-300 mb-3 opacity-80" />
+                    <span className="text-xs uppercase tracking-widest text-slate-200 font-bold">
+                      Warta Resmi Sekolah
+                    </span>
+                    <span className="text-sm font-bold text-center mt-1 text-white">
+                      {selectedArticle.schoolName || 'Al-Afiyah'}
+                    </span>
+                  </div>
                 )}
-                {selectedArticleMedia.length > 1 && (
-                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
-                    Slide {activeSlideIndex + 1} dari {selectedArticleMedia.length}
-                  </span>
-                )}
-                {selectedArticle.readingTime && (
-                  <span className="text-[11px] text-slate-400 items-center gap-1 hidden sm:inline-flex">
-                    <Clock className="w-3 h-3 text-amber-500" />
-                    <span>{selectedArticle.readingTime}</span>
-                  </span>
+
+                {/* Right Column: Full Caption, Meta, Excerpt, Story & Action */}
+                <div className="flex-1 p-5 sm:p-6 md:p-8 overflow-visible md:overflow-y-auto space-y-5 bg-white flex flex-col justify-between min-h-[55vh] md:min-h-0">
+                  <div className="space-y-4 sm:space-y-5">
+                    {/* Title & Metadata */}
+                    <div>
+                      <h2 className="text-lg sm:text-2xl lg:text-[26px] font-black text-slate-900 leading-snug tracking-tight">
+                        {selectedArticle.title}
+                      </h2>
+
+                      <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs text-slate-500 mt-3 pt-3 border-t border-slate-100">
+                        <span className="flex items-center gap-1.5">
+                          <User
+                            className={`w-3.5 h-3.5 ${
+                              isSmp ? 'text-[#030164]' : 'text-[#184F48]'
+                            }`}
+                          />
+                          <strong className="text-slate-700">{selectedArticle.author}</strong>
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{selectedArticle.date}</span>
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5 text-amber-500" />
+                          <span>{selectedArticle.readingTime || '3 menit baca'}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Lead Excerpt / Caption Highlight Box */}
+                    {selectedArticle.excerpt && (
+                      <div
+                        className={`p-3.5 sm:p-4 rounded-2xl border text-xs sm:text-sm leading-relaxed font-medium ${
+                          isSmp
+                            ? 'bg-blue-50/70 border-blue-200 text-blue-950'
+                            : 'bg-emerald-50/60 border-emerald-100/80 text-emerald-950'
+                        }`}
+                      >
+                        {parseNewsMedia(selectedArticle.excerpt).cleanContent}
+                      </div>
+                    )}
+
+                    {/* Paragraphs (Full Story) */}
+                    <div className="space-y-3.5 sm:space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
+                      {selectedArticleCleanParagraphs.map((p, idx) => (
+                        <p key={idx}>{p}</p>
+                      ))}
+                    </div>
+
+                    {/* Key Highlights */}
+                    {selectedArticle.keyHighlights &&
+                      selectedArticle.keyHighlights.length > 0 && (
+                        <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5">
+                          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                            <span>Poin Penting &amp; Informasi Utama</span>
+                          </h4>
+                          <ul className="space-y-1.5 text-xs sm:text-sm text-slate-600 pl-1">
+                            {selectedArticle.keyHighlights.map((hl, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-1.5 shrink-0" />
+                                <span>{hl}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                  </div>
+
+                  {/* Footer Actions */}
+                  <div className="pt-4 pb-6 md:pb-1 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2.5 mt-4 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleShare(selectedArticle)}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#1EBE5D] transition-colors shadow-sm cursor-pointer"
+                    >
+                      <Share2 className="w-4 h-4" />
+                      <span>Bagikan ke WhatsApp</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedArticle(null)}
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      Tutup Artikel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {/* Fullscreen Photo Lightbox Modal (Portaled to document.body) */}
+      {lightboxImage &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[110] bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-6 animate-in fade-in duration-200 select-none"
+            onClick={() => {
+              setLightboxImage(null);
+              setZoomLevel(1);
+            }}
+          >
+            {/* Top Bar */}
+            <div
+              className="flex items-center justify-between gap-3 text-white max-w-7xl mx-auto w-full z-20 pb-3"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="min-w-0 pr-4">
+                <h3 className="text-sm sm:text-base font-bold text-white truncate">
+                  {lightboxImage.title}
+                </h3>
+                {(lightboxImage.author || lightboxImage.date) && (
+                  <p className="text-xs text-slate-300 truncate">
+                    {lightboxImage.author} {lightboxImage.date ? `• ${lightboxImage.date}` : ''}
+                  </p>
                 )}
               </div>
 
-              <div className="flex items-center gap-2">
+              {/* Controls */}
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <div className="bg-white/10 rounded-xl p-1 flex items-center border border-white/20">
+                  <button
+                    type="button"
+                    onClick={handleZoomOut}
+                    className="p-1.5 sm:p-2 rounded-lg hover:bg-white/20 text-white transition-colors cursor-pointer"
+                    title="Perkecil (-)"
+                  >
+                    <ZoomOut className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleResetZoom}
+                    className="px-2 py-1 text-xs font-mono font-bold text-amber-300 hover:bg-white/20 rounded-md transition-colors cursor-pointer"
+                    title="Reset Zoom (100%)"
+                  >
+                    {Math.round(zoomLevel * 100)}%
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleZoomIn}
+                    className="p-1.5 sm:p-2 rounded-lg hover:bg-white/20 text-white transition-colors cursor-pointer"
+                    title="Perbesar (+)"
+                  >
+                    <ZoomIn className="w-4 h-4" />
+                  </button>
+                </div>
+
                 <button
                   type="button"
-                  onClick={() => handleShare(selectedArticle)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold transition-colors cursor-pointer border border-emerald-200/80"
-                  title="Bagikan ke WhatsApp"
+                  onClick={() => handleDownloadImage(lightboxImage.url, lightboxImage.title)}
+                  className="p-2 sm:px-3 sm:py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  title="Unduh / Simpan Foto"
                 >
-                  <Share2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="hidden sm:inline">Bagikan</span>
+                  <Download className="w-4 h-4 text-emerald-400" />
+                  <span className="hidden sm:inline">Unduh</span>
                 </button>
+
                 <button
                   type="button"
-                  onClick={() => setSelectedArticle(null)}
-                  className="p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
+                  onClick={() => {
+                    setLightboxImage(null);
+                    setZoomLevel(1);
+                  }}
+                  className="p-2 sm:p-2.5 rounded-xl bg-white/15 hover:bg-red-500/80 text-white transition-colors cursor-pointer border border-white/20"
                   title="Tutup (Esc)"
                 >
                   <X className="w-5 h-5" />
@@ -554,400 +910,51 @@ export default function NewsListClient({
               </div>
             </div>
 
-            {/* Split Content Area: Left Interactive Media Carousel + Right Full Story */}
-            <div className="flex-1 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row min-h-0">
-              {/* Left Column: Multi-Photo & Video Carousel (Cover Image is Always Slide #1) */}
-              {selectedArticleMedia.length > 0 ? (
-                <div className="md:w-7/12 lg:w-[56%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 min-h-[280px] sm:min-h-[360px] md:min-h-full select-none">
-                  {(() => {
-                    const currentMedia =
-                      selectedArticleMedia[activeSlideIndex] || selectedArticleMedia[0];
-
-                    return (
-                      <div className="relative flex-1 w-full h-full flex items-center justify-center p-2 sm:p-4 overflow-hidden">
-                        {/* Ambient Blurred Backdrop for Images */}
-                        {currentMedia.type === 'image' && (
-                          /* eslint-disable-next-line @next/next/no-img-element */
-                          <img
-                            src={currentMedia.url}
-                            alt=""
-                            aria-hidden="true"
-                            className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-35 pointer-events-none"
-                          />
-                        )}
-                        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
-
-                        {currentMedia.type === 'video' ? (
-                          <div className="relative z-10 w-full h-full flex items-center justify-center">
-                            <video
-                              key={currentMedia.url}
-                              src={currentMedia.url}
-                              controls
-                              playsInline
-                              className="w-full h-full max-h-[360px] md:max-h-[74vh] object-contain rounded-xl shadow-2xl bg-black"
-                            />
-                          </div>
-                        ) : (
-                          <div
-                            onClick={() =>
-                              setLightboxImage({
-                                url: currentMedia.url,
-                                title: selectedArticle.title,
-                                author: selectedArticle.author,
-                                date: selectedArticle.date,
-                                caption: selectedArticle.excerpt,
-                              })
-                            }
-                            className="relative z-10 w-full h-full max-h-[380px] md:max-h-[75vh] flex items-center justify-center cursor-zoom-in group/zoomTrigger"
-                            title="Klik untuk perbesar penuh (fullscreen)"
-                          >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              key={currentMedia.url}
-                              src={currentMedia.url}
-                              alt={selectedArticle.title}
-                              className="w-full h-auto max-h-[350px] md:max-h-[72vh] object-contain rounded-xl shadow-2xl transition-transform duration-300 group-hover/zoomTrigger:scale-[1.01]"
-                            />
-
-                            {/* Bottom floating hint */}
-                            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold flex items-center gap-1.5 shadow-lg opacity-90 group-hover/zoomTrigger:opacity-100 transition-opacity whitespace-nowrap">
-                              <ZoomIn className="w-3 h-3 text-amber-300" />
-                              <span>Klik foto untuk perbesar penuh</span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Prev / Next Slide Buttons */}
-                        {selectedArticleMedia.length > 1 && (
-                          <>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveSlideIndex((prev) =>
-                                  prev === 0
-                                    ? selectedArticleMedia.length - 1
-                                    : prev - 1
-                                );
-                              }}
-                              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/70 hover:bg-[#00A651] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
-                              title="Foto/Video Sebelumnya"
-                            >
-                              <ChevronLeft className="w-6 h-6" />
-                            </button>
-
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveSlideIndex((prev) =>
-                                  prev === selectedArticleMedia.length - 1
-                                    ? 0
-                                    : prev + 1
-                                );
-                              }}
-                              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/70 hover:bg-[#00A651] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
-                              title="Foto/Video Berikutnya"
-                            >
-                              <ChevronRight className="w-6 h-6" />
-                            </button>
-                          </>
-                        )}
-
-                        {/* Top-left Slide Counter Badge */}
-                        {selectedArticleMedia.length > 1 && (
-                          <div className="absolute top-3 left-3 z-20 px-3 py-1 rounded-xl bg-black/70 backdrop-blur-md border border-white/15 text-white text-[11px] font-bold">
-                            Slide {activeSlideIndex + 1} / {selectedArticleMedia.length}
-                            {activeSlideIndex === 0 ? ' • Sampul Utama' : ''}
-                          </div>
-                        )}
-
-                        {/* Top-right Quick Download on Image */}
-                        {currentMedia.type === 'image' && (
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDownloadImage(
-                                currentMedia.url,
-                                selectedArticle.title
-                              );
-                            }}
-                            className="absolute top-3 right-3 z-20 p-2 rounded-xl bg-black/60 hover:bg-black/85 text-white backdrop-blur-md border border-white/20 transition-all shadow-md cursor-pointer"
-                            title="Unduh Foto Ini"
-                          >
-                            <Download className="w-3.5 h-3.5 text-emerald-400" />
-                          </button>
-                        )}
-                      </div>
-                    );
-                  })()}
-
-                  {/* Bottom Thumbnail Strip when Multiple Slides Exist */}
-                  {selectedArticleMedia.length > 1 && (
-                    <div className="relative z-20 bg-slate-900/95 border-t border-white/10 px-4 py-2.5 flex items-center gap-2 overflow-x-auto">
-                      {selectedArticleMedia.map((media, idx) => (
-                        <button
-                          key={`${media.url}-${idx}`}
-                          type="button"
-                          onClick={() => setActiveSlideIndex(idx)}
-                          className={`relative w-16 h-12 rounded-lg overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
-                            idx === activeSlideIndex
-                              ? 'border-emerald-400 ring-2 ring-emerald-400/40 scale-105'
-                              : 'border-white/20 opacity-60 hover:opacity-100'
-                          }`}
-                        >
-                          {media.type === 'video' ? (
-                            <div className="w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
-                              <Film className="w-4 h-4 text-emerald-400" />
-                              <span className="text-[8px] font-bold mt-0.5">VIDEO</span>
-                            </div>
-                          ) : (
-                            /* eslint-disable-next-line @next/next/no-img-element */
-                            <img
-                              src={media.url}
-                              alt={`Slide ${idx + 1}`}
-                              className="w-full h-full object-cover"
-                            />
-                          )}
-                          {idx === 0 && (
-                            <span className="absolute bottom-0 inset-x-0 bg-emerald-600/90 text-[8px] font-bold text-white text-center leading-tight py-0.5">
-                              SAMPUL
-                            </span>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="md:w-5/12 lg:w-1/2 bg-gradient-to-br from-[#064e3b] to-[#047857] flex flex-col items-center justify-center text-white p-8 shrink-0 min-h-[220px]">
-                  <BookOpen className="w-14 h-14 text-amber-300 mb-3 opacity-80" />
-                  <span className="text-xs uppercase tracking-widest text-slate-200 font-bold">
-                    Warta Resmi Sekolah
-                  </span>
-                  <span className="text-sm font-bold text-center mt-1 text-white">
-                    {selectedArticle.schoolName || 'Al-Afiyah'}
-                  </span>
-                </div>
-              )}
-
-              {/* Right Column: Full Caption, Meta, Excerpt, Story & Action */}
-              <div className="flex-1 p-5 sm:p-7 md:p-9 overflow-y-auto space-y-5 bg-white flex flex-col justify-between">
-                <div className="space-y-5">
-                  {/* Title & Metadata */}
-                  <div>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 leading-snug tracking-tight">
-                      {selectedArticle.title}
-                    </h2>
-
-                    <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs text-slate-500 mt-3 pt-3 border-t border-slate-100">
-                      <span className="flex items-center gap-1.5">
-                        <User
-                          className={`w-3.5 h-3.5 ${
-                            isSmp ? 'text-[#030164]' : 'text-[#184F48]'
-                          }`}
-                        />
-                        <strong className="text-slate-700">{selectedArticle.author}</strong>
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{selectedArticle.date}</span>
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-amber-500" />
-                        <span>{selectedArticle.readingTime || '3 menit baca'}</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Lead Excerpt / Caption Highlight Box */}
-                  {selectedArticle.excerpt && (
-                    <div
-                      className={`p-4 rounded-2xl border text-xs sm:text-sm leading-relaxed font-medium ${
-                        isSmp
-                          ? 'bg-blue-50/70 border-blue-200 text-blue-950'
-                          : 'bg-emerald-50/60 border-emerald-100/80 text-emerald-950'
-                      }`}
-                    >
-                      {parseNewsMedia(selectedArticle.excerpt).cleanContent}
-                    </div>
-                  )}
-
-                  {/* Paragraphs (Full Story) */}
-                  <div className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
-                    {selectedArticleCleanParagraphs.map((p, idx) => (
-                      <p key={idx}>{p}</p>
-                    ))}
-                  </div>
-
-                  {/* Key Highlights */}
-                  {selectedArticle.keyHighlights &&
-                    selectedArticle.keyHighlights.length > 0 && (
-                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5">
-                        <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                          <span>Poin Penting &amp; Informasi Utama</span>
-                        </h4>
-                        <ul className="space-y-1.5 text-xs sm:text-sm text-slate-600 pl-1">
-                          {selectedArticle.keyHighlights.map((hl, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-1.5 shrink-0" />
-                              <span>{hl}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                </div>
-
-                {/* Footer Actions */}
-                <div className="pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 mt-4">
-                  <button
-                    type="button"
-                    onClick={() => handleShare(selectedArticle)}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#1EBE5D] transition-colors shadow-sm cursor-pointer"
-                  >
-                    <Share2 className="w-4 h-4" />
-                    <span>Bagikan ke WhatsApp</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setSelectedArticle(null)}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
-                  >
-                    Tutup Artikel
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Fullscreen Photo Lightbox Modal */}
-      {lightboxImage && (
-        <div
-          className="fixed inset-0 z-[80] bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-6 animate-in fade-in duration-200 select-none"
-          onClick={() => {
-            setLightboxImage(null);
-            setZoomLevel(1);
-          }}
-        >
-          {/* Top Bar */}
-          <div
-            className="flex items-center justify-between gap-3 text-white max-w-7xl mx-auto w-full z-20 pb-3"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="min-w-0 pr-4">
-              <h3 className="text-sm sm:text-base font-bold text-white truncate">
-                {lightboxImage.title}
-              </h3>
-              {(lightboxImage.author || lightboxImage.date) && (
-                <p className="text-xs text-slate-300 truncate">
-                  {lightboxImage.author} {lightboxImage.date ? `• ${lightboxImage.date}` : ''}
-                </p>
-              )}
-            </div>
-
-            {/* Controls */}
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              <div className="bg-white/10 rounded-xl p-1 flex items-center border border-white/20">
-                <button
-                  type="button"
-                  onClick={handleZoomOut}
-                  className="p-1.5 sm:p-2 rounded-lg hover:bg-white/20 text-white transition-colors cursor-pointer"
-                  title="Perkecil (-)"
-                >
-                  <ZoomOut className="w-4 h-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleResetZoom}
-                  className="px-2 py-1 text-xs font-mono font-bold text-amber-300 hover:bg-white/20 rounded-md transition-colors cursor-pointer"
-                  title="Reset Zoom (100%)"
-                >
-                  {Math.round(zoomLevel * 100)}%
-                </button>
-                <button
-                  type="button"
-                  onClick={handleZoomIn}
-                  className="p-1.5 sm:p-2 rounded-lg hover:bg-white/20 text-white transition-colors cursor-pointer"
-                  title="Perbesar (+)"
-                >
-                  <ZoomIn className="w-4 h-4" />
-                </button>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleDownloadImage(lightboxImage.url, lightboxImage.title)}
-                className="p-2 sm:px-3 sm:py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-                title="Unduh / Simpan Foto"
-              >
-                <Download className="w-4 h-4 text-emerald-400" />
-                <span className="hidden sm:inline">Unduh</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
+            {/* Main Photo Canvas */}
+            <div
+              className="flex-1 flex items-center justify-center overflow-auto my-auto relative w-full"
+              onClick={(e) => {
+                if (e.target === e.currentTarget) {
                   setLightboxImage(null);
                   setZoomLevel(1);
+                }
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={lightboxImage.url}
+                alt={lightboxImage.title}
+                style={{
+                  transform: `scale(${zoomLevel})`,
+                  transition: 'transform 0.2s cubic-bezier(0.2, 0, 0, 1)',
                 }}
-                className="p-2 sm:p-2.5 rounded-xl bg-white/15 hover:bg-red-500/80 text-white transition-colors cursor-pointer border border-white/20"
-                title="Tutup (Esc)"
-              >
-                <X className="w-5 h-5" />
-              </button>
+                className="max-w-[95vw] max-h-[82vh] object-contain rounded-lg shadow-2xl cursor-grab active:cursor-grabbing"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setZoomLevel((prev) => (prev === 1 ? 1.8 : 1));
+                }}
+              />
             </div>
-          </div>
 
-          {/* Main Photo Canvas */}
-          <div
-            className="flex-1 flex items-center justify-center overflow-auto my-auto relative w-full"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                setLightboxImage(null);
-                setZoomLevel(1);
-              }
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={lightboxImage.url}
-              alt={lightboxImage.title}
-              style={{
-                transform: `scale(${zoomLevel})`,
-                transition: 'transform 0.2s cubic-bezier(0.2, 0, 0, 1)',
-              }}
-              className="max-w-[95vw] max-h-[82vh] object-contain rounded-lg shadow-2xl cursor-grab active:cursor-grabbing"
-              onClick={(e) => {
-                e.stopPropagation();
-                setZoomLevel((prev) => (prev === 1 ? 1.8 : 1));
-              }}
-            />
-          </div>
-
-          {/* Bottom Caption & Hint */}
-          <div
-            className="text-center max-w-3xl mx-auto w-full pt-2 z-20 space-y-1.5"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {lightboxImage.caption && (
-              <p className="text-xs sm:text-sm text-slate-200 bg-black/65 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 leading-relaxed max-h-24 overflow-y-auto shadow-lg text-left sm:text-center">
-                {parseNewsMedia(lightboxImage.caption).cleanContent}
-              </p>
-            )}
-            <div className="text-[11px] text-slate-400">
-              <span>
-                Klik gambar untuk zoom • Gunakan tombol + / - untuk perbesar • Tekan Esc untuk keluar
-              </span>
+            {/* Bottom Caption & Hint */}
+            <div
+              className="text-center max-w-3xl mx-auto w-full pt-2 z-20 space-y-1.5"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {lightboxImage.caption && (
+                <p className="text-xs sm:text-sm text-slate-200 bg-black/65 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 leading-relaxed max-h-24 overflow-y-auto shadow-lg text-left sm:text-center">
+                  {parseNewsMedia(lightboxImage.caption).cleanContent}
+                </p>
+              )}
+              <div className="text-[11px] text-slate-400">
+                <span>
+                  Klik gambar untuk zoom • Gunakan tombol + / - untuk perbesar • Tekan Esc untuk keluar
+                </span>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

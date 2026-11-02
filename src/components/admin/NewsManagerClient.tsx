@@ -132,6 +132,7 @@ export default function NewsManagerClient({
   const [formIsPublished, setFormIsPublished] = useState(true);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isUploadingExtraMedia, setIsUploadingExtraMedia] = useState(false);
+  const [uploadProgressText, setUploadProgressText] = useState<string>('');
   const [imageUploadMode, setImageUploadMode] = useState<'upload' | 'url'>('upload');
   const [extraMediaUrlInput, setExtraMediaUrlInput] = useState('');
   const [extraMediaTypeInput, setExtraMediaTypeInput] = useState<'image' | 'video'>('image');
@@ -393,13 +394,17 @@ export default function NewsManagerClient({
     if (!files || files.length === 0) return;
 
     setIsUploadingExtraMedia(true);
+    setUploadProgressText('Mengoptimalkan foto...');
     setErrorMessage(null);
 
     try {
       const uploadedItems: NewsMediaItem[] = [];
-      for (const file of Array.from(files)) {
+      const fileArray = Array.from(files);
+      for (let i = 0; i < fileArray.length; i++) {
+        const file = fileArray[i];
         if (!file.type.startsWith('image/')) continue;
-        const compressed = await compressImageClient(file, 1200, 800, 0.84);
+        setUploadProgressText(`Memproses foto ${i + 1}/${fileArray.length}...`);
+        const compressed = await compressImageClient(file, 1080, 720, 0.78);
         uploadedItems.push({
           type: 'image',
           url: compressed.dataUrl,
@@ -413,6 +418,7 @@ export default function NewsManagerClient({
       setErrorMessage(message);
     } finally {
       setIsUploadingExtraMedia(false);
+      setUploadProgressText('');
       e.target.value = '';
     }
   };
@@ -422,36 +428,85 @@ export default function NewsManagerClient({
     if (!files || files.length === 0) return;
 
     setIsUploadingExtraMedia(true);
+    setUploadProgressText('Menyiapkan unggahan video...');
     setErrorMessage(null);
 
     try {
-      const uploadedVideos: NewsMediaItem[] = [];
-      for (const file of Array.from(files)) {
-        const fd = new FormData();
-        fd.append('file', file);
-        fd.append('schoolSlug', schoolSlug);
+      const CHUNK_SIZE = 2 * 1024 * 1024; // 2 MB per chunk to bypass Vercel 4.5MB limit
+      const MAX_VIDEO_SIZE = 60 * 1024 * 1024; // 60 MB max per video
 
-        const res = await fetch('/api/admin/upload', {
-          method: 'POST',
-          body: fd,
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || `Gagal mengunggah video ${file.name}`);
+      for (const file of Array.from(files)) {
+        if (file.size > MAX_VIDEO_SIZE) {
+          throw new Error(
+            `Ukuran video "${file.name}" (${(file.size / (1024 * 1024)).toFixed(1)} MB) melebihi batas maksimal 60 MB.`
+          );
         }
-        uploadedVideos.push({
-          type: 'video',
-          url: data.url,
-        });
-      }
-      if (uploadedVideos.length > 0) {
-        setFormExtraMedia((prev) => [...prev, ...uploadedVideos]);
+
+        const totalChunks = Math.max(1, Math.ceil(file.size / CHUNK_SIZE));
+        const uploadId = `vid_${schoolSlug}_${Date.now()}_${Math.random()
+          .toString(36)
+          .slice(2, 8)}`;
+
+        let finalVideoUrl = '';
+
+        for (let chunkIdx = 0; chunkIdx < totalChunks; chunkIdx++) {
+          const start = chunkIdx * CHUNK_SIZE;
+          const end = Math.min(start + CHUNK_SIZE, file.size);
+          const chunkBlob = file.slice(start, end, file.type || 'video/mp4');
+
+          const percent = Math.round(((chunkIdx + 1) / totalChunks) * 100);
+          setUploadProgressText(`Mengunggah video "${file.name}" (${percent}%)...`);
+
+          const fd = new FormData();
+          fd.append('chunk', chunkBlob, file.name);
+          fd.append('uploadId', uploadId);
+          fd.append('schoolSlug', schoolSlug);
+          fd.append('chunkIndex', String(chunkIdx));
+          fd.append('totalChunks', String(totalChunks));
+          fd.append('fileSize', String(file.size));
+          fd.append('mimeType', file.type || 'video/mp4');
+          fd.append('fileName', file.name);
+
+          const res = await fetch('/api/admin/upload/chunk', {
+            method: 'POST',
+            body: fd,
+          });
+
+          const rawText = await res.text();
+          let data: { error?: string; completed?: boolean; url?: string } = {};
+          try {
+            data = JSON.parse(rawText);
+          } catch {
+            throw new Error(
+              `Gagal mengunggah potongan video ke-${chunkIdx + 1} (Status ${res.status}). Silakan coba lagi.`
+            );
+          }
+
+          if (!res.ok) {
+            throw new Error(data.error || `Gagal mengunggah video ${file.name}`);
+          }
+
+          if (data.completed && data.url) {
+            finalVideoUrl = data.url;
+          }
+        }
+
+        if (finalVideoUrl) {
+          setFormExtraMedia((prev) => [
+            ...prev,
+            {
+              type: 'video',
+              url: finalVideoUrl,
+            },
+          ]);
+        }
       }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Gagal mengunggah video berita';
       setErrorMessage(message);
     } finally {
       setIsUploadingExtraMedia(false);
+      setUploadProgressText('');
       e.target.value = '';
     }
   };
@@ -1724,9 +1779,9 @@ export default function NewsManagerClient({
                     </p>
                   </div>
                   {isUploadingExtraMedia && (
-                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-white px-3 py-1 rounded-full border border-emerald-200 shadow-2xs">
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      Mengunggah media...
+                      {uploadProgressText || 'Mengunggah media...'}
                     </span>
                   )}
                 </div>
@@ -1751,7 +1806,7 @@ export default function NewsManagerClient({
                     <span>+ Unggah Video (MP4 / WebM / MOV)</span>
                     <input
                       type="file"
-                      accept="video/mp4,video/webm,video/quicktime"
+                      accept="video/*,.mp4,.webm,.mov,.mkv,.m4v"
                       multiple
                       disabled={isUploadingExtraMedia}
                       onChange={handleExtraVideosUpload}
@@ -1822,12 +1877,20 @@ export default function NewsManagerClient({
                         className="relative rounded-xl overflow-hidden border border-slate-200 bg-slate-900 aspect-video group"
                       >
                         {media.type === 'video' ? (
-                          <video
-                            src={media.url}
-                            className="w-full h-full object-cover"
-                            muted
-                            playsInline
-                          />
+                          <div className="relative w-full h-full bg-slate-900 flex items-center justify-center">
+                            <video
+                              src={`${media.url}#t=0.1`}
+                              className="w-full h-full object-cover opacity-85"
+                              muted
+                              playsInline
+                              preload="metadata"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                              <div className="w-9 h-9 rounded-full bg-emerald-600/90 text-white flex items-center justify-center shadow-lg border border-white/30">
+                                <Film className="w-4 h-4" />
+                              </div>
+                            </div>
+                          </div>
                         ) : (
                           <Image
                             src={media.url}
