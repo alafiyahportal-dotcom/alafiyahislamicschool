@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { requireAuth } from '@/lib/auth-guard';
 import { verifyFileBuffer } from '@/lib/file-security';
 
-const MAX_VIDEO_TOTAL_BYTES = 60 * 1024 * 1024; // 60 MB max video size
+const MAX_VIDEO_TOTAL_BYTES = 200 * 1024 * 1024; // 200 MB max video size
 const MAX_CHUNK_BYTES = 3.5 * 1024 * 1024; // 3.5 MB max per chunk (well below Vercel 4.5MB limit)
 
 export async function POST(request: NextRequest) {
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 
     if (fileSize > MAX_VIDEO_TOTAL_BYTES) {
       return NextResponse.json(
-        { error: 'Ukuran video terlalu besar. Maksimal 60 MB per video.' },
+        { error: 'Ukuran video terlalu besar. Maksimal 200 MB per video.' },
         { status: 400 }
       );
     }

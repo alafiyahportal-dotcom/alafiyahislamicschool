@@ -25,6 +25,8 @@ import {
   mergeUniqueStrings,
   NewsMediaItem,
   parseNewsMedia,
+  getVideoEmbedUrl,
+  getVideoThumbnailUrl,
 } from '@/lib/news-media';
 
 export interface NewsArticle {
@@ -597,13 +599,24 @@ export default function NewsListClient({
 
                           {currentMedia.type === 'video' ? (
                             <div className="relative z-10 w-full h-full flex items-center justify-center">
-                              <video
-                                key={currentMedia.url}
-                                src={currentMedia.url}
-                                controls
-                                playsInline
-                                className="w-full h-full object-contain rounded-lg shadow-2xl bg-black"
-                              />
+                              {getVideoEmbedUrl(currentMedia.url) ? (
+                                <iframe
+                                  key={currentMedia.url}
+                                  src={getVideoEmbedUrl(currentMedia.url)!}
+                                  title={selectedArticle.title}
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowFullScreen
+                                  className="w-full h-full rounded-lg shadow-2xl border-0 bg-black"
+                                />
+                              ) : (
+                                <video
+                                  key={currentMedia.url}
+                                  src={currentMedia.url}
+                                  controls
+                                  playsInline
+                                  className="w-full h-full object-contain rounded-lg shadow-2xl bg-black"
+                                />
+                              )}
                             </div>
                           ) : (
                             <div
@@ -716,9 +729,17 @@ export default function NewsListClient({
                             }`}
                           >
                             {media.type === 'video' ? (
-                              <div className="w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
-                                <Film className="w-3.5 h-3.5 text-emerald-400" />
-                                <span className="text-[8px] font-bold mt-0.5">VIDEO</span>
+                              <div className="relative w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
+                                {getVideoThumbnailUrl(media.url) && (
+                                  /* eslint-disable-next-line @next/next/no-img-element */
+                                  <img
+                                    src={getVideoThumbnailUrl(media.url)!}
+                                    alt={`Slide ${idx + 1}`}
+                                    className="absolute inset-0 w-full h-full object-cover opacity-55"
+                                  />
+                                )}
+                                <Film className="relative z-10 w-3.5 h-3.5 text-emerald-400" />
+                                <span className="relative z-10 text-[8px] font-bold mt-0.5">VIDEO</span>
                               </div>
                             ) : (
                               /* eslint-disable-next-line @next/next/no-img-element */

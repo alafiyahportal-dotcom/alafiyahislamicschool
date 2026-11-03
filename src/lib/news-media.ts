@@ -55,10 +55,13 @@ export function parseNewsMedia(
               item.url.trim().length > 0 &&
               (item.type === 'image' || item.type === 'video')
           )
-          .map((item) => ({
-            type: item.type,
-            url: item.url.trim(),
-          }));
+          .map((item) => {
+            const cleanUrl = item.url.trim();
+            return {
+              type: isVideoUrl(cleanUrl) ? 'video' : item.type,
+              url: cleanUrl,
+            };
+          });
       }
     } catch {
       extraMedia = [];
@@ -120,8 +123,60 @@ export function serializeNewsContent(
   return `${stripped}\n<!--NEWS_MEDIA:${JSON.stringify(validMedia)}-->`;
 }
 
+/**
+ * Extracts a 11-character YouTube video ID from standard watch, shorts, embed, live, or youtu.be URLs.
+ */
+export function getYouTubeVideoId(url: string): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  const match = trimmed.match(
+    /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i
+  );
+  return match ? match[1] : null;
+}
+
+/**
+ * Extracts a Google Drive file ID from a sharing/view link.
+ */
+export function getGoogleDriveFileId(url: string): string | null {
+  if (!url) return null;
+  const trimmed = url.trim();
+  const match = trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i);
+  return match ? match[1] : null;
+}
+
+/**
+ * Returns an iframe-compatible embed URL if the video is hosted on YouTube (including Shorts) or Google Drive.
+ * Returns null for direct video files (.mp4, .webm, .mov, /api/media/...).
+ */
+export function getVideoEmbedUrl(url: string): string | null {
+  if (!url) return null;
+  const ytId = getYouTubeVideoId(url);
+  if (ytId) {
+    return `https://www.youtube.com/embed/${ytId}?playsinline=1&rel=0`;
+  }
+  const driveId = getGoogleDriveFileId(url);
+  if (driveId) {
+    return `https://drive.google.com/file/d/${driveId}/preview`;
+  }
+  return null;
+}
+
+/**
+ * Returns a preview thumbnail image URL for external video links (e.g. YouTube / Shorts).
+ */
+export function getVideoThumbnailUrl(url: string): string | null {
+  if (!url) return null;
+  const ytId = getYouTubeVideoId(url);
+  if (ytId) {
+    return `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+  }
+  return null;
+}
+
 export function isVideoUrl(url: string): boolean {
   if (!url) return false;
+  if (getVideoEmbedUrl(url) !== null) return true;
   const lower = url.toLowerCase().split('?')[0];
   return (
     lower.endsWith('.mp4') ||

@@ -46,6 +46,8 @@ import {
   DEFAULT_NEWS_CATEGORIES,
   mergeUniqueStrings,
   parseNewsMedia,
+  getVideoEmbedUrl,
+  getVideoThumbnailUrl,
 } from '@/lib/news-media';
 import UnitHeroSlider, { UnitSlideData } from './UnitHeroSlider';
 import InteractiveBubbleCard from './InteractiveBubbleCard';
@@ -2059,13 +2061,24 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                     <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
                     {currentSlide.type === 'video' ? (
-                      <video
-                        key={currentSlide.url}
-                        src={currentSlide.url}
-                        controls
-                        playsInline
-                        className="relative z-10 w-full h-full object-contain rounded-lg shadow-2xl bg-black"
-                      />
+                      getVideoEmbedUrl(currentSlide.url) ? (
+                        <iframe
+                          key={currentSlide.url}
+                          src={getVideoEmbedUrl(currentSlide.url)!}
+                          title={selectedNews.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          className="relative z-10 w-full h-full rounded-lg shadow-2xl border-0 bg-black"
+                        />
+                      ) : (
+                        <video
+                          key={currentSlide.url}
+                          src={currentSlide.url}
+                          controls
+                          playsInline
+                          className="relative z-10 w-full h-full object-contain rounded-lg shadow-2xl bg-black"
+                        />
+                      )
                     ) : (
                       <img
                         key={currentSlide.url}
@@ -2128,9 +2141,16 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                           }`}
                         >
                           {media.type === 'video' ? (
-                            <div className="w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
-                              <Film className="w-4 h-4 text-emerald-400" />
-                              <span className="text-[8px] font-bold mt-0.5">VIDEO</span>
+                            <div className="relative w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
+                              {getVideoThumbnailUrl(media.url) && (
+                                <img
+                                  src={getVideoThumbnailUrl(media.url)!}
+                                  alt={`Slide ${idx + 1}`}
+                                  className="absolute inset-0 w-full h-full object-cover opacity-55"
+                                />
+                              )}
+                              <Film className="relative z-10 w-4 h-4 text-emerald-400" />
+                              <span className="relative z-10 text-[8px] font-bold mt-0.5">VIDEO</span>
                             </div>
                           ) : (
                             <img

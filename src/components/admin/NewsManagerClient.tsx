@@ -35,6 +35,8 @@ import {
   parseNewsMedia,
   serializeNewsContent,
   isVideoUrl,
+  getVideoEmbedUrl,
+  getVideoThumbnailUrl,
 } from '@/lib/news-media';
 
 export interface NewsItem {
@@ -433,12 +435,12 @@ export default function NewsManagerClient({
 
     try {
       const CHUNK_SIZE = 2 * 1024 * 1024; // 2 MB per chunk to bypass Vercel 4.5MB limit
-      const MAX_VIDEO_SIZE = 60 * 1024 * 1024; // 60 MB max per video
+      const MAX_VIDEO_SIZE = 200 * 1024 * 1024; // 200 MB max per video
 
       for (const file of Array.from(files)) {
         if (file.size > MAX_VIDEO_SIZE) {
           throw new Error(
-            `Ukuran video "${file.name}" (${(file.size / (1024 * 1024)).toFixed(1)} MB) melebihi batas maksimal 60 MB.`
+            `Ukuran video "${file.name}" (${(file.size / (1024 * 1024)).toFixed(1)} MB) melebihi batas maksimal 200 MB.`
           );
         }
 
@@ -1396,6 +1398,19 @@ export default function NewsManagerClient({
                     };
 
                   if (activeSlide.type === 'video') {
+                    const embedUrl = getVideoEmbedUrl(activeSlide.url);
+                    if (embedUrl) {
+                      return (
+                        <iframe
+                          key={activeSlide.url}
+                          src={embedUrl}
+                          title={previewItem.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          className="w-full h-full border-0 bg-black"
+                        />
+                      );
+                    }
                     return (
                       <video
                         key={activeSlide.url}
@@ -1487,9 +1502,18 @@ export default function NewsManagerClient({
                       }`}
                     >
                       {media.type === 'video' ? (
-                        <div className="w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
-                          <Film className="w-4 h-4 text-emerald-400" />
-                          <span className="text-[9px] font-bold mt-0.5">VIDEO</span>
+                        <div className="relative w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
+                          {getVideoThumbnailUrl(media.url) && (
+                            <Image
+                              src={getVideoThumbnailUrl(media.url)!}
+                              alt={`Slide ${idx + 1}`}
+                              fill
+                              className="object-cover opacity-55"
+                              unoptimized
+                            />
+                          )}
+                          <Film className="relative z-10 w-4 h-4 text-emerald-400" />
+                          <span className="relative z-10 text-[9px] font-bold mt-0.5">VIDEO</span>
                         </div>
                       ) : (
                         <Image
@@ -1831,7 +1855,7 @@ export default function NewsManagerClient({
                     type="text"
                     value={extraMediaUrlInput}
                     onChange={(e) => setExtraMediaUrlInput(e.target.value)}
-                    placeholder="Atau tempel tautan URL foto/video tambahan di sini..."
+                    placeholder="Tempel link YouTube / YouTube Shorts / tautan foto atau video di sini..."
                     className="flex-1 px-3.5 py-2 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500"
                   />
                   <button
@@ -1878,13 +1902,23 @@ export default function NewsManagerClient({
                       >
                         {media.type === 'video' ? (
                           <div className="relative w-full h-full bg-slate-900 flex items-center justify-center">
-                            <video
-                              src={`${media.url}#t=0.1`}
-                              className="w-full h-full object-cover opacity-85"
-                              muted
-                              playsInline
-                              preload="metadata"
-                            />
+                            {getVideoThumbnailUrl(media.url) ? (
+                              <Image
+                                src={getVideoThumbnailUrl(media.url)!}
+                                alt={`Slide ${idx + 2}`}
+                                fill
+                                className="object-cover opacity-85"
+                                unoptimized
+                              />
+                            ) : (
+                              <video
+                                src={`${media.url}#t=0.1`}
+                                className="w-full h-full object-cover opacity-85"
+                                muted
+                                playsInline
+                                preload="metadata"
+                              />
+                            )}
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                               <div className="w-9 h-9 rounded-full bg-emerald-600/90 text-white flex items-center justify-center shadow-lg border border-white/30">
                                 <Film className="w-4 h-4" />
