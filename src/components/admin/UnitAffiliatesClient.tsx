@@ -23,6 +23,8 @@ import {
   Activity,
   ArrowUpDown,
   RefreshCw,
+  MessageCircle,
+  X,
 } from 'lucide-react';
 
 export interface UnitAffiliateConversion {
@@ -93,6 +95,94 @@ export default function UnitAffiliatesClient({
 
   // Copy helper
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [isBroadcastModalOpen, setIsBroadcastModalOpen] = useState(false);
+  const [selectedBroadcastIdx, setSelectedBroadcastIdx] = useState(0);
+  const [copiedBroadcast, setCopiedBroadcast] = useState(false);
+
+  const unitDomain = schoolSlug === 'smp' ? 'https://smpit.alafiyah.id' : 'https://sdit.alafiyah.id';
+  const unitRegisterUrl = `${unitDomain}/affiliate/register?unit=${schoolSlug === 'smp' ? 'smp' : 'sd'}`;
+  const unitInfoUrl = `${unitDomain}/affiliate`;
+
+  const broadcastTemplates = [
+    {
+      title: '1. Grup WA Kelas / Paguyuban Wali Murid (Resmi & Hangat)',
+      subtitle: 'Cocok dikirim ke Grup WhatsApp Wali Murid Kelas 1–6 SDIT atau Kelas 7–9 SMP IT',
+      text: `Assalamu'alaikum Warahmatullahi Wabarakatuh 🌿
+
+Yth. Ayah & Bunda Wali Murid *${schoolName}* yang dirahmati Allah SWT,
+
+Semoga Ayah, Bunda, beserta keluarga senantiasa dalam keadaan sehat, penuh keberkahan, dan dalam lindungan Allah SWT. Aamiin.
+
+Melalui pesan ini, kami mengajak Ayah & Bunda untuk turut menjadi bagian dari *Syiar Kebaikan Pendidikan Islam Terpadu* melalui *Program Resmi Affiliate Wali Murid Al-Afiyah* pada Penerimaan Murid Baru (SPMB) Tahun Ajaran 2027/2028.
+
+Banyak kerabat, tetangga, atau rekan kerja di sekitar kita yang sedang mencari sekolah Islam Terpadu terbaik untuk putra-putrinya. Dengan membagikan pengalaman positif dan link rekomendasi Ayah/Bunda, insyaAllah menjadi amal jariyah sekaligus mendapatkan *Apresiasi Berkah Resmi* dari Yayasan:
+
+✨ *Keuntungan Affiliate Wali Murid Al-Afiyah:*
+✅ *100% Gratis* tanpa biaya pendaftaran
+✅ *Komisi Rp 50.000* setiap calon murid melunasi formulir pendaftaran
+✅ *Komisi Rp 100.000* setiap calon murid melakukan daftar ulang
+💰 *Total Apresiasi Rp 150.000 per murid* (berlaku kelipatan & langsung ditransfer ke rekening Ayah/Bunda)
+📊 *Dashboard Transparan 24 Jam* untuk memantau jumlah pendaftar dari link Ayah/Bunda
+
+📌 *Cara Daftar Sangat Mudah (Hanya 1 Menit):*
+1. Klik link pendaftaran resmi berikut:
+👉 ${unitRegisterUrl}
+2. Isi Nama Lengkap, Nomor WA, Email, dan buat Kata Sandi.
+3. Akun langsung aktif & Ayah/Bunda langsung mendapatkan *Link Rekomendasi Unik* siap sebar ke WA/Status WA!
+
+Info selengkapnya juga dapat dilihat di: ${unitInfoUrl}
+
+Mari bersama-sama menebar manfaat dan memperluas keluarga besar *${schoolName}*.
+Jazakumullah Khairan Katsiran atas sinergi dan dukungan Ayah & Bunda. 🙏✨
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh
+*Tim SPMB & Humas ${schoolName}*`,
+    },
+    {
+      title: '2. Japri Personal Wali Murid / Koordinator Kelas (Akrab)',
+      subtitle: 'Cocok dikirim secara personal (Japri WA) ke Wali Murid aktif atau Pengurus Komite/Korlas',
+      text: `Assalamu'alaikum Ayah/Bunda, semoga sehat dan berkah selalu bersama keluarga 🙏😊
+
+Izin menginfokan kabar baik dari *${schoolName}*. Saat ini sekolah membuka *Program Affiliate Resmi Wali Murid* untuk SPMB T.A. 2027/2028.
+
+Jika Ayah/Bunda memiliki saudara, tetangga, atau teman kantor yang sedang mencari sekolah SDIT / SMP IT untuk putra-putrinya, Ayah/Bunda bisa merekomendasikan Al-Afiyah menggunakan *Link Referral Pribadi* Ayah/Bunda.
+
+Setiap ada calon murid yang mendaftar lewat link Ayah/Bunda, sekolah memberikan apresiasi berkah sebesar *Rp 150.000 per murid* (Rp 50.000 saat pelunasan formulir + Rp 100.000 saat daftar ulang) yang langsung dicairkan ke rekening Ayah/Bunda.
+
+Pendaftarannya *Gratis* dan hanya butuh 1 menit di sini:
+👉 ${unitRegisterUrl}
+
+Yuk Ayah/Bunda, sekalian syiar kebaikan sekolah ananda tercinta, insyaAllah berkah dan bermanfaat. Terima kasih banyak sebelumnya 🙏🌿`,
+    },
+    {
+      title: '3. Singkat & Padat (Status WA / Pengumuman Cepat)',
+      subtitle: 'Cocok untuk caption poster atau pengumuman singkat di grup',
+      text: `🌟 *AJAKAN SPESIAL WALI MURID ${schoolName.toUpperCase()}!* 🌟
+
+Mari ikut menebar syiar pendidikan Qur'ani sekaligus meraih *Apresiasi Berkah Tunai Rp 150.000 / Murid Baru* melalui *Program Affiliate Resmi Al-Afiyah*!
+
+✅ Daftar 100% Gratis (1 Menit Langsung Aktif)
+✅ Komisi Formulir: *Rp 50.000 / murid*
+✅ Komisi Daftar Ulang: *Rp 100.000 / murid*
+✅ Cair langsung ke rekening Bank Syariah / Bank Umum
+
+Cukup bagikan link rekomendasi unik Ayah/Bunda ke kerabat, tetangga, atau grup WA.
+Daftar sekarang di:
+👉 ${unitRegisterUrl}
+
+*Sebar Kebaikan Pendidikan, Raih Apresiasi Berkah Nyata!* 🌿✨`,
+    },
+  ];
+
+  const handleCopyBroadcast = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedBroadcast(true);
+      setTimeout(() => setCopiedBroadcast(false), 2500);
+    } catch {
+      // Fallback
+    }
+  };
 
   const formatRupiah = (val: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -211,7 +301,16 @@ export default function UnitAffiliatesClient({
           </p>
         </div>
 
-        <div className="flex items-center space-x-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+          <button
+            type="button"
+            onClick={() => setIsBroadcastModalOpen(true)}
+            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>Broadcast Ajakan Wali Murid (WA)</span>
+          </button>
+
           <Link
             href="/affiliate/dashboard"
             target="_blank"
@@ -961,6 +1060,110 @@ export default function UnitAffiliatesClient({
                   {formatRupiah(pendingCommission)}
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Broadcast WhatsApp Ajakan Wali Murid */}
+      {isBroadcastModalOpen && (
+        <div
+          onClick={() => setIsBroadcastModalOpen(false)}
+          className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-slate-200 flex flex-col"
+          >
+            {/* Modal Header */}
+            <div className="px-6 py-4 bg-gradient-to-r from-[#064E3B] to-emerald-700 text-white flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-300 block">
+                  Siap Sebar ke Grup WA Kelas &amp; Wali Murid
+                </span>
+                <h3 className="text-base sm:text-lg font-black">
+                  Template Broadcast Ajakan Affiliate Wali Murid
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsBroadcastModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-5 sm:p-6 overflow-y-auto space-y-4 flex-1">
+              {/* Template Selector Tabs */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {broadcastTemplates.map((tpl, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSelectedBroadcastIdx(idx)}
+                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                      selectedBroadcastIdx === idx
+                        ? 'bg-emerald-50 border-emerald-600 ring-2 ring-emerald-500/20'
+                        : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+                    }`}
+                  >
+                    <p className="text-xs font-extrabold text-slate-900 line-clamp-1">
+                      {tpl.title}
+                    </p>
+                    <p className="text-[10px] text-slate-500 mt-0.5 line-clamp-2">
+                      {tpl.subtitle}
+                    </p>
+                  </button>
+                ))}
+              </div>
+
+              {/* Active Template Preview */}
+              <div className="rounded-2xl bg-slate-900 text-slate-100 p-4 sm:p-5 border border-slate-800">
+                <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-white/10">
+                  <span className="text-xs font-bold text-emerald-400">
+                    {broadcastTemplates[selectedBroadcastIdx].title}
+                  </span>
+                  <span className="text-[11px] text-slate-400">
+                    Otomatis berisi link {schoolName}
+                  </span>
+                </div>
+                <pre className="text-xs sm:text-[13px] font-sans whitespace-pre-wrap leading-relaxed text-slate-100 select-all max-h-[38vh] overflow-y-auto pr-1">
+                  {broadcastTemplates[selectedBroadcastIdx].text}
+                </pre>
+              </div>
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+              <button
+                type="button"
+                onClick={() => handleCopyBroadcast(broadcastTemplates[selectedBroadcastIdx].text)}
+                className="flex-1 py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
+                {copiedBroadcast ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span className="text-emerald-300">Teks Broadcast Berhasil Disalin!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>Salin Teks Broadcast</span>
+                  </>
+                )}
+              </button>
+
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(broadcastTemplates[selectedBroadcastIdx].text)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Bagikan Langsung ke WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>

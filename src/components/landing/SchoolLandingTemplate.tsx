@@ -1996,6 +1996,54 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         </div>
       </section>
 
+      {/* Ajakan Spesial Wali Murid & Simpatisan: Program Affiliate Resmi Al-Afiyah */}
+      <section className="py-12 sm:py-16 bg-slate-50 border-t border-slate-200/80 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl bg-gradient-to-br from-[#052e23] via-[#064e3b] to-[#047857] text-white p-6 sm:p-10 lg:p-12 shadow-xl border border-emerald-500/30 relative overflow-hidden">
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div className="max-w-2xl space-y-3.5">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 border border-white/20 text-[#ffd51e] text-xs font-extrabold uppercase tracking-wider">
+                  <HeartHandshake className="w-3.5 h-3.5" />
+                  <span>Ajakan Spesial Wali Murid &amp; Keluarga Besar Al-Afiyah</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+                  Mari Ikut Syiar Kebaikan Sekolah Ananda &amp; Raih{' '}
+                  <span className="text-[#ffd51e]">Apresiasi Berkah Rp 150.000 / Murid</span>
+                </h2>
+                <p className="text-xs sm:text-sm text-emerald-50/90 leading-relaxed">
+                  Ayah &amp; Bunda Wali Murid {school.name} kini dapat mendaftar menjadi{' '}
+                  <strong className="text-white font-bold">Affiliate Resmi Al-Afiyah</strong> secara gratis. Cukup bagikan tautan rekomendasi unik Ayah/Bunda ke kerabat, tetangga, atau grup WhatsApp—setiap calon murid yang mendaftar mendapatkan apresiasi{' '}
+                  <strong className="text-[#ffd51e] font-bold">Rp 50.000</strong> (pelunasan formulir) +{' '}
+                  <strong className="text-[#ffd51e] font-bold">Rp 100.000</strong> (daftar ulang) langsung ke rekening Ayah/Bunda.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+                <Link
+                  href={`/affiliate/register?unit=${school.slug === 'smp' ? 'smp' : 'sd'}`}
+                  className="px-6 py-4 rounded-2xl bg-[#ffd51e] hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-all active:scale-95 inline-flex items-center justify-center gap-2 text-center"
+                >
+                  <span>Daftar Affiliate Wali Murid (Gratis)</span>
+                  <ArrowRight className="w-4 h-4 stroke-[3]" />
+                </Link>
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    `Assalamu'alaikum Ayah & Bunda Wali Murid ${school.name} 🌿\n\nYuk ikut menebar syiar kebaikan pendidikan melalui *Program Affiliate Resmi Wali Murid Al-Afiyah* (SPMB T.A. 2027/2028)!\n\n✅ Daftar 100% Gratis (1 Menit Aktif)\n✅ Apresiasi Rp 50.000 saat pelunasan formulir\n✅ Apresiasi Rp 100.000 saat daftar ulang\n💰 Total Rp 150.000 / murid langsung cair ke rekening Ayah/Bunda.\n\nDaftar & dapatkan link rekomendasi unik Ayah/Bunda di sini:\n👉 https://sdit.alafiyah.id/affiliate/register?unit=${school.slug === 'smp' ? 'smp' : 'sd'}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all inline-flex items-center justify-center gap-2 text-center"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
+                  <span>Bagikan Ajakan ke Grup WA Wali Murid</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Modal Dialog Baca Artikel Lengkap (Full-Area + Multi-Foto & Video Carousel) */}
       {selectedNews && (() => {
         const parsedModal = parseNewsMedia(selectedNews.content, selectedNews.coverImage);
