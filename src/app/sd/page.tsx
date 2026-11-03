@@ -4,6 +4,7 @@ import WelcomeVideoModal from '@/components/landing/WelcomeVideoModal';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { SD_OG_IMAGE } from '@/lib/og-images';
+import { externalizeNewsPostMedia } from '@/lib/news-media';
 
 export const metadata: Metadata = {
   title: 'SDIT Al-Afiyah Majalengka | Sekolah Dasar Islam Terpadu Unggulan',
@@ -18,7 +19,8 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function SdLandingPage() {
   let dbSchool = null;
@@ -28,7 +30,13 @@ export default async function SdLandingPage() {
       prisma.school.findUnique({
         where: { slug: 'sd' },
         include: {
-          cmsSections: true,
+          cmsSections: {
+            where: {
+              NOT: {
+                sectionKey: { startsWith: 'media_' },
+              },
+            },
+          },
           teachers: {
             where: { isActive: true },
             orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
@@ -36,7 +44,7 @@ export default async function SdLandingPage() {
           newsPosts: {
             where: { isPublished: true },
             orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-            take: 24,
+            take: 15,
           },
         },
       }),
@@ -313,7 +321,7 @@ export default async function SdLandingPage() {
         ],
     teachers: rawTeachers,
     newsPosts: (dbSchool?.newsPosts && dbSchool.newsPosts.length > 0
-      ? dbSchool.newsPosts
+      ? dbSchool.newsPosts.map((p) => externalizeNewsPostMedia(p))
       : defaultSdNewsPosts
     ).filter(
       (p) =>

@@ -7,10 +7,15 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { prisma } from '@/lib/prisma';
 import { Newspaper } from 'lucide-react';
-import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES } from '@/lib/news-media';
+import {
+  parseNewsMedia,
+  DEFAULT_NEWS_CATEGORIES,
+  externalizeNewsPostMedia,
+} from '@/lib/news-media';
 import { getGlobalNewsCategories } from '@/lib/news-config-server';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Warta & Kajian Islam Al-Afiyah | Berita, Prestasi & Artikel Edukasi',
@@ -419,7 +424,8 @@ export default async function BeritaPage({
             !p.title?.toLowerCase().includes('tiga murid sdit') &&
             !p.author?.toLowerCase().includes('kordinator tahfidz sdit')
         )
-        .map((p) => {
+        .map((rawPost) => {
+        const p = externalizeNewsPostMedia(rawPost);
         const parsed = parseNewsMedia(p.content, p.coverImage);
         return {
           id: p.id,
@@ -436,7 +442,6 @@ export default async function BeritaPage({
           schoolName: p.school?.name || (isSd ? 'SDIT Al-Afiyah' : undefined),
           readingTime: '4 menit baca',
           imageUrl: p.coverImage || undefined,
-          rawContent: p.content,
           mediaItems: parsed.allMedia,
           paragraphs: parsed.cleanContent
             ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)

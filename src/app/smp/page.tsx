@@ -3,6 +3,7 @@ import SmpLandingView from '@/components/landing/SmpLandingView';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { SMP_OG_IMAGE } from '@/lib/og-images';
+import { externalizeNewsPostMedia } from '@/lib/news-media';
 
 export const metadata: Metadata = {
   title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious • Terakreditasi A',
@@ -23,7 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function SmpLandingPage() {
   let dbSchool = null;
@@ -33,7 +35,13 @@ export default async function SmpLandingPage() {
       prisma.school.findUnique({
         where: { slug: 'smp' },
         include: {
-          cmsSections: true,
+          cmsSections: {
+            where: {
+              NOT: {
+                sectionKey: { startsWith: 'media_' },
+              },
+            },
+          },
           teachers: {
             where: { isActive: true },
             orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
@@ -41,7 +49,7 @@ export default async function SmpLandingPage() {
           newsPosts: {
             where: { isPublished: true },
             orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-            take: 3,
+            take: 12,
           },
         },
       }),
@@ -80,7 +88,7 @@ export default async function SmpLandingPage() {
   return (
     <SmpLandingView
       teachers={dbSchool?.teachers || []}
-      newsPosts={dbSchool?.newsPosts || []}
+      newsPosts={(dbSchool?.newsPosts || []).map((p) => externalizeNewsPostMedia(p))}
       achievements={achievements}
       cmsData={{
         heroSlides: Array.isArray(heroData.slides) ? heroData.slides : undefined,

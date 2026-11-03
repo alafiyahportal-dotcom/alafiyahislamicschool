@@ -208,3 +208,45 @@ export function mergeUniqueStrings(primary: string[], secondary: string[]): stri
   return result;
 }
 
+/**
+ * Replaces inline base64 data: URIs in a news post's coverImage and content media list
+ * with lightweight, Edge-cached URLs (/api/news-media/:id/:slideIndex).
+ * This keeps HTML/RSC payloads tiny (~20KB instead of 20MB+) so pages load in milliseconds
+ * and never hit serverless response size limits when admins upload many high-res slides.
+ */
+export function externalizeNewsPostMedia<
+  T extends { id: string; content?: string | null; coverImage?: string | null }
+>(post: T): T {
+  const parsed = parseNewsMedia(post.content, post.coverImage);
+  const rawCover = (post.coverImage || '').trim();
+  const hasCover = rawCover.length > 0;
+
+  const externalCover =
+    hasCover && rawCover.startsWith('data:')
+      ? `/api/news-media/${post.id}/0`
+      : post.coverImage;
+
+  let slideIdx = hasCover ? 1 : 0;
+  const externalExtra: NewsMediaItem[] = [];
+
+  for (const item of parsed.extraMedia) {
+    if (hasCover && rawCover === item.url) {
+      continue;
+    }
+    const currentIdx = slideIdx++;
+    externalExtra.push({
+      type: item.type,
+      url: item.url.startsWith('data:')
+        ? `/api/news-media/${post.id}/${currentIdx}`
+        : item.url,
+    });
+  }
+
+  return {
+    ...post,
+    coverImage: externalCover,
+    content: serializeNewsContent(parsed.cleanContent, externalExtra),
+  };
+}
+
+

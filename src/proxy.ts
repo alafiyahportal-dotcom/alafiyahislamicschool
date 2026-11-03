@@ -100,7 +100,10 @@ export function proxy(request: NextRequest) {
     let limitConfig = { windowMs: 60 * 1000, maxRequests: 120 };
     let routeKey = 'general';
 
-    if (pathname.startsWith('/api/auth/login')) {
+    if (pathname.startsWith('/api/news-media/') || pathname.startsWith('/api/media/')) {
+      limitConfig = { windowMs: 60 * 1000, maxRequests: 1500 };
+      routeKey = 'public-media';
+    } else if (pathname.startsWith('/api/auth/login')) {
       limitConfig = { windowMs: 15 * 60 * 1000, maxRequests: 100 };
       routeKey = 'auth-login';
     } else if (pathname.startsWith('/api/ppdb/register')) {

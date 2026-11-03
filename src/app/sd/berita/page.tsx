@@ -8,7 +8,12 @@ import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { Newspaper, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
-import { parseNewsMedia, DEFAULT_NEWS_CATEGORIES, mergeUniqueStrings } from '@/lib/news-media';
+import {
+  parseNewsMedia,
+  DEFAULT_NEWS_CATEGORIES,
+  mergeUniqueStrings,
+  externalizeNewsPostMedia,
+} from '@/lib/news-media';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SDIT Al-Afiyah Majalengka',
@@ -23,7 +28,8 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 function isDummyMhqArticle(item: {
   id?: string;
@@ -93,7 +99,8 @@ export default async function SdNewsPage() {
 
     const postArticles: NewsArticle[] = (dbPosts || [])
       .filter((p) => !isDummyMhqArticle(p))
-      .map((p) => {
+      .map((rawPost) => {
+        const p = externalizeNewsPostMedia(rawPost);
         const parsed = parseNewsMedia(p.content, p.coverImage);
         return {
           id: p.id,
@@ -110,7 +117,6 @@ export default async function SdNewsPage() {
           schoolName: 'SDIT Al-Afiyah',
           readingTime: '4 menit baca',
           imageUrl: p.coverImage || undefined,
-          rawContent: p.content,
           mediaItems: parsed.allMedia,
           paragraphs: parsed.cleanContent
             ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)

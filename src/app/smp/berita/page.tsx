@@ -7,7 +7,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import NewsListClient, { NewsArticle } from '@/components/news/NewsListClient';
 import { Newspaper, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { parseNewsMedia } from '@/lib/news-media';
+import { parseNewsMedia, externalizeNewsPostMedia } from '@/lib/news-media';
 
 export const metadata: Metadata = {
   title: 'Warta, Prestasi & Khazanah SMP IT Al-Afiyah',
@@ -27,7 +27,8 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 const DEFAULT_SMP_ARTICLES: NewsArticle[] = [
   {
@@ -159,7 +160,8 @@ export default async function SmpBeritaPage() {
     ]);
 
     const postArticles: NewsArticle[] = (dbPosts && dbPosts.length > 0)
-      ? dbPosts.map((post) => {
+      ? dbPosts.map((rawPost) => {
+          const post = externalizeNewsPostMedia(rawPost);
           const parsed = parseNewsMedia(post.content, post.coverImage);
           return {
             id: post.id,
@@ -167,7 +169,6 @@ export default async function SmpBeritaPage() {
             slug: post.slug,
             category: post.category || 'Kegiatan',
             excerpt: post.excerpt || parsed.cleanContent.slice(0, 150) + '...',
-            rawContent: post.content,
             mediaItems: parsed.allMedia,
             paragraphs: parsed.cleanContent
               ? parsed.cleanContent.split('\n').filter((l: string) => l.trim().length > 0)
