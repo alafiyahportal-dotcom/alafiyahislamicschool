@@ -380,11 +380,23 @@ export default function Navbar({
       >
         <header
           className={`w-full max-w-full select-none transition-all duration-300 border-b overflow-x-clip ${
-            shouldBeTransparent
+            isMobileMenuOpen
+              ? activeSlug === 'smp'
+                ? 'bg-[#020148] border-white/10 shadow-lg'
+                : activeSlug === 'sd'
+                ? 'bg-[#034433] border-white/10 shadow-lg'
+                : 'bg-[#08352c] border-white/10 shadow-lg'
+              : shouldBeTransparent
               ? activeSlug === 'sd'
-                ? 'bg-[#004d3a]/90 backdrop-blur-sm border-white/10 shadow-none'
-                : 'bg-transparent border-white/10 shadow-none'
-              : 'bg-white/95 backdrop-blur-md shadow-md border-slate-200/90'
+                ? 'bg-[#034433]/95 backdrop-blur-md border-white/10 shadow-none'
+                : activeSlug === 'smp'
+                ? 'bg-[#020148]/90 backdrop-blur-md border-white/10 shadow-none'
+                : 'bg-[#08352c]/90 backdrop-blur-md border-white/10 shadow-none'
+              : activeSlug === 'smp'
+              ? 'max-lg:bg-[#020148] max-lg:border-white/10 bg-white/95 backdrop-blur-md shadow-md border-slate-200/90'
+              : activeSlug === 'sd'
+              ? 'max-lg:bg-[#034433] max-lg:border-white/10 bg-white/95 backdrop-blur-md shadow-md border-slate-200/90'
+              : 'max-lg:bg-[#08352c] max-lg:border-white/10 bg-white/95 backdrop-blur-md shadow-md border-slate-200/90'
           }`}
         >
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10 xl:px-12 w-full">
@@ -426,7 +438,7 @@ export default function Navbar({
                     <>
                       {/* Arabic Calligraphy Style Title */}
                       <div
-                        className={`text-[13px] xs:text-[14px] sm:text-base lg:text-lg font-bold tracking-normal font-serif transition-colors leading-tight truncate ${
+                        className={`text-[13px] xs:text-[14px] sm:text-base lg:text-lg font-bold tracking-normal font-serif transition-colors leading-tight truncate max-lg:text-white ${
                           shouldBeTransparent
                             ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                             : 'text-softwater-dark group-hover:text-softwater'
@@ -436,10 +448,10 @@ export default function Navbar({
                         {brandConfig.arabic}
                       </div>
 
-                      {/* Latin Name (Pure White on Transparent, Slate-800 on Scrolled) */}
+                      {/* Latin Name (Pure White on Transparent & Mobile, Slate-800 on Desktop Scrolled) */}
                       <div className="mt-0.5">
                         <span
-                          className={`text-[10px] xs:text-[11px] sm:text-xs font-black uppercase tracking-wider transition-colors truncate block ${
+                          className={`text-[10px] xs:text-[11px] sm:text-xs font-black uppercase tracking-wider transition-colors truncate block max-lg:text-white ${
                             shouldBeTransparent
                               ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                               : 'text-slate-800 group-hover:text-softwater-dark'
@@ -454,7 +466,7 @@ export default function Navbar({
                       {/* Latin Name as Primary Headline on Top */}
                       <div>
                         <span
-                          className={`text-[12px] xs:text-[13px] sm:text-[14.5px] lg:text-[16px] font-black uppercase tracking-wider transition-colors truncate lg:overflow-visible lg:whitespace-nowrap block leading-tight ${
+                          className={`text-[12.5px] xs:text-[13.5px] sm:text-[15px] lg:text-[16px] font-black uppercase tracking-wider transition-colors truncate lg:overflow-visible lg:whitespace-nowrap block leading-tight max-lg:text-white ${
                             shouldBeTransparent
                               ? 'text-white group-hover:text-amber-300 drop-shadow-sm'
                               : activeSlug === 'smp'
@@ -470,7 +482,11 @@ export default function Navbar({
                       {brandConfig.subtitle && (
                         <div className="mt-0.5">
                           <span
-                            className={`text-[9px] xs:text-[10px] sm:text-[11px] lg:text-[11.5px] font-bold uppercase tracking-wider transition-colors truncate lg:overflow-visible lg:whitespace-nowrap block ${
+                            className={`text-[9px] xs:text-[9.5px] sm:text-[11px] lg:text-[11.5px] font-bold uppercase tracking-wider transition-colors truncate lg:overflow-visible lg:whitespace-nowrap block ${
+                              activeSlug === 'smp'
+                                ? 'max-lg:text-[#ffd51e]'
+                                : 'max-lg:text-emerald-200/95'
+                            } ${
                               shouldBeTransparent
                                 ? activeSlug === 'smp'
                                   ? 'text-[#ffd51e] drop-shadow-xs'
@@ -668,85 +684,274 @@ export default function Navbar({
                   <Search className="w-4 h-4 xl:w-4.5 xl:h-4.5" />
                 </button>
 
-                {activeSlug === 'sd' ? (
-                  <>
-                    <Link
-                      href={brandConfig.ppdbLink}
-                      prefetch={true}
-                      className="px-4 py-2 rounded-full bg-[#f59e0b] hover:bg-[#d97706] text-white text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0"
-                    >
-                      <GraduationCap className="w-3.5 h-3.5 stroke-[2.3]" />
-                      <span>DAFTAR</span>
-                    </Link>
-                    <Link
-                      href="/login?unit=sd"
-                      prefetch={true}
-                      title="Masuk ke Portal Layanan & Sistem Akademik"
-                      className="px-4 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-200/90 text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0"
-                    >
-                      <svg className="w-3.5 h-3.5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect width="7" height="7" x="3" y="3" rx="1" />
-                        <rect width="7" height="7" x="14" y="3" rx="1" />
-                        <rect width="7" height="7" x="14" y="14" rx="1" />
-                        <rect width="7" height="7" x="3" y="14" rx="1" />
-                      </svg>
-                      <span>LOGIN</span>
-                    </Link>
-                  </>
-                ) : (
-                  /* Login Link (Clean Text Only) */
-                  <Link
-                    href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
-                    prefetch={true}
-                    title="Masuk ke Portal Layanan & Sistem Akademik"
-                    className={`px-3 py-1.5 xl:py-2 rounded-full text-xs font-semibold tracking-wide transition-all shrink-0 ${
-                      shouldBeTransparent
-                        ? 'text-white/90 hover:text-amber-300 hover:bg-white/10'
-                        : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100'
-                    }`}
-                  >
-                    <span>Login</span>
-                  </Link>
-                )}
-              </div>
-
-              {/* Mobile & Tablet Right Actions (Search + Hamburger Drawer Trigger) */}
-              <div className="flex lg:hidden items-center gap-1 xs:gap-1.5 sm:gap-2.5 shrink-0 ml-auto">
-                <button
-                  type="button"
-                  onClick={() => setIsSearchOpen(true)}
-                  title="Pencarian Cepat"
-                  aria-label="Buka pencarian"
-                  className={`p-1.5 xs:p-2 rounded-full transition-all cursor-pointer shrink-0 active:scale-95 ${
-                    shouldBeTransparent
-                      ? 'text-white hover:bg-white/10 active:bg-white/20'
-                      : 'text-slate-700 hover:text-softwater-dark hover:bg-slate-100 active:bg-slate-200'
+                <Link
+                  href={brandConfig.ppdbLink}
+                  prefetch={true}
+                  className={`px-4 py-2 rounded-full text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0 ${
+                    activeSlug === 'smp'
+                      ? 'bg-[#ffd51e] hover:bg-amber-300 text-[#030164]'
+                      : 'bg-[#f59e0b] hover:bg-[#d97706] text-white'
                   }`}
                 >
-                  <Search className="w-[18px] h-[18px] xs:w-5 xs:h-5 sm:w-6 sm:h-6" strokeWidth={2.2} />
-                </button>
+                  <GraduationCap className="w-3.5 h-3.5 stroke-[2.3]" />
+                  <span>DAFTAR</span>
+                </Link>
+                <Link
+                  href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
+                  prefetch={true}
+                  title="Masuk ke Portal Layanan & Sistem Akademik"
+                  className="px-4 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-200/90 text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0"
+                >
+                  <svg className="w-3.5 h-3.5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="7" height="7" x="3" y="3" rx="1" />
+                    <rect width="7" height="7" x="14" y="3" rx="1" />
+                    <rect width="7" height="7" x="14" y="14" rx="1" />
+                    <rect width="7" height="7" x="3" y="14" rx="1" />
+                  </svg>
+                  <span>LOGIN</span>
+                </Link>
+              </div>
+
+              {/* Mobile & Tablet Right Actions: Pill "DAFTAR" + Rounded Square Menu/Close Toggle */}
+              <div className="flex lg:hidden items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
+                <Link
+                  href={brandConfig.ppdbLink}
+                  prefetch={true}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 xs:px-3.5 py-1.5 xs:py-2 rounded-full text-[11px] xs:text-xs font-extrabold uppercase tracking-wider shadow-md transition-all active:scale-95 inline-flex items-center gap-1.5 shrink-0 ${
+                    activeSlug === 'smp'
+                      ? 'bg-[#ffd51e] hover:bg-amber-300 text-[#030164]'
+                      : 'bg-[#f59e0b] hover:bg-[#d97706] text-white'
+                  }`}
+                >
+                  <GraduationCap className="w-3.5 h-3.5 stroke-[2.4]" />
+                  <span>DAFTAR</span>
+                </Link>
 
                 <button
                   type="button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  aria-label="Buka menu navigasi"
-                  className={`p-1.5 xs:p-2 rounded-xl transition-all cursor-pointer shrink-0 active:scale-95 ${
-                    shouldBeTransparent
-                      ? 'text-white hover:bg-white/10 active:bg-white/20'
-                      : 'text-slate-800 hover:text-softwater-dark hover:bg-slate-100 active:bg-slate-200'
-                  }`}
+                  aria-label={isMobileMenuOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+                  className="w-9 h-9 xs:w-10 xs:h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center transition-all cursor-pointer shrink-0 active:scale-95"
                 >
                   {isMobileMenuOpen ? (
-                    <X className="w-6 h-6 xs:w-[26px] xs:h-[26px] sm:w-[30px] sm:h-[30px]" strokeWidth={2.3} />
+                    <X className="w-5 h-5 xs:w-[22px] xs:h-[22px]" strokeWidth={2.4} />
                   ) : (
-                    <Menu className="w-6 h-6 xs:w-[26px] xs:h-[26px] sm:w-[30px] sm:h-[30px]" strokeWidth={2.3} />
+                    <Menu className="w-5 h-5 xs:w-[22px] xs:h-[22px]" strokeWidth={2.4} />
                   )}
                 </button>
               </div>
             </div>
           </div>
+
+          {/* ========================================================= */}
+          {/* BESPOKE AL-AFIYAH TOP-DOWN MOBILE NAVIGATION PANEL        */}
+          {/* ========================================================= */}
+          {isMobileMenuOpen && (
+            <div
+              className={`lg:hidden w-full border-t border-white/10 px-4 pt-3 pb-5 shadow-2xl rounded-b-3xl transition-all duration-200 max-h-[calc(100dvh-64px)] overflow-y-auto ${
+                activeSlug === 'smp'
+                  ? 'bg-gradient-to-b from-[#020148] via-[#030164] to-[#010030] border-b-2 border-b-[#ffd51e]/35'
+                  : activeSlug === 'sd'
+                  ? 'bg-gradient-to-b from-[#034433] via-[#04543f] to-[#023326] border-b-2 border-b-[#f59e0b]/35'
+                  : 'bg-gradient-to-b from-[#08352c] via-[#0B332B] to-[#05241e] border-b-2 border-b-amber-400/35'
+              }`}
+            >
+              {/* Navigation Rows */}
+              <div className="divide-y divide-white/10">
+                {navStructure.map((nav) => {
+                  const isExpanded = mobileExpandedSection === nav.name;
+                  const isActive =
+                    pathname === nav.href ||
+                    (nav.href !== '/' &&
+                      nav.href !== '#' &&
+                      pathname.startsWith(nav.href.split('#')[0]));
+
+                  if (!nav.hasDropdown) {
+                    return (
+                      <div key={nav.name} className="py-1">
+                        <Link
+                          href={nav.href}
+                          prefetch={true}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+                            isActive
+                              ? 'bg-white/12 text-[#ffd51e] border-l-4 border-[#ffd51e] shadow-xs'
+                              : 'text-white/95 hover:bg-white/8 hover:text-[#ffd51e]'
+                          }`}
+                        >
+                          <span>{nav.name}</span>
+                          {isActive && (
+                            <span className="w-2 h-2 rounded-full bg-[#ffd51e] shadow-[0_0_8px_#ffd51e]" />
+                          )}
+                        </Link>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div key={nav.name} className="py-1">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setMobileExpandedSection(isExpanded ? null : nav.name)
+                        }
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold text-left transition-all cursor-pointer ${
+                          isActive || isExpanded
+                            ? 'bg-white/12 text-[#ffd51e] border-l-4 border-[#ffd51e]'
+                            : 'text-white/95 hover:bg-white/8'
+                        }`}
+                      >
+                        <span>{nav.name}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            isExpanded
+                              ? 'rotate-180 text-[#ffd51e]'
+                              : 'text-white/60'
+                          }`}
+                        />
+                      </button>
+
+                      {isExpanded && (
+                        <div className="mt-1.5 mb-2 ml-3 pl-3 border-l-2 border-white/15 space-y-1">
+                          {nav.items?.map((item) => {
+                            const isItemExt =
+                              item.href.startsWith('http') &&
+                              !item.href.includes('alafiyah.id') &&
+                              !item.href.includes('localhost');
+                            const isSubdomainUrl =
+                              item.href.includes('tk.') ||
+                              item.href.includes('sd.') ||
+                              item.href.includes('smp.');
+                            const shouldOpenNewTab =
+                              Boolean((item as any).openInNewTab) ||
+                              isItemExt ||
+                              isSubdomainUrl;
+
+                            const subItemContent = (
+                              <div className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-black/15 hover:bg-white/10 transition-colors group/sub">
+                                <div className="min-w-0 pr-2">
+                                  <p className="text-xs font-bold text-white group-hover/sub:text-[#ffd51e] transition-colors">
+                                    {item.label}
+                                  </p>
+                                  {'desc' in item && item.desc && (
+                                    <p className="text-[10px] text-white/65 line-clamp-1 mt-0.5">
+                                      {item.desc}
+                                    </p>
+                                  )}
+                                </div>
+                                <ChevronRight className="w-3.5 h-3.5 text-white/40 group-hover/sub:text-[#ffd51e] shrink-0" />
+                              </div>
+                            );
+
+                            if (shouldOpenNewTab) {
+                              return (
+                                <a
+                                  key={item.label}
+                                  href={item.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                  className="block"
+                                >
+                                  {subItemContent}
+                                </a>
+                              );
+                            }
+
+                            if (item.href.startsWith('http')) {
+                              return (
+                                <a
+                                  key={item.label}
+                                  href={item.href}
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                  className="block"
+                                >
+                                  {subItemContent}
+                                </a>
+                              );
+                            }
+
+                            return (
+                              <Link
+                                key={item.label}
+                                href={item.href}
+                                prefetch={true}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block"
+                              >
+                                {subItemContent}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom Full-Width White LOGIN Button + Quick Utility Pills */}
+              <div className="mt-4 pt-3 border-t border-white/15 space-y-2.5">
+                <Link
+                  href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
+                  prefetch={true}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-all active:scale-[0.99] flex items-center justify-center gap-2.5"
+                >
+                  <svg
+                    className="w-4 h-4 text-slate-800 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect width="7" height="7" x="3" y="3" rx="1" />
+                    <rect width="7" height="7" x="14" y="3" rx="1" />
+                    <rect width="7" height="7" x="14" y="14" rx="1" />
+                    <rect width="7" height="7" x="3" y="14" rx="1" />
+                  </svg>
+                  <span>LOGIN</span>
+                </Link>
+
+                {/* Distinctive Al-Afiyah Quick Utility Pills */}
+                <div className="grid grid-cols-2 gap-2">
+                  <Link
+                    href={activeSlug ? `/affiliate/register?unit=${activeSlug}` : '/affiliate'}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <HeartHandshake className="w-3.5 h-3.5 text-[#ffd51e] shrink-0" />
+                    <span className="truncate">Daftar Affiliate</span>
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      setIsSearchOpen(true);
+                    }}
+                    className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                  >
+                    <Search className="w-3.5 h-3.5 text-[#ffd51e] shrink-0" />
+                    <span className="truncate">Cari Cepat</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </header>
       </div>
+
+      {/* Backdrop Overlay when Mobile Menu is Open */}
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="lg:hidden fixed inset-0 z-30 bg-slate-950/55 backdrop-blur-[2px] animate-in fade-in duration-150"
+        />
+      )}
 
       {/* ========================================================= */}
       {/* 3. QUICK SPOTLIGHT SEARCH MODAL                           */}
@@ -829,238 +1034,6 @@ export default function Navbar({
                   );
                 })
               )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================= */}
-      {/* 4. MOBILE ACCORDION DRAWER                                */}
-      {/* ========================================================= */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex justify-end">
-          <div className="w-80 max-w-[85vw] h-full bg-white shadow-2xl flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-200">
-            
-            {/* Drawer Header */}
-            <div>
-              <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    {brandConfig.secondaryLogoUrl && (
-                      <img
-                        src={brandConfig.secondaryLogoUrl}
-                        alt="Logo Yayasan Pendidikan Imam Bonjol"
-                        className="w-9 h-9 object-contain shrink-0"
-                      />
-                    )}
-                    {brandConfig.logoUrl && (
-                      <img
-                        src={brandConfig.logoUrl}
-                        alt={brandConfig.title}
-                        className={`${
-                          brandConfig.secondaryLogoUrl ? 'w-[34px] h-[34px]' : 'w-10 h-10'
-                        } object-contain shrink-0`}
-                      />
-                    )}
-                  </div>
-                  <div>
-                    {brandConfig.arabic ? (
-                      <div className="text-base font-bold text-softwater-dark">
-                        {brandConfig.arabic}
-                      </div>
-                    ) : null}
-                    <div className="text-sm xs:text-base font-black uppercase text-slate-900 tracking-wider leading-tight">
-                      {brandConfig.title}
-                    </div>
-                    {brandConfig.subtitle && (
-                      <div className={`text-[11px] font-bold uppercase tracking-wider mt-0.5 ${
-                        activeSlug === 'smp' ? 'text-[#030164]' : 'text-[#007638]'
-                      }`}>
-                        {brandConfig.subtitle}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 text-slate-500 hover:text-slate-800 rounded-lg active:scale-95 transition-all"
-                  aria-label="Tutup menu navigasi"
-                >
-                  <X className="w-6 h-6" strokeWidth={2.2} />
-                </button>
-              </div>
-
-              {/* Accordion List */}
-              <div className="p-3 space-y-1">
-                {navStructure.map((nav) => {
-                  const isExpanded = mobileExpandedSection === nav.name;
-
-                  if (!nav.hasDropdown) {
-                    return (
-                      <Link
-                        key={nav.name}
-                        href={nav.href}
-                        prefetch={true}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block px-3 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50 hover:text-softwater-dark transition-colors"
-                      >
-                        {nav.name}
-                      </Link>
-                    );
-                  }
-
-                  return (
-                    <div key={nav.name} className="border-b border-slate-100 pb-1">
-                      <button
-                        type="button"
-                        onClick={() => setMobileExpandedSection(isExpanded ? null : nav.name)}
-                        className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50 text-left transition-colors"
-                      >
-                        <span>{nav.name}</span>
-                        <ChevronDown
-                          className={`w-4 h-4 text-slate-400 transition-transform ${
-                            isExpanded ? 'rotate-180 text-softwater-dark' : ''
-                          }`}
-                        />
-                      </button>
-
-                      {isExpanded && (
-                        <div className="pl-4 pr-2 py-1 space-y-1 bg-slate-50/70 rounded-xl mb-1">
-                          {nav.items?.map((item) => {
-                            const isItemExt =
-                              item.href.startsWith('http') &&
-                              !item.href.includes('alafiyah.id') &&
-                              !item.href.includes('localhost');
-                            const isSubdomain =
-                              item.href.includes('tk.') ||
-                              item.href.includes('sd.') ||
-                              item.href.includes('smp.');
-                            const shouldOpenNewTab = Boolean((item as any).openInNewTab) || isItemExt || isSubdomain;
-
-                            if (shouldOpenNewTab) {
-                              return (
-                                <a
-                                  key={item.label}
-                                  href={item.href}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-softwater-dark hover:bg-white rounded-lg transition-colors"
-                                >
-                                  {item.label}
-                                </a>
-                              );
-                            }
-
-                            if (item.href.startsWith('http')) {
-                              return (
-                                <a
-                                  key={item.label}
-                                  href={item.href}
-                                  onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-softwater-dark hover:bg-white rounded-lg transition-colors"
-                                >
-                                  {item.label}
-                                </a>
-                              );
-                            }
-
-                            return (
-                              <Link
-                                key={item.label}
-                                href={item.href}
-                                prefetch={true}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-softwater-dark hover:bg-white rounded-lg transition-colors"
-                              >
-                                {item.label}
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Drawer Bottom Actions: Minimalist, Clear & Left-Aligned */}
-            <div className="p-3.5 border-t border-slate-100 bg-white space-y-2">
-              {/* Primary Action Button (Rata Kiri) */}
-              <Link
-                href={brandConfig.ppdbLink}
-                prefetch={true}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl ${
-                  activeSlug === 'sd'
-                    ? 'bg-[#00A651] hover:bg-[#008f45]'
-                    : activeSlug === 'smp'
-                    ? 'bg-[#030164] hover:bg-blue-900 border border-[#ffd51e]/40'
-                    : 'bg-softwater-dark hover:bg-softwater-deep'
-                } text-white font-extrabold text-xs shadow-sm hover:shadow transition-all group`}
-              >
-                <div className="text-left">
-                  <div className={`tracking-wide uppercase leading-tight ${activeSlug === 'smp' ? 'text-[#ffd51e]' : ''}`}>
-                    {brandConfig.ctaText}
-                  </div>
-                  <div className={`text-[10px] font-medium normal-case mt-0.5 opacity-90 ${activeSlug === 'smp' ? 'text-blue-200' : 'text-emerald-100'}`}>
-                    Tahun Ajaran 2027/2028
-                  </div>
-                </div>
-                <ArrowRight className={`w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform ${activeSlug === 'smp' ? 'text-[#ffd51e]' : 'text-white'}`} />
-              </Link>
-
-              {/* Login Portal Link (Rata Kiri) */}
-              <Link
-                href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
-                prefetch={true}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 transition-all group ${
-                  activeSlug === 'smp'
-                    ? 'hover:border-blue-300 bg-slate-50/80 hover:bg-blue-50/50'
-                    : 'hover:border-emerald-300 bg-slate-50/80 hover:bg-emerald-50/50'
-                }`}
-              >
-                <div className="flex items-center gap-2.5 text-left">
-                  <LogIn className={`w-4 h-4 shrink-0 ${activeSlug === 'smp' ? 'text-[#030164]' : 'text-[#00A651]'}`} />
-                  <div className="text-left">
-                    <div className="text-xs font-bold text-slate-800 leading-tight">
-                      Login Portal Administrasi &amp; Staf
-                    </div>
-                    <div className="text-[10px] text-slate-400 font-medium mt-0.5">
-                      Akses akun asatidz &amp; panitia
-                    </div>
-                  </div>
-                </div>
-                <ChevronRight className={`w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-all shrink-0 ${
-                  activeSlug === 'smp' ? 'group-hover:text-[#030164]' : 'group-hover:text-emerald-600'
-                }`} />
-              </Link>
-
-              {/* WhatsApp Helpdesk (Rata Kiri) */}
-              <a
-                href={
-                  activeSlug === 'sd' 
-                    ? 'https://wa.me/6281310139001' 
-                    : activeSlug === 'smp'
-                    ? 'https://wa.me/6282249357893'
-                    : 'https://wa.me/6281223344552'
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`w-full flex items-center gap-2.5 px-4 py-2 rounded-xl text-slate-600 transition-all text-left ${
-                  activeSlug === 'smp'
-                    ? 'hover:text-[#030164] hover:bg-blue-50/50'
-                    : 'hover:text-emerald-700 hover:bg-emerald-50/50'
-                }`}
-              >
-                <MessageCircle className={`w-4 h-4 shrink-0 ${activeSlug === 'smp' ? 'text-[#030164]' : 'text-emerald-600'}`} />
-                <span className="text-xs font-semibold">
-                  {activeSlug === 'sd' ? 'Pusat Bantuan WhatsApp SDIT' : activeSlug === 'smp' ? 'Pusat Bantuan WhatsApp SMP IT' : 'Pusat Bantuan WhatsApp'}
-                </span>
-              </a>
             </div>
           </div>
         </div>
