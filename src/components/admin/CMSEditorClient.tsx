@@ -342,7 +342,7 @@ export const DEFAULT_SMP_PROFIL: SMPProfilData = {
     { label: 'Tagline & Semboyan', value: 'Be Smart and Be Religius' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Ketua Yayasan', value: 'Jejen Nurbayan, S.Sos.' },
-    { label: 'Kepala Sekolah', value: 'Jaja Madhuri, S.Pd.' },
+    { label: 'Kepala Sekolah', value: 'Jaja Madhuri, S.Pd., M.Pd.' },
     { label: 'Tata Usaha', value: 'Iip Zaenal Arifin, S.Pd.' },
     { label: 'Sarpras', value: 'Muhamad Eechram Riady, S.Pd.' },
     { label: 'Humas', value: 'Amelia Kartika, S.Sos.' },

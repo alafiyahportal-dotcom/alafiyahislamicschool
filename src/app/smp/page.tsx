@@ -87,7 +87,10 @@ export default async function SmpLandingPage() {
 
   return (
     <SmpLandingView
-      teachers={dbSchool?.teachers || []}
+      teachers={(dbSchool?.teachers || []).map((t) => ({
+        ...t,
+        name: t.name.toLowerCase().includes('jaja madhuri') ? 'Jaja Madhuri, S.Pd., M.Pd.' : t.name,
+      }))}
       newsPosts={(dbSchool?.newsPosts || []).map((p) => externalizeNewsPostMedia(p))}
       achievements={achievements}
       cmsData={{

@@ -60,7 +60,7 @@ const DEFAULT_TEACHERS: TeacherItem[] = [
   },
   {
     id: 'smp-t-1',
-    name: 'Jaja Madhuri, S.Pd.',
+    name: 'Jaja Madhuri, S.Pd., M.Pd.',
     role: 'Kepala Sekolah SMP IT Al-Afiyah',
     specialization: 'Manajemen Pendidikan Islam & Karakter',
     bio: 'Memimpin penyelenggaraan pendidikan SMP IT Al-Afiyah dengan visi mencetak generasi Smart & Religious berakhlak Qur\'ani.',
@@ -129,10 +129,12 @@ export default async function SmpGuruPage() {
     });
 
     if (dbTeachers && dbTeachers.length > 0) {
-      teachers = dbTeachers.map((t) => ({
-        id: t.id,
-        name: t.name.replace(/^(?:Ustadz|Ust\.?)\s+/i, '').trim(),
-        role: t.role,
+      teachers = dbTeachers.map((t) => {
+        const cleanName = t.name.replace(/^(?:Ustadz|Ust\.?)\s+/i, '').trim();
+        return {
+          id: t.id,
+          name: cleanName.toLowerCase().includes('jaja madhuri') ? 'Jaja Madhuri, S.Pd., M.Pd.' : cleanName,
+          role: t.role,
         specialization: t.specialization || 'Pendidik SMP IT',
         bio: t.bio || 'Pendidik berdedikasi tinggi di SMP IT Al-Afiyah Majalengka.',
         photoUrl: t.photoUrl,
@@ -145,7 +147,8 @@ export default async function SmpGuruPage() {
           : t.role.toLowerCase().includes('futsal') || t.role.toLowerCase().includes('olahraga')
           ? 'Olahraga & Prestasi'
           : 'Akademik & Sains'
-      }));
+        };
+      });
     }
   } catch (err) {
     console.error('Error fetching SMP teachers:', err);

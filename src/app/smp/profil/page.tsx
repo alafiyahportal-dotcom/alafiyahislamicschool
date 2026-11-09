@@ -54,7 +54,7 @@ export default async function SmpProfilPage() {
     { label: 'Tagline & Semboyan', value: 'Be Smart and Be Religius' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Ketua Yayasan', value: 'Jejen Nurbayan, S.Sos.' },
-    { label: 'Kepala Sekolah', value: 'Jaja Madhuri, S.Pd.' },
+    { label: 'Kepala Sekolah', value: 'Jaja Madhuri, S.Pd., M.Pd.' },
     { label: 'Tata Usaha', value: 'Iip Zaenal Arifin, S.Pd.' },
     { label: 'Sarpras', value: 'Muhamad Eechram Riady, S.Pd.' },
     { label: 'Humas', value: 'Amelia Kartika, S.Sos.' },
@@ -70,7 +70,7 @@ export default async function SmpProfilPage() {
 
   const strukturPengurus = [
     { jabatan: 'Ketua Yayasan', nama: 'Jejen Nurbayan, S.Sos.', role: 'Penyelenggara Lembaga (YPIB)', icon: Building2 },
-    { jabatan: 'Kepala Sekolah', nama: 'Jaja Madhuri, S.Pd.', role: 'Pimpinan Satuan Pendidikan & Akademik', icon: GraduationCap },
+    { jabatan: 'Kepala Sekolah', nama: 'Jaja Madhuri, S.Pd., M.Pd.', role: 'Pimpinan Satuan Pendidikan & Akademik', icon: GraduationCap },
     { jabatan: 'PKS Kurikulum', nama: 'M. Akbar Pratama, S.Pd.', role: 'Pengembangan Kurikulum & Mutu Pembelajaran', icon: BookOpen },
     { jabatan: 'PKS Kesiswaan', nama: 'Rio Satrio, S.Pd.', role: 'Pembinaan Karakter & Kedisiplinan Santri', icon: Users },
     { jabatan: 'Sarpras', nama: 'Muhamad Eechram Riady, S.Pd.', role: 'Pengelolaan Fasilitas & Sarana Belajar', icon: Compass },
