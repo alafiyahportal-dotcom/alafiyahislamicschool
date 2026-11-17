@@ -8,6 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
@@ -27,14 +28,22 @@ async function restoreTable(label, items, upsertFn) {
 
 async function main() {
   const backupPath = path.join(process.cwd(), '.backups', 'supabase-full-backup.json');
-  if (!fs.existsSync(backupPath)) {
-    console.error(`❌ File backup tidak ditemukan di: ${backupPath}`);
+  const gzPath = path.join(process.cwd(), '.backups', 'supabase-full-backup.json.gz');
+
+  let rawJson;
+  if (fs.existsSync(backupPath)) {
+    console.log('⏳ Membaca file backup JSON:', backupPath);
+    rawJson = fs.readFileSync(backupPath, 'utf8');
+  } else if (fs.existsSync(gzPath)) {
+    console.log('⏳ Membaca & mengekstrak file backup GZIP:', gzPath);
+    rawJson = zlib.gunzipSync(fs.readFileSync(gzPath)).toString('utf8');
+  } else {
+    console.error(`❌ File backup tidak ditemukan di: ${backupPath} maupun ${gzPath}`);
     console.error('Jalankan "node --env-file=.env scripts/backup-supabase.js" terlebih dahulu.');
     process.exit(1);
   }
 
-  console.log('⏳ Membaca file backup:', backupPath);
-  const parsed = JSON.parse(fs.readFileSync(backupPath, 'utf8'));
+  const parsed = JSON.parse(rawJson);
   const d = parsed.data || {};
 
   // Urutan restore mengikuti Foreign Key (Parent -> Child)
@@ -119,3 +128,4 @@ main()
     process.exit(1);
   })
   .finally(() => prisma.$disconnect());
+
