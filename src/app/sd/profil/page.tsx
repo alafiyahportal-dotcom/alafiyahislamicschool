@@ -5,7 +5,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import ScrollReveal from '@/components/landing/ScrollReveal';
-import PrincipalGreetingSection from '@/components/landing/PrincipalGreetingSection';
+import SdPrincipalGreetingSection from '@/components/sd/SdPrincipalGreetingSection';
 import { prisma } from '@/lib/prisma';
 import { 
   Building2, 
@@ -152,7 +152,7 @@ export default async function SdProfilPage() {
         </section>
 
         {/* Sambutan Kepala Sekolah SDIT Al Afiyah (Interactive Motion & Karakter Nabawiyah) */}
-        <PrincipalGreetingSection schoolSlug="sd" />
+        <SdPrincipalGreetingSection schoolSlug="sd" />
 
         {/* Selayang Pandang & Legalitas Sekolah */}
         <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80">

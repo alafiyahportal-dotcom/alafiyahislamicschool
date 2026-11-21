@@ -1,5 +1,5 @@
 import React from 'react';
-import SmpLandingView from '@/components/landing/SmpLandingView';
+import SmpLandingView from '@/components/smp/SmpLandingView';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { SMP_OG_IMAGE } from '@/lib/og-images';

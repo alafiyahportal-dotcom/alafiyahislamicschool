@@ -1,5 +1,5 @@
 import React from 'react';
-import SchoolLandingTemplate, { SchoolData } from '@/components/landing/SchoolLandingTemplate';
+import TkLandingView, { SchoolData } from '@/components/tk/TkLandingView';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 
@@ -116,5 +116,5 @@ export default async function TkLandingPage() {
     achievements,
   };
 
-  return <SchoolLandingTemplate school={schoolData} />;
+  return <TkLandingView school={schoolData} />;
 }

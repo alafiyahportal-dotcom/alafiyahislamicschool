@@ -1,6 +1,6 @@
 import React from 'react';
-import SchoolLandingTemplate, { SchoolData, TeacherData } from '@/components/landing/SchoolLandingTemplate';
-import WelcomeVideoModal from '@/components/landing/WelcomeVideoModal';
+import SdLandingView, { SchoolData, TeacherData } from '@/components/sd/SdLandingView';
+import SdWelcomeVideoModal from '@/components/sd/SdWelcomeVideoModal';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { SD_OG_IMAGE } from '@/lib/og-images';
@@ -341,12 +341,12 @@ export default async function SdLandingPage() {
 
   return (
     <>
-      <WelcomeVideoModal
+      <SdWelcomeVideoModal
         videoSrc="/videos/intro-sd-lite.mp4"
         title="Sekilas Suasana & Pembiasaan Belajar SDIT"
         schoolName="SDIT Al-Afiyah Majalengka"
       />
-      <SchoolLandingTemplate school={schoolData} />
+      <SdLandingView school={schoolData} />
     </>
   );
 }
