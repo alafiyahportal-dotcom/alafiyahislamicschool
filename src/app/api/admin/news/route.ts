@@ -64,7 +64,7 @@ export async function POST(request: Request) {
     if (auth.error) return auth.error;
 
     const body = await request.json();
-    const { schoolId, title, slug, category, excerpt, content, coverImage, author, isPublished } = body;
+    const { schoolId, title, slug, category, excerpt, content, coverImage, author, isPublished, publishedAt } = body;
 
     if (!schoolId || !title || !content) {
       return NextResponse.json(
@@ -82,6 +82,10 @@ export async function POST(request: Request) {
 
     const finalSlug = slug?.trim() || `${generateSlug(title)}-${Date.now().toString().slice(-4)}`;
     const cleanText = parseNewsMedia(content).cleanContent;
+    const parsedPublishedAt =
+      publishedAt && !Number.isNaN(new Date(publishedAt).getTime())
+        ? new Date(publishedAt)
+        : new Date();
 
     const news = await prisma.newsPost.create({
       data: {
@@ -94,7 +98,7 @@ export async function POST(request: Request) {
         coverImage: coverImage || '/images/sd-activity-classroom-6b.jpg',
         author: author || 'Humas Al-Afiyah',
         isPublished: isPublished !== undefined ? Boolean(isPublished) : true,
-        publishedAt: new Date(),
+        publishedAt: parsedPublishedAt,
       },
       include: {
         school: {

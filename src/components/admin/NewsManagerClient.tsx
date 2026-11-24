@@ -67,6 +67,15 @@ interface NewsManagerClientProps {
   initialAuthors?: string[];
 }
 
+function formatDateForInput(dateInput?: string | Date): string {
+  const d = dateInput ? new Date(dateInput) : new Date();
+  if (Number.isNaN(d.getTime())) {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  }
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 export default function NewsManagerClient({
   initialNews,
   schoolSlug,
@@ -131,6 +140,7 @@ export default function NewsManagerClient({
   const [formCoverImage, setFormCoverImage] = useState('');
   const [formExtraMedia, setFormExtraMedia] = useState<NewsMediaItem[]>([]);
   const [formAuthor, setFormAuthor] = useState(authors[0] || `Redaksi ${schoolName}`);
+  const [formPublishedAt, setFormPublishedAt] = useState<string>(() => formatDateForInput());
   const [formIsPublished, setFormIsPublished] = useState(true);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isUploadingExtraMedia, setIsUploadingExtraMedia] = useState(false);
@@ -547,6 +557,7 @@ export default function NewsManagerClient({
     setFormCoverImage('/images/sd-activity-classroom-6b.jpg');
     setFormExtraMedia([]);
     setFormAuthor(authors[0] || `Redaksi ${schoolName}`);
+    setFormPublishedAt(formatDateForInput(new Date()));
     setFormIsPublished(true);
     setImageUploadMode('upload');
     setExtraMediaUrlInput('');
@@ -579,6 +590,7 @@ export default function NewsManagerClient({
     setFormCoverImage(item.coverImage || '/images/sd-activity-classroom-6b.jpg');
     setFormExtraMedia(parsed.extraMedia);
     setFormAuthor(item.author || authors[0] || `Redaksi ${schoolName}`);
+    setFormPublishedAt(formatDateForInput(item.publishedAt || item.createdAt));
     setFormIsPublished(item.isPublished);
     setImageUploadMode(
       item.coverImage?.startsWith('data:') || !item.coverImage?.startsWith('http')
@@ -606,6 +618,9 @@ export default function NewsManagerClient({
       const serializedContent = serializeNewsContent(cleanText, formExtraMedia);
       const computedExcerpt =
         formExcerpt.trim() || cleanText.slice(0, 150) + (cleanText.length > 150 ? '...' : '');
+      const selectedPublishIso = formPublishedAt
+        ? new Date(`${formPublishedAt}T08:00:00+07:00`).toISOString()
+        : new Date().toISOString();
 
       if (editingItem) {
         const res = await fetch(`/api/admin/news/${editingItem.id}`, {
@@ -618,6 +633,7 @@ export default function NewsManagerClient({
             content: serializedContent,
             coverImage: formCoverImage.trim() || '/images/sd-activity-classroom-6b.jpg',
             author: formAuthor,
+            publishedAt: selectedPublishIso,
             isPublished: formIsPublished,
           }),
         });
@@ -626,7 +642,12 @@ export default function NewsManagerClient({
         if (!res.ok) throw new Error(data.error || 'Gagal memperbarui berita');
 
         setNewsList((prev) =>
-          prev.map((item) => (item.id === editingItem.id ? data.news : item))
+          prev
+            .map((item) => (item.id === editingItem.id ? data.news : item))
+            .sort(
+              (a, b) =>
+                new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+            )
         );
       } else {
         const res = await fetch('/api/admin/news', {
@@ -640,6 +661,7 @@ export default function NewsManagerClient({
             content: serializedContent,
             coverImage: formCoverImage.trim() || '/images/sd-activity-classroom-6b.jpg',
             author: formAuthor,
+            publishedAt: selectedPublishIso,
             isPublished: formIsPublished,
           }),
         });
@@ -647,7 +669,12 @@ export default function NewsManagerClient({
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Gagal menerbitkan berita');
 
-        setNewsList((prev) => [data.news, ...prev]);
+        setNewsList((prev) =>
+          [data.news, ...prev].sort(
+            (a, b) =>
+              new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+          )
+        );
       }
 
       setIsModalOpen(false);
@@ -1645,8 +1672,8 @@ export default function NewsManagerClient({
                 />
               </div>
 
-              {/* Dropdown Kategori Berita & Dropdown Nama Penulis */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Dropdown Kategori Berita, Dropdown Nama Penulis, & Tanggal Upload Berita */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
@@ -1663,7 +1690,7 @@ export default function NewsManagerClient({
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 hover:text-emerald-800 cursor-pointer"
                     >
                       <Settings2 className="w-3 h-3" />
-                      Tambah / Edit Kategori
+                      Tambah / Edit
                     </button>
                   </div>
                   <select
@@ -1695,7 +1722,7 @@ export default function NewsManagerClient({
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 hover:text-emerald-800 cursor-pointer"
                     >
                       <Settings2 className="w-3 h-3" />
-                      Tambah / Edit Penulis
+                      Tambah / Edit
                     </button>
                   </div>
                   <select
@@ -1709,6 +1736,33 @@ export default function NewsManagerClient({
                       </option>
                     ))}
                   </select>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                      <Calendar className="w-3.5 h-3.5 inline mr-1 text-emerald-700" />
+                      Tanggal Berita / Upload
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setFormPublishedAt(formatDateForInput(new Date()))}
+                      className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 cursor-pointer"
+                      title="Set ke tanggal hari ini"
+                    >
+                      Hari Ini
+                    </button>
+                  </div>
+                  <input
+                    type="date"
+                    required
+                    value={formPublishedAt}
+                    onChange={(e) => setFormPublishedAt(e.target.value)}
+                    className="w-full px-3.5 py-2.5 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-medium text-slate-800 cursor-pointer"
+                  />
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    Default hari ini, bisa dipilih ke tanggal kegiatan sebelumnya.
+                  </p>
                 </div>
               </div>
 

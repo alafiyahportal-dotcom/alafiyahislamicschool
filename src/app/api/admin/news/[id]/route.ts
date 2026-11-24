@@ -15,7 +15,7 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
-    const { title, slug, category, excerpt, content, coverImage, author, isPublished, schoolId } = body;
+    const { title, slug, category, excerpt, content, coverImage, author, isPublished, schoolId, publishedAt } = body;
 
     const existing = await prisma.newsPost.findUnique({
       where: { id },
@@ -49,6 +49,10 @@ export async function PUT(
         ...(author !== undefined && { author }),
         ...(isPublished !== undefined && { isPublished: Boolean(isPublished) }),
         ...(schoolId !== undefined && { schoolId }),
+        ...(publishedAt !== undefined &&
+          !Number.isNaN(new Date(publishedAt).getTime()) && {
+            publishedAt: new Date(publishedAt),
+          }),
       },
       include: {
         school: {
