@@ -80,56 +80,56 @@ export default async function SdLandingPage() {
   const heroData = sectionsMap.hero || {};
   const identityData = sectionsMap.identity || sectionsMap.contact || {};
 
-  // Program Unggulan — sesuai poster resmi SPMB T.A. 2027/2028
+  // Program Unggulan — ringkas & langsung ke inti
   const defaultPrograms = [
     {
       title: 'Mendidik dengan Sunnah',
-      desc: 'Menggunakan metode Pendidikan Karakter Nabawiyah dan keteladanan sunnah Rasulullah ﷺ.',
+      desc: 'Pembiasaan adab & teladan Rasulullah ﷺ.',
       badge: 'Karakter Nabawi',
     },
     {
       title: 'Akhlak dan Ilmu',
-      desc: 'Menanamkan iman sebelum Al-Qur\'an serta adab sebelum ilmu agar berkah dan berakhlak mulia.',
+      desc: 'Menanamkan iman sebelum Qur\'an dan adab sebelum ilmu.',
       badge: 'Iman & Adab',
     },
     {
       title: 'Lingkungan Nyaman & Asri',
-      desc: 'Suasana sekolah yang bersih, sejuk, rindang, dan membahagiakan anak dalam belajar.',
+      desc: 'Suasana sekolah bersih, sejuk, dan ramah anak.',
       badge: 'Ramah Anak',
     },
     {
       title: 'Basic Literasi & Numerasi',
-      desc: 'Penguatan fondasi calistung kontekstual, nalar sains, dan logika matematika sejak dini.',
+      desc: 'Fondasi calistung, nalar sains, dan logika matematika.',
       badge: 'Literasi Numerasi',
     },
     {
       title: 'Outdoor Learning',
-      desc: 'Pembelajaran aktif di alam terbuka, sains tanaman di greenhouse bambu, dan observasi kebun sekolah.',
+      desc: 'Belajar aktif di alam terbuka & greenhouse sekolah.',
       badge: 'Outdoor Learning',
     },
     {
       title: 'Pelatihan Aqil-Baligh',
-      desc: 'Pembinaan agar murid mandiri, terampil, dan beradab dalam menyambut fase aqil-baligh.',
+      desc: 'Pembinaan kemandirian & kesiapan menuju aqil-baligh.',
       badge: 'Kemandirian',
     },
     {
-      title: 'Pemetaan Potensi Bakat & Skill',
-      desc: 'Identifikasi dan pengembangan potensi bakat, skill, dan kemandirian tiap murid.',
+      title: 'Pemetaan Potensi Bakat',
+      desc: 'Mengenali dan mengasah bakat unik tiap anak.',
       badge: 'Talent Mapping',
     },
     {
       title: 'Tahfidz Qur\'an',
-      desc: 'Bimbingan tahsin tartil dan hafalan Al-Qur\'an intensif juz 30 mutqin ramah anak.',
+      desc: 'Bimbingan tahsin tartil & hafalan Juz 30 mutqin.',
       badge: 'Tahfidz Mutqin',
     },
     {
       title: 'Penumbuhan Karakter Bakat',
-      desc: 'Menumbuhkan karakter positif melalui penyaluran minat dan bakat murid secara terarah.',
+      desc: 'Penyaluran minat dan bakat murid secara terarah.',
       badge: 'Karakter Bakat',
     },
     {
-      title: 'Pembelajaran Berfokus pada Proses',
-      desc: 'Menghargai proses belajar tiap anak, bukan sekadar hasil akhir.',
+      title: 'Fokus pada Proses Belajar',
+      desc: 'Menghargai perkembangan belajar tiap anak.',
       badge: 'Proses Belajar',
     },
   ];

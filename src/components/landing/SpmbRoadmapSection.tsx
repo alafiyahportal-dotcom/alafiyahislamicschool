@@ -3,14 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from './ScrollReveal';
-import { 
-  FileText, 
-  CreditCard, 
-  Users, 
-  GraduationCap, 
-  ArrowRight, 
-  PhoneCall
-} from 'lucide-react';
+import { ArrowRight, PhoneCall } from 'lucide-react';
 
 interface SpmbRoadmapProps {
   registrationFee?: number;
@@ -26,73 +19,59 @@ export default function SpmbRoadmapSection({
   const steps = [
     {
       num: '01',
-      title: 'Registrasi Formulir Digital',
+      title: 'Isi Formulir Online',
       badge: 'Tahap 1',
-      actionText: 'Isi Formulir SPMB',
+      actionText: 'Daftar Sekarang',
       href: ppdbUrl,
-      tagline: '28 Poin Standar Dapodik',
-      desc: 'Orang tua mengisi formulir biodata ananda & keluarga secara online melalui portal SPMB SDIT. Langsung mendapatkan ID Pendaftaran resmi serta akses kartu pendaftaran.',
+      desc: 'Isi biodata singkat calon murid secara online.',
     },
     {
       num: '02',
-      title: 'Infaq Pendaftaran & Berkas',
+      title: 'Biaya & Berkas',
       badge: 'Tahap 2',
-      actionText: 'Lihat Panduan & Biaya',
+      actionText: 'Info Biaya',
       href: '/sd/spmb#biaya',
-      tagline: `Infaq Rp ${registrationFee.toLocaleString('id-ID')}`,
-      desc: 'Penyelesaian infaq formulir melalui transfer ke rekening resmi yayasan dan upload dokumen kelengkapan (scan Akta Kelahiran, Kartu Keluarga, dan KTP orang tua) via portal.',
+      desc: `Transfer formulir Rp ${registrationFee.toLocaleString('id-ID')} & unggah berkas.`,
     },
     {
       num: '03',
-      title: 'Observasi Fitrah & Ta’aruf',
+      title: 'Observasi & Ta’aruf',
       badge: 'Tahap 3',
-      actionText: 'Panduan Observasi Murid',
+      actionText: 'Info Observasi',
       href: '/sd/spmb',
-      tagline: 'Bukan Tes Tulis Kognitif',
-      desc: 'Ananda diajak berinteraksi riang untuk pemetaan fitrah, kematangan motorik & sensorik. Ayah Bunda mengikuti sesi ta’aruf untuk menyelaraskan visi tarbiyah rumah dan sekolah.',
+      desc: 'Observasi kesiapan anak (bukan tes calistung) & wawancara.',
     },
     {
       num: '04',
       title: 'Pengumuman & Daftar Ulang',
       badge: 'Tahap 4',
-      actionText: 'Cek Pengumuman Kelulusan',
+      actionText: 'Cek Pengumuman',
       href: '/sd/spmb/pengumuman',
-      tagline: 'Kuota 2 Rombel Terbatas',
-      desc: 'Hasil kelulusan diumumkan via portal & WhatsApp resmi. Dilanjutkan pelunasan infaq sarana pendidikan, pengukuran seragam resmi, dan pengenalan lingkungan sekolah (ta’aruf).',
+      desc: 'Hasil seleksi via WhatsApp & daftar ulang.',
     },
   ];
 
   return (
     <section 
       id="spmb-roadmap" 
-      className="py-16 sm:py-20 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] scroll-mt-16 sm:scroll-mt-20 w-full text-white relative overflow-hidden"
+      className="py-14 sm:py-16 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] scroll-mt-16 sm:scroll-mt-20 w-full text-white relative overflow-hidden"
     >
-      {/* Ambient background glows like SMP */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#ffd51e]/5 rounded-full blur-3xl pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header - Balanced line-break with full SDIT Al-Afiyah Majalengka */}
-        <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
+        <ScrollReveal yOffset={24} duration={500} className="mb-8 max-w-2xl">
           <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-2">
             <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-            <span>Tahapan SPMB T.A. 2027/2028</span>
+            <span>Alur Pendaftaran SPMB</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3 leading-snug">
-            4 Langkah Mudah Pendaftaran <br />
-            <span className="text-[#ffd51e] inline-block">SDIT Al-Afiyah Majalengka</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+            4 Langkah Mudah Daftar <span className="text-[#ffd51e]">SDIT Al-Afiyah</span>
           </h2>
-          <p className="text-xs sm:text-sm text-white/90 mt-2 max-w-2xl leading-relaxed">
-            Sistem penerimaan yang ramah keluarga, transparan, dan terintegrasi digital tanpa prosedur yang berbelit.
-          </p>
         </ScrollReveal>
 
-        {/* 4 Steps - Clickable White High-Contrast Cards matching Program Unggulan */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {steps.map((step, idx) => (
             <ScrollReveal
               key={step.num}
-              delay={(idx % 4) * 0.12}
+              delay={(idx % 4) * 0.1}
               yOffset={24}
               duration={500}
               className="h-full flex flex-col"
@@ -101,24 +80,21 @@ export default function SpmbRoadmapSection({
                 href={step.href}
                 className="bg-white rounded-2xl p-5 border-2 border-white/90 shadow-lg hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group text-slate-900 cursor-pointer"
               >
-                <div className="flex-1 pb-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#064e3b] border border-[#064e3b]/20">
+                <div className="pb-3">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#064e3b] border border-[#064e3b]/20">
                       {step.badge}
                     </span>
                     <span className="text-xs font-black text-[#064e3b] font-mono">{step.num}</span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-1 group-hover:text-[#064e3b] transition-colors leading-snug">
+                  <h3 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-[#064e3b] transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-[11px] font-semibold text-[#064e3b] mb-2">
-                    {step.tagline}
-                  </p>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-600 leading-snug">
                     {step.desc}
                   </p>
                 </div>
-                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#064e3b]">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between w-full text-xs font-bold text-[#064e3b]">
                   <span>{step.actionText}</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#064e3b] group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -127,35 +103,34 @@ export default function SpmbRoadmapSection({
           ))}
         </div>
 
-        {/* Direct Action Banner at Bottom */}
-        <ScrollReveal delay={0.3} yOffset={20} duration={500} className="mt-12 sm:mt-16">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/15 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <ScrollReveal delay={0.2} yOffset={20} duration={500} className="mt-8">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-white/15 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
-              <h4 className="text-lg sm:text-xl font-bold text-white">
-                Siap Mendaftarkan Ananda di SDIT Al-Afiyah?
+              <h4 className="text-base sm:text-lg font-bold text-white">
+                Kuota Terbatas Hanya 2 Rombel
               </h4>
-              <p className="text-xs sm:text-sm text-emerald-100/90 mt-1">
-                Kuota rombel terbatas hanya 2 kelas (maks. 60 murid) untuk menjamin kualitas pembinaan intensif.
+              <p className="text-xs text-emerald-100/90 mt-0.5">
+                Segera amankan kursi putra-putri Anda di Gelombang 1.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
               <Link
                 href={ppdbUrl}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b] text-xs sm:text-sm font-black transition-all shadow-md active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#ffd51e] hover:bg-yellow-400 text-[#064e3b] text-xs sm:text-sm font-black transition-all shadow-md active:scale-95"
               >
-                <span>Daftar Formulir Sekarang</span>
+                <span>Daftar Sekarang</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
-                href={`https://wa.me/${waCenterPhone.replace(/[^0-9]/g, '')}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20tahapan%20pendaftaran`}
+                href={`https://wa.me/${waCenterPhone.replace(/[^0-9]/g, '')}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah%2C%20saya%20ingin%20konsultasi%20pendaftaran`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/15 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold transition-all border border-white/20"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold transition-all border border-white/20"
               >
                 <PhoneCall className="w-3.5 h-3.5 text-emerald-300" />
-                <span>Tanya Panitia SPMB</span>
+                <span>Hubungi Panitia</span>
               </Link>
             </div>
           </div>

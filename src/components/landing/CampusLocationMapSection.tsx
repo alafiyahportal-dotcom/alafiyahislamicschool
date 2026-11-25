@@ -80,14 +80,11 @@ export default function CampusLocationMapSection({ unitSlug = 'foundation' }: Ca
   return (
     <section id="lokasi-sekolah" className="py-16 sm:py-20 bg-white border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Clean Header: Solid text, no text gradient, no floating badge */}
-        <ScrollReveal yOffset={24} duration={500} className="mb-8 sm:mb-10">
+        {/* Clean Header */}
+        <ScrollReveal yOffset={24} duration={500} className="mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             {sectionTitle}
           </h2>
-          <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-3xl">
-            {sectionSubtitle}
-          </p>
         </ScrollReveal>
 
         {/* Clean 2-Column Grid: Left Info, Right Map (Completely Unobstructed) */}

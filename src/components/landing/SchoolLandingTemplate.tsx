@@ -393,28 +393,28 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
     school.slug === 'sd' ? [
       {
         title: 'Mendidik dengan Sunnah & Karakter Nabawiyah',
-        description: 'Mendidik dengan sunnah, menggunakan metode Pendidikan Karakter Nabawiyah, menanamkan akhlak dan ilmu, serta iman sebelum Al-Qur\'an.',
+        description: 'Menanamkan iman sebelum Al-Qur\'an dan adab sebelum ilmu sesuai teladan Rasulullah ﷺ.',
       },
       {
-        title: 'Smart, Literasi & Tahfidz Qur\'an',
-        description: 'Pembelajaran terpadu penguatan basic literasi dan numerasi serta bimbingan tahfidz Juz 30 mutqin dengan suasana asri yang membahagiakan murid.',
+        title: 'Literasi, Numerasi & Tahfidz Qur\'an',
+        description: 'Penguatan literasi-numerasi dan hafalan Juz 30 mutqin dalam suasana belajar yang menyenangkan.',
       },
       {
-        title: 'Outdoor Learning & Pelatihan Aqil-Baligh',
-        description: 'Eksplorasi kontekstual di alam dan kebun pertanian terbuka, pelatihan kemandirian aqil-baligh, serta pemetaan potensi bakat dan skill murid.',
+        title: 'Outdoor Learning & Kemandirian',
+        description: 'Belajar aktif di alam terbuka serta pembinaan kemandirian menuju usia aqil-baligh.',
       },
     ] : [
       {
         title: 'Akidah & Akhlakul Karimah',
-        description: 'Penanaman adab sebelum ilmu. Menanamkan kebiasaan shalat berjamaah, doa harian, serta hormat dan santun kepada orang tua dan sesama.',
+        description: 'Penanaman adab sebelum ilmu, shalat berjamaah, dan hormat kepada orang tua.',
       },
       {
         title: 'Tahsin & Tahfidz Al-Qur\'an',
-        description: 'Bimbingan menghafal Al-Qur\'an dengan metode talaqqi tartil yang menyenangkan, memastikan bacaan tajwid fashih dan hafalan mutqin.',
+        description: 'Bimbingan menghafal Al-Qur\'an dengan metode talaqqi tartil yang menyenangkan.',
       },
       {
         title: 'Sains & Berwawasan Global',
-        description: 'Kurikulum terintegrasi yang melatih daya kritis, kreativitas sains, dasar logika matematika, serta literasi bahasa asing yang aplikatif.',
+        description: 'Kurikulum terintegrasi yang melatih daya kritis, sains, dan bahasa asing.',
       },
     ]
   );
@@ -602,21 +602,17 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       )}
 
       {/* Pengumuman & Brosur Resmi SPMB (Khusus & Dapat Diunduh) */}
-      <section id="pengumuman" className="py-16 sm:py-20 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+      <section id="pengumuman" className="py-14 sm:py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-12">
+          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-8">
             <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
               <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-              <span>Pengumuman &amp; Unduh Dokumen Resmi</span>
+              <span>Brosur &amp; Informasi Pendaftaran</span>
               <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
-              Poster &amp; Brosur Resmi SPMB <br />
-              <span className="text-[#007638] inline-block">{school.name}</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+              Poster &amp; Brosur Resmi SPMB <span className="text-[#007638] inline-block">{school.name}</span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-2">
-              Informasi resmi Sistem Penerimaan Murid Baru Tahun Ajaran 2027/2028. Tersedia dalam resolusi tinggi yang dapat Anda unduh atau simpan langsung.
-            </p>
           </ScrollReveal>
 
           <ScrollReveal delay={0.15} yOffset={24} duration={500}>
@@ -1189,68 +1185,53 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                 </div>
 
                 {/* Right Column: Key Details & Direct Enrollment Steps */}
-                <div className="lg:col-span-7 space-y-6">
+                <div className="lg:col-span-7 space-y-5">
                   <div>
-                    <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 mb-2">
+                    <div className="flex items-center gap-2 text-xs font-bold text-emerald-800 mb-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       <span className="uppercase tracking-widest text-[11px] font-black">Kuota Terbatas:</span>
-                      <span className="text-slate-600 font-medium">Hanya 2 Rombongan Belajar</span>
+                      <span className="text-slate-600 font-semibold">Hanya 2 Rombel</span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
                       Penerimaan Murid Baru SDIT Al-Afiyah T.A. 2027/2028
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                      &ldquo;Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh.&rdquo; Menanamkan nilai iman sebelum Al-Qur&apos;an, adab nabawiyah sebelum ilmu, dan pembiasaan sunnah Rasulullah ﷺ dalam suasana sekolah yang asri dan membahagiakan murid.
-                    </p>
                   </div>
 
-                  {/* Highlights List */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                  {/* Highlights List (Ringkas tanpa kalimat panjang) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="p-3.5 rounded-xl bg-white border border-slate-200/80">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block mb-1">
+                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
                         Karakter Utama
                       </span>
-                      <p className="text-xs font-bold text-slate-900">
+                      <p className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">
                         Metode Karakter Nabawiyah
                       </p>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        Keteladanan adab sunnah Rasulullah ﷺ &amp; kemandirian aqil-baligh.
-                      </p>
                     </div>
 
                     <div className="p-3.5 rounded-xl bg-white border border-slate-200/80">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block mb-1">
+                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
                         Target Al-Qur&apos;an
                       </span>
-                      <p className="text-xs font-bold text-slate-900">
+                      <p className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">
                         Tahfidz Juz 30 Mutqin
                       </p>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        Bimbingan talaqqi tartil dengan tajwid fashih ramah anak.
-                      </p>
                     </div>
 
                     <div className="p-3.5 rounded-xl bg-white border border-slate-200/80">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block mb-1">
+                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
                         Metode Belajar
                       </span>
-                      <p className="text-xs font-bold text-slate-900">
+                      <p className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">
                         Outdoor Learning &amp; Agro-Sains
-                      </p>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        Eksplorasi greenhouse bambu, botani, &amp; perikanan air tawar.
                       </p>
                     </div>
 
                     <div className="p-3.5 rounded-xl bg-white border border-slate-200/80">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block mb-1">
-                        Investasi Pendaftaran
+                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
+                        Biaya Pendaftaran
                       </span>
-                      <p className="text-xs font-bold text-slate-900">
-                        Biaya Formulir Rp {school.registrationFee.toLocaleString('id-ID')}
-                      </p>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        Termasuk panduan berkas &amp; tes observasi kesiapan anak.
+                      <p className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">
+                        Formulir Rp {school.registrationFee.toLocaleString('id-ID')}
                       </p>
                     </div>
                   </div>
@@ -1312,29 +1293,17 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       )}
 
       {/* 3 Core Values (Pilar Karakter Islami SDIT Al-Afiyah): Modern Minimalist */}
-      <section id="values" className="relative py-20 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+      <section id="values" className="relative py-14 sm:py-16 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-14">
-            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-3">
+          <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
+            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-2">
               <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
-              <span>Nilai Utama &amp; Character Building</span>
+              <span>Nilai Utama</span>
               <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-              {school.slug === 'sd' ? (
-                <>
-                  Tiga Pilar Karakter <br />
-                  <span className="text-[#064e3b] inline-block">{school.name}</span>
-                </>
-              ) : (
-                `Tiga Pilar Karakter ${school.name}`
-              )}
+              Tiga Pilar Karakter <span className="text-[#064e3b] inline-block">{school.name}</span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed">
-              {school.slug === 'sd'
-                ? 'Mendidik murid di SDIT Al-Afiyah tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah, fitrah kemandirian, dan cinta Al-Qur\'an.'
-                : 'Mendidik anak tidak hanya unggul dalam kognitif sains, tetapi berakar kuat pada nilai-nilai adab nabawiyah.'}
-            </p>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1425,18 +1394,14 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <ScrollReveal yOffset={24} duration={500} className="mb-12 max-w-3xl">
+          <ScrollReveal yOffset={24} duration={500} className="mb-8 max-w-2xl">
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-2">
               <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Kurikulum Terintegrasi</span>
+              <span>Kurikulum Terpadu</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3 leading-snug">
-              Program Unggulan <br />
-              <span className="text-[#ffd51e] inline-block">{school.name}</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
+              Program Unggulan <span className="text-[#ffd51e] inline-block">{school.name}</span>
             </h2>
-            <p className="text-xs sm:text-sm text-emerald-100/90 mt-2 max-w-2xl leading-relaxed">
-              Pilar keunggulan kurikulum berakar pada nilai karakter nabawiyah, adab islami, serta penguatan literasi dan agro-sains.
-            </p>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1500,40 +1465,28 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
       {/* Struktur Kepengurusan & Tenaga Pendidik */}
       {school.teachers && school.teachers.length > 0 && (
-        <section id="dewan-guru" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+        <section id="dewan-guru" className="py-14 sm:py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-8">
               <div>
                 <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-2">
                   <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
-                  <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
+                  <span>Tim &amp; Tenaga Pendidik</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
-                  {school.slug === 'sd' ? (
-                    <>
-                      Struktur Kepengurusan &amp; Tenaga Pendidik <br />
-                      <span className="text-[#064e3b] inline-block">SD&nbsp;IT Al-Afiyah</span>
-                    </>
-                  ) : (
-                    `Struktur Kepengurusan & Tenaga Pendidik ${school.name}`
-                  )}
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                  Struktur &amp; Pendidik <span className="text-[#064e3b] inline-block">{school.name}</span>
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
-                  {school.slug === 'sd'
-                    ? 'Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, komite sekolah, asatidzah tahfidz & kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.'
-                    : 'Tata kelola terintegrasi jajaran pimpinan yayasan, kepala sekolah, dan dewan pendidik yang bersinergi mewujudkan pendidikan berkarakter islami.'}
-                </p>
               </div>
 
               <div className="mt-4 md:mt-0 flex items-center gap-2">
                 <span className="text-xs font-semibold text-[#064e3b] bg-emerald-50 border border-emerald-200/80 px-3.5 py-1.5 rounded-xl">
-                  {school.teachers.length} Struktur &amp; Tenaga Pendidik Aktif
+                  {school.teachers.length} Pendidik Aktif
                 </span>
               </div>
             </ScrollReveal>
 
-            {/* Grid Kartu — 3 Kolom Seimbang dengan Card Hijau di Dalamnya (Tanpa Foto & Tanpa Kolom AI) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Grid Kartu — Ringkas tanpa kutipan bio panjang */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {school.teachers.map((teacher, idx) => {
                 const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
 
@@ -1546,8 +1499,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                     className="h-full flex flex-col"
                   >
                     <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group h-full">
-                      <div className="space-y-4">
-                        {/* Card Hijau Elegan di dalam setiap card nama (Tanpa Inisial) */}
+                      <div className="space-y-3">
                         <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3.5 shadow-xs relative overflow-hidden">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
                             {department}
@@ -1557,19 +1509,13 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                           </span>
                         </div>
 
-                        {/* Nama, Bidang Amanah & Kutipan Resmi */}
-                        <div className="space-y-1.5">
+                        <div className="space-y-1">
                           <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-[#064e3b] transition-colors">
                             {teacher.name}
                           </h3>
                           {teacher.specialization && (
-                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                            <p className="text-xs text-slate-500 font-medium">
                               {teacher.specialization}
-                            </p>
-                          )}
-                          {teacher.bio && (
-                            <p className="text-[11px] text-slate-500 italic leading-relaxed pt-1 line-clamp-3">
-                              &ldquo;{teacher.bio}&rdquo;
                             </p>
                           )}
                         </div>
@@ -1605,29 +1551,17 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       )}
 
       {/* Galeri Fasilitas & Dokumentasi Kegiatan */}
-      <section id="facilities" className="py-16 sm:py-20 bg-slate-50/50 border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+      <section id="facilities" className="py-14 sm:py-16 bg-slate-50/50 border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-8">
             <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-2">
               <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
-              <span>{school.slug === 'sd' ? 'Galeri Aktivitas & Belajar SDIT Al-Afiyah' : 'Sarana Prasarana'}</span>
+              <span>Galeri Dokumentasi</span>
               <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
-              {school.slug === 'sd' ? (
-                <>
-                  Dokumentasi Aktivitas Belajar <br />
-                  <span className="text-[#064e3b] inline-block">{school.name}</span>
-                </>
-              ) : (
-                'Fasilitas Pembelajaran Modern & Representatif'
-              )}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+              Dokumentasi Aktivitas <span className="text-[#064e3b] inline-block">{school.name}</span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed">
-              {school.slug === 'sd'
-                ? 'Potret nyata keseharian murid: pembiasaan ibadah shalat berjamaah, muhadharah da\'i cilik, suasana belajar interaktif di kelas, agro-literasi, dan prestasi peserta didik.'
-                : 'Dukungan infrastruktur lengkap demi kenyamanan dan keamanan aktivitas ibadah dan belajar murid.'}
-            </p>
 
             {/* Filter Tabs for SDIT */}
             {school.slug === 'sd' && availableCategories.length > 0 && (
@@ -1695,23 +1629,10 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                       </span>
                     </div>
                   </div>
-                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-slate-900 mb-1.5 group-hover:text-emerald-800 transition-colors leading-snug">
-                        {sanitizeAdabText(fac.name)}
-                      </h3>
-                      <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
-                        {sanitizeAdabText(fac.desc)}
-                      </p>
-                    </div>
-                    <Link
-                      href={school.slug === 'sd' ? '/sd/dokumentasi' : '#facilities'}
-                      className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-700 hover:text-emerald-950 transition-colors"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <span>Buka Galeri Dokumentasi</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-emerald-700 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                  <div className="p-4 flex-1 flex flex-col justify-between">
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-800 transition-colors leading-snug">
+                      {sanitizeAdabText(fac.name)}
+                    </h3>
                   </div>
                 </div>
               </ScrollReveal>
@@ -1747,18 +1668,15 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
       {school.newsPosts && school.newsPosts.length > 0 && (
         <section id="news" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-8">
               <div>
                 <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
                   <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-                  <span>Kabar Al-Afiyah</span>
+                  <span>Kabar &amp; Kegiatan</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-3">
-                  Dokumentasi &amp; Agenda Kegiatan Terkini
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                  Berita &amp; Kegiatan Terkini
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                  Kabar prestasi, agenda daurah, kegiatan ekstrakurikuler, dan pengumuman resmi {school.name}.
-                </p>
               </div>
 
               {/* Tab Filter Kategori Dinamis (Sinkron dengan Admin) */}
@@ -1933,18 +1851,15 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
         <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-[#ffd51e]/5 rounded-full blur-2xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-12">
+          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-2xl mx-auto mb-10">
             <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-2">
               <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
               <span>Kata Mereka</span>
               <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mt-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
               Testimoni <span className="text-[#ffd51e]">Orang Tua Murid</span>
             </h2>
-            <p className="text-xs sm:text-sm text-white/90 mt-2 max-w-xl mx-auto leading-relaxed font-normal">
-              Kepercayaan tulus Ayah dan Bunda mendampingi proses tumbuh kembang peserta didik di {school.name}.
-            </p>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -2002,20 +1917,17 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
           <div className="rounded-3xl bg-gradient-to-br from-[#052e23] via-[#064e3b] to-[#047857] text-white p-6 sm:p-10 lg:p-12 shadow-xl border border-emerald-500/30 relative overflow-hidden">
             <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-              <div className="max-w-2xl space-y-3.5">
+              <div className="max-w-2xl space-y-2.5">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 border border-white/20 text-[#ffd51e] text-xs font-extrabold uppercase tracking-wider">
                   <HeartHandshake className="w-3.5 h-3.5" />
-                  <span>Ajakan Spesial Wali Murid &amp; Keluarga Besar Al-Afiyah</span>
+                  <span>Program Affiliate Wali Murid</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
-                  Mari Ikut Syiar Kebaikan Sekolah Ananda &amp; Raih{' '}
-                  <span className="text-[#ffd51e]">Apresiasi Berkah Rp 150.000 / Murid</span>
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
+                  Syiar Kebaikan Sekolah &amp; Raih{' '}
+                  <span className="text-[#ffd51e]">Apresiasi Rp 150.000 / Murid</span>
                 </h2>
                 <p className="text-xs sm:text-sm text-emerald-50/90 leading-relaxed">
-                  Ayah &amp; Bunda Wali Murid {school.name} kini dapat mendaftar menjadi{' '}
-                  <strong className="text-white font-bold">Affiliate Resmi Al-Afiyah</strong> secara gratis. Cukup bagikan tautan rekomendasi unik Ayah/Bunda ke kerabat, tetangga, atau grup WhatsApp—setiap calon murid yang mendaftar mendapatkan apresiasi{' '}
-                  <strong className="text-[#ffd51e] font-bold">Rp 50.000</strong> (pelunasan formulir) +{' '}
-                  <strong className="text-[#ffd51e] font-bold">Rp 100.000</strong> (daftar ulang) langsung ke rekening Ayah/Bunda.
+                  Daftar gratis, bagikan link rekomendasi unik Anda, dan dapatkan komisi <strong className="text-[#ffd51e] font-bold">Rp 50.000</strong> (saat pelunasan formulir) + <strong className="text-[#ffd51e] font-bold">Rp 100.000</strong> (saat daftar ulang).
                 </p>
               </div>
 
