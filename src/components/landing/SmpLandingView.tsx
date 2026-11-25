@@ -1192,34 +1192,38 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
 
       {/* SECTION: STRUKTUR KEPENGURUSAN & TENAGA PENDIDIK SMP IT */}
       {teachers && teachers.length > 0 && (
-        <section id="dewan-guru" className="py-14 sm:py-16 bg-white border-b border-slate-200 scroll-mt-20">
+        <section id="dewan-guru" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
               <div>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-1.5">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
                   <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                  <span>Tim &amp; Tenaga Pendidik</span>
+                  <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-                  Struktur &amp; Pendidik <span className="text-[#030164] inline-block">SMP&nbsp;IT Al-Afiyah</span>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-2 leading-snug">
+                  Struktur Kepengurusan &amp; Tenaga Pendidik <br className="hidden sm:inline" />
+                  <span className="text-[#030164] inline-block">SMP&nbsp;IT Al-Afiyah</span>
                 </h2>
+                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
+                  Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, dewan asatidzah tahfidz &amp; kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.
+                </p>
               </div>
               <div className="flex items-center gap-3 shrink-0 flex-wrap">
                 <span className="text-xs font-semibold text-[#030164] bg-blue-50 border border-blue-200/80 px-3.5 py-2 rounded-xl">
-                  {teachers.length} Pendidik Aktif
+                  {teachers.length} Struktur &amp; Tenaga Pendidik Aktif
                 </span>
                 <Link
                   href="/smp/guru"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#030164] text-white hover:bg-[#030164]/90 text-xs font-bold transition-all shadow-sm"
                 >
                   <Users className="w-4 h-4 text-[#ffd51e]" />
-                  <span>Lihat Struktur Lengkap</span>
+                  <span>Lihat Struktur &amp; Pendidik Lengkap</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#ffd51e]" />
                 </Link>
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {teachers.slice(0, 8).map((teacher, idx) => {
                 const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
 
@@ -1232,7 +1236,8 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                     className="h-full flex flex-col"
                   >
                     <div className="bg-white rounded-2xl border border-slate-200 hover:border-[#030164]/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5 shadow-xs">
-                      <div className="space-y-3">
+                      <div className="space-y-3.5">
+                        {/* Header Badge Role - Elegan Navy Blue & Gold */}
                         <div className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white rounded-xl p-3.5 shadow-2xs relative overflow-hidden">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
                             {department}
@@ -1242,13 +1247,18 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                           </span>
                         </div>
 
-                        <div className="space-y-1">
+                        <div className="space-y-1.5">
                           <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-[#030164] transition-colors">
                             {teacher.name}
                           </h3>
                           {teacher.specialization && (
-                            <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
                               {teacher.specialization}
+                            </p>
+                          )}
+                          {teacher.bio && (
+                            <p className="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 leading-relaxed line-clamp-3">
+                              &ldquo;{teacher.bio}&rdquo;
                             </p>
                           )}
                         </div>

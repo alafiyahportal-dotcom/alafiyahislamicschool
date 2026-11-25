@@ -1465,28 +1465,40 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
 
       {/* Struktur Kepengurusan & Tenaga Pendidik */}
       {school.teachers && school.teachers.length > 0 && (
-        <section id="dewan-guru" className="py-14 sm:py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
+        <section id="dewan-guru" className="py-16 bg-white border-b border-slate-200/60 scroll-mt-16 sm:scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-8">
+            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
               <div>
                 <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#064e3b] mb-2">
                   <span className="w-5 h-[2px] bg-[#064e3b] rounded-full inline-block" />
-                  <span>Tim &amp; Tenaga Pendidik</span>
+                  <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-                  Struktur &amp; Pendidik <span className="text-[#064e3b] inline-block">{school.name}</span>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 leading-snug">
+                  {school.slug === 'sd' ? (
+                    <>
+                      Struktur Kepengurusan &amp; Tenaga Pendidik <br />
+                      <span className="text-[#064e3b] inline-block">SD&nbsp;IT Al-Afiyah</span>
+                    </>
+                  ) : (
+                    `Struktur Kepengurusan & Tenaga Pendidik ${school.name}`
+                  )}
                 </h2>
+                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
+                  {school.slug === 'sd'
+                    ? 'Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, komite sekolah, asatidzah tahfidz & kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.'
+                    : 'Tata kelola terintegrasi jajaran pimpinan yayasan, kepala sekolah, dan dewan pendidik yang bersinergi mewujudkan pendidikan berkarakter islami.'}
+                </p>
               </div>
 
               <div className="mt-4 md:mt-0 flex items-center gap-2">
                 <span className="text-xs font-semibold text-[#064e3b] bg-emerald-50 border border-emerald-200/80 px-3.5 py-1.5 rounded-xl">
-                  {school.teachers.length} Pendidik Aktif
+                  {school.teachers.length} Struktur &amp; Tenaga Pendidik Aktif
                 </span>
               </div>
             </ScrollReveal>
 
-            {/* Grid Kartu — Ringkas tanpa kutipan bio panjang */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* Grid Kartu — 3 Kolom Seimbang dengan Card Hijau di Dalamnya */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {school.teachers.map((teacher, idx) => {
                 const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
 
@@ -1499,7 +1511,8 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                     className="h-full flex flex-col"
                   >
                     <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group h-full">
-                      <div className="space-y-3">
+                      <div className="space-y-4">
+                        {/* Card Hijau Elegan di dalam setiap card nama (Tanpa Inisial) */}
                         <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3.5 shadow-xs relative overflow-hidden">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
                             {department}
@@ -1509,13 +1522,19 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                           </span>
                         </div>
 
-                        <div className="space-y-1">
+                        {/* Nama, Bidang Amanah & Kutipan Resmi */}
+                        <div className="space-y-1.5">
                           <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-[#064e3b] transition-colors">
                             {teacher.name}
                           </h3>
                           {teacher.specialization && (
-                            <p className="text-xs text-slate-500 font-medium">
+                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
                               {teacher.specialization}
+                            </p>
+                          )}
+                          {teacher.bio && (
+                            <p className="text-[11px] text-slate-500 italic leading-relaxed pt-1 line-clamp-3">
+                              &ldquo;{teacher.bio}&rdquo;
                             </p>
                           )}
                         </div>
