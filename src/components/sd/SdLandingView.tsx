@@ -383,6 +383,7 @@ const FAQ_ITEMS = [
 ];
 
 const UPCOMING_EVENTS = [
+  // Slide 1 (Halaman 1)
   {
     day: '30',
     month: 'Des',
@@ -411,10 +412,44 @@ const UPCOMING_EVENTS = [
     year: '2027',
     title: 'Field Study & Praktik Agro-Sains Smart Akhlak Fitrah',
     dateTime: 'Semester Genap @ 07:30 - 14:00 WIB',
-    location: 'Greenhouse & Kebun Edukasi',
+    location: 'Greenhouse & Kebun Edukasi P4S',
     tag: 'Kegiatan',
     image: '/images/sd-field-study-banner.jpg',
     href: '/sd/berita',
+  },
+  // Slide 2 (Halaman 2)
+  {
+    day: '14',
+    month: 'Mar',
+    year: '2027',
+    title: 'Tasmi’ & Munaqasyah Tahfidz Al-Qur’an Juz 30 Mutqin',
+    dateTime: 'Maret 2027 @ 07:30 - 11:30 WIB',
+    location: 'Aula & Halaqah SDIT Al-Afiyah',
+    tag: 'Tahfidz',
+    image: '/images/sd-activity-halaqah-tahfidz.jpg',
+    href: '/sd/program',
+  },
+  {
+    day: '18',
+    month: 'Apr',
+    year: '2027',
+    title: 'Pelatihan Muhadharah Da’i Cilik & Kemandirian Aqil-Baligh',
+    dateTime: 'April 2027 @ 08:00 - 13:00 WIB',
+    location: 'Lingkungan Giri Asih SDIT Al-Afiyah',
+    tag: 'Karakter',
+    image: '/images/sd-activity-daicilik-speech.jpg',
+    href: '/sd/karakter',
+  },
+  {
+    day: '22',
+    month: 'Mei',
+    year: '2027',
+    title: 'Rihlah Edukatif, Tadabbur Alam & Apresiasi Prestasi Murid',
+    dateTime: 'Mei 2027 @ 07:00 - 15:30 WIB',
+    location: 'SDIT Al-Afiyah Majalengka',
+    tag: 'Rihlah & Prestasi',
+    image: '/images/sd-futsal-champion.jpg',
+    href: '/sd/dokumentasi',
   },
 ];
 
@@ -457,6 +492,8 @@ const TESTIMONIAL_MAP_SLOTS = [
 export default function SdLandingView({ school }: { school: SchoolData }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeNewsTab, setActiveNewsTab] = useState<string>('Semua');
+  const [agendaPage, setAgendaPage] = useState<number>(1);
+  const [agendaViewMode, setAgendaViewMode] = useState<'grid' | 'list'>('grid');
   const [showFaqBox, setShowFaqBox] = useState<boolean>(true);
   const [openFaqIndex, setOpenFaqIndex] = useState<number>(0);
   const [selectedNews, setSelectedNews] = useState<NewsData | null>(null);
@@ -1165,7 +1202,7 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
               </div>
             </div>
 
-            {/* Right Column: #AGENDASEKOLAH 3-Card Vertical Grid + Pagination */}
+            {/* Right Column: #AGENDASEKOLAH 3-Card Vertical Grid + Interactive Pagination */}
             <div className="lg:col-span-6 space-y-5">
               <p className="text-center text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900">
                 #AGENDASEKOLAH
@@ -1176,83 +1213,157 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
                   Acara-acara
                 </h2>
                 <div className="flex items-center gap-1.5 text-slate-400">
-                  <span className="p-1.5 rounded-xs bg-slate-100 text-[#003831]">
+                  <button
+                    type="button"
+                    onClick={() => setAgendaViewMode('grid')}
+                    aria-label="Tampilan Grid"
+                    className={`p-1.5 rounded-xs cursor-pointer transition-colors ${
+                      agendaViewMode === 'grid'
+                        ? 'bg-slate-100 text-[#003831]'
+                        : 'hover:bg-slate-100 text-slate-400'
+                    }`}
+                  >
                     <LayoutGrid className="w-4 h-4" />
-                  </span>
-                  <span className="p-1.5 rounded-xs hover:bg-slate-100">
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAgendaViewMode('list')}
+                    aria-label="Tampilan Daftar"
+                    className={`p-1.5 rounded-xs cursor-pointer transition-colors ${
+                      agendaViewMode === 'list'
+                        ? 'bg-slate-100 text-[#003831]'
+                        : 'hover:bg-slate-100 text-slate-400'
+                    }`}
+                  >
                     <List className="w-4 h-4" />
-                  </span>
+                  </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {UPCOMING_EVENTS.map((ev, idx) => (
-                  <Link
-                    key={idx}
-                    href={ev.href}
-                    className="group bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
-                  >
-                    <div>
-                      <div className="relative h-28 w-full bg-slate-100">
-                        <Image
-                          src={ev.image}
-                          alt={ev.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="200px"
-                        />
-                        <div className="absolute -bottom-5 right-3 w-11 h-11 rounded-full bg-[#0284c7] text-white shadow-md flex flex-col items-center justify-center leading-none z-10">
-                          <span className="text-xs font-extrabold">{ev.day}</span>
-                          <span className="text-[9px] uppercase font-semibold">
-                            {ev.month}
-                          </span>
-                        </div>
+              {(() => {
+                const EVENTS_PER_PAGE = 3;
+                const totalAgendaPages = Math.ceil(UPCOMING_EVENTS.length / EVENTS_PER_PAGE);
+                const currentAgendaEvents = UPCOMING_EVENTS.slice(
+                  (agendaPage - 1) * EVENTS_PER_PAGE,
+                  agendaPage * EVENTS_PER_PAGE
+                );
+
+                return (
+                  <>
+                    {agendaViewMode === 'grid' ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {currentAgendaEvents.map((ev, idx) => (
+                          <Link
+                            key={`${agendaPage}-${idx}`}
+                            href={ev.href}
+                            className="group bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
+                          >
+                            <div>
+                              <div className="relative h-28 w-full bg-slate-100">
+                                <Image
+                                  src={ev.image}
+                                  alt={ev.title}
+                                  fill
+                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                  sizes="200px"
+                                />
+                                <div className="absolute -bottom-5 right-3 w-11 h-11 rounded-full bg-[#0284c7] text-white shadow-md flex flex-col items-center justify-center leading-none z-10">
+                                  <span className="text-xs font-extrabold">{ev.day}</span>
+                                  <span className="text-[9px] uppercase font-semibold">
+                                    {ev.month}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="p-4 pt-6 space-y-2.5">
+                                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-[#00594f] line-clamp-2 leading-snug transition-colors">
+                                  {ev.title}
+                                </h3>
+
+                                <div className="space-y-1.5 text-[11px] text-slate-500">
+                                  <p className="flex items-start gap-1.5 leading-relaxed">
+                                    <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                                    <span>{ev.dateTime}</span>
+                                  </p>
+                                  <p className="flex items-start gap-1.5">
+                                    <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                                    <span>{ev.location}</span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="px-4 pb-3.5">
+                              <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-medium rounded-xs">
+                                {ev.tag}
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
-
-                      <div className="p-4 pt-6 space-y-2.5">
-                        <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-[#00594f] line-clamp-2 leading-snug transition-colors">
-                          {ev.title}
-                        </h3>
-
-                        <div className="space-y-1.5 text-[11px] text-slate-500">
-                          <p className="flex items-start gap-1.5 leading-relaxed">
-                            <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-                            <span>{ev.dateTime}</span>
-                          </p>
-                          <p className="flex items-start gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-                            <span>{ev.location}</span>
-                          </p>
-                        </div>
+                    ) : (
+                      <div className="space-y-3">
+                        {currentAgendaEvents.map((ev, idx) => (
+                          <Link
+                            key={`${agendaPage}-list-${idx}`}
+                            href={ev.href}
+                            className="group bg-white border border-slate-200/90 p-3 shadow-xs hover:shadow-md transition-all flex items-center gap-4"
+                          >
+                            <div className="w-12 h-12 rounded-full bg-[#0284c7] text-white shadow-xs flex flex-col items-center justify-center leading-none shrink-0">
+                              <span className="text-xs font-extrabold">{ev.day}</span>
+                              <span className="text-[9px] uppercase font-semibold">
+                                {ev.month}
+                              </span>
+                            </div>
+                            <div className="min-w-0 flex-1 space-y-1">
+                              <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-[#00594f] line-clamp-1 transition-colors">
+                                {ev.title}
+                              </h3>
+                              <p className="text-[11px] text-slate-500 truncate">
+                                {ev.dateTime} • {ev.location}
+                              </p>
+                            </div>
+                            <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-medium rounded-xs shrink-0">
+                              {ev.tag}
+                            </span>
+                          </Link>
+                        ))}
                       </div>
-                    </div>
+                    )}
 
-                    <div className="px-4 pb-3.5">
-                      <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-medium rounded-xs">
-                        {ev.tag}
-                      </span>
+                    <div className="flex items-center justify-center gap-1.5 pt-2">
+                      {Array.from({ length: totalAgendaPages }, (_, i) => i + 1).map((pageNum) => {
+                        const isActive = agendaPage === pageNum;
+                        return (
+                          <button
+                            key={pageNum}
+                            type="button"
+                            onClick={() => setAgendaPage(pageNum)}
+                            aria-label={`Slide Agenda ${pageNum}`}
+                            className={`w-7 h-7 flex items-center justify-center rounded-xs text-xs font-bold transition-colors cursor-pointer ${
+                              isActive
+                                ? 'bg-[#0284c7] text-white shadow-2xs'
+                                : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
+                            }`}
+                          >
+                            {pageNum}
+                          </button>
+                        );
+                      })}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAgendaPage((prev) => (prev >= totalAgendaPages ? 1 : prev + 1))
+                        }
+                        aria-label="Slide Agenda Berikutnya"
+                        className="w-7 h-7 flex items-center justify-center rounded-xs border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs cursor-pointer transition-colors"
+                      >
+                        →
+                      </button>
                     </div>
-                  </Link>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-center gap-1.5 pt-2">
-                <span className="w-7 h-7 flex items-center justify-center rounded-xs bg-[#0284c7] text-white text-xs font-bold">
-                  1
-                </span>
-                <Link
-                  href="/sd/agenda"
-                  className="w-7 h-7 flex items-center justify-center rounded-xs border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs"
-                >
-                  2
-                </Link>
-                <Link
-                  href="/sd/agenda"
-                  className="w-7 h-7 flex items-center justify-center rounded-xs border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs"
-                >
-                  →
-                </Link>
-              </div>
+                  </>
+                );
+              })()}
             </div>
           </div>
         </div>

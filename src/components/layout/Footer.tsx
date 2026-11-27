@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Phone, MapPin, Mail, ShieldCheck } from 'lucide-react';
+import { ChevronRight, ChevronUp, Phone, Mail, Send, LogIn } from 'lucide-react';
 import { getSchoolUrl, extractSubdomain, SchoolSlug } from '@/lib/domain';
 import FooterVisitorBadge from '@/components/shared/FooterVisitorBadge';
 
@@ -22,6 +22,10 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
     }
   }, []);
 
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
+
   // Determine active unit: explicit prop > client subdomain > pathname prefix > foundation
   const activeSlug: 'tk' | 'sd' | 'smp' | 'foundation' =
     schoolSlug ||
@@ -34,142 +38,109 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
       ? 'smp'
       : 'foundation');
 
-  // School-specific configuration tailored to each unit without cross-unit mentions
+  const scrollToTop = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const unitConfig = {
     sd: {
-      name: 'SDIT Al-Afiyah',
-      subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
+      displayName: 'SD IT Al-Afiyah',
+      copyrightText: '© Copyright SD IT Al-Afiyah x modula.studio 2026.',
+      bgMain: 'bg-[#003831]',
       secondaryLogoUrl: '/images/ypib-logo.png',
       logoUrl: '/images/sd-logo.png',
-      badgeLetter: 'SD',
-      description:
-        'SDIT Al-Afiyah — Bukan sekadar tempat belajar, namun juga tempat bertumbuh. Memadukan kurikulum Diknas & yayasan dalam mutu berpijak iman dan taqwa, dengan program unggulan Tahsin & Tahfidz Al-Qur\'an.',
-      accreditation: 'Terakreditasi B',
-      permit: 'YPIB • Gugus 3 Nusa Indah',
+      accreditationLabel: 'Terakreditasi B BAN-S/M',
+      pillarTitle: 'Karakter Nabawiyah',
+      pillarSubtitle: 'Tahfidz Juz 30 Mutqin',
       address:
-        'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
-      hotline: '+62 813-1013-9001',
-      hotlineWa: 'https://wa.me/6281310139001',
+        'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
+      phones: ['+62 813-1013-9001'],
       email: 'sditalafiyahmjl@gmail.com',
-      navTitle: 'Navigasi SDIT',
-      navLinks: [
-        { label: 'Profil & Karakter Nabawi', href: '/sd#values' },
-        { label: 'Program Unggulan', href: '/sd#programs' },
-        { label: 'Dewan Asatidzah & Guru', href: '/sd#teachers' },
-        { label: 'Fasilitas & Greenhouse', href: '/sd#facilities' },
-        { label: 'Kabar & Artikel SDIT', href: '/sd/berita' },
-        { label: 'Agenda & Kalender Akademik', href: '/sd/agenda' },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=sd', isGold: true },
-        { label: 'Cek Status SPMB SDIT', href: '/sd/spmb/cek-status' },
-        { label: 'Formulir SPMB SDIT Online', href: '/sd/spmb/daftar', isHighlighted: true },
+      contactHref: '/sd/kontak',
+      loginHref: '/login?unit=sd',
+      sitemapLinks: [
+        { label: 'Profil, Visi dan Misi', href: '/sd/profil' },
+        { label: 'Program Unggulan & Tahfidz', href: '/sd/program' },
+        { label: 'Pilar Karakter Nabawiyah', href: '/sd/karakter' },
+        { label: 'Struktur & Dewan Pendidik', href: '/sd/guru' },
+        { label: 'Informasi & FAQ SPMB', href: '/sd/spmb' },
+        { label: 'Berita & Kegiatan Sekolah', href: '/sd/berita' },
+        { label: 'Mitra Affiliate SPMB', href: '/affiliate/register?unit=sd' },
       ],
-      bottomCopyright: '© 2026 SDIT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol x modula.studio. Seluruh Hak Cipta Dilindungi.',
-      bottomLinks: [
-        { label: 'Login Portal', href: '/login?unit=sd', isGold: true },
-        { label: 'Doa & Dzikir', href: '/sd/doa-dzikir' },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=sd', isGold: true },
-        { label: 'Info SPMB SDIT', href: '/sd/spmb/daftar' },
-        { label: 'Hotline Panitia', href: 'https://wa.me/6281310139001', isExternal: true },
+    },
+    smp: {
+      displayName: 'SMP IT Al-Afiyah',
+      copyrightText: '© Copyright SMP IT Al-Afiyah x modula.studio 2026.',
+      bgMain: 'bg-[#030164]',
+      secondaryLogoUrl: '/images/ypib-logo.png',
+      logoUrl: '/images/smp-logo.png',
+      accreditationLabel: 'Terakreditasi A BAN-PDM',
+      pillarTitle: 'Be Smart & Religious',
+      pillarSubtitle: 'Tahfidz 3-5+ Juz & Bahasa Arab',
+      address:
+        'Lingkungan Giri Asih - Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
+      phones: ['+62 822-4935-7893'],
+      email: 'smpit@alafiyah.id',
+      contactHref: '/smp/kontak',
+      loginHref: '/login?unit=smp',
+      sitemapLinks: [
+        { label: 'Profil, Visi dan Misi', href: '/smp/profil' },
+        { label: '6 Program Unggulan SMP IT', href: '/smp/program' },
+        { label: 'SCD & Mutaba’ah Digital', href: '/smp/karakter' },
+        { label: 'Struktur & Dewan Pendidik', href: '/smp/guru' },
+        { label: 'Informasi & Biaya SPMB', href: '/smp/spmb' },
+        { label: 'Berita & Kegiatan Santri', href: '/smp/berita' },
+        { label: 'Mitra Affiliate SPMB', href: '/affiliate/register?unit=smp' },
       ],
     },
     tk: {
-      name: 'TK IT Al-Afiyah',
-      subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
-      secondaryLogoUrl: null,
-      logoUrl: null,
-      badgeLetter: 'TK',
-      description:
-        'Pendidikan Anak Usia Dini & TK Islam Terpadu ceria. Menumbuhkan adab, kecintaan Al-Qur\'an, ibadah kreatif, dan fitrah anak dengan bimbingan penuh kasih sayang.',
-      accreditation: 'Terakreditasi Resmi',
-      permit: 'Izin Kemenag & Kemdikbud',
+      displayName: 'TK IT Al-Afiyah',
+      copyrightText: '© Copyright TK IT Al-Afiyah x modula.studio 2026.',
+      bgMain: 'bg-[#003831]',
+      secondaryLogoUrl: '/images/ypib-logo.png',
+      logoUrl: '/images/ypib-logo.png',
+      accreditationLabel: 'Terakreditasi Resmi PAUD',
+      pillarTitle: 'Sentra Bermain Islami',
+      pillarSubtitle: 'Doa Harian & Juz 30 Ceria',
       address:
         'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
-      hotline: '+62 812-2334-4552',
-      hotlineWa: 'https://wa.me/6281223344552',
+      phones: ['+62 812-2334-4552'],
       email: 'tkit@alafiyah.id',
-      navTitle: 'Navigasi TK IT',
-      navLinks: [
+      contactHref: '/kontak',
+      loginHref: '/login?unit=tk',
+      sitemapLinks: [
         { label: 'Profil Sentra Ceria', href: '/tk#values' },
         { label: 'Program Usia Dini & Adab', href: '/tk#programs' },
         { label: 'Dewan Guru & Bunda Asatidzah', href: '/tk#teachers' },
         { label: 'Fasilitas & Arena Bermain', href: '/tk#facilities' },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=tk', isGold: true },
-        { label: 'Formulir SPMB TK IT Online', href: '/ppdb/daftar?school=tk', isHighlighted: true },
-      ],
-      bottomCopyright: '© 2026 TK IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol x modula.studio. Seluruh Hak Cipta Dilindungi.',
-      bottomLinks: [
-        { label: 'Login Portal', href: '/login', isGold: true },
-        { label: 'Doa & Dzikir', href: '/doa-dzikir' },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=tk', isGold: true },
-        { label: 'Info SPMB TK IT', href: '/ppdb/daftar?school=tk' },
-        { label: 'Hotline Panitia', href: 'https://wa.me/6281223344552', isExternal: true },
-      ],
-    },
-    smp: {
-      name: 'SMP IT Al-Afiyah',
-      subheading: 'Yayasan Pendidikan Imam Bonjol Majalengka',
-      secondaryLogoUrl: '/images/ypib-logo.png',
-      logoUrl: '/images/smp-logo.png',
-      badgeLetter: 'SMP',
-      description:
-        'SMP IT Al-Afiyah — Be Smart & Religious. Sekolah Menengah Pertama Islam Terpadu Terakreditasi A dengan target tahfidz 3-5+ juz mutqin, fasih Bahasa Arab aktif, SCD & Mutaba\'ah Digital, serta Futsal Development Program.',
-      accreditation: 'Terakreditasi A (SK No. 012/BAN-PDM/SK/2025)',
-      permit: 'YPIB • Majalengka',
-      address:
-        'Jl. Gerakan Koperasi No. 110, Majalengka Wetan, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
-      hotline: '+62 822-4935-7893',
-      hotlineWa: 'https://wa.me/6282249357893',
-      email: 'smpit@alafiyah.id',
-      instagramUrl: 'https://www.instagram.com/smpitalafiyahmjl?srtk=dGd1bXRleGVzY3Vk&utm_source=qr',
-      facebookUrl: 'https://www.facebook.com/share/1C4oQCB576/?mibextid=wwXIfr',
-      youtubeUrl: 'https://youtube.com/@smpitalafiyah?si=2-tXlimdRF1c6KSt',
-      navTitle: 'Navigasi SMP IT',
-      navLinks: [
-        { label: 'Profil SMP IT Al-Afiyah', href: '/smp/profil' },
-        { label: 'Program Unggulan 5+ Juz & Futsal', href: '/smp/program' },
-        { label: 'Jadwal Gelombang & Diskon SPMB', href: '/smp/spmb' },
-        { label: 'Sarana & Fasilitas Sekolah', href: '/smp/fasilitas' },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=smp', isGold: true },
-        { label: 'Cek Status SPMB SMP IT', href: '/smp/spmb/cek-status' },
-        { label: 'Formulir SPMB SMP IT Online', href: '/smp/spmb/daftar', isHighlighted: true },
-      ],
-      bottomCopyright: '© 2026 SMP IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol x modula.studio. Seluruh Hak Cipta Dilindungi.',
-      bottomLinks: [
-        { label: 'Login Portal', href: '/login?unit=smp', isGold: true },
-        { label: 'Doa & Dzikir', href: '/smp/doa-dzikir' },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=smp', isGold: true },
-        { label: 'Info SPMB SMP IT', href: '/smp/spmb/daftar' },
-        { label: 'Hotline Panitia', href: 'https://wa.me/6282249357893', isExternal: true },
+        { label: 'Formulir SPMB TK IT Online', href: '/ppdb/daftar?school=tk' },
+        { label: 'Mitra Affiliate SPMB', href: '/affiliate?school=tk' },
       ],
     },
     foundation: {
-      name: 'Yayasan Pendidikan Imam Bonjol',
-      subheading: 'Majalengka • Jawa Barat',
+      displayName: 'Yayasan Pendidikan Imam Bonjol',
+      copyrightText: '© Copyright Yayasan Pendidikan Imam Bonjol x modula.studio 2026.',
+      bgMain: 'bg-[#003831]',
       secondaryLogoUrl: null,
       logoUrl: '/images/ypib-logo.png',
-      badgeLetter: 'IB',
-      description:
-        'Mewujudkan ekosistem pendidikan Islam terpadu yang memadukan kedalaman adab dan Al-Qur\'an, kemuliaan akhlakul karimah, serta keunggulan intelektual dan sains modern sejak usia dini hingga menengah.',
-      accreditation: 'Terakreditasi Resmi',
-      permit: 'Izin Kemenag & Kemdikbud',
+      accreditationLabel: 'Yayasan Pendidikan Resmi',
+      pillarTitle: 'Tahfidz & Karakter',
+      pillarSubtitle: 'TK IT • SD IT • SMP IT',
       address:
-        'Kompleks Pendidikan Islam Imam Bonjol, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45419',
-      hotline: '+62 812-2334-4552',
-      hotlineWa: 'https://wa.me/6281223344552',
+        'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411',
+      phones: ['+62 813-1013-9001', '+62 822-4935-7893'],
       email: 'info@alafiyah.id',
-      navTitle: 'Unit Pendidikan',
-      navLinks: [
+      contactHref: '/kontak',
+      loginHref: '/login',
+      sitemapLinks: [
+        { label: 'Profil & Visi Misi Yayasan', href: '/profil' },
         { label: 'TK IT Al-Afiyah', href: getSchoolUrl('tk') },
-        { label: 'SDIT Al-Afiyah', href: getSchoolUrl('sd') },
+        { label: 'SD IT Al-Afiyah', href: getSchoolUrl('sd') },
         { label: 'SMP IT Al-Afiyah', href: getSchoolUrl('smp') },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate', isGold: true },
-      ],
-      bottomCopyright: '© 2026 Yayasan Pendidikan Imam Bonjol Majalengka x modula.studio. Seluruh Hak Cipta Dilindungi.',
-      bottomLinks: [
-        { label: 'Login Portal', href: '/login', isGold: true },
-        { label: 'Doa & Dzikir', href: '/doa-dzikir' },
-        { label: 'Affiliate Al-Afiyah', href: '/affiliate' },
-        { label: 'Pendaftaran Murid', href: '/ppdb/daftar' },
+        { label: 'Berita & Khazanah', href: '/berita' },
+        { label: 'Mitra Affiliate Al-Afiyah', href: '/affiliate' },
       ],
     },
   };
@@ -177,280 +148,266 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
   const current = unitConfig[activeSlug];
 
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-20 sm:pb-12 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-8 pb-12 border-b border-slate-800">
-          {/* Col 1: Unit / Foundation Brand Info & Social Media */}
-          <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center space-x-3.5">
-              {current.logoUrl ? (
-                <div className="flex items-center gap-2 shrink-0">
-                  {current.secondaryLogoUrl && (
-                    <img
-                      src={current.secondaryLogoUrl}
-                      alt="Logo Yayasan Pendidikan Imam Bonjol"
-                      className="w-12 h-12 object-contain shrink-0 drop-shadow-sm"
-                    />
-                  )}
-                  <img
-                    src={current.logoUrl}
-                    alt={`Logo ${current.name}`}
-                    className={`${
-                      current.secondaryLogoUrl ? 'w-[46px] h-[46px]' : 'w-14 h-14'
-                    } object-contain shrink-0 drop-shadow-sm`}
-                  />
-                </div>
-              ) : (
-                <div className="w-12 h-12 rounded-xl luxury-gradient flex items-center justify-center text-white font-bold text-lg shadow-sm shrink-0">
-                  {current.badgeLetter}
-                </div>
-              )}
-              <div>
-                <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
-                  {current.name}
-                </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  {current.subheading}
-                </p>
-              </div>
-            </div>
+    <footer className="relative w-full font-sans overflow-x-clip">
+      {/* =====================================================================
+          TOP MAIN FOOTER AREA (MINIMALIST AL-HIDAYAH / PRADITA 3-COLUMN MODEL)
+      ===================================================================== */}
+      <div className={`${current.bgMain} text-white pt-14 pb-14 sm:pt-16 sm:pb-16`}>
+        <div className="max-w-6xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+            {/* COLUMN 1: Link / Peta Situs */}
+            <div className="lg:col-span-4 space-y-5">
+              <h2 className="text-xl sm:text-[22px] font-extrabold text-white tracking-tight">
+                Link / Peta Situs
+              </h2>
 
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              {current.description}
-            </p>
-
-            <div className="flex items-center space-x-3 pt-1 text-xs text-slate-400">
-              <span className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-slate-800 border ${
-                activeSlug === 'smp' ? 'text-[#ffd51e] border-blue-900/60' : 'text-emerald-400 border-slate-700'
-              }`}>
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>{current.accreditation}</span>
-              </span>
-              <span>{current.permit}</span>
-            </div>
-
-            {/* Social Media Media Links Row */}
-            <div className="pt-2">
-              <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
-                Media Sosial Resmi
-              </p>
-              <div className="flex items-center space-x-2.5 text-slate-300">
-                {/* Instagram */}
-                <a
-                  href={(current as any).instagramUrl || "https://instagram.com/alafiyah_majalengka"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Instagram Resmi ${current.name}`}
-                  title={`Instagram Resmi ${(current as any).instagramUrl ? '@smpitalafiyahmjl' : '@alafiyah_majalengka'}`}
-                  className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-pink-600/20 text-slate-400 hover:text-pink-400 border border-slate-700/70 flex items-center justify-center transition-all"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
-                </a>
-                {/* Facebook */}
-                <a
-                  href={(current as any).facebookUrl || "https://facebook.com/alafiyah.official"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Facebook Resmi ${current.name}`}
-                  title={`Facebook ${current.name}`}
-                  className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-blue-600/20 text-slate-400 hover:text-blue-400 border border-slate-700/70 flex items-center justify-center transition-all"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.456 5 15.5 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/>
-                  </svg>
-                </a>
-                {/* YouTube */}
-                <a
-                  href={(current as any).youtubeUrl || "https://youtube.com/@alafiyah_school"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`YouTube ${current.name}`}
-                  title={`YouTube Channel ${current.name}`}
-                  className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-red-600/20 text-slate-400 hover:text-red-400 border border-slate-700/70 flex items-center justify-center transition-all"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                </a>
-                {/* WhatsApp */}
-                <a
-                  href={current.hotlineWa}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="WhatsApp Layanan Hotline"
-                  title={`WhatsApp Hotline ${current.hotline}`}
-                  className={`w-8 h-8 rounded-lg bg-slate-800 border border-slate-700/70 flex items-center justify-center transition-all ${
-                    activeSlug === 'smp'
-                      ? 'hover:bg-blue-600/20 text-slate-400 hover:text-[#ffd51e]'
-                      : 'hover:bg-emerald-600/20 text-slate-400 hover:text-emerald-400'
-                  }`}
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Col 2: Unit Navigation (No other units mentioned) */}
-          <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              {current.navTitle}
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
-              {current.navLinks.map((item, idx) => {
-                const isExternal = item.href.startsWith('http');
-                const isHighlight = (item as any).isHighlighted;
-                const isGold = (item as any).isGold;
-
-                const hoverClass = activeSlug === 'smp' ? 'hover:text-[#ffd51e]' : 'hover:text-emerald-400';
-                const highlightClass = activeSlug === 'smp' ? 'text-[#ffd51e] font-semibold' : 'text-emerald-400 font-medium';
-
-                if (isExternal) {
-                  return (
-                    <li key={idx}>
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${hoverClass} transition-colors flex items-center space-x-2 ${
-                          isGold ? 'text-amber-400 font-medium' : ''
-                        }`}
-                      >
-                        <span>•</span>
-                        <span>{item.label}</span>
-                      </a>
-                    </li>
-                  );
-                }
-
-                return (
+              <ul className="space-y-3 text-sm sm:text-[14.5px]">
+                {current.sitemapLinks.map((item, idx) => (
                   <li key={idx}>
                     <Link
                       href={item.href}
-                      className={`${hoverClass} transition-colors flex items-center space-x-2 ${
-                        isHighlight
-                          ? highlightClass
-                          : isGold
-                          ? 'text-amber-400 font-medium'
-                          : ''
-                      }`}
+                      className="group inline-flex items-center gap-2.5 text-white/95 hover:text-[#e5bc20] transition-colors"
                     >
-                      <span>•</span>
+                      <ChevronRight className="w-4 h-4 text-[#e5bc20] stroke-[2.5] shrink-0" />
                       <span>{item.label}</span>
                     </Link>
                   </li>
-                );
-              })}
-            </ul>
-          </div>
+                ))}
+                <li>
+                  <Link
+                    href={current.loginHref}
+                    className="group inline-flex items-center gap-2.5 text-[#e5bc20] hover:text-amber-300 font-semibold transition-colors"
+                  >
+                    <LogIn className="w-4 h-4 text-[#e5bc20] stroke-[2.5] shrink-0" />
+                    <span>Login Portal Admin &amp; Staf</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          {/* Col 3: Layanan & Kajian Islami */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Layanan &amp; Kajian Islami
-            </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
-              <li>
-                <Link 
-                  href={activeSlug === 'sd' ? '/sd/berita?cat=kajian' : activeSlug === 'smp' ? '/smp/berita?cat=kajian' : '/berita?cat=kajian'} 
-                  className={`${activeSlug === 'smp' ? 'hover:text-[#ffd51e]' : 'hover:text-emerald-400'} transition-colors flex items-center space-x-2`}
-                >
-                  <span>•</span>
-                  <span>Artikel &amp; Kajian Islam</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href={activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : '/doa-dzikir'} 
-                  className={`${activeSlug === 'smp' ? 'hover:text-[#ffd51e]' : 'hover:text-emerald-400'} transition-colors flex items-center space-x-2`}
-                >
-                  <span>•</span>
-                  <span>Doa &amp; Dzikir Harian Murid</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href={activeSlug === 'sd' ? '/sd/agenda' : activeSlug === 'smp' ? '/smp/agenda' : '/agenda'} 
-                  className={`${activeSlug === 'smp' ? 'hover:text-[#ffd51e]' : 'hover:text-emerald-400'} transition-colors flex items-center space-x-2`}
-                >
-                  <span>•</span>
-                  <span>Agenda &amp; Kalender Akademik</span>
-                </Link>
-              </li>
-              <li>
-                <a 
-                  href={
-                    activeSlug === 'smp'
-                      ? 'https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi'
-                      : activeSlug === 'sd'
-                      ? 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Ustadz%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi'
-                      : 'https://wa.me/6281223344552?text=Assalamu%27alaikum%20Ustadz%2C%20saya%20ingin%20bertanya%20seputar%20layanan%20pendidikan%20Al-Afiyah'
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${activeSlug === 'smp' ? 'hover:text-[#ffd51e]' : 'hover:text-emerald-400'} transition-colors flex items-center space-x-2`}
-                >
-                  <span>•</span>
-                  <span>Tanya Panitia (Konsultasi Pendidikan)</span>
-                </a>
-              </li>
-              <li>
-                <Link 
-                  href={activeSlug ? `/login?unit=${activeSlug}` : '/login'} 
-                  className="hover:text-amber-300 transition-colors flex items-center space-x-2 text-amber-300 font-medium"
-                >
-                  <span>•</span>
-                  <span>Login Portal Administrasi &amp; Staf</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
+            {/* COLUMN 2: Informasi */}
+            <div className="lg:col-span-4 space-y-5">
+              <h2 className="text-xl sm:text-[22px] font-extrabold text-white tracking-tight">
+                Informasi
+              </h2>
 
-          {/* Col 4: Contact & School Address */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              {activeSlug === 'sd'
-                ? 'Sekretariat SDIT & Kontak'
-                : activeSlug === 'tk'
-                ? 'Sekretariat TK IT & Kontak'
-                : activeSlug === 'smp'
-                ? 'Sekretariat SMP IT & Kontak'
-                : 'Sekretariat Pusat & Kontak'}
-            </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400">
-              <li className="flex items-start space-x-2.5">
-                <MapPin className={`w-4 h-4 flex-shrink-0 mt-0.5 ${activeSlug === 'smp' ? 'text-[#ffd51e]' : 'text-emerald-400'}`} />
-                <span>{current.address}</span>
-              </li>
-              <li className="flex items-center space-x-2.5">
-                <Phone className={`w-4 h-4 flex-shrink-0 ${activeSlug === 'smp' ? 'text-[#ffd51e]' : 'text-emerald-400'}`} />
-                <span>
-                  {activeSlug !== 'foundation'
-                    ? `Hotline SPMB: ${current.hotline}`
-                    : `Hotline PPDB: ${current.hotline}`}
-                </span>
-              </li>
-              <li className="flex items-center space-x-2.5">
-                <Mail className={`w-4 h-4 flex-shrink-0 ${activeSlug === 'smp' ? 'text-[#ffd51e]' : 'text-emerald-400'}`} />
-                <span>{current.email}</span>
-              </li>
-            </ul>
+              <ul className="space-y-3.5 text-sm sm:text-[14.5px]">
+                <li className="flex items-start gap-3">
+                  <Send className="w-4 h-4 text-[#e5bc20] fill-[#e5bc20] shrink-0 mt-1" />
+                  <span className="text-white/95 leading-snug">{current.address}</span>
+                </li>
+                {current.phones.map((phoneStr, pIdx) => (
+                  <li key={pIdx}>
+                    <a
+                      href={`https://wa.me/${phoneStr.replace(/[^0-9]/g, '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 text-white/95 hover:text-[#e5bc20] transition-colors"
+                    >
+                      <Phone className="w-4 h-4 text-[#e5bc20] fill-[#e5bc20] shrink-0" />
+                      <span>{phoneStr}</span>
+                    </a>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href={`mailto:${current.email}`}
+                    className="inline-flex items-center gap-3 text-white/95 hover:text-[#e5bc20] transition-colors break-all"
+                  >
+                    <Mail className="w-4 h-4 text-[#e5bc20] shrink-0" />
+                    <span>{current.email}</span>
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    href={current.contactHref}
+                    className="inline-flex items-center gap-3 text-white/95 hover:text-[#e5bc20] transition-colors"
+                  >
+                    <Mail className="w-4 h-4 text-[#e5bc20] shrink-0" />
+                    <span>Hubungi Kami</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* COLUMN 3: Yayasan, Unit & Accreditation Emblems Grid (Matches Al-Hidayah Model) */}
+            <div className="lg:col-span-4 lg:pt-2 space-y-6">
+              {/* Row 1: YPIB Emblem + Unit Logo + Official Seal + SEKOLAH UNGGULAN Mark */}
+              <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+                {current.secondaryLogoUrl && (
+                  <div
+                    className="w-14 h-14 flex items-center justify-center shrink-0"
+                    title="Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={current.secondaryLogoUrl}
+                      alt="Logo YPIB Majalengka"
+                      className="w-14 h-14 object-contain drop-shadow-sm"
+                    />
+                  </div>
+                )}
+
+                {current.logoUrl && (
+                  <div
+                    className="w-14 h-14 flex items-center justify-center shrink-0"
+                    title={`Logo ${current.displayName}`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={current.logoUrl}
+                      alt={`Logo ${current.displayName}`}
+                      className="w-14 h-14 object-contain drop-shadow-sm"
+                    />
+                  </div>
+                )}
+
+                {/* Official Circular Seal Emblem */}
+                <div
+                  className="w-14 h-14 flex items-center justify-center shrink-0"
+                  title={current.accreditationLabel}
+                >
+                  <svg viewBox="0 0 64 64" className="w-14 h-14 drop-shadow-sm" fill="none">
+                    <circle
+                      cx="32"
+                      cy="32"
+                      r="29"
+                      fill="#0e2240"
+                      stroke="#e5bc20"
+                      strokeWidth="2.2"
+                    />
+                    <circle
+                      cx="32"
+                      cy="32"
+                      r="22.5"
+                      fill="#132d54"
+                      stroke="#e5bc20"
+                      strokeWidth="1.2"
+                      strokeDasharray="2.5 2"
+                    />
+                    <circle cx="32" cy="6.5" r="1.3" fill="#e5bc20" />
+                    <circle cx="32" cy="57.5" r="1.3" fill="#e5bc20" />
+                    <circle cx="6.5" cy="32" r="1.3" fill="#e5bc20" />
+                    <circle cx="57.5" cy="32" r="1.3" fill="#e5bc20" />
+                    <path
+                      d="M17 25C20 22 24 23 27 26L24 36C20 34 18 30 17 25ZM47 25C44 22 40 23 37 26L40 36C44 34 46 30 47 25Z"
+                      fill="#e5bc20"
+                    />
+                    <path
+                      d="M25 22H39V33C39 38.5 32 42 32 42C32 42 25 38.5 25 33V22Z"
+                      fill="#d97706"
+                      stroke="#fde047"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M32 25.5L33.5 28.8L37 29.2L34.4 31.6L35.1 35L32 33.2L28.9 35L29.6 31.6L27 29.2L30.5 28.8L32 25.5Z"
+                      fill="#ffffff"
+                    />
+                    <path
+                      d="M21 45C25 47.5 39 47.5 43 45"
+                      stroke="#e5bc20"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+
+                {/* SEKOLAH UNGGULAN Mark */}
+                <div className="flex items-center gap-2.5">
+                  <svg viewBox="0 0 44 40" className="w-10 h-9 shrink-0" fill="none">
+                    <path
+                      d="M6 16C12 8 24 8 34 14L26 24C18 20 12 20 6 16Z"
+                      fill="#dc2626"
+                    />
+                    <path
+                      d="M10 24C18 19 28 20 38 26L28 34C20 30 14 29 10 24Z"
+                      fill="#ffffff"
+                    />
+                    <circle cx="24" cy="10" r="3.5" fill="#dc2626" />
+                  </svg>
+                  <div className="leading-[1.1] font-extrabold text-white tracking-wide text-xs sm:text-sm uppercase">
+                    <div>SEKOLAH</div>
+                    <div>ISLAM TERPADU</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 2: YPIB Circle + Karakter Nabawiyah Pill + Sekolah Ramah Anak */}
+              <div className="flex flex-wrap items-center gap-4 pt-1">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#38bdf8] to-[#0284c7] p-0.5 shadow-sm flex items-center justify-center shrink-0">
+                  <div className="w-full h-full rounded-full border border-white/60 flex flex-col items-center justify-center text-white leading-none">
+                    <span className="text-xs font-black tracking-tighter">YPIB</span>
+                    <span className="text-[6px] uppercase tracking-widest opacity-90">
+                      MAJALENGKA
+                    </span>
+                  </div>
+                </div>
+
+                <div className="h-10 w-px bg-white/30 hidden sm:block" />
+
+                <div className="inline-flex items-center bg-gradient-to-r from-[#0284c7] to-[#38bdf8] rounded-full p-1 pr-4 border border-white/80 shadow-sm">
+                  <div className="w-9 h-9 rounded-full bg-white text-[#0284c7] font-black text-sm flex items-center justify-center shrink-0 shadow-xs">
+                    A
+                  </div>
+                  <div className="pl-2.5 leading-tight text-white">
+                    <div className="text-[11px] font-bold">{current.pillarTitle}</div>
+                    <div className="text-[10px] font-medium text-white/95">
+                      {current.pillarSubtitle}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-white/85 pl-1">
+                  <svg
+                    viewBox="0 0 36 32"
+                    className="w-8 h-7 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                  >
+                    <path d="M3 10L18 3L33 10H3Z" />
+                    <line x1="7" y1="12" x2="7" y2="24" />
+                    <line x1="14" y1="12" x2="14" y2="24" />
+                    <line x1="22" y1="12" x2="22" y2="24" />
+                    <line x1="29" y1="12" x2="29" y2="24" />
+                    <line x1="3" y1="26" x2="33" y2="26" />
+                    <line x1="1" y1="29" x2="35" y2="29" />
+                  </svg>
+                  <div className="text-[7.5px] leading-tight uppercase tracking-wider text-white/75 max-w-[85px]">
+                    Sekolah Ramah Anak &amp; Fitrah
+                  </div>
+                </div>
+              </div>
+
+              {/* Visitor Counter Badge */}
+              <div className="pt-1">
+                <FooterVisitorBadge unitSlug={activeSlug} />
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom copyright & Visitor Counter */}
-        <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p className="leading-relaxed text-center sm:text-left">
-            <span>{current.bottomCopyright.replace(/Seluruh Hak Cipta Dilindungi\./, '').trim()}</span>{' '}
-            <span className="block sm:inline whitespace-nowrap">Seluruh Hak Cipta Dilindungi.</span>
-          </p>
+      {/* =====================================================================
+          BOTTOM GOLDEN-YELLOW COPYRIGHT BAR (#E2B714) + SCROLL TO TOP BUTTON
+      ===================================================================== */}
+      <div className="relative bg-[#e2b714] py-4 px-4 pb-20 sm:pb-4 text-center space-y-0.5">
+        <p className="text-xs sm:text-[13.5px] text-[#2c3e50] font-semibold tracking-wide">
+          {current.copyrightText}
+        </p>
+        <p className="text-[11px] sm:text-xs text-[#2c3e50]/90 font-normal tracking-wide">
+          Design and Development by modula.studio
+        </p>
 
-          <FooterVisitorBadge unitSlug={activeSlug} />
-        </div>
+        {/* Scroll to Top Dark Square Button on Bottom-Right */}
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Kembali ke atas"
+          className="fixed bottom-16 sm:bottom-4 right-4 z-50 w-10 h-10 bg-[#212529] hover:bg-black text-white flex items-center justify-center rounded-[2px] shadow-md transition-colors cursor-pointer"
+        >
+          <ChevronUp className="w-5 h-5 stroke-[2.5]" />
+        </button>
       </div>
     </footer>
   );
