@@ -338,5 +338,10 @@ export default async function SdLandingPage() {
     ),
   };
 
-  return <SdLandingView school={schoolData} />;
+  return (
+    <>
+      <SdWelcomeVideoModal />
+      <SdLandingView school={schoolData} />
+    </>
+  );
 }
