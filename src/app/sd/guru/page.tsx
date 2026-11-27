@@ -73,8 +73,8 @@ export default async function SdGuruPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      <Navbar schoolSlug="sd" />
+    <div className="min-h-screen bg-white flex flex-col font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
       <main className="flex-1">
         <SdGuruClient initialTeachers={teachers} />
       </main>

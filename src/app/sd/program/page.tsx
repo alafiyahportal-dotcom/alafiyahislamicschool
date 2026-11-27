@@ -4,27 +4,13 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
-import ScrollReveal from '@/components/landing/ScrollReveal';
 import { prisma } from '@/lib/prisma';
-import { 
-  ArrowLeft, 
-  ChevronRight, 
-  CheckCircle2, 
-  BookOpen, 
-  HeartHandshake, 
-  Sprout, 
-  Compass, 
-  Award, 
-  Users, 
-  Trees, 
-  GraduationCap,
-  ShieldCheck, 
-  ArrowRight 
-} from 'lucide-react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Program Unggulan & Kurikulum SDIT',
-  description: '10 Program Unggulan SDIT Al-Afiyah Majalengka. Kurikulum terpadu nasional, metode karakter nabawiyah, tahfidz juz 30 mutqin, basic literasi numerasi, dan outdoor learning.',
+  title: 'Program Unggulan & Kurikulum | SDIT Al-Afiyah Majalengka',
+  description:
+    '10 Program Unggulan SDIT Al-Afiyah Majalengka: Kurikulum terpadu nasional, metode karakter nabawiyah, tahfidz juz 30 mutqin, basic literasi numerasi, dan outdoor learning.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -41,70 +27,60 @@ const SD_PROGRAMS = [
     title: 'Mendidik dengan Sunnah',
     desc: 'Menggunakan metode Pendidikan Karakter Nabawiyah dan keteladanan sunnah Rasulullah ﷺ dalam setiap interaksi dan pembiasaan harian.',
     badge: 'Karakter Nabawi',
-    icon: HeartHandshake
   },
   {
     number: '02',
     title: 'Akhlak dan Ilmu',
     desc: 'Menanamkan iman sebelum Al-Qur\'an serta adab sebelum ilmu agar ilmu yang diraih berkah, berakar kuat, dan melahirkan akhlak mulia.',
     badge: 'Iman & Adab',
-    icon: BookOpen
   },
   {
     number: '03',
     title: 'Lingkungan Nyaman & Asri',
     desc: 'Suasana sekolah yang bersih, sejuk, rindang di Giri Asih, dan membahagiakan anak dalam menjalani proses belajar harian.',
     badge: 'Ramah Anak',
-    icon: Trees
   },
   {
     number: '04',
     title: 'Basic Literasi & Numerasi',
     desc: 'Penguatan fondasi calistung kontekstual, nalar sains terpadu, dan logika matematika sejak dini tanpa membebani mental anak.',
     badge: 'Literasi & Numerasi',
-    icon: GraduationCap
   },
   {
     number: '05',
     title: 'Outdoor Learning',
     desc: 'Pembelajaran aktif di alam terbuka, sains tanaman di greenhouse bambu, dan observasi ekosistem kebun percontohan P4S An-Nabawiyah.',
     badge: 'Outdoor Learning',
-    icon: Sprout
   },
   {
     number: '06',
     title: 'Pelatihan Aqil-Baligh',
     desc: 'Pembinaan kemandirian fisik, emosional, dan adab syar\'i agar murid siap dan percaya diri dalam menyambut fase aqil-baligh.',
     badge: 'Kemandirian',
-    icon: ShieldCheck
   },
   {
     number: '07',
     title: 'Pemetaan Potensi Bakat & Skill',
     desc: 'Identifikasi bakat terarah (Talent Mapping) serta pendampingan minat motorik dan akademis tiap murid secara personal.',
     badge: 'Talent Mapping',
-    icon: Compass
   },
   {
     number: '08',
     title: 'Tahfidz Qur\'an Juz 30 Mutqin',
     desc: 'Bimbingan talaqqi tartil dan setoran intensif Al-Qur\'an Juz 30 mutqin dengan metode adab yang menyenangkan dan ramah anak.',
     badge: 'Tahfidz Mutqin',
-    icon: BookOpen
   },
   {
     number: '09',
     title: 'Penumbuhan Karakter Bakat',
     desc: 'Menumbuhkan karakter positif, sportivitas, dan ukhuwah melalui kegiatan ekstrakurikuler seperti futsal, muhadharah da\'i cilik, dan seni Islam.',
     badge: 'Karakter Bakat',
-    icon: Award
   },
   {
     number: '10',
     title: 'Pembelajaran Berfokus pada Proses',
     desc: 'Menghargai dan mengapresiasi proses usaha belajar tiap murid secara holistik, bukan sekadar melihat angka hasil akhir.',
     badge: 'Proses Belajar',
-    icon: Users
   },
 ];
 
@@ -127,7 +103,6 @@ export default async function SdProgramPage() {
           title: item.title,
           desc: item.desc || item.description || '',
           badge: item.badge || 'Program Unggulan',
-          icon: SD_PROGRAMS[idx]?.icon || HeartHandshake,
         }));
       }
     }
@@ -136,146 +111,91 @@ export default async function SdProgramPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      <Navbar schoolSlug="sd" />
-      <main className="flex-1">
-        {/* Hero Header */}
-        <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            {/* Breadcrumb */}
-            <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
-              <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Beranda SDIT</span>
-              </Link>
-              <ChevronRight className="w-3 h-3 text-emerald-300/50" />
-              <span className="text-white font-medium">Program &amp; Keunggulan</span>
-            </nav>
-
-            <div className="max-w-3xl">
-              <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
-                <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
-                <span>10 PROGRAM UNGGULAN SDIT</span>
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Al-Hidayah Style */}
+        <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-1.5 text-xs text-emerald-100/80 mb-1.5">
+                <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+                  Beranda SDIT
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+                <span className="text-[#e5a93b] font-semibold">Program &amp; Kurikulum</span>
               </div>
-
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
-                Program Unggulan &amp; Kurikulum Terpadu <br className="hidden sm:inline" />
-                SD&nbsp;IT Al-Afiyah
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Program Unggulan &amp; Kurikulum SDIT Al-Afiyah
               </h1>
-
-              <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-                Bukan sekadar tempat belajar, SDIT Al-Afiyah adalah tempat bertumbuh yang mendidik dengan sunnah, metode karakter nabawiyah, dan pembiasaan adab sebelum ilmu.
-              </p>
             </div>
+
+            <Link
+              href="/sd/spmb/daftar"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xs bg-[#e5a93b] hover:bg-[#d4962a] text-white font-bold text-xs transition-colors self-start sm:self-auto shrink-0"
+            >
+              <span>Daftar SPMB Online</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </section>
 
-        {/* Banner Landasan Kurikulum & Program Unggulan */}
-        <section className="py-8 bg-white border-b border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={20} duration={500} className="p-6 sm:p-8 rounded-3xl bg-emerald-50/80 border border-emerald-200 flex flex-col lg:flex-row items-center justify-between gap-6">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-1">
-                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-                  <span>Landasan Kurikulum &amp; Program Unggulan</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
-                  Perpaduan Kurikulum Diknas &amp; Kurikulum Yayasan
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 max-w-3xl leading-relaxed">
-                  SDIT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum yayasan (muatan lokal religi)</strong> dalam mutu berpijak pada iman dan taqwa. Selain itu, kami menghadirkan program unggulan utama: <strong>Tahsin dan Tahfidz Al Qur&apos;an</strong>.
-                </p>
-              </div>
-              <div className="flex flex-wrap lg:flex-col gap-2.5 shrink-0 w-full lg:w-auto">
-                <div className="px-4 py-2 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-emerald-900 shadow-2xs flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#00A651]" />
-                  <span>Kurikulum Diknas &amp; Muatan Religi</span>
-                </div>
-                <div className="px-4 py-2 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-emerald-900 shadow-2xs flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-500" />
-                  <span>Program Unggulan: Tahsin &amp; Tahfidz</span>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* 10 Program Cards Grid */}
-        <section className="py-12 sm:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-8 text-center max-w-2xl mx-auto">
-              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
-                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-                <span>Pilar Karakter &amp; Pembelajaran</span>
-                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 text-balance leading-snug">
-                10 Program Unggulan <br className="hidden sm:inline" />
-                SD&nbsp;IT Al-Afiyah
+        {/* Main Content */}
+        <section className="py-10 sm:py-14">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            {/* Ringkasan Kurikulum */}
+            <div className="p-5 sm:p-6 bg-[#FAF6EC] border border-[#E5D5B2] rounded-sm space-y-2">
+              <h2 className="text-base sm:text-lg font-extrabold text-[#003831]">
+                Perpaduan Kurikulum Nasional &amp; Karakter Nabawiyah
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Bukan sekadar tempat belajar, namun juga tempat bertumbuh dengan cinta dan iman.
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                SDIT Al-Afiyah memadukan <strong>Kurikulum Nasional</strong> dengan <strong>Kurikulum Khas Yayasan (Metode Pendidikan Karakter Nabawiyah)</strong> serta program unggulan utama <strong>Tahsin dan Tahfidz Al-Qur&apos;an Juz 30 Mutqin</strong>.
               </p>
             </div>
-            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {/* Daftar Program Bersih */}
+            <div className="divide-y divide-slate-200 border-t border-b border-slate-200">
               {displayPrograms.map((item) => (
                 <div
                   key={item.number}
-                  className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group"
+                  className="py-4 sm:py-5 flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-6"
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-3.5">
-                      <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20">
-                        {item.badge}
-                      </span>
-                      <span className="text-xs font-black text-[#00A651] font-mono">{item.number}</span>
+                  <div className="flex items-start gap-3.5">
+                    <span className="text-xs sm:text-sm font-extrabold text-[#00594f] tabular-nums mt-0.5">
+                      {item.number}.
+                    </span>
+                    <div className="space-y-1">
+                      <h3 className="text-sm sm:text-base font-extrabold text-[#003831]">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
-
-                    <h2 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors leading-snug mb-2">
-                      {item.title}
-                    </h2>
-
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                      {item.desc}
-                    </p>
                   </div>
-
-                  <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#00A651]">
-                    <span>Terintegrasi Kurikulum</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00A651]" />
-                  </div>
+                  <span className="self-start sm:shrink-0 ml-7 sm:ml-0 px-2.5 py-1 bg-slate-100 text-[#003831] text-[11px] font-bold rounded-xs">
+                    {item.badge}
+                  </span>
                 </div>
               ))}
-            </ScrollReveal>
+            </div>
 
-            {/* Quick Links to other SD tabs */}
-            <ScrollReveal delay={0.1} yOffset={20} duration={500} className="mt-12 p-6 sm:p-8 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-base font-bold text-emerald-950">
-                  Lihat Dokumentasi Kegiatan Pembelajaran
-                </h3>
-                <p className="text-xs text-emerald-800 mt-1">
-                  Lihat foto nyata aktivitas belajar di kelas, shalat berjamaah, dan field study alam terbuka.
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2.5">
-                <Link
-                  href="/sd/dokumentasi"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs shadow-xs transition-all"
-                >
-                  <span>Buka Dokumentasi &amp; Belajar</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <Link
-                  href="/sd/spmb"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-emerald-100/50 border border-emerald-300 text-emerald-900 font-semibold text-xs transition-colors"
-                >
-                  <span>Info SPMB SDIT</span>
-                </Link>
-              </div>
-            </ScrollReveal>
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+              <Link
+                href="/sd/karakter"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#00594f] hover:text-[#003831]"
+              >
+                <span>Lihat 3 Pilar &amp; 7 Karakter Murid</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/sd/dokumentasi"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xs bg-[#00594f] hover:bg-[#003831] text-white font-bold text-xs transition-colors"
+              >
+                <span>Lihat Dokumentasi Kegiatan</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         </section>
       </main>

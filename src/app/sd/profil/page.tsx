@@ -4,31 +4,14 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
-import ScrollReveal from '@/components/landing/ScrollReveal';
-import SdPrincipalGreetingSection from '@/components/sd/SdPrincipalGreetingSection';
+import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
-import { 
-  Building2, 
-  Award, 
-  CheckCircle2, 
-  BookOpen, 
-  ShieldCheck, 
-  ArrowLeft, 
-  ChevronRight, 
-  GraduationCap, 
-  HeartHandshake, 
-  Trees, 
-  MapPin, 
-  Phone, 
-  Clock, 
-  ArrowRight,
-  Camera,
-  Users
-} from 'lucide-react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Profil Lengkap SDIT',
-  description: 'Profil resmi Sekolah Dasar Islam Terpadu (SDIT) Al-Afiyah Majalengka. Visi, misi, sejarah Lingkungan Giri Asih, kurikulum Smart Akhlak Fitrah, dan legalitas resmi BAN-SM.',
+  title: 'Profil Sekolah | SDIT Al-Afiyah Majalengka',
+  description:
+    'Profil resmi Sekolah Dasar Islam Terpadu (SDIT) Al-Afiyah Majalengka. Visi, misi, identitas satuan pendidikan, dan susunan pimpinan.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -47,8 +30,8 @@ export default async function SdProfilPage() {
     { label: 'Status Akreditasi', value: 'Terakreditasi B (BAN-SM)' },
     { label: 'Yayasan Penyelenggara', value: 'Yayasan Pendidikan Imam Bonjol (YPIB) Majalengka' },
     { label: 'Gugus Sekolah', value: 'Sekolah Imbas dari 7 Sekolah di Gugus 3 Nusa Indah, Kec. Majalengka' },
-    { label: 'Kurikulum Pembelajaran', value: 'Perpaduan Kurikulum Diknas (K-13) & Kurikulum Yayasan berpijak pada Iman dan Taqwa' },
-    { label: 'Program Unggulan', value: 'Tahsin dan Tahfidz Al-Qur\'an' },
+    { label: 'Kurikulum Pembelajaran', value: 'Perpaduan Kurikulum Diknas & Kurikulum Yayasan berpijak pada Iman dan Taqwa' },
+    { label: 'Program Unggulan', value: "Tahsin dan Tahfidz Al-Qur'an & Karakter Nabawiyah" },
     { label: 'Jenjang Pendidikan', value: 'Sekolah Dasar Islam Terpadu (Kelas 1 - 6)' },
     { label: 'Alamat Sekolah', value: 'Lingkungan Giri Asih - Jl. Gerakan Koperasi, Kel. Majalengka Kulon, Kec. Majalengka, Kab. Majalengka, Jawa Barat 45411' },
     { label: 'Telepon / WhatsApp', value: '0813-1013-9001 (Layanan Terpadu Tata Usaha & SPMB)' },
@@ -61,12 +44,25 @@ export default async function SdProfilPage() {
     'Membiasakan anak dengan akhlak Islami dalam keseharian.',
     'Mendidik anak agar kreatif dan inovatif.',
     'Menanamkan rasa cinta yang mendalam kepada Allah ﷻ dan Rasul-Nya ﷺ.',
-    'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.'
+    'Berusaha mendidik murid-murid agar menguasai semua mata pelajaran baik umum maupun agama secara komprehensif.',
+  ];
+
+  const leadershipList = [
+    { role: 'Ketua Yayasan Pendidikan Imam Bonjol', name: 'Jejen Nurbayan, S.Sos' },
+    { role: 'Kepala Sekolah SDIT Al-Afiyah Majalengka', name: 'Febrian Fauzi, S.Pd., M.Pd.' },
+    { role: 'Komite Sekolah SDIT Al-Afiyah', name: 'Yayan Herdianto, S.Pd' },
+    { role: 'Kasie Kurikulum SDIT Al-Afiyah', name: 'Windi Widayanti, S.Pd' },
+    { role: 'Koordinator Tahfidz SDIT Al-Afiyah', name: 'Muhammad Rizki, S.Pd' },
+    { role: 'Wakasek Kesiswaan SDIT Al-Afiyah', name: 'Iyan Kusdiana, S.Pd' },
+    { role: 'Tata Usaha SDIT Al-Afiyah', name: 'Moch. Ajat Nurhidayat, S.T' },
+    { role: 'Bendahara SDIT Al-Afiyah', name: 'Aditya Rahadian, S.TP' },
+    { role: 'Lead Developer & IT Systems', name: 'Mulia Rizki' },
   ];
 
   let identitasList = defaultIdentitasList;
   let misiList = defaultMisiList;
-  let visiText = 'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlak mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.';
+  let visiText =
+    'Menjadi Sekolah Dasar Islam Terpadu yang unggul dalam melahirkan generasi bertaqwa, berakhlak mulia, cerdas, terampil, mandiri, dan berwawasan luas berdasarkan Al-Qur\'an dan As-Sunnah.';
 
   try {
     const school = await prisma.school.findUnique({
@@ -91,352 +87,135 @@ export default async function SdProfilPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      <Navbar schoolSlug="sd" />
-      <main className="flex-1">
-        {/* Hero Banner */}
-        <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            {/* Breadcrumb */}
-            <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
-              <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Beranda SDIT</span>
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Header Minimalis Al-Hidayah Style */}
+        <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-1.5 text-xs text-emerald-100/80 mb-1.5">
+              <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+                Beranda SDIT
               </Link>
-              <ChevronRight className="w-3 h-3 text-emerald-300/50" />
-              <span className="text-white font-medium">Profil Sekolah</span>
-            </nav>
-
-            <div className="max-w-3xl">
-              <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
-                <Building2 className="w-3.5 h-3.5 text-emerald-300" />
-                <span>PROFIL SATUAN PENDIDIKAN</span>
-              </div>
-
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Sekolah Dasar Islam <br />
-                Terpadu (SD&nbsp;IT) Al-Afiyah
-              </h1>
-
-              <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-                Bukan sekadar tempat belajar, namun juga tempat bertumbuh. Mencetak generasi sholeh, cerdas, mandiri, berwawasan, dan berakhlakul islami dengan metode Pendidikan Karakter Nabawiyah.
-              </p>
+              <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+              <span className="text-[#e5a93b] font-semibold">Profil</span>
             </div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Profil SDIT Al-Afiyah Majalengka
+            </h1>
           </div>
         </section>
 
-        {/* 4 Quick Stat Highlights */}
-        <section className="py-8 bg-white border-b border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={20} duration={500} className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Akreditasi B</span>
-                <span className="text-xs text-emerald-700 font-medium">BAN-SM Resmi</span>
-              </div>
-              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">YPIB Majalengka</span>
-                <span className="text-xs text-emerald-700 font-medium">Yayasan Pendidikan Imam Bonjol</span>
-              </div>
-              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Gugus 3 Nusa Indah</span>
-                <span className="text-xs text-emerald-700 font-medium">Sekolah Imbas 7 Sekolah</span>
-              </div>
-              <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 block">Tahsin &amp; Tahfidz</span>
-                <span className="text-xs text-emerald-700 font-medium">Program Unggulan Al-Qur&apos;an</span>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Sambutan Kepala Sekolah SDIT Al Afiyah (Interactive Motion & Karakter Nabawiyah) */}
-        <SdPrincipalGreetingSection schoolSlug="sd" />
-
-        {/* Selayang Pandang & Legalitas Sekolah */}
-        <section className="py-12 sm:py-16 bg-white border-b border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Konten Utama: Tentang, Identitas, Visi Misi & Pimpinan */}
+        <section className="py-10 sm:py-14">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            {/* 1. Tentang & Foto Sekolah */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-7 space-y-4">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
-                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-                  <span>Selayang Pandang &amp; Naungan</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight text-balance leading-snug">
-                  Mengenal Lebih Dekat <br className="hidden sm:inline" />
-                  SD&nbsp;IT Al-Afiyah Majalengka
+                <h2 className="text-xl sm:text-2xl font-extrabold text-[#003831]">
+                  Tentang Sekolah
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  <strong>SDIT Al-Afiyah</strong> adalah sekolah formal yang berada di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong>. SDIT Al-Afiyah juga merupakan <strong>sekolah imbas dari 7 sekolah lainnya di Gugus 3 Nusa Indah</strong> yang ada di Kecamatan Majalengka, Kabupaten Majalengka.
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                  <strong>SDIT Al-Afiyah Majalengka</strong> adalah Sekolah Dasar Islam Terpadu formal di bawah naungan <strong>Yayasan Pendidikan Imam Bonjol (YPIB)</strong> dan sekolah imbas di Gugus 3 Nusa Indah Kecamatan Majalengka. Kami memadukan Kurikulum Nasional dengan Metode Pendidikan Karakter Nabawiyah (Smart Akhlak Fitrah) serta program unggulan Tahsin dan Tahfidz Al-Qur&apos;an Juz 30 Mutqin.
                 </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  SDIT Al-Afiyah menyelenggarakan pendidikan dan pembelajaran berdasarkan <strong>kurikulum nasional (Kurikulum 2013)</strong> dan <strong>kurikulum muatan lokal yang bernuansa keagamaan/religi</strong>. Selain itu, terdapat program unggulan utama, yaitu <strong>Tahsin dan Tahfidz Al-Qur&apos;an</strong>.
-                </p>
-                <div className="pt-2 flex flex-wrap gap-2.5 sm:gap-3">
-                  <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#00A651]" />
-                    <span>Terakreditasi B Resmi</span>
-                  </div>
-                  <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-[#00A651]" />
-                    <span>Tahsin &amp; Tahfidz Qur&apos;an</span>
-                  </div>
-                  <div className="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-[#00A651]" />
-                    <span>Naungan YPIB Majalengka</span>
-                  </div>
+
+                {/* Tabel Identitas Singkat */}
+                <div className="border-t border-b border-slate-200 divide-y divide-slate-200 text-xs sm:text-sm mt-4">
+                  {identitasList.map((item, idx) => (
+                    <div key={idx} className="py-2.5 grid grid-cols-3 gap-2">
+                      <span className="text-slate-500 font-medium">{item.label}</span>
+                      <span className="col-span-2 font-bold text-slate-900">
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="lg:col-span-5 bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-2xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-amber-300 mb-3">
-                    <span className="w-5 h-[2px] bg-amber-400 rounded-full inline-block" />
-                    <span>Mutu Pendidikan Berpijak Imtak</span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold leading-snug">
-                    Perpaduan Kurikulum Diknas &amp; Religi Yayasan
-                  </h3>
-                  <p className="mt-3 text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-normal">
-                    SDIT Al-Afiyah dalam kegiatan belajar mengajar menggunakan perpaduan kurikulum Diknas dan kurikulum yayasan dalam mutu berpijak pada iman dan taqwa.
-                  </p>
-                  <div className="mt-6 pt-4 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-200">
-                    <span>Lingkungan Giri Asih</span>
-                    <span className="font-bold text-amber-300">Gugus 3 Nusa Indah</span>
-                  </div>
+              <div className="lg:col-span-5 space-y-4">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-slate-100 border border-slate-200">
+                  <Image
+                    src="/images/sd-field-study-banner.jpg"
+                    alt="SDIT Al-Afiyah Majalengka"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 420px"
+                  />
                 </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Visi & Misi */}
-        <section className="py-12 sm:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
-              {/* Visi Card */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
-                <div>
-                  <div className="mb-5">
-                    <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
-                      Visi SDIT Al-Afiyah
-                    </span>
-                    <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                      Mewujudkan Generasi Sholeh &amp; Berakhlak
-                    </h2>
-                  </div>
-
-                  <blockquote className="p-5 rounded-xl bg-slate-50/90 border-l-4 border-[#00A651] text-emerald-950 font-semibold text-base sm:text-lg leading-relaxed">
-                    &ldquo;{visiText}&rdquo;
-                  </blockquote>
-
-                  <p className="mt-5 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    Visi ini menegaskan komitmen SDIT Al-Afiyah dalam membentuk murid yang berkepribadian islami, berakhlak mulia, cerdas dalam pemikiran, serta mandiri dalam amal ibadah dan kehidupan sehari-hari.
+                <div className="p-4 bg-[#FAF6EC] border border-[#E5D5B2] rounded-sm space-y-2">
+                  <p className="text-xs font-extrabold uppercase tracking-wider text-[#003831]">
+                    Prakata Kepala Sekolah
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                    &ldquo;Kami meyakini setiap anak lahir dalam keadaan fitrah. Metode Pendidikan Karakter Nabawiyah membimbing anak didik agar tumbuh cerdas, mandiri, mencintai ibadah, dan berakhlak mulia.&rdquo;
+                  </p>
+                  <p className="text-xs font-bold text-[#00594f] pt-1">
+                    — Ust. Febrian Fauzi, S.Pd., M.Pd.
                   </p>
                 </div>
               </div>
-
-              {/* Misi Card */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between">
-                <div>
-                  <div className="mb-5">
-                    <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-50 text-[#007638] border border-[#00A651]/20 uppercase tracking-wider mb-2.5">
-                      Misi Pendidikan Sekolah
-                    </span>
-                    <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                      Langkah Strategis Pembinaan Murid
-                    </h2>
-                  </div>
-
-                  <div className="space-y-3">
-                    {misiList.map((misi, idx) => (
-                      <div key={idx} className="flex items-start gap-3 text-xs sm:text-[13px] text-slate-700">
-                        <span className="w-5 h-5 rounded-md bg-emerald-50 text-emerald-800 text-[11px] font-bold flex items-center justify-center shrink-0 border border-emerald-200/80 mt-0.5 font-mono">
-                          {idx + 1}
-                        </span>
-                        <span className="leading-relaxed">{misi}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Tabel Identitas Sekolah & Lingkungan Belajar */}
-        <section className="py-12 sm:py-16 bg-white border-t border-b border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
-              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
-                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-                <span>Data Satuan Pendidikan</span>
-                <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2.5">
-                Identitas Resmi SDIT Al-Afiyah
-              </h2>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="max-w-3xl mx-auto rounded-2xl border border-slate-200 overflow-hidden shadow-2xs bg-white">
-              <dl className="divide-y divide-slate-100">
-                {identitasList.map((item, idx) => (
-                  <div key={idx} className="px-5 py-3.5 sm:grid sm:grid-cols-3 sm:gap-4 hover:bg-slate-50/80 transition-colors">
-                    <dt className="text-xs font-bold text-slate-500">{item.label}</dt>
-                    <dd className="mt-1 text-xs sm:text-sm font-semibold text-slate-900 sm:col-span-2 sm:mt-0">
-                      {item.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Quick Links ke Fitur Khusus SDIT */}
-        <section className="py-12 sm:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={20} duration={500} className="text-center max-w-2xl mx-auto mb-10">
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                Jelajahi Lebih Dekat SDIT Al-Afiyah
-              </h2>
-              <p className="text-xs text-slate-500 mt-1">
-                Buka seluruh fitur dan halaman khusus tanpa tercampur dengan unit lain.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              <Link
-                href="/sd/program"
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
-              >
-                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
-                  <BookOpen className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    10 Program Unggulan
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Karakter nabawiyah, adab sebelum ilmu, dan calistung kontekstual.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                href="/sd/karakter"
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
-              >
-                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
-                  <HeartHandshake className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    Pilar Karakter &amp; Nilai
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    3 Pilar Utama dan 7 profil karakter murid Al-Afiyah.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                href="/sd/dokumentasi"
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
-              >
-                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
-                  <Camera className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    Dokumentasi &amp; Belajar
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Potret shalat, da&apos;i cilik, kelas terpadu, dan field study P4S.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                href="/sd/guru"
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
-              >
-                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
-                  <Users className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    Struktur Organisasi &amp; Pendidik
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Struktur yayasan, kepala sekolah, asatidzah &amp; pengembang sistem IT Al-Afiyah.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                href="/sd/testimoni"
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
-              >
-                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
-                  <Award className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    Testimoni Wali Murid
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Ulasan tulus para orang tua murid SDIT Al-Afiyah.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                href="/sd/kontak"
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400/60 hover:shadow-md transition-all group flex items-start gap-3.5"
-              >
-                <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover:bg-[#00A651] group-hover:text-white transition-colors">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    Layanan Tata Usaha &amp; Lokasi
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    WhatsApp hotline dan lokasi sekolah Lingkungan Giri Asih Majalengka Kulon.
-                  </p>
-                </div>
-              </Link>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Bottom CTA to SPMB */}
-        <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
-          <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Penerimaan Murid Baru SDIT Al-Afiyah T.A. 2027/2028
-            </h2>
-            <p className="mt-3 text-xs sm:text-sm text-emerald-100 max-w-xl mx-auto leading-relaxed">
-              Kuota dibatasi hanya 2 Rombel untuk menjaga kualitas pendampingan karakter. Pendaftaran resmi dibuka secara online.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link
-                href="/sd/spmb/daftar"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
-              >
-                <span>Daftar SPMB Online</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/sd/spmb"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all"
-              >
-                <span>Alur &amp; Syarat SPMB</span>
-              </Link>
             </div>
-          </ScrollReveal>
+
+            {/* 2. Visi & Misi (Teks Bersih Minimalis) */}
+            <div className="pt-8 border-t border-slate-200 grid grid-cols-1 md:grid-cols-12 gap-8">
+              <div className="md:col-span-5 space-y-2">
+                <h2 className="text-lg sm:text-xl font-extrabold text-[#003831]">
+                  Visi
+                </h2>
+                <p className="text-sm sm:text-base font-semibold text-slate-800 leading-relaxed">
+                  &ldquo;{visiText}&rdquo;
+                </p>
+              </div>
+
+              <div className="md:col-span-7 space-y-2">
+                <h2 className="text-lg sm:text-xl font-extrabold text-[#003831]">
+                  Misi
+                </h2>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-slate-600 leading-relaxed">
+                  {misiList.map((misi, idx) => (
+                    <li key={idx}>{misi}</li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+
+            {/* 3. Pimpinan & Pengelola (Tabel Bersih) */}
+            <div className="pt-8 border-t border-slate-200 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <h2 className="text-lg sm:text-xl font-extrabold text-[#003831]">
+                  Pimpinan &amp; Pengelola Sekolah
+                </h2>
+                <Link
+                  href="/sd/guru"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#00594f] hover:text-[#003831]"
+                >
+                  <span>Lihat Struktur &amp; Deskripsi Lengkap</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              <div className="overflow-x-auto border border-slate-200">
+                <table className="w-full text-left text-xs sm:text-sm">
+                  <thead className="bg-slate-50 border-b border-slate-200 text-slate-600">
+                    <tr>
+                      <th className="py-3 px-4 font-bold">Jabatan</th>
+                      <th className="py-3 px-4 font-bold">Nama</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {leadershipList.map((item, idx) => (
+                      <tr key={idx} className="hover:bg-slate-50/60">
+                        <td className="py-3 px-4 text-slate-600">{item.role}</td>
+                        <td className="py-3 px-4 font-bold text-slate-900">
+                          {item.name}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
       <Footer schoolSlug="sd" />

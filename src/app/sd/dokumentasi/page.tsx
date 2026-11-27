@@ -49,8 +49,8 @@ export default async function SdDokumentasiPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      <Navbar schoolSlug="sd" />
+    <div className="min-h-screen bg-white flex flex-col font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
       <main className="flex-1">
         <SdDokumentasiClient initialGallery={gallery} />
       </main>

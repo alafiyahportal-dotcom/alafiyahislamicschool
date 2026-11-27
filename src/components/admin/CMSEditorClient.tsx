@@ -1336,7 +1336,7 @@ export default function CMSEditorClient({
           )}
           {activeTab === 'testimonials' && (
             <span>
-              <strong>Testimoni Orang Tua &amp; Wali Murid:</strong> Tampil di dekat bagian bawah beranda sebelum banner ajakan mendaftar (CTA), memuat kepuasan dan apresiasi wali murid terhadap adab dan prestasi anak.
+              <strong>Testimoni Orang Tua &amp; Wali Murid (Peta Heksagonal Beranda &amp; Halaman Testimoni):</strong> Tampil secara live pada seksi <strong>Peta Testimoni Wali Murid</strong> di beranda ({publicUrl}#testimonials) serta halaman khusus <strong>{publicUrl}/testimoni</strong>. Setiap testimoni asli yang Anda tambahkan atau edit di sini langsung tersinkronisasi ke halaman publik!
             </span>
           )}
           {activeTab === 'tuition' && (
@@ -1401,19 +1401,13 @@ export default function CMSEditorClient({
                   {currentSlide.badge}
                 </div>
                 {schoolSlug === 'sd' ? (
-                  <div className="space-y-1">
-                    <span className="font-hero-accent italic text-xl sm:text-2xl text-neutral-200 block drop-shadow">
-                      Bukan Sekadar
-                    </span>
-                    <span className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight">
-                      Tempat Belajar,
-                    </span>
-                    <span className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight">
-                      Namun Juga
-                    </span>
-                    <span className="block text-2xl sm:text-4xl font-extrabold text-[#00A651] leading-tight drop-shadow">
-                      {currentSlide.titleHighlight || 'Tempat Bertumbuh 🌱'}
-                    </span>
+                  <div className="space-y-3 text-center mx-auto">
+                    <h1 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+                      {(formData.identity.name || 'SDIT AL-AFIYAH MAJALENGKA').toUpperCase()}
+                    </h1>
+                    <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-xl mx-auto">
+                      {currentSlide.description}
+                    </p>
                   </div>
                 ) : schoolSlug === 'smp' ? (
                   <div className="space-y-2">

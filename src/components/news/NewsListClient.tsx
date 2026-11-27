@@ -299,10 +299,10 @@ export default function NewsListClient({
 
   return (
     <div className="space-y-6 sm:space-y-8 max-w-full overflow-hidden">
-      {/* Top Filter & Search Controls */}
-      <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Synchronized Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none w-full md:w-auto -mx-1 px-1">
+      {/* Top Filter & Search Controls (Minimalist Bottom-Border Tabs) */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-2">
+        {/* Synchronized Category Underline Tabs */}
+        <div className="flex items-center gap-1 sm:gap-4 overflow-x-auto scrollbar-none w-full md:w-auto">
           {categories.map((cat) => {
             const isActive =
               selectedCategory.trim().toLowerCase() === cat.trim().toLowerCase();
@@ -313,25 +313,17 @@ export default function NewsListClient({
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                className={`px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-bold border-b-2 -mb-[9px] transition-colors whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1.5 ${
                   isActive
                     ? isSmp
-                      ? 'bg-[#030164] text-[#ffd51e] shadow-sm ring-1 ring-[#ffd51e]/40'
-                      : isSd
-                        ? 'bg-[#00A651] text-white shadow-sm'
-                        : 'bg-[#184F48] text-white shadow-sm'
-                    : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+                      ? 'border-[#030164] text-[#030164]'
+                      : 'border-[#00594f] text-[#00594f]'
+                    : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
                 <span>{cat}</span>
-                <span
-                  className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-                    isActive
-                      ? 'bg-white/20 text-white'
-                      : 'bg-slate-200/90 text-slate-600'
-                  }`}
-                >
-                  {count}
+                <span className="text-[10px] text-slate-400 font-semibold">
+                  ({count})
                 </span>
               </button>
             );
@@ -339,51 +331,42 @@ export default function NewsListClient({
         </div>
 
         {/* Search input */}
-        <div className="relative w-full md:w-72 flex-shrink-0">
+        <div className="relative w-full md:w-64 flex-shrink-0">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Cari judul artikel, topik, penulis..."
-            className={`w-full pl-9 pr-4 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 transition-all ${
-              isSmp
-                ? 'focus:ring-[#030164]/20 focus:border-[#030164]'
-                : isSd
-                  ? 'focus:ring-[#00A651]/20 focus:border-[#00A651]'
-                  : 'focus:ring-[#184F48]/20 focus:border-[#184F48]'
-            }`}
+            placeholder="Cari judul berita..."
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-sm bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#00594f]"
           />
         </div>
       </div>
 
-      {/* Article Grid */}
+      {/* Article Grid (Clean Minimalist 3-Column Teasers like Al-Hidayah) */}
       {filteredArticles.length === 0 ? (
-        <div className="bg-white rounded-3xl p-8 sm:p-12 text-center border border-slate-200/80 shadow-sm space-y-3">
-          <BookOpen className="w-12 h-12 text-slate-300 mx-auto" />
-          <h3 className="text-base font-bold text-slate-700">
-            Belum ada artikel di kategori &ldquo;{selectedCategory}&rdquo;
+        <div className="p-8 sm:p-12 text-center border border-slate-200 bg-slate-50/50 rounded-sm space-y-3">
+          <BookOpen className="w-10 h-10 text-slate-300 mx-auto" />
+          <h3 className="text-sm sm:text-base font-bold text-slate-700">
+            Belum ada berita di kategori &ldquo;{selectedCategory}&rdquo;
           </h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
-            Coba pilih kategori &ldquo;Semua&rdquo; atau gunakan kata kunci pencarian lain untuk melihat seluruh warta.
-          </p>
           <button
             type="button"
             onClick={() => {
               setSelectedCategory('Semua');
               setSearchQuery('');
             }}
-            className={`px-4 py-2 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
+            className={`px-4 py-2 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
               isSmp
                 ? 'bg-[#030164] text-[#ffd51e] hover:bg-blue-900'
-                : 'bg-[#184F48] text-white hover:bg-[#123E38]'
+                : 'bg-[#00594f] text-white hover:bg-[#003831]'
             }`}
           >
-            Lihat Semua Artikel
+            Lihat Semua Berita
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-7 pt-2">
           {filteredArticles.map((art) => {
             const mediaList = getArticleMediaList(art);
             const totalSlides = mediaList.length;
@@ -401,107 +384,45 @@ export default function NewsListClient({
                     openArticleModal(art);
                   }
                 }}
-                className={`bg-white rounded-2xl border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer text-left focus:outline-none focus:ring-2 ${
-                  isSmp
-                    ? 'hover:border-[#030164]/40 focus:ring-[#030164]'
-                    : 'hover:border-[#184F48]/40 focus:ring-[#184F48]'
-                }`}
+                className="group flex flex-col space-y-3 cursor-pointer text-left focus:outline-none"
               >
-                {/* Cover Image (Always Slide #1) */}
-                {art.imageUrl && (
-                  <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-slate-100 shrink-0 group/img">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={art.imageUrl}
-                      alt={art.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 pointer-events-none" />
-
-                    {/* Top Badges */}
-                    <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5 z-10">
-                      {art.schoolName && (
-                        <span className="px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md text-slate-900 text-[10px] font-black shadow-sm">
-                          {art.schoolName}
-                        </span>
-                      )}
-                      {totalSlides > 1 && (
-                        <span className="px-2.5 py-1 rounded-md bg-emerald-700/90 backdrop-blur-md text-white text-[10px] font-bold shadow-sm flex items-center gap-1">
-                          <ImageIcon className="w-3 h-3" />
-                          {totalSlides} Slide
-                          {videoCount > 0 ? ` (${videoCount} Video)` : ''}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Bottom Action Badge */}
-                    <span className="absolute bottom-2.5 right-3 text-[10px] font-bold text-white/95 bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-xs z-10 flex items-center gap-1 border border-white/10 group-hover:bg-[#064e3b] transition-colors pointer-events-none shadow-xs">
-                      <span>Lihat Foto &amp; Baca Lengkap</span>
-                      <ArrowRight className="w-3 h-3 text-[#ffd51e]" />
-                    </span>
-                  </div>
-                )}
-
-                {/* Card Body */}
-                <div className="p-4 sm:p-6 space-y-2.5 sm:space-y-3 flex-1 flex flex-col">
-                  {/* Category & Reading Time */}
-                  <div className="flex items-center justify-between gap-2 text-xs">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span
-                        className={`px-2.5 py-0.5 rounded-md font-bold text-[11px] ${
-                          isSmp
-                            ? 'bg-blue-50 text-[#030164] border border-blue-200'
-                            : 'bg-[#E8F3F1] text-[#184F48]'
-                        }`}
-                      >
-                        {art.category}
-                      </span>
-                      {!art.imageUrl && art.schoolName && (
-                        <span className="px-2 py-0.5 rounded-md font-semibold text-[10px] bg-slate-100 text-slate-600">
-                          {art.schoolName}
-                        </span>
-                      )}
-                    </div>
-                    <span className="flex items-center space-x-1 text-slate-400 text-[11px] shrink-0">
-                      <Clock className="w-3 h-3" />
-                      <span>{art.readingTime || '3 min'}</span>
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3
-                    className={`text-sm sm:text-base font-bold text-slate-900 transition-colors line-clamp-2 leading-snug ${
-                      isSmp ? 'group-hover:text-[#030164]' : 'group-hover:text-[#184F48]'
+                <div className="relative aspect-[3/2] w-full rounded-sm overflow-hidden bg-slate-100 block">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={art.imageUrl || '/images/sd-activity-classroom-6b.jpg'}
+                    alt={art.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span
+                    className={`absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-xs text-[10px] font-bold uppercase tracking-wider ${
+                      isSmp
+                        ? 'bg-[#030164]/90 text-[#ffd51e]'
+                        : 'bg-[#003831]/90 text-white'
                     }`}
                   >
-                    {art.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed flex-1">
-                    {parseNewsMedia(art.excerpt).cleanContent}
-                  </p>
+                    {art.category}
+                  </span>
+                  {totalSlides > 1 && (
+                    <span className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-xs bg-black/70 text-white text-[10px] font-bold backdrop-blur-xs">
+                      {totalSlides} Slide{videoCount > 0 ? ` (${videoCount} Video)` : ''}
+                    </span>
+                  )}
                 </div>
 
-                {/* Card Footer */}
-                <div className="px-4 py-3 sm:px-6 sm:py-3.5 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                  <div className="flex items-center space-x-2 min-w-0">
-                    <div
-                      className={`w-6 h-6 rounded-full text-white text-[10px] font-bold flex items-center justify-center shrink-0 ${
-                        isSmp ? 'bg-[#030164]' : 'bg-[#184F48]'
-                      }`}
-                    >
-                      {(art.author || 'A').charAt(0)}
-                    </div>
-                    <span className="truncate text-[11px] font-medium text-slate-700">
-                      {art.author}
-                    </span>
-                  </div>
+                <h3
+                  className={`text-base font-bold transition-colors leading-snug line-clamp-2 ${
+                    isSmp
+                      ? 'text-slate-900 group-hover:text-[#030164]'
+                      : 'text-[#003831] group-hover:text-[#00594f]'
+                  }`}
+                >
+                  {art.title}
+                </h3>
 
-                  <div className="flex items-center space-x-1.5 text-slate-400 text-[11px] shrink-0">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>{art.date}</span>
-                  </div>
+                <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                  <span>{art.date}</span>
                 </div>
               </article>
             );

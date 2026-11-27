@@ -2039,14 +2039,19 @@ export default function NewsManagerClient({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Ringkasan Singkat (Excerpt)
-                </label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Ringkasan Singkat (Opsional — Otomatis Diambil dari Isi Berita)
+                  </label>
+                  <span className="text-[10px] text-emerald-700 font-semibold">
+                    Kartu berita di beranda tampil minimalis (Foto + Judul + Tanggal)
+                  </span>
+                </div>
                 <textarea
                   rows={2}
                   value={formExcerpt}
                   onChange={(e) => setFormExcerpt(e.target.value)}
-                  placeholder="Ringkasan 1-2 kalimat yang tampil pada kartu halaman depan..."
+                  placeholder="Kosongkan jika ingin otomatis diambil dari paragraf pertama isi berita..."
                   className="w-full px-4 py-2.5 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                 />
               </div>

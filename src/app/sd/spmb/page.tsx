@@ -4,43 +4,15 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
-import { 
-  CheckCircle2, 
-  ArrowRight, 
-  Calendar, 
-  Users, 
-  FileText, 
-  HelpCircle, 
-  GraduationCap, 
-  MessageCircle, 
-  Clock, 
-  ShieldCheck, 
-  BookOpen, 
-  Award,
-  ChevronRight,
-  CreditCard,
-  HeartHandshake,
-  ArrowLeft
-} from 'lucide-react';
-import ScrollReveal from '@/components/landing/ScrollReveal';
+import { ChevronRight, ArrowRight, ExternalLink } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'SPMB SDIT Al-Afiyah Majalengka - Pendaftaran Murid Baru TA 2027/2028',
-  description: 'Pendaftaran Murid Baru (SPMB) SDIT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Kuota 2 rombel terbatas, kurikulum Smart Akhlak Fitrah, dan Tahfidz Juz 30 Mutqin. Daftar online sekarang.',
-  alternates: {
-    canonical: '/sd/spmb',
-  },
-  openGraph: {
-    title: 'SPMB SDIT Al-Afiyah Majalengka TA 2027/2028',
-    description: 'Penerimaan Murid Baru SDIT Al-Afiyah. Bimbingan karakter nabawiyah, tahfidz juz 30, dan kurikulum terpadu.',
-    url: '/sd/spmb',
-    siteName: 'SDIT Al-Afiyah Majalengka',
-    locale: 'id_ID',
-    type: 'website',
-  },
+  title: 'Informasi SPMB | SDIT Al-Afiyah Majalengka',
+  description:
+    'Alur dan syarat pendaftaran peserta didik baru (SPMB) SDIT Al-Afiyah Majalengka Tahun Ajaran 2027/2028.',
 };
 
 export default async function SdSpmbInfoPage() {
@@ -80,8 +52,8 @@ export default async function SdSpmbInfoPage() {
           const id = JSON.parse(identitySection.payload);
           if (id && typeof id === 'object') {
             if (id.whatsappNumber) {
-              waNumber = id.whatsappNumber.startsWith('62') 
-                ? '0' + id.whatsappNumber.slice(2) 
+              waNumber = id.whatsappNumber.startsWith('62')
+                ? '0' + id.whatsappNumber.slice(2)
                 : id.whatsappNumber;
             }
           }
@@ -93,341 +65,160 @@ export default async function SdSpmbInfoPage() {
   }
 
   const cleanWa = waNumber.replace(/[^0-9]/g, '');
-  const waForLink = cleanWa.startsWith('0') ? '62' + cleanWa.slice(1) : (cleanWa || '6281310139001');
+  const waForLink = cleanWa.startsWith('0') ? '62' + cleanWa.slice(1) : cleanWa || '6281310139001';
+
+  const steps = [
+    {
+      title: 'Pengisian Formulir Online',
+      desc: 'Mengisi data calon murid dan orang tua/wali melalui halaman pendaftaran online SDIT Al-Afiyah.',
+    },
+    {
+      title: 'Infaq Pendaftaran & Verifikasi Berkas',
+      desc: `Menyelesaikan infaq formulir (${regFeeText}) dan mengunggah dokumen Kartu Keluarga serta Akta Kelahiran.`,
+    },
+    {
+      title: 'Observasi Fitrah Anak & Ta’aruf Orang Tua',
+      desc: 'Observasi kesiapan belajar anak secara ramah (tanpa tes tulis calistung) dan silaturahmi keselarasan visi bersama orang tua.',
+    },
+    {
+      title: 'Pengumuman & Daftar Ulang',
+      desc: 'Hasil seleksi dapat dilihat pada halaman Cek Status & Pengumuman, dilanjutkan dengan daftar ulang dan pengukuran seragam.',
+    },
+  ];
+
+  const requirements = [
+    'Usia minimal 6 tahun pada tanggal 1 Juli 2027 (usia 5 tahun 8 bulan dapat dipertimbangkan sesuai kesiapan psikologis).',
+    'Scan / Fotokopi Akta Kelahiran.',
+    'Scan / Fotokopi Kartu Keluarga (KK) dan KTP kedua Orang Tua.',
+    'Pas foto berwarna ukuran 3x4.',
+    'Komitmen sinergi orang tua dalam mendampingi pembiasaan ibadah dan muraja’ah di rumah.',
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
-      <Navbar schoolSlug="sd" />
-
-      {/* Hero Header Khusus SDIT */}
-      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
-            <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SDIT</span>
-            </Link>
-            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
-            <span className="text-white font-medium">Informasi SPMB</span>
-          </nav>
-
-          <div className="max-w-3xl">
-            <div className="text-xs font-bold text-amber-300 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
-              <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
-              <span>SPMB TAHUN AJARAN 2027/2028 • {waveName.toUpperCase()}</span>
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Al-Hidayah Style */}
+        <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-xs text-emerald-100/80 mb-1.5">
+                <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+                  Beranda SDIT
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+                <span className="text-[#e5a93b] font-semibold">SPMB</span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Informasi SPMB SDIT Al-Afiyah T.A. 2027/2028
+              </h1>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Penerimaan Murid Baru (SPMB) <br className="hidden sm:inline" />
-              SDIT Al-Afiyah Majalengka
-            </h1>
-
-            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Membuka pendaftaran {waveName} Tahun Ajaran 2027/2028. Kuota terbatas hanya {quotaText} demi menjaga intensitas pembinaan adab nabawi, tahfidz mutqin, dan sains terpadu.
-            </p>
-
-            {/* Quick Stat Badges */}
-            <div className="mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3">
-              <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
-                <Users className="w-4 h-4 text-amber-300" />
-                <span>Kuota: <strong>{quotaText}</strong></span>
-              </div>
-              <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-amber-300" />
-                <span>Usia Minimal: <strong>6 Th (per 1 Juli 2027)</strong></span>
-              </div>
-              <div className="px-3.5 py-2 rounded-xl bg-white/10 backdrop-blur-xs border border-white/20 text-xs font-semibold text-white shadow-xs flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-amber-300" />
-                <span>Infaq Pendaftaran: <strong>{regFeeText}</strong></span>
-              </div>
-            </div>
-
-            {/* Call to Actions */}
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
               <Link
                 href="/sd/spmb/daftar"
-                className="group relative overflow-hidden inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-400/20 active:scale-95 transition-all duration-300 hover:scale-[1.02] animate-cta-glow-amber"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xs bg-[#e5a93b] hover:bg-[#d4962a] text-white font-bold text-xs transition-colors"
               >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent"
-                />
-                <span className="relative z-10">Isi Formulir SPMB Online</span>
-                <ArrowRight className="relative z-10 w-4 h-4 text-slate-950 transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow" />
+                <span>Isi Formulir</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-
               <Link
                 href="/sd/spmb/cek-status"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all duration-200 hover:scale-[1.02] active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xs bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs transition-colors"
               >
-                <span>Lacak Status Pendaftaran</span>
+                <span>Cek Status</span>
               </Link>
-
               <Link
                 href="/sd/spmb/pengumuman"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-xs sm:text-sm transition-all duration-200 hover:scale-[1.02] active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xs bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs transition-colors"
               >
-                <span>Pengumuman Kelulusan</span>
-              </Link>
-
-              <Link
-                href="/affiliate/register?unit=sd"
-                className="group relative overflow-hidden inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 animate-cta-glow-amber"
-              >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer-delay bg-gradient-to-r from-transparent via-white/45 to-transparent"
-                />
-                <span className="relative z-10">Daftar Affiliate Al-Afiyah</span>
-                <span className="relative z-10 font-mono transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow">→</span>
+                <span>Pengumuman</span>
               </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Alur Pendaftaran 4 Langkah */}
-      <section className="py-14 sm:py-20 max-w-5xl mx-auto px-4 sm:px-6 w-full">
-        <ScrollReveal yOffset={24} duration={500}>
-          <div className="text-center max-w-xl mx-auto mb-12">
-          <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
-            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-            <span>Tahapan Pendaftaran</span>
-            <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 text-balance leading-snug">
-            4 Langkah Mudah Menjadi Murid <br className="hidden sm:inline" />
-            SD&nbsp;IT Al-Afiyah
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 mt-2">
-            Proses terintegrasi secara digital, transparan, dan memudahkan orang tua calon murid.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Step 1 */}
-          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
+        {/* Info Ringkas Kuota & Gelombang */}
+        <section className="py-6 bg-[#FAF6EC] border-b border-[#E5D5B2]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm">
             <div>
-              <div className="flex items-center justify-between mb-3.5">
-                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
-                  01
-                </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
-                  Langkah 1
-                </span>
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
-                Pendaftaran Online
-              </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
-                Mengisi formulir biodata calon murid dan data orang tua/wali melalui portal SPMB SDIT. Dapatkan ID registrasi pendaftaran resmi.
-              </p>
+              <span className="text-slate-500 block text-xs">Gelombang Aktif</span>
+              <strong className="text-[#003831] font-extrabold">{waveName}</strong>
             </div>
-            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-              <span>Waktu: 5-10 Menit</span>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            </div>
-          </div>
-
-          {/* Step 2 */}
-          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              <div className="flex items-center justify-between mb-3.5">
-                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
-                  02
-                </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
-                  Langkah 2
-                </span>
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
-                Infaq & Berkas
-              </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
-                Menyelesaikan infaq pendaftaran {regFeeText} ke rekening resmi yayasan dan mengunggah scan Kartu Keluarga serta Akta Kelahiran.
-              </p>
+              <span className="text-slate-500 block text-xs">Kuota Penerimaan</span>
+              <strong className="text-[#003831] font-extrabold">{quotaText}</strong>
             </div>
-            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-              <span>Verifikasi Otomatis</span>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            </div>
-          </div>
-
-          {/* Step 3 */}
-          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              <div className="flex items-center justify-between mb-3.5">
-                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
-                  03
-                </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
-                  Langkah 3
-                </span>
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
-                Observasi & Wawancara
-              </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
-                Calon murid mengikuti observasi kematangan sensorik, motorik & pengenalan huruf. Orang tua mengikuti sesi wawancara keselarasan visi pendidikan.
-              </p>
-            </div>
-            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-              <span>Ramah Anak & Nyaman</span>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="text-slate-500 block text-xs">Infaq Formulir Pendaftaran</span>
+              <strong className="text-[#00594f] font-extrabold">{regFeeText}</strong>
             </div>
           </div>
+        </section>
 
-          {/* Step 4 */}
-          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:border-emerald-500/40 hover:shadow-md transition-all flex flex-col justify-between group">
-            <div>
-              <div className="flex items-center justify-between mb-3.5">
-                <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80 flex items-center justify-center font-bold text-xs font-mono">
-                  04
-                </span>
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
-                  Langkah 4
-                </span>
-              </div>
-              <h3 className="text-base font-bold text-slate-900 group-hover:text-[#00A651] transition-colors">
-                Kelulusan & Seragam
-              </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed font-normal">
-                Pengumuman hasil kelulusan melalui Papan Pengumuman resmi, dilanjutkan daftar ulang, pengukuran seragam syar&apos;i, dan penyambutan murid baru.
-              </p>
+        {/* Clean 2-Column Info: Alur & Syarat */}
+        <section className="py-10 sm:py-12">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
+            {/* Left: Alur Pendaftaran */}
+            <div className="space-y-4">
+              <h2 className="text-lg font-extrabold text-[#003831]">
+                Alur Pendaftaran
+              </h2>
+              <ol className="divide-y divide-slate-200 border-t border-b border-slate-200">
+                {steps.map((s, idx) => (
+                  <li key={idx} className="py-3.5 flex items-start gap-3.5">
+                    <span className="text-xs font-extrabold text-[#00594f] mt-0.5 tabular-nums">
+                      {idx + 1}.
+                    </span>
+                    <div className="space-y-0.5">
+                      <h3 className="text-sm font-bold text-[#003831]">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {s.desc}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-              <span>Fitting & Siap Belajar</span>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            </div>
-          </div>
-        </div>
-        </ScrollReveal>
-      </section>
 
-      {/* Syarat & Ketentuan SPMB SDIT */}
-      <section className="py-12 bg-white border-y border-slate-200">
-        <ScrollReveal yOffset={24} duration={500}>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#00A651] mb-2">
-                  <span className="w-5 h-[2px] bg-[#00A651] rounded-full inline-block" />
-                  <span>Persyaratan Calon Murid</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 text-balance leading-snug">
-                  Syarat Masuk SD&nbsp;IT Al-Afiyah
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                  Kami menerapkan kriteria yang memastikan kenyamanan belajar dan kesiapan psikologis anak dalam mengikuti kurikulum terpadu nasional dan kepesantrenan.
-                </p>
+            {/* Right: Persyaratan Berkas */}
+            <div className="space-y-5">
+              <h2 className="text-lg font-extrabold text-[#003831]">
+                Persyaratan Dokumen
+              </h2>
+              <ul className="divide-y divide-slate-200 border-t border-b border-slate-200 text-xs sm:text-sm text-slate-700">
+                {requirements.map((req, idx) => (
+                  <li key={idx} className="py-3 flex items-start gap-2.5">
+                    <span className="text-[#00594f] font-bold">•</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
 
-                <div className="mt-6 space-y-3">
-                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    <CheckCircle2 className="w-5 h-5 text-[#00A651] shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-800">Usia Calon Murid</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Telah berusia 6 tahun per 1 Juli 2027. Anak berusia minimal 5 tahun 8 bulan dapat dipertimbangkan jika memiliki kesiapan belajar yang matang.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    <CheckCircle2 className="w-5 h-5 text-[#00A651] shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-800">Kelengkapan Administrasi</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Scan/Fotokopi Akta Kelahiran, Kartu Keluarga (KK), KTP kedua orang tua, serta pas foto terbaru murid.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    <CheckCircle2 className="w-5 h-5 text-[#00A651] shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-800">Komitmen Bersama Orang Tua</h4>
-                      <p className="text-xs text-slate-600 mt-0.5">Kesediaan orang tua/wali untuk mendampingi muraja&apos;ah tahfidz di rumah dan mematuhi tata tertib syar&apos;i yayasan.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Kotak Rekapitulasi Rombel & Lokasi */}
-              <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-300 mb-3">
-                    <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
-                    <span>Fasilitas &amp; Lingkungan SDIT</span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold mt-4">
-                    Lingkungan Giri Asih Majalengka
-                  </h3>
-                  <p className="text-xs text-emerald-100 mt-2 leading-relaxed">
-                    Lingkungan Giri Asih - Jl. Gerakan Koperasi, Majalengka Kulon. Gedung milik sendiri dengan suasana asri, masjid representatif, dan sarana bermain edukatif.
-                  </p>
-
-                  <div className="mt-6 pt-6 border-t border-emerald-800/60 grid grid-cols-2 gap-4">
-                    <div>
-                      <span className="text-slate-400 text-xs block">Kapasitas Maksimal</span>
-                      <span className="text-lg font-extrabold text-white">{quotaText}</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 text-xs block">Rasio Kelas</span>
-                      <span className="text-lg font-extrabold text-white">28-30 Murid/Kelas</span>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-4">
-                    <Link
-                      href="/sd/spmb/daftar"
-                      className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
-                    >
-                      <span>Daftar Sekarang Sebelum Kuota Penuh</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </div>
+              <div className="pt-2 flex flex-wrap gap-3">
+                <Link
+                  href="/sd/spmb/daftar"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xs bg-[#00594f] hover:bg-[#003831] text-white font-bold text-xs transition-colors"
+                >
+                  <span>Lanjut ke Formulir Pendaftaran</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <a
+                  href={`https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SDIT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi%20pendaftaran`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xs border border-slate-300 hover:border-[#00594f] text-[#003831] font-bold text-xs transition-colors"
+                >
+                  <span>Hubungi Panitia ({waNumber})</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           </div>
-        </ScrollReveal>
-      </section>
-
-      {/* Pusat Bantuan WhatsApp */}
-      <section className="py-12 max-w-5xl mx-auto px-4 sm:px-6 w-full">
-        <ScrollReveal yOffset={20} duration={500}>
-          <div className="p-6 sm:p-8 rounded-3xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="text-left">
-              <span className="text-xs font-bold text-[#00A651] uppercase tracking-wider">
-                Layanan Konsultasi Offline & Online
-              </span>
-              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-1">
-                Ingin bertanya langsung ke Panitia SPMB SDIT?
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-lg">
-                Kunjungi sekretariat kami di Lingkungan Giri Asih atau hubungi WhatsApp resmi Panitia SDIT di {waNumber}.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-              <Link
-                href="/sd/kontak"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold text-xs sm:text-sm transition-all"
-              >
-                <span>Lokasi & Kontak TU</span>
-              </Link>
-              <a
-                href={`https://wa.me/${waForLink}?text=Assalamu%27alaikum%20Panitia%20SPMB%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi%20mengenai%20pendaftaran`}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#00A651] hover:bg-[#008f45] text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp Panitia SDIT</span>
-              </a>
-            </div>
-          </div>
-        </ScrollReveal>
-      </section>
-
+        </section>
+      </main>
       <Footer schoolSlug="sd" />
       <StickyMobileBar schoolSlug="sd" />
     </div>

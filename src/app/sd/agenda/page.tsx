@@ -25,48 +25,33 @@ export const metadata: Metadata = {
 
 export default function SdAgendaPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7FBFB] text-slate-800 font-sans">
-      <Navbar schoolSlug="sd" />
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
 
-      {/* Hero Header Khusus SDIT */}
-      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Al-Hidayah Style */}
+        <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex items-center gap-1.5 text-xs text-emerald-100/80 mb-1.5" aria-label="Breadcrumb">
+              <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+                Beranda SDIT
+              </Link>
+              <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+              <span className="text-[#e5a93b] font-semibold">Agenda &amp; Kalender</span>
+            </nav>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
-            <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SDIT</span>
-            </Link>
-            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
-            <span className="text-white font-medium">Agenda &amp; Kalender</span>
-          </nav>
-
-          <div className="max-w-3xl">
-            <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
-              <Calendar className="w-3.5 h-3.5 text-emerald-300" />
-              <span>KALENDER RESMI KEGIATAN &amp; SPMB</span>
-            </div>
-
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Agenda &amp; Kalender Akademik SDIT
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Agenda &amp; Kalender Akademik SDIT Al-Afiyah
             </h1>
-
-            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Jadwal lengkap kegiatan belajar mengajar, gelombang SPMB 2027/2028, asesmen STS/SAS, mabit tahfidz Al-Qur&apos;an, dan agenda resmi murid SDIT Al-Afiyah Majalengka.
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 -mt-6 relative z-20">
-        <ScrollReveal yOffset={24} duration={500}>
-          <AgendaCalendarClient 
-            initialEvents={ACADEMIC_EVENTS} 
-            schoolSlug="sd" 
+        <div className="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <AgendaCalendarClient
+            initialEvents={ACADEMIC_EVENTS}
+            schoolSlug="sd"
           />
-        </ScrollReveal>
+        </div>
       </main>
 
       <Footer schoolSlug="sd" />

@@ -166,196 +166,92 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
     : galleryList.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="w-full">
-      {/* Header Banner Hijau Khas SDIT */}
-      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
-        {/* Subtle patterned backdrop */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
-            <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SDIT</span>
+    <div className="w-full pt-16 sm:pt-20 bg-white">
+      {/* Compact Header Al-Hidayah Style */}
+      <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex items-center gap-1.5 text-xs text-emerald-100/80 mb-1.5" aria-label="Breadcrumb">
+            <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+              Beranda SDIT
             </Link>
-            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
-            <span className="text-white font-medium">Dokumentasi &amp; Belajar</span>
+            <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+            <span className="text-[#e5a93b] font-semibold">Dokumentasi &amp; Fasilitas</span>
           </nav>
 
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-200 mb-3">
-              <span className="w-5 h-[2px] bg-emerald-300 rounded-full inline-block" />
-              <span>Dokumentasi &amp; Sarana Belajar SDIT</span>
-            </div>
-
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dokumentasi Kegiatan &amp; Aktivitas Belajar SDIT
-            </h1>
-
-            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Potret nyata keseharian murid SDIT Al-Afiyah Majalengka: pembiasaan ibadah shalat berjamaah, muhadharah da&apos;i cilik, suasana kelas interaktif, agro-literasi di P4S An-Nabawiyah, dan prestasi membanggakan.
-            </p>
-
-            {/* Quick Badges */}
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-6 text-xs text-emerald-100">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />
-                <span>100% Dokumentasi Asli SDIT</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
-                <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
-                <span>Smart Akhlak Fitrah</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 border border-white/15">
-                <HeartHandshake className="w-3.5 h-3.5 text-emerald-200" />
-                <span>Karakter Nabawiyah</span>
-              </span>
-            </div>
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Dokumentasi Kegiatan &amp; Fasilitas Belajar SDIT Al-Afiyah
+          </h1>
         </div>
       </section>
 
       {/* Filter Tabs & Gallery Grid */}
-      <section className="py-10 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Category Filter Tabs */}
-          <ScrollReveal yOffset={16} duration={400}>
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10">
-              {CATEGORIES.map((cat) => {
-                const isActive = activeCategory === cat;
-                return (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => setActiveCategory(cat)}
-                    className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs ${
-                      isActive
-                        ? 'bg-[#00A651] text-white shadow-md scale-105'
-                        : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-800'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
-            </div>
-          </ScrollReveal>
-
-          {/* Photo Cards Grid */}
-          <ScrollReveal yOffset={24} duration={500}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {filteredItems.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedPhoto(item)}
-                  className="group rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-2xs hover:shadow-lg hover:border-emerald-400/60 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+      <section className="py-10 sm:py-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Minimalist Underline Category Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 border-b border-slate-200 mb-8">
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setActiveCategory(cat)}
+                  className={`pb-3 text-xs sm:text-sm font-bold transition-colors border-b-2 -mb-[1px] cursor-pointer ${
+                    isActive
+                      ? 'border-[#00594f] text-[#00594f]'
+                      : 'border-transparent text-slate-500 hover:text-[#003831]'
+                  }`}
                 >
-                  <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                      onError={(e) => {
-                        const target = e.currentTarget;
-                        if (!target.dataset.triedFallback) {
-                          target.dataset.triedFallback = 'true';
-                          target.src = '/images/sd-hero-greenhouse.jpg';
-                        }
-                      }}
-                    />
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                      <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
-                        {item.category}
-                      </span>
-                    </div>
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
 
-                    {item.location && (
-                      <div className="absolute bottom-3 left-3">
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-900/80 text-white backdrop-blur-xs">
-                          {item.location}
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="absolute inset-0 bg-slate-900/35 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
-                      <span className="px-4 py-2 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
-                        <ZoomIn className="w-4 h-4 text-emerald-700" />
-                        <span>Perbesar Foto</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-1.5 group-hover:text-emerald-700 transition-colors leading-snug">
-                        {item.name}
-                      </h3>
-                      <p className="text-xs text-slate-600 leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                      <span className="flex items-center gap-1">
-                        <Camera className="w-3.5 h-3.5" />
-                        <span>Lihat Detail</span>
-                      </span>
-                      <span className="group-hover:translate-x-1 transition-transform">➔</span>
-                    </div>
+          {/* Photo Cards Grid (Clean Minimalist Style) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {filteredItems.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => setSelectedPhoto(item)}
+                className="group rounded-sm overflow-hidden bg-white border border-slate-200 hover:border-[#00594f] transition-colors cursor-pointer flex flex-col justify-between"
+              >
+                <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.dataset.triedFallback) {
+                        target.dataset.triedFallback = 'true';
+                        target.src = '/images/sd-hero-greenhouse.jpg';
+                      }
+                    }}
+                  />
+                  <div className="absolute top-2.5 left-2.5">
+                    <span className="px-2.5 py-0.5 rounded-xs text-[10px] font-bold bg-[#003831]/90 text-white uppercase tracking-wider">
+                      {item.category}
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
 
-      {/* Bottom CTA to SPMB */}
-      <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16 border-t border-emerald-800">
-        <ScrollReveal yOffset={24} duration={500}>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-200 mb-2">
-              <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
-              <span>Penerimaan Murid Baru T.A. 2027/2028</span>
-              <span className="w-5 h-[2px] bg-emerald-400 rounded-full inline-block" />
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
-              Ingin Ananda Bertumbuh &amp; Belajar di SDIT Al-Afiyah?
-            </h2>
-
-            <p className="mt-2.5 text-xs sm:text-sm text-emerald-100 max-w-2xl mx-auto leading-relaxed">
-              Kuota terbatas hanya 2 Rombel demi pendampingan adab dan pembentukan karakter nabawiyah yang optimal.
-            </p>
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link
-                href="/sd/spmb/daftar"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
-              >
-                <span>Daftar SPMB SDIT Online</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/sd/spmb"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all"
-              >
-                <span>Alur &amp; Syarat SPMB</span>
-              </Link>
-              <Link
-                href="/sd"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-emerald-200 hover:text-white font-medium text-xs sm:text-sm transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Kembali ke Beranda SDIT</span>
-              </Link>
-            </div>
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-[#003831] mb-1 group-hover:text-[#00594f] transition-colors leading-snug">
+                      {item.name}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </ScrollReveal>
+        </div>
       </section>
 
       {/* Lightbox Modal */}

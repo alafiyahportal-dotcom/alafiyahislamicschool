@@ -146,56 +146,42 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
   });
 
   return (
-    <div className="w-full">
-      {/* Hero Banner */}
-      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
-            <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SDIT</span>
+    <div className="w-full pt-16 sm:pt-20 bg-white">
+      {/* Compact Header Al-Hidayah Style */}
+      <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex items-center gap-1.5 text-xs text-emerald-100/80 mb-1.5" aria-label="Breadcrumb">
+            <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+              Beranda SDIT
             </Link>
-            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
-            <span className="text-white font-medium">Struktur Organisasi &amp; Tim</span>
+            <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+            <span className="text-[#e5a93b] font-semibold">Struktur Organisasi &amp; Tim</span>
           </nav>
 
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-emerald-200 mb-3">
-              <span className="w-5 h-[2px] bg-emerald-300 rounded-full inline-block" />
-              <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
-            </div>
-
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
-              Struktur Kepengurusan &amp; Tenaga Pendidik <br className="hidden sm:inline" />
-              SD&nbsp;IT Al-Afiyah
-            </h1>
-
-            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, komite sekolah, asatidzah tahfidz &amp; kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.
-            </p>
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Struktur Kepengurusan &amp; Tenaga Pendidik SDIT Al-Afiyah
+          </h1>
+          <p className="mt-1.5 text-xs sm:text-sm text-emerald-100/90 max-w-3xl leading-relaxed">
+            Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, komite sekolah, asatidzah tahfidz &amp; kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.
+          </p>
         </div>
       </section>
 
-      {/* Structural Directory Grid — Tanpa Pengelompokan & Tanpa Foto */}
-      <section className="py-12 sm:py-16 bg-slate-50/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal delay={0.1} yOffset={24} duration={500} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+      {/* Structural Directory Grid — Deskripsi Lengkap Tetap Utuh */}
+      <section className="py-10 sm:py-14 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {teachersList.map((teacher) => {
               const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
 
               return (
                 <div
                   key={teacher.id}
-                  className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 hover:border-emerald-500/60 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
+                  className="p-5 rounded-sm bg-white border border-slate-200 hover:border-[#00594f] transition-all flex flex-col justify-between group"
                 >
                   <div className="space-y-4">
-                    {/* Card Hijau Elegan di dalam setiap card */}
-                    <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3.5 shadow-xs relative overflow-hidden">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
+                    <div className="bg-[#003831] text-white rounded-sm p-3.5">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#e5a93b] block">
                         {department}
                       </span>
                       <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
@@ -204,7 +190,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                     </div>
 
                     <div className="space-y-1.5">
-                      <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-[#064e3b] transition-colors">
+                      <h3 className="text-base sm:text-lg font-bold text-[#003831] tracking-tight leading-snug">
                         {teacher.name}
                       </h3>
                       {teacher.specialization && (
@@ -213,7 +199,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                         </p>
                       )}
                       {teacher.bio && (
-                        <p className="text-[11px] text-slate-600 italic leading-relaxed bg-slate-50/80 p-3 rounded-xl border border-slate-100 mt-2">
+                        <p className="text-[11px] text-slate-600 italic leading-relaxed bg-slate-50/80 p-3 rounded-sm border border-slate-100 mt-2">
                           &ldquo;{teacher.bio}&rdquo;
                         </p>
                       )}
@@ -222,7 +208,7 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
 
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
                     <span className="inline-flex items-center gap-1.5 text-slate-500 font-medium">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
                       <span>Aktif Bertugas</span>
                     </span>
                     <span className="text-[10px] font-semibold text-slate-400">
@@ -232,38 +218,8 @@ export default function SdGuruClient({ initialTeachers }: { initialTeachers: Tea
                 </div>
               );
             })}
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="bg-gradient-to-r from-emerald-900 to-[#064e3b] text-white py-12 sm:py-16">
-        <ScrollReveal yOffset={24} duration={500} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Ingin Berkonsultasi Langsung dengan Dewan Asatidzah?
-          </h2>
-          <p className="mt-3 text-xs sm:text-sm text-emerald-100 max-w-xl mx-auto leading-relaxed">
-            Panitia SPMB dan dewan guru siap menyambut Ayah dan Bunda untuk konsultasi program kurikulum dan observasi calon murid baru.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="https://wa.me/6281310139001?text=Assalamu%27alaikum%20Ustadz%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00A651] hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95"
-            >
-              <span>Chat WhatsApp Tata Usaha SDIT</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <Link
-              href="/sd"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-emerald-200 hover:text-white font-medium text-xs sm:text-sm transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Kembali ke Beranda SDIT</span>
-            </Link>
           </div>
-        </ScrollReveal>
+        </div>
       </section>
     </div>
   );

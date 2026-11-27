@@ -286,7 +286,7 @@ function FeatureIllustration({
   );
 }
 
-const HERO_IMAGES = [
+const DEFAULT_HERO_IMAGES = [
   {
     id: 'sd-bg-1',
     src: '/images/sd-field-study-banner.jpg',
@@ -313,7 +313,7 @@ const HERO_IMAGES = [
   },
 ];
 
-const FEATURE_BOXES = [
+const DEFAULT_FEATURE_BOXES = [
   {
     title: 'RAMAH ANAK, FITRAH &\nTANPA TES CALISTUNG',
     href: '/sd/spmb',
@@ -331,7 +331,7 @@ const FEATURE_BOXES = [
   },
   {
     title: 'OUTDOOR LEARNING &\nPELATIHAN AQIL-BALIGH',
-    href: '/sd/fasilitas',
+    href: '/sd/dokumentasi',
     iconType: 'teachers' as const,
   },
 ];
@@ -418,38 +418,39 @@ const UPCOMING_EVENTS = [
   },
 ];
 
-const MAP_TESTIMONIALS = [
+const REAL_SD_TESTIMONIALS = [
   {
+    name: 'Ibu Nani Mulyani, S.Pd.',
+    role: 'Wali Murid Kelas 5 SDIT Al-Afiyah',
     quote:
-      '"Alhamdulillah, semenjak sekolah di SDIT Al-Afiyah, ananda menjadi mandiri, tertib shalat, dan bacaan Qur’annya sangat tartil."',
-    name: 'dr. H. Asep Irawan, Sp.A',
-    role: 'Wali Murid SDIT Al-Afiyah',
+      'Sebagai orang tua, kami sangat bersyukur menyekolahkan anak di SDIT Al-Afiyah karena metode berbasis fitrah dan karakter Nabawiyyah berhasil menumbuhkan kesadaran beribadah, adab, serta empati anak secara alami tanpa paksaan. Pembelajarannya yang menyenangkan dan selaras dengan tumbuh kembang anak didukung sinergi yang kuat antara sekolah dan orang tua benar-benar membentuk karakter anak yang berakhlak mulia dan mencintai ajaran Islam.',
     avatar: '/images/sd-activity-shalat-berjamaah.jpg',
-    desktopPos: 'lg:absolute lg:top-[115px] lg:left-[26%] lg:w-[36%]',
   },
   {
+    name: 'Guru SDIT Al-Afiyah',
+    role: 'Coretan Guru & Pendidik SDIT Al-Afiyah',
     quote:
-      '"Lingkungan belajar islami yang hangat dan para asatidzah mendidik dengan sepenuh hati. Bukan sekadar tempat belajar, namun tempat bertumbuh!"',
-    name: 'Ibu Hj. Rina Nurhasanah, S.Pd.',
-    role: 'Wali Murid SDIT Al-Afiyah',
+      'Di SDIT Al-Afiyah, kami tidak sekadar mendidik anak agar pintar, tetapi membersamai mereka agar tumbuh menjadi pribadi yang beriman, berakhlak, dan bermanfaat.',
     avatar: '/images/sd-seedling-care.jpg',
-    desktopPos: 'lg:absolute lg:top-[145px] lg:left-[72%] lg:w-[27%]',
+  },
+];
+
+const TESTIMONIAL_MAP_SLOTS = [
+  {
+    desktopPos: 'lg:absolute lg:top-[115px] lg:left-[26%] lg:w-[38%]',
+    defaultAvatar: '/images/sd-activity-shalat-berjamaah.jpg',
   },
   {
-    quote:
-      '"Metode Karakter Nabawiyah di SDIT Al-Afiyah membuat anak kami senang ke sekolah, hormat pada orang tua, dan semangat menghafal Juz 30."',
-    name: 'Bpk. H. Dedi Kurniawan',
-    role: 'Wali Murid SDIT Al-Afiyah',
-    avatar: '/images/sd-field-study-banner.jpg',
-    desktopPos: 'lg:absolute lg:top-[330px] lg:left-[3%] lg:w-[30%]',
+    desktopPos: 'lg:absolute lg:top-[150px] lg:left-[69%] lg:w-[29%]',
+    defaultAvatar: '/images/sd-seedling-care.jpg',
   },
   {
-    quote:
-      '"Program Outdoor Learning dan pembiasaan ibadah hariannya luar biasa. Anak tumbuh percaya diri, beradab, dan cinta Al-Qur’an."',
-    name: 'Ibu Siti Aminah, S.E.',
-    role: 'Wali Murid SDIT Al-Afiyah',
-    avatar: '/images/sd-activity-classroom-6b.jpg',
-    desktopPos: 'lg:absolute lg:top-[355px] lg:left-[48%] lg:w-[32%]',
+    desktopPos: 'lg:absolute lg:top-[335px] lg:left-[3%] lg:w-[31%]',
+    defaultAvatar: '/images/sd-field-study-banner.jpg',
+  },
+  {
+    desktopPos: 'lg:absolute lg:top-[355px] lg:left-[47%] lg:w-[34%]',
+    defaultAvatar: '/images/sd-activity-classroom-6b.jpg',
   },
 ];
 
@@ -473,13 +474,75 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
     ppdbUrl += `?ref=${encodeURIComponent(refCode)}`;
   }
 
+  // Dynamic Hero Images synced from CMS Hero Slides (if edited in Admin Panel)
+  const heroImages = useMemo(() => {
+    if (school.heroSlides && Array.isArray(school.heroSlides) && school.heroSlides.length > 0) {
+      const validSlides = school.heroSlides
+        .filter((s) => Boolean(s && s.image))
+        .map((s, idx) => ({
+          id: `cms-sd-bg-${s.id ?? idx + 1}`,
+          src: s.image,
+          alt: `${school.name} - Slide ${idx + 1}`,
+          objectPosition: 'object-center',
+        }));
+      if (validSlides.length > 0) return validSlides;
+    }
+    return DEFAULT_HERO_IMAGES;
+  }, [school.heroSlides, school.name]);
+
+  // Dynamic Hero Copywriting synced from CMS Hero & Identity
+  const heroTitle = useMemo(() => {
+    return (school.name || 'SDIT AL-AFIYAH MAJALENGKA').toUpperCase();
+  }, [school.name]);
+
+  const heroDescription = useMemo(() => {
+    const firstSlide = school.heroSlides?.[0];
+    if (firstSlide?.description && firstSlide.description.trim().length > 0) {
+      return sanitizeAdabText(firstSlide.description);
+    }
+    if (school.heroSubheadline && school.heroSubheadline.trim().length > 0) {
+      return sanitizeAdabText(school.heroSubheadline);
+    }
+    return 'Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh — Mewujudkan generasi santri beradab mulia, mandiri, cinta Al-Qur’an, dan unggul dengan Metode Pendidikan Karakter Nabawiyah.';
+  }, [school.heroSlides, school.heroSubheadline]);
+
+  // Dynamic Testimonials synced 100% from real CMS data (Ibu Nani Mulyani, S.Pd. & Guru SDIT Al-Afiyah)
+  const realMapTestimonials = useMemo(() => {
+    const rawList =
+      school.testimonials && Array.isArray(school.testimonials) && school.testimonials.length > 0
+        ? school.testimonials.filter((t) => Boolean(t && t.name && t.quote))
+        : REAL_SD_TESTIMONIALS;
+
+    return rawList.slice(0, 4).map((t, idx) => {
+      const slot = TESTIMONIAL_MAP_SLOTS[idx % TESTIMONIAL_MAP_SLOTS.length];
+      const cleanQuote = t.quote.trim().replace(/^[“"']+|[”"']+$/g, '');
+      // Single or 2-item layout centered nicely on desktop map
+      let desktopPos = slot.desktopPos;
+      if (rawList.length === 1) {
+        desktopPos = 'lg:absolute lg:top-[155px] lg:left-[24%] lg:w-[52%]';
+      } else if (rawList.length === 2) {
+        desktopPos =
+          idx === 0
+            ? 'lg:absolute lg:top-[120px] lg:left-[15%] lg:w-[44%]'
+            : 'lg:absolute lg:top-[285px] lg:left-[50%] lg:w-[42%]';
+      }
+      return {
+        name: t.name,
+        role: t.role || 'Wali Murid SDIT Al-Afiyah',
+        quote: `"${sanitizeAdabText(cleanQuote)}"`,
+        avatar: (t as any).avatar || slot.defaultAvatar,
+        desktopPos,
+      };
+    });
+  }, [school.testimonials]);
+
   const nextSlide = useCallback(() => {
-    setActiveSlide((prev) => (prev + 1) % HERO_IMAGES.length);
-  }, []);
+    setActiveSlide((prev) => (prev + 1) % heroImages.length);
+  }, [heroImages.length]);
 
   const prevSlide = useCallback(() => {
-    setActiveSlide((prev) => (prev - 1 + HERO_IMAGES.length) % HERO_IMAGES.length);
-  }, []);
+    setActiveSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  }, [heroImages.length]);
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 6000);
@@ -500,10 +563,13 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
   const newsPosts = school.newsPosts || [];
 
   const availableNewsTabs = useMemo(() => {
-    const base = ['Semua', 'Kegiatan', 'Field Study', 'Prestasi', 'Pengumuman'];
+    const base =
+      school.newsCategories && school.newsCategories.length > 0
+        ? ['Semua', ...school.newsCategories]
+        : ['Semua', 'Kegiatan', 'Field Study', 'Prestasi', 'Tahfidz', 'Pengumuman'];
     const fromPosts = newsPosts.map((p) => (p.category || '').trim()).filter(Boolean);
-    return mergeUniqueStrings(base, fromPosts).slice(0, 6);
-  }, [newsPosts]);
+    return mergeUniqueStrings(base, fromPosts).slice(0, 7);
+  }, [newsPosts, school.newsCategories]);
 
   const filteredArticles = useMemo(() => {
     if (activeNewsTab === 'Semua') return newsPosts;
@@ -534,7 +600,7 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
           1. FULL-WIDTH HERO BANNER (MINIMALIST AL-HIDAYAH / PRADITA STYLE)
       ===================================================================== */}
       <section className="relative w-full h-[calc(100svh-3rem)] sm:h-[600px] lg:h-[650px] bg-[#002e29] overflow-hidden select-none">
-        {HERO_IMAGES.map((img, idx) => {
+        {heroImages.map((img, idx) => {
           const isActive = idx === activeSlide;
           return (
             <div
@@ -548,13 +614,11 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
                   isActive ? 'scale-105' : 'scale-100'
                 }`}
               >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={img.src}
                   alt={img.alt}
-                  fill
-                  priority={idx === 0}
-                  className={`object-cover ${img.objectPosition}`}
-                  sizes="100vw"
+                  className={`w-full h-full object-cover ${img.objectPosition}`}
                 />
               </div>
             </div>
@@ -567,11 +631,11 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
         <div className="relative z-20 h-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex flex-col justify-center items-center text-center sm:pb-14 pt-12">
           <div className="max-w-3xl space-y-4 sm:space-y-5 flex flex-col items-center">
             <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-black text-white uppercase tracking-tight leading-[1.1] drop-shadow-sm">
-              SDIT AL-AFIYAH MAJALENGKA
+              {heroTitle}
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-slate-100/95 leading-relaxed max-w-2xl font-normal">
-              Bukan Sekadar Tempat Belajar, Namun Juga Tempat Bertumbuh — Mewujudkan generasi santri beradab mulia, mandiri, cinta Al-Qur’an, dan unggul dengan Metode Pendidikan Karakter Nabawiyah.
+              {heroDescription}
             </p>
 
             <div className="pt-2 flex flex-wrap justify-center gap-3">
@@ -612,7 +676,7 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
         </button>
 
         <div className="hidden sm:flex absolute bottom-6 sm:bottom-24 left-1/2 -translate-x-1/2 z-30 items-center gap-2.5">
-          {HERO_IMAGES.map((s, idx) => (
+          {heroImages.map((s, idx) => (
             <button
               key={s.id}
               type="button"
@@ -633,7 +697,7 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
       ===================================================================== */}
       <section className="relative z-30 mt-0 sm:-mt-20 max-w-6xl mx-auto px-0 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-2 lg:grid-cols-4 bg-[#FAF6EC] shadow-xl border-y sm:border border-[#E5D5B2]">
-          {FEATURE_BOXES.map((box, idx) => (
+          {DEFAULT_FEATURE_BOXES.map((box, idx) => (
             <Link
               key={idx}
               href={box.href}
@@ -1331,23 +1395,22 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:block">
-            {MAP_TESTIMONIALS.map((t, idx) => (
+            {realMapTestimonials.map((t, idx) => (
               <div
                 key={idx}
-                className={`${t.desktopPos} bg-white/90 backdrop-blur-[2px] rounded-[15px] p-4 sm:p-5 shadow-[0_30px_60px_-15px_rgba(255,122,92,0.35)] border border-orange-100/50 flex flex-col items-center text-center space-y-4`}
+                className={`${t.desktopPos} bg-white/95 backdrop-blur-[2px] rounded-[15px] p-5 sm:p-6 shadow-[0_30px_60px_-15px_rgba(255,122,92,0.35)] border border-orange-100/60 flex flex-col items-center text-center space-y-4`}
               >
-                <p className="text-[15px] sm:text-[16.5px] font-semibold text-[#003831] leading-[23px]">
+                <p className="text-sm sm:text-[15px] font-semibold text-[#003831] leading-relaxed">
                   {t.quote}
                 </p>
 
                 <div className="flex items-center justify-center gap-3.5 text-left pt-1">
-                  <div className="relative w-[50px] h-[50px] rounded-full overflow-hidden shrink-0 shadow-xs border border-slate-200">
-                    <Image
+                  <div className="relative w-[48px] h-[48px] rounded-full overflow-hidden shrink-0 shadow-xs border border-slate-200">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                       src={t.avatar}
                       alt={t.name}
-                      fill
-                      className="object-cover"
-                      sizes="50px"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="leading-tight">

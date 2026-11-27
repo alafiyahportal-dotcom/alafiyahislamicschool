@@ -310,12 +310,12 @@ export default async function SdLandingPage() {
           {
             name: 'Ibu Nani Mulyani, S.Pd.',
             role: 'Wali Murid Kelas 5 SDIT',
-            quote: 'Menumbuhkan kesadaran beribadah, adab, serta empati anak secara alami tanpa paksaan. Pembelajarannya yang menyenangkan dan selaras dengan tumbuh kembang anak didukung sinergi yang kuat antara sekolah dan orang tua benar-benar membentuk karakter anak yang berakhlak mulia dan mencintai ajaran Islam.'
+            quote: 'Sebagai orang tua, kami sangat bersyukur menyekolahkan anak di SDIT Al-Afiyah karena metode berbasis fitrah dan karakter Nabawiyyah berhasil menumbuhkan kesadaran beribadah, adab, serta empati anak secara alami tanpa paksaan. Pembelajarannya yang menyenangkan dan selaras dengan tumbuh kembang anak didukung sinergi yang kuat antara sekolah dan orang tua benar-benar membentuk karakter anak yang berakhlak mulia dan mencintai ajaran Islam.'
           },
           {
-            name: 'Orang Tua Murid Al-Afiyah',
-            role: 'Wali Murid Kelas 2 SDIT',
-            quote: 'Guru-gurunya sangat sabar dan penuh kasih sayang. Suasana sekolah ramah anak dan nilai adabnya benar-benar terasa di rumah.'
+            name: 'Guru SDIT Al-Afiyah',
+            role: 'Coretan Guru',
+            quote: 'Di SDIT Al-Afiyah, kami tidak sekadar mendidik anak agar pintar, tetapi membersamai mereka agar tumbuh menjadi pribadi yang beriman, berakhlak, dan bermanfaat.'
           }
         ],
     teachers: rawTeachers,
