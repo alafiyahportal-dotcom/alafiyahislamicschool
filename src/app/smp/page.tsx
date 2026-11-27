@@ -1,6 +1,5 @@
 import React from 'react';
 import SmpLandingView from '@/components/smp/SmpLandingView';
-import SmpWelcomeVideoModal from '@/components/smp/SmpWelcomeVideoModal';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { SMP_OG_IMAGE } from '@/lib/og-images';
@@ -89,25 +88,22 @@ export default async function SmpLandingPage() {
   const newsConfig = sectionsMap.news_config || {};
 
   return (
-    <>
-      <SmpWelcomeVideoModal />
-      <SmpLandingView
-        teachers={(dbSchool?.teachers || []).map((t) => ({
-          ...t,
-          name: t.name.toLowerCase().includes('jaja madhuri') ? 'Jaja Madhuri, S.Pd., M.Pd.' : t.name,
-        }))}
-        newsPosts={(dbSchool?.newsPosts || []).map((p) => externalizeNewsPostMedia(p))}
-        achievements={achievements}
-        cmsData={{
-          heroSlides: Array.isArray(heroData.slides) ? heroData.slides : undefined,
-          heroHeadline: heroData.headline,
-          heroSubheadline: heroData.subheadline,
-          programs: Array.isArray(sectionsMap.programs) ? sectionsMap.programs : undefined,
-          facilities: Array.isArray(sectionsMap.facilities) ? sectionsMap.facilities : undefined,
-          testimonials: Array.isArray(sectionsMap.testimonials) ? sectionsMap.testimonials : undefined,
-          newsCategories: Array.isArray(newsConfig.categories) ? newsConfig.categories : undefined,
-        }}
-      />
-    </>
+    <SmpLandingView
+      teachers={(dbSchool?.teachers || []).map((t) => ({
+        ...t,
+        name: t.name.toLowerCase().includes('jaja madhuri') ? 'Jaja Madhuri, S.Pd., M.Pd.' : t.name,
+      }))}
+      newsPosts={(dbSchool?.newsPosts || []).map((p) => externalizeNewsPostMedia(p))}
+      achievements={achievements}
+      cmsData={{
+        heroSlides: Array.isArray(heroData.slides) ? heroData.slides : undefined,
+        heroHeadline: heroData.headline,
+        heroSubheadline: heroData.subheadline,
+        programs: Array.isArray(sectionsMap.programs) ? sectionsMap.programs : undefined,
+        facilities: Array.isArray(sectionsMap.facilities) ? sectionsMap.facilities : undefined,
+        testimonials: Array.isArray(sectionsMap.testimonials) ? sectionsMap.testimonials : undefined,
+        newsCategories: Array.isArray(newsConfig.categories) ? newsConfig.categories : undefined,
+      }}
+    />
   );
 }
