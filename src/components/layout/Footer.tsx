@@ -63,7 +63,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Cek Status SPMB SDIT', href: '/sd/spmb/cek-status' },
         { label: 'Formulir SPMB SDIT Online', href: '/sd/spmb/daftar', isHighlighted: true },
       ],
-      bottomCopyright: '© 2026 SDIT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
+      bottomCopyright: '© 2026 SDIT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol x modula.studio. Seluruh Hak Cipta Dilindungi.',
       bottomLinks: [
         { label: 'Login Portal', href: '/login?unit=sd', isGold: true },
         { label: 'Doa & Dzikir', href: '/sd/doa-dzikir' },
@@ -96,7 +96,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Affiliate Al-Afiyah', href: '/affiliate?school=tk', isGold: true },
         { label: 'Formulir SPMB TK IT Online', href: '/ppdb/daftar?school=tk', isHighlighted: true },
       ],
-      bottomCopyright: '© 2026 TK IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
+      bottomCopyright: '© 2026 TK IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol x modula.studio. Seluruh Hak Cipta Dilindungi.',
       bottomLinks: [
         { label: 'Login Portal', href: '/login', isGold: true },
         { label: 'Doa & Dzikir', href: '/doa-dzikir' },
@@ -133,7 +133,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'Cek Status SPMB SMP IT', href: '/smp/spmb/cek-status' },
         { label: 'Formulir SPMB SMP IT Online', href: '/smp/spmb/daftar', isHighlighted: true },
       ],
-      bottomCopyright: '© 2026 SMP IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol. Seluruh Hak Cipta Dilindungi.',
+      bottomCopyright: '© 2026 SMP IT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol x modula.studio. Seluruh Hak Cipta Dilindungi.',
       bottomLinks: [
         { label: 'Login Portal', href: '/login?unit=smp', isGold: true },
         { label: 'Doa & Dzikir', href: '/smp/doa-dzikir' },
@@ -164,7 +164,7 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
         { label: 'SMP IT Al-Afiyah', href: getSchoolUrl('smp') },
         { label: 'Affiliate Al-Afiyah', href: '/affiliate', isGold: true },
       ],
-      bottomCopyright: '© 2026 Yayasan Pendidikan Imam Bonjol Majalengka. Seluruh Hak Cipta Dilindungi.',
+      bottomCopyright: '© 2026 Yayasan Pendidikan Imam Bonjol Majalengka x modula.studio. Seluruh Hak Cipta Dilindungi.',
       bottomLinks: [
         { label: 'Login Portal', href: '/login', isGold: true },
         { label: 'Doa & Dzikir', href: '/doa-dzikir' },

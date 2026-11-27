@@ -35,7 +35,11 @@ export default async function HomePage() {
     foundation = await prisma.school.findUnique({
       where: { slug: 'foundation' },
       include: {
-        cmsSections: true,
+        cmsSections: {
+          where: {
+            sectionKey: 'hero',
+          },
+        },
       },
     });
   } catch (err) {

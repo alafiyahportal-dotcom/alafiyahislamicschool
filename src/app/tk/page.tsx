@@ -25,7 +25,13 @@ export default async function TkLandingPage() {
       prisma.school.findUnique({
         where: { slug: 'tk' },
         include: {
-          cmsSections: true,
+          cmsSections: {
+            where: {
+              NOT: {
+                sectionKey: { startsWith: 'media_' },
+              },
+            },
+          },
           teachers: {
             where: { isActive: true },
             orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],

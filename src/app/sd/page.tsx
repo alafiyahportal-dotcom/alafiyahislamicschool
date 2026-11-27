@@ -19,8 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 30;
 
 export default async function SdLandingPage() {
   let dbSchool = null;
@@ -44,7 +43,7 @@ export default async function SdLandingPage() {
           newsPosts: {
             where: { isPublished: true },
             orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
-            take: 15,
+            take: 6,
           },
         },
       }),
