@@ -428,3 +428,4 @@ export default function EdukaBarChart({
     </div>
   );
 }
+

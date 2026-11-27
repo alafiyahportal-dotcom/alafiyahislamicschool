@@ -4,11 +4,12 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import { prisma } from '@/lib/prisma';
-import SmpDokumentasiClient, { SmpGalleryItem, DEFAULT_SMP_GALLERIES } from './SmpDokumentasiClient';
+import SmpDokumentasiClient, { SmpGalleryItem } from './SmpDokumentasiClient';
 
 export const metadata: Metadata = {
-  title: 'Dokumentasi & Galeri Murid SMP IT Al-Afiyah Majalengka',
-  description: 'Galeri foto dokumentasi resmi SMP IT Al-Afiyah Majalengka: Haflah Kelulusan Angkatan ke-3, penyematan medali tahfidz, kebersamaan sinergi wali murid, dan rihlah river tubing.',
+  title: 'Galeri Kegiatan & Dokumentasi | SMP IT Al-Afiyah Majalengka',
+  description:
+    'Galeri foto dokumentasi kegiatan santri SMP IT Al-Afiyah Majalengka: Haflah kelulusan angkatan ke-3, kepanduan Pramuka SIT, halaqah tahfidz Al-Qur\'an, pembelajaran aktif di kelas, dan rihlah river tubing.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -17,17 +18,12 @@ export const metadata: Metadata = {
     shortcut: '/images/smp-icon-192.png',
     apple: '/images/smp-icon-192.png',
   },
-  openGraph: {
-    title: 'Dokumentasi & Haflah Kelulusan SMP IT Al-Afiyah Majalengka',
-    description: 'Potret nyata kelulusan santri, prestasi tahfidz Qur\'an, dan kebersamaan di SMP IT Al-Afiyah.',
-    images: ['/images/smp-kelulusan-angkatan-3.jpg'],
-  },
 };
 
 export const revalidate = 60;
 
 export default async function SmpDokumentasiPage() {
-  let gallery: SmpGalleryItem[] = DEFAULT_SMP_GALLERIES;
+  let gallery: SmpGalleryItem[] | undefined = undefined;
 
   try {
     const school = await prisma.school.findUnique({
@@ -39,23 +35,23 @@ export default async function SmpDokumentasiPage() {
       const parsed = JSON.parse(cmsSec.payload);
       if (Array.isArray(parsed) && parsed.length > 0) {
         gallery = parsed.map((item: any, idx: number) => ({
-          id: `smp-gal-${idx + 1}`,
-          title: item.title || item.name || 'Dokumentasi SMP IT',
+          id: item.id || `smp-gal-cms-${idx + 1}`,
+          title: item.title || item.name || 'Dokumentasi Kegiatan SMP IT Al-Afiyah',
           image: item.image || '/images/smp-kelulusan-angkatan-3.jpg',
           desc: item.desc || item.description || '',
-          category: item.category || 'Wisuda & Kelulusan',
-          date: item.date || 'Tahun Ajaran 2025/2026',
-          location: item.location || 'SMP IT Al-Afiyah Majalengka'
+          category: item.category || 'Akademik & Literasi',
+          date: item.date || 'Tahun Ajaran Berjalan',
+          location: item.location || 'SMP IT Al-Afiyah Majalengka',
         }));
       }
     }
   } catch (err) {
-    console.error('Error fetching SMP gallery from CMS, using default list:', err);
+    console.error('Error fetching SMP gallery from CMS:', err);
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
-      <Navbar schoolSlug="smp" />
+    <div className="min-h-screen flex flex-col bg-white font-sans">
+      <Navbar schoolSlug="smp" transparentAtTop={false} />
       <main className="flex-1">
         <SmpDokumentasiClient initialGallery={gallery} />
       </main>

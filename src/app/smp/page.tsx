@@ -1,5 +1,6 @@
 import React from 'react';
 import SmpLandingView from '@/components/smp/SmpLandingView';
+import SmpWelcomeVideoModal from '@/components/smp/SmpWelcomeVideoModal';
 import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import { SMP_OG_IMAGE } from '@/lib/og-images';
@@ -7,7 +8,8 @@ import { externalizeNewsPostMedia } from '@/lib/news-media';
 
 export const metadata: Metadata = {
   title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious • Terakreditasi A',
-  description: 'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka T.A. 2027/2028. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025), target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD, Mutaba\'ah Digital, & Futsal Development Program. Diskon uang bangunan s.d. 70%.',
+  description:
+    'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka T.A. 2027/2028. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025), target tahfidz 3-5+ juz mutqin, Bahasa Arab aktif, SCD, Mutaba\'ah Digital, & Futsal Development Program. Diskon uang bangunan s.d. 70%.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -18,7 +20,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'SMP IT Al-Afiyah Majalengka | Be Smart & Religious',
-    description: 'SPMB SMP IT Al-Afiyah T.A. 2027/2028 Gelombang 1 dibuka. Diskon Uang Bangunan 70% (SDIT) dan 50% (Umum).',
+    description:
+      'SPMB SMP IT Al-Afiyah T.A. 2027/2028 Gelombang 1 dibuka. Diskon Uang Bangunan 70% (SDIT) dan 50% (Umum).',
     siteName: 'SMP IT Al-Afiyah',
     images: [SMP_OG_IMAGE],
   },
@@ -83,23 +86,28 @@ export default async function SmpLandingPage() {
     }
   }
   const heroData = sectionsMap.hero || {};
+  const newsConfig = sectionsMap.news_config || {};
 
   return (
-    <SmpLandingView
-      teachers={(dbSchool?.teachers || []).map((t) => ({
-        ...t,
-        name: t.name.toLowerCase().includes('jaja madhuri') ? 'Jaja Madhuri, S.Pd., M.Pd.' : t.name,
-      }))}
-      newsPosts={(dbSchool?.newsPosts || []).map((p) => externalizeNewsPostMedia(p))}
-      achievements={achievements}
-      cmsData={{
-        heroSlides: Array.isArray(heroData.slides) ? heroData.slides : undefined,
-        heroHeadline: heroData.headline,
-        heroSubheadline: heroData.subheadline,
-        programs: Array.isArray(sectionsMap.programs) ? sectionsMap.programs : undefined,
-        facilities: Array.isArray(sectionsMap.facilities) ? sectionsMap.facilities : undefined,
-        testimonials: Array.isArray(sectionsMap.testimonials) ? sectionsMap.testimonials : undefined,
-      }}
-    />
+    <>
+      <SmpWelcomeVideoModal />
+      <SmpLandingView
+        teachers={(dbSchool?.teachers || []).map((t) => ({
+          ...t,
+          name: t.name.toLowerCase().includes('jaja madhuri') ? 'Jaja Madhuri, S.Pd., M.Pd.' : t.name,
+        }))}
+        newsPosts={(dbSchool?.newsPosts || []).map((p) => externalizeNewsPostMedia(p))}
+        achievements={achievements}
+        cmsData={{
+          heroSlides: Array.isArray(heroData.slides) ? heroData.slides : undefined,
+          heroHeadline: heroData.headline,
+          heroSubheadline: heroData.subheadline,
+          programs: Array.isArray(sectionsMap.programs) ? sectionsMap.programs : undefined,
+          facilities: Array.isArray(sectionsMap.facilities) ? sectionsMap.facilities : undefined,
+          testimonials: Array.isArray(sectionsMap.testimonials) ? sectionsMap.testimonials : undefined,
+          newsCategories: Array.isArray(newsConfig.categories) ? newsConfig.categories : undefined,
+        }}
+      />
+    </>
   );
 }

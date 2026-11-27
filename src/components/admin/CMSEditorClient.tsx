@@ -1410,16 +1410,13 @@ export default function CMSEditorClient({
                     </p>
                   </div>
                 ) : schoolSlug === 'smp' ? (
-                  <div className="space-y-2">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#030164] border border-[#ffd51e]/40 text-[#ffd51e] text-[11px] font-black uppercase tracking-wider">
-                      TERAKREDITASI A • BE SMART &amp; RELIGIOUS
-                    </div>
-                    <h1 className="text-2xl sm:text-4xl font-black text-white leading-tight">
-                      {currentSlide.titlePart1}
-                      {currentSlide.titlePart1 && !currentSlide.titlePart1.endsWith(' ') ? ' ' : ''}
-                      <span className="text-[#ffd51e] underline decoration-[#ffd51e]/50 underline-offset-4">{currentSlide.titleHighlight}</span>
-                      {currentSlide.titlePart2 ? (currentSlide.titlePart2.startsWith(' ') ? currentSlide.titlePart2 : ` ${currentSlide.titlePart2}`) : ''}
+                  <div className="space-y-3 text-center mx-auto">
+                    <h1 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+                      {(formData.identity.name || 'SMP IT AL-AFIYAH MAJALENGKA').toUpperCase()}
                     </h1>
+                    <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-xl mx-auto">
+                      {currentSlide.description}
+                    </p>
                   </div>
                 ) : schoolSlug === 'tk' ? (
                   <div className="space-y-2">

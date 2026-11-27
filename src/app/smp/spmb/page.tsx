@@ -4,21 +4,15 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
-import {
-  ArrowRight,
-  ChevronRight,
-  ArrowLeft,
-  Award,
-  FileSearch,
-  Megaphone
-} from 'lucide-react';
+import { ChevronRight, ArrowRight, ExternalLink } from 'lucide-react';
 import SmpFeeInteractiveSection from './SmpFeeInteractiveSection';
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'SPMB SMP IT Al-Afiyah Majalengka TA 2027/2028 | Be Smart & Religious',
-  description: 'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025). Gelombang 1 diskon 70% uang bangunan (SDIT) dan 50% (umum). Bimbingan tahfidz 3-5+ juz mutqin dan bahasa Arab aktif.',
+  title: 'Informasi SPMB | SMP IT Al-Afiyah Majalengka TA 2027/2028',
+  description:
+    'Penerimaan Murid Baru (SPMB) SMP IT Al-Afiyah Majalengka Tahun Ajaran 2027/2028. Terakreditasi A (SK No. 012/BAN-PDM/SK/2025). Gelombang 1 diskon 70% uang bangunan (SDIT) dan 50% (umum).',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -27,96 +21,179 @@ export const metadata: Metadata = {
     shortcut: '/images/smp-icon-192.png',
     apple: '/images/smp-icon-192.png',
   },
-  openGraph: {
-    title: 'SPMB SMP IT Al-Afiyah Majalengka TA 2027/2028',
-    description: 'Gelombang 1 dibuka! Diskon uang bangunan s.d 70%. Bimbingan tahfidz 3-5+ juz & futsal development program.',
-    images: ['/images/smp-og.jpg'],
-  },
 };
 
 export default async function SmpSpmbInfoPage() {
+  const steps = [
+    {
+      title: 'Pengisian Formulir Online',
+      desc: 'Mengisi data calon murid dan orang tua/wali melalui halaman formulir pendaftaran online SMP IT Al-Afiyah.',
+    },
+    {
+      title: 'Infaq Pendaftaran & Unggah Berkas',
+      desc: 'Menyelesaikan infaq formulir pendaftaran Rp 200.000 ke rekening resmi Bank Muamalat 1360012405 a.n. SMP IT Al Afiyah dan mengunggah dokumen persyaratan.',
+    },
+    {
+      title: 'Observasi Bacaan Al-Qur’an & Wawancara Wali Murid',
+      desc: 'Pemetaan awal kemampuan bacaan Al-Qur’an calon murid serta silaturahmi keselarasan visi pendidikan bersama orang tua.',
+    },
+    {
+      title: 'Pengumuman Kelulusan & Daftar Ulang',
+      desc: 'Hasil seleksi diumumkan melalui halaman Pengumuman & WhatsApp resmi, dilanjutkan daftar ulang dan pengukuran seragam.',
+    },
+  ];
+
+  const requirements = [
+    'Lulusan SD / MI sederajat.',
+    'Scan / Fotokopi Akta Kelahiran.',
+    'Scan / Fotokopi Kartu Keluarga (KK) dan KTP kedua Orang Tua.',
+    'Scan / Fotokopi Rapor SD/MI atau Surat Keterangan Aktif Sekolah.',
+    'Pas foto berwarna ukuran 3x4.',
+    'Komitmen sinergi orang tua dalam mendampingi ibadah harian & Mutaba’ah Digital.',
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
-      <Navbar schoolSlug="smp" />
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans">
+      <Navbar schoolSlug="smp" transparentAtTop={false} />
 
-      {/* Hero Header */}
-      <section className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white pt-24 sm:pt-28 pb-14 sm:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffd51e_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <nav className="flex items-center gap-1.5 text-xs text-blue-200/90 mb-5 flex-wrap" aria-label="Breadcrumb">
-            <Link href="/smp" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SMP IT</span>
-            </Link>
-            <ChevronRight className="w-3 h-3 text-blue-300/50" />
-            <span className="text-[#ffd51e] font-semibold">Penerimaan Murid Baru (SPMB)</span>
-          </nav>
-
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
-              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Terakreditasi A • Tahun Ajaran 2027/2028</span>
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Al-Hidayah Style */}
+        <section className="bg-[#030164] text-white py-8 sm:py-10 border-b-4 border-[#ffd51e]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-xs text-blue-200/80 mb-1.5">
+                <Link href="/smp" className="hover:text-[#ffd51e] transition-colors">
+                  Beranda SMP IT
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-[#ffd51e]" />
+                <span className="text-[#ffd51e] font-semibold">SPMB</span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Informasi SPMB SMP IT Al-Afiyah T.A. 2027/2028
+              </h1>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              SPMB SMP IT Al-Afiyah
-            </h1>
-
-            <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Selamat datang calon murid dan orang tua murid. SMP IT Al-Afiyah Majalengka membuka pendaftaran murid baru Tahun Ajaran 2027/2028. Manfaatkan promo diskon uang bangunan hingga 70% di Gelombang 1.
-            </p>
-
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
+            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
               <Link
                 href="/smp/spmb/daftar"
-                className="group relative overflow-hidden w-full sm:w-auto px-6 py-3 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2 animate-cta-glow"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xs bg-[#ffd51e] hover:bg-amber-300 text-[#030164] font-extrabold text-xs transition-colors"
               >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent"
-                />
-                <span className="relative z-10">Isi Formulir Online</span>
-                <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow" />
+                <span>Isi Formulir</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <Link
                 href="/smp/spmb/cek-status"
-                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xs bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs transition-colors"
               >
-                <FileSearch className="w-3.5 h-3.5 text-blue-200" />
-                <span>Cek Status Berkas</span>
+                <span>Cek Status</span>
               </Link>
               <Link
                 href="/smp/spmb/pengumuman"
-                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium text-xs uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xs bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs transition-colors"
               >
-                <Megaphone className="w-3.5 h-3.5 text-blue-200" />
-                <span>Pengumuman Kelulusan</span>
-              </Link>
-              <Link
-                href="/affiliate/register?unit=smp"
-                className="group relative overflow-hidden w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-95 inline-flex items-center justify-center gap-2 animate-cta-glow-amber"
-              >
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-shimmer-delay bg-gradient-to-r from-transparent via-white/45 to-transparent"
-                />
-                <span className="relative z-10">Daftar Affiliate Al-Afiyah</span>
-                <span className="relative z-10 font-mono transition-transform duration-200 group-hover:translate-x-1 animate-cta-arrow">→</span>
+                <span>Pengumuman</span>
               </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-        <SmpFeeInteractiveSection />
+        {/* Info Ringkas Gelombang & Promo Diskon */}
+        <section className="py-6 bg-[#FAF6EC] border-b border-[#E5D5B2]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs sm:text-sm">
+            <div>
+              <span className="text-slate-500 block text-xs">Gelombang 1 (Promo)</span>
+              <strong className="text-[#030164] font-extrabold">1 Okt 2026 – 28 Feb 2027</strong>
+            </div>
+            <div>
+              <span className="text-slate-500 block text-xs">Promo Uang Bangunan</span>
+              <strong className="text-[#030164] font-extrabold">Diskon 70% SDIT / 50% Umum</strong>
+            </div>
+            <div>
+              <span className="text-slate-500 block text-xs">Infaq Formulir</span>
+              <strong className="text-[#030164] font-extrabold">Rp 200.000</strong>
+            </div>
+            <div>
+              <span className="text-slate-500 block text-xs">Rekening Resmi</span>
+              <strong className="text-[#030164] font-extrabold">Muamalat 1360012405</strong>
+            </div>
+          </div>
+        </section>
+
+        {/* Clean 2-Column Info: Alur & Syarat */}
+        <section className="py-10 sm:py-12 border-b border-slate-200">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
+            {/* Left: Alur Pendaftaran */}
+            <div className="space-y-4">
+              <h2 className="text-lg font-extrabold text-[#030164]">
+                Alur Pendaftaran
+              </h2>
+              <ol className="divide-y divide-slate-200 border-t border-b border-slate-200">
+                {steps.map((s, idx) => (
+                  <li key={idx} className="py-3.5 flex items-start gap-3.5">
+                    <span className="text-xs font-extrabold text-[#030164] mt-0.5 tabular-nums">
+                      {idx + 1}.
+                    </span>
+                    <div className="space-y-0.5">
+                      <h3 className="text-sm font-bold text-[#030164]">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {s.desc}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* Right: Persyaratan Berkas */}
+            <div className="space-y-5">
+              <h2 className="text-lg font-extrabold text-[#030164]">
+                Persyaratan Dokumen
+              </h2>
+              <ul className="divide-y divide-slate-200 border-t border-b border-slate-200 text-xs sm:text-sm text-slate-700">
+                {requirements.map((req, idx) => (
+                  <li key={idx} className="py-3 flex items-start gap-2.5">
+                    <span className="text-[#030164] font-bold">•</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="pt-2 flex flex-wrap gap-3">
+                <Link
+                  href="/smp/spmb/daftar"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xs bg-[#030164] hover:bg-[#090580] text-white font-bold text-xs transition-colors"
+                >
+                  <span>Lanjut ke Formulir Pendaftaran</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <a
+                  href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi%20pendaftaran"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xs border border-slate-300 hover:border-[#030164] text-[#030164] font-bold text-xs transition-colors"
+                >
+                  <span>Hubungi Panitia (0822-4935-7893)</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Rincian Biaya Interaktif (Ikhwan/Akhwat & Diskon 70%/50%) */}
+        <section className="py-10 sm:py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SmpFeeInteractiveSection />
+        </section>
       </main>
 
       <Footer schoolSlug="smp" />
-      <StickyMobileBar schoolSlug="smp" waPhone="6282249357893" schoolName="SMP IT Al-Afiyah" />
+      <StickyMobileBar
+        schoolSlug="smp"
+        waPhone="6282249357893"
+        schoolName="SMP IT Al-Afiyah"
+      />
     </div>
   );
 }

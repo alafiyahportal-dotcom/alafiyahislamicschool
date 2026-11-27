@@ -1,279 +1,613 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import CampusLocationMapSection from '@/components/landing/CampusLocationMapSection';
-import ScrollReveal from '@/components/landing/ScrollReveal';
-import UnitHeroSlider from '@/components/landing/UnitHeroSlider';
-import Hero3DStatCards from '@/components/landing/Hero3DStatCards';
-import { 
-  ArrowRight, 
-  MessageCircle, 
-  CheckCircle2, 
-  ShieldCheck, 
-  Award, 
-  Calendar, 
-  Download, 
-  ZoomIn, 
-  FileText, 
-  Copy, 
-  Check, 
-  Percent, 
-  Tag, 
-  CreditCard, 
-  MapPin,
+import AutoHorizontalSlider from '@/components/landing/AutoHorizontalSlider';
+import {
+  ChevronLeft,
+  ChevronRight,
   ChevronDown,
-  Flame,
-  Building2,
-  Monitor,
-  Wifi,
-  Trophy,
-  BookOpen,
-  Languages,
-  Smartphone,
-  Users,
-  Compass,
+  ArrowRight,
+  Calendar,
+  Clock,
+  MapPin,
+  Plus,
+  Minus,
+  LayoutGrid,
+  List,
+  Download,
   X,
-  ExternalLink
+  User,
+  Film,
+  Users,
+  MessageCircle,
+  Calculator,
+  Check,
+  Copy,
 } from 'lucide-react';
 import { getStoredReferralCode } from '@/lib/referral';
-import { getDepartmentByRole, type TeacherData, type NewsData, type FacilityItem } from '@/components/landing/SchoolLandingTemplate';
-import UnitAchievementSection from '@/components/landing/UnitAchievementSection';
-import AutoHorizontalSlider from '@/components/landing/AutoHorizontalSlider';
+import {
+  mergeUniqueStrings,
+  parseNewsMedia,
+  getVideoEmbedUrl,
+} from '@/lib/news-media';
+import { getDepartmentByRole } from '@/lib/departments';
+import type { UnitSlideData } from '@/components/landing/UnitHeroSlider';
 
-export interface SmpLandingViewProps {
-  teachers?: TeacherData[];
-  newsPosts?: NewsData[];
-  achievements?: any[];
+export interface SmpLandingProps {
+  teachers?: Array<{
+    id: string;
+    name: string;
+    role: string;
+    specialization?: string | null;
+    bio?: string | null;
+    photoUrl?: string | null;
+  }>;
+  newsPosts?: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    category: string;
+    excerpt: string;
+    content: string;
+    coverImage?: string | null;
+    author: string;
+    publishedAt: string | Date;
+  }>;
+  achievements?: Array<any>;
   cmsData?: {
-    heroSlides?: any[];
+    heroSlides?: UnitSlideData[];
     heroHeadline?: string;
     heroSubheadline?: string;
-    programs?: any[];
-    facilities?: any[];
-    testimonials?: any[];
+    programs?: Array<{
+      id?: string;
+      title: string;
+      badge?: string;
+      desc: string;
+      highlights?: string[];
+    }>;
+    facilities?: Array<{
+      id?: string;
+      name?: string;
+      title?: string;
+      image: string;
+      desc: string;
+      category?: string;
+    }>;
+    testimonials?: Array<{
+      name: string;
+      role: string;
+      quote: string;
+      tag?: string;
+    }>;
+    newsCategories?: string[];
   };
 }
 
-const SMP_POSTERS = [
-  { src: '/images/smp-spmb-poster.png', label: 'Poster Resmi SPMB', file: 'Poster-Resmi-SPMB-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
-  { src: '/images/smp-spmb-biaya.png', label: 'Biaya Pendidikan & Diskon', file: 'Poster-Biaya-Pendidikan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
-  { src: '/images/smp-program-unggulan.png', label: 'Program Unggulan & Fasilitas', file: 'Poster-Program-Unggulan-SMP-IT-Al-Afiyah-2027-2028.png', width: 800, height: 1000 },
+export function sanitizeAdabText(text?: string | null): string {
+  if (!text) return '';
+  return text
+    .replace(/\bSAW\b/g, 'ﷺ')
+    .replace(/rasulullah\s+saw\b/gi, 'Rasulullah ﷺ')
+    .replace(/nabi\s+saw\b/gi, 'Nabi ﷺ')
+    .replace(/\bSWT\b/g, "Ta'ala")
+    .replace(/allah\s+swt\b/gi, "Allah Ta'ala");
+}
+
+function InstagramPinIcon() {
+  return (
+    <svg
+      className="w-5 h-5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function GlowingInstagramPin({
+  className,
+  rippleColor = '#ff2b56',
+}: {
+  className: string;
+  rippleColor?: string;
+}) {
+  return (
+    <a
+      href="https://www.instagram.com/smpitalafiyahmjl"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Instagram SMP IT Al-Afiyah"
+      className={`group absolute w-[50px] h-[50px] rounded-full bg-[#d81b60] hover:bg-[#ad1457] text-white flex items-center justify-center z-20 transition-transform duration-300 hover:scale-105 ${className}`}
+      style={{ color: rippleColor }}
+    >
+      <span
+        className="absolute inset-0 rounded-full pointer-events-none"
+        style={{
+          animation: 'praditaButtonRipple 3s infinite',
+          animationDelay: '0s',
+          opacity: 0.6,
+          zIndex: -1,
+        }}
+      />
+      <span
+        className="absolute inset-0 rounded-full pointer-events-none"
+        style={{
+          animation: 'praditaButtonRipple 3s infinite',
+          animationDelay: '0.3s',
+          opacity: 0.6,
+          zIndex: -1,
+        }}
+      />
+      <span
+        className="absolute inset-0 rounded-full pointer-events-none"
+        style={{
+          animation: 'praditaButtonRipple 3s infinite',
+          animationDelay: '0.9s',
+          opacity: 0.6,
+          zIndex: -1,
+        }}
+      />
+      <span className="text-white flex items-center justify-center">
+        <InstagramPinIcon />
+      </span>
+    </a>
+  );
+}
+
+function FeatureIllustration({
+  type,
+}: {
+  type: 'school' | 'curriculum' | 'scholarship' | 'teachers';
+}) {
+  if (type === 'school') {
+    return (
+      <svg className="w-14 h-14 mx-auto" viewBox="0 0 64 64" fill="none">
+        <path d="M8 22L32 12L56 22H8Z" fill="#F5B82E" />
+        <rect x="10" y="22" width="44" height="30" rx="2" fill="#030164" />
+        <path d="M22 26L32 18L42 26H22Z" fill="#F5B82E" />
+        <rect x="25" y="28" width="3" height="16" fill="#E2E8F0" />
+        <rect x="30.5" y="28" width="3" height="16" fill="#E2E8F0" />
+        <rect x="36" y="28" width="3" height="16" fill="#E2E8F0" />
+        <rect x="21" y="44" width="22" height="4" fill="#F5B82E" />
+        <rect x="18" y="48" width="28" height="4" fill="#CBD5E1" />
+      </svg>
+    );
+  }
+  if (type === 'curriculum') {
+    return (
+      <svg className="w-14 h-14 mx-auto" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="20" r="9" fill="#38BDF8" />
+        <path
+          d="M26 16C28 14 33 15 35 18C37 21 34 25 30 25C27 25 25 20 26 16Z"
+          fill="#030164"
+        />
+        <path
+          d="M23 20A9 9 0 0 0 41 20"
+          stroke="#030164"
+          strokeWidth="2.5"
+          fill="none"
+        />
+        <rect x="30.5" y="29" width="3" height="5" fill="#030164" />
+        <rect x="25" y="33" width="14" height="2.5" rx="1" fill="#030164" />
+        <rect x="16" y="36" width="32" height="7" rx="2" fill="#F5B82E" />
+        <rect x="18" y="38" width="26" height="3" fill="#FFFFFF" />
+        <rect x="14" y="45" width="36" height="7" rx="2" fill="#030164" />
+        <rect x="16" y="47" width="30" height="3" fill="#FFFFFF" />
+      </svg>
+    );
+  }
+  if (type === 'scholarship') {
+    return (
+      <svg className="w-14 h-14 mx-auto" viewBox="0 0 64 64" fill="none">
+        <circle
+          cx="32"
+          cy="20"
+          r="10"
+          fill="#F5B82E"
+          stroke="#D97706"
+          strokeWidth="2"
+        />
+        <text
+          x="32"
+          y="24"
+          textAnchor="middle"
+          fill="#FFFFFF"
+          fontSize="12"
+          fontWeight="bold"
+        >
+          ★
+        </text>
+        <path d="M10 34L32 24L54 34L32 44L10 34Z" fill="#01003d" />
+        <path
+          d="M19 39V49C19 52 25 55 32 55C39 55 45 52 45 49V39L32 45L19 39Z"
+          fill="#030164"
+        />
+        <rect x="19" y="48" width="26" height="3.5" fill="#F5B82E" />
+        <path
+          d="M50 35V47"
+          stroke="#F5B82E"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  }
+  return (
+    <svg className="w-14 h-14 mx-auto" viewBox="0 0 64 64" fill="none">
+      <circle cx="19" cy="24" r="5.5" fill="#FDBA74" />
+      <path d="M14 22C14 18 24 18 24 22" fill="#01003d" />
+      <path
+        d="M10 48C10 40 14 36 19 36C24 36 28 40 28 48H10Z"
+        fill="#030164"
+      />
+      <circle cx="45" cy="24" r="5.5" fill="#FDBA74" />
+      <path d="M39 24C39 18 51 18 51 25" fill="#01003d" />
+      <path
+        d="M36 48C36 40 40 36 45 36C50 36 54 40 54 48H36Z"
+        fill="#030164"
+      />
+      <circle cx="32" cy="20" r="6.5" fill="#FDBA74" />
+      <path d="M26 18C26 13 38 13 38 18" fill="#01003d" />
+      <path
+        d="M20 50C20 40 25 34 32 34C39 34 44 40 44 50H20Z"
+        fill="#F5B82E"
+      />
+      <path
+        d="M28 34L32 43L36 34"
+        stroke="#030164"
+        strokeWidth="2.5"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+const DEFAULT_HERO_IMAGES = [
+  {
+    id: 'smp-bg-1',
+    src: '/images/smp-kelulusan-angkatan-3.jpg',
+    alt: 'Haflah Kelulusan Angkatan ke-3 SMP IT Al-Afiyah Majalengka',
+    objectPosition: 'object-center',
+  },
+  {
+    id: 'smp-bg-2',
+    src: '/images/smp-halaqah-tahfidz-quran.jpg',
+    alt: 'Halaqah Tahfidz Al-Quran SMP IT Al-Afiyah',
+    objectPosition: 'object-center',
+  },
+  {
+    id: 'smp-bg-3',
+    src: '/images/smp-kelas-literasi.jpg',
+    alt: 'Pembelajaran Aktif di Kelas SMP IT Al-Afiyah',
+    objectPosition: 'object-center',
+  },
+  {
+    id: 'smp-bg-4',
+    src: '/images/smp-pramuka-outdoor.jpg',
+    alt: 'Kepanduan Pramuka SIT & Karakter Outdoor SMP IT Al-Afiyah',
+    objectPosition: 'object-center',
+  },
 ];
 
-const SMP_PROGRAMS = [
+const DEFAULT_FEATURE_BOXES = [
   {
-    number: '01',
-    title: 'Tahfidz 3 - 5+ Juz Mutqin',
-    category: 'Al-Qur\'an',
-    desc: 'Bimbingan talaqqi tartil Juz 28, 29, 30 hingga kelas unggulan 5+ juz.',
-    href: '/smp/program',
-    icon: BookOpen,
+    title: 'TERAKREDITASI A RESMI &\nDISKON BANGUNAN S.D. 70%',
+    href: '/smp/spmb',
+    iconType: 'school' as const,
   },
   {
-    number: '02',
-    title: 'Fasih Berbahasa Arab',
-    category: 'Bahasa Asing',
-    desc: 'Pembiasaan percakapan harian, kosa kata, dan pidato bahasa Arab aktif.',
+    title: 'TAHFIDZ 3 - 5+ JUZ MUTQIN\n& FASIH BAHASA ARAB',
     href: '/smp/program',
-    icon: Languages,
+    iconType: 'scholarship' as const,
   },
   {
-    number: '03',
-    title: 'SCD (Student Character Development)',
-    category: 'Karakter & Adab',
-    desc: 'Pembinaan adab, kemandirian aqil-baligh, kepemimpinan, dan disiplin ibadah.',
+    title: 'CHARACTER DEVELOPMENT (SCD)\n& MUTABA’AH DIGITAL',
     href: '/smp/karakter',
-    icon: ShieldCheck,
+    iconType: 'curriculum' as const,
   },
   {
-    number: '04',
-    title: 'Mutaba\'ah Digital Terintegrasi',
-    category: 'Teknologi Edukasi',
-    desc: 'Pantauan ibadah harian murid yang terhubung langsung dengan orang tua.',
-    href: '/smp/program',
-    icon: Smartphone,
-  },
-  {
-    number: '05',
-    title: 'Futsal Development Program',
-    category: 'Olahraga Prestasi',
-    desc: 'Pembinaan bakat futsal terarah bersama pelatih dan keikutsertaan turnamen.',
-    href: '/smp/program',
-    icon: Trophy,
-  },
-  {
-    number: '06',
-    title: 'Ekstrakurikuler Pilihan',
-    category: 'Bakat & Minat',
-    desc: 'Pramuka SIT, Tata Boga, Panahan, Kaligrafi, dan English Club.',
-    href: '/smp/program',
-    icon: Flame,
+    title: 'FUTSAL DEVELOPMENT PROGRAM\n& PRAMUKA SIT',
+    href: '/smp/fasilitas',
+    iconType: 'teachers' as const,
   },
 ];
 
-const SMP_FACILITIES = [
+const SPMB_POSTERS = [
   {
-    title: 'Ruang Kelas Pembelajaran & Literasi',
-    category: 'Ruang Belajar',
-    image: '/images/smp-kelas-literasi.jpg',
-    desc: 'Ruang kelas kondusif ber-AC dengan proyektor multimedia.',
+    src: '/images/smp-spmb-poster.png',
+    label: 'Poster Utama SPMB',
+    file: 'Poster-SPMB-SMP-IT-Al-Afiyah-2027-2028.png',
   },
   {
-    title: 'Perpustakaan & Pojok Literasi Sekolah',
-    category: 'Perpustakaan',
-    image: '/images/smp-perpustakaan-literasi.jpg',
-    desc: 'Ruang baca nyaman dengan koleksi buku keislaman dan sains.',
+    src: '/images/smp-spmb-biaya.png',
+    label: 'Rincian Biaya & Diskon',
+    file: 'Rincian-Biaya-SPMB-SMP-IT-Al-Afiyah-2027-2028.png',
   },
   {
-    title: 'Aula Pertemuan & Ruang Serbaguna Utama',
-    category: 'Aula & Pertemuan',
-    image: '/images/smp-haflah-aula.jpg',
-    desc: 'Aula ber-AC untuk pertemuan wali murid dan kegiatan sekolah.',
-  },
-  {
-    title: 'Ruang Bimbingan & Konsultasi Belajar',
-    category: 'Konseling & Akademik',
-    image: '/images/smp-kelulusan-konsultasi.jpg',
-    desc: 'Ruang konsultasi capaian belajar murid bersama orang tua.',
-  },
-  {
-    title: 'Masjid & Pusat Halaqah Tahfidz Qur\'an',
-    category: 'Pusat Ibadah',
-    image: '/images/smp-masjid-pusat-halaqah.jpg',
-    desc: 'Pusat shalat berjamaah, dzikir, dan halaqah tahfidz.',
-  },
-  {
-    title: 'Panggung Prestasi & Ekspresi Santri',
-    category: 'Panggung Prestasi',
-    image: '/images/smp-kelulusan-angkatan-3.jpg',
-    desc: 'Sarana penampilan khitabah dwibahasa dan apresiasi prestasi.',
+    src: '/images/smp-program-unggulan.png',
+    label: '6 Program Unggulan',
+    file: 'Program-Unggulan-SMP-IT-Al-Afiyah-2027-2028.png',
   },
 ];
 
-const SMP_SUPPORTING_FACILITIES = [
+const BIAYA_ITEMS = [
+  { item: 'Pendaftaran & Observasi', ikhwan: 200000, akhwat: 200000, note: 'Sekali di awal pendaftaran' },
+  { item: 'Uang Bangunan (Gedung)', ikhwan: 2500000, akhwat: 2500000, note: 'Diskon 70% SDIT / 50% Umum di Gel 1' },
+  { item: 'Fasilitas Pembelajaran (AC & Lab)', ikhwan: 500000, akhwat: 500000, note: 'Sarana kelas ber-AC & IT' },
+  { item: 'Paket Seragam Lengkap', ikhwan: 1100000, akhwat: 1400000, note: '4 stel seragam + atribut sekolah' },
+  { item: 'Paket Buku Pelajaran & Diniyyah', ikhwan: 1000000, akhwat: 1000000, note: 'Paket buku teks 1 tahun' },
+  { item: 'Kegiatan Siswa 1 Tahun', ikhwan: 1700000, akhwat: 1700000, note: 'Rihlah tubing, mabit, PHBI & outing' },
+  { item: 'SPP Bulan Pertama (Juli)', ikhwan: 300000, akhwat: 300000, note: 'Termasuk mutaba\'ah digital' },
+];
+
+const FAQ_ITEMS = [
   {
-    icon: Building2,
-    title: 'Ruang Kelas Ber-AC',
-    desc: 'Ber-AC & proyektor multimedia di setiap kelas.',
+    question: 'KAPAN JADWAL PENDAFTARAN SPMB GELOMBANG 1 & 2 SMP IT AL-AFIYAH?',
+    answer:
+      'Gelombang 1 dibuka tanggal 1 Oktober 2026 – 28 Februari 2027 (Promo Diskon 70% Uang Bangunan bagi siswa SDIT Al-Afiyah & Diskon 50% bagi siswa luar/umum). Gelombang 2 dibuka tanggal 1 Maret – 30 Juni 2027 dengan tarif normal selama kuota masih tersedia.',
   },
   {
-    icon: Monitor,
-    title: 'Lab Komputer & CBT',
-    desc: 'Perangkat komputer & internet untuk asesmen CBT.',
+    question: 'BERAPA PERBEDAAN RINCIAN BIAYA ANTARA MURID IKHWAN DAN AKHWAT?',
+    answer:
+      'Seluruh komponen biaya sama, kecuali Paket Seragam Lengkap (Ikhwan Rp 1.100.000, Akhwat Rp 1.400.000 karena tambahan jilbab syar’i). Total Gelombang 1 Diskon 70% (SDIT): Ikhwan Rp 5.550.000 / Akhwat Rp 5.850.000. Total Gelombang 1 Diskon 50% (Umum): Ikhwan Rp 6.050.000 / Akhwat Rp 6.350.000.',
   },
   {
-    icon: Trophy,
-    title: 'Lapangan Olahraga & Futsal',
-    desc: 'Sarana latihan Futsal Development Program & olahraga.',
+    question: 'APAKAH CALON MURID WAJIB SUDAH LANCAR MEMBACA AL-QUR’AN SAAT MENDAFTAR?',
+    answer:
+      'Saat observasi akan dilakukan pemetaan kemampuan bacaan Al-Qur’an. Bagi murid yang belum lancar tajwid/makhrajnya akan masuk kelas Tahsin Intensif sebelum melanjutkan setoran target Tahfidz 3–5+ Juz Mutqin.',
   },
   {
-    icon: Wifi,
-    title: 'Mutaba\'ah Digital',
-    desc: 'Sistem presensi & pantauan ibadah harian online.',
+    question: 'BAGAIMANA SISTEM PEMANTAUAN IBADAH HARIAN MURID (MUTABA’AH DIGITAL)?',
+    answer:
+      'Setiap murid dibekali akun Mutaba’ah Digital untuk memantau shalat fardhu 5 waktu, shalat dhuha, tilawah harian, dzikir pagi-petang, serta adab birrul walidain di rumah yang terhubung langsung antara wali kelas dan orang tua.',
+  },
+  {
+    question: 'KE REKENING MANA PEMBAYARAN BIAYA PENDAFTARAN RP 200.000 DITRANSFER?',
+    answer:
+      'Seluruh pembayaran resmi SPMB ditransfer ke Bank Muamalat No. Rekening 1360012405 a.n. SMP IT Al Afiyah. Konfirmasi bukti transfer dikirimkan melalui formulir online atau WhatsApp Panitia 0822-4935-7893.',
   },
 ];
 
-const SMP_DOKUMENTASI_CARDS = [
+const UPCOMING_EVENTS = [
+  // Slide 1 (Halaman 1)
   {
+    day: '28',
+    month: 'Feb',
+    year: '2027',
+    title: 'Penutupan SPMB Gelombang 1 (Diskon Bangunan 70% & 50%)',
+    dateTime: '1 Okt 2026 - 28 Feb 2027 @ 07:30 - 14:30 WIB',
+    location: 'SMP IT Al-Afiyah Majalengka',
+    tag: 'SPMB Gel. 1',
+    image: '/images/smp-spmb-poster.png',
+    href: '/smp/spmb/daftar',
+  },
+  {
+    day: '15',
+    month: 'Nov',
+    year: '2026',
+    title: 'Tasmi’ Akbar Tahfidz Al-Qur’an 3 Juz Sekali Duduk',
+    dateTime: 'Semester Ganjil @ 07:30 - 11:30 WIB',
+    location: 'Masjid SMP IT Al-Afiyah',
+    tag: 'Tahfidz',
+    image: '/images/smp-tasmi-mutabaah-digital.jpg',
+    href: '/smp/program',
+  },
+  {
+    day: '14',
+    month: 'Des',
+    year: '2026',
+    title: 'Turnamen Futsal Development Program & Kepanduan SIT',
+    dateTime: 'Desember 2026 @ 08:00 - 15:00 WIB',
+    location: 'Lapangan Olahraga SMP IT',
+    tag: 'Olahraga',
     image: '/images/smp-pramuka-outdoor.jpg',
-    category: 'Kepanduan SIT',
-    title: 'Pramuka SIT & Kepanduan Karakter Outdoor di Alam Terbuka',
-    badge: 'Kepanduan & Karakter',
-    desc: 'Kegiatan kepanduan Pramuka SIT melatih ketangkasan fisik, kemandirian di alam terbuka, kerja sama regu, dan kecintaan pada tadabbur ciptaan Allah SWT.',
+    href: '/smp/fasilitas',
+  },
+  // Slide 2 (Halaman 2)
+  {
+    day: '24',
+    month: 'Jan',
+    year: '2027',
+    title: 'Mabit Ruhiyah & Muhasabah Remaja (SCD Character Camp)',
+    dateTime: 'Januari 2027 @ 16:00 - 07:00 WIB',
+    location: 'Kampus Giri Asih SMP IT Al-Afiyah',
+    tag: 'Karakter SCD',
+    image: '/images/smp-masjid-pusat-halaqah.jpg',
+    href: '/smp/karakter',
   },
   {
-    image: '/images/smp-kelas-literasi.jpg',
-    category: 'Akademik & Literasi',
-    title: 'Pembelajaran Aktif di Ruang Kelas Berwawasan Global',
-    badge: 'Kelas Interaktif',
-    desc: 'Suasana kelas yang kondusif dengan metode pembelajaran aktif, interaktif, dan terintegrasi nilai-nilai keislaman untuk membangun nalar kritis santri.',
-  },
-  {
-    image: '/images/smp-perpustakaan-literasi.jpg',
-    category: 'Akademik & Literasi',
-    title: 'Budaya Literasi & Riset Mandiri di Perpustakaan Sekolah',
-    badge: 'Pojok Literasi',
-    desc: 'Penyediaan referensi buku bermutu, kitab-kitab dasar, dan ruang baca nyaman untuk menumbuhkan gemar membaca dan riset mandiri santri.',
-  },
-  {
-    image: '/images/smp-kelulusan-angkatan-3.jpg',
-    category: 'Wisuda & Prestasi',
-    title: 'Haflah Kelulusan & Kenaikan Santri Angkatan ke-3 (2025/2026)',
-    badge: 'Kelulusan Santri',
-    desc: 'Momen penuh haru dan kebanggaan haflah kelulusan santri SMP IT Al-Afiyah angkatan ke-3 dengan capaian hafalan Al-Qur\'an mutqin dan prestasi gemilang.',
-  },
-  {
-    image: '/images/smp-santri-ikhwan-wisuda.jpg',
-    category: 'Karakter & Adab',
-    title: 'Generasi Pemimpin Berakhlak Qur\'ani, Mandiri & Siap Berkompetisi',
-    badge: 'Karakter & Disiplin',
-    desc: 'Santri ikhwan ditempa menjadi pribadi yang berintegritas, mandiri, beradab mulia, dan memiliki visi kepemimpinan masa depan berlandaskan Al-Qur\'an dan As-Sunnah.',
-  },
-  {
+    day: '20',
+    month: 'Feb',
+    year: '2027',
+    title: 'Rihlah Edukatif & Tadabbur Alam River Tubing Cikadongdong',
+    dateTime: 'Februari 2027 @ 07:30 - 15:00 WIB',
+    location: 'Cikadongdong River Tubing, Majalengka',
+    tag: 'Rihlah & Outing',
     image: '/images/smp-tubing-1.jpg',
-    category: 'Rihlah & Outing',
-    title: 'Petualangan River Tubing Cikadongdong & Tadabbur Alam',
-    badge: 'Rihlah & Outing',
-    desc: 'Aktivitas petualangan river tubing di Sungai Cikadongdong sebagai sarana rihlah tadabbur alam, mempererat ukhuwah antar santri, dan melatih keberanian fisik.',
+    href: '/smp/dokumentasi',
+  },
+  {
+    day: '20',
+    month: 'Jun',
+    year: '2027',
+    title: 'Haflah Akhirussanah, Wisuda Tahfidz & Apresiasi Prestasi Santri',
+    dateTime: 'Juni 2027 @ 08:00 - 12:30 WIB',
+    location: 'Aula Utama SMP IT Al-Afiyah',
+    tag: 'Haflah & Wisuda',
+    image: '/images/smp-kelulusan-angkatan-3.jpg',
+    href: '/smp/dokumentasi',
   },
 ];
 
-const SMP_FAQS = [
+const DEFAULT_SMP_NEWS = [
   {
-    q: 'Kapan pendaftaran SPMB SMP IT Al-Afiyah dibuka?',
-    a: 'SPMB SMP IT Al-Afiyah dibuka dalam 2 gelombang: Gelombang 1 (1 Oktober 2026 – 28 Februari 2027) dengan diskon Uang Bangunan hingga 70%, dan Gelombang 2 (1 Maret 2027 – 30 Juni 2027) tanpa diskon.',
+    id: 'smp-news-1',
+    title: 'Haflah Kelulusan & Kenaikan Kelas SMP IT Al-Afiyah Angkatan ke-3: Melangkah Pasti Meraih Prestasi',
+    slug: 'haflah-kelulusan-angkatan-3-smp-it-al-afiyah',
+    category: 'Kegiatan',
+    excerpt:
+      'Momen khidmat pelepasan santri angkatan ke-3 SMP IT Al-Afiyah Majalengka bertema Melangkah Pasti Meraih Prestasi, Berakhlak Islami, Siap Berkompetisi — Be Smart & Religious.',
+    content:
+      'Alhamdulillah, prosesi Haflah Kelulusan dan Kenaikan Kelas SMP IT Al-Afiyah Majalengka Angkatan ke-3 berlangsung khidmat dan penuh haru di Aula Utama sekolah.\n\nAcara dihadiri oleh Ketua Yayasan Pendidikan Imam Bonjol, Kepala Sekolah Ust. Jaja Madhuri, S.Pd., M.Pd., jajaran dewan asatidz, serta seluruh orang tua/wali santri yang turut menyaksikan penyematan penghargaan tahfidz dan prestasi akademik.',
+    coverImage: '/images/smp-kelulusan-angkatan-3.jpg',
+    author: 'Humas SMP IT Al-Afiyah',
+    publishedAt: '2026-06-22T08:00:00.000Z',
   },
   {
-    q: 'Berapa besaran diskon Uang Bangunan di Gelombang 1?',
-    a: 'Di Gelombang 1, pendaftar lulusan SDIT Al-Afiyah mendapatkan Diskon 70% Uang Bangunan (hemat Rp 1.750.000). Sedangkan pendaftar dari sekolah luar SDIT/Umum mendapatkan Diskon 50% Uang Bangunan (hemat Rp 1.250.000).',
+    id: 'smp-news-2',
+    title: 'Ujian Tasmi’ Al-Qur’an & Evaluasi Mutaba’ah Digital Santri Bersama Dewan Asatidz',
+    slug: 'ujian-tasmi-quran-dan-mutabaah-digital-smp-it',
+    category: 'Tahfidz',
+    excerpt:
+      'Santri SMP IT Al-Afiyah melaksanakan ujian tasmi’ hafalan Al-Qur’an sekali duduk serta evaluasi catatan ibadah harian melalui sistem Mutaba’ah Digital.',
+    content:
+      'Program unggulan Tahfidz Al-Qur’an 3–5+ Juz di SMP IT Al-Afiyah dikawal melalui halaqah talaqqi rutin setiap pagi dan ujian tasmi’ berkala di Masjid sekolah.\n\nSelain penjagaan kualitas tajwid dan kelancaran hafalan (mutqin), pembiasaan ibadah harian santri dipantau secara transparan melalui sistem Mutaba’ah Digital yang terintegrasi dengan orang tua.',
+    coverImage: '/images/smp-tasmi-mutabaah-digital.jpg',
+    author: 'Koordinator Tahfidz SMP IT',
+    publishedAt: '2026-10-12T08:00:00.000Z',
   },
   {
-    q: 'Apakah SMP IT Al-Afiyah sudah terakreditasi resmi?',
-    a: 'Ya, SMP IT Al-Afiyah telah Terakreditasi A Resmi oleh BAN-PDM dengan predikat Unggul (SK No. 012/BAN-PDM/SK/2025).',
-  },
-  {
-    q: 'Apa saja program unggulan khusus di SMP IT Al-Afiyah?',
-    a: 'Program unggulan kami meliputi: Tahfidz Al-Qur\'an 3 – 5+ Juz Mutqin, Fasih Berbahasa Arab (lisan & tulisan), SCD (Student Character Development), Mutaba\'ah Digital terintegrasi, dan Futsal Development Program.',
-  },
-  {
-    q: 'Bagaimana alur pendaftaran dan rekening pembayaran resmi?',
-    a: 'Orang tua dapat mengisi formulir online yang ringkas melalui menu pendaftaran online website ini atau datang langsung ke sekolah di Lingkungan Giri Asih (Jl. Gerakan Koperasi No. 110, Majalengka Wetan). Infaq formulir sebesar Rp 200.000 ditransfer ke Bank Muamalat No. Rek 1360012405 a.n SMP IT Al Afiyah.',
+    id: 'smp-news-3',
+    title: 'Tadabbur Alam & Petualangan River Tubing Cikadongdong: Melatih Keberanian & Ukhuwah Santri',
+    slug: 'tadabbur-alam-river-tubing-cikadongdong-smp-it',
+    category: 'Outing Class',
+    excerpt:
+      'Kegiatan outing class river tubing di Sungai Cikadongdong Majalengka menumbuhkan ketangguhan fisik, kepemimpinan, dan mempererat ukhuwah islamiyah antarsantri.',
+    content:
+      'Dalam rangka menyeimbangkan kebugaran jasmani dan penyegaran semangat belajar, santri SMP IT Al-Afiyah mengikuti kegiatan Rihlah Tadabbur Alam & River Tubing di Cikadongdong, Majalengka.\n\nDidampingi langsung oleh para asatidz pembina dan tim instruktur keselamatan, para santri belajar keberanian, kerja sama tim, serta mensyukuri keindahan alam ciptaan Allah Ta’ala.',
+    coverImage: '/images/smp-tubing-1.jpg',
+    author: 'Kesiswaan SMP IT Al-Afiyah',
+    publishedAt: '2026-09-28T08:00:00.000Z',
   },
 ];
 
-export default function SmpLandingView({ teachers = [], newsPosts = [], achievements = [], cmsData }: SmpLandingViewProps) {
-  const [activePoster, setActivePoster] = useState(SMP_POSTERS[0]);
+const DEFAULT_SMP_TEACHERS = [
+  {
+    id: 'smp-t-0',
+    name: 'Jejen Nurbayan, S.Sos',
+    role: 'Ketua Yayasan Pendidikan Imam Bonjol',
+    specialization: 'Manajemen Kelembagaan & Kebijakan Yayasan',
+    bio: 'Mengarahkan visi pendidikan terpadu berlandaskan tauhid dan akhlak mulia demi masa depan generasi Qur\'ani.',
+  },
+  {
+    id: 'smp-t-1',
+    name: 'Jaja Madhuri, S.Pd., M.Pd.',
+    role: 'Kepala Sekolah SMP IT Al-Afiyah',
+    specialization: 'Manajemen Pendidikan Islam & Karakter',
+    bio: 'Memimpin penyelenggaraan pendidikan SMP IT Al-Afiyah dengan visi mencetak generasi Smart & Religious berakhlak Qur\'ani.',
+  },
+  {
+    id: 'smp-t-2',
+    name: 'M. Akbar Pratama, S.Pd.',
+    role: 'PKS Kurikulum (Pembantu Kepala Sekolah)',
+    specialization: 'Pengembangan Kurikulum Terpadu & Mutu Akademik',
+    bio: 'Mengawal integrasi Kurikulum Nasional dan kurikulum pesantren khas Al-Afiyah, riset sains, dan kecakapan akademik santri.',
+  },
+  {
+    id: 'smp-t-3',
+    name: 'Rio Satrio, S.Pd.',
+    role: 'PKS Kesiswaan (Pembantu Kepala Sekolah)',
+    specialization: 'Pembinaan Karakter Santri, Disiplin & Minat Bakat',
+    bio: 'Membina kedisiplinan, kepemimpinan nabawiyah, program SCD (Student Character Development), dan kegiatan kesiswaan positif.',
+  },
+  {
+    id: 'smp-t-4',
+    name: 'Muhamad Eechram Riady, S.Pd.',
+    role: 'Sarpras (Sarana & Prasarana)',
+    specialization: 'Pengelolaan Fasilitas & Lingkungan Pembelajaran',
+    bio: 'Memastikan kenyamanan, kelayakan sarana modern, laboratorium multimedia, dan lingkungan asri penunjang kegiatan belajar.',
+  },
+  {
+    id: 'smp-t-5',
+    name: 'Iip Zaenal Arifin, S.Pd.',
+    role: 'Tata Usaha',
+    specialization: 'Tata Kelola Administrasi & Keuangan Pendidikan',
+    bio: 'Mengelola akuntabilitas keuangan sekolah, layanan administrasi SPMB terpadu, dan tata usaha profesional bagi wali murid.',
+  },
+  {
+    id: 'smp-t-6',
+    name: 'Amelia Kartika, S.Sos.',
+    role: 'Humas (Hubungan Masyarakat)',
+    specialization: 'Komunikasi Publik, Kemitraan & Layanan Informasi',
+    bio: 'Membangun komunikasi sinergis antara sekolah, wali murid, dan masyarakat serta memfasilitasi kemitraan strategis.',
+  },
+  {
+    id: 'smp-t-7',
+    name: 'Mulia Rizki',
+    role: 'Lead Developer & IT Systems',
+    specialization: 'Arsitektur Sistem Informasi, Fullstack Development & Database',
+    bio: 'Mengembangkan dan mengelola ekosistem digital sekolah, infrastruktur sistem, database, serta operasional portal SPMB & platform digital Al-Afiyah.',
+  },
+];
+
+const REAL_SMP_TESTIMONIALS = [
+  {
+    name: 'Ust. Jaja Madhuri, S.Pd., M.Pd.',
+    role: 'Kepala Sekolah SMP IT Al-Afiyah Majalengka',
+    quote:
+      'Di SMP IT Al-Afiyah, kami membimbing santri di fase remaja dengan keteladanan adab nabawiyah, kedisiplinan ibadah melalui Mutaba’ah Digital, hafalan Al-Qur’an 3–5+ Juz mutqin, serta kemahiran Bahasa Arab aktif agar lahir generasi pemimpin yang Be Smart & Religious.',
+    avatar: '/images/smp-kelulusan-angkatan-3.jpg',
+  },
+  {
+    name: 'Dewan Asatidz & Pembina Tahfidz',
+    role: 'Tim Pendidik SMP IT Al-Afiyah',
+    quote:
+      'Sinergi erat antara pembiasaan shalat berjamaah di masjid sekolah, halaqah Al-Qur’an setiap pagi, dan komunikasi rutin bersama orang tua menjadi kunci tumbuhnya karakter santri yang santun, mandiri, dan berprestasi.',
+    avatar: '/images/smp-halaqah-tahfidz-quran.jpg',
+  },
+];
+
+const TESTIMONIAL_MAP_SLOTS = [
+  {
+    desktopPos: 'lg:absolute lg:top-[115px] lg:left-[26%] lg:w-[38%]',
+    defaultAvatar: '/images/smp-kelulusan-angkatan-3.jpg',
+  },
+  {
+    desktopPos: 'lg:absolute lg:top-[150px] lg:left-[69%] lg:w-[29%]',
+    defaultAvatar: '/images/smp-halaqah-tahfidz-quran.jpg',
+  },
+  {
+    desktopPos: 'lg:absolute lg:top-[335px] lg:left-[3%] lg:w-[31%]',
+    defaultAvatar: '/images/smp-kelas-literasi.jpg',
+  },
+  {
+    desktopPos: 'lg:absolute lg:top-[355px] lg:left-[47%] lg:w-[34%]',
+    defaultAvatar: '/images/smp-pramuka-outdoor.jpg',
+  },
+];
+
+export default function SmpLandingView({
+  teachers = [],
+  newsPosts = [],
+  cmsData,
+}: SmpLandingProps) {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeNewsTab, setActiveNewsTab] = useState<string>('Semua');
+  const [agendaPage, setAgendaPage] = useState<number>(1);
+  const [agendaViewMode, setAgendaViewMode] = useState<'grid' | 'list'>('grid');
+  const [showFaqBox, setShowFaqBox] = useState<boolean>(true);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number>(0);
+  const [selectedNews, setSelectedNews] = useState<any | null>(null);
+  const [selectedNewsSlideIndex, setSelectedNewsSlideIndex] = useState<number>(0);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
-  const [selectedPhotoItem, setSelectedPhotoItem] = useState<{ image: string; title: string; desc?: string; category?: string } | null>(null);
-  const [smpGender, setSmpGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
-  const [smpDiscountType, setSmpDiscountType] = useState<'sdit' | 'umum' | 'normal'>('sdit');
+  const [activePoster, setActivePoster] = useState(SPMB_POSTERS[0]);
+  const [isFeeModalOpen, setIsFeeModalOpen] = useState(false);
+  const [activeGender, setActiveGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
   const [copiedBank, setCopiedBank] = useState(false);
   const [refCode, setRefCode] = useState<string | null>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const programsList = (cmsData?.programs && cmsData.programs.length > 0)
-    ? cmsData.programs.map((prog: any, idx: number) => ({
-        number: String(idx + 1).padStart(2, '0'),
-        title: prog.title,
-        category: prog.badge || prog.category || 'Program Unggulan',
-        desc: prog.desc || prog.description || '',
-        href: '/smp/program',
-        icon: SMP_PROGRAMS[idx]?.icon || BookOpen,
-      }))
-    : SMP_PROGRAMS;
-
-  const facilitiesList = (cmsData?.facilities && cmsData.facilities.length > 0)
-    ? cmsData.facilities.map((fac: any) => ({
-        title: fac.name || fac.title || 'Fasilitas SMP IT',
-        category: fac.category || 'Fasilitas Sekolah',
-        image: fac.image || '/images/smp-haflah-aula.jpg',
-        desc: fac.desc || fac.description || '',
-      }))
-    : SMP_FACILITIES;
 
   useEffect(() => {
     setRefCode(getStoredReferralCode());
@@ -284,947 +618,924 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
     ppdbUrl += `?ref=${encodeURIComponent(refCode)}`;
   }
 
-  const handleCopyAccount = (num: string) => {
+  const handleCopyAccount = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(num);
+      navigator.clipboard.writeText('1360012405');
       setCopiedBank(true);
       setTimeout(() => setCopiedBank(false), 2200);
     }
   };
 
-  // Fee calculation
-  const baseBangunan = 2500000;
-  const discountBangunan = smpDiscountType === 'sdit' ? 1750000 : smpDiscountType === 'umum' ? 1250000 : 0;
-  const finalBangunan = baseBangunan - discountBangunan;
-  const seragamFee = smpGender === 'ikhwan' ? 1100000 : 1400000;
-  const sppFee = 300000;
-  const baseTotal = 200000 + baseBangunan + 500000 + seragamFee + 1000000 + 1700000 + sppFee;
-  const finalTotal = baseTotal - discountBangunan;
+  // Calculations for Fee Simulator Modal
+  const seragamAmount = activeGender === 'ikhwan' ? 1100000 : 1400000;
+  const normalTotal = 200000 + 2500000 + 500000 + seragamAmount + 1000000 + 1700000 + 300000;
+  const sditDiscountTotal = normalTotal - 1750000;
+  const umumDiscountTotal = normalTotal - 1250000;
 
-  const displayStats = [
-    { 
-      label: 'Akreditasi Lembaga', 
-      value: 'Terakreditasi A', 
-      subtext: 'SK No. 012/BAN-PDM/SK/2025 (Unggul)',
-      iconType: 'award' as const,
-      badge: 'Akreditasi A',
-      color: 'blue' as const,
-    },
-    { 
-      label: 'Target Tahfidz', 
-      value: '3 – 5+ Juz', 
-      subtext: 'Juz 28, 29, 30 & Unggulan',
-      iconType: 'quran' as const,
-      badge: 'Tahfidz Mutqin',
-      color: 'blue' as const,
-    },
-    { 
-      label: 'Diskon Gelombang 1', 
-      value: 's.d. 70%', 
-      subtext: 'Uang Bangunan 1 Okt - 28 Feb',
-      iconType: 'compass' as const,
-      badge: 'SPMB Gel. 1',
-      color: 'amber' as const,
-    },
-    { 
-      label: 'Tagline & Prestasi', 
-      value: 'Smart & Religious', 
-      subtext: 'Bahasa Arab & Futsal Program',
-      iconType: 'users' as const,
-      badge: 'Be Smart',
-      color: 'blue' as const,
-    },
-  ];
+  // Dynamic Hero Images synced from CMS Hero Slides
+  const heroImages = useMemo(() => {
+    if (cmsData?.heroSlides && Array.isArray(cmsData.heroSlides) && cmsData.heroSlides.length > 0) {
+      const validSlides = cmsData.heroSlides
+        .filter((s) => Boolean(s && s.image))
+        .map((s, idx) => ({
+          id: `cms-smp-bg-${s.id ?? idx + 1}`,
+          src: s.image,
+          alt: `SMP IT Al-Afiyah Majalengka - Slide ${idx + 1}`,
+          objectPosition: 'object-center',
+        }));
+      if (validSlides.length > 0) return validSlides;
+    }
+    return DEFAULT_HERO_IMAGES;
+  }, [cmsData?.heroSlides]);
+
+  const heroTitle = 'SMP IT AL-AFIYAH MAJALENGKA';
+
+  const heroDescription = useMemo(() => {
+    const firstSlide = cmsData?.heroSlides?.[0];
+    if (firstSlide?.description && firstSlide.description.trim().length > 0) {
+      return sanitizeAdabText(firstSlide.description);
+    }
+    if (cmsData?.heroSubheadline && cmsData.heroSubheadline.trim().length > 0) {
+      return sanitizeAdabText(cmsData.heroSubheadline);
+    }
+    return 'Be Smart & Religious — Sekolah Menengah Pertama Islam Terpadu Terakreditasi A (SK No. 012/BAN-PDM/SK/2025) dengan program unggulan Tahfidz 3–5+ Juz Mutqin, Bahasa Arab Aktif, Student Character Development (SCD), & Mutaba’ah Digital.';
+  }, [cmsData?.heroSlides, cmsData?.heroSubheadline]);
+
+  // Dynamic Testimonials synced from CMS database
+  const realMapTestimonials = useMemo(() => {
+    const rawList =
+      cmsData?.testimonials && Array.isArray(cmsData.testimonials) && cmsData.testimonials.length > 0
+        ? cmsData.testimonials.filter((t) => Boolean(t && t.name && t.quote))
+        : REAL_SMP_TESTIMONIALS;
+
+    return rawList.slice(0, 4).map((t, idx) => {
+      const slot = TESTIMONIAL_MAP_SLOTS[idx % TESTIMONIAL_MAP_SLOTS.length];
+      const cleanQuote = t.quote.trim().replace(/^[“"']+|[”"']+$/g, '');
+      let desktopPos = slot.desktopPos;
+      if (rawList.length === 1) {
+        desktopPos = 'lg:absolute lg:top-[155px] lg:left-[24%] lg:w-[52%]';
+      } else if (rawList.length === 2) {
+        desktopPos =
+          idx === 0
+            ? 'lg:absolute lg:top-[120px] lg:left-[15%] lg:w-[44%]'
+            : 'lg:absolute lg:top-[285px] lg:left-[50%] lg:w-[42%]';
+      }
+      return {
+        name: t.name,
+        role: t.role || 'Wali Murid SMP IT Al-Afiyah',
+        quote: `"${sanitizeAdabText(cleanQuote)}"`,
+        avatar: (t as any).avatar || slot.defaultAvatar,
+        desktopPos,
+      };
+    });
+  }, [cmsData?.testimonials]);
+
+  // Structural Teachers list (keep complete specialization & bio intact)
+  const displayTeachers = useMemo(() => {
+    const base = teachers && teachers.length > 0 ? [...teachers] : [...DEFAULT_SMP_TEACHERS];
+    if (!base.some((t) => t.name.toLowerCase().includes('jejen nurbayan'))) {
+      base.unshift(DEFAULT_SMP_TEACHERS[0]);
+    }
+    if (!base.some((t) => t.name.toLowerCase().includes('mulia rizki'))) {
+      base.push(DEFAULT_SMP_TEACHERS[7]);
+    }
+    return base;
+  }, [teachers]);
+
+  const nextSlide = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % heroImages.length);
+  }, [heroImages.length]);
+
+  const prevSlide = useCallback(() => {
+    setActiveSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  }, [heroImages.length]);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 6000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsPosterModalOpen(false);
+        setIsFeeModalOpen(false);
+        setSelectedNews(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const allArticles = useMemo(() => {
+    return newsPosts && newsPosts.length > 0 ? newsPosts : DEFAULT_SMP_NEWS;
+  }, [newsPosts]);
+
+  const availableNewsTabs = useMemo(() => {
+    const base =
+      cmsData?.newsCategories && cmsData.newsCategories.length > 0
+        ? ['Semua', ...cmsData.newsCategories]
+        : ['Semua', 'Kegiatan', 'Tahfidz', 'Prestasi', 'Outing Class', 'Pengumuman'];
+    const fromPosts = allArticles.map((p) => (p.category || '').trim()).filter(Boolean);
+    return mergeUniqueStrings(base, fromPosts).slice(0, 7);
+  }, [allArticles, cmsData?.newsCategories]);
+
+  const filteredArticles = useMemo(() => {
+    if (activeNewsTab === 'Semua') return allArticles;
+    return allArticles.filter(
+      (a) => (a.category || '').toLowerCase() === activeNewsTab.toLowerCase()
+    );
+  }, [allArticles, activeNewsTab]);
+
+  const displayedArticles = (
+    filteredArticles.length > 0 ? filteredArticles : allArticles
+  ).slice(0, 3);
+
+  const mediaPosts = allArticles.slice(0, 4);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
+    <div className="theme-smp flex flex-col min-h-screen bg-white text-slate-800 w-full overflow-x-clip">
       {/* Top Navbar */}
       <Navbar
         schoolName="SMP IT Al-Afiyah"
-        badgeText="TERAKREDITASI A • SMP ISLAM TERPADU AL-AFIYAH"
+        badgeText="Terakreditasi A • Be Smart & Religious"
         schoolSlug="smp"
         ppdbUrl={ppdbUrl}
         waPhone="6282249357893"
         transparentAtTop={true}
       />
 
-      {/* Unit Hero Slider with Ken Burns Effect */}
-      <UnitHeroSlider
-        slug="smp"
-        schoolName="SMP IT Al-Afiyah"
-        badgeText="TERAKREDITASI A • BE SMART & RELIGIOUS"
-        registrationFee={200000}
-        waCenterPhone="6282249357893"
-        customSlides={cmsData?.heroSlides && cmsData.heroSlides.length > 0 ? cmsData.heroSlides : undefined}
-        statsCards={<Hero3DStatCards stats={displayStats} unitSlug="smp" />}
-      />
-
-
-
-      {/* SECTION 1: SPMB 2027/2028 - BIAYA & SIMULATOR DISKON */}
-      <section id="spmb" className="py-14 sm:py-16 bg-white border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-8">
-            <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#030164] mb-2">
-              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-              <span>SPMB T.A. 2027/2028</span>
-              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
-              Informasi Gelombang &amp; Rincian Biaya Pendidikan
-            </h2>
-          </ScrollReveal>
-
-          {/* Banner Gelombang 1 & 2 Cards */}
-          <ScrollReveal delay={0.1} yOffset={24} duration={500} className="mb-10">
-            <div className="bg-gradient-to-br from-[#030164] via-[#080554] to-[#01002e] rounded-2xl sm:rounded-3xl border border-[#ffd51e]/40 p-5 sm:p-8 lg:p-10 text-white shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-[#ffd51e]/10 rounded-full blur-3xl pointer-events-none" />
-              
-              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 pb-5 border-b border-white/15">
-                <div>
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#ffd51e] mb-1.5">
-                    <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-                    <span>SMP IT Al-Afiyah • Terakreditasi A</span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
-                    Jadwal &amp; Diskon Gelombang SPMB
-                  </h3>
-                </div>
-                <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-xs text-blue-100 bg-white/5 border border-white/10 px-4 py-2.5 rounded-2xl">
-                  <div>
-                    <span className="text-blue-300">Biaya Formulir:</span>{' '}
-                    <strong className="text-white font-bold">Rp 200.000</strong>
-                  </div>
-                  <span className="text-white/20 hidden sm:inline">•</span>
-                  <div>
-                    <span className="text-blue-300">Bank Muamalat:</span>{' '}
-                    <strong className="text-[#ffd51e] font-mono font-bold tracking-wider">1360012405</strong>
-                  </div>
-                </div>
-              </div>
-
-              {/* Grid Gelombang 1 vs 2 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-6 relative z-10">
-                {/* Gelombang 1 */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-md border-2 border-[#ffd51e] shadow-lg relative overflow-hidden flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#ffd51e] animate-pulse" />
-                        <h4 className="text-base sm:text-lg font-black text-white">SPMB Gelombang 1</h4>
-                      </div>
-                      <span className="text-[#ffd51e] text-xs font-bold flex items-center gap-1">
-                        <Check className="w-3.5 h-3.5 stroke-[3]" />
-                        <span>Sedang Dibuka</span>
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#ffd51e] mb-4">
-                      <Calendar className="w-3.5 h-3.5 text-[#ffd51e] shrink-0" />
-                      <span>1 Oktober 2026 – 28 Februari 2027</span>
-                    </div>
-
-                    <div className="space-y-3 pt-3 border-t border-white/15">
-                      <div className="p-3 rounded-xl bg-white/10 border border-[#ffd51e]/40">
-                        <p className="text-xs font-black text-[#ffd51e] uppercase tracking-wider">
-                          DISKON 70% UANG BANGUNAN*
-                        </p>
-                        <p className="text-xs text-white font-medium mt-0.5">
-                          Khusus untuk murid lulusan SDIT Al Afiyah (Hemat Rp 1.750.000)
-                        </p>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-white/10 border border-white/20">
-                        <p className="text-xs font-black text-amber-300 uppercase tracking-wider">
-                          DISKON 50% UANG BANGUNAN**
-                        </p>
-                        <p className="text-xs text-white font-medium mt-0.5">
-                          Untuk murid pendaftar dari luar SDIT / Umum (Hemat Rp 1.250.000)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 pt-3 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <span className="text-xs text-blue-200">Biaya Formulir: <strong className="text-white">Rp 200.000</strong></span>
-                    <Link
-                      href={ppdbUrl}
-                      className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all text-center inline-flex items-center justify-center gap-1.5 shadow-xs"
-                    >
-                      <span>Daftar Sekarang</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Gelombang 2 */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/20 shadow-sm flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <h4 className="text-base sm:text-lg font-bold text-white">SPMB Gelombang 2</h4>
-                      <span className="text-[10px] font-bold px-3 py-0.5 rounded-full bg-white/15 text-slate-300">
-                        Tahap Lanjutan
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300 font-medium mb-4">
-                      1 Maret 2027 – 30 Juni 2027
-                    </p>
-                    <div className="p-3.5 rounded-xl bg-black/30 text-slate-300 text-xs border border-white/10 flex items-center justify-between">
-                      <span>Ketentuan Diskon:</span>
-                      <strong className="text-white font-black text-xs sm:text-sm">Biaya Normal (No Diskon)</strong>
-                    </div>
-                  </div>
-                  <div className="mt-5 pt-3 border-t border-white/10 text-xs text-slate-300 leading-relaxed">
-                    💡 <em>Sangat disarankan mendaftar di Gelombang 1 untuk memastikan ketersediaan kuota rombel dan memperoleh keringanan biaya pendidikan terbaik.</em>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Interactive Fee Simulator & Breakdown */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-md p-4 sm:p-8 lg:p-10 mb-12">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-5 border-b border-slate-200">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-1.5">
-                  <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                  <span>Simulasi Biaya</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                  Rincian Biaya Masuk &amp; Kalkulator Diskon
-                </h3>
-              </div>
-
-              {/* Gender Switch (Clean Text Only, Responsive Grid on Mobile) */}
-              <div className="grid grid-cols-2 sm:flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl sm:rounded-2xl border border-slate-200 w-full sm:w-auto">
-                <button
-                  type="button"
-                  onClick={() => setSmpGender('ikhwan')}
-                  className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
-                    smpGender === 'ikhwan'
-                      ? 'bg-[#030164] text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Murid Ikhwan (Putra)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSmpGender('akhwat')}
-                  className={`px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs font-black transition-all cursor-pointer text-center ${
-                    smpGender === 'akhwat'
-                      ? 'bg-[#030164] text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Murid Akhwat (Putri)
-                </button>
-              </div>
-            </div>
-
-            {/* Discount Category Selector */}
-            <div className="mt-6">
-              <label className="text-xs font-bold text-slate-700 block mb-2 uppercase tracking-wider">
-                Pilih Kategori Pendaftar (Simulasi Diskon):
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setSmpDiscountType('sdit')}
-                  className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                    smpDiscountType === 'sdit'
-                      ? 'bg-blue-50/90 border-[#030164] shadow-sm ring-2 ring-[#030164]/20'
-                      : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs font-black text-[#030164]">Alumni SDIT Al Afiyah</span>
-                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#030164] text-[#ffd51e]">
-                      Diskon 70%
-                    </span>
-                  </div>
-                  <p className="text-xs text-blue-900 font-semibold">Hemat Rp 1.750.000 Uang Bangunan</p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setSmpDiscountType('umum')}
-                  className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                    smpDiscountType === 'umum'
-                      ? 'bg-amber-50/90 border-amber-500 shadow-sm ring-2 ring-amber-500/20'
-                      : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs font-black text-amber-950">Pendaftar Luar SDIT / Umum</span>
-                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-slate-950">
-                      Diskon 50%
-                    </span>
-                  </div>
-                  <p className="text-xs text-amber-900 font-semibold">Hemat Rp 1.250.000 Uang Bangunan</p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setSmpDiscountType('normal')}
-                  className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                    smpDiscountType === 'normal'
-                      ? 'bg-slate-200 border-slate-600 shadow-sm ring-2 ring-slate-400'
-                      : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs font-bold text-slate-800">Biaya Normal (Gelombang 2)</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-300 text-slate-800">
-                      No Diskon
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-600">Tarif standar tanpa potongan gelombang</p>
-                </button>
-              </div>
-            </div>
-
-            {/* Table Breakdown */}
-            <div className="mt-6 border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
-              <div className="divide-y divide-slate-100 text-xs sm:text-sm">
-                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
-                  <span className="font-semibold text-slate-800">1. Infaq Formulir Pendaftaran</span>
-                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 200.000</span>
-                </div>
-                
-                <div className="flex items-start sm:items-center justify-between gap-3 p-3.5 sm:px-5 bg-white">
-                  <div className="min-w-0 pr-2">
-                    <span className="font-semibold text-slate-800 block text-xs sm:text-sm">2. Infaq Pengembangan Sarana (Uang Bangunan)</span>
-                    {discountBangunan > 0 && (
-                      <span className="block text-[11px] text-[#030164] font-bold mt-0.5 leading-snug">
-                        Potongan {smpDiscountType === 'sdit' ? '70% (SDIT Al-Afiyah)' : '50% (Pendaftar Umum)'}: -Rp {discountBangunan.toLocaleString('id-ID')}
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-right shrink-0 flex flex-col sm:flex-row items-end sm:items-center gap-0.5 sm:gap-2 whitespace-nowrap pl-2">
-                    {discountBangunan > 0 && (
-                      <span className="line-through text-slate-400 text-[11px] sm:text-xs font-mono whitespace-nowrap">
-                        Rp {baseBangunan.toLocaleString('id-ID')}
-                      </span>
-                    )}
-                    <span className="font-mono font-bold text-[#030164] text-xs sm:text-sm whitespace-nowrap">
-                      Rp {finalBangunan.toLocaleString('id-ID')}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
-                  <span className="font-semibold text-slate-800">3. Fasilitas Pembelajaran Modern</span>
-                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 500.000</span>
-                </div>
-
-                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-white">
-                  <span className="font-semibold text-slate-800">
-                    4. Paket Seragam Sekolah Lengkap ({smpGender === 'ikhwan' ? 'Ikhwan' : 'Akhwat Syar\'i'})
-                  </span>
-                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">
-                    Rp {seragamFee.toLocaleString('id-ID')}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
-                  <span className="font-semibold text-slate-800">5. Paket Buku Pelajaran &amp; Modul</span>
-                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 1.000.000</span>
-                </div>
-
-                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-white">
-                  <span className="font-semibold text-slate-800">6. Program Kegiatan Murid (SCD, Outing, Mutaba&apos;ah)</span>
-                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp 1.700.000</span>
-                </div>
-
-                <div className="flex items-center justify-between gap-3 p-3.5 sm:px-5 bg-slate-50">
-                  <span className="font-semibold text-slate-800">7. SPP Pendidikan (Bulan Pertama)</span>
-                  <span className="font-mono font-bold text-slate-900 shrink-0 whitespace-nowrap text-right pl-2">Rp {sppFee.toLocaleString('id-ID')}</span>
-                </div>
-
-                {/* Grand Total Bar */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-6 bg-gradient-to-r from-[#030164] to-[#0d077e] text-white">
-                  <div>
-                    <span className="text-xs uppercase tracking-wider text-[#ffd51e] font-black block">
-                      Total Biaya Pendidikan ({smpGender === 'ikhwan' ? 'Murid Ikhwan' : 'Murid Akhwat'})
-                    </span>
-                    <span className="text-xs text-slate-300">
-                      {discountBangunan > 0 ? `Hemat Rp ${discountBangunan.toLocaleString('id-ID')} pada Gelombang 1` : 'Tarif Biaya Normal Gelombang 2'}
-                    </span>
-                  </div>
-                  <div className="text-left sm:text-right shrink-0 whitespace-nowrap">
-                    {discountBangunan > 0 && (
-                      <span className="text-xs line-through text-slate-400 font-mono block whitespace-nowrap">
-                        Rp {baseTotal.toLocaleString('id-ID')}
-                      </span>
-                    )}
-                    <span className="text-2xl sm:text-3xl font-black font-mono text-[#ffd51e] whitespace-nowrap">
-                      Rp {finalTotal.toLocaleString('id-ID')}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Official Posters & Bank Payment Grid */}
-          <div id="brosur" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start scroll-mt-24">
-            {/* Left: Official Posters */}
-            <div className="lg:col-span-6 bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-7 space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-bold text-[#030164] uppercase tracking-wider block">
-                    Dokumen Brosur Resmi
-                  </span>
-                  <h4 className="text-base font-black text-slate-900 mt-0.5">
-                    Materi Publikasi SPMB SMP IT
-                  </h4>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setIsPosterModalOpen(true)}
-                  className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-[#030164] hover:bg-slate-100 transition-all flex items-center gap-1 shadow-2xs cursor-pointer"
-                >
-                  <ZoomIn className="w-3.5 h-3.5" />
-                  <span>Perbesar</span>
-                </button>
-              </div>
-
-              {/* Poster Preview Frame */}
+      {/* =====================================================================
+          1. FULL-WIDTH HERO BANNER (MINIMALIST AL-HIDAYAH / PRADITA STYLE)
+      ===================================================================== */}
+      <section className="relative w-full h-[calc(100svh-3rem)] sm:h-[600px] lg:h-[650px] bg-[#010030] overflow-hidden select-none">
+        {heroImages.map((img, idx) => {
+          const isActive = idx === activeSlide;
+          return (
+            <div
+              key={img.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-0' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
               <div
-                onClick={() => setIsPosterModalOpen(true)}
-                className="group relative rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm cursor-pointer aspect-[4/5] flex items-center justify-center p-2"
+                className={`absolute inset-0 transition-transform duration-[7000ms] ease-out ${
+                  isActive ? 'scale-105' : 'scale-100'
+                }`}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={activePoster.src}
-                  alt={activePoster.label}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-300"
+                  src={img.src}
+                  alt={img.alt}
+                  className={`w-full h-full object-cover ${img.objectPosition}`}
                 />
-                <div className="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-2xs">
-                  <span className="px-4 py-2 rounded-xl bg-white/95 text-[#030164] text-xs font-black shadow-lg flex items-center gap-2">
-                    <ZoomIn className="w-4 h-4 text-[#030164]" />
-                    <span>Lihat Brosur Ukuran Penuh</span>
-                  </span>
-                </div>
               </div>
+            </div>
+          );
+        })}
 
-              {/* Poster Switcher Tabs */}
-              <div className="grid grid-cols-3 gap-2">
-                {SMP_POSTERS.map((poster) => {
-                  const isActive = poster.src === activePoster.src;
-                  return (
-                    <button
-                      key={poster.src}
-                      type="button"
-                      onClick={() => setActivePoster(poster)}
-                      className={`flex flex-col items-center gap-1 rounded-xl p-2 border transition-all cursor-pointer ${
-                        isActive
-                          ? 'border-[#030164] bg-blue-50/80 shadow-xs ring-1 ring-[#030164]'
-                          : 'border-slate-200 bg-white hover:border-slate-300'
-                      }`}
-                    >
-                      <img src={poster.src} alt="" loading="lazy" decoding="async" className="h-16 w-full object-cover object-top rounded-lg" />
-                      <span className={`text-[10px] font-bold text-center leading-tight ${isActive ? 'text-[#030164]' : 'text-slate-600'}`}>
-                        {poster.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#020148]/90 via-[#030164]/80 to-[#020148]/75 pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#010030]/95 via-transparent to-black/30 pointer-events-none" />
 
-              {/* Download Button */}
-              <a
-                href={activePoster.src}
-                download={activePoster.file}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#030164] hover:bg-[#07038c] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all active:scale-95"
+        <div className="relative z-20 h-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 flex flex-col justify-center items-center text-center sm:pb-14 pt-12">
+          <div className="max-w-3xl space-y-4 sm:space-y-5 flex flex-col items-center">
+            <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-black text-white uppercase tracking-tight leading-[1.1] drop-shadow-sm">
+              {heroTitle}
+            </h1>
+
+            <p className="text-sm sm:text-base lg:text-lg text-slate-100/95 leading-relaxed max-w-2xl font-normal">
+              {heroDescription}
+            </p>
+
+            <div className="pt-2 flex flex-wrap justify-center gap-3">
+              <Link
+                href={ppdbUrl}
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-sm bg-[#ffd51e] hover:bg-amber-300 text-[#030164] font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-lg"
+              >
+                <span>DAFTAR SPMB ONLINE</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setIsPosterModalOpen(true)}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-sm bg-white/15 hover:bg-white/25 text-white border border-white/30 font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 backdrop-blur-xs cursor-pointer"
               >
                 <Download className="w-4 h-4 text-[#ffd51e]" />
-                <span>Unduh {activePoster.label} (PNG)</span>
-              </a>
+                <span>BROSUR &amp; BIAYA</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Gambar Sebelumnya"
+          className="hidden sm:flex absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/35 hover:bg-[#030164] text-white border border-white/20 items-center justify-center transition-colors cursor-pointer"
+        >
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Gambar Selanjutnya"
+          className="hidden sm:flex absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/35 hover:bg-[#030164] text-white border border-white/20 items-center justify-center transition-colors cursor-pointer"
+        >
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
+
+        <div className="hidden sm:flex absolute bottom-6 sm:bottom-24 left-1/2 -translate-x-1/2 z-30 items-center gap-2.5">
+          {heroImages.map((s, idx) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setActiveSlide(idx)}
+              aria-label={`Pilih gambar ${idx + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                idx === activeSlide
+                  ? 'w-8 bg-[#ffd51e]'
+                  : 'w-2 bg-white/50 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* =====================================================================
+          2. 4-COLUMN HIGHLIGHT FEATURE STRIP (2x2 ON MOBILE, 4-COL DESKTOP)
+      ===================================================================== */}
+      <section className="relative z-30 mt-0 sm:-mt-20 max-w-6xl mx-auto px-0 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-2 lg:grid-cols-4 bg-[#FAF6EC] shadow-xl border-y sm:border border-[#E5D5B2]">
+          {DEFAULT_FEATURE_BOXES.map((box, idx) => (
+            <Link
+              key={idx}
+              href={box.href}
+              className={`group px-3.5 py-6 sm:px-6 sm:py-10 flex flex-col items-center justify-center text-center gap-3 sm:gap-4 hover:bg-[#F4ECD8] transition-colors duration-200 border-[#E5D5B2] ${
+                idx % 2 === 0 ? 'border-r' : 'lg:border-r'
+              } ${idx < 2 ? 'border-b lg:border-b-0' : ''} ${
+                idx === 3 ? 'lg:border-r-0' : ''
+              }`}
+            >
+              <div className="group-hover:-translate-y-1 transition-transform duration-200 scale-90 sm:scale-100">
+                <FeatureIllustration type={box.iconType} />
+              </div>
+              <h2 className="text-[11px] sm:text-[13px] font-extrabold uppercase tracking-[0.06em] sm:tracking-[0.08em] text-[#030164] group-hover:text-blue-900 leading-snug sm:leading-relaxed whitespace-pre-line">
+                {box.title}
+              </h2>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* =====================================================================
+          3A. FULL-WIDTH PARALLAX PRAKATA KEPALA SEKOLAH SECTION
+      ===================================================================== */}
+      <section
+        className="relative w-full mt-0 sm:-mt-12 pt-16 pb-16 sm:pt-36 sm:pb-28 bg-fixed bg-cover bg-center overflow-hidden"
+        style={{
+          backgroundImage: "url('/images/smp-haflah-aula.jpg')",
+        }}
+      >
+        <div className="absolute inset-0 bg-[#030164]/88" />
+
+        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8">
+            <div className="lg:col-span-7 space-y-5 text-white">
+              <p className="text-sm sm:text-base lg:text-[17px] leading-relaxed font-normal text-white/95 max-w-xl">
+                SMP IT Al-Afiyah berkomitmen membimbing santri di fase remaja melalui keteladanan adab nabawiyah, hafalan Al-Qur&apos;an 3–5+ Juz mutqin, kemahiran Bahasa Arab aktif, serta pembinaan karakter kepemimpinan (Student Character Development) agar tumbuh menjadi generasi yang cerdas dan religius.
+              </p>
+
+              <div>
+                <Link
+                  href="/smp/profil"
+                  className="inline-block px-4 py-1.5 rounded-full bg-[#e5a93b] hover:bg-[#d4962a] text-white font-bold text-xs transition-colors shadow-xs"
+                >
+                  Baca Lebih Lanjut
+                </Link>
+              </div>
+
+              <div className="pt-1 space-y-2">
+                <p className="text-xs sm:text-sm font-bold text-white">
+                  Ust. Jaja Madhuri, S.Pd., M.Pd. — Kepala Sekolah SMP IT Al-Afiyah Majalengka
+                </p>
+                <div className="w-8 h-[2.5px] bg-[#ffd51e]" />
+              </div>
             </div>
 
-            {/* Right: Bank Transfer & Action Steps */}
-            <div className="lg:col-span-6 space-y-6">
-              {/* Bank Card */}
-              <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-[#030164] to-[#090566] text-white shadow-lg space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-white/15">
-                  <div>
-                    <span className="text-[11px] font-bold text-[#ffd51e] uppercase tracking-wider block">
-                      Rekening Resmi Yayasan
-                    </span>
-                    <h4 className="text-lg font-black text-white mt-0.5">
-                      Bank Muamalat Indonesia
-                    </h4>
-                  </div>
-                  <CreditCard className="w-8 h-8 text-[#ffd51e]/80" />
-                </div>
+            <div className="hidden lg:block lg:col-span-5" />
+          </div>
+        </div>
+      </section>
 
-                <div className="space-y-1">
-                  <span className="text-xs text-slate-300 font-medium">Nomor Rekening Pendaftaran:</span>
-                  <div className="flex items-center justify-between p-3.5 bg-black/30 rounded-2xl border border-white/20">
-                    <span className="text-xl sm:text-2xl font-mono font-black text-white tracking-widest">
-                      1360012405
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => handleCopyAccount('1360012405')}
-                      className="px-3 py-1.5 rounded-xl bg-[#ffd51e] text-[#030164] text-xs font-black hover:bg-yellow-400 transition-all flex items-center gap-1.5 cursor-pointer"
-                    >
-                      {copiedBank ? (
-                        <>
-                          <Check className="w-3.5 h-3.5" />
-                          <span>Tersalin!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Salin No. Rek</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                  <p className="text-xs text-slate-300 pt-1">
-                    Atas Nama: <strong className="text-white font-bold">SMP IT Al Afiyah</strong>
-                  </p>
-                </div>
+      {/* =====================================================================
+          3B. FULL-WIDTH PARALLAX "SELAMAT DATANG" SECTION (LIGHT PHOTO BG)
+      ===================================================================== */}
+      <section
+        className="relative w-full py-20 sm:py-28 bg-fixed bg-cover bg-center overflow-hidden border-b border-slate-200/70"
+        style={{
+          backgroundImage: "url('/images/smp-kelas-literasi.jpg')",
+        }}
+      >
+        <div className="absolute inset-0 bg-white/90 backdrop-blur-[1px]" />
 
-                <div className="p-3 rounded-xl bg-white/10 text-xs text-slate-200 border border-white/10">
-                  📌 <em>Infaq pendaftaran sebesar Rp 200.000. Bukti transfer diunggah saat pendaftaran online atau dikirim ke WhatsApp admin panitia.</em>
-                </div>
-              </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8">
+          <div className="max-w-lg space-y-5">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#030164] leading-[1.2] tracking-tight">
+              Selamat Datang
+              <br />
+              di Sekolah Karakter, Tahfidz &amp; Bahasa Arab
+              <br />
+              SMP IT Al-Afiyah
+            </h2>
 
-              {/* Direct Next Step Action */}
-              <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
-                <h4 className="text-base font-black text-slate-900">
-                  Langkah Mudah Pendaftaran SPMB
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-[#030164] text-[#ffd51e] text-xs font-black flex items-center justify-center shrink-0 mt-0.5">
-                      1
-                    </span>
-                    <p className="text-xs text-slate-700 leading-relaxed">
-                      <strong>Pilih Jalur &amp; Isi Formulir:</strong> Isi data pokok calon murid melalui formulir online ringkas kami.
-                    </p>
-                  </div>
+            <p className="text-base sm:text-lg text-slate-800/90 leading-relaxed font-normal">
+              Kapan lagi menyekolahkan ananda di SMP Islam Terpadu Terakreditasi A dengan bimbingan Tahfidz 3–5+ Juz, Bahasa Arab aktif, Mutaba&apos;ah Digital, serta promo Diskon Uang Bangunan hingga 70% di Gelombang 1?
+            </p>
 
-                  <div className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-[#030164] text-[#ffd51e] text-xs font-black flex items-center justify-center shrink-0 mt-0.5">
-                      2
-                    </span>
-                    <p className="text-xs text-slate-700 leading-relaxed">
-                      <strong>Transfer Infaq Pendaftaran:</strong> Infaq Rp 200.000 ke Bank Muamalat 1360012405 a.n SMP IT Al Afiyah.
-                    </p>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-[#030164] text-[#ffd51e] text-xs font-black flex items-center justify-center shrink-0 mt-0.5">
-                      3
-                    </span>
-                    <p className="text-xs text-slate-700 leading-relaxed">
-                      <strong>Observasi &amp; Wawancara:</strong> Menghadiri jadwal tes observasi dasar membaca Al-Qur&apos;an dan wawancara di sekolah.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-                  <Link
-                    href={ppdbUrl}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#030164] hover:bg-[#07038c] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm active:scale-95 text-center"
-                  >
-                    <span>Daftar Sekarang Online</span>
-                    <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
-                  </Link>
-
-                  <a
-                    href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 font-bold text-xs transition-all text-center"
-                  >
-                    <MessageCircle className="w-4 h-4 text-[#030164]" />
-                    <span>WhatsApp Panitia (0822-4935-7893)</span>
-                  </a>
-                </div>
-              </div>
+            <div className="pt-1 flex flex-wrap items-center gap-3">
+              <Link
+                href="/smp/profil"
+                className="inline-block px-6 py-3 rounded-sm bg-[#e5a93b] hover:bg-[#030164] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-xs"
+              >
+                TEMUKAN JAWABANNYA
+              </Link>
+              <button
+                type="button"
+                onClick={() => setIsFeeModalOpen(true)}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-sm bg-[#030164] hover:bg-[#090580] text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-xs cursor-pointer"
+              >
+                <Calculator className="w-3.5 h-3.5 text-[#ffd51e]" />
+                <span>SIMULASI &amp; RINCIAN BIAYA</span>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 2: 6 PROGRAM UNGGULAN (High Contrast White Cards on Deep Navy Background) */}
-      <section id="programs" className="py-16 sm:py-20 bg-[#030164] text-white scroll-mt-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#ffd51e]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* =====================================================================
+          4. ARTIKEL DAN BERITA TERBARU (MINIMALIST AL-HIDAYAH TAB LAYOUT)
+      ===================================================================== */}
+      <section id="news" className="py-16 sm:py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#030164] tracking-tight">
+            Artikel dan Berita Terbaru
+          </h2>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-10">
-            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-2">
-              <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Kurikulum &amp; Karakter</span>
-              <span className="w-5 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-snug">
-              6 Program Unggulan SMP IT Al-Afiyah
-            </h2>
-          </ScrollReveal>
+          {/* Minimalist Bottom-Border Tabs */}
+          <div className="border-b border-slate-200 flex items-center gap-1 sm:gap-4 overflow-x-auto">
+            {availableNewsTabs.map((tab) => {
+              const active = activeNewsTab === tab;
+              return (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => setActiveNewsTab(tab)}
+                  className={`px-4 sm:px-5 py-3 text-xs sm:text-sm font-bold border-b-2 -mb-px whitespace-nowrap transition-colors cursor-pointer ${
+                    active
+                      ? 'border-[#030164] text-[#030164]'
+                      : 'border-transparent text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  {tab}
+                </button>
+              );
+            })}
+          </div>
 
-          {/* Programs Auto-Sliding Row */}
-          <AutoHorizontalSlider arrowTheme="dark" itemClassName="w-[290px] sm:w-[340px] lg:w-[370px]">
-            {programsList.map((prog) => (
-              <div
-                key={prog.number}
-                className="h-full p-6 sm:p-7 rounded-3xl bg-white text-slate-900 border-2 border-slate-200/90 shadow-xl hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-black tracking-widest text-[#030164] font-mono bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
-                      {prog.number}
-                    </span>
-                    <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#030164] text-[#ffd51e]">
-                      {prog.category}
-                    </span>
+          {/* 3-Column Clean Article Teasers */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 pt-2">
+            {displayedArticles.map((article) => {
+              const parsed = parseNewsMedia(article.content, article.coverImage);
+              const totalSlides = parsed.allMedia.length;
+
+              return (
+                <article
+                  key={article.id}
+                  onClick={() => {
+                    setSelectedNews(article);
+                    setSelectedNewsSlideIndex(0);
+                  }}
+                  className="group flex flex-col space-y-3 cursor-pointer"
+                >
+                  <div className="relative aspect-[3/2] w-full rounded-sm overflow-hidden bg-slate-100 block">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={article.coverImage || '/images/smp-kelulusan-angkatan-3.jpg'}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    {totalSlides > 1 && (
+                      <span className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-xs bg-black/70 text-white text-[10px] font-bold backdrop-blur-xs">
+                        {totalSlides} Slide
+                      </span>
+                    )}
                   </div>
 
-                  <h3 className="text-lg font-black text-slate-900 mb-2 leading-snug group-hover:text-[#030164] transition-colors">
-                    {prog.title}
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-[#030164] transition-colors leading-snug line-clamp-2">
+                    {sanitizeAdabText(article.title)}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    {prog.desc}
-                  </p>
-                </div>
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                    <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                    <time>
+                      {new Date(article.publishedAt).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </time>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <Link
-                    href={prog.href}
-                    className="inline-flex items-center gap-1.5 text-xs font-black text-[#030164] group-hover:text-[#07038c] group-hover:underline"
-                  >
-                    <span>Pelajari Program</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </AutoHorizontalSlider>
-
-          <div className="mt-12 text-center">
+          <div className="text-center pt-4">
             <Link
-              href="/smp/program"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#ffd51e] text-[#030164] font-black text-xs uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-md active:scale-95"
+              href="/smp/berita"
+              className="inline-block px-6 py-2.5 rounded-sm bg-[#030164] hover:bg-[#090580] text-white font-bold text-xs uppercase tracking-wider transition-colors"
             >
-              <span>Buka Halaman Seluruh Kurikulum SMP IT</span>
-              <ArrowRight className="w-4 h-4" />
+              Lihat Semua Berita
             </Link>
           </div>
         </div>
       </section>
 
-      {/* SECTION 3: STUDENT CHARACTER DEVELOPMENT (SCD) & MUTABA'AH DIGITAL */}
-      <section id="karakter" className="py-14 sm:py-16 bg-slate-100 border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-6 space-y-5">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
-                  <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                  <span>Karakter &amp; Adab</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-                  SCD &amp; Mutaba&apos;ah Digital
-                </h2>
-              </div>
+      {/* =====================================================================
+          5. PENCAPAIAN & FASILITAS MOSAIC GRID (CLEAN PHOTO TILES)
+      ===================================================================== */}
+      <section id="facilities" className="py-10 sm:py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+          {/* Top Row (25% | 25% | 50%) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <Link
+              href="/smp/profil"
+              className="md:col-span-3 group relative min-h-[220px] rounded-sm overflow-hidden flex items-center justify-center p-6 text-center"
+            >
+              <Image
+                src="/images/smp-kelulusan-angkatan-3.jpg"
+                alt="Terakreditasi A Resmi BAN-PDM"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 280px"
+              />
+              <div className="absolute inset-0 bg-[#030164]/80 group-hover:bg-[#090580]/80 transition-colors" />
+              <h3 className="relative z-10 text-lg font-extrabold uppercase tracking-wide text-white leading-snug">
+                TERAKREDITASI A RESMI
+                <br />
+                BAN-PDM
+              </h3>
+            </Link>
 
-              <div className="space-y-3">
-                <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-[#030164] text-[#ffd51e] flex items-center justify-center shrink-0 font-black text-sm">
-                    1
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-900">Shalat 5 Waktu &amp; Dzikir Ma&apos;tsurat</h4>
-                    <p className="text-xs text-slate-600 mt-0.5">
-                      Shalat fardhu berjamaah di masjid sekolah dan dzikir pagi-petang.
-                    </p>
-                  </div>
-                </div>
+            <Link
+              href="/smp/karakter"
+              className="md:col-span-3 group relative min-h-[220px] rounded-sm overflow-hidden flex items-center justify-center p-6 text-center bg-[#030164]"
+            >
+              <h3 className="relative z-10 text-lg font-extrabold text-[#ffd51e] leading-snug">
+                Be Smart &amp; Be Religious — Berakhlak Islami, Siap Berkompetisi
+              </h3>
+            </Link>
 
-                <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-[#030164] text-[#ffd51e] flex items-center justify-center shrink-0 font-black text-sm">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-900">Aplikasi Mutaba&apos;ah Digital</h4>
-                    <p className="text-xs text-slate-600 mt-0.5">
-                      Pantauan ibadah harian murid yang terhubung langsung dengan orang tua.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-[#030164] text-[#ffd51e] flex items-center justify-center shrink-0 font-black text-sm">
-                    3
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-900">Mabit Ruhiyah &amp; Kepemimpinan</h4>
-                    <p className="text-xs text-slate-600 mt-0.5">
-                      Program bermalam untuk penguatan tahajjud, adab, dan kemandirian.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-2">
-                <Link
-                  href="/smp/karakter"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#030164] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#07038c] transition-all shadow-sm"
-                >
-                  <span>Lihat Selengkapnya Program Karakter</span>
-                  <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: Graphic Card */}
-            <div className="lg:col-span-6">
-              <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 aspect-[4/3]">
+            <Link
+              href="/smp/program"
+              className="md:col-span-6 group relative min-h-[220px] rounded-sm overflow-hidden flex flex-col items-center justify-center p-6 text-center bg-[#FAF6EC] border border-[#E5D5B2]"
+            >
+              <div className="flex items-center gap-4 mb-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/smp-halaqah-tahfidz-quran.jpg"
-                  alt="Aktivitas Ibadah dan Karakter SMP IT Al-Afiyah"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover"
+                  src="/images/ypib-logo.png"
+                  alt="Logo YPIB"
+                  className="w-12 h-12 object-contain"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-8 text-white">
-                  <span className="px-3 py-1 rounded-full bg-[#ffd51e] text-[#030164] text-[10px] font-black uppercase tracking-wider self-start mb-2">
-                    Pembiasaan Ibadah
-                  </span>
-                  <h3 className="text-lg sm:text-xl font-black text-white">
-                    Halaqah Tahfidz &amp; Keteladanan Guru
-                  </h3>
-                  <p className="text-xs text-slate-200 mt-1 max-w-md">
-                    Mencetak generasi murid yang mandiri, beradab santun, dan mencintai Al-Qur&apos;an di lingkungan Giri Asih.
-                  </p>
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/smp-logo.png"
+                  alt="Logo SMP IT Al-Afiyah"
+                  className="w-12 h-12 object-contain"
+                />
               </div>
-            </div>
+              <h3 className="text-base sm:text-lg font-extrabold text-[#030164] uppercase leading-snug">
+                Tahfidz Al-Qur&apos;an 3 - 5+ Juz Mutqin
+                <br />
+                &amp; Bahasa Arab Aktif
+              </h3>
+            </Link>
+          </div>
+
+          {/* Bottom Row (25% | 50% | 25%) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <Link
+              href="/smp/fasilitas"
+              className="md:col-span-3 group relative min-h-[220px] rounded-sm overflow-hidden flex items-center justify-center p-6 text-center"
+            >
+              <Image
+                src="/images/smp-kelas-literasi.jpg"
+                alt="Kelas Ber-AC, Lab Komputer & Futsal"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 280px"
+              />
+              <div className="absolute inset-0 bg-black/60 group-hover:bg-[#030164]/75 transition-colors" />
+              <h3 className="relative z-10 text-base sm:text-lg font-extrabold uppercase tracking-wide text-white leading-snug">
+                KELAS BER-AC,
+                <br />
+                LAB KOMPUTER,
+                <br />
+                FUTSAL PROGRAM
+              </h3>
+            </Link>
+
+            <Link
+              href="/smp/fasilitas"
+              className="md:col-span-6 group relative min-h-[220px] rounded-sm overflow-hidden flex items-center justify-center p-6 text-center"
+            >
+              <Image
+                src="/images/smp-masjid-pusat-halaqah.jpg"
+                alt="Masjid, Halaqah Tahfidz & Perpustakaan"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 560px"
+              />
+              <div className="absolute inset-0 bg-[#030164]/75 group-hover:bg-[#090580]/80 transition-colors" />
+              <h3 className="relative z-10 text-lg sm:text-xl font-extrabold uppercase tracking-wide text-white leading-snug">
+                MASJID &amp; PUSAT HALAQAH TAHFIDZ
+                <br />
+                AULA PERTEMUAN - PERPUSTAKAAN LITERASI
+              </h3>
+            </Link>
+
+            <Link
+              href="/smp/dokumentasi"
+              className="md:col-span-3 group relative min-h-[220px] rounded-sm overflow-hidden flex items-center justify-center p-6 text-center"
+            >
+              <Image
+                src="/images/smp-tubing-1.jpg"
+                alt="Pramuka SIT & River Tubing"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 280px"
+              />
+              <div className="absolute inset-0 bg-black/60 group-hover:bg-[#030164]/75 transition-colors" />
+              <h3 className="relative z-10 text-base sm:text-lg font-extrabold uppercase tracking-wide text-white leading-snug">
+                PRAMUKA SIT
+                <br />
+                &amp; RIVER TUBING
+              </h3>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* SECTION PRESTASI: PRESTASI & CAPAIAN SANTRI SMP IT AL-AFIYAH */}
-      <UnitAchievementSection
-        schoolSlug="smp"
-        schoolName="SMP IT Al-Afiyah"
-        primaryColor="#030164"
-        accentColor="#ffd51e"
-        initialAchievements={achievements}
-      />
+      {/* =====================================================================
+          6. FULL-WIDTH PARALLAX FAQ SPMB BANNER + COLLAPSIBLE ACCORDION
+      ===================================================================== */}
+      <section
+        id="pengumuman"
+        className="relative w-full py-20 sm:py-28 bg-fixed bg-cover bg-center text-white text-center overflow-hidden mt-8"
+        style={{
+          backgroundImage: "url('/images/smp-kelulusan-angkatan-3.jpg')",
+        }}
+      >
+        <div className="absolute inset-0 bg-[#030164]/88" />
+        <div className="relative z-10 max-w-3xl mx-auto px-6 space-y-3">
+          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">
+            FAQ SPMB
+          </h2>
+          <p className="text-sm sm:text-base text-slate-200">
+            Temukan informasi lengkap pendaftaran murid baru &amp; diskon gelombang 1 di SMP IT Al-Afiyah Majalengka
+          </p>
+          <div className="pt-2 flex flex-col items-center gap-1">
+            <ChevronDown className="w-6 h-6 text-[#ffd51e] animate-bounce" />
+            <button
+              type="button"
+              onClick={() => setShowFaqBox((prev) => !prev)}
+              className="text-sm sm:text-base font-extrabold uppercase tracking-widest text-white hover:text-[#ffd51e] transition-colors cursor-pointer"
+            >
+              KLIK DI SINI
+            </button>
+          </div>
+        </div>
+      </section>
 
-      {/* SECTION 4: SARANA & FASILITAS SEKOLAH DI LINGKUNGAN GIRI ASIH */}
-      <section id="fasilitas" className="py-14 sm:py-16 bg-white border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-8">
-            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
-              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-              <span>Sarana &amp; Prasarana</span>
-              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
-              Fasilitas Pembelajaran SMP IT Al-Afiyah
-            </h2>
-          </ScrollReveal>
-
-          {/* Facilities Auto-Sliding Row */}
-          <AutoHorizontalSlider itemClassName="w-[285px] sm:w-[330px] lg:w-[360px]">
-            {facilitiesList.map((fac, idx) => (
-              <div
-                key={idx}
-                onClick={() => setSelectedPhotoItem({
-                  image: fac.image,
-                  title: fac.title,
-                  desc: fac.desc,
-                  category: fac.category,
-                })}
-                className="group rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-2xs hover:shadow-md hover:border-[#030164]/40 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
-              >
-                <div className="aspect-[4/3] overflow-hidden bg-slate-200 relative">
-                  <img
-                    src={fac.image}
-                    alt={fac.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#030164] text-[#ffd51e] shadow-sm">
-                      {fac.category}
-                    </span>
-                  </div>
-                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-2xs">
-                    <span className="px-3.5 py-1.5 rounded-xl bg-white text-[#030164] text-xs font-bold shadow-md flex items-center gap-1.5">
-                      <ZoomIn className="w-3.5 h-3.5" />
-                      <span>Perbesar Foto</span>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-4 flex-1 flex flex-col justify-between">
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#030164] transition-colors">
-                    {fac.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </AutoHorizontalSlider>
-
-          {/* Supporting Facilities Auto-Sliding Row */}
-          <div className="mt-6">
-            <AutoHorizontalSlider itemClassName="w-[250px] sm:w-[270px] lg:w-[285px]">
-              {SMP_SUPPORTING_FACILITIES.map((item, idx) => {
-                const Icon = item.icon;
+      {showFaqBox && (
+        <section className="py-12 sm:py-16 bg-[#f8fafc] border-b border-slate-200">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-6">
+            <div className="divide-y divide-slate-200 border border-slate-200 bg-white shadow-xs">
+              {FAQ_ITEMS.map((item, idx) => {
+                const isOpen = openFaqIndex === idx;
                 return (
-                  <div
-                    key={idx}
-                    className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#030164]/30 hover:shadow-xs transition-all space-y-2.5 h-full"
-                  >
-                    <div className="w-9 h-9 rounded-xl bg-blue-100 text-[#030164] flex items-center justify-center">
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug">
-                      {item.title}
-                    </h4>
-                    <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
-                      {item.desc}
-                    </p>
+                  <div key={idx}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaqIndex(isOpen ? -1 : idx)}
+                      className="w-full px-5 py-4 text-left flex items-center gap-3.5 hover:bg-slate-50 transition-colors cursor-pointer"
+                    >
+                      {isOpen ? (
+                        <Minus className="w-4 h-4 text-[#030164] shrink-0" />
+                      ) : (
+                        <Plus className="w-4 h-4 text-[#030164] shrink-0" />
+                      )}
+                      <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#030164]">
+                        {item.question}
+                      </span>
+                    </button>
+                    {isOpen && (
+                      <div className="px-12 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {item.answer}
+                      </div>
+                    )}
                   </div>
                 );
               })}
-            </AutoHorizontalSlider>
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link
-              href="/smp/fasilitas"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider transition-all border border-slate-300"
-            >
-              <span>Lihat Dokumentasi Fasilitas Lengkap</span>
-              <ArrowRight className="w-4 h-4 text-[#030164]" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 5: DOKUMENTASI NYATA & AKTIVITAS SANTRI */}
-      <section id="dokumentasi" className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-1.5">
-                <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                <span>Galeri Dokumentasi</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Galeri Aktivitas Santri &amp; Haflah Kelulusan
-              </h2>
             </div>
-            <Link
-              href="/smp/dokumentasi"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#030164] text-white hover:bg-[#030164]/90 text-xs font-bold transition-all shadow-sm shrink-0"
-            >
-              <span>Lihat Seluruh Galeri Dokumentasi</span>
-              <ArrowRight className="w-4 h-4 text-[#ffd51e]" />
-            </Link>
-          </div>
 
-          <AutoHorizontalSlider itemClassName="w-[290px] sm:w-[340px] lg:w-[370px]">
-            {SMP_DOKUMENTASI_CARDS.map((item, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md aspect-[4/3] group relative cursor-pointer transition-all duration-300"
-                onClick={() => setSelectedPhotoItem({
-                  image: item.image,
-                  title: item.title,
-                  desc: item.desc,
-                  category: item.badge,
-                })}
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <Link
+                href={ppdbUrl}
+                className="px-6 py-3 rounded-sm bg-[#030164] hover:bg-[#090580] text-white font-extrabold text-xs uppercase tracking-wider transition-colors"
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#030164]/90 backdrop-blur-sm text-[#ffd51e] border border-white/20 shadow-sm">
-                    {item.badge}
-                  </span>
-                </div>
-                <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="p-2 rounded-full bg-white/90 backdrop-blur-sm text-slate-800 shadow-md inline-flex items-center justify-center">
-                    <ZoomIn className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent flex flex-col justify-end p-4 text-white">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#ffd51e] mb-1">
-                    {item.category}
-                  </span>
-                  <p className="text-xs sm:text-sm font-bold line-clamp-2 leading-snug">
-                    {item.title}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </AutoHorizontalSlider>
-        </div>
-      </section>
+                Daftar SPMB Online
+              </Link>
+              <button
+                type="button"
+                onClick={() => setIsFeeModalOpen(true)}
+                className="px-6 py-3 rounded-sm bg-[#e5a93b] hover:bg-[#d4962a] text-white font-extrabold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                Simulasi Biaya &amp; Diskon 70%
+              </button>
+              <Link
+                href="/smp/spmb/cek-status"
+                className="px-6 py-3 rounded-sm bg-white hover:bg-slate-100 text-[#030164] border border-slate-300 font-extrabold text-xs uppercase tracking-wider transition-colors"
+              >
+                Cek Status Seleksi
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
-      {/* SECTION: STRUKTUR KEPENGURUSAN & TENAGA PENDIDIK SMP IT */}
-      {teachers && teachers.length > 0 && (
-        <section id="dewan-guru" className="py-16 sm:py-20 bg-white border-b border-slate-200 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
-                  <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                  <span>Bagan Kepengurusan &amp; Tim Pengelola Terpadu</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-2 leading-snug">
-                  Struktur Kepengurusan &amp; Tenaga Pendidik <br className="hidden sm:inline" />
-                  <span className="text-[#030164] inline-block">SMP&nbsp;IT Al-Afiyah</span>
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
-                  Tata kelola terintegrasi antara pimpinan yayasan, kepala satuan pendidikan, dewan asatidzah tahfidz &amp; kurikulum, tata usaha, serta pengembang sistem informasi digital yang bersinergi mewujudkan pendidikan berkarakter islami.
-                </p>
+      {/* =====================================================================
+          7A. #SMPITALAFIYAHMEDIA (LEFT) & ACARA-ACARA (RIGHT) — AL-HIDAYAH SPLIT
+      ===================================================================== */}
+      <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+            {/* Left Column: #SMPITALAFIYAHMEDIA Compact Horizontal List */}
+            <div className="lg:col-span-6 space-y-5">
+              <p className="text-center text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900">
+                #SMPITALAFIYAHMEDIA
+              </p>
+
+              <div className="space-y-4">
+                {mediaPosts.map((post) => (
+                  <div
+                    key={post.id}
+                    onClick={() => {
+                      setSelectedNews(post);
+                      setSelectedNewsSlideIndex(0);
+                    }}
+                    className="group flex items-center gap-4 hover:bg-slate-50/80 p-1.5 rounded-xs transition-colors cursor-pointer"
+                  >
+                    <div className="relative w-28 h-20 sm:w-32 sm:h-20 shrink-0 overflow-hidden bg-slate-100">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={post.coverImage || '/images/smp-kelulusan-angkatan-3.jpg'}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="space-y-1.5 min-w-0">
+                      <h3 className="text-xs sm:text-[13.5px] font-bold text-slate-700 group-hover:text-[#030164] leading-snug line-clamp-2 transition-colors">
+                        {sanitizeAdabText(post.title)}
+                      </h3>
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>
+                          {new Date(post.publishedAt).toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="flex items-center gap-3 shrink-0 flex-wrap">
-                <span className="text-xs font-semibold text-[#030164] bg-blue-50 border border-blue-200/80 px-3.5 py-2 rounded-xl">
-                  {teachers.length} Struktur &amp; Tenaga Pendidik Aktif
-                </span>
+
+              <div className="pt-2 text-center">
                 <Link
-                  href="/smp/guru"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#030164] text-white hover:bg-[#030164]/90 text-xs font-bold transition-all shadow-sm"
+                  href="/smp/berita"
+                  className="inline-block px-5 py-2 border border-slate-400 hover:border-slate-700 text-slate-700 hover:text-slate-950 text-xs font-medium rounded-xs transition-colors"
                 >
-                  <Users className="w-4 h-4 text-[#ffd51e]" />
-                  <span>Lihat Struktur &amp; Pendidik Lengkap</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#ffd51e]" />
+                  Muat Lebih Banyak
                 </Link>
               </div>
-            </ScrollReveal>
+            </div>
 
-            <AutoHorizontalSlider itemClassName="w-[280px] sm:w-[310px] lg:w-[330px]">
-              {teachers.slice(0, 8).map((teacher, idx) => {
-                const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
+            {/* Right Column: #AGENDASEKOLAH 3-Card Vertical Grid + Interactive Pagination */}
+            <div className="lg:col-span-6 space-y-5">
+              <p className="text-center text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900">
+                #AGENDASEKOLAH
+              </p>
+
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-[#030164] tracking-tight">
+                  Acara-acara
+                </h2>
+                <div className="flex items-center gap-1.5 text-slate-400">
+                  <button
+                    type="button"
+                    onClick={() => setAgendaViewMode('grid')}
+                    aria-label="Tampilan Grid"
+                    className={`p-1.5 rounded-xs cursor-pointer transition-colors ${
+                      agendaViewMode === 'grid'
+                        ? 'bg-slate-100 text-[#030164]'
+                        : 'hover:bg-slate-100 text-slate-400'
+                    }`}
+                  >
+                    <LayoutGrid className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAgendaViewMode('list')}
+                    aria-label="Tampilan Daftar"
+                    className={`p-1.5 rounded-xs cursor-pointer transition-colors ${
+                      agendaViewMode === 'list'
+                        ? 'bg-slate-100 text-[#030164]'
+                        : 'hover:bg-slate-100 text-slate-400'
+                    }`}
+                  >
+                    <List className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {(() => {
+                const EVENTS_PER_PAGE = 3;
+                const totalAgendaPages = Math.ceil(UPCOMING_EVENTS.length / EVENTS_PER_PAGE);
+                const currentAgendaEvents = UPCOMING_EVENTS.slice(
+                  (agendaPage - 1) * EVENTS_PER_PAGE,
+                  agendaPage * EVENTS_PER_PAGE
+                );
 
                 return (
+                  <>
+                    {agendaViewMode === 'grid' ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {currentAgendaEvents.map((ev, idx) => (
+                          <Link
+                            key={`${agendaPage}-${idx}`}
+                            href={ev.href}
+                            className="group bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
+                          >
+                            <div>
+                              <div className="relative h-28 w-full bg-slate-100">
+                                <Image
+                                  src={ev.image}
+                                  alt={ev.title}
+                                  fill
+                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                  sizes="200px"
+                                />
+                                <div className="absolute -bottom-5 right-3 w-11 h-11 rounded-full bg-[#0284c7] text-white shadow-md flex flex-col items-center justify-center leading-none z-10">
+                                  <span className="text-xs font-extrabold">{ev.day}</span>
+                                  <span className="text-[9px] uppercase font-semibold">
+                                    {ev.month}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="p-4 pt-6 space-y-2.5">
+                                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-[#030164] line-clamp-2 leading-snug transition-colors">
+                                  {ev.title}
+                                </h3>
+
+                                <div className="space-y-1.5 text-[11px] text-slate-500">
+                                  <p className="flex items-start gap-1.5 leading-relaxed">
+                                    <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                                    <span>{ev.dateTime}</span>
+                                  </p>
+                                  <p className="flex items-start gap-1.5">
+                                    <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                                    <span>{ev.location}</span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="px-4 pb-3.5">
+                              <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-medium rounded-xs">
+                                {ev.tag}
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="space-y-3">
+                        {currentAgendaEvents.map((ev, idx) => (
+                          <Link
+                            key={`${agendaPage}-list-${idx}`}
+                            href={ev.href}
+                            className="group bg-white border border-slate-200/90 p-3 shadow-xs hover:shadow-md transition-all flex items-center gap-4"
+                          >
+                            <div className="w-12 h-12 rounded-full bg-[#0284c7] text-white shadow-xs flex flex-col items-center justify-center leading-none shrink-0">
+                              <span className="text-xs font-extrabold">{ev.day}</span>
+                              <span className="text-[9px] uppercase font-semibold">
+                                {ev.month}
+                              </span>
+                            </div>
+                            <div className="min-w-0 flex-1 space-y-1">
+                              <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-[#030164] line-clamp-1 transition-colors">
+                                {ev.title}
+                              </h3>
+                              <p className="text-[11px] text-slate-500 truncate">
+                                {ev.dateTime} • {ev.location}
+                              </p>
+                            </div>
+                            <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-medium rounded-xs shrink-0">
+                              {ev.tag}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-center gap-1.5 pt-2">
+                      {Array.from({ length: totalAgendaPages }, (_, i) => i + 1).map((pageNum) => {
+                        const isActive = agendaPage === pageNum;
+                        return (
+                          <button
+                            key={pageNum}
+                            type="button"
+                            onClick={() => setAgendaPage(pageNum)}
+                            aria-label={`Slide Agenda ${pageNum}`}
+                            className={`w-7 h-7 flex items-center justify-center rounded-xs text-xs font-bold transition-colors cursor-pointer ${
+                              isActive
+                                ? 'bg-[#0284c7] text-white shadow-2xs'
+                                : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
+                            }`}
+                          >
+                            {pageNum}
+                          </button>
+                        );
+                      })}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAgendaPage((prev) => (prev >= totalAgendaPages ? 1 : prev + 1))
+                        }
+                        aria-label="Slide Agenda Berikutnya"
+                        className="w-7 h-7 flex items-center justify-center rounded-xs border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs cursor-pointer transition-colors"
+                      >
+                        →
+                      </button>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          7B. STRUKTUR KEPENGURUSAN & TENAGA PENDIDIK (AUTO-SLIDING ROW)
+      ===================================================================== */}
+      {displayTeachers.length > 0 && (
+        <section id="dewan-guru" className="py-14 sm:py-16 bg-[#f8fafc] border-b border-slate-200/70 scroll-mt-20">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-wider text-[#030164] mb-1">
+                  #STRUKTURPENDIDIK
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#030164] tracking-tight">
+                  Struktur Kepengurusan &amp; Tenaga Pendidik SMP IT Al-Afiyah
+                </h2>
+              </div>
+              <Link
+                href="/smp/guru"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#030164] hover:bg-[#090580] text-white text-xs font-bold uppercase tracking-wider transition-colors self-start md:self-auto"
+              >
+                <Users className="w-4 h-4 text-[#ffd51e]" />
+                <span>Lihat Struktur Lengkap</span>
+              </Link>
+            </div>
+
+            <AutoHorizontalSlider itemClassName="w-[290px] sm:w-[340px] lg:w-[360px]">
+              {displayTeachers.map((teacher) => {
+                const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
+                return (
                   <div
-                    key={teacher.id || idx}
-                    className="bg-white rounded-2xl border border-slate-200 hover:border-[#030164]/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5 shadow-xs"
+                    key={teacher.id}
+                    className="bg-white rounded-sm p-5 border border-slate-200/90 shadow-xs hover:border-[#030164] transition-all flex flex-col justify-between group h-full"
                   >
                     <div className="space-y-3.5">
-                      {/* Header Badge Role - Elegan Navy Blue & Gold */}
-                      <div className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white rounded-xl p-3.5 shadow-2xs relative overflow-hidden">
+                      <div className="bg-[#030164] text-white rounded-sm p-3.5">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
                           {department}
                         </span>
@@ -1234,7 +1545,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                       </div>
 
                       <div className="space-y-1.5">
-                        <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-[#030164] transition-colors">
+                        <h3 className="text-base font-bold text-[#030164] leading-snug">
                           {teacher.name}
                         </h3>
                         {teacher.specialization && (
@@ -1243,7 +1554,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                           </p>
                         )}
                         {teacher.bio && (
-                          <p className="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 leading-relaxed line-clamp-3">
+                          <p className="text-[11px] text-slate-500 italic leading-relaxed pt-1 line-clamp-3">
                             &ldquo;{teacher.bio}&rdquo;
                           </p>
                         )}
@@ -1252,10 +1563,10 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
 
                     <Link
                       href="/smp/guru"
-                      className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#030164] hover:text-[#090580] transition-colors"
+                      className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#030164] hover:text-blue-900"
                     >
-                      <span>Lihat Detail Tim &amp; Struktur</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
+                      <span>Detail Struktur</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 );
@@ -1265,281 +1576,359 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
         </section>
       )}
 
-      {/* SECTION: WARTA & KABAR TERKINI SMP IT */}
-      {newsPosts && newsPosts.length > 0 && (
-        <section id="warta" className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-1.5">
-                  <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                  <span>Warta &amp; Kabar Terkini</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                  Berita &amp; Kegiatan Santri
-                </h2>
-              </div>
-              <Link
-                href="/smp/berita"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-[#030164] text-[#030164] hover:bg-blue-50 text-xs font-bold transition-all shadow-xs shrink-0"
-              >
-                <span>Buka Seluruh Berita SMP IT</span>
-                <ArrowRight className="w-4 h-4 text-[#030164]" />
-              </Link>
-            </ScrollReveal>
+      {/* =====================================================================
+          7C. TESTIMONI WALI MURID (HEXAGONAL WORLD MAP + GLOWING IG PINS)
+      ===================================================================== */}
+      <section
+        id="testimonials"
+        className="relative pt-12 pb-24 sm:pb-32 bg-white bg-center bg-no-repeat bg-cover overflow-visible"
+        style={{
+          backgroundImage: "url('/images/world-map-clean.png')",
+        }}
+      >
+        <style>{`
+          @keyframes praditaButtonRipple {
+            0% {
+              box-shadow: 0 0 0 0 currentColor;
+              opacity: 0.6;
+            }
+            70% {
+              box-shadow: 0 0 0 32px currentColor;
+              opacity: 0;
+            }
+            100% {
+              box-shadow: 0 0 0 0 currentColor;
+              opacity: 0;
+            }
+          }
+        `}</style>
 
-            <AutoHorizontalSlider itemClassName="w-[300px] sm:w-[350px] lg:w-[380px]">
-              {newsPosts.slice(0, 6).map((post, idx) => (
-                <Link
-                  key={post.id || idx}
-                  href={`/smp/berita`}
-                  className="bg-white rounded-2xl border border-slate-200/90 hover:border-[#030164]/40 hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between h-full group"
-                >
-                  <div>
-                    {post.coverImage && (
-                      <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={post.coverImage}
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#030164] text-[#ffd51e] shadow-xs">
-                            {post.category || 'Warta'}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="p-5 space-y-2">
-                      <div className="flex items-center gap-2 text-[11px] text-slate-400">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>
-                          {new Date(post.publishedAt).toLocaleDateString('id-ID', {
-                            dateStyle: 'medium',
-                          })}
-                        </span>
-                      </div>
-
-                      <h3 className="font-bold text-slate-900 group-hover:text-[#030164] transition-colors line-clamp-2 text-base leading-snug">
-                        {post.title}
-                      </h3>
-
-                      <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="p-5 pt-0 flex items-center justify-between text-xs font-bold text-[#030164]">
-                    <span>Baca Selengkapnya</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
-              ))}
-            </AutoHorizontalSlider>
-          </div>
-        </section>
-      )}
-
-      {/* SECTION: TESTIMONI WALI SANTRI SMP IT */}
-      {cmsData?.testimonials && cmsData.testimonials.length > 0 && (
-        <section id="testimoni" className="py-14 sm:py-16 bg-white border-b border-slate-200 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal yOffset={24} duration={500} className="text-center max-w-3xl mx-auto mb-10">
-              <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
-                <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-                <span>Kata Mereka</span>
-                <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-                Testimoni Orang Tua Santri
-              </h2>
-            </ScrollReveal>
-
-            <AutoHorizontalSlider itemClassName="w-[300px] sm:w-[350px] lg:w-[380px]">
-              {cmsData.testimonials.map((testi: any, idx: number) => (
-                <div
-                  key={idx}
-                  className="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between h-full"
-                >
-                  <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-4">
-                    &ldquo;{testi.quote}&rdquo;
-                  </p>
-                  <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
-                    <div>
-                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">
-                        {testi.name}
-                      </h4>
-                      <p className="text-[11px] text-slate-500">
-                        {testi.role}
-                      </p>
-                    </div>
-                    <div className="flex text-amber-400 text-xs">
-                      {'★'.repeat(testi.rating || 5)}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </AutoHorizontalSlider>
-
-            <div className="mt-10 text-center">
-              <Link
-                href="/smp/testimoni"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all border border-slate-300"
-              >
-                <span>Lihat Seluruh Testimoni Wali Santri</span>
-                <ArrowRight className="w-4 h-4 text-[#030164]" />
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* SECTION 6: FAQ ACCORDION */}
-      <section id="faq" className="py-14 sm:py-16 bg-white border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal yOffset={24} duration={500} className="text-center mb-8">
-            <div className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-[#030164] mb-2">
-              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-              <span>Tanya Jawab</span>
-              <span className="w-5 h-[2px] bg-[#030164] rounded-full inline-block" />
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Pertanyaan Seputar SPMB (FAQ)
-            </h2>
-          </ScrollReveal>
-
-          <div className="space-y-3">
-            {SMP_FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 transition-all"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate-900 hover:text-[#030164] transition-colors cursor-pointer"
-                  >
-                    <span>{faq.q}</span>
-                    <ChevronDown
-                      className={`w-4 h-4 text-slate-500 transition-transform duration-300 shrink-0 ${
-                        isOpen ? 'rotate-180 text-[#030164]' : ''
-                      }`}
-                    />
-                  </button>
-                  {isOpen && (
-                    <div className="px-4 pb-5 sm:px-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/60 pt-3 bg-white">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 7: PETA LOKASI SEKOLAH DI LINGKUNGAN GIRI ASIH */}
-      <CampusLocationMapSection unitSlug="smp" />
-
-      {/* SECTION 7B: AJAKAN SPESIAL WALI MURID DAFTAR AFFILIATE AL-AFIYAH */}
-      <section className="py-12 sm:py-16 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl bg-gradient-to-br from-[#020140] via-[#030164] to-[#0a068a] text-white p-6 sm:p-10 lg:p-12 shadow-xl border border-[#ffd51e]/30 relative overflow-hidden">
-            <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-              <div className="max-w-2xl space-y-2.5">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-[#ffd51e]/40 text-[#ffd51e] text-xs font-extrabold uppercase tracking-wider">
-                  <span>Program Affiliate Wali Murid</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
-                  Syiar Kebaikan SMP IT Al-Afiyah &amp; Raih{' '}
-                  <span className="text-[#ffd51e]">Apresiasi Rp 150.000 / Murid</span>
-                </h2>
-                <p className="text-xs sm:text-sm text-blue-100/90 leading-relaxed">
-                  Daftar gratis, bagikan link rekomendasi unik Anda, dan dapatkan komisi <strong className="text-[#ffd51e] font-bold">Rp 50.000</strong> (saat pelunasan formulir) + <strong className="text-[#ffd51e] font-bold">Rp 100.000</strong> (saat daftar ulang).
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
-                <Link
-                  href="/affiliate/register?unit=smp"
-                  className="px-6 py-4 rounded-2xl bg-[#ffd51e] hover:bg-yellow-400 text-[#030164] font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-all active:scale-95 inline-flex items-center justify-center gap-2 text-center"
-                >
-                  <span>Daftar Affiliate Wali Murid (Gratis)</span>
-                  <ArrowRight className="w-4 h-4 stroke-[3]" />
-                </Link>
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(
-                    `Assalamu'alaikum Ayah & Bunda Wali Murid SMP IT Al-Afiyah 🌿\n\nYuk ikut menebar syiar kebaikan pendidikan melalui *Program Affiliate Resmi Wali Murid Al-Afiyah* (SPMB T.A. 2027/2028)!\n\n✅ Daftar 100% Gratis (1 Menit Aktif)\n✅ Apresiasi Rp 50.000 saat pelunasan formulir\n✅ Apresiasi Rp 100.000 saat daftar ulang\n💰 Total Rp 150.000 / murid langsung cair ke rekening Ayah/Bunda.\n\nDaftar & dapatkan link rekomendasi unik Ayah/Bunda di sini:\n👉 https://smpit.alafiyah.id/affiliate/register?unit=smp`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs sm:text-sm transition-all inline-flex items-center justify-center gap-2 text-center"
-                >
-                  <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
-                  <span>Bagikan Ajakan ke Grup WA Wali Murid</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 8: BOTTOM CTA BANNER */}
-      <section className="py-14 sm:py-16 bg-gradient-to-r from-[#030164] via-[#090580] to-[#01003d] text-white text-center relative overflow-hidden">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e]">
-            <span className="w-2 h-2 rounded-full bg-[#ffd51e] animate-pulse" />
-            <span>Pendaftaran Gelombang 1 Dibuka</span>
-          </div>
-          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
-            Daftarkan Putra-Putri Anda di <span className="text-[#ffd51e]">SMP IT Al-Afiyah</span>
+        <div className="relative z-10 max-w-[1140px] mx-auto px-4 sm:px-6 lg:px-8 lg:min-h-[540px]">
+          <h2 className="text-3xl sm:text-[42px] font-extrabold text-[#030164] text-center tracking-tight mb-10 lg:mb-0 lg:pt-4">
+            Testimoni &amp; Suara Sekolah
           </h2>
-          <p className="text-xs sm:text-sm text-slate-200 max-w-xl mx-auto">
-            Diskon Uang Bangunan hingga 70% khusus pendaftaran Gelombang 1 (s/d 28 Februari 2027).
-          </p>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-4">
+          {/* Decorative Map Rings in open gaps */}
+          <div className="hidden lg:block pointer-events-none">
+            <span className="absolute top-[135px] left-[19%] w-3.5 h-3.5 rounded-full border-[3px] border-[#f5b82e]/75 bg-white" />
+            <span className="absolute top-[185px] left-[22.5%] w-3.5 h-3.5 rounded-full border-[3px] border-[#f5b82e]/75 bg-white" />
+            <span className="absolute top-[265px] left-[20%] w-3.5 h-3.5 rounded-full border-[3px] border-[#fb923c]/75 bg-white" />
+            <span className="absolute top-[280px] left-[45.5%] w-4 h-4 rounded-full border-[3.5px] border-[#030164]/80 bg-white" />
+            <span className="absolute top-[320px] left-[43%] w-3.5 h-3.5 rounded-full border-[3px] border-[#030164]/75 bg-white" />
+            <span className="absolute top-[220px] left-[63.5%] w-3.5 h-3.5 rounded-full border-[3px] border-[#fb923c]/75 bg-white" />
+            <span className="absolute top-[110px] left-[73%] w-3.5 h-3.5 rounded-full border-[3px] border-[#fb923c]/75 bg-white" />
+            <span className="absolute top-[480px] left-[35.5%] w-3.5 h-3.5 rounded-full border-[3px] border-[#fb7185]/75 bg-white" />
+            <span className="absolute top-[455px] left-[83%] w-3.5 h-3.5 rounded-full border-[3px] border-[#fb923c]/75 bg-white" />
+          </div>
+
+          <GlowingInstagramPin
+            className="hidden lg:flex top-[200px] left-[14.5%]"
+            rippleColor="#ff2b56"
+          />
+          <GlowingInstagramPin
+            className="hidden lg:flex top-[252px] left-[64.5%]"
+            rippleColor="#255cff"
+          />
+          <GlowingInstagramPin
+            className="hidden lg:flex top-[388px] left-[38.5%]"
+            rippleColor="#ff2b56"
+          />
+          <GlowingInstagramPin
+            className="hidden lg:flex top-[396px] left-[87.5%]"
+            rippleColor="#ff2b56"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:block">
+            {realMapTestimonials.map((t, idx) => (
+              <div
+                key={idx}
+                className={`${t.desktopPos} bg-white/95 backdrop-blur-[2px] rounded-[15px] p-5 sm:p-6 shadow-[0_30px_60px_-15px_rgba(255,122,92,0.35)] border border-orange-100/60 flex flex-col items-center text-center space-y-4`}
+              >
+                <p className="text-sm sm:text-[15px] font-semibold text-slate-900 leading-relaxed">
+                  {t.quote}
+                </p>
+
+                <div className="flex items-center justify-center gap-3.5 text-left pt-1">
+                  <div className="relative w-[48px] h-[48px] rounded-full overflow-hidden shrink-0 shadow-xs border border-slate-200">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={t.avatar}
+                      alt={t.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="leading-tight">
+                    <p className="text-sm text-[#030164] font-bold">
+                      {t.name}
+                    </p>
+                    <p className="text-xs font-extrabold text-amber-600 mt-0.5">
+                      {t.role}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          8. COMPACT AFFILIATE BANNER & LOKASI KAMPUS
+      ===================================================================== */}
+      <section className="py-10 bg-[#030164] text-white border-t border-blue-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-1.5 text-center md:text-left max-w-2xl">
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#ffd51e]">
+              Program Affiliate Wali Murid SMP IT Al-Afiyah
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+              Syiar Kebaikan Sekolah &amp; Raih Apresiasi <span className="text-[#ffd51e]">Rp 150.000 / Murid</span>
+            </h3>
+            <p className="text-xs sm:text-sm text-blue-100/90">
+              Daftar gratis, bagikan link rekomendasi unik Anda, dan dapatkan komisi Rp 50.000 (formulir) + Rp 100.000 (daftar ulang).
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
             <Link
-              href={ppdbUrl}
-              className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#ffd51e] text-[#030164] font-black text-xs sm:text-sm uppercase tracking-wider hover:bg-yellow-400 transition-all shadow-lg active:scale-95 inline-flex items-center justify-center gap-2 text-center"
+              href="/affiliate/register?unit=smp"
+              className="px-6 py-3 rounded-sm bg-[#ffd51e] hover:bg-amber-300 text-[#030164] font-extrabold text-xs uppercase tracking-wider transition-colors"
             >
-              <span>Daftar SPMB Online Sekarang</span>
-              <ArrowRight className="w-4 h-4 stroke-[3]" />
+              Daftar Affiliate (Gratis)
             </Link>
             <a
-              href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20konsultasi%20pendaftaran"
+              href={`https://wa.me/?text=${encodeURIComponent(
+                `Assalamu'alaikum Ayah & Bunda Wali Murid SMP IT Al-Afiyah 🌿\n\nYuk ikut menebar syiar kebaikan pendidikan melalui *Program Affiliate Resmi Wali Murid SMP IT Al-Afiyah* (SPMB T.A. 2027/2028)!\n\n💰 Total Apresiasi Rp 150.000 / murid langsung cair ke rekening Ayah/Bunda.\n\nDaftar gratis di sini:\n👉 https://smpit.alafiyah.id/affiliate/register?unit=smp`
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all inline-flex items-center justify-center gap-2 text-center"
+              className="px-5 py-3 rounded-sm bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs uppercase tracking-wider inline-flex items-center gap-2 transition-colors"
             >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffd51e]" />
-              <span>Konsultasi WhatsApp Admin</span>
+              <MessageCircle className="w-4 h-4 text-[#ffd51e]" />
+              <span>Share ke WA</span>
             </a>
           </div>
         </div>
       </section>
 
-      {/* Lightbox Modal for Official Posters */}
+      <CampusLocationMapSection unitSlug="smp" />
+
+      {/* =====================================================================
+          MODAL 1: BACA ARTIKEL LENGKAP (MULTI-FOTO & VIDEO CAROUSEL)
+      ===================================================================== */}
+      {selectedNews && (() => {
+        const parsedModal = parseNewsMedia(selectedNews.content, selectedNews.coverImage);
+        const slides =
+          parsedModal.allMedia.length > 0
+            ? parsedModal.allMedia
+            : [
+                {
+                  type: 'image' as const,
+                  url: selectedNews.coverImage || '/images/smp-kelulusan-angkatan-3.jpg',
+                },
+              ];
+        const currentSlide = slides[selectedNewsSlideIndex] || slides[0];
+
+        return (
+          <div
+            onClick={() => setSelectedNews(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-0 bg-slate-950/90 backdrop-blur-md animate-in fade-in cursor-pointer overflow-hidden"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-none w-screen h-[100dvh] max-w-none max-h-none border-0 shadow-2xl overflow-hidden flex flex-col cursor-default"
+            >
+              <div className="bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3.5 border-b border-slate-100 flex items-center justify-between shrink-0 z-20">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-[#030164]">
+                    {selectedNews.category}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900">
+                    SMP IT Al-Afiyah
+                  </span>
+                  {slides.length > 1 && (
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-[#030164]">
+                      Slide {selectedNewsSlideIndex + 1} dari {slides.length}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedNews(null)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-colors shadow-sm cursor-pointer"
+                >
+                  <X className="w-4 h-4 text-[#ffd51e]" />
+                  <span>Tutup</span>
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row min-h-0">
+                <div className="md:w-7/12 lg:w-[56%] bg-slate-950 flex flex-col justify-between relative overflow-hidden shrink-0 h-[340px] sm:h-[420px] md:h-full select-none">
+                  <div className="relative flex-1 w-full h-full flex items-center justify-center p-1 sm:p-2 overflow-hidden min-h-0">
+                    {currentSlide.type === 'video' ? (
+                      getVideoEmbedUrl(currentSlide.url) ? (
+                        <iframe
+                          key={currentSlide.url}
+                          src={getVideoEmbedUrl(currentSlide.url)!}
+                          title={selectedNews.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          className="relative z-10 w-full h-full rounded-lg shadow-2xl border-0 bg-black"
+                        />
+                      ) : (
+                        <video
+                          key={currentSlide.url}
+                          src={currentSlide.url}
+                          controls
+                          playsInline
+                          className="relative z-10 w-full h-full object-contain rounded-lg shadow-2xl bg-black"
+                        />
+                      )
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        key={currentSlide.url}
+                        src={currentSlide.url}
+                        alt={selectedNews.title}
+                        className="relative z-10 w-full h-full object-contain rounded-lg shadow-2xl"
+                      />
+                    )}
+
+                    {slides.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setSelectedNewsSlideIndex((prev) =>
+                              prev === 0 ? slides.length - 1 : prev - 1
+                            )
+                          }
+                          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/70 hover:bg-[#030164] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
+                          title="Slide Sebelumnya"
+                        >
+                          <ChevronLeft className="w-6 h-6" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setSelectedNewsSlideIndex((prev) =>
+                              prev === slides.length - 1 ? 0 : prev + 1
+                            )
+                          }
+                          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/70 hover:bg-[#030164] text-white border border-white/20 flex items-center justify-center shadow-xl transition-all cursor-pointer"
+                          title="Slide Berikutnya"
+                        >
+                          <ChevronRight className="w-6 h-6" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+                  {slides.length > 1 && (
+                    <div className="relative z-20 bg-slate-900/95 border-t border-white/10 px-4 py-2.5 flex items-center gap-2 overflow-x-auto">
+                      {slides.map((media, idx) => (
+                        <button
+                          key={`${media.url}-${idx}`}
+                          type="button"
+                          onClick={() => setSelectedNewsSlideIndex(idx)}
+                          className={`relative w-16 h-12 rounded-lg overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
+                            idx === selectedNewsSlideIndex
+                              ? 'border-[#ffd51e] ring-2 ring-[#ffd51e]/40 scale-105'
+                              : 'border-white/20 opacity-60 hover:opacity-100'
+                          }`}
+                        >
+                          {media.type === 'video' ? (
+                            <div className="relative w-full h-full bg-slate-800 flex flex-col items-center justify-center text-white">
+                              <Film className="relative z-10 w-4 h-4 text-[#ffd51e]" />
+                              <span className="relative z-10 text-[8px] font-bold mt-0.5">VIDEO</span>
+                            </div>
+                          ) : (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={media.url}
+                              alt={`Slide ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex-1 p-5 sm:p-7 md:p-9 overflow-y-auto space-y-5 bg-white flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 font-medium">
+                      <span className="flex items-center gap-1.5">
+                        <User className="w-3.5 h-3.5 text-[#030164]" />
+                        <strong className="text-slate-700">{selectedNews.author}</strong>
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                        <span>
+                          {new Date(selectedNews.publishedAt).toLocaleDateString('id-ID', {
+                            dateStyle: 'full',
+                          })}
+                        </span>
+                      </span>
+                    </div>
+
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 leading-tight">
+                      {sanitizeAdabText(selectedNews.title)}
+                    </h2>
+
+                    <div className="text-sm sm:text-base text-slate-700 leading-relaxed whitespace-pre-line space-y-3 pt-2 border-t border-slate-100 font-normal">
+                      {sanitizeAdabText(parsedModal.cleanContent)}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedNews(null)}
+                      className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl transition-colors cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5 text-slate-600" />
+                      <span>Kembali ke Halaman</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* =====================================================================
+          MODAL 2: LIGHTBOX BROSUR & BIAYA SPMB SMP IT
+      ===================================================================== */}
       {isPosterModalOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4 backdrop-blur-sm"
           onClick={() => setIsPosterModalOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in cursor-pointer"
         >
           <div
-            className="relative max-w-3xl w-full max-h-[90vh] bg-white rounded-3xl overflow-hidden p-4 sm:p-6 flex flex-col justify-between"
             onClick={(e) => e.stopPropagation()}
+            className="relative max-w-3xl w-full max-h-[92vh] bg-white rounded-sm overflow-hidden p-4 sm:p-6 flex flex-col justify-between cursor-default"
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-              <h4 className="text-sm sm:text-base font-black text-slate-900">
-                {activePoster.label} • SPMB SMP IT Al-Afiyah
-              </h4>
+              <div className="flex items-center gap-2 flex-wrap">
+                {SPMB_POSTERS.map((p) => (
+                  <button
+                    key={p.src}
+                    type="button"
+                    onClick={() => setActivePoster(p)}
+                    className={`px-3 py-1.5 rounded-xs text-xs font-bold transition-colors cursor-pointer ${
+                      activePoster.src === p.src
+                        ? 'bg-[#030164] text-[#ffd51e]'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
               <button
                 type="button"
                 onClick={() => setIsPosterModalOpen(false)}
@@ -1549,98 +1938,231 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
               </button>
             </div>
 
-            <div className="flex-1 overflow-auto my-4 max-h-[70vh] flex items-center justify-center bg-slate-50 rounded-2xl p-2">
+            <div className="flex-1 overflow-auto my-3 max-h-[70vh] flex items-center justify-center bg-slate-50 rounded-sm p-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={activePoster.src}
                 alt={activePoster.label}
-                className="max-h-[68vh] w-auto object-contain rounded-xl"
+                className="max-h-[68vh] w-auto object-contain"
               />
             </div>
 
-            <div className="flex items-center justify-between pt-3 border-t border-slate-200">
-              <span className="text-xs text-slate-500">Resolusi Tinggi • Format Gambar Resmi</span>
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-200">
+              <div className="flex items-center gap-2">
+                <Link
+                  href={ppdbUrl}
+                  className="px-4 py-2 rounded-sm bg-[#030164] hover:bg-[#090580] text-[#ffd51e] text-xs font-bold uppercase tracking-wider"
+                >
+                  Daftar SPMB Online
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsPosterModalOpen(false);
+                    setIsFeeModalOpen(true);
+                  }}
+                  className="px-3.5 py-2 rounded-sm bg-slate-100 hover:bg-slate-200 text-[#030164] text-xs font-bold uppercase tracking-wider cursor-pointer"
+                >
+                  Simulasi Biaya
+                </button>
+              </div>
               <a
                 href={activePoster.src}
                 download={activePoster.file}
-                className="px-4 py-2 rounded-xl bg-[#030164] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#07038c] transition-all flex items-center gap-1.5"
+                className="px-4 py-2 rounded-sm bg-[#e5a93b] hover:bg-[#d4962a] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1.5"
               >
-                <Download className="w-3.5 h-3.5 text-[#ffd51e]" />
-                <span>Unduh Gambar</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>Unduh Brosur</span>
               </a>
             </div>
           </div>
         </div>
       )}
 
-      {/* Lightbox Modal with Full Image and Complete Caption */}
-      {selectedPhotoItem && (
+      {/* =====================================================================
+          MODAL 3: SIMULASI & TABEL BIAYA SPMB SMP IT (IKHWAN/AKHWAT & DISKON 70%)
+      ===================================================================== */}
+      {isFeeModalOpen && (
         <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-3 sm:p-5 backdrop-blur-md animate-in fade-in duration-200"
-          onClick={() => setSelectedPhotoItem(null)}
+          onClick={() => setIsFeeModalOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in cursor-pointer"
         >
           <div
-            className="relative max-w-3xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col text-left"
             onClick={(e) => e.stopPropagation()}
+            className="relative max-w-3xl w-full max-h-[92vh] bg-white rounded-sm overflow-hidden flex flex-col justify-between cursor-default border border-slate-200 shadow-2xl"
           >
-            {/* Header bar */}
-            <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-white">
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-md text-[11px] font-bold bg-blue-50 text-[#030164] border border-blue-200">
-                  {selectedPhotoItem.category || 'Dokumentasi SMP IT'}
+            {/* Header */}
+            <div className="bg-[#030164] text-white px-5 py-4 border-b-4 border-[#ffd51e] flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#ffd51e] block">
+                  SPMB SMP IT Al-Afiyah T.A. 2027/2028
                 </span>
-                <span className="text-xs font-semibold text-slate-500 hidden sm:inline">
-                  SMP IT Al-Afiyah
-                </span>
+                <h3 className="text-base sm:text-lg font-extrabold">
+                  Rincian Biaya &amp; Simulasi Diskon Gelombang 1
+                </h3>
               </div>
               <button
                 type="button"
-                onClick={() => setSelectedPhotoItem(null)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 transition-colors cursor-pointer"
-                title="Tutup (Esc)"
+                onClick={() => setIsFeeModalOpen(false)}
+                className="w-8 h-8 rounded-xs bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Photo Canvas */}
-            <div className="relative aspect-[16/10] sm:aspect-[16/9] bg-slate-950 flex items-center justify-center overflow-hidden">
-              {/* Blurred background */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={selectedPhotoItem.image}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover scale-125 blur-xl opacity-40 pointer-events-none"
-              />
-              {/* Contained clean image */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={selectedPhotoItem.image}
-                alt={selectedPhotoItem.title}
-                className="relative z-10 max-h-full max-w-full object-contain"
-              />
+            {/* Body */}
+            <div className="flex-1 overflow-y-auto p-5 space-y-5">
+              {/* Gender Toggle */}
+              <div className="flex flex-wrap items-center justify-between gap-3 bg-[#FAF6EC] border border-[#E5D5B2] p-3.5 rounded-sm">
+                <span className="text-xs font-extrabold text-[#030164] uppercase tracking-wider">
+                  Pilih Kategori Santri:
+                </span>
+                <div className="inline-flex bg-white border border-slate-200 p-1 rounded-xs">
+                  <button
+                    type="button"
+                    onClick={() => setActiveGender('ikhwan')}
+                    className={`px-3.5 py-1.5 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
+                      activeGender === 'ikhwan'
+                        ? 'bg-[#030164] text-[#ffd51e]'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    Santri Ikhwan (Putra)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveGender('akhwat')}
+                    className={`px-3.5 py-1.5 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
+                      activeGender === 'akhwat'
+                        ? 'bg-[#030164] text-[#ffd51e]'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    Santri Akhwat (Putri)
+                  </button>
+                </div>
+              </div>
+
+              {/* Clean Cost Table */}
+              <div className="border border-slate-200 overflow-x-auto">
+                <table className="w-full text-left text-xs sm:text-sm">
+                  <thead className="bg-slate-50 border-b border-slate-200 text-slate-700">
+                    <tr>
+                      <th className="py-2.5 px-3.5 font-bold">Komponen Biaya</th>
+                      <th className="py-2.5 px-3.5 font-bold text-right">
+                        Nominal ({activeGender === 'ikhwan' ? 'Putra' : 'Putri'})
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {BIAYA_ITEMS.map((b, idx) => {
+                      const val = activeGender === 'ikhwan' ? b.ikhwan : b.akhwat;
+                      return (
+                        <tr key={idx} className="hover:bg-slate-50/70">
+                          <td className="py-2.5 px-3.5">
+                            <span className="font-bold text-slate-900 block">
+                              {idx + 1}. {b.item}
+                            </span>
+                            <span className="text-[11px] text-slate-500">{b.note}</span>
+                          </td>
+                          <td className="py-2.5 px-3.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap">
+                            Rp {val.toLocaleString('id-ID')}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 3 Total Comparison Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="p-3.5 rounded-sm bg-[#030164] text-white border-l-4 border-[#ffd51e]">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#ffd51e] block">
+                    Gel. 1 • Diskon 70% (Alumni SDIT)
+                  </span>
+                  <p className="text-lg font-black font-mono text-white mt-1">
+                    Rp {sditDiscountTotal.toLocaleString('id-ID')}
+                  </p>
+                  <span className="text-[10px] text-blue-200">Hemat Rp 1.750.000</span>
+                </div>
+
+                <div className="p-3.5 rounded-sm bg-[#FAF6EC] border border-[#E5D5B2] text-[#030164]">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 block">
+                    Gel. 1 • Diskon 50% (Umum)
+                  </span>
+                  <p className="text-lg font-black font-mono text-[#030164] mt-1">
+                    Rp {umumDiscountTotal.toLocaleString('id-ID')}
+                  </p>
+                  <span className="text-[10px] text-slate-600">Hemat Rp 1.250.000</span>
+                </div>
+
+                <div className="p-3.5 rounded-sm bg-slate-100 border border-slate-200 text-slate-800">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
+                    Gel. 2 • Tarif Normal
+                  </span>
+                  <p className="text-lg font-bold font-mono text-slate-900 mt-1">
+                    Rp {normalTotal.toLocaleString('id-ID')}
+                  </p>
+                  <span className="text-[10px] text-slate-500">1 Mar – 30 Jun 2027</span>
+                </div>
+              </div>
+
+              {/* Official Bank Info */}
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div>
+                  <span className="text-slate-500 block text-[11px]">
+                    Rekening Resmi Pendaftaran (Infaq Formulir Rp 200.000):
+                  </span>
+                  <strong className="text-[#030164] font-extrabold">
+                    Bank Muamalat 1360012405 a.n. SMP IT Al Afiyah
+                  </strong>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCopyAccount}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-white border border-slate-300 hover:border-[#030164] text-[#030164] font-bold text-xs cursor-pointer self-start sm:self-auto"
+                >
+                  {copiedBank ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Tersalin</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Salin No. Rek</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
-            {/* Caption & Description */}
-            <div className="p-5 sm:p-6 bg-white space-y-2">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
-                {selectedPhotoItem.title}
-              </h3>
-              {selectedPhotoItem.desc && (
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  {selectedPhotoItem.desc}
-                </p>
-              )}
+            {/* Footer */}
+            <div className="px-5 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+              <Link
+                href="/smp/spmb"
+                className="text-xs font-bold text-[#030164] hover:underline"
+              >
+                Lihat Halaman Lengkap SPMB →
+              </Link>
+              <Link
+                href={ppdbUrl}
+                className="px-5 py-2 rounded-sm bg-[#030164] hover:bg-[#090580] text-[#ffd51e] text-xs font-extrabold uppercase tracking-wider"
+              >
+                Isi Formulir SPMB Online
+              </Link>
             </div>
           </div>
         </div>
       )}
 
-      {/* Footer & Mobile Bar */}
       <Footer schoolSlug="smp" />
-      <StickyMobileBar schoolSlug="smp" />
+      <StickyMobileBar
+        schoolSlug="smp"
+        waPhone="6282249357893"
+        schoolName="SMP IT Al-Afiyah"
+      />
     </div>
   );
 }

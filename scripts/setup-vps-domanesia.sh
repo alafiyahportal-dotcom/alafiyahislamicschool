@@ -89,3 +89,4 @@ echo ""
 echo "Langkah selanjutnya setelah DNS diarahkan ke IP VPS ini:"
 echo "sudo certbot --nginx -d alafiyah.id -d www.alafiyah.id -d sdit.alafiyah.id -d smpit.alafiyah.id -d tkit.alafiyah.id"
 echo "=================================================================="
+

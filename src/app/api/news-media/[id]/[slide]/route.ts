@@ -80,3 +80,4 @@ function serveMediaUrlOrDataUri(rawUrl: string, request: NextRequest): NextRespo
 
   return NextResponse.redirect(new URL(rawUrl.startsWith('/') ? rawUrl : `/${rawUrl}`, request.url));
 }
+
