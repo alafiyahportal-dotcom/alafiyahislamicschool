@@ -42,6 +42,7 @@ import {
 import { getStoredReferralCode } from '@/lib/referral';
 import { getDepartmentByRole, type TeacherData, type NewsData, type FacilityItem } from './SchoolLandingTemplate';
 import UnitAchievementSection from './UnitAchievementSection';
+import AutoHorizontalSlider from './AutoHorizontalSlider';
 
 export interface SmpLandingViewProps {
   teachers?: TeacherData[];
@@ -870,50 +871,44 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
             </h2>
           </ScrollReveal>
 
-          {/* Programs Grid: Pure Crisp White Cards with High Contrast */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {programsList.map((prog, idx) => (
-              <ScrollReveal
+          {/* Programs Auto-Sliding Row */}
+          <AutoHorizontalSlider arrowTheme="dark" itemClassName="w-[290px] sm:w-[340px] lg:w-[370px]">
+            {programsList.map((prog) => (
+              <div
                 key={prog.number}
-                delay={idx * 0.08}
-                yOffset={24}
-                duration={500}
-                className="h-full"
+                className="h-full p-6 sm:p-7 rounded-3xl bg-white text-slate-900 border-2 border-slate-200/90 shadow-xl hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
-                <div className="h-full p-6 sm:p-7 rounded-3xl bg-white text-slate-900 border-2 border-slate-200/90 shadow-xl hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
-                  <div>
-                    {/* Header bar: Number & Category Badge */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-black tracking-widest text-[#030164] font-mono bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
-                        {prog.number}
-                      </span>
-                      <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#030164] text-[#ffd51e]">
-                        {prog.category}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg font-black text-slate-900 mb-2 leading-snug group-hover:text-[#030164] transition-colors">
-                      {prog.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                      {prog.desc}
-                    </p>
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-black tracking-widest text-[#030164] font-mono bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
+                      {prog.number}
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#030164] text-[#ffd51e]">
+                      {prog.category}
+                    </span>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <Link
-                      href={prog.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-black text-[#030164] group-hover:text-[#07038c] group-hover:underline"
-                    >
-                      <span>Pelajari Program</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
+                  <h3 className="text-lg font-black text-slate-900 mb-2 leading-snug group-hover:text-[#030164] transition-colors">
+                    {prog.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                    {prog.desc}
+                  </p>
                 </div>
-              </ScrollReveal>
+
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <Link
+                    href={prog.href}
+                    className="inline-flex items-center gap-1.5 text-xs font-black text-[#030164] group-hover:text-[#07038c] group-hover:underline"
+                  >
+                    <span>Pelajari Program</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </div>
             ))}
-          </div>
+          </AutoHorizontalSlider>
 
           <div className="mt-12 text-center">
             <Link
@@ -1041,76 +1036,71 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
             </h2>
           </ScrollReveal>
 
-          {/* Facilities Grid (Authentic Photos) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {/* Facilities Auto-Sliding Row */}
+          <AutoHorizontalSlider itemClassName="w-[285px] sm:w-[330px] lg:w-[360px]">
             {facilitiesList.map((fac, idx) => (
-              <ScrollReveal
+              <div
                 key={idx}
-                delay={(idx % 3) * 0.1}
-                yOffset={24}
-                duration={500}
-                className="h-full flex flex-col"
+                onClick={() => setSelectedPhotoItem({
+                  image: fac.image,
+                  title: fac.title,
+                  desc: fac.desc,
+                  category: fac.category,
+                })}
+                className="group rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-2xs hover:shadow-md hover:border-[#030164]/40 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
               >
-                <div
-                  onClick={() => setSelectedPhotoItem({
-                    image: fac.image,
-                    title: fac.title,
-                    desc: fac.desc,
-                    category: fac.category,
-                  })}
-                  className="group rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-2xs hover:shadow-md hover:border-[#030164]/40 transition-all duration-300 flex flex-col justify-between h-full cursor-pointer"
-                >
-                  <div className="aspect-[4/3] overflow-hidden bg-slate-200 relative">
-                    <img
-                      src={fac.image}
-                      alt={fac.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#030164] text-[#ffd51e] shadow-sm">
-                        {fac.category}
-                      </span>
-                    </div>
-                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-2xs">
-                      <span className="px-3.5 py-1.5 rounded-xl bg-white text-[#030164] text-xs font-bold shadow-md flex items-center gap-1.5">
-                        <ZoomIn className="w-3.5 h-3.5" />
-                        <span>Perbesar Foto</span>
-                      </span>
-                    </div>
+                <div className="aspect-[4/3] overflow-hidden bg-slate-200 relative">
+                  <img
+                    src={fac.image}
+                    alt={fac.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#030164] text-[#ffd51e] shadow-sm">
+                      {fac.category}
+                    </span>
                   </div>
-
-                  <div className="p-4 flex-1 flex flex-col justify-between">
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#030164] transition-colors">
-                      {fac.title}
-                    </h3>
+                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-2xs">
+                    <span className="px-3.5 py-1.5 rounded-xl bg-white text-[#030164] text-xs font-bold shadow-md flex items-center gap-1.5">
+                      <ZoomIn className="w-3.5 h-3.5" />
+                      <span>Perbesar Foto</span>
+                    </span>
                   </div>
                 </div>
-              </ScrollReveal>
+
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#030164] transition-colors">
+                    {fac.title}
+                  </h3>
+                </div>
+              </div>
             ))}
-          </div>
+          </AutoHorizontalSlider>
 
-          {/* Supporting Facilities Grid (Clean Icons, No AI Slop) */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {SMP_SUPPORTING_FACILITIES.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#030164]/30 hover:shadow-xs transition-all space-y-2.5"
-                >
-                  <div className="w-9 h-9 rounded-xl bg-blue-100 text-[#030164] flex items-center justify-center">
-                    <Icon className="w-4 h-4" />
+          {/* Supporting Facilities Auto-Sliding Row */}
+          <div className="mt-6">
+            <AutoHorizontalSlider itemClassName="w-[250px] sm:w-[270px] lg:w-[285px]">
+              {SMP_SUPPORTING_FACILITIES.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#030164]/30 hover:shadow-xs transition-all space-y-2.5 h-full"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-blue-100 text-[#030164] flex items-center justify-center">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug">
+                      {item.title}
+                    </h4>
+                    <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
-                  <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug">
-                    {item.title}
-                  </h4>
-                  <p className="text-[11px] sm:text-xs text-slate-500 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </AutoHorizontalSlider>
           </div>
 
           <div className="mt-10 text-center">
@@ -1147,7 +1137,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AutoHorizontalSlider itemClassName="w-[290px] sm:w-[340px] lg:w-[370px]">
             {SMP_DOKUMENTASI_CARDS.map((item, idx) => (
               <div
                 key={idx}
@@ -1186,7 +1176,7 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
                 </div>
               </div>
             ))}
-          </div>
+          </AutoHorizontalSlider>
         </div>
       </section>
 
@@ -1223,59 +1213,54 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <AutoHorizontalSlider itemClassName="w-[280px] sm:w-[310px] lg:w-[330px]">
               {teachers.slice(0, 8).map((teacher, idx) => {
                 const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
 
                 return (
-                  <ScrollReveal
+                  <div
                     key={teacher.id || idx}
-                    delay={(idx % 4) * 0.08}
-                    yOffset={24}
-                    duration={500}
-                    className="h-full flex flex-col"
+                    className="bg-white rounded-2xl border border-slate-200 hover:border-[#030164]/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5 shadow-xs"
                   >
-                    <div className="bg-white rounded-2xl border border-slate-200 hover:border-[#030164]/50 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between h-full group p-5 shadow-xs">
-                      <div className="space-y-3.5">
-                        {/* Header Badge Role - Elegan Navy Blue & Gold */}
-                        <div className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white rounded-xl p-3.5 shadow-2xs relative overflow-hidden">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
-                            {department}
-                          </span>
-                          <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
-                            {teacher.role}
-                          </span>
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-[#030164] transition-colors">
-                            {teacher.name}
-                          </h3>
-                          {teacher.specialization && (
-                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                              {teacher.specialization}
-                            </p>
-                          )}
-                          {teacher.bio && (
-                            <p className="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 leading-relaxed line-clamp-3">
-                              &ldquo;{teacher.bio}&rdquo;
-                            </p>
-                          )}
-                        </div>
+                    <div className="space-y-3.5">
+                      {/* Header Badge Role - Elegan Navy Blue & Gold */}
+                      <div className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white rounded-xl p-3.5 shadow-2xs relative overflow-hidden">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffd51e] block">
+                          {department}
+                        </span>
+                        <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                          {teacher.role}
+                        </span>
                       </div>
 
-                      <Link
-                        href="/smp/guru"
-                        className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#030164] hover:text-[#090580] transition-colors"
-                      >
-                        <span>Lihat Detail Tim &amp; Struktur</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
-                      </Link>
+                      <div className="space-y-1.5">
+                        <h3 className="font-extrabold text-base text-slate-900 leading-snug group-hover:text-[#030164] transition-colors">
+                          {teacher.name}
+                        </h3>
+                        {teacher.specialization && (
+                          <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                            {teacher.specialization}
+                          </p>
+                        )}
+                        {teacher.bio && (
+                          <p className="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-lg border border-slate-200/80 leading-relaxed line-clamp-3">
+                            &ldquo;{teacher.bio}&rdquo;
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </ScrollReveal>
+
+                    <Link
+                      href="/smp/guru"
+                      className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#030164] hover:text-[#090580] transition-colors"
+                    >
+                      <span>Lihat Detail Tim &amp; Struktur</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#030164] group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
                 );
               })}
-            </div>
+            </AutoHorizontalSlider>
           </div>
         </section>
       )}
@@ -1303,65 +1288,58 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
               </Link>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {newsPosts.slice(0, 3).map((post, idx) => (
-                <ScrollReveal
+            <AutoHorizontalSlider itemClassName="w-[300px] sm:w-[350px] lg:w-[380px]">
+              {newsPosts.slice(0, 6).map((post, idx) => (
+                <Link
                   key={post.id || idx}
-                  delay={(idx % 3) * 0.12}
-                  yOffset={24}
-                  duration={500}
-                  className="h-full"
+                  href={`/smp/berita`}
+                  className="bg-white rounded-2xl border border-slate-200/90 hover:border-[#030164]/40 hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between h-full group"
                 >
-                  <Link
-                    href={`/smp/berita`}
-                    className="bg-white rounded-2xl border border-slate-200/90 hover:border-[#030164]/40 hover:shadow-lg transition-all overflow-hidden flex flex-col justify-between h-full group"
-                  >
-                    <div>
-                      {post.coverImage && (
-                        <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={post.coverImage}
-                            alt={post.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy"
-                          />
-                          <div className="absolute top-3 left-3">
-                            <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#030164] text-[#ffd51e] shadow-xs">
-                              {post.category || 'Warta'}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="p-5 space-y-2">
-                        <div className="flex items-center gap-2 text-[11px] text-slate-400">
-                          <Calendar className="w-3.5 h-3.5" />
-                          <span>
-                            {new Date(post.publishedAt).toLocaleDateString('id-ID', {
-                              dateStyle: 'medium',
-                            })}
+                  <div>
+                    {post.coverImage && (
+                      <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={post.coverImage}
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="px-2.5 py-1 rounded-md text-[10px] font-bold bg-[#030164] text-[#ffd51e] shadow-xs">
+                            {post.category || 'Warta'}
                           </span>
                         </div>
-
-                        <h3 className="font-bold text-slate-900 group-hover:text-[#030164] transition-colors line-clamp-2 text-base leading-snug">
-                          {post.title}
-                        </h3>
-
-                        <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
-                          {post.excerpt}
-                        </p>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="p-5 pt-0 flex items-center justify-between text-xs font-bold text-[#030164]">
-                      <span>Baca Selengkapnya</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <div className="p-5 space-y-2">
+                      <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>
+                          {new Date(post.publishedAt).toLocaleDateString('id-ID', {
+                            dateStyle: 'medium',
+                          })}
+                        </span>
+                      </div>
+
+                      <h3 className="font-bold text-slate-900 group-hover:text-[#030164] transition-colors line-clamp-2 text-base leading-snug">
+                        {post.title}
+                      </h3>
+
+                      <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                        {post.excerpt}
+                      </p>
                     </div>
-                  </Link>
-                </ScrollReveal>
+                  </div>
+
+                  <div className="p-5 pt-0 flex items-center justify-between text-xs font-bold text-[#030164]">
+                    <span>Baca Selengkapnya</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
               ))}
-            </div>
+            </AutoHorizontalSlider>
           </div>
         </section>
       )}
@@ -1381,36 +1359,31 @@ export default function SmpLandingView({ teachers = [], newsPosts = [], achievem
               </h2>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AutoHorizontalSlider itemClassName="w-[300px] sm:w-[350px] lg:w-[380px]">
               {cmsData.testimonials.map((testi: any, idx: number) => (
-                <ScrollReveal
+                <div
                   key={idx}
-                  delay={(idx % 3) * 0.1}
-                  yOffset={24}
-                  duration={500}
-                  className="h-full"
+                  className="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between h-full"
                 >
-                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between h-full">
-                    <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-4">
-                      &ldquo;{testi.quote}&rdquo;
-                    </p>
-                    <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
-                      <div>
-                        <h4 className="font-bold text-xs sm:text-sm text-slate-900">
-                          {testi.name}
-                        </h4>
-                        <p className="text-[11px] text-slate-500">
-                          {testi.role}
-                        </p>
-                      </div>
-                      <div className="flex text-amber-400 text-xs">
-                        {'★'.repeat(testi.rating || 5)}
-                      </div>
+                  <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-4">
+                    &ldquo;{testi.quote}&rdquo;
+                  </p>
+                  <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-xs sm:text-sm text-slate-900">
+                        {testi.name}
+                      </h4>
+                      <p className="text-[11px] text-slate-500">
+                        {testi.role}
+                      </p>
+                    </div>
+                    <div className="flex text-amber-400 text-xs">
+                      {'★'.repeat(testi.rating || 5)}
                     </div>
                   </div>
-                </ScrollReveal>
+                </div>
               ))}
-            </div>
+            </AutoHorizontalSlider>
 
             <div className="mt-10 text-center">
               <Link

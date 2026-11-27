@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Trophy, Medal, Award, ArrowRight, ExternalLink } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
+import AutoHorizontalSlider from './AutoHorizontalSlider';
 import AchievementShowcaseModal from './AchievementShowcaseModal';
 
 export interface AchievementItem {
@@ -126,11 +127,8 @@ export default function UnitAchievementSection({
               <span>Prestasi &amp; Kebanggaan Murid</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
-              Mengukir Prestasi Gemilang, Meneguhkan Adab
+              Prestasi &amp; Capaian Murid {schoolName}
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Capaian prestasi membanggakan murid-murid {schoolName} dalam ajang kejuaraan Al-Qur’an, sains, seni, dan olahraga di tingkat kabupaten hingga nasional.
-            </p>
           </div>
 
           <Link
@@ -144,24 +142,18 @@ export default function UnitAchievementSection({
           </Link>
         </ScrollReveal>
 
-        {/* Achievement Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {achievements.slice(0, 6).map((item, idx) => {
+        {/* Achievement Auto-Sliding Row */}
+        <AutoHorizontalSlider itemClassName="w-[300px] sm:w-[350px] lg:w-[380px]">
+          {achievements.slice(0, 8).map((item) => {
             const rankBadge = getRankBadge(item.rank);
             const RankIcon = rankBadge.icon;
 
             return (
-              <ScrollReveal
+              <Link
                 key={item.id}
-                delay={(idx % 3) * 0.1}
-                yOffset={24}
-                duration={500}
-                className="h-full"
+                href={prestasiUrl}
+                className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full group cursor-pointer"
               >
-                <Link 
-                  href={prestasiUrl}
-                  className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full group cursor-pointer"
-                >
                   {/* Photo / Visual Container */}
                   <div className="relative aspect-[16/10] bg-stone-100 overflow-hidden">
                     <Image
@@ -238,10 +230,9 @@ export default function UnitAchievementSection({
                     </div>
                   </div>
                 </Link>
-              </ScrollReveal>
             );
           })}
-        </div>
+        </AutoHorizontalSlider>
       </div>
 
       {/* Interactive Modal */}

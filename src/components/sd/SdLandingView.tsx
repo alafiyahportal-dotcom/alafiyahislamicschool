@@ -57,6 +57,7 @@ import Hero3DStatCards from '@/components/landing/Hero3DStatCards';
 import PrincipalGreetingSection from './SdPrincipalGreetingSection';
 import SpmbRoadmapSection from '@/components/landing/SpmbRoadmapSection';
 import UnitAchievementSection from '@/components/landing/UnitAchievementSection';
+import AutoHorizontalSlider from '@/components/landing/AutoHorizontalSlider';
 
 export interface TeacherData {
   id: string;
@@ -1306,68 +1307,60 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <AutoHorizontalSlider itemClassName="w-[295px] sm:w-[350px] lg:w-[380px]">
             {defaultValues.map((val, idx) => (
-              <ScrollReveal
+              <InteractiveBubbleCard
                 key={idx}
-                delay={idx * 0.18}
-                yOffset={20}
-                duration={500}
-                className="h-full flex flex-col"
+                variant={idx === 0 ? 'emerald' : idx === 1 ? 'amber' : 'teal'}
+                className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between h-full"
               >
-                <InteractiveBubbleCard
-                  variant={idx === 0 ? 'emerald' : idx === 1 ? 'amber' : 'teal'}
-                  className="rounded-3xl p-7 bg-white/95 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between h-full"
-                >
-                  <div className="flex-1 pb-6">
-                    {/* Modern Minimalist Icon Badge with Spring Tilt on Hover/Click */}
-                    <div className="flex items-center justify-between mb-5">
-                      <div className={`transition-transform duration-300 group-hover:scale-110 ${
-                        idx === 0 
-                          ? 'text-emerald-700' 
-                          : idx === 1 
-                          ? 'text-amber-700' 
-                          : 'text-teal-700'
-                      }`}>
-                        {idx === 0 ? <HeartHandshake className="w-8 h-8" /> : idx === 1 ? <BookOpen className="w-8 h-8" /> : <GraduationCap className="w-8 h-8" />}
-                      </div>
-
-                      <span className={`text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs ${
-                        idx === 0 
-                          ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
-                          : idx === 1 
-                          ? 'bg-amber-50 text-amber-800 border-amber-200' 
-                          : 'bg-teal-50 text-teal-800 border-teal-200'
-                      }`}>
-                        Pilar 0{idx + 1}
-                      </span>
+                <div className="flex-1 pb-6">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className={`transition-transform duration-300 group-hover:scale-110 ${
+                      idx === 0 
+                        ? 'text-emerald-700' 
+                        : idx === 1 
+                        ? 'text-amber-700' 
+                        : 'text-teal-700'
+                    }`}>
+                      {idx === 0 ? <HeartHandshake className="w-8 h-8" /> : idx === 1 ? <BookOpen className="w-8 h-8" /> : <GraduationCap className="w-8 h-8" />}
                     </div>
 
-                    <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-emerald-800 transition-colors">
-                      {sanitizeAdabText(val.title)}
-                    </h3>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
-                      {sanitizeAdabText(val.description)}
-                    </p>
+                    <span className={`text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs ${
+                      idx === 0 
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                        : idx === 1 
+                        ? 'bg-amber-50 text-amber-800 border-amber-200' 
+                        : 'bg-teal-50 text-teal-800 border-teal-200'
+                    }`}>
+                      Pilar 0{idx + 1}
+                    </span>
                   </div>
 
-                  <Link
-                    href={school.slug === 'sd' ? '/sd/karakter' : '#values'}
-                    className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 transition-colors cursor-pointer"
-                  >
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      <span>Prinsip Smart Akhlak Fitrah</span>
-                    </span>
-                    <span className="text-[11px] font-bold text-emerald-700 group-hover:translate-x-1 transition-all flex items-center gap-1">
-                      <span>Buka Pilar</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </Link>
-                </InteractiveBubbleCard>
-              </ScrollReveal>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2.5 group-hover:text-emerald-800 transition-colors">
+                    {sanitizeAdabText(val.title)}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                    {sanitizeAdabText(val.description)}
+                  </p>
+                </div>
+
+                <Link
+                  href={school.slug === 'sd' ? '/sd/karakter' : '#values'}
+                  className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-[11px] font-semibold text-emerald-800 hover:text-emerald-950 transition-colors cursor-pointer"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span>Prinsip Smart Akhlak Fitrah</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-emerald-700 group-hover:translate-x-1 transition-all flex items-center gap-1">
+                    <span>Buka Pilar</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </Link>
+              </InteractiveBubbleCard>
             ))}
-          </div>
+          </AutoHorizontalSlider>
 
           {school.slug === 'sd' && (
             <div className="mt-10 text-center">
@@ -1404,46 +1397,39 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <AutoHorizontalSlider arrowTheme="dark" itemClassName="w-[265px] sm:w-[295px] lg:w-[310px]">
             {defaultPrograms.map((prog, idx) => (
-              <ScrollReveal
+              <Link
                 key={idx}
-                delay={(idx % 4) * 0.12}
-                yOffset={24}
-                duration={500}
+                href={school.slug === 'sd' ? '/sd/program' : '#programs'}
                 className="h-full flex flex-col"
               >
-                <Link
-                  href={school.slug === 'sd' ? '/sd/program' : '#programs'}
-                  className="h-full flex flex-col"
+                <InteractiveBubbleCard
+                  variant={idx % 2 === 0 ? 'emerald' : 'teal'}
+                  className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group cursor-pointer"
                 >
-                  <InteractiveBubbleCard
-                    variant={idx % 2 === 0 ? 'emerald' : 'teal'}
-                    className="bg-white rounded-2xl p-5 border border-white/90 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group cursor-pointer"
-                  >
-                    <div className="flex-1 pb-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#064e3b] border border-[#064e3b]/20">
-                          {prog.badge}
-                        </span>
-                        <span className="text-xs font-black text-[#064e3b] font-mono">0{idx + 1}</span>
-                      </div>
-                      <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-[#064e3b] transition-colors leading-snug">
-                        {sanitizeAdabText(prog.title)}
-                      </h3>
-                      <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                        {sanitizeAdabText(prog.desc)}
-                      </p>
+                  <div className="flex-1 pb-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-[#064e3b] border border-[#064e3b]/20">
+                        {prog.badge}
+                      </span>
+                      <span className="text-xs font-black text-[#064e3b] font-mono">{String(idx + 1).padStart(2, '0')}</span>
                     </div>
-                    <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#064e3b]">
-                      <span>Buka Detail Program</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#064e3b] group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </InteractiveBubbleCard>
-                </Link>
-              </ScrollReveal>
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 group-hover:text-[#064e3b] transition-colors leading-snug">
+                      {sanitizeAdabText(prog.title)}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {sanitizeAdabText(prog.desc)}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between w-full text-xs font-semibold text-[#064e3b]">
+                    <span>Buka Detail Program</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#064e3b] group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </InteractiveBubbleCard>
+              </Link>
             ))}
-          </div>
+          </AutoHorizontalSlider>
 
           {school.slug === 'sd' && (
             <div className="mt-10 text-center">
@@ -1497,61 +1483,56 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               </div>
             </ScrollReveal>
 
-            {/* Grid Kartu — 3 Kolom Seimbang dengan Card Hijau di Dalamnya */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {school.teachers.map((teacher, idx) => {
+            {/* Slider Horizontal Otomatis Struktur & Tenaga Pendidik */}
+            <AutoHorizontalSlider itemClassName="w-[290px] sm:w-[340px] lg:w-[370px]">
+              {school.teachers.map((teacher) => {
                 const department = getDepartmentByRole(teacher.role, teacher.specialization || '');
 
                 return (
-                  <ScrollReveal
+                  <div
                     key={teacher.id}
-                    delay={(idx % 3) * 0.08}
-                    yOffset={24}
-                    duration={500}
-                    className="h-full flex flex-col"
+                    className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group h-full"
                   >
-                    <div className="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group h-full">
-                      <div className="space-y-4">
-                        {/* Card Hijau Elegan di dalam setiap card nama (Tanpa Inisial) */}
-                        <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3.5 shadow-xs relative overflow-hidden">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
-                            {department}
-                          </span>
-                          <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
-                            {teacher.role}
-                          </span>
-                        </div>
-
-                        {/* Nama, Bidang Amanah & Kutipan Resmi */}
-                        <div className="space-y-1.5">
-                          <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-[#064e3b] transition-colors">
-                            {teacher.name}
-                          </h3>
-                          {teacher.specialization && (
-                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                              {teacher.specialization}
-                            </p>
-                          )}
-                          {teacher.bio && (
-                            <p className="text-[11px] text-slate-500 italic leading-relaxed pt-1 line-clamp-3">
-                              &ldquo;{teacher.bio}&rdquo;
-                            </p>
-                          )}
-                        </div>
+                    <div className="space-y-4">
+                      {/* Card Hijau Elegan di dalam setiap card nama (Tanpa Inisial) */}
+                      <div className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white rounded-xl p-3.5 shadow-xs relative overflow-hidden">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-200/90 block">
+                          {department}
+                        </span>
+                        <span className="text-xs sm:text-sm font-extrabold text-white mt-0.5 block leading-snug">
+                          {teacher.role}
+                        </span>
                       </div>
 
-                      <Link
-                        href={school.slug === 'sd' ? '/sd/guru' : '#teachers'}
-                        className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#064e3b] hover:text-emerald-950 transition-colors"
-                      >
-                        <span>Lihat Detail Tim &amp; Struktur</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-emerald-700 group-hover:translate-x-1 transition-transform" />
-                      </Link>
+                      {/* Nama, Bidang Amanah & Kutipan Resmi */}
+                      <div className="space-y-1.5">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-[#064e3b] transition-colors">
+                          {teacher.name}
+                        </h3>
+                        {teacher.specialization && (
+                          <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                            {teacher.specialization}
+                          </p>
+                        )}
+                        {teacher.bio && (
+                          <p className="text-[11px] text-slate-500 italic leading-relaxed pt-1 line-clamp-3">
+                            &ldquo;{teacher.bio}&rdquo;
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </ScrollReveal>
+
+                    <Link
+                      href={school.slug === 'sd' ? '/sd/guru' : '#teachers'}
+                      className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#064e3b] hover:text-emerald-950 transition-colors"
+                    >
+                      <span>Lihat Detail Tim &amp; Struktur</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-emerald-700 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
                 );
               })}
-            </div>
+            </AutoHorizontalSlider>
 
             {school.slug === 'sd' && (
               <div className="mt-10 text-center">
@@ -1606,57 +1587,50 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             )}
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AutoHorizontalSlider itemClassName="w-[285px] sm:w-[330px] lg:w-[360px]">
             {displayedFacilities.map((fac, idx) => (
-              <ScrollReveal
+              <div
                 key={idx}
-                delay={(idx % 3) * 0.12}
-                yOffset={24}
-                duration={500}
-                className="h-full flex flex-col"
+                onClick={() => setSelectedGalleryItem(fac)}
+                className="group rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-emerald-400/50 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full"
               >
-                <div
-                  onClick={() => setSelectedGalleryItem(fac)}
-                  className="group rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-emerald-400/50 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full"
-                >
-                  <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={fac.image}
-                      alt={fac.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                      onError={(e) => {
-                        const target = e.currentTarget;
-                        if (!target.dataset.triedFallback) {
-                          target.dataset.triedFallback = 'true';
-                          target.src = '/images/sd-hero-greenhouse.jpg';
-                        }
-                      }}
-                    />
-                    {fac.category && (
-                      <div className="absolute top-3 left-3">
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
-                          {fac.category}
-                        </span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
-                      <span className="px-3.5 py-1.5 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
-                        <ZoomIn className="w-3.5 h-3.5 text-emerald-700" />
-                        <span>Perbesar Foto</span>
+                <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={fac.image}
+                    alt={fac.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (!target.dataset.triedFallback) {
+                        target.dataset.triedFallback = 'true';
+                        target.src = '/images/sd-hero-greenhouse.jpg';
+                      }
+                    }}
+                  />
+                  {fac.category && (
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-emerald-900 shadow-xs border border-emerald-100 backdrop-blur-xs">
+                        {fac.category}
                       </span>
                     </div>
-                  </div>
-                  <div className="p-4 flex-1 flex flex-col justify-between">
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-800 transition-colors leading-snug">
-                      {sanitizeAdabText(fac.name)}
-                    </h3>
+                  )}
+                  <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-2xs">
+                    <span className="px-3.5 py-1.5 rounded-xl bg-white/95 text-slate-900 text-xs font-bold shadow-md flex items-center gap-1.5">
+                      <ZoomIn className="w-3.5 h-3.5 text-emerald-700" />
+                      <span>Perbesar Foto</span>
+                    </span>
                   </div>
                 </div>
-              </ScrollReveal>
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-800 transition-colors leading-snug">
+                    {sanitizeAdabText(fac.name)}
+                  </h3>
+                </div>
+              </div>
             ))}
-          </div>
+          </AutoHorizontalSlider>
 
           {/* Tombol Buka Halaman Khusus Dokumentasi SDIT */}
           {school.slug === 'sd' && (
@@ -1735,7 +1709,7 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AutoHorizontalSlider itemClassName="w-[300px] sm:w-[350px] lg:w-[380px]">
               {school.newsPosts
                 .filter((post) => {
                   if (newsFilter === 'all') return true;
@@ -1744,105 +1718,98 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
                     newsFilter.trim().toLowerCase()
                   );
                 })
-                .map((post, idx) => {
+                .map((post) => {
                   const parsed = parseNewsMedia(post.content, post.coverImage);
                   const totalSlides = parsed.allMedia.length;
                   const videoCount = parsed.allMedia.filter((m) => m.type === 'video').length;
 
                   return (
-                    <ScrollReveal
+                    <div
                       key={post.id}
-                      delay={(idx % 3) * 0.15}
-                      yOffset={24}
-                      duration={500}
-                      className="h-full flex flex-col"
+                      onClick={() => {
+                        setSelectedNews(post);
+                        setSelectedNewsSlideIndex(0);
+                      }}
+                      className="bg-slate-50/70 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-500/50 transition-all flex flex-col overflow-hidden group h-full cursor-pointer"
                     >
-                      <div
-                        onClick={() => {
-                          setSelectedNews(post);
-                          setSelectedNewsSlideIndex(0);
-                        }}
-                        className="bg-slate-50/70 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:border-emerald-500/50 transition-all flex flex-col overflow-hidden group h-full cursor-pointer"
-                      >
-                        <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
-                          <img
-                            src={
-                              post.coverImage ||
-                              '/images/sd-activity-classroom-6b.jpg'
-                            }
-                            alt={post.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
-                            <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/95 text-slate-800 shadow-xs backdrop-blur-xs">
-                              {post.category}
+                      <div className="relative h-48 w-full bg-slate-200 overflow-hidden">
+                        <img
+                          src={
+                            post.coverImage ||
+                            '/images/sd-activity-classroom-6b.jpg'
+                          }
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
+                          <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/95 text-slate-800 shadow-xs backdrop-blur-xs">
+                            {post.category}
+                          </span>
+                          {totalSlides > 1 && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-700/90 text-white shadow-xs backdrop-blur-xs">
+                              <ImageIcon className="w-3 h-3" />
+                              {totalSlides} Slide
+                              {videoCount > 0 ? ` (${videoCount} Video)` : ''}
                             </span>
-                            {totalSlides > 1 && (
-                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-bold bg-emerald-700/90 text-white shadow-xs backdrop-blur-xs">
-                                <ImageIcon className="w-3 h-3" />
-                                {totalSlides} Slide
-                                {videoCount > 0 ? ` (${videoCount} Video)` : ''}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
-                              <Calendar className="w-3.5 h-3.5" />
-                              <span>
-                                {new Date(post.publishedAt).toLocaleDateString('id-ID', {
-                                  dateStyle: 'medium',
-                                })}
-                              </span>
-                              <span>•</span>
-                              <span>{post.author}</span>
-                            </div>
-
-                            <h3 className="font-bold text-slate-900 line-clamp-2 text-base leading-snug group-hover:text-emerald-700 transition-colors">
-                              {sanitizeAdabText(post.title)}
-                            </h3>
-
-                            <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
-                              {sanitizeAdabText(
-                                parseNewsMedia(post.excerpt || parsed.cleanContent).cleanContent
-                              )}
-                            </p>
-                          </div>
-
-                          <div className="pt-4 border-t border-slate-200/70 flex items-center justify-between">
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedNews(post);
-                                setSelectedNewsSlideIndex(0);
-                              }}
-                              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors cursor-pointer"
-                            >
-                              <span>Baca Selengkapnya</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                            {post.coverImage && (post.coverImage.includes('spmb') || post.coverImage.includes('poster')) && (
-                              <a
-                                href={post.coverImage}
-                                onClick={(e) => e.stopPropagation()}
-                                download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2027-2028.jpg`}
-                                className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors"
-                                title="Unduh Poster"
-                              >
-                                <Download className="w-3 h-3 text-emerald-600" />
-                                <span>Unduh</span>
-                              </a>
-                            )}
-                          </div>
+                          )}
                         </div>
                       </div>
-                    </ScrollReveal>
+
+                      <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>
+                              {new Date(post.publishedAt).toLocaleDateString('id-ID', {
+                                dateStyle: 'medium',
+                              })}
+                            </span>
+                            <span>•</span>
+                            <span className="truncate">{post.author}</span>
+                          </div>
+
+                          <h3 className="font-bold text-slate-900 line-clamp-2 text-base leading-snug group-hover:text-emerald-700 transition-colors">
+                            {sanitizeAdabText(post.title)}
+                          </h3>
+
+                          <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                            {sanitizeAdabText(
+                              parseNewsMedia(post.excerpt || parsed.cleanContent).cleanContent
+                            )}
+                          </p>
+                        </div>
+
+                        <div className="pt-3 border-t border-slate-200/70 flex items-center justify-between">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedNews(post);
+                              setSelectedNewsSlideIndex(0);
+                            }}
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition-colors cursor-pointer"
+                          >
+                            <span>Baca Selengkapnya</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                          {post.coverImage && (post.coverImage.includes('spmb') || post.coverImage.includes('poster')) && (
+                            <a
+                              href={post.coverImage}
+                              onClick={(e) => e.stopPropagation()}
+                              download={`Poster-Brosur-SPMB-${school.slug.toUpperCase()}-2027-2028.jpg`}
+                              className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-lg transition-colors"
+                              title="Unduh Poster"
+                            >
+                              <Download className="w-3 h-3 text-emerald-600" />
+                              <span>Unduh</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   );
                 })}
-            </div>
+            </AutoHorizontalSlider>
 
             {/* Tombol Buka Halaman Khusus Warta */}
             <div className="mt-10 text-center">
@@ -1881,39 +1848,32 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <AutoHorizontalSlider arrowTheme="dark" itemClassName="w-[310px] sm:w-[400px] lg:w-[440px]">
             {defaultTestimonials.map((testi, idx) => (
-              <ScrollReveal
+              <div
                 key={idx}
-                delay={idx * 0.18}
-                yOffset={24}
-                duration={500}
-                className="h-full flex flex-col"
+                className="bg-white rounded-2xl p-6 sm:p-7 border-2 border-white/90 shadow-xl relative flex flex-col justify-between hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 group h-full"
               >
-                <div
-                  className="bg-white rounded-2xl p-6 sm:p-7 border-2 border-white/90 shadow-xl relative flex flex-col justify-between hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 group h-full"
-                >
-                  <div className="relative">
-                    <span className="text-3xl text-[#064e3b] font-serif leading-none block mb-1 select-none">“</span>
-                    <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-6 font-normal">
-                      &ldquo;{testi.quote}&rdquo;
-                    </p>
+                <div className="relative">
+                  <span className="text-3xl text-[#064e3b] font-serif leading-none block mb-1 select-none">“</span>
+                  <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed mb-6 font-normal">
+                    &ldquo;{testi.quote}&rdquo;
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100 flex items-center space-x-3">
+                  <div
+                    className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shadow-xs shrink-0 bg-[#064e3b]"
+                  >
+                    {testi.name[0]}
                   </div>
-                  <div className="pt-4 border-t border-slate-100 flex items-center space-x-3">
-                    <div
-                      className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shadow-xs shrink-0 bg-[#064e3b]"
-                    >
-                      {testi.name[0]}
-                    </div>
-                    <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#064e3b] transition-colors">{testi.name}</h4>
-                      <p className="text-[11px] text-slate-400 font-medium">{testi.role}</p>
-                    </div>
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#064e3b] transition-colors">{testi.name}</h4>
+                    <p className="text-[11px] text-slate-400 font-medium">{testi.role}</p>
                   </div>
                 </div>
-              </ScrollReveal>
+              </div>
             ))}
-          </div>
+          </AutoHorizontalSlider>
 
           {school.slug === 'sd' && (
             <div className="mt-10 text-center">

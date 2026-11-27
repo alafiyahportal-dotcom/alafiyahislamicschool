@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from './ScrollReveal';
+import AutoHorizontalSlider from './AutoHorizontalSlider';
 import { ArrowRight, PhoneCall } from 'lucide-react';
 
 interface SpmbRoadmapProps {
@@ -67,41 +68,34 @@ export default function SpmbRoadmapSection({
           </h2>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {steps.map((step, idx) => (
-            <ScrollReveal
+        <AutoHorizontalSlider arrowTheme="dark" itemClassName="w-[275px] sm:w-[310px] lg:w-[320px]">
+          {steps.map((step) => (
+            <Link
               key={step.num}
-              delay={(idx % 4) * 0.1}
-              yOffset={24}
-              duration={500}
-              className="h-full flex flex-col"
+              href={step.href}
+              className="bg-white rounded-2xl p-5 border-2 border-white/90 shadow-lg hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group text-slate-900 cursor-pointer"
             >
-              <Link
-                href={step.href}
-                className="bg-white rounded-2xl p-5 border-2 border-white/90 shadow-lg hover:shadow-2xl hover:border-[#ffd51e] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full group text-slate-900 cursor-pointer"
-              >
-                <div className="pb-3">
-                  <div className="flex items-center justify-between mb-2.5">
-                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#064e3b] border border-[#064e3b]/20">
-                      {step.badge}
-                    </span>
-                    <span className="text-xs font-black text-[#064e3b] font-mono">{step.num}</span>
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-[#064e3b] transition-colors">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-snug">
-                    {step.desc}
-                  </p>
+              <div className="pb-3">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#064e3b] border border-[#064e3b]/20">
+                    {step.badge}
+                  </span>
+                  <span className="text-xs font-black text-[#064e3b] font-mono">{step.num}</span>
                 </div>
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between w-full text-xs font-bold text-[#064e3b]">
-                  <span>{step.actionText}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#064e3b] group-hover:translate-x-1 transition-transform" />
-                </div>
-              </Link>
-            </ScrollReveal>
+                <h3 className="text-base font-bold text-slate-900 mb-1.5 group-hover:text-[#064e3b] transition-colors">
+                  {step.title}
+                </h3>
+                <p className="text-xs text-slate-600 leading-snug">
+                  {step.desc}
+                </p>
+              </div>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between w-full text-xs font-bold text-[#064e3b]">
+                <span>{step.actionText}</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#064e3b] group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
           ))}
-        </div>
+        </AutoHorizontalSlider>
 
         <ScrollReveal delay={0.2} yOffset={20} duration={500} className="mt-8">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-white/15 flex flex-col md:flex-row items-center justify-between gap-4">
