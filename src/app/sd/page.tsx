@@ -338,14 +338,5 @@ export default async function SdLandingPage() {
     ),
   };
 
-  return (
-    <>
-      <SdWelcomeVideoModal
-        videoSrc="/videos/intro-sd-lite.mp4"
-        title="Sekilas Suasana & Pembiasaan Belajar SDIT"
-        schoolName="SDIT Al-Afiyah Majalengka"
-      />
-      <SdLandingView school={schoolData} />
-    </>
-  );
+  return <SdLandingView school={schoolData} />;
 }
