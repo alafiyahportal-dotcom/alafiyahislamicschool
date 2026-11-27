@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, ChevronUp, Phone, Mail, Send, LogIn } from 'lucide-react';
 import { getSchoolUrl, extractSubdomain, SchoolSlug } from '@/lib/domain';
-import FooterVisitorBadge from '@/components/shared/FooterVisitorBadge';
 
 export interface FooterProps {
   schoolSlug?: 'tk' | 'sd' | 'smp' | 'foundation';
@@ -332,19 +331,8 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
                 </div>
               </div>
 
-              {/* Row 2: YPIB Circle + Karakter Nabawiyah Pill + Sekolah Ramah Anak */}
+              {/* Row 2: Karakter Nabawiyah Pill + Sekolah Ramah Anak */}
               <div className="flex flex-wrap items-center gap-4 pt-1">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#38bdf8] to-[#0284c7] p-0.5 shadow-sm flex items-center justify-center shrink-0">
-                  <div className="w-full h-full rounded-full border border-white/60 flex flex-col items-center justify-center text-white leading-none">
-                    <span className="text-xs font-black tracking-tighter">YPIB</span>
-                    <span className="text-[6px] uppercase tracking-widest opacity-90">
-                      MAJALENGKA
-                    </span>
-                  </div>
-                </div>
-
-                <div className="h-10 w-px bg-white/30 hidden sm:block" />
-
                 <div className="inline-flex items-center bg-gradient-to-r from-[#0284c7] to-[#38bdf8] rounded-full p-1 pr-4 border border-white/80 shadow-sm">
                   <div className="w-9 h-9 rounded-full bg-white text-[#0284c7] font-black text-sm flex items-center justify-center shrink-0 shadow-xs">
                     A
@@ -377,11 +365,6 @@ export default function Footer({ schoolSlug }: FooterProps = {}) {
                     Sekolah Ramah Anak &amp; Fitrah
                   </div>
                 </div>
-              </div>
-
-              {/* Visitor Counter Badge */}
-              <div className="pt-1">
-                <FooterVisitorBadge unitSlug={activeSlug} />
               </div>
             </div>
           </div>
