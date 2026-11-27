@@ -191,7 +191,6 @@ export default function Navbar({
     }
   })();
 
-  // Multi-Level Navigation Menu Items (Al-Irsyad Style)
   const navStructure = [
     {
       name: 'Beranda',
@@ -204,41 +203,35 @@ export default function Navbar({
       hasDropdown: true,
       items: activeSlug === 'sd'
         ? [
-            { label: 'Profil Lengkap SDIT', href: '/sd/profil', desc: 'Visi, misi & identitas resmi SDIT' },
-            { label: 'Prestasi & Capaian Murid', href: '/sd#prestasi', desc: 'Piala juara tahfidz, sains & kejuaraan murid' },
-            { label: 'Struktur & Dewan Pendidik', href: '/sd/guru', desc: 'Struktur kepengurusan, asatidzah & tim IT' },
-            { label: 'Dokumentasi & Belajar SDIT', href: '/sd/dokumentasi', desc: 'Galeri nyata kegiatan belajar & agro-sains' },
-            { label: 'Layanan Tata Usaha & Lokasi', href: '/sd/kontak', desc: 'Alamat sekolah & rute Google Maps' },
+            { label: 'Profil Sekolah', href: '/sd/profil' },
+            { label: 'Struktur & Dewan Pendidik', href: '/sd/guru' },
+            { label: 'Dokumentasi & Fasilitas', href: '/sd/dokumentasi' },
+            { label: 'Kontak & Lokasi', href: '/sd/kontak' },
           ]
         : activeSlug === 'smp'
         ? [
-            { label: 'Profil Lengkap SMP IT', href: '/smp/profil', desc: 'Visi, misi & legalitas Terakreditasi A' },
-            { label: 'Prestasi & Capaian Santri', href: '/smp#prestasi', desc: 'Piala kejuaraan MHQ, tahfidz & akademik santri' },
-            { label: 'Struktur & Dewan Pendidik', href: '/smp/guru', desc: 'Struktur kepengurusan, asatidzah & tim IT' },
-            { label: 'Sarana & Fasilitas Sekolah', href: '/smp/fasilitas', desc: 'Kelas ber-AC, lab komputer & lapangan futsal' },
-            { label: 'Dokumentasi & Galeri Murid', href: '/smp/dokumentasi', desc: 'Haflah kelulusan, wisuda tahfidz & rihlah murid' },
-            { label: 'Layanan Tata Usaha & Lokasi', href: '/smp/kontak', desc: 'Alamat resmi Jl. Gerakan Koperasi & rute Maps' },
+            { label: 'Profil Sekolah', href: '/smp/profil' },
+            { label: 'Struktur & Dewan Pendidik', href: '/smp/guru' },
+            { label: 'Sarana & Fasilitas', href: '/smp/fasilitas' },
+            { label: 'Galeri & Dokumentasi', href: '/smp/dokumentasi' },
+            { label: 'Kontak & Lokasi', href: '/smp/kontak' },
           ]
         : activeSlug
         ? [
-            { label: `Profil & Karakter ${brandConfig.title}`, href: `${brandConfig.homeUrl}#values`, desc: 'Visi, adab nabawi & karakter islami' },
-            { label: 'Prestasi & Capaian Murid', href: `${brandConfig.homeUrl}#prestasi`, desc: 'Kejuaraan & prestasi murid' },
-            { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers`, desc: 'Pendidik tahfidz, sains & pembina karakter' },
-            { label: 'Sarana & Fasilitas Belajar', href: `${brandConfig.homeUrl}#facilities`, desc: 'Lingkungan belajar ramah anak & asri' },
-            { label: 'Kontak & Lokasi', href: '/kontak', desc: 'Alamat sekolah & peta navigasi' },
+            { label: `Profil ${brandConfig.title}`, href: `${brandConfig.homeUrl}#values` },
+            { label: 'Dewan Guru & Asatidzah', href: `${brandConfig.homeUrl}#teachers` },
+            { label: 'Sarana & Fasilitas', href: `${brandConfig.homeUrl}#facilities` },
+            { label: 'Kontak & Lokasi', href: '/kontak' },
           ]
         : [
-            { label: 'Tentang Yayasan & Sejarah', href: '/profil#tentang', desc: 'Latar belakang pendirian & amanah dakwah' },
-            { label: 'Galeri Prestasi Murid', href: '/#prestasi', desc: 'Papan kejuaraan & piala murid Al-Afiyah' },
-            { label: 'Visi, Misi & 7 Karakter', href: '/profil#visi-misi', desc: 'Pondasi pembinaan adab & akademik' },
-            { label: 'Struktur Manajemen Yayasan', href: '/profil#manajemen', desc: 'Dewan Pembina & Pengurus Yayasan' },
-            { label: 'Dewan Guru & Asatidzah', href: '/#dewan-guru', desc: 'Pendidik tahfidz, sains & pembina karakter' },
-            { label: 'Sarana & Fasilitas Sekolah', href: '/profil#fasilitas', desc: 'Masjid, lab modern & sarana olahraga' },
-            { label: 'Selayang Pandang & Legalitas', href: '/profil#legalitas', desc: 'Izin Kemenkumham, Kemendikbud & Kemenag' },
-            { label: 'Kontak & Lokasi Sekolah', href: '/kontak', desc: 'Alamat sekolah & peta navigasi' },
+            { label: 'Tentang Yayasan', href: '/profil#tentang' },
+            { label: 'Visi, Misi & Karakter', href: '/profil#visi-misi' },
+            { label: 'Struktur Manajemen', href: '/profil#manajemen' },
+            { label: 'Dewan Guru & Asatidzah', href: '/#dewan-guru' },
+            { label: 'Sarana & Fasilitas', href: '/profil#fasilitas' },
+            { label: 'Kontak & Lokasi', href: '/kontak' },
           ],
     },
-    // Menu "Satuan Pendidikan" HANYA tampil di website utama (Yayasan/Pusat)
     ...(!activeSlug
       ? [
           {
@@ -246,26 +239,10 @@ export default function Navbar({
             href: '/satuan-pendidikan',
             hasDropdown: true,
             items: [
-              {
-                label: 'TK IT Al-Afiyah',
-                href: getSchoolUrl('tk'),
-                desc: 'PAUD & TK Islam Terpadu • Usia 4–6 Tahun',
-              },
-              {
-                label: 'SDIT Al-Afiyah',
-                href: getSchoolUrl('sd'),
-                desc: 'Sekolah Dasar Islam Terpadu • Kelas 1–6',
-              },
-              {
-                label: 'SMP IT Al-Afiyah',
-                href: getSchoolUrl('smp'),
-                desc: 'SMP IT Full Day School • Kelas 7–9',
-              },
-              {
-                label: 'Selayang Pandang Satuan Pendidikan',
-                href: '/satuan-pendidikan',
-                desc: 'Ikhtisar kurikulum terpadu & target tahfidz',
-              },
+              { label: 'TK IT Al-Afiyah', href: getSchoolUrl('tk') },
+              { label: 'SDIT Al-Afiyah', href: getSchoolUrl('sd') },
+              { label: 'SMP IT Al-Afiyah', href: getSchoolUrl('smp') },
+              { label: 'Selayang Pandang Unit', href: '/satuan-pendidikan' },
             ],
           },
         ]
@@ -276,46 +253,43 @@ export default function Navbar({
             hasDropdown: true,
             items: activeSlug === 'sd'
               ? [
-                  { label: '10 Program Unggulan SDIT', href: '/sd/program', desc: 'Karakter nabawiyah, adab & tahfidz mutqin' },
-                  { label: 'Pilar Karakter & Nilai Islami', href: '/sd/karakter', desc: 'Tauhid, 7 pilar adab & kemandirian murid' },
-                  { label: 'Kurikulum Smart Akhlak Fitrah', href: '/sd#values', desc: 'Fondasi iman sebelum Qur’an & adab harian' },
-                  { label: 'Testimoni Wali Murid', href: '/sd/testimoni', desc: 'Pengalaman & apresiasi orang tua siswa' },
+                  { label: 'Program Unggulan & Kurikulum', href: '/sd/program' },
+                  { label: 'Pilar Karakter Nabawiyah', href: '/sd/karakter' },
+                  { label: 'Testimoni Wali Murid', href: '/sd/testimoni' },
                 ]
               : activeSlug === 'smp'
               ? [
-                  { label: '6 Program Unggulan SMP IT', href: '/smp/program', desc: 'Tahfidz 3-5+ Juz, Bahasa Arab aktif & Futsal' },
-                  { label: 'SCD & Mutaba\'ah Digital', href: '/smp/karakter', desc: 'Student Character Development & adab remaja' },
-                  { label: 'Fasilitas & Sarana Belajar', href: '/smp/fasilitas', desc: 'Ruang kelas ber-AC, lab komputer & lapangan' },
-                  { label: 'Testimoni Wali Murid', href: '/smp/testimoni', desc: 'Pengalaman & apresiasi orang tua murid' },
+                  { label: 'Program Unggulan & Kurikulum', href: '/smp/program' },
+                  { label: 'Karakter SCD & Mutaba\'ah Digital', href: '/smp/karakter' },
+                  { label: 'Sarana & Fasilitas', href: '/smp/fasilitas' },
+                  { label: 'Testimoni & Suara Sekolah', href: '/smp/testimoni' },
                 ]
               : [
-                  { label: 'Kurikulum & Program Unggulan', href: `${brandConfig.homeUrl}#programs`, desc: 'Pembelajaran terintegrasi & adab harian' },
-                  { label: 'Pilar Nilai & Karakter', href: `${brandConfig.homeUrl}#values`, desc: 'Tauhid, tahfidz & budi pekerti luhur' },
-                  { label: 'Testimoni Wali Murid', href: `${brandConfig.homeUrl}#testimonials`, desc: 'Pengalaman & apresiasi orang tua' },
+                  { label: 'Program Unggulan', href: `${brandConfig.homeUrl}#programs` },
+                  { label: 'Pilar Karakter', href: `${brandConfig.homeUrl}#values` },
+                  { label: 'Testimoni Wali Murid', href: `${brandConfig.homeUrl}#testimonials` },
                 ],
           },
         ]),
     {
-      name: 'Berita & Artikel',
+      name: 'Berita & Agenda',
       href: activeSlug === 'sd' ? '/sd/berita' : activeSlug === 'smp' ? '/smp/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'),
       hasDropdown: true,
       items: [
-        { label: activeSlug === 'sd' ? 'Warta SDIT Terbaru' : activeSlug === 'smp' ? 'Warta SMP IT Terbaru' : 'Warta Sekolah Terbaru', href: activeSlug === 'sd' ? '/sd/berita' : activeSlug === 'smp' ? '/smp/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita'), desc: 'Liputan kegiatan & informasi terkini' },
-        { label: 'Artikel & Kajian Islam', href: activeSlug === 'sd' ? '/sd/berita?cat=kajian' : activeSlug === 'smp' ? '/smp/berita?cat=kajian' : (activeSlug ? `/berita?cat=kajian&school=${activeSlug}` : '/berita?cat=kajian'), desc: 'Tausiyah, adab & wawasan keislaman' },
-        { label: activeSlug === 'sd' ? 'Prestasi Murid SDIT' : activeSlug === 'smp' ? 'Prestasi Murid SMP IT' : 'Prestasi Murid Al-Afiyah', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : activeSlug === 'smp' ? '/smp/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi'), desc: 'Juara turnamen futsal, tahfidz & sains' },
-        { label: 'Agenda & Kalender Akademik', href: activeSlug === 'sd' ? '/sd/agenda' : activeSlug === 'smp' ? '/smp/agenda' : (activeSlug ? `/agenda?school=${activeSlug}` : '/agenda'), desc: 'Jadwal ujian, libur & kegiatan resmi' },
+        { label: 'Berita & Kegiatan Terbaru', href: activeSlug === 'sd' ? '/sd/berita' : activeSlug === 'smp' ? '/smp/berita' : (activeSlug ? `/berita?school=${activeSlug}` : '/berita') },
+        { label: 'Prestasi Murid', href: activeSlug === 'sd' ? '/sd/berita?cat=prestasi' : activeSlug === 'smp' ? '/smp/berita?cat=prestasi' : (activeSlug ? `/berita?cat=prestasi&school=${activeSlug}` : '/berita?cat=prestasi') },
+        { label: 'Agenda & Kalender Akademik', href: activeSlug === 'sd' ? '/sd/agenda' : activeSlug === 'smp' ? '/smp/agenda' : (activeSlug ? `/agenda?school=${activeSlug}` : '/agenda') },
       ],
     },
     {
-      name: 'SPMB Online',
+      name: 'SPMB',
       href: activeSlug === 'sd' ? '/sd/spmb' : activeSlug === 'smp' ? '/smp/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'),
       hasDropdown: true,
       items: [
-        { label: `Informasi & Alur SPMB ${activeSlug ? activeSlug.toUpperCase() + ' IT' : '2027/2028'}`, href: activeSlug === 'sd' ? '/sd/spmb' : activeSlug === 'smp' ? '/smp/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Syarat berkas, tes observasi & kuota' },
-        { label: 'Formulir SPMB Online', href: activeSlug === 'sd' ? '/sd/spmb/daftar' : activeSlug === 'smp' ? '/smp/spmb/daftar' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar'), desc: 'Isi formulir biodata calon murid' },
-        { label: 'Cek Status SPMB', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : activeSlug === 'smp' ? '/smp/spmb/cek-status' : (activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status'), desc: 'Pantau verifikasi berkas & nomor registrasi' },
-        { label: 'Pengumuman SPMB', href: activeSlug === 'sd' ? '/sd/spmb/pengumuman' : activeSlug === 'smp' ? '/smp/spmb/pengumuman' : (activeSlug ? `/ppdb/pengumuman?school=${activeSlug}` : '/ppdb/pengumuman'), desc: 'SK kelulusan murid gelombang 1 & 2' },
-        { label: 'Daftar Ulang & Biaya', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : activeSlug === 'smp' ? '/smp/spmb' : (activeSlug ? `/portal/ppdb/REG-SD-2026-0001/daftar-ulang?school=${activeSlug}` : '/portal/ppdb/REG-SD-2026-0001/daftar-ulang'), desc: 'Rincian biaya & rekening resmi' },
+        { label: 'Informasi & Alur SPMB', href: activeSlug === 'sd' ? '/sd/spmb' : activeSlug === 'smp' ? '/smp/spmb' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar') },
+        { label: 'Formulir Pendaftaran Online', href: activeSlug === 'sd' ? '/sd/spmb/daftar' : activeSlug === 'smp' ? '/smp/spmb/daftar' : (activeSlug ? `/ppdb/daftar?school=${activeSlug}` : '/ppdb/daftar') },
+        { label: 'Cek Status Seleksi', href: activeSlug === 'sd' ? '/sd/spmb/cek-status' : activeSlug === 'smp' ? '/smp/spmb/cek-status' : (activeSlug ? `/ppdb/cek-status?school=${activeSlug}` : '/ppdb/cek-status') },
+        { label: 'Pengumuman Kelulusan', href: activeSlug === 'sd' ? '/sd/spmb/pengumuman' : activeSlug === 'smp' ? '/smp/spmb/pengumuman' : (activeSlug ? `/ppdb/pengumuman?school=${activeSlug}` : '/ppdb/pengumuman') },
       ],
     },
     {
@@ -323,17 +297,16 @@ export default function Navbar({
       href: '#',
       hasDropdown: true,
       items: [
-        { label: 'Affiliate Al-Afiyah', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate', desc: 'Bagi hasil komisi rujukan Affiliate Al-Afiyah' },
-        { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir'), desc: 'Al-Ma’tsurat pagi petang & adab penuntut ilmu' },
-        { 
-          label: activeSlug === 'smp' ? 'Konsultasi Panitia SMP IT' : 'Tanya Ustadz & Konsultasi', 
-          href: activeSlug === 'sd' 
-            ? 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Ustadz%20SD%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi' 
+        { label: 'Program Affiliate Wali Murid', href: activeSlug ? `/affiliate?school=${activeSlug}` : '/affiliate' },
+        { label: 'Doa & Dzikir Harian', href: activeSlug === 'sd' ? '/sd/doa-dzikir' : activeSlug === 'smp' ? '/smp/doa-dzikir' : (activeSlug ? `/doa-dzikir?school=${activeSlug}` : '/doa-dzikir') },
+        {
+          label: 'Hubungi via WhatsApp',
+          href: activeSlug === 'sd'
+            ? 'https://wa.me/6281310139001?text=Assalamu%27alaikum%20Panitia%20SDIT%20Al-Afiyah'
             : activeSlug === 'smp'
-            ? 'https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20berkonsultasi'
-            : 'https://wa.me/6281223344552?text=Assalamu%27alaikum%20Ustadz%2C%20saya%20ingin%20bertanya%20seputar%20pendidikan%20Al-Afiyah', 
-          desc: activeSlug === 'smp' ? 'Hotline resmi WhatsApp Panitia 0822-4935-7893' : 'Konsultasi kurikulum adab & syar’i langsung dengan asatidzah', 
-          openInNewTab: true 
+            ? 'https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SMP%20IT%20Al-Afiyah'
+            : 'https://wa.me/6281223344552?text=Assalamu%27alaikum%20Al-Afiyah',
+          openInNewTab: true,
         },
       ],
     },
@@ -597,11 +570,17 @@ export default function Navbar({
                       )}
 
                       {/* ========================================================= */}
-                      {/* DROPDOWN MENU CARD (Sleek Dark Charcoal - Al-Irsyad Style)*/}
+                      {/* DROPDOWN MENU CARD (Minimalist Al-Hidayah White Dropdown)  */}
                       {/* ========================================================= */}
                       {nav.hasDropdown && isHovered && (
-                        <div className="absolute left-0 top-full pt-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                          <div className="w-80 bg-[#2B2A2A] text-white shadow-2xl rounded-xl border border-stone-700 overflow-hidden py-1 divide-y divide-stone-700/60">
+                        <div className="absolute left-0 top-full pt-1.5 z-50 animate-in fade-in duration-150">
+                          <div
+                            className={`w-60 bg-white text-slate-800 shadow-lg rounded-xs border border-slate-200 border-t-2 overflow-hidden py-1 divide-y divide-slate-100 ${
+                              activeSlug === 'smp'
+                                ? 'border-t-[#ffd51e]'
+                                : 'border-t-[#e5a93b]'
+                            }`}
+                          >
                             {nav.items?.map((item) => {
                               const isSubdomainUrl =
                                 item.href.includes('tk.') ||
@@ -614,18 +593,23 @@ export default function Navbar({
                               const shouldOpenNewTab = Boolean((item as any).openInNewTab) || isSubdomainUrl || isExternalUrl;
 
                               const itemInner = (
-                                <div className="flex items-center justify-between px-4 py-2.5 hover:bg-stone-800/90 transition-colors group/item">
-                                  <div className="pr-2">
-                                    <p className="text-xs font-bold text-slate-100 group-hover/item:text-amber-300 transition-colors">
-                                      {item.label}
-                                    </p>
-                                    {'desc' in item && item.desc && (
-                                      <p className="text-[10px] text-stone-400 group-hover/item:text-stone-300 line-clamp-1 mt-0.5 font-normal">
-                                        {item.desc}
-                                      </p>
-                                    )}
-                                  </div>
-                                  <ArrowRight className="w-3.5 h-3.5 text-stone-500 group-hover/item:text-amber-300 group-hover/item:translate-x-0.5 transition-all shrink-0" />
+                                <div className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors group/item">
+                                  <span
+                                    className={`text-xs font-bold transition-colors ${
+                                      activeSlug === 'smp'
+                                        ? 'text-slate-800 group-hover/item:text-[#030164]'
+                                        : 'text-slate-800 group-hover/item:text-[#00594f]'
+                                    }`}
+                                  >
+                                    {item.label}
+                                  </span>
+                                  <ChevronRight
+                                    className={`w-3.5 h-3.5 text-slate-400 transition-transform group-hover/item:translate-x-0.5 shrink-0 ${
+                                      activeSlug === 'smp'
+                                        ? 'group-hover/item:text-[#030164]'
+                                        : 'group-hover/item:text-[#00594f]'
+                                    }`}
+                                  />
                                 </div>
                               );
 
@@ -675,7 +659,7 @@ export default function Navbar({
                   onClick={() => setIsSearchOpen(true)}
                   title="Pencarian Cepat"
                   aria-label="Buka pencarian"
-                  className={`p-2 rounded-full transition-colors cursor-pointer shrink-0 ${
+                  className={`p-2 rounded-xs transition-colors cursor-pointer shrink-0 ${
                     shouldBeTransparent
                       ? 'text-white hover:text-amber-300 hover:bg-white/10'
                       : 'text-slate-600 hover:text-softwater-dark hover:bg-slate-100'
@@ -687,44 +671,36 @@ export default function Navbar({
                 <Link
                   href={brandConfig.ppdbLink}
                   prefetch={true}
-                  className={`px-4 py-2 rounded-full text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0 ${
+                  className={`px-4 py-2 rounded-xs text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-xs transition-colors inline-flex items-center gap-1.5 shrink-0 ${
                     activeSlug === 'smp'
                       ? 'bg-[#ffd51e] hover:bg-amber-300 text-[#030164]'
-                      : 'bg-[#f59e0b] hover:bg-[#d97706] text-white'
+                      : 'bg-[#e5a93b] hover:bg-[#d4962a] text-white'
                   }`}
                 >
-                  <GraduationCap className="w-3.5 h-3.5 stroke-[2.3]" />
                   <span>DAFTAR</span>
                 </Link>
                 <Link
                   href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
                   prefetch={true}
-                  title="Masuk ke Portal Layanan & Sistem Akademik"
-                  className="px-4 py-2 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-200/90 text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-sm transition-all hover:scale-[1.02] active:scale-95 inline-flex items-center gap-1.5 shrink-0"
+                  title="Login"
+                  className="px-4 py-2 rounded-xs bg-white hover:bg-slate-100 text-slate-800 border border-slate-200/90 text-[11px] xl:text-xs font-extrabold uppercase tracking-wider shadow-xs transition-colors inline-flex items-center gap-1.5 shrink-0"
                 >
-                  <svg className="w-3.5 h-3.5 text-slate-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="7" height="7" x="3" y="3" rx="1" />
-                    <rect width="7" height="7" x="14" y="3" rx="1" />
-                    <rect width="7" height="7" x="14" y="14" rx="1" />
-                    <rect width="7" height="7" x="3" y="14" rx="1" />
-                  </svg>
                   <span>LOGIN</span>
                 </Link>
               </div>
 
-              {/* Mobile & Tablet Right Actions: Pill "DAFTAR" + Rounded Square Menu/Close Toggle */}
-              <div className="flex lg:hidden items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
+              {/* Mobile & Tablet Right Actions: Minimalist "DAFTAR" + Square Menu Toggle */}
+              <div className="flex lg:hidden items-center gap-2 shrink-0 ml-auto">
                 <Link
                   href={brandConfig.ppdbLink}
                   prefetch={true}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`px-3 xs:px-3.5 py-1.5 xs:py-2 rounded-full text-[11px] xs:text-xs font-extrabold uppercase tracking-wider shadow-md transition-all active:scale-95 inline-flex items-center gap-1.5 shrink-0 ${
+                  className={`px-3 py-1.5 rounded-xs text-[11px] font-extrabold uppercase tracking-wider shadow-xs transition-colors inline-flex items-center shrink-0 ${
                     activeSlug === 'smp'
                       ? 'bg-[#ffd51e] hover:bg-amber-300 text-[#030164]'
-                      : 'bg-[#f59e0b] hover:bg-[#d97706] text-white'
+                      : 'bg-[#e5a93b] hover:bg-[#d4962a] text-white'
                   }`}
                 >
-                  <GraduationCap className="w-3.5 h-3.5 stroke-[2.4]" />
                   <span>DAFTAR</span>
                 </Link>
 
@@ -732,12 +708,12 @@ export default function Navbar({
                   type="button"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   aria-label={isMobileMenuOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
-                  className="w-9 h-9 xs:w-10 xs:h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center transition-all cursor-pointer shrink-0 active:scale-95"
+                  className="w-9 h-9 rounded-xs bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
                 >
                   {isMobileMenuOpen ? (
-                    <X className="w-5 h-5 xs:w-[22px] xs:h-[22px]" strokeWidth={2.4} />
+                    <X className="w-5 h-5" strokeWidth={2.2} />
                   ) : (
-                    <Menu className="w-5 h-5 xs:w-[22px] xs:h-[22px]" strokeWidth={2.4} />
+                    <Menu className="w-5 h-5" strokeWidth={2.2} />
                   )}
                 </button>
               </div>
@@ -745,19 +721,19 @@ export default function Navbar({
           </div>
 
           {/* ========================================================= */}
-          {/* BESPOKE AL-AFIYAH TOP-DOWN MOBILE NAVIGATION PANEL        */}
+          {/* MINIMALIST AL-HIDAYAH MOBILE NAVIGATION PANEL             */}
           {/* ========================================================= */}
           {isMobileMenuOpen && (
             <div
-              className={`lg:hidden w-full border-t border-white/10 px-4 pt-3 pb-5 shadow-2xl rounded-b-3xl transition-all duration-200 max-h-[calc(100dvh-64px)] overflow-y-auto ${
+              className={`lg:hidden w-full border-t border-white/15 px-4 pt-2 pb-4 shadow-xl transition-all duration-150 max-h-[calc(100dvh-60px)] overflow-y-auto ${
                 activeSlug === 'smp'
-                  ? 'bg-gradient-to-b from-[#020148] via-[#030164] to-[#010030] border-b-2 border-b-[#ffd51e]/35'
+                  ? 'bg-[#030164] border-b-4 border-b-[#ffd51e]'
                   : activeSlug === 'sd'
-                  ? 'bg-gradient-to-b from-[#034433] via-[#04543f] to-[#023326] border-b-2 border-b-[#f59e0b]/35'
-                  : 'bg-gradient-to-b from-[#08352c] via-[#0B332B] to-[#05241e] border-b-2 border-b-amber-400/35'
+                  ? 'bg-[#003831] border-b-4 border-b-[#e5a93b]'
+                  : 'bg-[#08352c] border-b-4 border-b-[#e5a93b]'
               }`}
             >
-              {/* Navigation Rows */}
+              {/* Clean Navigation List */}
               <div className="divide-y divide-white/10">
                 {navStructure.map((nav) => {
                   const isExpanded = mobileExpandedSection === nav.name;
@@ -766,54 +742,53 @@ export default function Navbar({
                     (nav.href !== '/' &&
                       nav.href !== '#' &&
                       pathname.startsWith(nav.href.split('#')[0]));
+                  const accentText = activeSlug === 'smp' ? 'text-[#ffd51e]' : 'text-[#e5a93b]';
+                  const accentBorder = activeSlug === 'smp' ? 'border-[#ffd51e]' : 'border-[#e5a93b]';
 
                   if (!nav.hasDropdown) {
                     return (
-                      <div key={nav.name} className="py-1">
+                      <div key={nav.name}>
                         <Link
                           href={nav.href}
                           prefetch={true}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+                          className={`flex items-center justify-between px-2 py-3 text-xs font-extrabold uppercase tracking-wider transition-colors ${
                             isActive
-                              ? 'bg-white/12 text-[#ffd51e] border-l-4 border-[#ffd51e] shadow-xs'
-                              : 'text-white/95 hover:bg-white/8 hover:text-[#ffd51e]'
+                              ? `${accentText} border-l-2 ${accentBorder} pl-3`
+                              : 'text-white hover:text-white/80'
                           }`}
                         >
                           <span>{nav.name}</span>
-                          {isActive && (
-                            <span className="w-2 h-2 rounded-full bg-[#ffd51e] shadow-[0_0_8px_#ffd51e]" />
-                          )}
                         </Link>
                       </div>
                     );
                   }
 
                   return (
-                    <div key={nav.name} className="py-1">
+                    <div key={nav.name}>
                       <button
                         type="button"
                         onClick={() =>
                           setMobileExpandedSection(isExpanded ? null : nav.name)
                         }
-                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold text-left transition-all cursor-pointer ${
+                        className={`w-full flex items-center justify-between px-2 py-3 text-xs font-extrabold uppercase tracking-wider text-left transition-colors cursor-pointer ${
                           isActive || isExpanded
-                            ? 'bg-white/12 text-[#ffd51e] border-l-4 border-[#ffd51e]'
-                            : 'text-white/95 hover:bg-white/8'
+                            ? `${accentText}`
+                            : 'text-white hover:text-white/80'
                         }`}
                       >
                         <span>{nav.name}</span>
                         <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-200 ${
+                          className={`w-4 h-4 transition-transform duration-150 ${
                             isExpanded
-                              ? 'rotate-180 text-[#ffd51e]'
+                              ? `rotate-180 ${accentText}`
                               : 'text-white/60'
                           }`}
                         />
                       </button>
 
                       {isExpanded && (
-                        <div className="mt-1.5 mb-2 ml-3 pl-3 border-l-2 border-white/15 space-y-1">
+                        <div className="mb-2.5 ml-2 pl-3 border-l border-white/20 divide-y divide-white/5">
                           {nav.items?.map((item) => {
                             const isItemExt =
                               item.href.startsWith('http') &&
@@ -829,18 +804,11 @@ export default function Navbar({
                               isSubdomainUrl;
 
                             const subItemContent = (
-                              <div className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-black/15 hover:bg-white/10 transition-colors group/sub">
-                                <div className="min-w-0 pr-2">
-                                  <p className="text-xs font-bold text-white group-hover/sub:text-[#ffd51e] transition-colors">
-                                    {item.label}
-                                  </p>
-                                  {'desc' in item && item.desc && (
-                                    <p className="text-[10px] text-white/65 line-clamp-1 mt-0.5">
-                                      {item.desc}
-                                    </p>
-                                  )}
-                                </div>
-                                <ChevronRight className="w-3.5 h-3.5 text-white/40 group-hover/sub:text-[#ffd51e] shrink-0" />
+                              <div className="flex items-center justify-between py-2.5 px-2 hover:bg-white/5 transition-colors group/sub">
+                                <span className="text-xs font-semibold text-white/90 group-hover/sub:text-white">
+                                  {item.label}
+                                </span>
+                                <ChevronRight className="w-3.5 h-3.5 text-white/40 group-hover/sub:text-white shrink-0" />
                               </div>
                             );
 
@@ -891,54 +859,29 @@ export default function Navbar({
                 })}
               </div>
 
-              {/* Bottom Full-Width White LOGIN Button + Quick Utility Pills */}
-              <div className="mt-4 pt-3 border-t border-white/15 space-y-2.5">
+              {/* Bottom Minimalist Action Row: LOGIN & CARI */}
+              <div className="mt-3 pt-3 border-t border-white/15 grid grid-cols-2 gap-2">
                 <Link
                   href={activeSlug ? `/login?unit=${activeSlug}` : '/login'}
                   prefetch={true}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg transition-all active:scale-[0.99] flex items-center justify-center gap-2.5"
+                  className="py-2.5 px-3 rounded-xs bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  <svg
-                    className="w-4 h-4 text-slate-800 shrink-0"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect width="7" height="7" x="3" y="3" rx="1" />
-                    <rect width="7" height="7" x="14" y="3" rx="1" />
-                    <rect width="7" height="7" x="14" y="14" rx="1" />
-                    <rect width="7" height="7" x="3" y="14" rx="1" />
-                  </svg>
+                  <LogIn className="w-3.5 h-3.5" />
                   <span>LOGIN</span>
                 </Link>
 
-                {/* Distinctive Al-Afiyah Quick Utility Pills */}
-                <div className="grid grid-cols-2 gap-2">
-                  <Link
-                    href={activeSlug ? `/affiliate/register?unit=${activeSlug}` : '/affiliate'}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all"
-                  >
-                    <HeartHandshake className="w-3.5 h-3.5 text-[#ffd51e] shrink-0" />
-                    <span className="truncate">Daftar Affiliate</span>
-                  </Link>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      setIsSearchOpen(true);
-                    }}
-                    className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                  >
-                    <Search className="w-3.5 h-3.5 text-[#ffd51e] shrink-0" />
-                    <span className="truncate">Cari Cepat</span>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsSearchOpen(true);
+                  }}
+                  className="py-2.5 px-3 rounded-xs bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <Search className="w-3.5 h-3.5" />
+                  <span>CARI</span>
+                </button>
               </div>
             </div>
           )}

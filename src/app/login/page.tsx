@@ -5,122 +5,76 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
+import {
   ArrowLeft,
   Loader2,
   Eye,
   EyeOff,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 import { extractSubdomain } from '@/lib/domain';
-import { applyThemeColorToDocument, applyPwaIdentityToDocument } from '@/components/shared/DynamicUnitThemeColorSync';
+import { applyPwaIdentityToDocument } from '@/components/shared/DynamicUnitThemeColorSync';
 import IslamicToast from '@/components/common/IslamicToast';
 
 type UnitKey = 'yayasan' | 'sd' | 'smp' | 'tk';
 
 interface UnitTheme {
   key: UnitKey;
-  label: string;
-  badge: string;
   name: string;
-  fullName: string;
-  subtitle: string;
-  welcomeSubtitle: string;
-  footerLabel: string;
+  copyrightName: string;
   logo: string;
   primaryColor: string;
   accentColor: string;
-  headerBg: string;
-  buttonBg: string;
-  focusRing: string;
   homeUrl: string;
   registerUrl: string;
-  checkStatusUrl: string;
 }
 
 const UNIT_THEMES: Record<UnitKey, UnitTheme> = {
   sd: {
     key: 'sd',
-    label: 'SDIT',
-    badge: 'SDIT AL-AFIYAH MAJALENGKA',
     name: 'SDIT Al-Afiyah',
-    fullName: 'SDIT Al-Afiyah Majalengka',
-    subtitle: 'Smart • Akhlak • Fitrah',
-    welcomeSubtitle: 'Portal Resmi Akademik & SPMB SDIT Al-Afiyah Majalengka',
-    footerLabel: 'SDIT Al-Afiyah Majalengka • Yayasan Pendidikan Imam Bonjol',
+    copyrightName: 'SD IT Al-Afiyah',
     logo: '/images/sd-logo.png',
-    primaryColor: '#064E3B',
-    accentColor: '#D97706',
-    headerBg: 'from-[#064E3B] via-[#04382A] to-[#02251B]',
-    buttonBg: 'bg-[#064E3B] hover:bg-[#04382A]',
-    focusRing: 'focus:ring-[#064E3B]/20 focus:border-[#064E3B]',
+    primaryColor: '#00594f',
+    accentColor: '#e5a93b',
     homeUrl: '/sd',
     registerUrl: '/sd/spmb/daftar',
-    checkStatusUrl: '/sd/spmb/cek-status',
   },
   smp: {
     key: 'smp',
-    label: 'SMP IT',
-    badge: 'SMP IT AL-AFIYAH MAJALENGKA',
     name: 'SMP IT Al-Afiyah',
-    fullName: 'SMP IT Al-Afiyah Majalengka',
-    subtitle: 'Be Smart & Religious',
-    welcomeSubtitle: 'Portal Resmi Akademik & SPMB SMP IT Al-Afiyah Majalengka',
-    footerLabel: 'SMP IT Al-Afiyah • Yayasan Pendidikan Imam Bonjol',
+    copyrightName: 'SMP IT Al-Afiyah',
     logo: '/images/smp-logo.png',
     primaryColor: '#030164',
     accentColor: '#ffd51e',
-    headerBg: 'from-[#030164] via-[#06047a] to-[#02003d]',
-    buttonBg: 'bg-[#030164] hover:bg-[#06047a]',
-    focusRing: 'focus:ring-[#030164]/20 focus:border-[#030164]',
     homeUrl: '/smp',
     registerUrl: '/smp/spmb/daftar',
-    checkStatusUrl: '/smp/spmb/cek-status',
   },
   tk: {
     key: 'tk',
-    label: 'TK IT',
-    badge: 'TK IT AL-AFIYAH MAJALENGKA',
     name: 'TK IT Al-Afiyah',
-    fullName: 'TK IT Al-Afiyah Majalengka',
-    subtitle: 'Pondasi Karakter Usia Dini',
-    welcomeSubtitle: 'Portal Resmi Akademik & SPMB TK IT Al-Afiyah Majalengka',
-    footerLabel: 'TK IT Al-Afiyah • Yayasan Pendidikan Imam Bonjol',
+    copyrightName: 'TK IT Al-Afiyah',
     logo: '/images/sd-logo.png',
     primaryColor: '#0284c7',
-    accentColor: '#FBBF24',
-    headerBg: 'from-[#0369a1] via-[#0284c7] to-[#075985]',
-    buttonBg: 'bg-[#0284c7] hover:bg-[#0369a1]',
-    focusRing: 'focus:ring-[#0284c7]/20 focus:border-[#0284c7]',
+    accentColor: '#e5a93b',
     homeUrl: '/tk',
     registerUrl: '/ppdb/daftar?unit=tk',
-    checkStatusUrl: '/ppdb/cek-status?school=tk',
   },
   yayasan: {
     key: 'yayasan',
-    label: 'Yayasan',
-    badge: 'YAYASAN PENDIDIKAN IMAM BONJOL',
     name: 'Yayasan Imam Bonjol',
-    fullName: 'Yayasan Pendidikan Imam Bonjol Majalengka',
-    subtitle: 'Pendidikan Islam Terpadu Al-Afiyah',
-    welcomeSubtitle: 'Portal Pusat Administrasi & Kemitraan Seluruh Unit Pendidikan',
-    footerLabel: 'Yayasan Pendidikan Imam Bonjol Majalengka',
+    copyrightName: 'SD IT Al-Afiyah',
     logo: '/images/ypib-logo.png',
-    primaryColor: '#184F48',
-    accentColor: '#D97706',
-    headerBg: 'from-[#184F48] via-[#123E38] to-[#0d2a26]',
-    buttonBg: 'bg-[#184F48] hover:bg-[#123E38]',
-    focusRing: 'focus:ring-[#184F48]/20 focus:border-[#184F48]',
+    primaryColor: '#00594f',
+    accentColor: '#e5a93b',
     homeUrl: '/',
     registerUrl: '/ppdb/daftar',
-    checkStatusUrl: '/ppdb/cek-status',
   },
 };
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -136,7 +90,6 @@ export default function LoginPage() {
     message: '',
   });
 
-  // Default to SD unit or auto-detect from host/url
   const [activeUnit, setActiveUnit] = useState<UnitKey>('sd');
 
   useEffect(() => {
@@ -162,18 +115,12 @@ export default function LoginPage() {
 
   const currentTheme = UNIT_THEMES[activeUnit] || UNIT_THEMES.sd;
 
-  // Dynamically synchronize browser tab title, favicon, and PWA manifest based on active unit
   useEffect(() => {
     if (typeof document === 'undefined') return;
-
-    // 1. Update Document Title
-    document.title = `Masuk ke Akun | ${currentTheme.name}`;
-
-    // 2. Full PWA & Add-to-Screen sync (Manifest, Apple Touch Icon, Favicon, Theme Color)
+    document.title = `Login | ${currentTheme.name}`;
     const pwaUnit = activeUnit === 'yayasan' ? 'sd' : activeUnit;
     applyPwaIdentityToDocument(pwaUnit, '/login');
 
-    // 3. Persist unit preference for subsequent pages (affiliate, dashboard, etc.)
     try {
       localStorage.setItem('alafiyah_active_unit', activeUnit);
       document.cookie = `alafiyah_active_unit=${activeUnit}; path=/; max-age=2592000; SameSite=Lax`;
@@ -198,252 +145,193 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        const errorText = data.error || 'Email atau kata sandi tidak valid';
+        const errorText = data.error || 'ID atau kata sandi tidak valid';
         setErrorMsg(errorText);
         setToast({
           isOpen: true,
           type: 'error',
-          title: 'Qadarullah, Login Belum Berhasil',
+          title: 'Login Belum Berhasil',
           message: errorText,
         });
         setIsLoading(false);
         return;
       }
 
-      // Success notification with Islamic greeting
       setIsLoading(false);
       setIsRedirecting(true);
-      setToast({
-        isOpen: true,
-        type: 'success',
-        title: 'Alhamdulillah, Ahlan wa Sahlan!',
-        message: 'Otentikasi berhasil. Mengalihkan Anda ke dasbor...',
-      });
-
-      // Prevent PWA / APK launch splash from ever replaying upon reaching beranda or dashboard
       try {
         sessionStorage.setItem('alafiyah_pwa_splash_seen', '1');
       } catch {}
 
-      // Immediate transition to destination
       if (data.redirectUrl) {
         window.location.replace(data.redirectUrl);
       }
     } catch {
-      const netError = 'Terjadi gangguan jaringan, silakan periksa koneksi Anda.';
+      const netError = 'Gangguan jaringan, periksa koneksi Anda.';
       setErrorMsg(netError);
-      setToast({
-        isOpen: true,
-        type: 'error',
-        title: 'Qadarullah, Gangguan Jaringan',
-        message: netError,
-      });
       setIsLoading(false);
       setIsRedirecting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col justify-between py-6 sm:py-10 px-4 sm:px-6 font-sans antialiased text-slate-800">
-      
-      {/* Top Header: Navigation Back */}
-      <header className="max-w-md mx-auto w-full flex items-center justify-between pb-4">
+    <div className="min-h-screen bg-[#f8faf9] flex flex-col justify-between py-6 px-4 font-sans antialiased text-slate-800">
+      {/* Top Back Link */}
+      <header className="max-w-sm mx-auto w-full">
         <Link
           href={currentTheme.homeUrl}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-white py-2 px-3.5 rounded-full border border-slate-200 shadow-xs transition-all"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-950 transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5 text-slate-600" />
-          <span>Kembali ke Beranda</span>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Beranda</span>
         </Link>
-
-        <span className="text-xs font-semibold text-slate-600 bg-white py-1.5 px-3 rounded-full border border-slate-200 shadow-xs">
-          {currentTheme.name}
-        </span>
       </header>
 
-      {/* Main Container: Clean Mobile Card Layout (Like SMP / Original) */}
-      <main className="max-w-md mx-auto w-full my-auto">
-        <div className="rounded-[32px] overflow-hidden shadow-xl border border-slate-200/80 bg-white">
-          
-          {/* Top Brand Header Section */}
-          <div className={`relative px-6 pt-8 pb-9 sm:pt-9 sm:pb-10 text-center text-white bg-gradient-to-b ${currentTheme.headerBg} relative overflow-hidden transition-colors duration-500`}>
-            
-            {/* Subtle organic light shape */}
-            <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-black/10 blur-xl pointer-events-none" />
-
-            {/* School Logo Badge Card */}
-            <div className="relative z-10 w-20 h-20 mx-auto rounded-2xl bg-white p-2.5 shadow-md flex items-center justify-center border border-white/40 mb-4 transition-transform hover:scale-105 duration-300">
+      {/* Minimalist Login Box */}
+      <main className="max-w-sm mx-auto w-full my-auto py-6">
+        <div
+          className="bg-white border border-slate-200 border-t-4 shadow-md rounded-xs p-6 sm:p-7 space-y-6"
+          style={{ borderTopColor: currentTheme.primaryColor }}
+        >
+          {/* Logo & Simple Title */}
+          <div className="flex flex-col items-center text-center space-y-2.5">
+            <div className="flex items-center justify-center gap-2.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/ypib-logo.png"
+                alt="YPIB"
+                className="w-10 h-10 object-contain"
+              />
               <Image
                 src={currentTheme.logo}
                 alt={currentTheme.name}
-                width={64}
-                height={64}
-                className="object-contain max-h-16 w-auto"
+                width={42}
+                height={42}
+                className="object-contain w-10 h-10"
                 priority
               />
             </div>
-
-            {/* Title & Subtitle - Clean, No Arabic, No AI Slop */}
-            <div className="relative z-10">
-              <h1 className="text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-snug">
-                Selamat Datang!
+            <div>
+              <h1 className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">
+                {currentTheme.name}
               </h1>
-              <p className="text-xs sm:text-sm text-white/90 font-medium mt-1">
-                Masuk ke akun {currentTheme.name}
+              <p className="text-xs text-slate-500 font-medium">
+                Login Portal
               </p>
             </div>
           </div>
 
-          {/* Bottom Form Sheet (Pure White Card) */}
-          <div className="p-6 sm:p-8 bg-white">
-            
-            {/* Error Message Alert */}
-            {errorMsg && (
-              <div 
-                className="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700 flex items-start gap-2.5 animate-fadeIn" 
-                role="alert"
-              >
-                <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                <span>{errorMsg}</span>
-              </div>
-            )}
+          {errorMsg && (
+            <div
+              className="p-2.5 rounded-xs bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700 flex items-center gap-2"
+              role="alert"
+            >
+              <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
+              <span>{errorMsg}</span>
+            </div>
+          )}
 
-            {/* Login Form */}
-            <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="space-y-4">
-              
-              {/* ID / Email Input */}
-              <div>
-                <label htmlFor="email" className="block text-xs font-semibold text-slate-700 mb-1.5">
-                  ID / Email Admin
-                </label>
+          {/* Clean Form */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+            className="space-y-4"
+          >
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-xs font-bold text-slate-700 mb-1"
+              >
+                ID / Email
+              </label>
+              <input
+                id="email"
+                type="text"
+                required
+                autoComplete="username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="ID atau Email"
+                className="w-full px-3.5 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-xs font-bold text-slate-700 mb-1"
+              >
+                Kata Sandi
+              </label>
+              <div className="relative">
                 <input
-                  id="email"
-                  type="text"
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
-                  autoComplete="username"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin"
-                  className={`w-full px-4 py-3 text-sm rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 font-medium focus:bg-white focus:outline-none transition-all ${currentTheme.focusRing}`}
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-3.5 pr-10 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
                 />
-              </div>
-
-              {/* Password Input */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label htmlFor="password" className="block text-xs font-semibold text-slate-700">
-                    Kata Sandi
-                  </label>
-                  <Link
-                    href={currentTheme.checkStatusUrl}
-                    className="text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors"
-                  >
-                    Lupa sandi?
-                  </Link>
-                </div>
-                <div className="relative">
-                  <input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    autoComplete="current-password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Masukkan kata sandi"
-                    className={`w-full pl-4 pr-11 py-3 text-sm rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 font-medium focus:bg-white focus:outline-none transition-all ${currentTheme.focusRing}`}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
-                    aria-label={showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Remember Me Checkbox */}
-              <div className="flex items-center space-x-2 pt-1">
-                <input
-                  type="checkbox"
-                  id="remember"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-400 cursor-pointer"
-                />
-                <label htmlFor="remember" className="text-xs font-medium text-slate-600 select-none cursor-pointer">
-                  Ingat saya di perangkat ini
-                </label>
-              </div>
-
-              {/* Primary Action Button */}
-              <button
-                type="submit"
-                disabled={isLoading || isRedirecting}
-                className="w-full mt-2 py-3.5 px-4 rounded-xl text-white font-bold text-sm tracking-wide shadow-md transition-all active:scale-[0.99] disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
-                style={{ backgroundColor: currentTheme.primaryColor }}
-              >
-                {isRedirecting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin text-white" />
-                    <span>Mengalihkan ke Dasbor...</span>
-                  </>
-                ) : isLoading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin text-white" />
-                    <span>Memverifikasi...</span>
-                  </>
-                ) : (
-                  <span>Masuk ke Akun</span>
-                )}
-              </button>
-            </form>
-
-            {/* Divider & Registration Prompt */}
-            <div className="border-t border-slate-100 my-5" />
-
-            <div className="text-center text-xs font-medium text-slate-600 space-y-2">
-              <div>
-                <span>Ingin mendaftar murid baru? </span>
-                <Link
-                  href={currentTheme.registerUrl}
-                  className="font-bold underline underline-offset-2 ml-1 transition-opacity hover:opacity-80"
-                  style={{ color: currentTheme.primaryColor }}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-700 cursor-pointer"
+                  aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
                 >
-                  Formulir SPMB Online
-                </Link>
-              </div>
-              <div className="text-slate-400 text-[11px]">
-                <span>Sudah mendaftar? </span>
-                <Link
-                  href={currentTheme.checkStatusUrl}
-                  className="font-semibold text-slate-600 hover:text-slate-900 underline underline-offset-2 ml-1"
-                >
-                  Cek Status Pendaftaran Murid
-                </Link>
-              </div>
-
-              {/* Bottom Card Identity Footer */}
-              <div className="pt-3 border-t border-slate-100/80">
-                <p className="text-[11px] font-semibold text-slate-500">
-                  {currentTheme.footerLabel}
-                </p>
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
-          </div>
+            <button
+              type="submit"
+              disabled={isLoading || isRedirecting}
+              className="w-full py-2.5 px-4 rounded-xs text-white font-extrabold text-xs uppercase tracking-wider transition-opacity hover:opacity-95 disabled:opacity-70 flex items-center justify-center gap-2 cursor-pointer"
+              style={{ backgroundColor: currentTheme.primaryColor }}
+            >
+              {isLoading || isRedirecting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <span>Memproses...</span>
+                </>
+              ) : (
+                <span>Masuk</span>
+              )}
+            </button>
+          </form>
 
+          <div className="pt-3 border-t border-slate-100 text-center">
+            <Link
+              href={currentTheme.registerUrl}
+              className="text-xs font-bold hover:underline"
+              style={{ color: currentTheme.primaryColor }}
+            >
+              Daftar SPMB Online →
+            </Link>
+          </div>
         </div>
       </main>
 
-      {/* Footer Copyright */}
-      <footer className="max-w-md mx-auto w-full text-center text-xs text-slate-400 pt-5">
-        © 2026 {currentTheme.footerLabel}. Hak Cipta Dilindungi.
+      {/* Clean Copyright Footer */}
+      <footer className="max-w-sm mx-auto w-full text-center text-[11px] text-slate-500 space-y-0.5">
+        <p className="font-semibold text-slate-700">
+          © Copyright {currentTheme.copyrightName} x{' '}
+          <a
+            href="https://modula.studio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold hover:underline"
+          >
+            modula.studio
+          </a>{' '}
+          2026.
+        </p>
       </footer>
 
-      {/* Islamic Toast Notification */}
       <IslamicToast
         isOpen={toast.isOpen}
         onClose={() => setToast((prev) => ({ ...prev, isOpen: false }))}
