@@ -331,21 +331,14 @@ export default function FoundationDashboardClient({
       </div>
 
       {/* 4. DETAIL REGISTRATIONS TABLE & STATUS MANAGEMENT CONSOLE */}
-      <div id="pendaftar" className="bg-white rounded-[24px] p-6 sm:p-7 border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between relative overflow-hidden">
+      <div id="pendaftar" className="bg-white rounded-sm p-5 sm:p-6 border border-slate-200 shadow-2xs flex flex-col justify-between relative overflow-hidden">
         {/* Table Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-100 gap-3">
-          <div>
-            <h3 className="font-bold text-base sm:text-lg text-slate-900 tracking-tight">
-              {isFoundation
-                ? 'Basis Data & Verifikasi Murid PPDB (Semua Unit)'
-                : `Basis Data & Verifikasi Murid PPDB - ${schoolName || currentSchoolSlug.toUpperCase() + ' IT Al-Afiyah'}`}
-            </h3>
-            <p className="text-xs text-slate-500 font-medium mt-0.5">
-              {isFoundation
-                ? 'Konsol pencarian murid terpadu, validasi berkas fisik/digital, dan update status seleksi yayasan'
-                : `Konsol pencarian, validasi berkas fisik/digital, dan update status seleksi murid ${currentSchoolSlug.toUpperCase()} IT`}
-            </p>
-          </div>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-2">
+          <h3 className="font-extrabold text-base text-slate-900 tracking-tight uppercase">
+            {isFoundation
+              ? 'Data Pendaftar SPMB (Semua Unit)'
+              : `Data Pendaftar SPMB — ${schoolName}`}
+          </h3>
         </div>
 
         {/* Table Controls (Search + Filters + CSV Export) */}
@@ -525,9 +518,11 @@ export default function FoundationDashboardClient({
         </div>
 
         {/* Table Footer */}
-        <div className="pt-4 mt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-          <span>Menampilkan <strong className="text-slate-800 font-bold">{filteredApplicants.length}</strong> dari {applicants.length} murid terdaftar</span>
-          <span className="font-mono text-[11px] text-slate-400">Pusat Kendali Terpadu Al-Afiyah Eduka</span>
+        <div className="pt-4 mt-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+          <span>Menampilkan <strong className="text-slate-800 font-bold">{filteredApplicants.length}</strong> dari {applicants.length} pendaftar</span>
+          <span className="text-[11px] font-semibold text-slate-500">
+            © Copyright {currentSchoolSlug === 'smp' ? 'SMP IT' : 'SD IT'} Al-Afiyah x modula.studio 2026.
+          </span>
         </div>
       </div>
 

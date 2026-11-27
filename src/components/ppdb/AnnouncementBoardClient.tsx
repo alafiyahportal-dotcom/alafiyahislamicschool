@@ -108,82 +108,41 @@ export default function AnnouncementBoardClient({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F3F9F8] via-[#F8FAFC] to-white pb-24">
-      {/* Top Banner Hero */}
-      <section className={`relative overflow-hidden ${
-        isSd
-          ? 'bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651]'
-          : 'bg-gradient-to-br from-[#184F48] via-[#1E5D55] to-[#2D7A70]'
-      } text-white pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8`}>
-        {/* Subtle Decorative Background Texture */}
-        {isSd ? (
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
-        ) : (
-          <>
-            <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-white/5 blur-2xl pointer-events-none" />
-            <div className="absolute bottom-0 left-10 -mb-20 w-80 h-80 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
-          </>
-        )}
-
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          {isSd ? (
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-              <Link 
-                href="/sd" 
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-emerald-50 hover:text-white transition-all active:scale-95"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Kembali ke Beranda SDIT</span>
-              </Link>
-              <nav className="flex items-center gap-1.5 text-xs text-emerald-200" aria-label="Breadcrumb">
-                <Link href="/sd" className="hover:text-white transition-colors">
-                  SDIT
+    <div className="min-h-screen bg-white pb-20 pt-16 sm:pt-20">
+      {/* Compact Header Minimalis Al-Hidayah Style */}
+      <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div>
+            {isSd && (
+              <nav className="flex items-center gap-1.5 text-xs text-emerald-100/80 mb-1.5" aria-label="Breadcrumb">
+                <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+                  Beranda SDIT
                 </Link>
-                <ChevronRight className="w-3 h-3 text-emerald-300/60" />
-                <Link href="/sd/spmb" className="hover:text-white transition-colors">
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+                <Link href="/sd/spmb" className="hover:text-[#e5a93b] transition-colors">
                   SPMB
                 </Link>
-                <ChevronRight className="w-3 h-3 text-emerald-300/60" />
-                <span className="text-white font-medium">Pengumuman</span>
+                <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+                <span className="text-[#e5a93b] font-semibold">Pengumuman</span>
               </nav>
-            </div>
-          ) : null}
-
-          <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-amber-300 mb-4">
-            <span>{isSd ? 'Pengumuman Kelulusan SPMB SDIT Al-Afiyah TA 2027/2028' : 'Pengumuman Kelulusan Resmi TA 2027/2028'}</span>
+            )}
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              {isSd ? 'Pengumuman Hasil Seleksi SPMB SDIT Al-Afiyah' : 'Pengumuman Hasil Seleksi SPMB Al-Afiyah'}
+            </h1>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
-            {isSd ? 'Papan Hasil Seleksi SPMB SDIT Al-Afiyah' : 'Papan Hasil Seleksi PPDB Terpadu'}
-          </h1>
-          <p className="max-w-3xl mx-auto text-sm sm:text-base text-[#D4EBE7] leading-relaxed">
-            {isSd
-              ? 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & tes wawancara nabawiyah di SDIT Al-Afiyah Majalengka.'
-              : 'Selamat kepada para calon murid baru yang telah dinyatakan lolos observasi & wawancara di Yayasan Pendidikan Imam Bonjol Majalengka (TK IT, SDIT, & SMP IT Al-Afiyah).'}
-          </p>
-
-          {/* Quick Action Navigation Buttons */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href={isSd ? '/sd/spmb/cek-status' : '/ppdb/cek-status'}
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white text-[#00A651] font-bold text-xs sm:text-sm hover:bg-[#E8F8F0] transition shadow-md"
-            >
-              <Search className="w-4 h-4 text-[#00A651]" />
-              <span>Cek Status Pribadi via NIK / WA</span>
-            </Link>
-            <Link
-              href={isSd ? '/sd/spmb' : '/ppdb/daftar'}
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold text-xs sm:text-sm transition"
-            >
-              <ChevronRight className="w-4 h-4" />
-              <span>Alur &amp; Pendaftaran SPMB SDIT</span>
-            </Link>
-          </div>
+          <Link
+            href={isSd ? '/sd/spmb/cek-status' : '/ppdb/cek-status'}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xs bg-[#e5a93b] hover:bg-[#d4962a] text-white font-bold text-xs self-start sm:self-auto shrink-0 transition-colors"
+          >
+            <Search className="w-3.5 h-3.5" />
+            <span>Cek Status Nomor Registrasi</span>
+          </Link>
         </div>
       </section>
 
       {/* Main Content Body */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         
         {/* KPI Summary Cards */}
         {isSd ? (

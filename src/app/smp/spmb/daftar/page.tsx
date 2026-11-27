@@ -7,8 +7,9 @@ import SmpRegistrationClient from './SmpRegistrationClient';
 import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Formulir Pendaftaran SPMB Online SMP IT Al-Afiyah Majalengka',
-  description: 'Formulir resmi pendaftaran calon murid baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028. Pengisian biodata calon murid dan orang tua secara digital.',
+  title: 'Formulir Pendaftaran SPMB Online | SMP IT Al-Afiyah Majalengka',
+  description:
+    'Formulir resmi pendaftaran calon murid baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -21,15 +22,16 @@ export const metadata: Metadata = {
 
 export default function SmpDaftarPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#ffd51e] selection:text-[#030164]">
-      <Navbar schoolSlug="smp" />
-      <main className="flex-1">
-        <Suspense fallback={
-          <div className="py-24 text-center">
-            <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#030164]" />
-            <p className="text-xs text-slate-500 mt-2">Memuat formulir pendaftaran SMP IT...</p>
-          </div>
-        }>
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans">
+      <Navbar schoolSlug="smp" transparentAtTop={false} />
+      <main className="flex-1 pt-16 sm:pt-20">
+        <Suspense
+          fallback={
+            <div className="py-24 text-center">
+              <Loader2 className="w-7 h-7 animate-spin mx-auto text-[#030164]" />
+            </div>
+          }
+        >
           <SmpRegistrationClient />
         </Suspense>
       </main>

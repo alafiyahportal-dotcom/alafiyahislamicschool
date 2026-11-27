@@ -64,77 +64,59 @@ export default async function ApplicantPortalPage({
   const isSmp = reg.school.slug === 'smp' || reg.registrationNo.toUpperCase().includes('SMP');
 
   return (
-    <div className="min-h-screen soft-mesh-bg flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col justify-between font-sans">
       <Navbar
         schoolName={reg.school.name}
         badgeText={reg.school.badgeText}
         schoolSlug={reg.school.slug as 'tk' | 'sd' | 'smp'}
+        transparentAtTop={false}
       />
 
-      <main className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 my-auto">
-        {/* Top Banner Status */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Minimalis Al-Hidayah Style */}
+        <section
+          className={`text-white py-8 sm:py-10 border-b-4 ${
+            isSmp
+              ? 'bg-[#030164] border-b-[#ffd51e]'
+              : 'bg-[#00594f] border-b-[#e5a93b]'
+          }`}
+        >
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
-              <div className={`inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full border ${
-                isSmp
-                  ? 'text-[#030164] bg-blue-50 border-blue-200'
-                  : 'text-[#184F48] bg-[#E8F3F1] border-[#2D7A70]/30'
-              }`}>
-                {reg.school.slug === 'smp' && (
-                  <img
-                    src="/images/smp-logo.png"
-                    alt="Logo SMP IT Al-Afiyah"
-                    className="w-4 h-4 object-contain shrink-0"
-                  />
-                )}
-                {reg.school.slug === 'sd' && (
-                  <img
-                    src="/images/sd-logo.png"
-                    alt="Logo SDIT Al-Afiyah"
-                    className="w-4 h-4 object-contain shrink-0"
-                  />
-                )}
-                <span>Portal Resmi {isSmp ? 'Santri' : 'Murid'} {reg.school.name}</span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+              <span className="text-xs text-white/80 font-bold uppercase tracking-wider block mb-1">
+                Portal Calon {isSmp ? 'Santri' : 'Murid'} • {reg.school.name}
+              </span>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 {reg.studentName}
               </h1>
-              <p className="text-xs text-slate-500 font-mono mt-1">
-                No. Registrasi: <span className="font-bold text-slate-800">{reg.registrationNo}</span>
+              <p className="text-xs font-mono text-white/90 mt-1">
+                No. Registrasi: <strong>{reg.registrationNo}</strong>
               </p>
             </div>
 
-            <div className="flex flex-col sm:items-end">
-              <span className="text-xs text-slate-400 font-medium">Status Pendaftaran:</span>
-              <div className="mt-1">
-                {reg.status === 'ACCEPTED' ? (
-                  <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300">
-                    <Award className="w-4 h-4 text-emerald-600" />
-                    <span>ALHAMDULILLAH, DITERIMA</span>
-                  </span>
-                ) : reg.status === 'INTERVIEW_SCHEDULED' ? (
-                  <span className={`inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full ${isSmp ? 'bg-blue-100 text-[#030164] border-blue-300' : 'bg-blue-100 text-blue-800 border-blue-300'} text-xs font-bold border`}>
-                    <Calendar className={`w-4 h-4 ${isSmp ? 'text-[#030164]' : 'text-blue-600'}`} />
-                    <span>{isSmp ? 'JADWAL TES SPMB DITETAPKAN' : 'JADWAL OBSERVASI DITETAPKAN'}</span>
-                  </span>
-                ) : isPaid ? (
-                  <span className={`inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full ${
-                    isSmp ? 'bg-blue-50 text-[#030164] border border-blue-200' : 'bg-[#E8F3F1] text-[#184F48] border border-[#2D7A70]/30'
-                  } text-xs font-bold`}>
-                    <CheckCircle2 className={`w-4 h-4 ${isSmp ? 'text-[#030164]' : 'text-[#2D7A70]'}`} />
-                    <span>BERKAS LUNAS & TERVERIFIKASI</span>
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs font-bold border border-amber-300">
-                    <Clock className="w-4 h-4 text-amber-600" />
-                    <span>MENUNGGU PEMBAYARAN FORMULIR</span>
-                  </span>
-                )}
-              </div>
+            <div>
+              {reg.status === 'ACCEPTED' ? (
+                <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xs bg-emerald-500 text-white text-xs font-extrabold">
+                  <Award className="w-4 h-4" />
+                  <span>LULUS &amp; DITERIMA</span>
+                </span>
+              ) : isPaid ? (
+                <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xs bg-white/15 border border-white/30 text-white text-xs font-extrabold">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>FORMULIR LUNAS</span>
+                </span>
+              ) : (
+                <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xs bg-[#e5a93b] text-white text-xs font-extrabold">
+                  <Clock className="w-4 h-4" />
+                  <span>MENUNGGU PEMBAYARAN</span>
+                </span>
+              )}
             </div>
           </div>
+        </section>
 
+        <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+          <div className="bg-white rounded-sm p-5 sm:p-7 border border-slate-200 mb-8">
           {/* Conditional Acceptance Banner */}
           {reg.status === 'ACCEPTED' && (
             <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -474,9 +456,10 @@ export default async function ApplicantPortalPage({
           studentName={reg.studentName}
           schoolName={reg.school.name}
         />
+        </div>
       </main>
 
-      <Footer />
+      <Footer schoolSlug={reg.school.slug as 'tk' | 'sd' | 'smp'} />
     </div>
   );
 }

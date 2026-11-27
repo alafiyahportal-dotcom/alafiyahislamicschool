@@ -175,149 +175,172 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8faf9] flex flex-col justify-between py-6 px-4 font-sans antialiased text-slate-800">
+    <div className="relative min-h-screen bg-[#f8faf9] flex flex-col justify-between py-6 px-4 font-sans antialiased text-slate-800 overflow-hidden">
+      {/* Top Half Background Color Identical to Unit (#00594f SDIT / #030164 SMP IT) */}
+      <div
+        className="absolute top-0 inset-x-0 h-[50vh] border-b-4 transition-colors duration-300 pointer-events-none"
+        style={{
+          backgroundColor: currentTheme.primaryColor,
+          borderBottomColor: currentTheme.accentColor,
+        }}
+      />
+
       {/* Top Back Link */}
-      <header className="max-w-sm mx-auto w-full">
+      <header className="relative z-10 max-w-sm mx-auto w-full flex items-center justify-between">
         <Link
           href={currentTheme.homeUrl}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-950 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-extrabold text-white hover:opacity-85 transition-opacity uppercase tracking-wider"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Beranda</span>
         </Link>
+        <span
+          className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-xs"
+          style={{
+            backgroundColor: currentTheme.accentColor,
+            color: activeUnit === 'smp' ? '#030164' : '#ffffff',
+          }}
+        >
+          {currentTheme.name}
+        </span>
       </header>
 
-      {/* Minimalist Login Box */}
-      <main className="max-w-sm mx-auto w-full my-auto py-6">
-        <div
-          className="bg-white border border-slate-200 border-t-4 shadow-md rounded-xs p-6 sm:p-7 space-y-6"
-          style={{ borderTopColor: currentTheme.primaryColor }}
-        >
-          {/* Logo & Simple Title */}
-          <div className="flex flex-col items-center text-center space-y-2.5">
-            <div className="flex items-center justify-center gap-2.5">
+      {/* Minimalist Login Box with Identical Top Half Header */}
+      <main className="relative z-10 max-w-sm mx-auto w-full my-auto py-6">
+        <div className="bg-white border border-slate-200 shadow-xl rounded-xs overflow-hidden">
+          {/* Card Top Header in Identical Unit Color */}
+          <div
+            className="px-6 py-6 text-center text-white border-b-4 flex flex-col items-center space-y-2.5"
+            style={{
+              backgroundColor: currentTheme.primaryColor,
+              borderBottomColor: currentTheme.accentColor,
+            }}
+          >
+            <div className="flex items-center justify-center gap-2.5 bg-white px-3.5 py-2 rounded-xs shadow-xs">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/ypib-logo.png"
                 alt="YPIB"
-                className="w-10 h-10 object-contain"
+                className="w-9 h-9 object-contain"
               />
               <Image
                 src={currentTheme.logo}
                 alt={currentTheme.name}
-                width={42}
-                height={42}
-                className="object-contain w-10 h-10"
+                width={38}
+                height={38}
+                className="object-contain w-9 h-9"
                 priority
               />
             </div>
             <div>
-              <h1 className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">
+              <h1 className="text-base sm:text-lg font-extrabold text-white uppercase tracking-wide">
                 {currentTheme.name}
               </h1>
-              <p className="text-xs text-slate-500 font-medium">
-                Login Portal
+              <p className="text-[11px] text-white/80 font-semibold uppercase tracking-widest mt-0.5">
+                LOGIN PORTAL
               </p>
             </div>
           </div>
 
-          {errorMsg && (
-            <div
-              className="p-2.5 rounded-xs bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700 flex items-center gap-2"
-              role="alert"
-            >
-              <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
-              <span>{errorMsg}</span>
-            </div>
-          )}
-
-          {/* Clean Form */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleLogin();
-            }}
-            className="space-y-4"
-          >
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-xs font-bold text-slate-700 mb-1"
+          {/* Card Form Body */}
+          <div className="p-6 space-y-4 bg-white">
+            {errorMsg && (
+              <div
+                className="p-2.5 rounded-xs bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700 flex items-center gap-2"
+                role="alert"
               >
-                ID / Email
-              </label>
-              <input
-                id="email"
-                type="text"
-                required
-                autoComplete="username"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="ID atau Email"
-                className="w-full px-3.5 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-xs font-bold text-slate-700 mb-1"
-              >
-                Kata Sandi
-              </label>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  required
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-3.5 pr-10 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-700 cursor-pointer"
-                  aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+                <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
+                <span>{errorMsg}</span>
               </div>
+            )}
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleLogin();
+              }}
+              className="space-y-4"
+            >
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-xs font-bold text-slate-700 mb-1"
+                >
+                  ID / Email
+                </label>
+                <input
+                  id="email"
+                  type="text"
+                  required
+                  autoComplete="username"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="ID atau Email"
+                  className="w-full px-3.5 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-xs font-bold text-slate-700 mb-1"
+                >
+                  Kata Sandi
+                </label>
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-3.5 pr-10 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-700 cursor-pointer"
+                    aria-label={showPassword ? 'Sembunyikan sandi' : 'Tampilkan sandi'}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading || isRedirecting}
+                className="w-full py-2.5 px-4 rounded-xs text-white font-extrabold text-xs uppercase tracking-wider transition-opacity hover:opacity-95 disabled:opacity-70 flex items-center justify-center gap-2 cursor-pointer"
+                style={{ backgroundColor: currentTheme.primaryColor }}
+              >
+                {isLoading || isRedirecting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <span>Memproses...</span>
+                  </>
+                ) : (
+                  <span>Masuk</span>
+                )}
+              </button>
+            </form>
+
+            <div className="pt-3 border-t border-slate-100 text-center">
+              <Link
+                href={currentTheme.registerUrl}
+                className="text-xs font-bold hover:underline"
+                style={{ color: currentTheme.primaryColor }}
+              >
+                Daftar SPMB Online →
+              </Link>
             </div>
-
-            <button
-              type="submit"
-              disabled={isLoading || isRedirecting}
-              className="w-full py-2.5 px-4 rounded-xs text-white font-extrabold text-xs uppercase tracking-wider transition-opacity hover:opacity-95 disabled:opacity-70 flex items-center justify-center gap-2 cursor-pointer"
-              style={{ backgroundColor: currentTheme.primaryColor }}
-            >
-              {isLoading || isRedirecting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin text-white" />
-                  <span>Memproses...</span>
-                </>
-              ) : (
-                <span>Masuk</span>
-              )}
-            </button>
-          </form>
-
-          <div className="pt-3 border-t border-slate-100 text-center">
-            <Link
-              href={currentTheme.registerUrl}
-              className="text-xs font-bold hover:underline"
-              style={{ color: currentTheme.primaryColor }}
-            >
-              Daftar SPMB Online →
-            </Link>
           </div>
         </div>
       </main>
 
       {/* Clean Copyright Footer */}
-      <footer className="max-w-sm mx-auto w-full text-center text-[11px] text-slate-500 space-y-0.5">
+      <footer className="relative z-10 max-w-sm mx-auto w-full text-center text-[11px] text-slate-500">
         <p className="font-semibold text-slate-700">
           © Copyright {currentTheme.copyrightName} x{' '}
           <a

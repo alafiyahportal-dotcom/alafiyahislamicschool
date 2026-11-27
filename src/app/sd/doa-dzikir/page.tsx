@@ -4,13 +4,13 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import DoaDzikirClient from '@/components/doa/DoaDzikirClient';
-import { ArrowLeft, ChevronRight, BookOpen } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import ScrollReveal from '@/components/landing/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Dzikir Pagi Petang & Doa Harian Murid SDIT Al-Afiyah',
-  description: 'Kumpulan dzikir pagi dan petang shahih (Al-Ma’tsurat) serta doa harian murid penuntut ilmu SDIT Al-Afiyah Majalengka lengkap dengan counter digital.',
+  title: 'Dzikir Pagi Petang & Doa Harian | SDIT Al-Afiyah',
+  description:
+    'Kumpulan dzikir pagi dan petang shahih (Al-Ma’tsurat) serta doa harian murid SDIT Al-Afiyah Majalengka.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -23,46 +23,33 @@ export const metadata: Metadata = {
 
 export default function SdDoaDzikirPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-800 font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
-      <Navbar schoolSlug="sd" />
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
 
-      {/* Hero Header Khusus SDIT */}
-      <section className="bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#00A651] text-white pt-24 sm:pt-28 pb-14 sm:pb-18 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Minimalis Al-Hidayah Style */}
+        <section className="bg-[#00594f] text-white py-8 sm:py-10 border-b-4 border-[#e5a93b]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav
+              className="flex items-center gap-1.5 text-xs text-emerald-100/80 mb-1.5"
+              aria-label="Breadcrumb"
+            >
+              <Link href="/sd" className="hover:text-[#e5a93b] transition-colors">
+                Beranda SDIT
+              </Link>
+              <ChevronRight className="w-3.5 h-3.5 text-[#e5a93b]" />
+              <span className="text-[#e5a93b] font-semibold">Doa &amp; Dzikir</span>
+            </nav>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-xs text-emerald-200/90 mb-5" aria-label="Breadcrumb">
-            <Link href="/sd" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SDIT</span>
-            </Link>
-            <ChevronRight className="w-3 h-3 text-emerald-300/50" />
-            <span className="text-white font-medium">Doa &amp; Dzikir</span>
-          </nav>
-
-          <div className="max-w-3xl">
-            <div className="text-xs font-bold text-emerald-200 uppercase tracking-widest inline-flex items-center gap-1.5 mb-3">
-              <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
-              <span>BENTENG IBADAH &amp; ADAB HARIAN</span>
-            </div>
-
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Dzikir Pagi, Petang &amp; Doa Murid SDIT
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Dzikir Pagi, Petang &amp; Doa Harian Murid SDIT Al-Afiyah
             </h1>
-
-            <p className="mt-3.5 text-xs sm:text-sm lg:text-base text-emerald-100/90 leading-relaxed font-normal">
-              Menghidupkan sunnah dzikrullah sebagai benteng keimanan murid, ketenteraman hati penuntut ilmu, serta sarana memohon keberkahan dalam menghafal Al-Qur’an di SDIT Al-Afiyah.
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Main Content */}
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-6 relative z-20">
-        <ScrollReveal yOffset={24} duration={500}>
+        <div className="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           <DoaDzikirClient />
-        </ScrollReveal>
+        </div>
       </main>
 
       <Footer schoolSlug="sd" />

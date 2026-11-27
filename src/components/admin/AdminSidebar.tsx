@@ -266,86 +266,77 @@ export default function AdminSidebar({
 
   const sidebarTheme = isSmp
     ? {
-        activeText: 'text-[#030164] font-bold',
-        activeBg: 'bg-blue-50/90 shadow-2xs shadow-blue-900/5',
+        headerBg: 'bg-[#030164] border-b-2 border-[#ffd51e] text-white',
+        activeText: 'text-[#030164] font-extrabold',
+        activeBg: 'bg-[#FAF6EC]',
         activeBar: 'bg-[#030164]',
         activeIcon: 'text-[#030164]',
-        hoverClass: 'hover:text-[#030164] hover:bg-blue-50/50',
-        badgeClass: 'bg-[#030164] text-[#ffd51e] shadow-2xs',
+        hoverClass: 'hover:text-[#030164] hover:bg-slate-50',
+        badgeClass: 'bg-[#030164] text-[#ffd51e]',
         selectFocus: 'focus:border-[#030164]',
       }
     : isTk
     ? {
-        activeText: 'text-[#0284c7] font-bold',
-        activeBg: 'bg-sky-50/90 shadow-2xs shadow-sky-900/5',
+        headerBg: 'bg-[#0284c7] border-b-2 border-[#e5a93b] text-white',
+        activeText: 'text-[#0284c7] font-extrabold',
+        activeBg: 'bg-sky-50/90',
         activeBar: 'bg-[#0284c7]',
         activeIcon: 'text-[#0284c7]',
         hoverClass: 'hover:text-[#0284c7] hover:bg-sky-50/50',
-        badgeClass: 'bg-[#0284c7] text-white shadow-2xs',
+        badgeClass: 'bg-[#0284c7] text-white',
         selectFocus: 'focus:border-[#0284c7]',
       }
-    : isSd
-    ? {
-        activeText: 'text-[#00A651] font-bold',
-        activeBg: 'bg-emerald-50/80 shadow-2xs shadow-emerald-900/5',
-        activeBar: 'bg-[#00A651]',
-        activeIcon: 'text-[#00A651]',
-        hoverClass: 'hover:text-[#00A651] hover:bg-emerald-50/50',
-        badgeClass: 'bg-[#00A651] text-white shadow-2xs',
-        selectFocus: 'focus:border-emerald-500',
-      }
     : {
-        activeText: 'text-[#184F48] font-bold',
-        activeBg: 'bg-emerald-50/60 shadow-2xs shadow-teal-900/5',
-        activeBar: 'bg-[#184F48]',
-        activeIcon: 'text-[#184F48]',
-        hoverClass: 'hover:text-[#184F48] hover:bg-slate-50',
-        badgeClass: 'bg-[#184F48] text-white shadow-2xs',
-        selectFocus: 'focus:border-emerald-500',
+        headerBg: 'bg-[#00594f] border-b-2 border-[#e5a93b] text-white',
+        activeText: 'text-[#00594f] font-extrabold',
+        activeBg: 'bg-[#FAF6EC]',
+        activeBar: 'bg-[#00594f]',
+        activeIcon: 'text-[#00594f]',
+        hoverClass: 'hover:text-[#00594f] hover:bg-slate-50',
+        badgeClass: 'bg-[#00594f] text-white',
+        selectFocus: 'focus:border-[#00594f]',
       };
 
   const renderSidebarContent = (isMobileDrawer: boolean) => (
     <div className="flex flex-col h-full justify-between min-h-0 bg-white">
       <div className="flex flex-col flex-1 min-h-0">
-        {/* Clean Unified Unit Header - No redundant alafiyah YPIB or repeated words */}
-        <div className="h-16 sm:h-20 flex-shrink-0 flex items-center justify-between px-5 border-b border-slate-100 bg-white gap-3">
-          <div className="flex items-center space-x-3 min-w-0">
-            {schoolSlug === 'smp' ? (
-              <img
-                src="/images/smp-logo.png"
-                alt="Logo SMP IT Al-Afiyah"
-                className="w-10 h-10 object-contain shrink-0"
-              />
-            ) : schoolSlug === 'sd' ? (
-              <img
-                src="/images/sd-logo.png"
-                alt="Logo SDIT Al-Afiyah"
-                className="w-10 h-10 object-contain shrink-0"
-              />
-            ) : (
-              <img
-                src="/images/ypib-logo.png"
-                alt="Logo Yayasan Pendidikan Imam Bonjol"
-                className="w-10 h-10 object-contain shrink-0"
-              />
-            )}
+        {/* Minimalist Unit Header Matching Website Identity */}
+        <div className={`h-14 sm:h-16 flex-shrink-0 flex items-center justify-between px-4 gap-3 ${sidebarTheme.headerBg}`}>
+          <div className="flex items-center space-x-2.5 min-w-0">
+            <div className="bg-white p-1 rounded-xs shrink-0">
+              {schoolSlug === 'smp' ? (
+                <img
+                  src="/images/smp-logo.png"
+                  alt="Logo SMP IT Al-Afiyah"
+                  className="w-7 h-7 object-contain"
+                />
+              ) : schoolSlug === 'sd' ? (
+                <img
+                  src="/images/sd-logo.png"
+                  alt="Logo SDIT Al-Afiyah"
+                  className="w-7 h-7 object-contain"
+                />
+              ) : (
+                <img
+                  src="/images/ypib-logo.png"
+                  alt="Logo YPIB"
+                  className="w-7 h-7 object-contain"
+                />
+              )}
+            </div>
 
             <div className="min-w-0">
-              <h2 className="text-sm font-bold text-slate-900 tracking-tight truncate leading-tight">
+              <h2 className="text-xs sm:text-sm font-extrabold text-white uppercase tracking-wide truncate leading-tight">
                 {schoolSlug === 'tk'
                   ? 'TK IT Al-Afiyah'
                   : schoolSlug === 'sd'
                   ? 'SDIT Al-Afiyah'
                   : schoolSlug === 'smp'
                   ? 'SMP IT Al-Afiyah'
-                  : schoolName || 'Yayasan Al-Afiyah'}
+                  : 'Yayasan Al-Afiyah'}
               </h2>
-              <p className="text-[10px] text-slate-400 font-medium truncate mt-0.5">
-                {currentRole === 'FINANCE'
-                  ? 'Portal Keuangan'
-                  : currentRole === 'PPDB_OFFICER'
-                  ? 'Panitia SPMB'
-                  : 'Portal Administrasi'}
+              <p className="text-[10px] text-white/80 font-semibold truncate">
+                ADMIN PANEL
               </p>
             </div>
           </div>
@@ -355,7 +346,7 @@ export default function AdminSidebar({
               type="button"
               onClick={() => setIsMobileOpen(false)}
               aria-label="Tutup Navigasi"
-              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg cursor-pointer"
+              className="p-1 text-white/80 hover:text-white rounded-xs cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -408,18 +399,17 @@ export default function AdminSidebar({
                   onClick={() => {
                     if (isMobileDrawer) setIsMobileOpen(false);
                   }}
-                  className={`relative flex items-center justify-between px-4 py-2.5 rounded-xl text-xs transition-all duration-200 ${
+                  className={`relative flex items-center justify-between px-3.5 py-2.5 rounded-xs text-xs transition-colors ${
                     item.active
                       ? `${sidebarTheme.activeText} ${sidebarTheme.activeBg}`
-                      : `text-slate-600 font-medium ${sidebarTheme.hoverClass}`
+                      : `text-slate-600 font-semibold ${sidebarTheme.hoverClass}`
                   }`}
                 >
-                  {/* Eduka Active Indicator: Vertical Bar on far-left */}
                   {item.active && (
-                    <span className={`absolute left-0 top-2 bottom-2 w-1 ${sidebarTheme.activeBar} rounded-r-full`} />
+                    <span className={`absolute left-0 top-1 bottom-1 w-1 ${sidebarTheme.activeBar}`} />
                   )}
 
-                  <div className="flex items-center space-x-3 truncate">
+                  <div className="flex items-center space-x-2.5 truncate">
                     <Icon
                       className={`w-4 h-4 flex-shrink-0 transition-colors ${
                         item.active ? sidebarTheme.activeIcon : 'text-slate-400'
@@ -428,9 +418,8 @@ export default function AdminSidebar({
                     <span className="truncate">{item.name}</span>
                   </div>
 
-                  {/* Badge if any */}
                   {'badge' in item && item.badge && (
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex-shrink-0 ${sidebarTheme.badgeClass}`}>
+                    <span className={`px-1.5 py-0.5 rounded-xs text-[10px] font-bold flex-shrink-0 ${sidebarTheme.badgeClass}`}>
                       {item.badge}
                     </span>
                   )}
@@ -441,32 +430,25 @@ export default function AdminSidebar({
         </nav>
       </div>
 
-      {/* Bottom Section: Support & User Info / Logout (Pinned at bottom, never lost below!) */}
-      <div className="flex-shrink-0 p-4 border-t border-slate-100 bg-white space-y-2">
-        <a
-          href="https://wa.me/6282123456789"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center space-x-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
-        >
-          <HelpCircle className="w-4 h-4 text-slate-400" />
-          <span>Bantuan &amp; Dukungan IT</span>
-        </a>
-
-        <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+      {/* Bottom Section: User Info / Logout & Copyright */}
+      <div className="flex-shrink-0 p-3.5 border-t border-slate-200 bg-slate-50/70 space-y-2">
+        <div className="flex items-center justify-between">
           <div className="truncate pr-2">
-            <p className="text-xs font-bold text-slate-900 truncate">{userName}</p>
-            <p className="text-[10px] text-slate-400 uppercase font-medium truncate">{currentRole}</p>
+            <p className="text-xs font-extrabold text-slate-900 truncate">{userName}</p>
+            <p className="text-[10px] text-slate-500 uppercase font-semibold truncate">{currentRole}</p>
           </div>
           <button
             onClick={handleLogout}
-            title="Keluar dari sesi"
-            aria-label="Keluar dari sesi"
-            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer flex-shrink-0"
+            title="Keluar"
+            aria-label="Keluar"
+            className="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-xs transition-colors cursor-pointer flex-shrink-0"
           >
             <LogOut className="w-4 h-4" />
           </button>
         </div>
+        <p className="text-[10px] text-slate-400 font-semibold pt-1 border-t border-slate-200/80">
+          © {schoolSlug === 'smp' ? 'SMP IT' : 'SD IT'} Al-Afiyah x modula.studio
+        </p>
       </div>
     </div>
   );

@@ -176,65 +176,64 @@ export default function DoaDzikirClient() {
   };
 
   return (
-    <div className="space-y-8">
-      {/* Top Tab Bar Navigation */}
-      <div className="bg-white rounded-3xl p-3 sm:p-4 shadow-sm border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+    <div className="space-y-6">
+      {/* Top Minimalist Underline Tab Bar + Search */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-2">
+        <div className="flex items-center gap-2 sm:gap-5 overflow-x-auto scrollbar-none">
           <button
             type="button"
             onClick={() => setActiveTab('pagi')}
-            className={`flex items-center space-x-2 px-5 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+            className={`px-3 py-2.5 text-xs sm:text-sm font-bold border-b-2 -mb-[9px] transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'pagi'
-                ? 'bg-[#184F48] text-white shadow-sm'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                ? 'border-[#00594f] text-[#00594f]'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <Sun className="w-4 h-4 text-amber-300" />
+            <Sun className="w-4 h-4 text-[#e5a93b]" />
             <span>Dzikir Pagi</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('petang')}
-            className={`flex items-center space-x-2 px-5 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+            className={`px-3 py-2.5 text-xs sm:text-sm font-bold border-b-2 -mb-[9px] transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'petang'
-                ? 'bg-[#184F48] text-white shadow-sm'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                ? 'border-[#00594f] text-[#00594f]'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <Moon className="w-4 h-4 text-indigo-300" />
+            <Moon className="w-4 h-4 text-[#030164]" />
             <span>Dzikir Petang</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('murid')}
-            className={`flex items-center space-x-2 px-5 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+            className={`px-3 py-2.5 text-xs sm:text-sm font-bold border-b-2 -mb-[9px] transition-colors whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'murid'
-                ? 'bg-[#184F48] text-white shadow-sm'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                ? 'border-[#00594f] text-[#00594f]'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
-            <BookHeart className="w-4 h-4 text-rose-300" />
+            <BookHeart className="w-4 h-4 text-rose-500" />
             <span>Doa Harian Murid</span>
           </button>
         </div>
 
-        {/* Search within current category */}
         <div className="relative w-full sm:w-64 flex-shrink-0">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={filterQuery}
             onChange={(e) => setFilterQuery(e.target.value)}
-            placeholder="Cari doa, lafadz, arti..."
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#184F48]/20 focus:border-[#184F48] transition-all"
+            placeholder="Cari doa..."
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-xs bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#00594f]"
           />
         </div>
       </div>
 
       {/* Cards Display */}
-      <div className="space-y-6">
+      <div className="space-y-5">
         {filteredList.map((item, index) => {
           const currentCount = counters[item.id] || 0;
           const isDone = currentCount >= item.repeat;
@@ -242,33 +241,33 @@ export default function DoaDzikirClient() {
           return (
             <div
               key={item.id}
-              className={`bg-white rounded-3xl p-6 sm:p-8 shadow-sm border transition-all duration-300 ${
-                isDone 
-                  ? 'border-emerald-300 bg-emerald-50/20' 
-                  : 'border-slate-200/80 hover:border-[#184F48]/40 hover:shadow-md'
+              className={`bg-white rounded-sm p-5 sm:p-6 border transition-colors ${
+                isDone
+                  ? 'border-emerald-400 bg-emerald-50/20'
+                  : 'border-slate-200 hover:border-slate-300'
               }`}
             >
-              {/* Card Header: Title, Repeat Badge & Action Buttons */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-slate-100">
-                <div className="flex items-center space-x-3">
-                  <span className="w-7 h-7 rounded-xl bg-[#E8F3F1] text-[#184F48] font-bold text-xs flex items-center justify-center">
-                    {index + 1}
+              {/* Card Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs font-extrabold text-[#00594f] tabular-nums">
+                    0{index + 1}.
                   </span>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                  <h3 className="text-sm sm:text-base font-extrabold text-slate-900">
                     {item.title}
                   </h3>
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-xs text-[11px] font-bold bg-[#FAF6EC] text-slate-800 border border-[#E5D5B2]">
                     Dibaca {item.repeat}x
                   </span>
 
                   <button
                     type="button"
                     onClick={() => handleCopy(item)}
-                    className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-                    title="Salin Teks Doa"
+                    className="p-1.5 rounded-xs text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                    title="Salin Doa"
                   >
                     {copiedId === item.id ? (
                       <Check className="w-4 h-4 text-emerald-600" />
@@ -280,60 +279,55 @@ export default function DoaDzikirClient() {
               </div>
 
               {/* Arabic Text Block */}
-              <div className="my-8 text-right py-4 px-2">
-                <p 
-                  dir="rtl" 
-                  className="font-arabic text-2xl sm:text-3xl lg:text-4xl text-slate-900 leading-[2.2] sm:leading-[2.4] tracking-wide select-all"
+              <div className="my-6 text-right py-2 px-1">
+                <p
+                  dir="rtl"
+                  className="font-arabic text-2xl sm:text-3xl text-slate-900 leading-[2.2] tracking-wide select-all"
                 >
                   {item.arabic}
                 </p>
               </div>
 
               {/* Transliteration */}
-              <div className="bg-[#FAFDFD] p-4 rounded-2xl border border-slate-200/60 mb-4">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#184F48] mb-1">
-                  Transliterasi Latin:
-                </div>
+              <div className="bg-[#FAF6EC]/60 p-3.5 rounded-xs border border-[#E5D5B2]/80 mb-3">
                 <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
                   &ldquo;{item.transliteration}&rdquo;
                 </p>
               </div>
 
               {/* Translation */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/60 mb-6">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
-                  Terjemahan &amp; Makna:
-                </div>
+              <div className="p-3.5 rounded-xs bg-slate-50 border border-slate-200/80 mb-4">
                 <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
                   {item.translation}
                 </p>
               </div>
 
-              {/* Card Footer: Source & Interactive Counter */}
-              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="text-[11px] text-slate-400 max-w-md">
-                  <span className="font-semibold text-slate-600">Fadhilah / Rujukan:</span> {item.source}
+              {/* Card Footer */}
+              <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="text-[11px] text-slate-500 max-w-md">
+                  {item.source}
                 </div>
 
-                {/* Counter Pill Button */}
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => handleIncrement(item.id, item.repeat)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                    className={`px-4 py-2 rounded-xs text-xs font-bold transition-colors cursor-pointer ${
                       isDone
-                        ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm'
-                        : 'bg-[#184F48] hover:bg-[#123E38] text-white shadow-sm'
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-[#00594f] hover:bg-[#003831] text-white'
                     }`}
                   >
-                    <span>{isDone ? '✓ Selesai' : `Hitung Baca (${currentCount}/${item.repeat})`}</span>
+                    <span>
+                      {isDone ? '✓ Selesai' : `Hitung Baca (${currentCount}/${item.repeat})`}
+                    </span>
                   </button>
 
                   {currentCount > 0 && (
                     <button
                       type="button"
                       onClick={() => handleReset(item.id)}
-                      className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                      className="p-2 rounded-xs text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
                       title="Reset Hitungan"
                     >
                       <RotateCcw className="w-4 h-4" />

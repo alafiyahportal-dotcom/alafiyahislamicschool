@@ -7,8 +7,9 @@ import SdRegistrationClient from './SdRegistrationClient';
 import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Formulir Pendaftaran SPMB Online SDIT Al-Afiyah Majalengka',
-  description: 'Formulir resmi pendaftaran calon murid baru SDIT Al-Afiyah Tahun Ajaran 2027/2028. Pengisian biodata pokok calon murid, kontak orang tua, dan berkas utama secara praktis.',
+  title: 'Formulir Pendaftaran SPMB Online | SDIT Al-Afiyah Majalengka',
+  description:
+    'Formulir resmi pendaftaran calon murid baru SDIT Al-Afiyah Tahun Ajaran 2027/2028.',
   icons: {
     icon: [
       { url: '/images/sd-logo.png', type: 'image/png' },
@@ -21,15 +22,16 @@ export const metadata: Metadata = {
 
 export default function SdRegistrationPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#00A651]/20 selection:text-[#00A651]">
-      <Navbar schoolSlug="sd" />
-      <main className="flex-1">
-        <Suspense fallback={
-          <div className="py-24 text-center">
-            <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#00A651]" />
-            <p className="text-xs text-slate-500 mt-2">Memuat formulir pendaftaran SDIT Al-Afiyah...</p>
-          </div>
-        }>
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans">
+      <Navbar schoolSlug="sd" transparentAtTop={false} />
+      <main className="flex-1 pt-16 sm:pt-20">
+        <Suspense
+          fallback={
+            <div className="py-24 text-center">
+              <Loader2 className="w-7 h-7 animate-spin mx-auto text-[#00594f]" />
+            </div>
+          }
+        >
           <SdRegistrationClient />
         </Suspense>
       </main>

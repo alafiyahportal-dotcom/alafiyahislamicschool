@@ -5,13 +5,11 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
-import { 
-  Search, 
-  ArrowRight, 
-  CheckCircle2, 
-  Clock, 
-  Calendar, 
-  Award, 
+import {
+  Search,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
   AlertCircle,
   MessageCircle,
   Loader2,
@@ -19,7 +17,6 @@ import {
   Check,
   ExternalLink,
   ChevronRight,
-  ArrowLeft
 } from 'lucide-react';
 
 interface SearchResultItem {
@@ -52,7 +49,7 @@ function CheckStatusSmpContent() {
     const searchQuery = (customQuery !== undefined ? customQuery : query).trim();
 
     if (!searchQuery || searchQuery.length < 3) {
-      setErrorMessage('Silakan masukkan minimal 3 karakter (Nomor Registrasi, Nama Murid, atau No. WA).');
+      setErrorMessage('Masukkan minimal 3 karakter (Nomor Registrasi / Nama Murid).');
       return;
     }
 
@@ -64,7 +61,7 @@ function CheckStatusSmpContent() {
       const res = await fetch('/api/ppdb/check-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           query: searchQuery,
           school: 'smp',
         }),
@@ -91,225 +88,204 @@ function CheckStatusSmpContent() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const getStatusBadge = (status: string, isPaid: boolean) => {
-    switch (status) {
-      case 'ACCEPTED':
-        return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            Lulus Seleksi (Diterima)
-          </span>
-        );
-      case 'VERIFIED':
-        return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold bg-blue-100 text-blue-800 border border-blue-300">
-            <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
-            Berkas Terverifikasi
-          </span>
-        );
-      case 'PENDING':
-      default:
-        return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
-            <Clock className="w-3.5 h-3.5 text-amber-600" />
-            {isPaid ? 'Menunggu Verifikasi Berkas' : 'Menunggu Konfirmasi Infaq'}
-          </span>
-        );
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
-      <Navbar schoolSlug="smp" />
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans">
+      <Navbar schoolSlug="smp" transparentAtTop={false} />
 
-      {/* Hero Header */}
-      <section className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white pt-24 sm:pt-28 pb-14 sm:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffd51e_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <nav className="flex items-center gap-1.5 text-xs text-blue-200/90 mb-5 flex-wrap" aria-label="Breadcrumb">
-            <Link href="/smp" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SMP IT</span>
-            </Link>
-            <ChevronRight className="w-3 h-3 text-blue-300/50" />
-            <Link href="/smp/spmb" className="hover:text-white transition-colors">SPMB</Link>
-            <ChevronRight className="w-3 h-3 text-blue-300/50" />
-            <span className="text-[#ffd51e] font-semibold">Cek Status Pendaftaran</span>
-          </nav>
-
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
-              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Lacak Pendaftaran Murid SMP IT</span>
-            </div>
-
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Cek Status Pendaftaran SPMB
-            </h1>
-
-            <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Pantau verifikasi berkas, konfirmasi infaq pendaftaran, serta pengumuman observasi calon murid SMP IT Al-Afiyah Tahun Ajaran 2027/2028 secara transparan.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Search Interface */}
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20 pb-16 w-full space-y-6 sm:space-y-8">
-        
-        {/* Search Input Box */}
-        <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4">
-          <form onSubmit={handleSearch} className="space-y-4">
-            <label className="text-xs font-bold text-slate-800 uppercase tracking-wider block">
-              Masukkan Nomor Registrasi / Nama Murid / No. WhatsApp:
-            </label>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
-                <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Contoh: REG-SMP-2027-0001 atau nama murid"
-                  className="w-full pl-12 pr-4 py-3 sm:py-3.5 rounded-2xl border border-slate-300 text-sm focus:outline-hidden focus:border-[#030164] shadow-xs"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full sm:w-auto px-8 py-3 sm:py-3.5 rounded-2xl bg-[#030164] hover:bg-blue-900 text-[#ffd51e] font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 shrink-0 disabled:opacity-50 cursor-pointer active:scale-95"
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Minimalis Al-Hidayah Style */}
+        <section className="bg-[#030164] text-white py-8 sm:py-10 border-b-4 border-[#ffd51e]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+            <div>
+              <nav
+                className="flex items-center gap-1.5 text-xs text-blue-200/80 mb-1.5 flex-wrap"
+                aria-label="Breadcrumb"
               >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Mencari...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Cari Data</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
+                <Link href="/smp" className="hover:text-[#ffd51e] transition-colors">
+                  Beranda SMP IT
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-[#ffd51e]" />
+                <Link href="/smp/spmb" className="hover:text-[#ffd51e] transition-colors">
+                  SPMB
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-[#ffd51e]" />
+                <span className="text-[#ffd51e] font-semibold">Cek Status</span>
+              </nav>
+
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Cek Status Pendaftaran SPMB SMP IT Al-Afiyah
+              </h1>
             </div>
 
-            {errorMessage && (
-              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{errorMessage}</span>
-              </div>
-            )}
-          </form>
-
-          <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
-            <span>Butuh bantuan panitia?</span>
-            <a
-              href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20menanyakan%20status%20pendaftaran"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#030164] font-bold hover:underline inline-flex items-center gap-1"
+            <Link
+              href="/smp/spmb/daftar"
+              className="px-4 py-2 rounded-xs bg-[#ffd51e] hover:bg-amber-300 text-[#030164] text-xs font-extrabold self-start sm:self-auto shrink-0 transition-colors"
             >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>WhatsApp Panitia (0822-4935-7893)</span>
-            </a>
+              Isi Formulir Baru
+            </Link>
           </div>
-        </div>
+        </section>
 
-        {/* Results Section */}
-        {hasSearched && (
-          <div className="space-y-4">
-            {results && results.length > 0 ? (
-              results.map((item) => (
-                <div 
-                  key={item.id}
-                  className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all space-y-4 sm:space-y-5"
+        {/* Search & Results */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-6">
+          <div className="p-5 sm:p-6 rounded-sm bg-[#FAF6EC] border border-[#E5D5B2] space-y-3">
+            <form onSubmit={(e) => handleSearch(e)} className="space-y-3">
+              <label className="text-xs font-extrabold text-[#030164] uppercase tracking-wider block">
+                Cari Nomor Registrasi / Nama Calon Murid
+              </label>
+              <div className="flex flex-col sm:flex-row gap-2.5">
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Contoh: REG-SMP-2027-0001 atau nama murid"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xs bg-white border border-slate-300 text-xs sm:text-sm focus:outline-none focus:border-[#030164]"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="px-6 py-2.5 rounded-xs bg-[#030164] hover:bg-[#090580] text-[#ffd51e] font-extrabold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-70 shrink-0"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-100">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono font-extrabold text-[#030164] bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
-                          {item.registrationNo}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => copyToClipboard(item.registrationNo, item.id)}
-                          className="text-slate-400 hover:text-slate-600 p-1"
-                          title="Salin Nomor Registrasi"
-                        >
-                          {copiedId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                        </button>
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900 mt-2">
-                        {item.studentName}
-                      </h3>
-                    </div>
-
-                    <div>
-                      {getStatusBadge(item.status, item.isPaid)}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-600">
-                    <div className="p-3 rounded-xl bg-slate-50">
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold block">Jenjang Sekolah:</span>
-                      <strong className="text-slate-800">SMP IT Al-Afiyah</strong>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-50">
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold block">Nama Orang Tua:</span>
-                      <strong className="text-slate-800">{item.parentName || '-'}</strong>
-                    </div>
-                    <div className="p-3 rounded-xl bg-slate-50">
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold block">Status Infaq Formulir:</span>
-                      <strong className={item.isPaid ? 'text-emerald-600' : 'text-amber-600'}>
-                        {item.isPaid ? 'Lunas (Rp 200.000) ✓' : 'Belum Terkonfirmasi'}
-                      </strong>
-                    </div>
-                  </div>
-
-                  <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
-                    <span className="text-xs text-slate-500">
-                      Terdaftar pada: {new Date(item.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                    </span>
-
-                    <a
-                      href={`https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20konfirmasi%20No%20Registrasi%20${item.registrationNo}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#030164] hover:underline"
-                    >
-                      <span>Konfirmasi Panitia</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="p-8 rounded-3xl bg-white border border-slate-200 text-center space-y-3">
-                <AlertCircle className="w-8 h-8 text-amber-500 mx-auto" />
-                <h4 className="text-base font-bold text-slate-900">
-                  Data Pendaftaran Tidak Ditemukan
-                </h4>
-                <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                  Pastikan nomor registrasi atau nama murid yang Anda masukkan sesuai saat mengisi formulir SPMB.
-                </p>
-                <div className="pt-2">
-                  <Link
-                    href="/smp/spmb/daftar"
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#030164] text-[#ffd51e] font-bold text-xs uppercase"
-                  >
-                    <span>Isi Formulir Baru</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Mencari...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Cari Data</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </>
+                  )}
+                </button>
               </div>
-            )}
-          </div>
-        )}
 
+              {errorMessage && (
+                <div className="p-2.5 rounded-xs bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+            </form>
+          </div>
+
+          {hasSearched && results && results.length > 0 && (
+            <div className="space-y-4">
+              {results.map((item) => {
+                const isAccepted = item.status === 'ACCEPTED';
+                const isRejected = item.status === 'REJECTED';
+
+                return (
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-sm border border-slate-200 p-5 space-y-4"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs font-extrabold text-[#030164] bg-slate-100 px-2.5 py-0.5 rounded-xs">
+                            {item.registrationNo}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => copyToClipboard(item.registrationNo, item.id)}
+                            className="text-slate-400 hover:text-[#030164] cursor-pointer"
+                            title="Salin"
+                          >
+                            {copiedId === item.id ? (
+                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            ) : (
+                              <Copy className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                        <h3 className="text-lg font-extrabold text-[#030164] mt-1">
+                          {item.studentName}
+                        </h3>
+                        <p className="text-xs text-slate-500">
+                          Wali: <strong className="text-slate-700">{item.parentName || '-'}</strong>
+                        </p>
+                      </div>
+
+                      <div>
+                        {isAccepted ? (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xs text-xs font-bold bg-emerald-100 text-emerald-800">
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span>LULUS SELEKSI</span>
+                          </span>
+                        ) : isRejected ? (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xs text-xs font-bold bg-rose-100 text-rose-800">
+                            <AlertCircle className="w-3.5 h-3.5" />
+                            <span>BELUM DITERIMA</span>
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xs text-xs font-bold bg-amber-100 text-amber-800">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span>PROSES VERIFIKASI</span>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                      <div className="p-2.5 bg-slate-50 border border-slate-100 rounded-xs">
+                        <span className="text-slate-500 block text-[11px]">Biaya Formulir</span>
+                        <strong className={item.isPaid ? 'text-emerald-700' : 'text-amber-700'}>
+                          {item.isPaid ? 'Lunas (Rp 200.000)' : 'Menunggu Konfirmasi'}
+                        </strong>
+                      </div>
+                      <div className="p-2.5 bg-slate-50 border border-slate-100 rounded-xs">
+                        <span className="text-slate-500 block text-[11px]">Jenjang</span>
+                        <strong className="text-slate-800">SMP IT Al-Afiyah</strong>
+                      </div>
+                      <div className="p-2.5 bg-slate-50 border border-slate-100 rounded-xs col-span-2 sm:col-span-1">
+                        <span className="text-slate-500 block text-[11px]">Tanggal Daftar</span>
+                        <strong className="text-slate-800">
+                          {new Date(item.createdAt).toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100">
+                      <Link
+                        href={`/portal/ppdb/${item.registrationNo}`}
+                        className="px-4 py-2 rounded-xs bg-[#030164] hover:bg-[#090580] text-[#ffd51e] text-xs font-bold inline-flex items-center gap-1.5"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Buka Portal Murid</span>
+                      </Link>
+                      <a
+                        href={`https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SMP%20IT%20Al-Afiyah,%20konfirmasi%20pendaftaran%20${item.registrationNo}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-bold text-[#030164] hover:underline inline-flex items-center gap-1"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>Hubungi Panitia</span>
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {hasSearched && results && results.length === 0 && !isLoading && (
+            <div className="p-6 rounded-sm bg-white border border-slate-200 text-center space-y-2">
+              <p className="text-sm font-bold text-slate-800">Data Tidak Ditemukan</p>
+              <p className="text-xs text-slate-500">
+                Pastikan Nomor Registrasi atau Nama Calon Murid sudah benar.
+              </p>
+            </div>
+          )}
+        </div>
       </main>
 
       <Footer schoolSlug="smp" />
@@ -318,14 +294,9 @@ function CheckStatusSmpContent() {
   );
 }
 
-export default function SmpCekStatusPage() {
+export default function SmpCheckStatusPage() {
   return (
-    <Suspense fallback={
-      <div className="py-24 text-center">
-        <Loader2 className="w-8 h-8 animate-spin mx-auto text-[#030164]" />
-        <p className="text-xs text-slate-500 mt-2">Memuat halaman cek status...</p>
-      </div>
-    }>
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
       <CheckStatusSmpContent />
     </Suspense>
   );

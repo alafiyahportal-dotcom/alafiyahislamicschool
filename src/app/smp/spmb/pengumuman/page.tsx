@@ -4,22 +4,12 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
-import { 
-  Award, 
-  ArrowLeft, 
-  ChevronRight, 
-  CheckCircle2, 
-  FileText, 
-  Download, 
-  ArrowRight,
-  Calendar,
-  MessageCircle,
-  ShieldCheck
-} from 'lucide-react';
+import { ChevronRight, ArrowRight, MessageCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Pengumuman Kelulusan SPMB SMP IT Al-Afiyah Majalengka',
-  description: 'Pengumuman resmi kelulusan hasil seleksi observasi murid baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028 Gelombang 1 dan Gelombang 2.',
+  title: 'Pengumuman Kelulusan SPMB | SMP IT Al-Afiyah Majalengka',
+  description:
+    'Pengumuman resmi hasil seleksi observasi murid baru SMP IT Al-Afiyah Tahun Ajaran 2027/2028.',
   icons: {
     icon: [
       { url: '/images/smp-icon-192.png', type: 'image/png' },
@@ -28,122 +18,105 @@ export const metadata: Metadata = {
     shortcut: '/images/smp-icon-192.png',
     apple: '/images/smp-icon-192.png',
   },
-  openGraph: {
-    title: 'Pengumuman Kelulusan SPMB SMP IT Al-Afiyah',
-    description: 'SK Kelulusan Hasil Seleksi Observasi Calon Murid Baru T.A. 2027/2028.',
-    images: ['/images/smp-og.jpg'],
-  },
 };
 
 export const revalidate = 60;
 
 export default function SmpPengumumanPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 font-sans selection:bg-[#ffd51e] selection:text-[#030164] overflow-x-clip">
-      <Navbar schoolSlug="smp" />
+    <div className="min-h-screen flex flex-col bg-white text-slate-800 font-sans">
+      <Navbar schoolSlug="smp" transparentAtTop={false} />
 
-      {/* Hero Header */}
-      <section className="bg-gradient-to-br from-[#030164] via-[#090580] to-[#01003d] text-white pt-24 sm:pt-28 pb-14 sm:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffd51e_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#ffd51e]/15 rounded-full blur-3xl pointer-events-none" />
+      <main className="flex-1 pt-16 sm:pt-20">
+        {/* Compact Header Minimalis Al-Hidayah Style */}
+        <section className="bg-[#030164] text-white py-8 sm:py-10 border-b-4 border-[#ffd51e]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav
+              className="flex items-center gap-1.5 text-xs text-blue-200/80 mb-1.5 flex-wrap"
+              aria-label="Breadcrumb"
+            >
+              <Link href="/smp" className="hover:text-[#ffd51e] transition-colors">
+                Beranda SMP IT
+              </Link>
+              <ChevronRight className="w-3.5 h-3.5 text-[#ffd51e]" />
+              <Link href="/smp/spmb" className="hover:text-[#ffd51e] transition-colors">
+                SPMB
+              </Link>
+              <ChevronRight className="w-3.5 h-3.5 text-[#ffd51e]" />
+              <span className="text-[#ffd51e] font-semibold">Pengumuman</span>
+            </nav>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <nav className="flex items-center gap-1.5 text-xs text-blue-200/90 mb-5 flex-wrap" aria-label="Breadcrumb">
-            <Link href="/smp" className="hover:text-white transition-colors inline-flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda SMP IT</span>
-            </Link>
-            <ChevronRight className="w-3 h-3 text-blue-300/50" />
-            <Link href="/smp/spmb" className="hover:text-white transition-colors">SPMB</Link>
-            <ChevronRight className="w-3 h-3 text-blue-300/50" />
-            <span className="text-[#ffd51e] font-semibold">Pengumuman Kelulusan</span>
-          </nav>
-
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#ffd51e] mb-3">
-              <span className="w-6 h-[2px] bg-[#ffd51e] rounded-full inline-block" />
-              <span>Pengumuman Resmi SPMB T.A. 2027/2028</span>
-            </div>
-
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Pengumuman Hasil Seleksi
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Pengumuman Hasil Seleksi SPMB SMP IT Al-Afiyah
             </h1>
-
-            <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Surat Keputusan (SK) Panitia Penerimaan Murid Baru SMP IT Al-Afiyah Majalengka tentang kelulusan tes observasi akademik dan pemetaan tahfidz calon murid.
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Main Content */}
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-6 sm:space-y-8 w-full">
-        
-        {/* Status Pengumuman Box */}
-        <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm space-y-5 sm:space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
-            <div>
-              <span className="text-xs font-bold text-[#030164] uppercase tracking-wider block">
-                Status Pengumuman
+        {/* Main Content */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-6">
+          <div className="p-6 rounded-sm bg-white border border-slate-200 space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+              <h2 className="text-base sm:text-lg font-extrabold text-[#030164]">
+                Jadwal Pengumuman Kelulusan
+              </h2>
+              <span className="px-2.5 py-0.5 rounded-xs text-[11px] font-bold bg-[#FAF6EC] border border-[#E5D5B2] text-[#030164]">
+                Gelombang 1 Aktif
               </span>
-              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-1">
-                Jadwal Rilis SK Kelulusan Murid
-              </h3>
             </div>
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 self-start sm:self-auto">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Gelombang 1 Aktif</span>
-            </div>
-          </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/60 border border-blue-100 flex items-start gap-3 sm:gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#030164] text-[#ffd51e] flex items-center justify-center shrink-0">
-              <Calendar className="w-5 h-5" />
-            </div>
-            <div className="text-xs leading-relaxed text-slate-700">
-              <strong className="text-slate-900 text-sm block mb-1">Pengumuman Kelulusan Bertahap</strong>
-              Hasil observasi calon murid diumumkan secara berkala maksimal <strong>3 hari kerja</strong> setelah calon murid menyelesaikan sesi wawancara dan tes tahsin Al-Qur'an.
-            </div>
-          </div>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Hasil observasi calon murid diumumkan maksimal <strong>3 hari kerja</strong> setelah calon murid mengikuti sesi observasi bacaan Al-Qur&apos;an dan wawancara orang tua.
+            </p>
 
-          <div className="space-y-3 pt-2">
-            <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-              Langkah Selanjutnya Bagi Calon Murid yang Dinyatakan Lulus:
-            </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
-                <span className="font-bold text-[#030164] block mb-1">1. Unduh SK Kelulusan</span>
-                <span className="text-slate-500">Cek status di halaman cek status menggunakan No. Registrasi.</span>
+            <div className="divide-y divide-slate-200 border-t border-b border-slate-200 text-xs sm:text-sm">
+              <div className="py-3 flex items-start gap-3">
+                <span className="font-extrabold text-[#030164]">1.</span>
+                <div>
+                  <strong className="text-slate-900">Cek Status &amp; Unduh SK Kelulusan</strong>
+                  <p className="text-slate-600 text-xs mt-0.5">
+                    Masukkan Nomor Registrasi di halaman Cek Status untuk membuka Portal Murid.
+                  </p>
+                </div>
               </div>
-              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
-                <span className="font-bold text-[#030164] block mb-1">2. Daftar Ulang</span>
-                <span className="text-slate-500">Pelunasan biaya pendidikan ke Bank Muamalat 1360012405.</span>
+              <div className="py-3 flex items-start gap-3">
+                <span className="font-extrabold text-[#030164]">2.</span>
+                <div>
+                  <strong className="text-slate-900">Daftar Ulang</strong>
+                  <p className="text-slate-600 text-xs mt-0.5">
+                    Penyelesaian biaya daftar ulang melalui rekening resmi Bank Muamalat 1360012405 a.n. SMP IT Al Afiyah.
+                  </p>
+                </div>
               </div>
-              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
-                <span className="font-bold text-[#030164] block mb-1">3. Pengukuran Seragam</span>
-                <span className="text-slate-500">Fitting seragam di sekretariat SPMB sesuai jadwal panitia.</span>
+              <div className="py-3 flex items-start gap-3">
+                <span className="font-extrabold text-[#030164]">3.</span>
+                <div>
+                  <strong className="text-slate-900">Pengukuran Seragam</strong>
+                  <p className="text-slate-600 text-xs mt-0.5">
+                    Pilih ukuran seragam secara online di Portal Murid atau datang ke sekretariat sekolah.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            <Link
-              href="/smp/spmb/cek-status"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#030164] text-[#ffd51e] font-bold text-xs uppercase tracking-wider hover:bg-blue-900 transition-all shadow-md active:scale-95"
-            >
-              <span>Periksa Nomor Registrasi Anda</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
+              <Link
+                href="/smp/spmb/cek-status"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xs bg-[#030164] hover:bg-[#090580] text-[#ffd51e] font-bold text-xs uppercase tracking-wider transition-colors"
+              >
+                <span>Cek Status Nomor Registrasi</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
 
-            <a
-              href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20menanyakan%20pengumuman%20kelulusan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs font-bold text-[#030164] hover:underline py-2"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>Hubungi Panitia SPMB</span>
-            </a>
+              <a
+                href="https://wa.me/6282249357893?text=Assalamu%27alaikum%20Panitia%20SPMB%20SMP%20IT%20Al-Afiyah,%20saya%20ingin%20menanyakan%20pengumuman%20kelulusan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#030164] hover:underline"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>WhatsApp Panitia (0822-4935-7893)</span>
+              </a>
+            </div>
           </div>
         </div>
       </main>

@@ -34,23 +34,23 @@ const UNIT_CONFIGS: Record<string, UnitTabConfig> = {
     name: 'Yayasan Pusat',
     shortName: 'Yayasan',
     url: '/admin/foundation',
-    activeClass: 'bg-[#184F48] text-white shadow-xs ring-1 ring-[#184F48]',
-    inactiveClass: 'text-slate-600 hover:text-[#184F48] hover:bg-[#E8F3F1]/80',
-    dotActive: 'bg-amber-300',
-    dotInactive: 'bg-[#184F48]',
-    topAccent: 'from-[#184F48] via-[#2D7A70] to-[#F59E0B]',
-    badgeStyle: 'bg-[#E8F3F1] text-[#184F48] border-[#184F48]/30',
+    activeClass: 'bg-[#00594f] text-white',
+    inactiveClass: 'text-slate-600 hover:text-[#00594f] hover:bg-slate-100',
+    dotActive: 'bg-[#e5a93b]',
+    dotInactive: 'bg-[#00594f]',
+    topAccent: 'bg-[#00594f]',
+    badgeStyle: 'bg-slate-100 text-[#00594f] border-slate-200',
   },
   tk: {
     slug: 'tk',
     name: 'TK IT Al-Afiyah',
     shortName: 'TK IT',
     url: '/admin/tk/dashboard',
-    activeClass: 'bg-[#0284c7] text-white shadow-xs ring-1 ring-[#0284c7]',
+    activeClass: 'bg-[#0284c7] text-white',
     inactiveClass: 'text-slate-600 hover:text-[#0284c7] hover:bg-sky-50',
     dotActive: 'bg-white',
     dotInactive: 'bg-[#0284c7]',
-    topAccent: 'from-[#0284c7] via-[#0ea5e9] to-[#38bdf8]',
+    topAccent: 'bg-[#0284c7]',
     badgeStyle: 'bg-sky-50 text-sky-800 border-sky-300',
   },
   sd: {
@@ -58,23 +58,23 @@ const UNIT_CONFIGS: Record<string, UnitTabConfig> = {
     name: 'SDIT Al-Afiyah',
     shortName: 'SDIT',
     url: '/admin/sd/dashboard',
-    activeClass: 'bg-emerald-600 text-white shadow-xs ring-1 ring-emerald-600',
-    inactiveClass: 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50',
-    dotActive: 'bg-white',
-    dotInactive: 'bg-emerald-600',
-    topAccent: 'from-emerald-600 via-teal-500 to-amber-400',
-    badgeStyle: 'bg-emerald-50 text-emerald-800 border-emerald-300',
+    activeClass: 'bg-[#00594f] text-white',
+    inactiveClass: 'text-slate-600 hover:text-[#00594f] hover:bg-slate-100',
+    dotActive: 'bg-[#e5a93b]',
+    dotInactive: 'bg-[#00594f]',
+    topAccent: 'bg-[#00594f]',
+    badgeStyle: 'bg-emerald-50 text-[#00594f] border-emerald-200',
   },
   smp: {
     slug: 'smp',
     name: 'SMP IT Al-Afiyah',
     shortName: 'SMP IT',
     url: '/admin/smp/dashboard',
-    activeClass: 'bg-[#030164] text-white shadow-xs ring-1 ring-[#030164]',
-    inactiveClass: 'text-slate-600 hover:text-[#030164] hover:bg-blue-50',
+    activeClass: 'bg-[#030164] text-[#ffd51e]',
+    inactiveClass: 'text-slate-600 hover:text-[#030164] hover:bg-slate-100',
     dotActive: 'bg-[#ffd51e]',
     dotInactive: 'bg-[#030164]',
-    topAccent: 'from-[#030164] via-[#0C368A] to-[#ffd51e]',
+    topAccent: 'bg-[#030164]',
     badgeStyle: 'bg-blue-50 text-[#030164] border-blue-200',
   },
 };
@@ -166,16 +166,18 @@ export default function AdminHeader({
   const currentTheme = UNIT_CONFIGS[activeSlug] || UNIT_CONFIGS.foundation;
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
-      
-      {/* Dynamic Top Accent Bar reflecting the active unit/yayasan theme */}
-      <div className={`h-1 w-full bg-gradient-to-r ${currentTheme.topAccent}`} />
+    <header
+      className={`sticky top-0 z-40 bg-white border-b-2 transition-all ${
+        activeSlug === 'smp' ? 'border-b-[#ffd51e]' : 'border-b-[#e5a93b]'
+      }`}
+    >
+      {/* Solid Minimalist Top Accent Bar */}
+      <div className={`h-1 w-full ${currentTheme.topAccent}`} />
 
       {/* Main Header Row */}
-      <div className="h-16 sm:h-20 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-4">
-        
-        {/* Left: Mobile Hamburger Button + Title & Subtitle */}
-        <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
+      <div className="h-14 sm:h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
+        {/* Left: Mobile Hamburger Button + Title */}
+        <div className="flex items-center space-x-2.5 min-w-0">
           <button
             type="button"
             onClick={() => {
@@ -183,22 +185,17 @@ export default function AdminHeader({
                 window.dispatchEvent(new CustomEvent('toggle-admin-sidebar'));
               }
             }}
-            title="Buka Menu Navigasi"
-            aria-label="Buka Menu Navigasi"
-            className="lg:hidden p-2 -ml-1 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors flex-shrink-0 cursor-pointer"
+            title="Buka Menu"
+            aria-label="Buka Menu"
+            className="lg:hidden p-1.5 -ml-1 text-slate-700 hover:bg-slate-100 rounded-xs transition-colors flex-shrink-0 cursor-pointer"
           >
             <Menu className="w-5 h-5" />
           </button>
 
           <div className="min-w-0">
-            <h1 className="text-sm sm:text-base lg:text-lg font-bold text-slate-900 tracking-tight truncate">
+            <h1 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight truncate uppercase">
               {title}
             </h1>
-            {subtitle && (
-              <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 truncate max-w-xs sm:max-w-md lg:max-w-xl">
-                {subtitle}
-              </p>
-            )}
           </div>
         </div>
 
