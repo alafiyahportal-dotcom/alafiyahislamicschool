@@ -175,78 +175,66 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#f8faf9] flex flex-col justify-between py-6 px-4 font-sans antialiased text-slate-800 overflow-hidden">
-      {/* Top Half Background Color Identical to Unit (#00594f SDIT / #030164 SMP IT) */}
-      <div
-        className="absolute top-0 inset-x-0 h-[50vh] border-b-4 transition-colors duration-300 pointer-events-none"
-        style={{
-          backgroundColor: currentTheme.primaryColor,
-          borderBottomColor: currentTheme.accentColor,
-        }}
-      />
-
+    <div className="min-h-screen bg-slate-100 flex flex-col justify-between py-6 sm:py-10 px-4 sm:px-6 font-sans antialiased text-slate-800">
       {/* Top Back Link */}
-      <header className="relative z-10 max-w-sm mx-auto w-full flex items-center justify-between">
+      <header className="max-w-sm mx-auto w-full flex items-center justify-between">
         <Link
           href={currentTheme.homeUrl}
-          className="inline-flex items-center gap-1.5 text-xs font-extrabold text-white hover:opacity-85 transition-opacity uppercase tracking-wider"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-950 bg-white py-1.5 px-3.5 rounded-full border border-slate-200 shadow-2xs transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Beranda</span>
         </Link>
-        <span
-          className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-xs"
-          style={{
-            backgroundColor: currentTheme.accentColor,
-            color: activeUnit === 'smp' ? '#030164' : '#ffffff',
-          }}
-        >
+        <span className="text-xs font-semibold text-slate-600 bg-white py-1.5 px-3 rounded-full border border-slate-200 shadow-2xs">
           {currentTheme.name}
         </span>
       </header>
 
-      {/* Minimalist Login Box with Identical Top Half Header */}
-      <main className="relative z-10 max-w-sm mx-auto w-full my-auto py-6">
-        <div className="bg-white border border-slate-200 shadow-xl rounded-xs overflow-hidden">
-          {/* Card Top Header in Identical Unit Color */}
+      {/* Login Card with Colored Top Half & Clean Copywriting */}
+      <main className="max-w-sm mx-auto w-full my-auto py-6">
+        <div className="rounded-[28px] overflow-hidden shadow-xl border border-slate-200/80 bg-white">
+          {/* Card Top Half in Identical Unit Color — Logos Directly Without Rigid White Box */}
           <div
-            className="px-6 py-6 text-center text-white border-b-4 flex flex-col items-center space-y-2.5"
+            className="relative px-6 pt-8 pb-7 text-center text-white border-b-4 flex flex-col items-center space-y-3 overflow-hidden"
             style={{
               backgroundColor: currentTheme.primaryColor,
               borderBottomColor: currentTheme.accentColor,
             }}
           >
-            <div className="flex items-center justify-center gap-2.5 bg-white px-3.5 py-2 rounded-xs shadow-xs">
+            <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex items-center justify-center gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/ypib-logo.png"
                 alt="YPIB"
-                className="w-9 h-9 object-contain"
+                className="w-12 h-12 object-contain drop-shadow-md"
               />
               <Image
                 src={currentTheme.logo}
                 alt={currentTheme.name}
-                width={38}
-                height={38}
-                className="object-contain w-9 h-9"
+                width={52}
+                height={52}
+                className="object-contain w-13 h-13 drop-shadow-md"
                 priority
               />
             </div>
-            <div>
-              <h1 className="text-base sm:text-lg font-extrabold text-white uppercase tracking-wide">
+
+            <div className="relative z-10">
+              <h1 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
                 {currentTheme.name}
               </h1>
-              <p className="text-[11px] text-white/80 font-semibold uppercase tracking-widest mt-0.5">
-                LOGIN PORTAL
+              <p className="text-xs text-white/85 font-medium mt-0.5">
+                Login Portal
               </p>
             </div>
           </div>
 
           {/* Card Form Body */}
-          <div className="p-6 space-y-4 bg-white">
+          <div className="p-6 sm:p-7 space-y-4 bg-white">
             {errorMsg && (
               <div
-                className="p-2.5 rounded-xs bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700 flex items-center gap-2"
+                className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700 flex items-center gap-2"
                 role="alert"
               >
                 <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
@@ -264,7 +252,7 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-xs font-bold text-slate-700 mb-1"
+                  className="block text-xs font-bold text-slate-700 mb-1.5"
                 >
                   ID / Email
                 </label>
@@ -276,14 +264,14 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="ID atau Email"
-                  className="w-full px-3.5 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
+                  className="w-full px-3.5 py-2.5 text-sm rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-slate-900 transition-colors"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-xs font-bold text-slate-700 mb-1"
+                  className="block text-xs font-bold text-slate-700 mb-1.5"
                 >
                   Kata Sandi
                 </label>
@@ -296,7 +284,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-3.5 pr-10 py-2.5 text-sm rounded-xs bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
+                    className="w-full pl-3.5 pr-10 py-2.5 text-sm rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-slate-900 transition-colors"
                   />
                   <button
                     type="button"
@@ -312,7 +300,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading || isRedirecting}
-                className="w-full py-2.5 px-4 rounded-xs text-white font-extrabold text-xs uppercase tracking-wider transition-opacity hover:opacity-95 disabled:opacity-70 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3 px-4 rounded-xl text-white font-extrabold text-xs uppercase tracking-wider shadow-sm transition-opacity hover:opacity-95 disabled:opacity-70 flex items-center justify-center gap-2 cursor-pointer"
                 style={{ backgroundColor: currentTheme.primaryColor }}
               >
                 {isLoading || isRedirecting ? (
@@ -340,7 +328,7 @@ export default function LoginPage() {
       </main>
 
       {/* Clean Copyright Footer */}
-      <footer className="relative z-10 max-w-sm mx-auto w-full text-center text-[11px] text-slate-500">
+      <footer className="max-w-sm mx-auto w-full text-center text-[11px] text-slate-500">
         <p className="font-semibold text-slate-700">
           © Copyright {currentTheme.copyrightName} x{' '}
           <a
