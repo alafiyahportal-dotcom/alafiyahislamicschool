@@ -39,6 +39,31 @@ export default async function SchoolPPDBAdmissionsPage({
     notFound();
   }
 
+  // Ensure every registration has default document slots (IJAZAH, FOTO, AKTA, KK) so Admin can upload or inspect them
+  const requiredTypes = ['IJAZAH', 'FOTO', 'AKTA', 'KK'];
+  for (const reg of school.ppdbRegistrations) {
+    const existingTypes = new Set(reg.documents.map((d) => d.docType));
+    const missing = requiredTypes.filter((t) => !existingTypes.has(t));
+    if (missing.length > 0) {
+      try {
+        for (const docType of missing) {
+          const created = await prisma.pPDBDocument.create({
+            data: {
+              registrationId: reg.id,
+              docType,
+              fileName: `Belum Diunggah (${docType})`,
+              fileUrl: 'DEFERRED',
+              verificationStatus: 'PENDING',
+            },
+          });
+          reg.documents.push(created);
+        }
+      } catch {
+        // ignore
+      }
+    }
+  }
+
   const applicants: ApplicantItem[] = school.ppdbRegistrations.map((r) => {
     let parentName = 'Wali Murid';
     let parentPhone = '081234567890';
@@ -90,14 +115,29 @@ export default async function SchoolPPDBAdmissionsPage({
       schoolSpecificDataRaw,
       parentDataRaw,
       assessment: r.assessment,
-      documents: r.documents.map((d) => ({
-        id: d.id,
-        docType: d.docType,
-        fileName: d.fileName,
-        fileUrl: d.fileUrl,
-        verificationStatus: d.verificationStatus || undefined,
-        notes: d.notes || null,
-      })),
+      documents: r.documents.map((d) => {
+        const rawUrl = (d.fileUrl || '').trim();
+        const isDeferred =
+          !rawUrl ||
+          rawUrl === 'DEFERRED' ||
+          rawUrl === '/uploads/sample.pdf' ||
+          rawUrl === '/uploads/sample-foto.jpg' ||
+          d.fileName.toLowerCase().includes('disusulkan') ||
+          d.fileName.toLowerCase().includes('belum diunggah');
+
+        return {
+          id: d.id,
+          docType: d.docType,
+          fileName: d.fileName,
+          fileUrl: isDeferred
+            ? 'DEFERRED'
+            : rawUrl.startsWith('data:')
+            ? `/api/ppdb/document-file/${d.id}`
+            : rawUrl,
+          verificationStatus: d.verificationStatus || undefined,
+          notes: d.notes || null,
+        };
+      }),
       createdAt: new Date(r.createdAt).toLocaleDateString('id-ID', {
         day: 'numeric',
         month: 'short',

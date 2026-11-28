@@ -34,13 +34,21 @@ interface ApplicantDetailBiodataModalProps {
   onClose: () => void;
   applicant: ApplicantItem | null;
   onDataUpdated?: () => void;
+  onDocumentUpdated?: (
+    docId: string,
+    newStatus: string,
+    notes?: string,
+    newFileUrl?: string,
+    newFileName?: string
+  ) => void;
 }
 
 export default function ApplicantDetailBiodataModal({
   isOpen,
   onClose,
   applicant,
-  onDataUpdated
+  onDataUpdated,
+  onDocumentUpdated,
 }: ApplicantDetailBiodataModalProps) {
   const [activeTab, setActiveTab] = useState<'ANAK' | 'ORTU' | 'PENDIDIKAN' | 'BERKAS'>('ANAK');
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
@@ -668,48 +676,87 @@ export default function ApplicantDetailBiodataModal({
                         </p>
                       </div>
                     ) : (
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        {applicant.documents.map((doc) => (
-                          <div
-                            key={doc.id}
-                            className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/80 flex flex-col justify-between"
-                          >
-                            <div>
-                              <div className="flex items-center justify-between mb-2">
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                                  isSmp ? 'bg-blue-100 text-[#030164]' : 'bg-emerald-100 text-emerald-800'
-                                }`}>
-                                  {doc.docType}
-                                </span>
-                                <span className="text-[10px] text-slate-400">Digital</span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        {applicant.documents.map((doc) => {
+                          const isDeferred =
+                            !doc.fileUrl ||
+                            doc.fileUrl === 'DEFERRED' ||
+                            doc.fileUrl === '/uploads/sample.pdf' ||
+                            doc.fileUrl === '/uploads/sample-foto.jpg' ||
+                            doc.fileName.toLowerCase().includes('disusulkan') ||
+                            doc.fileName.toLowerCase().includes('belum diunggah');
+
+                          return (
+                            <div
+                              key={doc.id}
+                              className="p-3.5 rounded-sm border border-slate-200 bg-slate-50/80 flex flex-col justify-between"
+                            >
+                              <div>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span
+                                    className={`text-[10px] font-bold px-2 py-0.5 rounded-xs ${
+                                      isSmp
+                                        ? 'bg-blue-100 text-[#030164]'
+                                        : 'bg-emerald-100 text-emerald-800'
+                                    }`}
+                                  >
+                                    {doc.docType}
+                                  </span>
+                                  <span
+                                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded-xs ${
+                                      isDeferred
+                                        ? 'bg-slate-200 text-slate-600'
+                                        : doc.verificationStatus === 'VALID'
+                                        ? 'bg-emerald-100 text-emerald-800'
+                                        : doc.verificationStatus === 'INVALID'
+                                        ? 'bg-rose-100 text-rose-800'
+                                        : 'bg-amber-100 text-amber-800'
+                                    }`}
+                                  >
+                                    {isDeferred
+                                      ? 'Belum Diunggah'
+                                      : doc.verificationStatus === 'VALID'
+                                      ? 'Sah'
+                                      : doc.verificationStatus === 'INVALID'
+                                      ? 'Revisi'
+                                      : 'Terunggah'}
+                                  </span>
+                                </div>
+                                <p
+                                  className="text-xs font-semibold text-slate-900 truncate"
+                                  title={doc.fileName}
+                                >
+                                  {doc.fileName}
+                                </p>
                               </div>
-                              <p className="text-xs font-semibold text-slate-900 truncate" title={doc.fileName}>
-                                {doc.fileName}
-                              </p>
+                              <div className="mt-3 flex items-center gap-1.5">
+                                <button
+                                  type="button"
+                                  onClick={() => setViewingDoc(doc)}
+                                  className={`flex-1 py-1.5 px-2.5 rounded-xs ${
+                                    isSmp
+                                      ? 'bg-[#030164] hover:bg-[#090580] text-white'
+                                      : 'bg-[#00594f] hover:bg-[#003831] text-white'
+                                  } text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer`}
+                                >
+                                  <Eye className="w-3.5 h-3.5" />
+                                  <span>{isDeferred ? 'Unggah / Cek' : 'Lihat Berkas'}</span>
+                                </button>
+                                {!isDeferred && (
+                                  <a
+                                    href={doc.fileUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="p-1.5 rounded-xs bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors shadow-2xs shrink-0"
+                                    title="Buka Dokumen di Tab Baru"
+                                  >
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                  </a>
+                                )}
+                              </div>
                             </div>
-                            <div className="mt-3 flex items-center gap-1.5">
-                              <button
-                                type="button"
-                                onClick={() => setViewingDoc(doc)}
-                                className={`flex-1 py-1.5 px-2.5 rounded-lg ${
-                                  isSmp ? 'bg-[#030164] hover:bg-[#090580] text-white' : 'bg-[#064E3B] hover:bg-emerald-900 text-white'
-                                } text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer`}
-                              >
-                                <Eye className="w-3.5 h-3.5" />
-                                <span>Periksa / Buka</span>
-                              </button>
-                              <a
-                                href={doc.fileUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors shadow-2xs shrink-0"
-                                title="Buka Dokumen di Tab Baru"
-                              >
-                                <ExternalLink className="w-3.5 h-3.5" />
-                              </a>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -829,7 +876,7 @@ export default function ApplicantDetailBiodataModal({
         />
       )}
 
-      {/* Sub-Modal: Lightbox Document Viewer (KK, Akta, Pas Foto) */}
+      {/* Sub-Modal: Lightbox Document Viewer (KK, Akta, Pas Foto, Ijazah) */}
       {viewingDoc && (
         <DocumentViewerModal
           isOpen={!!viewingDoc}
@@ -837,8 +884,21 @@ export default function ApplicantDetailBiodataModal({
           document={viewingDoc}
           studentName={applicant.studentName}
           regNo={applicant.registrationNo}
-          onStatusUpdated={(docId, newStatus, notes) => {
-            if (onDataUpdated) onDataUpdated();
+          onStatusUpdated={(docId, newStatus, notes, newFileUrl, newFileName) => {
+            setViewingDoc((prev: any) =>
+              prev
+                ? {
+                    ...prev,
+                    verificationStatus: newStatus,
+                    notes: notes !== undefined ? notes : prev.notes,
+                    ...(newFileUrl ? { fileUrl: newFileUrl } : {}),
+                    ...(newFileName ? { fileName: newFileName } : {}),
+                  }
+                : null
+            );
+            if (onDocumentUpdated) {
+              onDocumentUpdated(docId, newStatus, notes, newFileUrl, newFileName);
+            }
           }}
         />
       )}

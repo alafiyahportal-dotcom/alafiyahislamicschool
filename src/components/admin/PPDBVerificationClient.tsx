@@ -155,33 +155,63 @@ export default function PPDBVerificationClient({
     }
   };
 
-  const handleDocStatusUpdated = (docId: string, newStatus: string, notes?: string) => {
+  const handleDocStatusUpdated = (
+    docId: string,
+    newStatus: string,
+    notes?: string,
+    newFileUrl?: string,
+    newFileName?: string
+  ) => {
+    const updateDocList = (docs: ApplicantItem['documents']) =>
+      docs.map((d) =>
+        d.id === docId
+          ? {
+              ...d,
+              verificationStatus: newStatus,
+              notes: notes !== undefined ? notes : d.notes,
+              ...(newFileUrl ? { fileUrl: newFileUrl } : {}),
+              ...(newFileName ? { fileName: newFileName } : {}),
+            }
+          : d
+      );
+
     setApplicants((prev) =>
       prev.map((app) => {
-        if (selectedApplicant && app.id === selectedApplicant.id) {
-          const updatedDocs = app.documents.map((d) =>
-            d.id === docId ? { ...d, verificationStatus: newStatus, notes: notes !== undefined ? notes : d.notes } : d
-          );
-          return { ...app, documents: updatedDocs };
+        if (
+          (selectedApplicant && app.id === selectedApplicant.id) ||
+          (selectedApplicantForDetail && app.id === selectedApplicantForDetail.id) ||
+          app.documents.some((d) => d.id === docId)
+        ) {
+          return { ...app, documents: updateDocList(app.documents) };
         }
         return app;
       })
     );
 
     if (selectedApplicant) {
-      setSelectedApplicant((prev) => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          documents: prev.documents.map((d) =>
-            d.id === docId ? { ...d, verificationStatus: newStatus, notes: notes !== undefined ? notes : d.notes } : d
-          ),
-        };
-      });
+      setSelectedApplicant((prev) =>
+        prev ? { ...prev, documents: updateDocList(prev.documents) } : null
+      );
+    }
+
+    if (selectedApplicantForDetail) {
+      setSelectedApplicantForDetail((prev) =>
+        prev ? { ...prev, documents: updateDocList(prev.documents) } : null
+      );
     }
 
     if (activeDocItem && activeDocItem.id === docId) {
-      setActiveDocItem((prev) => (prev ? { ...prev, verificationStatus: newStatus, notes: notes !== undefined ? notes : prev.notes } : null));
+      setActiveDocItem((prev) =>
+        prev
+          ? {
+              ...prev,
+              verificationStatus: newStatus,
+              notes: notes !== undefined ? notes : prev.notes,
+              ...(newFileUrl ? { fileUrl: newFileUrl } : {}),
+              ...(newFileName ? { fileName: newFileName } : {}),
+            }
+          : null
+      );
     }
   };
 
@@ -571,32 +601,53 @@ export default function PPDBVerificationClient({
                       </a>
                     </td>
 
-                    {/* Berkas */}
+                      {/* Berkas */}
                     <td className="py-3.5 px-4 whitespace-nowrap">
-                      <div className="flex flex-col gap-1.5 items-start">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedApplicant(item);
-                            setIsDocModalOpen(true);
-                          }}
-                          className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors border border-slate-200 cursor-pointer"
-                        >
-                          <FileText className="w-3.5 h-3.5 text-slate-500" />
-                          <span>{item.documents.length} Dokumen Digital</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedApplicantForDetail(item);
-                            setIsDetailModalOpen(true);
-                          }}
-                          className="inline-flex items-center space-x-1 text-[11px] font-semibold text-emerald-700 hover:text-emerald-900 cursor-pointer"
-                        >
-                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                          <span>Checklist Berkas Fisik →</span>
-                        </button>
-                      </div>
+                      {(() => {
+                        const uploadedCount = item.documents.filter(
+                          (d) =>
+                            d.fileUrl &&
+                            d.fileUrl !== 'DEFERRED' &&
+                            d.fileUrl !== '/uploads/sample.pdf' &&
+                            d.fileUrl !== '/uploads/sample-foto.jpg' &&
+                            !d.fileName.toLowerCase().includes('disusulkan') &&
+                            !d.fileName.toLowerCase().includes('belum diunggah')
+                        ).length;
+                        return (
+                          <div className="flex flex-col gap-1.5 items-start">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedApplicant(item);
+                                setIsDocModalOpen(true);
+                              }}
+                              className={`inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-xs text-xs font-bold transition-colors border cursor-pointer ${
+                                uploadedCount > 0
+                                  ? 'bg-emerald-50 hover:bg-emerald-100 text-[#00594f] border-emerald-200'
+                                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                              }`}
+                            >
+                              <FileText className="w-3.5 h-3.5" />
+                              <span>
+                                {uploadedCount > 0
+                                  ? `${uploadedCount}/${item.documents.length} Berkas Diunggah`
+                                  : `Periksa / Unggah Berkas (${item.documents.length})`}
+                              </span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedApplicantForDetail(item);
+                                setIsDetailModalOpen(true);
+                              }}
+                              className="inline-flex items-center space-x-1 text-[11px] font-semibold text-emerald-700 hover:text-emerald-900 cursor-pointer"
+                            >
+                              <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                              <span>Checklist Berkas &amp; Biodata →</span>
+                            </button>
+                          </div>
+                        );
+                      })()}
                     </td>
 
                     {/* Status */}
@@ -754,50 +805,74 @@ export default function PPDBVerificationClient({
                   Tidak ada dokumen yang diunggah secara daring.
                 </div>
               ) : (
-                selectedApplicant.documents.map((doc) => (
-                  <div
-                    key={doc.id}
-                    className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs flex-shrink-0">
-                        {doc.docType}
-                      </div>
-                      <div>
-                        <div className="flex items-center space-x-2">
-                          <p className="text-xs font-semibold text-slate-900">
-                            {doc.docType === 'KK' ? 'Kartu Keluarga (KK)' : doc.docType === 'AKTA' ? 'Akta Kelahiran' : 'Pas Foto Murid'}
-                          </p>
-                          {doc.verificationStatus === 'VALID' ? (
-                            <span className="px-1.5 py-0.2 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                              SAH
-                            </span>
-                          ) : doc.verificationStatus === 'INVALID' ? (
-                            <span className="px-1.5 py-0.2 rounded-md bg-rose-100 text-rose-800 text-[10px] font-bold">
-                              REVISI
-                            </span>
-                          ) : (
-                            <span className="px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-800 text-[10px] font-bold">
-                              PENDING
-                            </span>
+                selectedApplicant.documents.map((doc) => {
+                  const isDeferred =
+                    !doc.fileUrl ||
+                    doc.fileUrl === 'DEFERRED' ||
+                    doc.fileUrl === '/uploads/sample.pdf' ||
+                    doc.fileUrl === '/uploads/sample-foto.jpg' ||
+                    doc.fileName.toLowerCase().includes('disusulkan') ||
+                    doc.fileName.toLowerCase().includes('belum diunggah');
+                  const docLabel =
+                    doc.docType === 'KK'
+                      ? 'Kartu Keluarga (KK)'
+                      : doc.docType === 'AKTA'
+                      ? 'Akta Kelahiran'
+                      : doc.docType === 'FOTO'
+                      ? 'Pas Foto Murid 3x4'
+                      : doc.docType === 'IJAZAH'
+                      ? 'Ijazah / SKL Asal Sekolah'
+                      : `Dokumen ${doc.docType}`;
+
+                  return (
+                    <div
+                      key={doc.id}
+                      className="p-3 bg-slate-50 border border-slate-200 rounded-sm flex items-center justify-between gap-2"
+                    >
+                      <div className="flex items-center space-x-3 min-w-0">
+                        <div className="w-8 h-8 rounded-xs bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-[10px] flex-shrink-0">
+                          {doc.docType}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center space-x-2 flex-wrap">
+                            <p className="text-xs font-bold text-slate-900">{docLabel}</p>
+                            {isDeferred ? (
+                              <span className="px-1.5 py-0.2 rounded-xs bg-slate-200 text-slate-700 text-[10px] font-bold">
+                                BELUM DIUNGGAH
+                              </span>
+                            ) : doc.verificationStatus === 'VALID' ? (
+                              <span className="px-1.5 py-0.2 rounded-xs bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                                SAH
+                              </span>
+                            ) : doc.verificationStatus === 'INVALID' ? (
+                              <span className="px-1.5 py-0.2 rounded-xs bg-rose-100 text-rose-800 text-[10px] font-bold">
+                                REVISI
+                              </span>
+                            ) : (
+                              <span className="px-1.5 py-0.2 rounded-xs bg-amber-100 text-amber-800 text-[10px] font-bold">
+                                TERUNGGAH
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-slate-500 truncate">{doc.fileName}</p>
+                          {doc.notes && (
+                            <p className="text-[10px] text-rose-600 italic mt-0.5">
+                              Catatan: {doc.notes}
+                            </p>
                           )}
                         </div>
-                        <p className="text-[11px] text-slate-500">{doc.fileName}</p>
-                        {doc.notes && (
-                          <p className="text-[10px] text-rose-600 italic mt-0.5">Catatan: {doc.notes}</p>
-                        )}
                       </div>
+                      <button
+                        type="button"
+                        onClick={() => setActiveDocItem(doc)}
+                        className="py-1.5 px-3 rounded-xs bg-white border border-[#2D7A70]/40 text-[#184F48] hover:bg-[#E8F3F1] text-xs font-bold transition-colors flex items-center space-x-1.5 cursor-pointer shadow-2xs shrink-0"
+                      >
+                        <Eye className="w-3.5 h-3.5 text-[#2D7A70]" />
+                        <span>{isDeferred ? 'Unggah / Cek' : 'Lihat Berkas'}</span>
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setActiveDocItem(doc)}
-                      className="py-1.5 px-3 rounded-lg bg-white border border-[#2D7A70]/40 text-[#184F48] hover:bg-[#E8F3F1] text-xs font-bold transition-colors flex items-center space-x-1.5 cursor-pointer shadow-2xs"
-                    >
-                      <Eye className="w-3.5 h-3.5 text-[#2D7A70]" />
-                      <span>Periksa Berkas</span>
-                    </button>
-                  </div>
-                ))
+                  );
+                })
               )}
             </div>
 
@@ -1004,6 +1079,7 @@ export default function PPDBVerificationClient({
           onDataUpdated={() => {
             window.location.reload();
           }}
+          onDocumentUpdated={handleDocStatusUpdated}
         />
       )}
 

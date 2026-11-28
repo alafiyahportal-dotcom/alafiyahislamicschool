@@ -43,6 +43,29 @@ export default async function ApplicantPortalPage({
     notFound();
   }
 
+  // Ensure every registration has default document slots (KK, AKTA, FOTO, IJAZAH) so parents/admins can always upload or view them
+  const requiredTypes = reg.school.slug === 'smp' ? ['KK', 'AKTA', 'FOTO', 'IJAZAH'] : ['IJAZAH', 'FOTO', 'AKTA', 'KK'];
+  const existingTypes = new Set(reg.documents.map((d) => d.docType));
+  const missingTypes = requiredTypes.filter((t) => !existingTypes.has(t));
+  if (missingTypes.length > 0) {
+    try {
+      for (const docType of missingTypes) {
+        const created = await prisma.pPDBDocument.create({
+          data: {
+            registrationId: reg.id,
+            docType,
+            fileName: `Belum Diunggah (${docType})`,
+            fileUrl: 'DEFERRED',
+            verificationStatus: 'PENDING',
+          },
+        });
+        reg.documents.push(created);
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   const invoice = reg.invoices[0];
   const isPaid = invoice?.paymentStatus === 'PAID' || reg.status === 'VERIFIED' || reg.status === 'INTERVIEW_SCHEDULED' || reg.status === 'ACCEPTED';
   
@@ -451,7 +474,25 @@ export default async function ApplicantPortalPage({
 
         {/* Portal Document Verification & Self-Service Re-upload List */}
         <PortalDocumentStatusList
-          initialDocuments={reg.documents}
+          initialDocuments={reg.documents.map((d) => {
+            const rawUrl = (d.fileUrl || '').trim();
+            const isDeferred =
+              !rawUrl ||
+              rawUrl === 'DEFERRED' ||
+              rawUrl === '/uploads/sample.pdf' ||
+              rawUrl === '/uploads/sample-foto.jpg' ||
+              d.fileName.toLowerCase().includes('disusulkan') ||
+              d.fileName.toLowerCase().includes('belum diunggah');
+
+            return {
+              ...d,
+              fileUrl: isDeferred
+                ? 'DEFERRED'
+                : rawUrl.startsWith('data:')
+                ? `/api/ppdb/document-file/${d.id}`
+                : rawUrl,
+            };
+          })}
           registrationNo={reg.registrationNo}
           studentName={reg.studentName}
           schoolName={reg.school.name}

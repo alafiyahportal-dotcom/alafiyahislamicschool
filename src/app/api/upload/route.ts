@@ -11,6 +11,7 @@ const ALLOWED_DOC_TYPES = [
   'RAPOR',
   'IJAZAH',
   'SURAT_KESEHATAN',
+  'SURAT_SEHAT',
   'BUKTI_BAYAR',
   'DOKUMEN',
 ];
@@ -64,36 +65,30 @@ export async function POST(request: NextRequest) {
 
     // Generate safe UUID-based filename derived from verified extension
     const finalFileName = generateSafeFileName(safeDocType, verified.ext);
-    let publicUrl = `/uploads/ppdb/${finalFileName}`;
 
+    // Always build a persistent Data URI so the file is permanently stored in PostgreSQL
+    // and never vanishes across Vercel Serverless container restarts or read-only filesystems!
+    const dataUriUrl = `data:${verified.mime};base64,${buffer.toString('base64')}`;
+
+    // Best-effort local disk backup (for local dev convenience only)
     try {
-      // Target upload directory: /public/uploads/ppdb/
       const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'ppdb');
       await mkdir(uploadDir, { recursive: true });
       const filePath = path.join(uploadDir, finalFileName);
-
-      // 🔒 Path Traversal Prevention (Point 5)
       const normalizedUploadDir = path.resolve(uploadDir);
       const normalizedFilePath = path.resolve(filePath);
-      if (!normalizedFilePath.startsWith(normalizedUploadDir)) {
-        return NextResponse.json(
-          { success: false, error: 'Deteksi pelanggaran jalur penyimpanan berkas (Path Traversal).' },
-          { status: 403 }
-        );
+      if (normalizedFilePath.startsWith(normalizedUploadDir)) {
+        await writeFile(filePath, buffer);
       }
-
-      // Write file to disk
-      await writeFile(filePath, buffer);
-    } catch (fsError) {
-      console.warn('PPDB upload filesystem read-only, using Base64 fallback:', fsError);
-      publicUrl = `data:${verified.mime};base64,${buffer.toString('base64')}`;
+    } catch {
+      // Ignore read-only filesystem on Vercel serverless
     }
 
     return NextResponse.json({
       success: true,
-      message: 'Berkas berhasil diunggah',
-      fileUrl: publicUrl,
-      fileName: finalFileName,
+      message: 'Berkas berhasil diunggah dan disimpan',
+      fileUrl: dataUriUrl,
+      fileName: file.name || finalFileName,
       fileSize: file.size,
       mimeType: verified.mime,
       docType: safeDocType,

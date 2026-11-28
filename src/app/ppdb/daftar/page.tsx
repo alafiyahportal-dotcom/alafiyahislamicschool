@@ -38,7 +38,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import { calculateAgePerJuly2027, SDIT_OFFICIAL_METADATA } from '@/types/sdit-form';
 import { extractSubdomain, getSchoolUrl } from '@/lib/domain';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
-import { convertHeicIfNeeded } from '@/lib/image-compress';
+import { compressImageClient, convertHeicIfNeeded } from '@/lib/image-compress';
 import IslamicToast from '@/components/common/IslamicToast';
 
 interface SchoolOption {
@@ -272,8 +272,16 @@ function PPDBFormContent() {
     setUploadError(null);
 
     try {
-      // Auto-convert Apple iOS HEIC/HEIF photos to JPEG so all browsers can view them
-      const processedFile = await convertHeicIfNeeded(file);
+      // Auto-convert Apple iOS HEIC/HEIF photos to JPEG and compress images so all browsers can view them
+      let processedFile = await convertHeicIfNeeded(file);
+      if (processedFile.type.startsWith('image/')) {
+        try {
+          const compressed = await compressImageClient(processedFile, 1600, 1600, 0.84);
+          processedFile = compressed.file;
+        } catch {
+          // fallback
+        }
+      }
 
       const body = new FormData();
       body.append('file', processedFile);
@@ -478,18 +486,18 @@ function PPDBFormContent() {
     const docsPayload = [
       {
         docType: 'KK',
-        fileName: uploadedFiles.KK?.fileName || (isSkippingDocs ? 'Disusulkan via Portal Murid (KK)' : 'Kartu_Keluarga.pdf'),
-        fileUrl: uploadedFiles.KK?.fileUrl || '/uploads/sample.pdf',
+        fileName: uploadedFiles.KK?.fileName || 'Belum Diunggah (Kartu Keluarga)',
+        fileUrl: uploadedFiles.KK?.fileUrl || 'DEFERRED',
       },
       {
         docType: 'AKTA',
-        fileName: uploadedFiles.AKTA?.fileName || (isSkippingDocs ? 'Disusulkan via Portal Murid (Akta)' : 'Akta_Kelahiran.pdf'),
-        fileUrl: uploadedFiles.AKTA?.fileUrl || '/uploads/sample.pdf',
+        fileName: uploadedFiles.AKTA?.fileName || 'Belum Diunggah (Akta Kelahiran)',
+        fileUrl: uploadedFiles.AKTA?.fileUrl || 'DEFERRED',
       },
       {
         docType: 'FOTO',
-        fileName: uploadedFiles.FOTO?.fileName || (isSkippingDocs ? 'Disusulkan via Portal Murid (Foto)' : 'Pas_Foto_3x4.jpg'),
-        fileUrl: uploadedFiles.FOTO?.fileUrl || '/uploads/sample.pdf',
+        fileName: uploadedFiles.FOTO?.fileName || 'Belum Diunggah (Pas Foto 3x4)',
+        fileUrl: uploadedFiles.FOTO?.fileUrl || 'DEFERRED',
       },
     ];
 

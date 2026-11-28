@@ -14,9 +14,12 @@ export async function PATCH(
 
     const { id } = await params;
     const body = await request.json();
-    const { verificationStatus, notes } = body;
+    const { verificationStatus, notes, fileUrl, fileName } = body;
 
-    if (!verificationStatus || !['PENDING', 'VALID', 'INVALID'].includes(verificationStatus)) {
+    if (
+      verificationStatus &&
+      !['PENDING', 'VALID', 'INVALID'].includes(verificationStatus)
+    ) {
       return NextResponse.json(
         { success: false, error: 'Status verifikasi harus PENDING, VALID, atau INVALID' },
         { status: 400 }
@@ -53,15 +56,24 @@ export async function PATCH(
     const updatedDocument = await prisma.pPDBDocument.update({
       where: { id },
       data: {
-        verificationStatus,
-        notes: notes !== undefined ? notes : document.notes,
+        ...(verificationStatus ? { verificationStatus } : {}),
+        ...(notes !== undefined ? { notes } : {}),
+        ...(fileUrl ? { fileUrl } : {}),
+        ...(fileName ? { fileName } : {}),
       },
     });
 
+    const cleanFileUrl = updatedDocument.fileUrl?.startsWith('data:')
+      ? `/api/ppdb/document-file/${updatedDocument.id}?t=${Date.now()}`
+      : updatedDocument.fileUrl;
+
     return NextResponse.json({
       success: true,
-      message: `Status berkas berhasil diubah menjadi ${verificationStatus}`,
-      document: updatedDocument,
+      message: `Data berkas berhasil diperbarui`,
+      document: {
+        ...updatedDocument,
+        fileUrl: cleanFileUrl,
+      },
     });
   } catch (error) {
     console.error('Error updating document status:', error);

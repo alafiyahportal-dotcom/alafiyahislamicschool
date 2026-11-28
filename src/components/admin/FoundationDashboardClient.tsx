@@ -17,7 +17,9 @@ import {
   FileSpreadsheet,
   Layers,
   Trash2,
-  Loader2
+  Loader2,
+  FileText,
+  Eye
 } from 'lucide-react';
 import EdukaStatCards from './EdukaStatCards';
 import EdukaBarChart from './EdukaBarChart';
@@ -483,6 +485,14 @@ export default function FoundationDashboardClient({
                     </td>
                     <td className="py-3.5 px-4 text-right whitespace-nowrap">
                       <div className="inline-flex items-center justify-end gap-1.5">
+                        <Link
+                          href={`/admin/${applicant.schoolSlug}/ppdb`}
+                          title={`Periksa Berkas & Verifikasi ${applicant.studentName}`}
+                          className="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold inline-flex items-center gap-1 transition-colors"
+                        >
+                          <FileText className="w-3.5 h-3.5 text-[#00594f]" />
+                          <span>Berkas</span>
+                        </Link>
                         <select
                           disabled={isUpdating === applicant.id || isDeleting === applicant.id}
                           value={applicant.status}

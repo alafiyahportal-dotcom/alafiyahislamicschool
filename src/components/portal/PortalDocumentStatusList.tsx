@@ -13,7 +13,7 @@ import {
   FileCheck,
   Check
 } from 'lucide-react';
-import { convertHeicIfNeeded } from '@/lib/image-compress';
+import { convertHeicIfNeeded, compressImageClient } from '@/lib/image-compress';
 
 export interface DocumentItem {
   id: string;
@@ -32,6 +32,10 @@ interface PortalDocumentStatusListProps {
 }
 
 const DOC_TYPE_LABELS: Record<string, { title: string; desc: string }> = {
+  IJAZAH: {
+    title: 'FC Ijazah / SKL Asal Sekolah',
+    desc: 'Surat keterangan tamat / ijazah dari TK/RA (untuk SDIT) atau SD/MI (untuk SMP IT).',
+  },
   KK: {
     title: 'Kartu Keluarga (KK)',
     desc: 'Memuat nama calon murid, NIK, dan nama orang tua/wali.',
@@ -88,8 +92,16 @@ export default function PortalDocumentStatusList({
     setUploadingDocId(docId);
 
     try {
-      // 1. Convert iOS HEIC to JPEG if needed
-      const processedFile = await convertHeicIfNeeded(file);
+      // 1. Convert iOS HEIC to JPEG & compress image if needed
+      let processedFile = await convertHeicIfNeeded(file);
+      if (processedFile.type.startsWith('image/')) {
+        try {
+          const compressed = await compressImageClient(processedFile, 1600, 1600, 0.84);
+          processedFile = compressed.file;
+        } catch {
+          // fallback
+        }
+      }
 
       // 2. Upload file fisik ke /api/upload
       const formData = new FormData();
@@ -228,7 +240,13 @@ export default function PortalDocumentStatusList({
             };
             const isInvalid = doc.verificationStatus === 'INVALID';
             const isValid = doc.verificationStatus === 'VALID';
-            const isPending = doc.verificationStatus === 'PENDING';
+            const isDeferred =
+              !doc.fileUrl ||
+              doc.fileUrl === 'DEFERRED' ||
+              doc.fileUrl === '/uploads/sample.pdf' ||
+              doc.fileUrl === '/uploads/sample-foto.jpg' ||
+              doc.fileName.toLowerCase().includes('disusulkan') ||
+              doc.fileName.toLowerCase().includes('belum diunggah');
             const isUploadingThis = uploadingDocId === doc.id;
             const isUploadOpen = activeUploadDocId === doc.id;
 
@@ -238,7 +256,7 @@ export default function PortalDocumentStatusList({
                 className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                   isInvalid
                     ? 'border-rose-300 bg-rose-50/30'
-                    : isValid
+                    : isValid && !isDeferred
                     ? 'border-emerald-200 bg-emerald-50/20'
                     : 'border-slate-200 bg-white'
                 }`}
@@ -247,7 +265,7 @@ export default function PortalDocumentStatusList({
                   <div className="flex items-start space-x-3">
                     <div
                       className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                        isValid
+                        isValid && !isDeferred
                           ? 'bg-emerald-100 text-emerald-700'
                           : isInvalid
                           ? 'bg-rose-100 text-rose-700'
@@ -261,7 +279,12 @@ export default function PortalDocumentStatusList({
                         <h3 className="text-sm font-bold text-slate-900">{meta.title}</h3>
                         
                         {/* Status Badges */}
-                        {isValid ? (
+                        {isDeferred ? (
+                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-300">
+                            <Clock className="w-3 h-3 text-slate-500" />
+                            <span>Belum Diunggah (Bisa Disusulkan)</span>
+                          </span>
+                        ) : isValid ? (
                           <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold border border-emerald-200">
                             <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                             <span>Sah & Terverifikasi</span>
@@ -287,7 +310,7 @@ export default function PortalDocumentStatusList({
 
                   {/* Action Buttons */}
                   <div className="flex items-center space-x-2 pt-2 sm:pt-0 sm:self-center">
-                    {doc.fileUrl && (
+                    {!isDeferred && doc.fileUrl && (
                       <a
                         href={doc.fileUrl}
                         target="_blank"
@@ -299,20 +322,26 @@ export default function PortalDocumentStatusList({
                       </a>
                     )}
 
-                    {/* Tombol Re-Upload (Aktif jika Invalid atau user ingin memperbarui) */}
+                    {/* Tombol Re-Upload */}
                     <button
                       type="button"
                       onClick={() =>
                         setActiveUploadDocId(isUploadOpen ? null : doc.id)
                       }
-                      className={`inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs ${
+                      className={`inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer ${
                         isInvalid
                           ? 'bg-rose-600 hover:bg-rose-700 text-white'
                           : 'bg-[#2D7A70] hover:bg-[#184F48] text-white'
                       }`}
                     >
                       <Upload className="w-3.5 h-3.5" />
-                      <span>{isInvalid ? 'Unggah Perbaikan' : 'Ganti Berkas'}</span>
+                      <span>
+                        {isInvalid
+                          ? 'Unggah Perbaikan'
+                          : isDeferred
+                          ? 'Unggah Berkas'
+                          : 'Ganti Berkas'}
+                      </span>
                     </button>
                   </div>
                 </div>

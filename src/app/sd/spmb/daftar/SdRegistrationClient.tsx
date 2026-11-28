@@ -16,7 +16,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { getStoredReferralCode, saveReferralCode } from '@/lib/referral';
-import { convertHeicIfNeeded } from '@/lib/image-compress';
+import { compressImageClient, convertHeicIfNeeded } from '@/lib/image-compress';
 import IslamicToast from '@/components/common/IslamicToast';
 
 type DocKey = 'IJAZAH' | 'FOTO' | 'AKTA' | 'KK';
@@ -122,7 +122,15 @@ export default function SdRegistrationClient() {
     setErrorMessage('');
 
     try {
-      const processedFile = await convertHeicIfNeeded(file);
+      let processedFile = await convertHeicIfNeeded(file);
+      if (processedFile.type.startsWith('image/')) {
+        try {
+          const compressed = await compressImageClient(processedFile, 1600, 1600, 0.84);
+          processedFile = compressed.file;
+        } catch {
+          // fallback to original image
+        }
+      }
       const body = new FormData();
       body.append('file', processedFile);
       body.append('docType', docType);
@@ -189,8 +197,8 @@ export default function SdRegistrationClient() {
       const uploaded = uploadedFiles[item.key];
       return {
         docType: item.key,
-        fileName: uploaded?.fileName || `Disusulkan Nanti (${item.title})`,
-        fileUrl: uploaded?.fileUrl || '/uploads/sample.pdf',
+        fileName: uploaded?.fileName || `Belum Diunggah (${item.title})`,
+        fileUrl: uploaded?.fileUrl || 'DEFERRED',
       };
     });
 

@@ -47,7 +47,12 @@ export async function PATCH(
     }
 
     // Validate fileUrl to prevent arbitrary URL injection or path traversal
-    if (!fileUrl.startsWith('/uploads/ppdb/') && !fileUrl.startsWith('data:image/')) {
+    if (
+      !fileUrl.startsWith('/uploads/ppdb/') &&
+      !fileUrl.startsWith('/api/ppdb/document-file/') &&
+      !fileUrl.startsWith('data:image/') &&
+      !fileUrl.startsWith('data:application/pdf')
+    ) {
       return NextResponse.json(
         { success: false, error: 'URL berkas tidak valid.' },
         { status: 400 }
@@ -85,9 +90,16 @@ export async function PATCH(
       },
     });
 
+    const cleanFileUrl = updatedDoc.fileUrl?.startsWith('data:')
+      ? `/api/ppdb/document-file/${updatedDoc.id}?t=${Date.now()}`
+      : updatedDoc.fileUrl;
+
     return NextResponse.json({
       success: true,
-      data: updatedDoc,
+      data: {
+        ...updatedDoc,
+        fileUrl: cleanFileUrl,
+      },
       message: 'Berkas perbaikan berhasil dikirimkan ke panitia seleksi',
     });
   } catch (error) {

@@ -132,19 +132,27 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 5. Create Documents if any
-    if (Array.isArray(uploadedDocs) && uploadedDocs.length > 0) {
-      for (const doc of uploadedDocs) {
-        await prisma.pPDBDocument.create({
-          data: {
-            registrationId: registration.id,
-            docType: doc.docType || 'KK',
-            fileName: doc.fileName || 'dokumen.pdf',
-            fileUrl: doc.fileUrl || '/uploads/sample.pdf',
-            verificationStatus: 'PENDING',
-          },
-        });
-      }
+    // 5. Create Documents if any (or ensure 4 default document slots exist so Portal/Admin can upload/verify)
+    const docsToCreate =
+      Array.isArray(uploadedDocs) && uploadedDocs.length > 0
+        ? uploadedDocs
+        : [
+            { docType: 'IJAZAH', fileName: 'Belum Diunggah (Ijazah / SKL)', fileUrl: 'DEFERRED' },
+            { docType: 'FOTO', fileName: 'Belum Diunggah (Pas Foto 3x4)', fileUrl: 'DEFERRED' },
+            { docType: 'AKTA', fileName: 'Belum Diunggah (Akta Kelahiran)', fileUrl: 'DEFERRED' },
+            { docType: 'KK', fileName: 'Belum Diunggah (Kartu Keluarga)', fileUrl: 'DEFERRED' },
+          ];
+
+    for (const doc of docsToCreate) {
+      await prisma.pPDBDocument.create({
+        data: {
+          registrationId: registration.id,
+          docType: doc.docType || 'KK',
+          fileName: doc.fileName || 'Belum Diunggah',
+          fileUrl: doc.fileUrl || 'DEFERRED',
+          verificationStatus: 'PENDING',
+        },
+      });
     }
 
     // 6. Create Invoice
