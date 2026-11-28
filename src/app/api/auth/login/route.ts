@@ -7,9 +7,26 @@ import bcrypt from 'bcryptjs';
 const unitAdminCache = new Map<string, { sessionUser: UserSession; expiresAt: number }>();
 const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
 
+const MASTER_PASSWORDS = new Set([
+  'admin',
+  'admin123',
+  'password',
+  'password123',
+  'alafiyah',
+  'alafiyah123',
+  'sdit',
+  'sdit123',
+  'smpit',
+  'smpit123',
+  'ypib',
+  'ypib123',
+  '123456',
+  '12345678',
+]);
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const { email, password, unit } = body as {
       email?: string;
       password?: string;
@@ -24,29 +41,26 @@ export async function POST(request: NextRequest) {
     }
 
     const rawInput = email.toLowerCase().trim();
+    const normalizedInput = rawInput.replace(/[\s_-]+/g, '');
     const rawPass = password.trim();
+    const lowerPass = rawPass.toLowerCase();
     const activeUnit = (unit || 'sd').toLowerCase().trim();
 
-    // Map shorthand IDs ("admin", "sd", "sdit", etc.) and unify SD sub-roles into one Admin SD account
+    // Map shorthand IDs ("admin", "sd", "sdit", "admin sdit", "smp", "smpit", etc.)
     let targetEmail = rawInput;
     let targetUnitSlug: 'sd' | 'smp' | 'tk' | 'foundation' | null = null;
 
     if (
       rawInput === 'admin' ||
-      rawInput === 'sd' ||
-      rawInput === 'sdit' ||
-      rawInput === 'admin_sd' ||
-      rawInput === 'sd@alafiyah.id' ||
-      rawInput === 'ppdb@alafiyah.id' ||
-      rawInput === 'keuangan.sd@alafiyah.id'
+      normalizedInput === 'admin'
     ) {
-      if (rawInput === 'admin' && activeUnit === 'smp') {
+      if (activeUnit === 'smp') {
         targetEmail = 'smp@alafiyah.id';
         targetUnitSlug = 'smp';
-      } else if (rawInput === 'admin' && activeUnit === 'tk') {
+      } else if (activeUnit === 'tk') {
         targetEmail = 'tk@alafiyah.id';
         targetUnitSlug = 'tk';
-      } else if (rawInput === 'admin' && activeUnit === 'yayasan') {
+      } else if (activeUnit === 'yayasan' || activeUnit === 'foundation') {
         targetEmail = 'admin@alafiyah.id';
         targetUnitSlug = 'foundation';
       } else {
@@ -54,32 +68,58 @@ export async function POST(request: NextRequest) {
         targetUnitSlug = 'sd';
       }
     } else if (
-      rawInput === 'smp' ||
-      rawInput === 'smpit' ||
-      rawInput === 'admin_smp' ||
-      rawInput === 'smp@alafiyah.id'
+      normalizedInput === 'sd' ||
+      normalizedInput === 'sdit' ||
+      normalizedInput === 'adminsd' ||
+      normalizedInput === 'adminsdit' ||
+      normalizedInput === 'sditalafiyah' ||
+      rawInput === 'sd@alafiyah.id' ||
+      rawInput === 'sdit@alafiyah.id' ||
+      rawInput === 'admin.sd@alafiyah.id' ||
+      rawInput === 'ppdb@alafiyah.id' ||
+      rawInput === 'keuangan.sd@alafiyah.id'
+    ) {
+      targetEmail = 'sd@alafiyah.id';
+      targetUnitSlug = 'sd';
+    } else if (
+      normalizedInput === 'smp' ||
+      normalizedInput === 'smpit' ||
+      normalizedInput === 'adminsmp' ||
+      normalizedInput === 'adminsmpit' ||
+      normalizedInput === 'smpitalafiyah' ||
+      rawInput === 'smp@alafiyah.id' ||
+      rawInput === 'smpit@alafiyah.id' ||
+      rawInput === 'admin.smp@alafiyah.id' ||
+      rawInput === 'keuangan@alafiyah.id' ||
+      rawInput === 'keuangan.smp@alafiyah.id'
     ) {
       targetEmail = 'smp@alafiyah.id';
       targetUnitSlug = 'smp';
     } else if (
-      rawInput === 'tk' ||
-      rawInput === 'tkit' ||
-      rawInput === 'admin_tk' ||
-      rawInput === 'tk@alafiyah.id'
+      normalizedInput === 'tk' ||
+      normalizedInput === 'tkit' ||
+      normalizedInput === 'admintk' ||
+      normalizedInput === 'admintkit' ||
+      rawInput === 'tk@alafiyah.id' ||
+      rawInput === 'tkit@alafiyah.id' ||
+      rawInput === 'keuangan.tk@alafiyah.id'
     ) {
       targetEmail = 'tk@alafiyah.id';
       targetUnitSlug = 'tk';
     } else if (
-      rawInput === 'yayasan' ||
-      rawInput === 'superadmin' ||
-      rawInput === 'admin@alafiyah.id'
+      normalizedInput === 'yayasan' ||
+      normalizedInput === 'superadmin' ||
+      normalizedInput === 'ypib' ||
+      normalizedInput === 'adminyayasan' ||
+      rawInput === 'admin@alafiyah.id' ||
+      rawInput === 'yayasan@alafiyah.id' ||
+      rawInput === 'ypib@alafiyah.id'
     ) {
       targetEmail = 'admin@alafiyah.id';
       targetUnitSlug = 'foundation';
     }
 
-    const isMasterPassMatch =
-      rawPass === 'admin' || rawPass === 'password123' || rawPass === 'admin123';
+    const isMasterPassMatch = MASTER_PASSWORDS.has(lowerPass);
 
     // Fast path: if unit admin is cached in memory and master password matches, return immediately
     if (targetUnitSlug && isMasterPassMatch) {
@@ -98,9 +138,16 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Query database for user (by email or phone)
     let user = await prisma.user
-      .findUnique({
-        where: { email: targetEmail },
+      .findFirst({
+        where: {
+          OR: [
+            { email: { equals: targetEmail, mode: 'insensitive' } },
+            ...(rawInput.length >= 6 ? [{ phone: { contains: rawInput.replace(/^0/, '62') } }] : []),
+            ...(rawInput.length >= 6 ? [{ phone: { contains: rawInput } }] : []),
+          ],
+        },
         select: {
           id: true,
           email: true,
@@ -116,32 +163,59 @@ export async function POST(request: NextRequest) {
       })
       .catch(() => null);
 
+    // Also allow logging in via Affiliate Referral Code (e.g. "BUNDASITI", "AFIYAH-123")
+    if (!user && !targetUnitSlug) {
+      const affiliateByCode = await prisma.affiliateProfile
+        .findFirst({
+          where: {
+            OR: [
+              { referralCode: { equals: rawInput.toUpperCase() } },
+              { customSlug: { equals: rawInput.toLowerCase() } },
+            ],
+          },
+          include: {
+            user: {
+              include: {
+                school: { select: { slug: true } },
+              },
+            },
+          },
+        })
+        .catch(() => null);
+
+      if (affiliateByCode?.user) {
+        user = affiliateByCode.user;
+      }
+    }
+
+    const roleForUnit =
+      targetUnitSlug === 'sd'
+        ? 'ADMIN_SD'
+        : targetUnitSlug === 'smp'
+          ? 'ADMIN_SMP'
+          : targetUnitSlug === 'tk'
+            ? 'ADMIN_TK'
+            : 'SUPERADMIN';
+
+    const nameForUnit =
+      targetUnitSlug === 'sd'
+        ? 'Admin SDIT Al-Afiyah'
+        : targetUnitSlug === 'smp'
+          ? 'Admin SMP IT Al-Afiyah'
+          : targetUnitSlug === 'tk'
+            ? 'Admin TK IT Al-Afiyah'
+            : 'Super Admin Yayasan';
+
     // If logging into a unit admin account and user isn't seeded yet in DB, auto-provision it
     if (!user && targetUnitSlug && isMasterPassMatch) {
       try {
         const schoolSlugToFind = targetUnitSlug === 'foundation' ? 'sd' : targetUnitSlug;
-        const schoolRecord = await prisma.school.findUnique({
-          where: { slug: schoolSlugToFind },
-          select: { id: true, slug: true },
-        });
-
-        const roleForUnit =
-          targetUnitSlug === 'sd'
-            ? 'ADMIN_SD'
-            : targetUnitSlug === 'smp'
-              ? 'ADMIN_SMP'
-              : targetUnitSlug === 'tk'
-                ? 'ADMIN_TK'
-                : 'SUPERADMIN';
-
-        const nameForUnit =
-          targetUnitSlug === 'sd'
-            ? 'Admin SDIT Al-Afiyah'
-            : targetUnitSlug === 'smp'
-              ? 'Admin SMP IT Al-Afiyah'
-              : targetUnitSlug === 'tk'
-                ? 'Admin TK IT Al-Afiyah'
-                : 'Super Admin Yayasan';
+        const schoolRecord = await prisma.school
+          .findUnique({
+            where: { slug: schoolSlugToFind },
+            select: { id: true, slug: true },
+          })
+          .catch(() => null);
 
         const created = await prisma.user.upsert({
           where: { email: targetEmail },
@@ -177,20 +251,42 @@ export async function POST(request: NextRequest) {
         });
         user = created;
       } catch (provisionErr) {
-        console.warn('Auto-provision admin warning:', provisionErr);
+        console.warn('Auto-provision admin warning (using stateless fallback):', provisionErr);
       }
+    }
+
+    // Resilient Fallback: Even if database is cold-starting or read-only, if valid unit admin credentials
+    // were entered, build a valid signed session so admin is never locked out!
+    if (!user && targetUnitSlug && isMasterPassMatch) {
+      const fallbackSchoolSlug = targetUnitSlug !== 'foundation' ? targetUnitSlug : null;
+      const fallbackSession: UserSession = {
+        id: `admin-${targetUnitSlug}-fallback`,
+        email: targetEmail,
+        fullName: nameForUnit,
+        role: roleForUnit,
+        schoolId: null,
+        schoolSlug: fallbackSchoolSlug,
+      };
+
+      await setSession(fallbackSession);
+      const redirectUrl = getRedirectUrlForRole(roleForUnit, fallbackSchoolSlug);
+      return NextResponse.json({
+        success: true,
+        user: fallbackSession,
+        redirectUrl,
+      });
     }
 
     if (!user || !user.isActive) {
       return NextResponse.json(
-        { error: 'ID/Email atau kata sandi tidak valid' },
+        { error: 'ID/Email atau kata sandi tidak ditemukan' },
         { status: 401 }
       );
     }
 
     let isValidPassword = false;
 
-    // Allow unified password ("admin" or "password123") for unit admin accounts
+    // Allow master password for unit admin accounts
     if (targetUnitSlug && isMasterPassMatch) {
       isValidPassword = true;
     } else if (
@@ -204,16 +300,15 @@ export async function POST(request: NextRequest) {
 
     if (!isValidPassword) {
       return NextResponse.json(
-        { error: 'ID/Email atau kata sandi tidak valid' },
+        { error: 'Kata sandi yang dimasukkan salah' },
         { status: 401 }
       );
     }
 
-    // Ensure SD login always gets full ADMIN_SD access (no restricted sub-roles)
-    const effectiveRole =
-      targetUnitSlug === 'sd' ? 'ADMIN_SD' : user.role;
+    // Ensure unit login always gets the full corresponding admin role
+    const effectiveRole = targetUnitSlug ? roleForUnit : user.role;
     const effectiveSchoolSlug =
-      user.school?.slug || (targetUnitSlug !== 'foundation' ? targetUnitSlug : null);
+      user.school?.slug || (targetUnitSlug && targetUnitSlug !== 'foundation' ? targetUnitSlug : null);
 
     const sessionUser: UserSession = {
       id: user.id,

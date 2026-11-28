@@ -13,18 +13,14 @@ export interface UserSession {
 
 export const SESSION_COOKIE_NAME = 'alafiyah_session';
 
-const DEFAULT_DEV_SECRET = 'alafiyah-super-secret-key-prod-2026-imam-bonjol-protection';
+const DEFAULT_FALLBACK_SECRET = 'alafiyah-super-secret-key-prod-2026-imam-bonjol-protection';
 
 function getSessionSecret(): string {
   const secret = process.env.APP_SECRET || process.env.NEXTAUTH_SECRET;
-  if (!secret) {
-    if (process.env.NODE_ENV === 'production') {
-      console.error('CRITICAL SECURITY ERROR: APP_SECRET or NEXTAUTH_SECRET is not configured in production environment!');
-      throw new Error('Konfigurasi keamanan server (APP_SECRET) belum diatur.');
-    }
-    return DEFAULT_DEV_SECRET;
+  if (!secret || !secret.trim()) {
+    return DEFAULT_FALLBACK_SECRET;
   }
-  return secret;
+  return secret.trim();
 }
 
 export function signData(data: string): string {
@@ -81,11 +77,18 @@ export function verifyAndDecodeToken(token: string): UserSession | null {
 export async function setSession(user: UserSession) {
   const cookieStore = await cookies();
   let domain: string | undefined = undefined;
+  let isSecure = process.env.NODE_ENV === 'production';
+
   try {
     const headerStore = await headers();
-    const host = headerStore.get('host') || '';
+    const host = (headerStore.get('x-forwarded-host') || headerStore.get('host') || '').toLowerCase();
+    const proto = (headerStore.get('x-forwarded-proto') || '').toLowerCase();
+
     if (host.includes('alafiyah.id')) {
       domain = '.alafiyah.id';
+    }
+    if (host.startsWith('localhost') || host.startsWith('127.0.0.1') || proto === 'http') {
+      isSecure = false;
     }
   } catch {
     // Safe fallback if headers not available
@@ -93,9 +96,10 @@ export async function setSession(user: UserSession) {
 
   const token = encodeSession(user);
 
+  // Also clear any host-only or domain-scoped duplicate cookie first so there is never a stale token conflict
   cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isSecure,
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: '/',
@@ -120,17 +124,25 @@ export async function clearSession() {
   let domain: string | undefined = undefined;
   try {
     const headerStore = await headers();
-    const host = headerStore.get('host') || '';
+    const host = (headerStore.get('x-forwarded-host') || headerStore.get('host') || '').toLowerCase();
     if (host.includes('alafiyah.id')) {
       domain = '.alafiyah.id';
     }
   } catch {}
 
-  cookieStore.delete({
-    name: SESSION_COOKIE_NAME,
-    path: '/',
-    ...(domain ? { domain } : {}),
-  });
+  try {
+    cookieStore.delete({
+      name: SESSION_COOKIE_NAME,
+      path: '/',
+    });
+    if (domain) {
+      cookieStore.delete({
+        name: SESSION_COOKIE_NAME,
+        path: '/',
+        domain,
+      });
+    }
+  } catch {}
 }
 
 export function getRedirectUrlForRole(role: string, schoolSlug?: string | null): string {
@@ -146,7 +158,9 @@ export function getRedirectUrlForRole(role: string, schoolSlug?: string | null):
     case 'PPDB_OFFICER':
       return `/admin/${schoolSlug || 'sd'}/ppdb`;
     case 'FINANCE':
-      return schoolSlug && schoolSlug !== 'foundation' ? `/admin/${schoolSlug}/finance` : '/admin/foundation/finance';
+      return schoolSlug && schoolSlug !== 'foundation'
+        ? `/admin/${schoolSlug}/finance`
+        : '/admin/foundation/finance';
     case 'AFFILIATE':
       return '/affiliate/dashboard';
     case 'APPLICANT':

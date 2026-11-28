@@ -163,9 +163,14 @@ export default function LoginPage() {
         sessionStorage.setItem('alafiyah_pwa_splash_seen', '1');
       } catch {}
 
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl;
-      }
+      const params = new URLSearchParams(window.location.search);
+      const callbackUrl = params.get('callbackUrl');
+      const targetUrl =
+        callbackUrl && callbackUrl.startsWith('/') && !callbackUrl.startsWith('/login')
+          ? callbackUrl
+          : data.redirectUrl || '/admin/sd/dashboard';
+
+      window.location.href = targetUrl;
     } catch {
       const netError = 'Gangguan jaringan, periksa koneksi Anda.';
       setErrorMsg(netError);
@@ -261,6 +266,9 @@ export default function LoginPage() {
                   type="text"
                   required
                   autoComplete="username"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="ID atau Email"
