@@ -149,7 +149,8 @@ export default function AdminHeader({
       // ignore
     }
     document.cookie = 'alafiyah_session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    router.push('/login');
+    document.cookie = 'alafiyah_session=; Path=/; Domain=.alafiyah.id; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location.href = '/login';
   };
 
   // Auto-detect current active unit scope from props or path

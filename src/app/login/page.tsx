@@ -91,6 +91,7 @@ export default function LoginPage() {
   });
 
   const [activeUnit, setActiveUnit] = useState<UnitKey>('sd');
+  const [isSubdomainHost, setIsSubdomainHost] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -98,6 +99,8 @@ export default function LoginPage() {
       const paramUnit = (params.get('unit') || params.get('school')) as UnitKey | null;
       const sub = extractSubdomain(window.location.host) as UnitKey | null;
       const stored = localStorage.getItem('alafiyah_active_unit') as UnitKey | null;
+
+      if (sub) setIsSubdomainHost(true);
 
       let resolved: UnitKey = 'sd';
       if (paramUnit && ['sd', 'smp', 'tk', 'yayasan'].includes(paramUnit)) {
@@ -114,6 +117,7 @@ export default function LoginPage() {
   }, []);
 
   const currentTheme = UNIT_THEMES[activeUnit] || UNIT_THEMES.sd;
+  const effectiveHomeUrl = isSubdomainHost ? '/' : currentTheme.homeUrl;
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -184,7 +188,7 @@ export default function LoginPage() {
       {/* Top Back Link */}
       <header className="max-w-sm mx-auto w-full flex items-center justify-between">
         <Link
-          href={currentTheme.homeUrl}
+          href={effectiveHomeUrl}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-950 bg-white py-1.5 px-3.5 rounded-full border border-slate-200 shadow-2xs transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />

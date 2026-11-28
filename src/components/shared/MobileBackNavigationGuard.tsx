@@ -77,8 +77,6 @@ export function useBackClose(isOpen: boolean, onClose: () => void, id = 'modal')
 
 /**
  * Menentukan halaman induk (parent route) saat tombol Back ditekan pada sub-halaman.
- * Mendukung baik routing berbasis path (/sd/berita, /smp/dokumentasi) maupun
- * subdomain (sdit.alafiyah.id/berita, smpit.alafiyah.id/dokumentasi).
  */
 function getParentFallbackPath(pathname: string): string | null {
   if (!pathname) return null;
@@ -86,8 +84,15 @@ function getParentFallbackPath(pathname: string): string | null {
   const host = typeof window !== 'undefined' ? window.location.host : '';
   const subdomain = extractSubdomain(host);
 
-  // Jika berada di beranda utama (root atau beranda unit), tidak ada parent halaman lagi
-  if (pathname === '/' || pathname === '/sd' || pathname === '/smp' || pathname === '/tk') {
+  // Jangan pasang bumper otomatis di beranda utama atau halaman login agar navigasi masuk/keluar selalu instan
+  if (
+    pathname === '/' ||
+    pathname === '/sd' ||
+    pathname === '/smp' ||
+    pathname === '/tk' ||
+    pathname === '/login' ||
+    pathname.startsWith('/admin')
+  ) {
     return null;
   }
 
@@ -98,14 +103,6 @@ function getParentFallbackPath(pathname: string): string | null {
       pathname.startsWith(`/${subdomain}/spmb/`)
     ) {
       return '/spmb';
-    }
-    if (pathname.startsWith('/admin/')) {
-      const adminMatch = pathname.match(/^\/admin\/(sd|smp|tk)\/([^/]+)/);
-      if (adminMatch) {
-        const u = adminMatch[1];
-        const sub = adminMatch[2];
-        return sub !== 'dashboard' ? `/admin/${u}/dashboard` : '/';
-      }
     }
     return '/';
   }
@@ -123,37 +120,7 @@ function getParentFallbackPath(pathname: string): string | null {
   // 4. Halaman dalam TK (/tk/*) -> /tk
   if (pathname.startsWith('/tk/')) return '/tk';
 
-  // 5. Sub-halaman clean path tanpa prefix (/spmb/daftar, /berita, /dokumentasi, /profil, dll)
-  if (pathname.startsWith('/spmb/')) {
-    const activeUnit = typeof window !== 'undefined' ? localStorage.getItem('alafiyah_active_unit') : null;
-    if (activeUnit === 'smp') return '/smp/spmb';
-    if (activeUnit === 'sd') return '/sd/spmb';
-    return '/spmb';
-  }
-
-  // 6. Halaman dalam Admin Unit (/admin/sd/cms, /admin/sd/news, dll) -> /admin/sd/dashboard
-  const adminUnitMatch = pathname.match(/^\/admin\/(sd|smp|tk)\/([^/]+)/);
-  if (adminUnitMatch) {
-    const unit = adminUnitMatch[1];
-    const sub = adminUnitMatch[2];
-    if (sub !== 'dashboard') {
-      return `/admin/${unit}/dashboard`;
-    }
-    return `/${unit}`;
-  }
-
-  // 7. Halaman dalam Admin Yayasan (/admin/foundation/cms, dll) -> /admin/foundation
-  if (pathname.startsWith('/admin/foundation/')) return '/admin/foundation';
-
-  // 8. Halaman umum atau Affiliate / Login / Portal / Berita / Dokumentasi -> kembali ke beranda unit aktif
-  if (typeof window !== 'undefined') {
-    const unit = localStorage.getItem('alafiyah_active_unit');
-    if (unit === 'smp') return '/smp';
-    if (unit === 'tk') return '/tk';
-    if (unit === 'sd') return '/sd';
-  }
-
-  return '/sd';
+  return null;
 }
 
 /**
@@ -161,9 +128,10 @@ function getParentFallbackPath(pathname: string): string | null {
  * Memastikan:
  * 1. Jika ada modal, foto lightbox, drawer menu, atau tab kategori yang sedang aktif,
  *    tombol Back HP menutup/meresetnya satu per satu (LIFO) tanpa meninggalkan halaman.
- * 2. Di beranda maupun sub-halaman (/sd/berita, /sd/dokumentasi, /smp/berita, /smp/dokumentasi, dll),
- *    selalu terdapat history bumper (`pushState`) sehingga menekan tombol Back HP tidak pernah
- *    langsung melempar pengguna keluar dari aplikasi APK/PWA.
+ * 2. Jika pengguna membuka aplikasi langsung ke sub-halaman (ketika history.length <= 2),
+ *    dipasang 1 bumper agar tombol Back kembali ke beranda unit dan tidak langsung keluar APK.
+ *    Namun jika pengguna sudah bernavigasi normal dari Beranda -> Sub-halaman,
+ *    navigasi Next.js tidak diganggu sama sekali agar perpindahan ke Beranda atau Login selalu mulus.
  */
 export default function MobileBackNavigationGuard() {
   const pathname = usePathname();
@@ -171,44 +139,41 @@ export default function MobileBackNavigationGuard() {
   const pathnameRef = useRef(pathname);
   pathnameRef.current = pathname;
 
-  // Pastikan setiap kali halaman dibuka atau berganti route, ada history bumper pengaman
+  // Bersihkan stack overlay saat berpindah halaman (route change)
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    activeOverlayStack.length = 0;
 
-    const ensureHistoryBumper = () => {
+    if (typeof window === 'undefined') return;
+    const parentPath = getParentFallbackPath(pathname);
+
+    // Hanya pasang bumper bila pengguna mendarat langsung di sub-halaman dengan history tipis (misal baru buka APK)
+    if (parentPath && window.history.length <= 2) {
       try {
         const currentState = window.history.state || {};
-        if (!currentState.__alafiyah_page_bumper && !currentState.__alafiyah_overlay_active) {
+        if (!currentState.__alafiyah_direct_bumper) {
           window.history.pushState(
-            {
-              ...currentState,
-              __alafiyah_page_bumper: true,
-              __alafiyah_path: window.location.pathname,
-            },
+            { ...currentState, __alafiyah_direct_bumper: true },
             ''
           );
         }
       } catch {
         // ignore
       }
-    };
-
-    ensureHistoryBumper();
+    }
   }, [pathname]);
 
-  // Satu listener popstate global untuk menangani stack modal/tab & fallback halaman induk
+  // Satu listener popstate global untuk menangani stack modal/tab
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const handleGlobalPopState = () => {
-      // 1. Jika popstate ini dipicu oleh penutupan manual tombol X (history.back sintetis), abaikan
       if ((window as any).__alafiyah_ignore_next_popstate) {
         (window as any).__alafiyah_ignore_next_popstate = false;
         return;
       }
 
-      // 2. Jika ada modal, foto dokumentasi, detail berita, menu, atau tab kategori yang sedang aktif,
-      //    tutup item paling atas di stack terlebih dahulu!
+      // Jika ada modal, foto dokumentasi, detail berita, menu, atau tab kategori yang sedang aktif,
+      // tutup item paling atas di stack terlebih dahulu!
       if (activeOverlayStack.length > 0) {
         const topOverlay = activeOverlayStack.pop();
         if (topOverlay) {
@@ -217,36 +182,11 @@ export default function MobileBackNavigationGuard() {
         return;
       }
 
-      // 3. Jika tidak ada modal/tab terbuka dan pengguna menekan Back pada sub-halaman
-      //    (misal /sd/berita, /sd/dokumentasi, /smp/berita, /smp/dokumentasi),
-      //    pastikan kembali ke halaman induk/beranda unit dan tidak keluar dari APK.
+      // Jika mendarat langsung di sub-halaman dan history habis, arahkan ke beranda induk
       const currentPath = pathnameRef.current || window.location.pathname;
       const parentPath = getParentFallbackPath(currentPath);
-
-      if (parentPath) {
-        // Pasang kembali bumper sebelum pindah ke parent agar di halaman parent pun tidak langsung keluar APK
-        try {
-          window.history.pushState(
-            { ...(window.history.state || {}), __alafiyah_page_bumper: true },
-            ''
-          );
-        } catch {
-          // ignore
-        }
+      if (parentPath && window.history.length <= 2) {
         router.push(parentPath);
-      } else {
-        // Jika sudah di beranda utama (/sd, /smp, atau /), tahan sekali dengan bumper agar tidak tidak sengaja keluar APK
-        try {
-          const st = window.history.state || {};
-          if (!st.__alafiyah_home_bumper_used) {
-            window.history.pushState(
-              { ...st, __alafiyah_page_bumper: true, __alafiyah_home_bumper_used: true },
-              ''
-            );
-          }
-        } catch {
-          // ignore
-        }
       }
     };
 
