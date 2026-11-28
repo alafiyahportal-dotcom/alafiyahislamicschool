@@ -476,16 +476,34 @@ export default async function ApplicantPortalPage({
         <PortalDocumentStatusList
           initialDocuments={reg.documents.map((d) => {
             const rawUrl = (d.fileUrl || '').trim();
+            const isFakeDefaultName =
+              d.fileName === 'Kartu_Keluarga.pdf' ||
+              d.fileName === 'Akta_Kelahiran.pdf' ||
+              d.fileName === 'Pas_Foto_3x4.jpg' ||
+              d.fileName === 'dokumen.pdf';
             const isDeferred =
               !rawUrl ||
               rawUrl === 'DEFERRED' ||
               rawUrl === '/uploads/sample.pdf' ||
               rawUrl === '/uploads/sample-foto.jpg' ||
+              isFakeDefaultName ||
               d.fileName.toLowerCase().includes('disusulkan') ||
               d.fileName.toLowerCase().includes('belum diunggah');
 
+            const docTitle =
+              d.docType === 'KK'
+                ? 'Kartu Keluarga (KK)'
+                : d.docType === 'AKTA'
+                ? 'Akta Kelahiran'
+                : d.docType === 'FOTO'
+                ? 'Pas Foto 3x4'
+                : d.docType === 'IJAZAH'
+                ? 'Ijazah / SKL'
+                : `Dokumen ${d.docType}`;
+
             return {
               ...d,
+              fileName: isDeferred ? `Belum Diunggah (${docTitle})` : d.fileName,
               fileUrl: isDeferred
                 ? 'DEFERRED'
                 : rawUrl.startsWith('data:')

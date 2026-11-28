@@ -24,10 +24,12 @@ import {
   Send,
   Loader2,
   Download,
-  Trash2
+  Trash2,
+  Upload
 } from 'lucide-react';
 import IslamicToast from '@/components/common/IslamicToast';
 import { exportToExcel, ExcelColumn } from '@/lib/excelExport';
+import { compressImageClient, convertHeicIfNeeded } from '@/lib/image-compress';
 import DocumentViewerModal from './DocumentViewerModal';
 import { AssessmentRubricModal } from './AssessmentRubricModal';
 import ApplicantDetailBiodataModal from './ApplicantDetailBiodataModal';
@@ -101,6 +103,83 @@ export default function PPDBVerificationClient({
   const [scheduleDate, setScheduleDate] = useState('Sabtu, 28 Maret 2026 Pukul 08.30 WIB');
   const [testLocation, setTestLocation] = useState(`Gedung Utama ${schoolName} Majalengka`);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [uploadingQuickDocId, setUploadingQuickDocId] = useState<string | null>(null);
+
+  const handleQuickDocUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    doc: ApplicantItem['documents'][number]
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingQuickDocId(doc.id);
+    try {
+      let processedFile = await convertHeicIfNeeded(file);
+      if (processedFile.type.startsWith('image/')) {
+        try {
+          const compressed = await compressImageClient(processedFile, 1600, 1600, 0.84);
+          processedFile = compressed.file;
+        } catch {
+          // fallback
+        }
+      }
+
+      const fd = new FormData();
+      fd.append('file', processedFile);
+      fd.append('docType', doc.docType);
+
+      const uploadRes = await fetch('/api/upload', {
+        method: 'POST',
+        body: fd,
+      });
+      const uploadData = await uploadRes.json();
+
+      if (!uploadRes.ok || !uploadData.success) {
+        throw new Error(uploadData.error || 'Gagal mengunggah berkas');
+      }
+
+      const patchRes = await fetch(`/api/admin/documents/${doc.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileUrl: uploadData.fileUrl,
+          fileName: file.name || uploadData.fileName,
+          verificationStatus: 'VALID',
+          notes: 'Diunggah & disahkan oleh Admin Panitia',
+        }),
+      });
+      const patchData = await patchRes.json();
+
+      if (!patchRes.ok || !patchData.success) {
+        throw new Error(patchData.error || 'Gagal menyimpan berkas ke database');
+      }
+
+      const savedDoc = patchData.document;
+      handleDocStatusUpdated(
+        doc.id,
+        savedDoc.verificationStatus || 'VALID',
+        savedDoc.notes,
+        savedDoc.fileUrl,
+        savedDoc.fileName
+      );
+      setToast({
+        isOpen: true,
+        type: 'success',
+        title: 'Alhamdulillah, Berkas Tersimpan!',
+        message: `Berkas ${doc.docType} berhasil diunggah dan tersimpan permanen.`,
+      });
+    } catch (err: any) {
+      setToast({
+        isOpen: true,
+        type: 'error',
+        title: 'Gagal Mengunggah',
+        message: err.message || 'Terjadi kendala saat mengunggah berkas',
+      });
+    } finally {
+      setUploadingQuickDocId(null);
+      e.target.value = '';
+    }
+  };
 
   // Islamic Toast State
   const [toast, setToast] = useState<{
@@ -811,8 +890,13 @@ export default function PPDBVerificationClient({
                     doc.fileUrl === 'DEFERRED' ||
                     doc.fileUrl === '/uploads/sample.pdf' ||
                     doc.fileUrl === '/uploads/sample-foto.jpg' ||
+                    doc.fileName === 'Kartu_Keluarga.pdf' ||
+                    doc.fileName === 'Akta_Kelahiran.pdf' ||
+                    doc.fileName === 'Pas_Foto_3x4.jpg' ||
                     doc.fileName.toLowerCase().includes('disusulkan') ||
                     doc.fileName.toLowerCase().includes('belum diunggah');
+                  const isUploadingThis = uploadingQuickDocId === doc.id;
+                  const quickInputId = `quick-doc-upload-${doc.id}`;
                   const docLabel =
                     doc.docType === 'KK'
                       ? 'Kartu Keluarga (KK)'
@@ -829,6 +913,13 @@ export default function PPDBVerificationClient({
                       key={doc.id}
                       className="p-3 bg-slate-50 border border-slate-200 rounded-sm flex items-center justify-between gap-2"
                     >
+                      <input
+                        id={quickInputId}
+                        type="file"
+                        accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,image/*"
+                        className="hidden"
+                        onChange={(e) => handleQuickDocUpload(e, doc)}
+                      />
                       <div className="flex items-center space-x-3 min-w-0">
                         <div className="w-8 h-8 rounded-xs bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-[10px] flex-shrink-0">
                           {doc.docType}
@@ -842,7 +933,7 @@ export default function PPDBVerificationClient({
                               </span>
                             ) : doc.verificationStatus === 'VALID' ? (
                               <span className="px-1.5 py-0.2 rounded-xs bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                                SAH
+                                ✓ SAH
                               </span>
                             ) : doc.verificationStatus === 'INVALID' ? (
                               <span className="px-1.5 py-0.2 rounded-xs bg-rose-100 text-rose-800 text-[10px] font-bold">
@@ -850,11 +941,13 @@ export default function PPDBVerificationClient({
                               </span>
                             ) : (
                               <span className="px-1.5 py-0.2 rounded-xs bg-amber-100 text-amber-800 text-[10px] font-bold">
-                                TERUNGGAH
+                                SUDAH DIUNGGAH
                               </span>
                             )}
                           </div>
-                          <p className="text-[11px] text-slate-500 truncate">{doc.fileName}</p>
+                          <p className="text-[11px] text-slate-500 truncate">
+                            {isDeferred ? 'Belum ada file diunggah' : doc.fileName}
+                          </p>
                           {doc.notes && (
                             <p className="text-[10px] text-rose-600 italic mt-0.5">
                               Catatan: {doc.notes}
@@ -862,14 +955,33 @@ export default function PPDBVerificationClient({
                           )}
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => setActiveDocItem(doc)}
-                        className="py-1.5 px-3 rounded-xs bg-white border border-[#2D7A70]/40 text-[#184F48] hover:bg-[#E8F3F1] text-xs font-bold transition-colors flex items-center space-x-1.5 cursor-pointer shadow-2xs shrink-0"
-                      >
-                        <Eye className="w-3.5 h-3.5 text-[#2D7A70]" />
-                        <span>{isDeferred ? 'Unggah / Cek' : 'Lihat Berkas'}</span>
-                      </button>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {!isDeferred && (
+                          <button
+                            type="button"
+                            onClick={() => setActiveDocItem(doc)}
+                            className="py-1.5 px-3 rounded-xs bg-[#00594f] hover:bg-[#003831] text-white text-xs font-bold transition-colors flex items-center space-x-1.5 cursor-pointer shadow-2xs"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>Lihat Berkas</span>
+                          </button>
+                        )}
+                        <label
+                          htmlFor={quickInputId}
+                          className={`py-1.5 px-3 rounded-xs border text-xs font-bold transition-colors flex items-center space-x-1.5 cursor-pointer shadow-2xs ${
+                            isDeferred
+                              ? 'bg-[#00594f] hover:bg-[#003831] text-white border-[#00594f]'
+                              : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-100'
+                          }`}
+                        >
+                          {isUploadingThis ? (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          ) : (
+                            <Upload className="w-3.5 h-3.5" />
+                          )}
+                          <span>{isDeferred ? 'Pilih & Unggah' : 'Ganti'}</span>
+                        </label>
+                      </div>
                     </div>
                   );
                 })

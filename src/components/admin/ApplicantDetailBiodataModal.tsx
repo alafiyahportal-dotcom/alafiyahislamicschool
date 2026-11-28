@@ -21,9 +21,12 @@ import {
   FileCheck,
   Compass,
   Download,
-  Eye
+  Eye,
+  Upload,
+  Loader2
 } from 'lucide-react';
 import { calculateAgePerJuly2027 } from '@/types/sdit-form';
+import { compressImageClient, convertHeicIfNeeded } from '@/lib/image-compress';
 import { ApplicantItem } from './PPDBVerificationClient';
 import OfficialRegistrationFormModal from '@/components/portal/OfficialRegistrationFormModal';
 import EditBiodataModal from '@/components/portal/EditBiodataModal';
@@ -54,8 +57,79 @@ export default function ApplicantDetailBiodataModal({
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [viewingDoc, setViewingDoc] = useState<any>(null);
+  const [uploadingDocId, setUploadingDocId] = useState<string | null>(null);
+  const [docUploadError, setDocUploadError] = useState<string | null>(null);
 
   if (!isOpen || !applicant) return null;
+
+  const handleDirectCardUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    doc: ApplicantItem['documents'][number]
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingDocId(doc.id);
+    setDocUploadError(null);
+
+    try {
+      let processedFile = await convertHeicIfNeeded(file);
+      if (processedFile.type.startsWith('image/')) {
+        try {
+          const compressed = await compressImageClient(processedFile, 1600, 1600, 0.84);
+          processedFile = compressed.file;
+        } catch {
+          // fallback
+        }
+      }
+
+      const fd = new FormData();
+      fd.append('file', processedFile);
+      fd.append('docType', doc.docType);
+
+      const uploadRes = await fetch('/api/upload', {
+        method: 'POST',
+        body: fd,
+      });
+      const uploadData = await uploadRes.json();
+
+      if (!uploadRes.ok || !uploadData.success) {
+        throw new Error(uploadData.error || 'Gagal mengunggah berkas');
+      }
+
+      const patchRes = await fetch(`/api/admin/documents/${doc.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileUrl: uploadData.fileUrl,
+          fileName: file.name || uploadData.fileName,
+          verificationStatus: 'VALID',
+          notes: 'Diunggah & disahkan oleh Admin Panitia',
+        }),
+      });
+      const patchData = await patchRes.json();
+
+      if (!patchRes.ok || !patchData.success) {
+        throw new Error(patchData.error || 'Gagal menyimpan berkas ke database');
+      }
+
+      const savedDoc = patchData.document;
+      if (onDocumentUpdated) {
+        onDocumentUpdated(
+          doc.id,
+          savedDoc.verificationStatus || 'VALID',
+          savedDoc.notes,
+          savedDoc.fileUrl,
+          savedDoc.fileName
+        );
+      }
+    } catch (err: any) {
+      setDocUploadError(err.message || 'Gagal mengunggah berkas');
+    } finally {
+      setUploadingDocId(null);
+      e.target.value = '';
+    }
+  };
 
   const isSmp = applicant.schoolSlug === 'smp' || applicant.registrationNo.toUpperCase().includes('SMP');
   const parent = applicant.parentDataRaw || {};
@@ -666,7 +740,12 @@ export default function ApplicantDetailBiodataModal({
                     </h3>
                   </div>
 
-                  <div className="p-5">
+                  <div className="p-5 space-y-3">
+                    {docUploadError && (
+                      <div className="p-3 rounded-xs bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
+                        {docUploadError}
+                      </div>
+                    )}
                     {applicant.documents.length === 0 ? (
                       <div className="p-6 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">
                         <FileText className="w-8 h-8 mx-auto mb-2 text-slate-300" />
@@ -678,21 +757,50 @@ export default function ApplicantDetailBiodataModal({
                     ) : (
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         {applicant.documents.map((doc) => {
+                          const isFakeDefaultName =
+                            doc.fileName === 'Kartu_Keluarga.pdf' ||
+                            doc.fileName === 'Akta_Kelahiran.pdf' ||
+                            doc.fileName === 'Pas_Foto_3x4.jpg' ||
+                            doc.fileName === 'dokumen.pdf';
                           const isDeferred =
                             !doc.fileUrl ||
                             doc.fileUrl === 'DEFERRED' ||
                             doc.fileUrl === '/uploads/sample.pdf' ||
                             doc.fileUrl === '/uploads/sample-foto.jpg' ||
+                            isFakeDefaultName ||
                             doc.fileName.toLowerCase().includes('disusulkan') ||
                             doc.fileName.toLowerCase().includes('belum diunggah');
+                          const isUploadingThis = uploadingDocId === doc.id;
+                          const fileInputId = `admin-direct-upload-${doc.id}`;
+                          const docLabel =
+                            doc.docType === 'KK'
+                              ? 'Kartu Keluarga (KK)'
+                              : doc.docType === 'AKTA'
+                              ? 'Akta Kelahiran'
+                              : doc.docType === 'FOTO'
+                              ? 'Pas Foto 3x4'
+                              : doc.docType === 'IJAZAH'
+                              ? 'Ijazah / SKL'
+                              : `Dokumen ${doc.docType}`;
 
                           return (
                             <div
                               key={doc.id}
-                              className="p-3.5 rounded-sm border border-slate-200 bg-slate-50/80 flex flex-col justify-between"
+                              className={`p-3.5 rounded-sm border flex flex-col justify-between ${
+                                !isDeferred
+                                  ? 'border-emerald-300 bg-emerald-50/30'
+                                  : 'border-slate-200 bg-slate-50/80'
+                              }`}
                             >
+                              <input
+                                id={fileInputId}
+                                type="file"
+                                accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,image/*"
+                                className="hidden"
+                                onChange={(e) => handleDirectCardUpload(e, doc)}
+                              />
                               <div>
-                                <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center justify-between mb-1.5">
                                   <span
                                     className={`text-[10px] font-bold px-2 py-0.5 rounded-xs ${
                                       isSmp
@@ -716,42 +824,71 @@ export default function ApplicantDetailBiodataModal({
                                     {isDeferred
                                       ? 'Belum Diunggah'
                                       : doc.verificationStatus === 'VALID'
-                                      ? 'Sah'
+                                      ? '✓ Sah'
                                       : doc.verificationStatus === 'INVALID'
-                                      ? 'Revisi'
-                                      : 'Terunggah'}
+                                      ? 'Perlu Revisi'
+                                      : 'Sudah Diunggah'}
                                   </span>
                                 </div>
+                                <p className="text-xs font-extrabold text-slate-900">
+                                  {docLabel}
+                                </p>
                                 <p
-                                  className="text-xs font-semibold text-slate-900 truncate"
+                                  className="text-[11px] text-slate-500 truncate mt-0.5"
                                   title={doc.fileName}
                                 >
-                                  {doc.fileName}
+                                  {isDeferred ? 'Belum ada file diunggah' : doc.fileName}
                                 </p>
                               </div>
-                              <div className="mt-3 flex items-center gap-1.5">
-                                <button
-                                  type="button"
-                                  onClick={() => setViewingDoc(doc)}
-                                  className={`flex-1 py-1.5 px-2.5 rounded-xs ${
-                                    isSmp
-                                      ? 'bg-[#030164] hover:bg-[#090580] text-white'
-                                      : 'bg-[#00594f] hover:bg-[#003831] text-white'
-                                  } text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer`}
-                                >
-                                  <Eye className="w-3.5 h-3.5" />
-                                  <span>{isDeferred ? 'Unggah / Cek' : 'Lihat Berkas'}</span>
-                                </button>
-                                {!isDeferred && (
-                                  <a
-                                    href={doc.fileUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="p-1.5 rounded-xs bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors shadow-2xs shrink-0"
-                                    title="Buka Dokumen di Tab Baru"
+
+                              <div className="mt-3 flex flex-col gap-1.5">
+                                {!isDeferred ? (
+                                  <div className="flex items-center gap-1.5">
+                                    <button
+                                      type="button"
+                                      onClick={() => setViewingDoc(doc)}
+                                      className={`flex-1 py-1.5 px-2.5 rounded-xs ${
+                                        isSmp
+                                          ? 'bg-[#030164] hover:bg-[#090580] text-white'
+                                          : 'bg-[#00594f] hover:bg-[#003831] text-white'
+                                      } text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer`}
+                                    >
+                                      <Eye className="w-3.5 h-3.5" />
+                                      <span>Lihat Berkas</span>
+                                    </button>
+                                    <label
+                                      htmlFor={fileInputId}
+                                      className="p-1.5 rounded-xs bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors shadow-2xs shrink-0 cursor-pointer"
+                                      title="Ganti File Berkas"
+                                    >
+                                      {isUploadingThis ? (
+                                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                      ) : (
+                                        <Upload className="w-3.5 h-3.5" />
+                                      )}
+                                    </label>
+                                  </div>
+                                ) : (
+                                  <label
+                                    htmlFor={fileInputId}
+                                    className={`w-full py-1.5 px-2.5 rounded-xs ${
+                                      isSmp
+                                        ? 'bg-[#030164] hover:bg-[#090580] text-white'
+                                        : 'bg-[#00594f] hover:bg-[#003831] text-white'
+                                    } text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer`}
                                   >
-                                    <ExternalLink className="w-3.5 h-3.5" />
-                                  </a>
+                                    {isUploadingThis ? (
+                                      <>
+                                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                        <span>Mengunggah...</span>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Upload className="w-3.5 h-3.5" />
+                                        <span>Pilih &amp; Unggah File</span>
+                                      </>
+                                    )}
+                                  </label>
                                 )}
                               </div>
                             </div>
