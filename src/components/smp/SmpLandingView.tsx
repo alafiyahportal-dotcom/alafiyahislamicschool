@@ -9,6 +9,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import CampusLocationMapSection from '@/components/landing/CampusLocationMapSection';
 import AutoHorizontalSlider from '@/components/landing/AutoHorizontalSlider';
 import FacelessIslamicAvatar from '@/components/shared/FacelessIslamicAvatar';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 import {
   ChevronLeft,
   ChevronRight,
@@ -609,6 +610,12 @@ export default function SmpLandingView({
   const [activeGender, setActiveGender] = useState<'ikhwan' | 'akhwat'>('ikhwan');
   const [copiedBank, setCopiedBank] = useState(false);
   const [refCode, setRefCode] = useState<string | null>(null);
+
+  useBackClose(Boolean(selectedNews), () => setSelectedNews(null), 'smp-news-modal');
+  useBackClose(isPosterModalOpen, () => setIsPosterModalOpen(false), 'smp-poster-modal');
+  useBackClose(isFeeModalOpen, () => setIsFeeModalOpen(false), 'smp-fee-modal');
+  useBackClose(activeNewsTab !== 'Semua', () => setActiveNewsTab('Semua'), 'smp-news-tab');
+  useBackClose(agendaPage !== 1, () => setAgendaPage(1), 'smp-agenda-page');
 
   useEffect(() => {
     setRefCode(getStoredReferralCode());

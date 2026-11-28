@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import FacelessIslamicAvatar from '@/components/shared/FacelessIslamicAvatar';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 import {
   Save,
   Check,
@@ -551,6 +552,10 @@ export default function CMSEditorClient({
 
   const [activeTab, setActiveTab] = useState<TabType>('hero');
   const [viewMode, setViewMode] = useState<'editor' | 'preview'>('editor');
+
+  // Tutup mode preview atau kembali ke tab utama saat tombol Back HP ditekan
+  useBackClose(viewMode === 'preview', () => setViewMode('editor'), 'cms-preview-mode');
+  useBackClose(viewMode === 'editor' && activeTab !== 'hero', () => setActiveTab('hero'), 'cms-active-tab');
   const [formData, setFormData] = useState<CMSInitialData>({
     ...initialData,
     affiliate: initialData.affiliate || DEFAULT_AFFILIATE_CONTENT,

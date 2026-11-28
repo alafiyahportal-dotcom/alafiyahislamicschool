@@ -28,6 +28,7 @@ import {
   getVideoEmbedUrl,
   getVideoThumbnailUrl,
 } from '@/lib/news-media';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 export interface NewsArticle {
   id: string;
@@ -71,6 +72,25 @@ export default function NewsListClient({
     caption?: string;
   } | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
+
+  useBackClose(
+    Boolean(lightboxImage),
+    () => {
+      setLightboxImage(null);
+      setZoomLevel(1);
+    },
+    'news-lightbox'
+  );
+  useBackClose(
+    Boolean(selectedArticle && !lightboxImage),
+    () => setSelectedArticle(null),
+    'news-article-modal'
+  );
+  useBackClose(
+    selectedCategory !== 'Semua' && !selectedArticle && !lightboxImage,
+    () => setSelectedCategory('Semua'),
+    'news-category-tab'
+  );
 
   const isSmp = schoolSlug === 'smp';
   const isSd = schoolSlug === 'sd';

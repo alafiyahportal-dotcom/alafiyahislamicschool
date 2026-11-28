@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { getSchoolUrl, extractSubdomain, SchoolSlug } from '@/lib/domain';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 import {
   ArrowRight,
   Menu,
@@ -56,6 +57,9 @@ export default function Navbar({
   const pathname = usePathname();
   const router = useRouter();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useBackClose(isMobileMenuOpen, () => setIsMobileMenuOpen(false), 'mobile-nav-menu');
+  useBackClose(isSearchOpen, () => setIsSearchOpen(false), 'quick-search-modal');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

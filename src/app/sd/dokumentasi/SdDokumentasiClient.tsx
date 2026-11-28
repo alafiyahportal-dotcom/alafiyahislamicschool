@@ -15,6 +15,7 @@ import {
   ArrowRight, 
 } from 'lucide-react';
 import ScrollReveal from '@/components/landing/ScrollReveal';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 export interface GalleryItem {
   id: string;
@@ -158,6 +159,13 @@ const CATEGORIES = [
 export default function SdDokumentasiClient({ initialGallery }: { initialGallery?: GalleryItem[] }) {
   const [activeCategory, setActiveCategory] = useState<string>('Semua');
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryItem | null>(null);
+
+  useBackClose(Boolean(selectedPhoto), () => setSelectedPhoto(null), 'sd-gallery-photo');
+  useBackClose(
+    activeCategory !== 'Semua' && !selectedPhoto,
+    () => setActiveCategory('Semua'),
+    'sd-gallery-tab'
+  );
 
   const galleryList = (initialGallery && initialGallery.length > 0) ? initialGallery : GALLERY_DATA;
 

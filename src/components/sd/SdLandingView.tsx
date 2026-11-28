@@ -9,6 +9,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import CampusLocationMapSection from '@/components/landing/CampusLocationMapSection';
 import AutoHorizontalSlider from '@/components/landing/AutoHorizontalSlider';
 import FacelessIslamicAvatar from '@/components/shared/FacelessIslamicAvatar';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 import {
   ChevronLeft,
   ChevronRight,
@@ -502,6 +503,11 @@ export default function SdLandingView({ school }: { school: SchoolData }) {
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [activePoster, setActivePoster] = useState(SPMB_POSTERS[0]);
   const [refCode, setRefCode] = useState<string | null>(null);
+
+  useBackClose(Boolean(selectedNews), () => setSelectedNews(null), 'sd-news-modal');
+  useBackClose(isPosterModalOpen, () => setIsPosterModalOpen(false), 'sd-poster-modal');
+  useBackClose(activeNewsTab !== 'Semua', () => setActiveNewsTab('Semua'), 'sd-news-tab');
+  useBackClose(agendaPage !== 1, () => setAgendaPage(1), 'sd-agenda-page');
 
   useEffect(() => {
     setRefCode(getStoredReferralCode());

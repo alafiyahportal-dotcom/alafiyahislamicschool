@@ -24,6 +24,7 @@ import ReferralTracker from "@/components/shared/ReferralTracker";
 import DynamicUnitThemeColorSync from "@/components/shared/DynamicUnitThemeColorSync";
 import WebsiteVisitorTracker from "@/components/shared/WebsiteVisitorTracker";
 import AutoCacheBuster from "@/components/shared/AutoCacheBuster";
+import MobileBackNavigationGuard from "@/components/shared/MobileBackNavigationGuard";
 import GoogleStructuredData from "@/components/seo/GoogleStructuredData";
 
 export const viewport: Viewport = {
@@ -142,6 +143,7 @@ export default function RootLayout({
           <ReferralTracker />
           <DynamicUnitThemeColorSync />
           <WebsiteVisitorTracker />
+          <MobileBackNavigationGuard />
         </Suspense>
         {children}
       </body>

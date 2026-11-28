@@ -9,6 +9,7 @@ import {
   MapPin,
   ArrowRight,
 } from 'lucide-react';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 export interface SmpGalleryItem {
   id: string;
@@ -139,6 +140,13 @@ export default function SmpDokumentasiClient({
 }) {
   const [activeCategory, setActiveCategory] = useState<string>('Semua');
   const [selectedPhoto, setSelectedPhoto] = useState<SmpGalleryItem | null>(null);
+
+  useBackClose(Boolean(selectedPhoto), () => setSelectedPhoto(null), 'smp-gallery-photo');
+  useBackClose(
+    activeCategory !== 'Semua' && !selectedPhoto,
+    () => setActiveCategory('Semua'),
+    'smp-gallery-tab'
+  );
 
   const galleryList =
     initialGallery && initialGallery.length > 0 ? initialGallery : DEFAULT_SMP_GALLERIES;

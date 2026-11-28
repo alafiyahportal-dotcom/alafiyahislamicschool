@@ -12,6 +12,7 @@ import {
   Search,
   Volume2
 } from 'lucide-react';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 interface DzikirItem {
   id: string;
@@ -145,6 +146,8 @@ export default function DoaDzikirClient() {
   const [counters, setCounters] = useState<{ [id: string]: number }>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [filterQuery, setFilterQuery] = useState('');
+
+  useBackClose(activeTab !== 'pagi', () => setActiveTab('pagi'), 'doa-dzikir-tab');
 
   const currentList = activeTab === 'pagi' ? DZIKIR_PAGI : activeTab === 'petang' ? DZIKIR_PETANG : DOA_MURID;
 

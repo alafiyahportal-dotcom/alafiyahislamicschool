@@ -164,7 +164,7 @@ export default function LoginPage() {
       } catch {}
 
       if (data.redirectUrl) {
-        window.location.replace(data.redirectUrl);
+        window.location.href = data.redirectUrl;
       }
     } catch {
       const netError = 'Gangguan jaringan, periksa koneksi Anda.';

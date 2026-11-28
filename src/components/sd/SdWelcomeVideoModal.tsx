@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Play, Volume2, VolumeX } from 'lucide-react';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 interface WelcomeVideoModalProps {
   videoSrc?: string;
@@ -85,6 +86,8 @@ export default function WelcomeVideoModal({
       // ignore
     }
   };
+
+  useBackClose(isOpen, handleClose, 'sd-intro-video');
 
   const handleOpenManually = () => {
     setIsOpen(true);

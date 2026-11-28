@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 import {
   LayoutDashboard,
   Users,
@@ -48,6 +49,8 @@ export default function AdminSidebar({
   const pathname = usePathname();
   const router = useRouter();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  useBackClose(isMobileOpen, () => setIsMobileOpen(false), 'admin-mobile-sidebar');
 
   // Auto-detect schoolSlug from route pathname to ensure 100% accurate branding
   const schoolSlug = (() => {
