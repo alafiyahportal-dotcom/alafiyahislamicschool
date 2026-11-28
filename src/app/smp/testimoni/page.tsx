@@ -6,6 +6,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { ChevronRight, ArrowRight } from 'lucide-react';
+import FacelessIslamicAvatar from '@/components/shared/FacelessIslamicAvatar';
 
 export const metadata: Metadata = {
   title: 'Testimoni & Suara Wali Murid | SMP IT Al-Afiyah Majalengka',
@@ -99,13 +100,21 @@ export default async function SmpTestimoniPage() {
                   <p className="text-sm sm:text-base text-slate-900 leading-relaxed italic">
                     &ldquo;{testi.quote}&rdquo;
                   </p>
-                  <div className="pt-3 border-t border-[#E5D5B2]">
-                    <h3 className="text-sm font-extrabold text-[#030164]">
-                      {testi.name}
-                    </h3>
-                    <p className="text-xs font-bold text-amber-700 mt-0.5">
-                      {testi.role}
-                    </p>
+                  <div className="pt-3 border-t border-[#E5D5B2] flex items-center gap-3">
+                    <FacelessIslamicAvatar
+                      name={testi.name}
+                      role={testi.role}
+                      unit="smp"
+                      className="w-11 h-11"
+                    />
+                    <div>
+                      <h3 className="text-sm font-extrabold text-[#030164]">
+                        {testi.name}
+                      </h3>
+                      <p className="text-xs font-bold text-amber-700 mt-0.5">
+                        {testi.role}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}

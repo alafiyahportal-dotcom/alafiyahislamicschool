@@ -8,6 +8,7 @@ import Footer from '@/components/layout/Footer';
 import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import CampusLocationMapSection from '@/components/landing/CampusLocationMapSection';
 import AutoHorizontalSlider from '@/components/landing/AutoHorizontalSlider';
+import FacelessIslamicAvatar from '@/components/shared/FacelessIslamicAvatar';
 import {
   ChevronLeft,
   ChevronRight,
@@ -1649,14 +1650,12 @@ export default function SmpLandingView({
                 </p>
 
                 <div className="flex items-center justify-center gap-3.5 text-left pt-1">
-                  <div className="relative w-[48px] h-[48px] rounded-full overflow-hidden shrink-0 shadow-xs border border-slate-200">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <FacelessIslamicAvatar
+                    name={t.name}
+                    role={t.role}
+                    unit="smp"
+                    className="w-[48px] h-[48px]"
+                  />
                   <div className="leading-tight">
                     <p className="text-sm text-[#030164] font-bold">
                       {t.name}

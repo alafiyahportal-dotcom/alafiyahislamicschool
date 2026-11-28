@@ -6,6 +6,7 @@ import StickyMobileBar from '@/components/layout/StickyMobileBar';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { ChevronRight, ArrowRight } from 'lucide-react';
+import FacelessIslamicAvatar from '@/components/shared/FacelessIslamicAvatar';
 
 export const metadata: Metadata = {
   title: 'Testimoni Orang Tua Murid | SDIT Al-Afiyah Majalengka',
@@ -93,13 +94,21 @@ export default async function SdTestimoniPage() {
                   <p className="text-sm sm:text-base text-[#003831] leading-relaxed italic">
                     &ldquo;{testi.quote}&rdquo;
                   </p>
-                  <div className="pt-3 border-t border-[#E5D5B2]">
-                    <h3 className="text-sm font-extrabold text-[#003831]">
-                      {testi.name}
-                    </h3>
-                    <p className="text-xs font-bold text-[#00594f] mt-0.5">
-                      {testi.role}
-                    </p>
+                  <div className="pt-3 border-t border-[#E5D5B2] flex items-center gap-3">
+                    <FacelessIslamicAvatar
+                      name={testi.name}
+                      role={testi.role}
+                      unit="sd"
+                      className="w-11 h-11"
+                    />
+                    <div>
+                      <h3 className="text-sm font-extrabold text-[#003831]">
+                        {testi.name}
+                      </h3>
+                      <p className="text-xs font-bold text-[#00594f] mt-0.5">
+                        {testi.role}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}

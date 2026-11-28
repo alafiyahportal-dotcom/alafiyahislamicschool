@@ -4,6 +4,7 @@ import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import FacelessIslamicAvatar from '@/components/shared/FacelessIslamicAvatar';
 import {
   Save,
   Check,
@@ -1969,9 +1970,17 @@ export default function CMSEditorClient({
                             </div>
                             <p className="text-xs text-slate-600 italic leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
                           </div>
-                          <div className="pt-3 border-t border-slate-100">
-                            <p className="text-xs font-bold text-slate-900">{t.name}</p>
-                            <p className="text-[11px] text-[#030164] font-semibold">{t.role}</p>
+                          <div className="pt-3 border-t border-slate-100 flex items-center gap-3">
+                            <FacelessIslamicAvatar
+                              name={t.name}
+                              role={t.role}
+                              unit="smp"
+                              className="w-10 h-10"
+                            />
+                            <div>
+                              <p className="text-xs font-bold text-slate-900">{t.name}</p>
+                              <p className="text-[11px] text-[#030164] font-semibold">{t.role}</p>
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -1989,9 +1998,17 @@ export default function CMSEditorClient({
                         {[1, 2, 3, 4, 5].map(s => <Award key={s} className="w-3.5 h-3.5 fill-amber-400" />)}
                       </div>
                       <p className="text-xs text-slate-600 italic leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
-                      <div className="pt-2 border-t border-slate-100">
-                        <p className="text-xs font-bold text-slate-900">{t.name}</p>
-                        <p className="text-[11px] text-slate-400">{t.role}</p>
+                      <div className="pt-2 border-t border-slate-100 flex items-center gap-3">
+                        <FacelessIslamicAvatar
+                          name={t.name}
+                          role={t.role}
+                          unit="sd"
+                          className="w-10 h-10"
+                        />
+                        <div>
+                          <p className="text-xs font-bold text-slate-900">{t.name}</p>
+                          <p className="text-[11px] text-slate-400">{t.role}</p>
+                        </div>
                       </div>
                     </div>
                   ))}
