@@ -74,22 +74,22 @@ export default function NewsListClient({
   const [zoomLevel, setZoomLevel] = useState<number>(1);
 
   useBackClose(
+    selectedCategory !== 'Semua',
+    () => setSelectedCategory('Semua'),
+    'news-category-tab'
+  );
+  useBackClose(
+    Boolean(selectedArticle),
+    () => setSelectedArticle(null),
+    'news-article-modal'
+  );
+  useBackClose(
     Boolean(lightboxImage),
     () => {
       setLightboxImage(null);
       setZoomLevel(1);
     },
     'news-lightbox'
-  );
-  useBackClose(
-    Boolean(selectedArticle && !lightboxImage),
-    () => setSelectedArticle(null),
-    'news-article-modal'
-  );
-  useBackClose(
-    selectedCategory !== 'Semua' && !selectedArticle && !lightboxImage,
-    () => setSelectedCategory('Semua'),
-    'news-category-tab'
   );
 
   const isSmp = schoolSlug === 'smp';

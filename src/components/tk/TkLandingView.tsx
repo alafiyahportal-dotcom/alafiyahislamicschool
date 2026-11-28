@@ -57,6 +57,7 @@ import Hero3DStatCards from '@/components/landing/Hero3DStatCards';
 import PrincipalGreetingSection from '@/components/landing/PrincipalGreetingSection';
 import SpmbRoadmapSection from '@/components/landing/SpmbRoadmapSection';
 import UnitAchievementSection from '@/components/landing/UnitAchievementSection';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 export interface TeacherData {
   id: string;
@@ -180,6 +181,12 @@ export default function SchoolLandingTemplate({ school }: { school: SchoolData }
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FacilityItem | null>(null);
   const [galleryCategory, setGalleryCategory] = useState<string>('all');
   const [newsFilter, setNewsFilter] = useState<string>('all');
+
+  useBackClose(newsFilter !== 'all', () => setNewsFilter('all'), 'tk-news-tab');
+  useBackClose(galleryCategory !== 'all', () => setGalleryCategory('all'), 'tk-gallery-tab');
+  useBackClose(Boolean(selectedNews), () => setSelectedNews(null), 'tk-news-modal');
+  useBackClose(Boolean(selectedGalleryItem), () => setSelectedGalleryItem(null), 'tk-gallery-modal');
+  useBackClose(isPosterModalOpen, () => setIsPosterModalOpen(false), 'tk-poster-modal');
   const [copiedBankAcc, setCopiedBankAcc] = useState(false);
   const [refCode, setRefCode] = useState<string | null>(null);
   const [isOpeningSpmb, setIsOpeningSpmb] = useState(false);

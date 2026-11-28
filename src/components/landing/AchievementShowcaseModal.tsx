@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Award, Trophy, Medal, Search, Filter, Calendar, ZoomIn, Download, Share2 } from 'lucide-react';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 interface Achievement {
   id: string;
@@ -39,6 +40,7 @@ export default function AchievementShowcaseModal({
   const [selectedUnit, setSelectedUnit] = useState(defaultUnit);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
+  useBackClose(Boolean(selectedAchievement), () => setSelectedAchievement(null), 'achievement-detail-modal');
 
   useEffect(() => {
     if (!isOpen) return;

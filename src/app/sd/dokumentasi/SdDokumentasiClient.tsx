@@ -160,12 +160,12 @@ export default function SdDokumentasiClient({ initialGallery }: { initialGallery
   const [activeCategory, setActiveCategory] = useState<string>('Semua');
   const [selectedPhoto, setSelectedPhoto] = useState<GalleryItem | null>(null);
 
-  useBackClose(Boolean(selectedPhoto), () => setSelectedPhoto(null), 'sd-gallery-photo');
   useBackClose(
-    activeCategory !== 'Semua' && !selectedPhoto,
+    activeCategory !== 'Semua',
     () => setActiveCategory('Semua'),
     'sd-gallery-tab'
   );
+  useBackClose(Boolean(selectedPhoto), () => setSelectedPhoto(null), 'sd-gallery-photo');
 
   const galleryList = (initialGallery && initialGallery.length > 0) ? initialGallery : GALLERY_DATA;
 

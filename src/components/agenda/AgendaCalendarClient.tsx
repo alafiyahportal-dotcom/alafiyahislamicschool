@@ -24,6 +24,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import type { AcademicEvent } from '@/app/api/agenda/route';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 interface AgendaCalendarClientProps {
   initialEvents: AcademicEvent[];
@@ -49,6 +50,10 @@ export default function AgendaCalendarClient({ initialEvents, schoolSlug }: Agen
   const [activeEventModal, setActiveEventModal] = useState<AcademicEvent | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
+
+  useBackClose(selectedCategory !== 'all', () => setSelectedCategory('all'), 'agenda-category-tab');
+  useBackClose(Boolean(selectedDate), () => setSelectedDate(null), 'agenda-selected-date');
+  useBackClose(Boolean(activeEventModal), () => setActiveEventModal(null), 'agenda-event-modal');
 
   // Filter events based on filters & search
   const filteredEvents = useMemo(() => {

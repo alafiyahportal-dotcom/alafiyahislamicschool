@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Trophy } from 'lucide-react';
 import AchievementShowcaseModal from './AchievementShowcaseModal';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 
 interface ArchItem {
   id: number;
@@ -98,6 +99,7 @@ export default function HavenlyArchCarousel() {
   const [activeIndex, setActiveIndex] = useState(2);
   const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  useBackClose(isModalOpen, () => setIsModalOpen(false), 'foundation-achievement-modal');
 
   useEffect(() => {
     const checkMobile = () => {

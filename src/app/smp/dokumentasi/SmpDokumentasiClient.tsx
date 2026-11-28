@@ -141,12 +141,12 @@ export default function SmpDokumentasiClient({
   const [activeCategory, setActiveCategory] = useState<string>('Semua');
   const [selectedPhoto, setSelectedPhoto] = useState<SmpGalleryItem | null>(null);
 
-  useBackClose(Boolean(selectedPhoto), () => setSelectedPhoto(null), 'smp-gallery-photo');
   useBackClose(
-    activeCategory !== 'Semua' && !selectedPhoto,
+    activeCategory !== 'Semua',
     () => setActiveCategory('Semua'),
     'smp-gallery-tab'
   );
+  useBackClose(Boolean(selectedPhoto), () => setSelectedPhoto(null), 'smp-gallery-photo');
 
   const galleryList =
     initialGallery && initialGallery.length > 0 ? initialGallery : DEFAULT_SMP_GALLERIES;

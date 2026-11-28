@@ -27,6 +27,7 @@ import {
   Film,
 } from 'lucide-react';
 import { compressImageClient } from '@/lib/image-compress';
+import { useBackClose } from '@/components/shared/MobileBackNavigationGuard';
 import {
   DEFAULT_NEWS_CATEGORIES,
   getDefaultNewsAuthors,
@@ -118,6 +119,12 @@ export default function NewsManagerClient({
   // Category & Author Manager Modals
   const [isCategoryManagerOpen, setIsCategoryManagerOpen] = useState(false);
   const [isAuthorManagerOpen, setIsAuthorManagerOpen] = useState(false);
+
+  useBackClose(categoryFilter !== 'ALL', () => setCategoryFilter('ALL'), 'admin-news-cat-filter');
+  useBackClose(isModalOpen, () => setIsModalOpen(false), 'admin-news-form-modal');
+  useBackClose(Boolean(previewItem), () => setPreviewItem(null), 'admin-news-preview-modal');
+  useBackClose(isCategoryManagerOpen, () => setIsCategoryManagerOpen(false), 'admin-news-cat-modal');
+  useBackClose(isAuthorManagerOpen, () => setIsAuthorManagerOpen(false), 'admin-news-author-modal');
   const [isSavingConfig, setIsSavingConfig] = useState(false);
   const [configError, setConfigError] = useState<string | null>(null);
   const [configSuccess, setConfigSuccess] = useState<string | null>(null);
