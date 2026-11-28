@@ -55,22 +55,10 @@ export function useBackClose(isOpen: boolean, onClose: () => void, id = 'modal')
       if (idx !== -1) {
         activeOverlayStack.splice(idx, 1);
       }
-
-      // Jika modal/tab ditutup secara manual lewat tombol X / klik tab lain (bukan tombol Back HP)
-      // dan state yang kita push masih berada di puncak history, bersihkan 1 langkah agar tidak menumpuk.
-      if (!closedByPopState && typeof window !== 'undefined') {
-        try {
-          if (window.history.state && window.history.state[stateKey]) {
-            (window as any).__alafiyah_ignore_next_popstate = true;
-            window.history.back();
-            setTimeout(() => {
-              (window as any).__alafiyah_ignore_next_popstate = false;
-            }, 200);
-          }
-        } catch {
-          // ignore
-        }
-      }
+      // Jangan pernah memanggil window.history.back() di sini saat modal/menu ditutup!
+      // Karena bila pengguna menutup menu dengan mengklik link navigasi (misal tombol LOGIN,
+      // Beranda, atau Daftar SPMB), memanggil window.history.back() akan membatalkan
+      // perpindahan halaman Next.js dan melempar pengguna kembali ke halaman sebelumnya!
     };
   }, [isOpen, id]);
 }
